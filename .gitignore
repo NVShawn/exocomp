@@ -1,0 +1,38 @@
+# BEGIN OOMPAH PROJECT BOOTSTRAP v:1
+# Language-agnostic baseline ignores for oompah-managed projects.
+# END OOMPAH PROJECT BOOTSTRAP
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+.netrc
+
+# Common build artifacts
+build/
+dist/
+out/
+target/
+node_modules/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
