@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T22:26:16.538619Z'
+updated_at: '2026-07-23T22:26:19.069528Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -327,5 +327,10 @@ Delivered:
 - 52 total tests pass (12 net new)
 
 Security: Verified raw model content never appears in log output and raw_model_output: '[REDACTED]' metadata is present in audit log events on both success and error paths.
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+Implemented all 11 focused ExUnit test scenarios for LlamaServer and ProposalClient. Created FakeLlamaServer in-process TCP HTTP test helper (no external deps), llama-server-forever fixture, and expanded both test files with full scenario coverage. All 52 tests pass, lint and fmt-check clean. Branch epic-EXOCOMP-11 pushed to origin.
 ---
 <!-- COMMENTS:END -->

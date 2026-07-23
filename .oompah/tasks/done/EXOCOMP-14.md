@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-14
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Scaffold coordinator inventory, registry, and audit
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-23T22:26:13.769710Z'
+updated_at: '2026-07-23T22:26:19.779156Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
