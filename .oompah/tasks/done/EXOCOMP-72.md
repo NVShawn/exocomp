@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:18:28.885265Z'
+updated_at: '2026-07-23T21:19:17.927643Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -154,5 +154,16 @@ Also updated:
 - README.md — added 3-line pointer paragraph under Development section
 
 Note: make fixture-install, make fixture-cleanup, and make test-fixture targets are forward references to work in EXOCOMP-70/71; the doc notes this where relevant.
+---
+author: oompah
+created: 2026-07-23 21:19
+---
+**Completion**
+
+Delivered: docs/testing-systemd-fixture.md (331 lines, all 6 required areas covered) plus pointer updates in README.md and docs/README.md.
+
+Committed on branch EXOCOMP-72 and pushed to origin. Branch is up to date with origin/EXOCOMP-72.
+
+No code changes — documentation only. No tests required. EXOCOMP-70 and EXOCOMP-71 are siblings that will deliver the referenced make targets (fixture-install, fixture-cleanup, test-fixture); the doc notes those are forthcoming from those tasks.
 ---
 <!-- COMMENTS:END -->
