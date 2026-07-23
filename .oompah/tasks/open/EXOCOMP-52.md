@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-52
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement versioned benchmark configuration schema and validation
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T21:04:15.797319Z'
+updated_at: '2026-07-23T21:04:28.694686Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -20,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 60d65c11-4bca-4d5a-afcf-885b70e2a7d2
 oompah.work_branch: epic-EXOCOMP-5
+oompah.task_costs:
+  total_input_tokens: 34
+  total_output_tokens: 4894
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 34
+      output_tokens: 4894
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 34
+    output_tokens: 4894
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:04:24.958553+00:00'
 ---
 ## Summary
 
@@ -81,5 +97,25 @@ Focus handoff: duplicate_detector
 - This branch is epic-EXOCOMP-35 (not epic-EXOCOMP-5 as stated in task metadata); implementation agent should verify branch before committing
 
 **Recommended next focus:** feature — implement Bench.Config in apps/bench with full test coverage
+---
+author: oompah
+created: 2026-07-23 21:04
+---
+Agent completed successfully in 633s (4928 tokens)
+---
+author: oompah
+created: 2026-07-23 21:04
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 39, Tool calls: 31
+- Tokens: 34 in / 4.9K out [4.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 10m 33s
+- Log: EXOCOMP-52__20260723T205748Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:04
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->

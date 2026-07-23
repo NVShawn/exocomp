@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-50
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Scaffold the bench Mix app within the Elixir umbrella
 parent: EXOCOMP-35
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T20:59:26.804481Z'
+updated_at: '2026-07-23T21:04:34.464343Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
