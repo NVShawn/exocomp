@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-25
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement unprivileged systemd executor and exact sudoers policy
 parent: EXOCOMP-3
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-21
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:16:57.945450Z'
+updated_at: '2026-07-23T22:17:11.887184Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 0e7858e8-d480-4722-b13d-041b53e156dd
+oompah.agent_run_id: d5ff8a15-8a42-45a7-8e8a-88c55bd0b799
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 52
@@ -123,5 +122,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 57s
 - Log: EXOCOMP-25__20260723T221501Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:17
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 22:17
+---
+Focus: Security Auditor
 ---
 <!-- COMMENTS:END -->
