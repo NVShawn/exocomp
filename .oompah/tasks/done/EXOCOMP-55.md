@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:40:11.357731Z'
+updated_at: '2026-07-23T22:40:31.500246Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -344,5 +344,15 @@ author: oompah
 created: 2026-07-23 22:40
 ---
 Verification: All 33 tests pass (make test, clean build). Lint clean (make lint, mix format --check-formatted + --warnings-as-errors compile). Commit f8e586a pushed to origin/epic-EXOCOMP-35. Tests cover: start/stop lifecycle, all expected metric names (scheduler.utilization, process.count, run_queue.length, memory.*, mailbox.*.depth, task_registry.size), mailbox growth tracking, scheduler utilisation in [0.0, 1.0] as float, repeated polling, invalid interval rejection.
+---
+author: oompah
+created: 2026-07-23 22:40
+---
+Completion: Bench.BeamSampler GenServer implemented in apps/bench/lib/bench/beam_sampler.ex. Collects 6 metric categories (scheduler utilisation, process count, run queue, memory by category, mailbox depth for named processes, task-registry size). Public API: start_link/1 with pre-spawn interval validation, stop/1, flush/1. Full test suite in apps/bench/test/bench/beam_sampler_test.exs (6 tests, all passing). Committed as f8e586a on epic-EXOCOMP-35 and pushed to origin.
+---
+author: oompah
+created: 2026-07-23 22:40
+---
+Implemented Bench.BeamSampler GenServer in apps/bench collecting BEAM runtime metrics (scheduler utilisation, process count, run queue, memory, mailbox depths, task-registry size) with start_link/1, stop/1, flush/1 API. 33/33 tests pass. Committed f8e586a on epic-EXOCOMP-35 and pushed.
 ---
 <!-- COMMENTS:END -->
