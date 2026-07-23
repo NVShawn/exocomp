@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:32:42.801285Z'
+updated_at: '2026-07-23T22:35:08.069225Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -242,5 +242,10 @@ author: oompah
 created: 2026-07-23 22:32
 ---
 Understanding: Implementing Bench.Sampler.Beam (a GenServer in apps/bench) that polls BEAM runtime metrics at a configurable interval and accumulates Bench.Sample entries. Metrics: scheduler utilisation (wall-time diff), process count, run queue length, memory categories, mailbox depths for named processes, and task-registry size (soft dependency on Exocomp.Registry). Public API: start_link/1, stop/1, flush/1. Also implementing Bench.Sampler.Behaviour callbacks. Writing tests per the issue: starts/stops cleanly, expected metric names, mailbox depth tracking, scheduler utilisation range [0.0, 1.0]. Working on the epic-EXOCOMP-35 shared branch as directed by previous handoff comments.
+---
+author: oompah
+created: 2026-07-23 22:35
+---
+Discovery: The implementation (apps/bench/lib/bench/beam_sampler.ex) and tests (apps/bench/test/bench/beam_sampler_test.exs) were written by a previous agent but never committed. Running make test shows 32/33 passing — only 'rejects a non-positive sampling interval' fails. Root cause: GenServer.start_link propagates an EXIT signal when init/1 returns {:stop, reason} with a non-normal reason. Fix: move interval validation to start_link/1 so the check happens before spawning any GenServer process.
 ---
 <!-- COMMENTS:END -->
