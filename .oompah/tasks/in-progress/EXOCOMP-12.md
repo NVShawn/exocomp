@@ -9,6 +9,7 @@ children:
 - EXOCOMP-78
 - EXOCOMP-79
 - EXOCOMP-80
+- EXOCOMP-81
 blocked_by:
 - EXOCOMP-8
 - EXOCOMP-9
@@ -18,7 +19,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-23T23:04:55.108134Z'
+updated_at: '2026-07-23T23:05:17.376182Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null

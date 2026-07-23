@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: In Progress
+status: Done
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T23:05:07.071999Z'
+updated_at: '2026-07-23T23:05:19.308366Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -215,5 +215,10 @@ author: oompah
 created: 2026-07-23 23:05
 ---
 Verification: Tests pass — 22/22 bench_llama tests (all inference workload scenarios) and 55/55 full bench suite tests. Lint/format-check clean. The 2 failing exocomp_node crash tests (llama_server_test crash/isolation scenarios) are pre-existing Alpine environment issues from epic-EXOCOMP-11 (missing /usr/bin/kill in Alpine busybox); not introduced by this change. make bench-llama-short target verified to work end-to-end in the builder container.
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Completion: EXOCOMP-38 delivered on branch epic-EXOCOMP-5 (pushed to origin). Deliverables: (1) Bench.Workload.LlamaInference — 6 benchmark scenarios measuring startup/readiness, sequential latency (P50/P95/P99), concurrent saturation/queue depth, timeout, invalid-output rejection, and crash-restart timing with diagnostics-available flag; (2) Bench.Test.FakeLlamaServer — in-process fake for all failure modes; (3) 22 focused ExUnit tests tagged bench_llama; (4) make bench-llama-short CI target. Control-plane (BEAM/host) and model (llama) samples are attributed separately via Bench.Sample source field. Node diagnostic availability is captured during crash/restart via the diagnostics_available metric. Raw samples are Bench.Sample structs compatible with Bench.Run JSONL output.
 ---
 <!-- COMMENTS:END -->
