@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-64
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Write focused ExUnit tests for LlamaServer and ProposalClient
 parent: EXOCOMP-11
@@ -12,12 +12,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T21:10:33.196157Z'
-work_branch: null
+updated_at: '2026-07-23T21:49:39.828936Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 6019e82a-0d5e-44d9-880e-03056ad6f125
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -76,3 +78,16 @@ Create a test helper `ExocmpNode.Test.FakeLlamaServer` using Cowboy/Bandit+Plug:
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:49
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

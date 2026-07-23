@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: Done
+status: In Progress
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -13,22 +13,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:49:05.965977Z'
+updated_at: '2026-07-23T21:49:41.414880Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 7af677f7-d6f3-4584-9f87-f998daccca84
+oompah.agent_run_id: ff873ad8-d2de-435c-b420-02be8050bc31
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 1496164
-  total_output_tokens: 9809
+  total_input_tokens: 1496208
+  total_output_tokens: 43535
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1496164
-      output_tokens: 9809
+      input_tokens: 1496208
+      output_tokens: 43535
       cost_usd: 0.0
   runs:
   - profile: default
@@ -49,6 +49,12 @@ oompah.task_costs:
     output_tokens: 4556
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:38:42.202487+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 44
+    output_tokens: 33726
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:49:19.410877+00:00'
 ---
 ## Summary
 
@@ -295,5 +301,46 @@ author: oompah
 created: 2026-07-23 21:49
 ---
 Wrote all 10 ExUnit integration tests for exocomp-fixture systemd states (install, start/stop, crash, degrade, flap, restart-failure, cleanup, health divergence, idempotent setup, non-fixture isolation). Added fixture-install, fixture-cleanup, and test-integration Makefile targets. Updated test_helper.exs to exclude integration tests from standard CI. Branch EXOCOMP-71 pushed to origin.
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Agent completed successfully in 629s (33770 tokens)
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 82, Tool calls: 57
+- Tokens: 44 in / 33.7K out [33.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 10m 29s
+- Log: EXOCOMP-71__20260723T213853Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-4` has 1 commit not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 1
+    5096f79 EXOCOMP-29: Add fixture design document and decompose into child tasks
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-4 --title "EXOCOMP-71: Write focused ExUnit integration tests for all fixture states" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Focus: Refactoring Specialist
 ---
 <!-- COMMENTS:END -->
