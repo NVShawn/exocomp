@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-12
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Expose diagnostic-only node A2A service
 parent: EXOCOMP-1
@@ -13,16 +13,15 @@ blocked_by:
 - EXOCOMP-11
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-23T22:51:37.455603Z'
+updated_at: '2026-07-23T22:51:49.068635Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 5b5acbd3-5be2-49bc-8571-0d372747059e
+oompah.agent_run_id: 993dcb73-b7be-4287-91c4-108f6568e6e5
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 23
@@ -142,5 +141,15 @@ author: oompah
 created: 2026-07-23 22:51
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 22:51
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 22:51
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
