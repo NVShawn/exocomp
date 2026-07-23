@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-35
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Build the reproducible benchmark harness
 parent: EXOCOMP-5
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:27:52.887831Z'
+updated_at: '2026-07-23T20:33:51.038561Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: cbaf0cb4-0e7c-451b-9342-1dbcf57a7edd
+oompah.agent_run_id: b0118804-a2fd-4232-a260-ad9ed3743941
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
   total_input_tokens: 27
@@ -148,6 +148,16 @@ Agent dispatched (profile: standard)
 ---
 author: oompah
 created: 2026-07-23 20:26
+---
+Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 20:33
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:33
 ---
 Focus: Epic Planner
 ---

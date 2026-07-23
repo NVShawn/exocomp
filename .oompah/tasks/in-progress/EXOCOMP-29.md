@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-29
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T20:27:52.157241Z'
+updated_at: '2026-07-23T20:33:48.870856Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 1ca7bbad-bf80-4c4c-911a-c8163e785c3a
+oompah.agent_run_id: 8cb8f676-1608-4574-8fc1-79bcfe30bfc3
 oompah.work_branch: epic-EXOCOMP-4
 ---
 ## Summary
@@ -57,6 +57,16 @@ Agent dispatched (profile: default)
 ---
 author: oompah
 created: 2026-07-23 20:24
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 20:33
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:33
 ---
 Focus: Duplicate Investigator
 ---

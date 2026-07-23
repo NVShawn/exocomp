@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:27:54.667689Z'
+updated_at: '2026-07-23T20:33:45.696785Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: f90f60d0-c42c-412f-b397-3d186b813da3
+oompah.agent_run_id: b0d7b63a-cac6-45b8-94dc-50a880b399b4
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 20
@@ -141,6 +141,16 @@ Agent dispatched (profile: standard)
 ---
 author: oompah
 created: 2026-07-23 20:26
+---
+Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 20:33
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:33
 ---
 Focus: Epic Planner
 ---
