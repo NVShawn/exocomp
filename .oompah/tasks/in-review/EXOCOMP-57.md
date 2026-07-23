@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: In Progress
+status: In Review
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:11:06.086800Z'
+updated_at: '2026-07-23T21:11:23.542352Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
