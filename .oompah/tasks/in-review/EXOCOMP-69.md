@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-69
 type: task
-status: In Progress
+status: In Review
 priority: null
 title: Create crashable fixture service script with health endpoint and state controls
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:22:54.735075Z'
+updated_at: '2026-07-23T21:24:54.382303Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
