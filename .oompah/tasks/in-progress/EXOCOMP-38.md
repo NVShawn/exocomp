@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: Open
+status: In Progress
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -12,12 +12,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T19:17:25.893266Z'
+updated_at: '2026-07-23T22:40:56.236347Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 7a8e2dad-7415-4ee3-a020-2052444bcc3d
 ---
 ## Summary
 
