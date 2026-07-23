@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T21:57:20.418424Z'
+updated_at: '2026-07-23T22:07:49.050457Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -269,5 +269,10 @@ author: oompah
 created: 2026-07-23 21:57
 ---
 Understanding: This task requires writing focused ExUnit tests for LlamaServer and ProposalClient. The current branch (epic-EXOCOMP-11) is at commit 182db99 and needs to incorporate EXOCOMP-62 (LlamaServer) and EXOCOMP-63 (ProposalClient) implementations. Previous agent runs had no commits because no actual code was written. My plan: (1) rebase epic-EXOCOMP-11 on origin/EXOCOMP-63 to get all dependencies, (2) create FakeLlamaServer test helper, (3) expand llama_server_test.exs with all 5 scenarios, (4) expand proposal_client_test.exs with all 6 scenarios, (5) run quality gates, (6) commit and push.
+---
+author: oompah
+created: 2026-07-23 22:07
+---
+Discovery: Found the codebase with all dependencies in place after rebasing onto origin/EXOCOMP-63. Key findings: (1) LlamaServer uses raw TCP for health checks on its configured port_number, not the port the OS process listens on - this means FakeLlamaServer just needs to listen on the same port as llama_port config. (2) ProposalClient uses :httpc for completions requests. (3) No external HTTP framework deps (no Plug/Bandit/Cowboy) - need raw TCP server. (4) llama-server-stub is 'exec sleep 5', so LlamaServer tests need to account for 5-second stub lifetime. (5) Current 37 tests all pass. Implementation plan: create FakeLlamaServer TCP HTTP server helper, expand llama_server_test.exs (5 scenarios), expand proposal_client_test.exs (6 scenarios).
 ---
 <!-- COMMENTS:END -->
