@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: In Progress
+status: Done
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-23T19:28:11.488807Z'
+updated_at: '2026-07-23T19:39:57.761757Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -182,5 +182,30 @@ author: oompah
 created: 2026-07-23 19:28
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-23 19:39
+---
+Understanding: Add the complete Apache-2.0 governance surface, record redistribution terms for planned runtime and model inputs, add offline compliance checks with negative tests, run every affected Make target, then commit and push the issue branch.
+---
+author: oompah
+created: 2026-07-23 19:39
+---
+Discovery: The repository is a pre-application skeleton with no mix.lock or vendored artifacts. Planned inputs are Erlang/OTP under Apache-2.0, llama.cpp under MIT, the official Qwen2.5 1.5B Instruct GGUF under Apache-2.0, and build-time Elixir under Apache-2.0. Future Hex lock entries must fail unless inventoried.
+---
+author: oompah
+created: 2026-07-23 19:39
+---
+Implementation: Added canonical LICENSE and NOTICE files; contribution, conduct, security, changelog, release-note, and maintainer policies; human and TOML component inventories; SPDX coverage; and Make-backed checks for required files, links, canonical license text, headers, Hex dependencies, redistribution compatibility, and notice headings.
+---
+author: oompah
+created: 2026-07-23 19:39
+---
+Verification: make compliance-check, make test-compliance, make fmt-check, make check-links, make check-licenses, make test, make lint, and make release-check all pass. Nine tests include missing governance and notice entries, an incompatible GPL-3.0-only license, an uninventoried Hex dependency, a broken link, and a missing SPDX header. LICENSE matches the canonical Apache text byte for byte.
+---
+author: oompah
+created: 2026-07-23 19:39
+---
+Completion: Delivered and pushed commit 886a6abab473b5724477582d954a8929e3be8e58 on EXOCOMP-41. The branch matches origin, the worktree is clean, all acceptance criteria are covered, and no follow-up task is required.
 ---
 <!-- COMMENTS:END -->
