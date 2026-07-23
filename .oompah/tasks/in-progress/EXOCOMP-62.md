@@ -8,10 +8,11 @@ parent: EXOCOMP-11
 children: []
 blocked_by:
 - EXOCOMP-7
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:21:40.967840Z'
+updated_at: '2026-07-23T21:23:04.569037Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -81,5 +82,20 @@ author: oompah
 created: 2026-07-23 21:21
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:23
+---
+Duplicate screening found no duplicate. EXOCOMP-62 is a purpose-built child task of EXOCOMP-11, created by the EXOCOMP-11 Epic Planner to isolate the LlamaServer OS-process supervisor from the ProposalClient (EXOCOMP-63) and tests (EXOCOMP-64).
+
+Tasks reviewed:
+- EXOCOMP-11: parent epic covering llama.cpp supervision + proposal validation — too broad, intentionally decomposed into children
+- EXOCOMP-61: versioned proposal schema (Done) — foundational, no process management scope
+- EXOCOMP-63: ProposalClient HTTP client — depends on EXOCOMP-62's base_url/0 API, does not implement the supervisor
+- EXOCOMP-64: test suite — no implementation
+- EXOCOMP-7 through EXOCOMP-13: umbrella scaffold, A2A types, identity/TLS, diagnostics, A2A service, verification — none cover OTP process supervision of llama-server
+- Sibling milestone tasks EXOCOMP-21, EXOCOMP-27, EXOCOMP-31, EXOCOMP-52: different milestones/domains
+
+Evidence: EXOCOMP-11 comment #13 (Epic Planner handoff) explicitly created EXOCOMP-62 for 'Implement LlamaServer OTP process supervisor'. No other task in the system defines Exocomp.Node.LlamaServer, the status/0 API, base_url/0 API, or llama-server OS process lifecycle management.
 ---
 <!-- COMMENTS:END -->
