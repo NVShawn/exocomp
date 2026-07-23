@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:26:06.440308Z'
+updated_at: '2026-07-23T21:26:09.491069Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -245,5 +245,10 @@ Delivered:
 7. **Documentation** (`docs/development.md`) — architecture-specific release build workflow documented
 
 All quality gates pass: `make test-builders` exits 0.
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+Implemented digest-pinned amd64/arm64 OTP release builders on glibc (Debian 12) baseline. Added immutable builders.lock, build-amd64/arm64 Make targets, capability check with QEMU detection, clean-checkout enforcing release script, glibc/toolchain verification, static validation tests, and updated docs. All quality gates pass.
 ---
 <!-- COMMENTS:END -->
