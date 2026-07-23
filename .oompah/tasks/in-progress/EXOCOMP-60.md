@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-23T22:28:47.460337Z'
+updated_at: '2026-07-23T22:31:13.890833Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -169,5 +169,27 @@ author: oompah
 created: 2026-07-23 22:28
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:31
+---
+Understanding: This task implements Exocomp.Node.Listener — a GenServer that starts a Bandit mTLS HTTPS server only after Config and Identity checks pass.
+
+Prerequisites found:
+- EXOCOMP-57 (fixture certs) merged to origin/main ✓
+- EXOCOMP-58 (Config loader) on local branch, not yet merged (adds Jason dep, Config/Redact modules)
+- EXOCOMP-59 (Identity validator) is still Open/unimplemented — must be implemented as part of this work
+
+Plan:
+1. Create EXOCOMP-60 branch from EXOCOMP-58 (includes Config prereqs)
+2. Implement Exocomp.Node.Identity (cert chain, SAN, key permissions validation)
+3. Add bandit + plug dependencies to mix.exs
+4. Implement Exocomp.Node.Listener (GenServer wrapping Bandit mTLS)
+5. Implement Exocomp.Node.Plug.Stub (health check stub)
+6. Wire Listener into Exocomp.Node.Application
+7. Write all required tests (9 listener test cases + identity tests)
+8. Verify make test, make lint, make fmt-check pass
+
+Note: Config struct uses field names node_cert/node_key/ca_cert and listen.port (not the spec's cert_path/key_path/ca_path/listen_port) — will use actual implementation.
 ---
 <!-- COMMENTS:END -->
