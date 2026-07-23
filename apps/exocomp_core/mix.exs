@@ -11,7 +11,7 @@ defmodule Exocomp.Core.MixProject do
       lockfile: "../../mix.lock",
       elixir: "1.20.2",
       start_permanent: Mix.env() == :prod,
-      deps: []
+      deps: deps()
     ]
   end
 
@@ -19,6 +19,12 @@ defmodule Exocomp.Core.MixProject do
     [
       extra_applications: [:logger],
       mod: {Exocomp.Core.Application, []}
+    ]
+  end
+
+  defp deps do
+    [
+      {:jason, "~> 1.4"}
     ]
   end
 end
