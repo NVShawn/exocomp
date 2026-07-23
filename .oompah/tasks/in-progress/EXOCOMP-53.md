@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T21:41:12.358905Z'
+updated_at: '2026-07-23T21:42:41.395525Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -177,5 +177,10 @@ author: oompah
 created: 2026-07-23 21:41
 ---
 Implementation: Created 4 files on branch EXOCOMP-53 (based on EXOCOMP-50 scaffold). (1) apps/bench/lib/bench/host_profile.ex — Bench.HostProfile struct with detect/0 (reads /proc/cpuinfo, /proc/meminfo, /etc/os-release, uname), load/1 (reads priv/bench/profiles/<name>.toml via :code.priv_dir/1), compatible?/2 (raises ArgumentError with descriptive message when architectures differ, returns true for same arch). Includes a minimal flat-TOML parser inline — no new dependency needed. (2) apps/bench/priv/bench/profiles/amd64-ci.toml — GitHub Actions ubuntu-22.04 runner profile. (3) apps/bench/priv/bench/profiles/arm64-ci.toml — GitHub Actions ubuntu-22.04-arm runner profile. (4) apps/bench/test/bench/host_profile_test.exs — covers all 4 required test cases plus extras. Running tests now.
+---
+author: oompah
+created: 2026-07-23 21:42
+---
+Verification: All quality gates pass. make test: 37 bench tests + 4 other app tests, all passed. make fmt-check: clean. make lint (compile --warnings-as-errors): no warnings. New tests cover all 4 required cases: (1) detect/0 returns well-formed struct with correct field types, (2) amd64 vs arm64 raises ArgumentError naming both architectures, (3) incompatible arch error message is descriptive (tested via error.message =~ amd64/arm64), (4) load/1 with missing profile returns {:error, :not_found}.
 ---
 <!-- COMMENTS:END -->
