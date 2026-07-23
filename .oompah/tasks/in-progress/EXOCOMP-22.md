@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T22:47:37.893191Z'
+updated_at: '2026-07-23T22:50:06.842204Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -299,5 +299,10 @@ author: oompah
 created: 2026-07-23 22:47
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 22:50
+---
+Understanding (Epic Planner): EXOCOMP-22 implements deterministic least-impact policy selection for the M3 safety engine. It depends on EXOCOMP-21 (type system: Done, on branch origin/EXOCOMP-21) and sits alongside EXOCOMP-25 (executor: Done, on origin/EXOCOMP-25). No policy engine code exists yet — the branch is on epic-EXOCOMP-3 with no local commits. The scope is: (1) filtering ineligible actions from the proposal/catalog pair, (2) risk-ranking the eligible set and selecting the lowest-impact candidate, (3) producing auditable deny/allow/approval_required decisions, and (4) comprehensive table/property tests for ordering, ties, stale evidence, fail-closed errors, escalation prevention, and determinism. I will decompose into two focused child tasks: one for the eligibility-filter pipeline and one for the risk-ordered selection engine and tests.
 ---
 <!-- COMMENTS:END -->
