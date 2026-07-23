@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-37
 type: chore
-status: Open
+status: Merged
 priority: 2
 title: Benchmark coordinator polling and A2A concurrency
 parent: EXOCOMP-5
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:19.549341Z'
-updated_at: '2026-07-23T19:17:25.204544Z'
+updated_at: '2026-07-23T23:25:40.718716Z'
 work_branch: null
 target_branch: null
 review_url: null
