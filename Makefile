@@ -20,7 +20,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--workdir /workspace \
 	$(BUILDER_IMAGE)
 
-.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service
+.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service fixture-install fixture-cleanup
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -61,3 +61,9 @@ gen-test-fixtures: ## Generate TLS test fixture certificates for apps/exocomp_no
 
 test-fixture-service: ## Run exocomp-fixture daemon unit tests (requires Python 3.11+, no systemd needed).
 	python3 -m pytest test/fixtures/exocomp_fixture/test/test_fixture.py -v
+
+fixture-install: ## Install the exocomp-fixture systemd service (requires root; run inside a VM or privileged container).
+	sudo bash test/fixtures/exocomp_fixture/install.sh
+
+fixture-cleanup: ## Remove the exocomp-fixture systemd service (requires root; idempotent, no-op if not installed).
+	sudo bash test/fixtures/exocomp_fixture/cleanup.sh
