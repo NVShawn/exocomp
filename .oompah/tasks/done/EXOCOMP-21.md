@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-21
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Define action, evidence, risk, and data-classification types
 parent: EXOCOMP-3
@@ -10,9 +10,10 @@ blocked_by:
 - EXOCOMP-8
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T22:12:30.988113Z'
+updated_at: '2026-07-23T22:12:53.707066Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -233,5 +234,22 @@ Test breakdown by module:
 - Proposal: 25 tests — valid map; schema version; unknown-field injection; action_id allowlist (5 valid, 7 invalid patterns); parameters validation; evidence_refs validation
 - ActionDefinition: 33 tests — deletion-ineligibility invariant (5 cases including nil/unknown classification); forbidden patterns (6); schema version; unknown action_class; numeric field validation; risk_rank from map
 - ValidatorResult: 28 tests — all 3 constructors; predicate helpers; fail-closed default; parse/1 all decisions; schema version; unknown fields; malformed decision
+---
+author: oompah
+created: 2026-07-23 22:12
+---
+Completion (Security Auditor focus): Delivered Exocomp.Node.Safety type system for M3 safety validation.
+
+All acceptance criteria satisfied:
+✅ All security-relevant inputs are bounded and schema-versioned — Evidence, Proposal, and ValidatorResult parsers enforce schema_version '1', reject unknown versions, and reject unknown fields
+✅ Unknown data is always classified as protected user data — DataClassification.classify/1 is explicitly fail-closed; ActionDefinition.build/1 treats absent data_classification as :protected_user_data
+✅ User-data deletion is unrepresentable as an eligible action — ActionDefinition.build/1 returns {:error, :user_data_deletion_ineligible} for deletion+:protected_user_data at construction time; unknown classifications also trigger this invariant
+✅ Focused type/schema tests pass — 180 tests, 0 failures across 7 test modules
+
+Security notes for downstream consumers (EXOCOMP-22 through EXOCOMP-28):
+- Never pass unvalidated external maps to ActionDefinition.build/1 — it is catalog-only
+- Always check Proposal.parse/1 return value before using action_id in catalog lookup
+- Evidence integrity_hash must be re-verified before approval binding (caller responsibility)
+- ValidatorResult.deny?/1 is the safe gate predicate; do not pattern-match on :allow without using the predicate function
 ---
 <!-- COMMENTS:END -->
