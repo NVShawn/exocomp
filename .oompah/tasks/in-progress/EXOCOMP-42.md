@@ -8,10 +8,12 @@ parent: EXOCOMP-6
 children: []
 blocked_by:
 - EXOCOMP-7
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T20:43:20.941912Z'
+updated_at: '2026-07-23T20:43:42.634560Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -88,5 +90,31 @@ Closest candidates reviewed:
 - **EXOCOMP-41**, **EXOCOMP-43**, **EXOCOMP-45**, **EXOCOMP-46**, **EXOCOMP-47** — All M6 siblings with distinct scopes (licensing, installers, documentation, qualification).
 
 EXOCOMP-42 is a unique task with its own well-defined scope: pinned amd64/arm64 builder containers, versioned OTP archives, build manifests, runtime dependency inspection, and source/toolchain identity recording.
+---
+author: oompah
+created: 2026-07-23 20:43
+---
+Focus handoff: duplicate_detector
+
+1. **Outcome:** No duplicate confirmed. EXOCOMP-42 is a unique task.
+
+2. **Evidence reviewed:**
+   - Scanned all task files on `origin/oompah/state/proj-c260b117` (47 tasks across all statuses)
+   - Checked EXOCOMP-7 (Done, M1 scaffold) — confirmed distinct scope; EXOCOMP-7's own duplicate_detector already noted EXOCOMP-42 as a different task
+   - Checked EXOCOMP-35 (Backlog, M5 benchmark harness) — shares 'reproducible' keyword only, different domain
+   - Checked all 6 M6 siblings (EXOCOMP-41–47) — all have distinct scopes; EXOCOMP-43 and EXOCOMP-44 are downstream blockers of this task
+   - Reviewed EXOCOMP-6 (parent epic) and EXOCOMP-29, EXOCOMP-10 (other in-progress tasks) — no overlap
+   - Reviewed backlog EXOCOMP-48–60 — unrelated (A2A protocol, bench scaffolding, node PKI)
+   - Relevant plan file: `plans/milestone-6-release.md` — confirms this task maps to M6-CRIT-2 and M6-CRIT-8
+
+3. **Remaining work:**
+   - Create pinned amd64 and arm64 builder Docker targets for node/coordinator OTP releases
+   - Produce versioned archives and manifests with source/toolchain/dependency identity
+   - Inspect and document runtime dynamic dependencies
+   - Write tests: build twice per arch, compare reproducible fields; start in clean containers; test wrong-arch and missing-runtime diagnostics
+   - Run `make` quality gates and release/documentation tests
+   - EXOCOMP-7 blocker is now Done, so work can proceed
+
+4. **Recommended next focus:** `devops` (CI/CD, Docker builders, release pipeline) or `feature` (the Elixir release configuration and test scaffold)
 ---
 <!-- COMMENTS:END -->
