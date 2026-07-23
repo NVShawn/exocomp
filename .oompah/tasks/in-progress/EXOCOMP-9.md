@@ -7,13 +7,14 @@ title: Implement node configuration, identity, and mTLS startup
 parent: EXOCOMP-1
 children:
 - EXOCOMP-57
+- EXOCOMP-58
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T20:39:48.135760Z'
+updated_at: '2026-07-23T20:40:08.790954Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
