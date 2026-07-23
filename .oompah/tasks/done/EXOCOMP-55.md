@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:38:59.844862Z'
+updated_at: '2026-07-23T22:39:02.550323Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -313,5 +313,10 @@ author: oompah
 created: 2026-07-23 22:38
 ---
 Completion: Bench.BeamSampler fully implemented and tested. Files: apps/bench/lib/bench/beam_sampler.ex (GenServer implementation), apps/bench/test/bench/beam_sampler_test.exs (6 tests). Committed as f8e586a on epic-EXOCOMP-35 (already pushed to origin). All 33 bench tests pass including all 6 BeamSampler acceptance criteria tests.
+---
+author: oompah
+created: 2026-07-23 22:39
+---
+Implemented Bench.BeamSampler GenServer with all required BEAM metrics (scheduler utilisation, process count, run queue, mailbox depths, memory categories, task registry size). 6 tests covering all acceptance criteria, all 33 bench tests pass. Committed as f8e586a on epic-EXOCOMP-35.
 ---
 <!-- COMMENTS:END -->
