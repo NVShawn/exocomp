@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-55
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement BEAM telemetry sampler
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:38:47.202626Z'
+updated_at: '2026-07-23T22:38:59.844862Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -303,5 +303,15 @@ author: oompah
 created: 2026-07-23 22:38
 ---
 Implementation: apps/bench/lib/bench/beam_sampler.ex — GenServer collecting: scheduler utilisation (wall-time diff via :erlang.statistics(:scheduler_wall_time)), process count (:erlang.system_info(:process_count)), run queue length (:erlang.statistics(:run_queue)), mailbox depths for registered processes, memory categories (:erlang.memory/0), and task registry size (soft dep on Exocomp.Registry or standard Registry). Interval validation in start_link/1 returns {:error, {:invalid_interval, n}} without spawning a process. apps/bench/test/bench/beam_sampler_test.exs — 6 tests covering all acceptance criteria.
+---
+author: oompah
+created: 2026-07-23 22:38
+---
+Verification: All 33 bench tests pass (6 BeamSampler tests + 27 existing tests). Full suite: 33 bench + 2 exocomp_core + 1 exocomp_coordinator + 1 exocomp_node = 37 total tests passed. All 6 BeamSampler tests pass: starts/stops cleanly with expected metric names, scheduler utilisation float in [0.0,1.0], mailbox depth tracking, task registry size, polling at interval, and invalid interval rejection.
+---
+author: oompah
+created: 2026-07-23 22:38
+---
+Completion: Bench.BeamSampler fully implemented and tested. Files: apps/bench/lib/bench/beam_sampler.ex (GenServer implementation), apps/bench/test/bench/beam_sampler_test.exs (6 tests). Committed as f8e586a on epic-EXOCOMP-35 (already pushed to origin). All 33 bench tests pass including all 6 BeamSampler acceptance criteria tests.
 ---
 <!-- COMMENTS:END -->
