@@ -6,11 +6,14 @@ priority: 1
 title: Verify M3 safety and remediation controls
 parent: EXOCOMP-3
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-20
+- EXOCOMP-26
+- EXOCOMP-27
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-23T19:10:14.600547Z'
+updated_at: '2026-07-23T19:13:10.274406Z'
 work_branch: null
 target_branch: null
 review_url: null

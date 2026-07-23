@@ -6,11 +6,15 @@ priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-18
+- EXOCOMP-22
+- EXOCOMP-24
+- EXOCOMP-25
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-23T19:10:13.340897Z'
+updated_at: '2026-07-23T19:13:07.707364Z'
 work_branch: null
 target_branch: null
 review_url: null
