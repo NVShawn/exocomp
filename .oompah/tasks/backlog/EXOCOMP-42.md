@@ -6,11 +6,12 @@ priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T19:12:01.640063Z'
+updated_at: '2026-07-23T19:13:48.215361Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,13 @@ priority: 1
 title: Verify the M4 minimal-impact recovery milestone
 parent: EXOCOMP-4
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-28
+- EXOCOMP-33
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:49.457512Z'
-updated_at: '2026-07-23T19:10:49.457512Z'
+updated_at: '2026-07-23T19:13:36.014211Z'
 work_branch: null
 target_branch: null
 review_url: null

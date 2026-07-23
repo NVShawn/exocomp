@@ -6,11 +6,13 @@ priority: 2
 title: Run recovery and multi-hour soak benchmarks
 parent: EXOCOMP-5
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-34
+- EXOCOMP-35
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:21.493438Z'
-updated_at: '2026-07-23T19:11:21.493438Z'
+updated_at: '2026-07-23T19:13:43.403290Z'
 work_branch: null
 target_branch: null
 review_url: null

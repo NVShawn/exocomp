@@ -6,11 +6,13 @@ priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-11
+- EXOCOMP-35
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T19:11:20.539713Z'
+updated_at: '2026-07-23T19:13:41.779040Z'
 work_branch: null
 target_branch: null
 review_url: null

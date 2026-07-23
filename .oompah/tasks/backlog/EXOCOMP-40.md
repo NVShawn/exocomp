@@ -6,11 +6,16 @@ priority: 2
 title: Publish M5 baselines and performance gates
 parent: EXOCOMP-5
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-34
+- EXOCOMP-36
+- EXOCOMP-37
+- EXOCOMP-38
+- EXOCOMP-39
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:22.415417Z'
-updated_at: '2026-07-23T19:11:22.415417Z'
+updated_at: '2026-07-23T19:13:47.452191Z'
 work_branch: null
 target_branch: null
 review_url: null

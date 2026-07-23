@@ -6,11 +6,13 @@ priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-25
+- EXOCOMP-42
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T19:12:02.637514Z'
+updated_at: '2026-07-23T19:13:49.682822Z'
 work_branch: null
 target_branch: null
 review_url: null

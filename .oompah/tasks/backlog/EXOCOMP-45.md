@@ -6,11 +6,13 @@ priority: 2
 title: Write installation, PKI, policy, and operations guides
 parent: EXOCOMP-6
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-17
+- EXOCOMP-28
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:04.573016Z'
-updated_at: '2026-07-23T19:12:04.573016Z'
+updated_at: '2026-07-23T19:13:52.628228Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,15 @@ priority: 1
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-25
+- EXOCOMP-27
+- EXOCOMP-29
+- EXOCOMP-30
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-23T19:10:47.061070Z'
+updated_at: '2026-07-23T19:13:30.246059Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,13 @@ priority: 2
 title: Document and test upgrade, rollback, backup, and removal
 parent: EXOCOMP-6
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-34
+- EXOCOMP-43
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:05.467498Z'
-updated_at: '2026-07-23T19:12:05.467498Z'
+updated_at: '2026-07-23T19:13:54.129195Z'
 work_branch: null
 target_branch: null
 review_url: null

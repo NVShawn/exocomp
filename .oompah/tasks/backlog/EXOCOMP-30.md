@@ -6,11 +6,13 @@ priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-18
+- EXOCOMP-22
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-23T19:10:46.278084Z'
+updated_at: '2026-07-23T19:13:26.695759Z'
 work_branch: null
 target_branch: null
 review_url: null

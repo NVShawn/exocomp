@@ -6,11 +6,13 @@ priority: 2
 title: Assemble signed offline bundles, SBOMs, and provenance
 parent: EXOCOMP-6
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-40
+- EXOCOMP-42
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-23T19:12:03.621738Z'
+updated_at: '2026-07-23T19:13:51.171635Z'
 work_branch: null
 target_branch: null
 review_url: null

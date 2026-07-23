@@ -6,11 +6,12 @@ priority: 1
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T19:10:45.456680Z'
+updated_at: '2026-07-23T19:13:24.300000Z'
 work_branch: null
 target_branch: null
 review_url: null

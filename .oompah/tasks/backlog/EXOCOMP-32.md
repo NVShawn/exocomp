@@ -6,11 +6,14 @@ priority: 1
 title: Implement approval-required active and degraded recovery
 parent: EXOCOMP-4
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-24
+- EXOCOMP-27
+- EXOCOMP-30
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-23T19:10:47.855632Z'
+updated_at: '2026-07-23T19:13:32.720641Z'
 work_branch: null
 target_branch: null
 review_url: null

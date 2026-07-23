@@ -6,11 +6,13 @@ priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-31
+- EXOCOMP-32
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-23T19:10:48.671360Z'
+updated_at: '2026-07-23T19:13:34.385612Z'
 work_branch: null
 target_branch: null
 review_url: null
