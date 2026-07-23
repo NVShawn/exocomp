@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T21:35:56.332040Z'
+updated_at: '2026-07-23T21:36:03.718493Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -238,5 +238,10 @@ author: oompah
 created: 2026-07-23 21:35
 ---
 Verification: All quality gates pass on EXOCOMP-49 branch. make test: 77 passed (0 failed) including all codec round-trip tests, missing-field error tests, unknown Part type tests, and Version check tests. make lint: clean compile with --warnings-as-errors. make fmt-check: formatting valid.
+---
+author: oompah
+created: 2026-07-23 21:36
+---
+Completion: Delivered Exocomp.A2A.Codec and Exocomp.A2A.Version modules with full test coverage (77 tests total). All A2A 1.0 struct types have encode/decode with camelCase map keys and nil-omission. Error returns use InvalidParamsError/UnsupportedOperationError structs (no exceptions cross module boundaries). Version.check_version/1 and Version.parse_content_type/1 gate HTTP protocol headers. Jason ~> 1.4 added as dependency; Makefile bootstraps Hex in the builder container for make test/lint/fmt-check.
 ---
 <!-- COMMENTS:END -->
