@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T21:03:41.431413Z'
+updated_at: '2026-07-23T21:12:58.241328Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -193,5 +193,31 @@ Key design decisions:
 - systemctl allow-list is passed in as config; no shell interpolation or sh -c
 - Output capped at 64KB max per systemctl invocation
 - Timeout enforced for systemctl via Task.await with configurable ms
+---
+author: oompah
+created: 2026-07-23 21:12
+---
+**Discovery:** Implemented 5 collectors + shared Types module in apps/exocomp_node/lib/exocomp/node/collectors/:
+
+- types.ex — shared observation envelope builder (ok/err/build)
+- uptime.ex — /proc/uptime parser, 256B limit
+- memory.ex — /proc/meminfo parser, 128KB limit, 5 fields
+- cpu.ex — /proc/stat (8 tick fields) + /proc/cpuinfo (count, model name)
+- disk.ex — df -Pk via argv MFA with configurable timeout_ms
+- systemd.ex — systemctl show via argv MFA, fixed property set, allow-list enforced
+
+10 fixture files under test/fixtures/proc/ cover valid, partial, malformed, missing-field cases.
+
+4 test modules (uptime_test, memory_test, cpu_test, disk_test, systemd_test) cover:
+- Valid output → correct values and units
+- Partial failures → successful fields unaffected
+- Malformed content → :malformed errors
+- Missing files → :unavailable errors
+- Oversized output → :output_limit errors
+- Timeout (stub slow runner) → :timeout errors
+- Non-zero exit → :unavailable errors
+- Security: allow-list enforcement, argv inspection for no shell metacharacters
+
+About to run make test, make lint, make fmt-check for quality gate.
 ---
 <!-- COMMENTS:END -->
