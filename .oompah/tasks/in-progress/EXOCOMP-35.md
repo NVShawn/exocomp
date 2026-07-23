@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:24:44.868215Z'
+updated_at: '2026-07-23T20:26:09.268191Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -65,5 +65,10 @@ author: oompah
 created: 2026-07-23 20:24
 ---
 Understanding (Duplicate Investigator): I am screening EXOCOMP-35 ('Build the reproducible benchmark harness') for duplicates before any implementation begins. The issue asks for: versioned benchmark definitions, pinned host profiles, warm-up/run/repetition controls, process/cgroup attribution, BEAM and host sampling, raw sample schema, summary generation, baseline comparison, and Make targets. I will now search the task tracker and project docs for any existing tasks covering the same ground.
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Discovery (Duplicate Investigator): Searched the full task tracker and project docs for any existing task covering the same scope as EXOCOMP-35 ('Build the reproducible benchmark harness'). Reviewed all Milestone 5 children (EXOCOMP-36 through EXOCOMP-40) and the parent epic (EXOCOMP-5). Closest candidates: EXOCOMP-36 (node idle/diagnostic workloads), EXOCOMP-37 (coordinator polling benchmarks), EXOCOMP-38 (llama inference benchmarks), EXOCOMP-39 (soak benchmarks), EXOCOMP-40 (publish baselines) — all of these USE the harness but none BUILD the harness infrastructure itself. No duplicate exists. EXOCOMP-35 is the unique task for harness construction (versioned benchmark definitions, host profiles, sampling, schema, summary generation, baseline comparison, Make targets).
 ---
 <!-- COMMENTS:END -->

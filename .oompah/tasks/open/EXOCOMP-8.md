@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:25:52.450550Z'
+updated_at: '2026-07-23T20:26:03.534309Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -21,6 +21,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 364f519a-253b-4a3c-9946-6b1e85412192
 oompah.work_branch: epic-EXOCOMP-1
+oompah.task_costs:
+  total_input_tokens: 20
+  total_output_tokens: 3749
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 20
+      output_tokens: 3749
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 20
+    output_tokens: 3749
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T20:25:59.424210+00:00'
 ---
 ## Summary
 
@@ -98,5 +114,25 @@ Focus handoff: duplicate_detector
 - The official A2A 1.0 JSON schema source should be pinned/vendored
 
 **Recommended next focus:** feature — this is a straightforward implementation of A2A 1.0 protocol types and test suite in Elixir
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Agent completed successfully in 98s (3769 tokens)
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 32, Tool calls: 24
+- Tokens: 20 in / 3.7K out [3.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 38s
+- Log: EXOCOMP-8__20260723T202424Z.jsonl
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
