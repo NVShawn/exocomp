@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: In Progress
+status: Open
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T20:43:42.634560Z'
+updated_at: '2026-07-23T20:43:53.469154Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -21,6 +21,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: f677637d-e8cb-4fb6-ac3f-a3d3d5397798
 oompah.work_branch: epic-EXOCOMP-6
+oompah.task_costs:
+  total_input_tokens: 29
+  total_output_tokens: 6890
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 29
+      output_tokens: 6890
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 29
+    output_tokens: 6890
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T20:43:50.347840+00:00'
 ---
 ## Summary
 
@@ -116,5 +132,25 @@ Focus handoff: duplicate_detector
    - EXOCOMP-7 blocker is now Done, so work can proceed
 
 4. **Recommended next focus:** `devops` (CI/CD, Docker builders, release pipeline) or `feature` (the Elixir release configuration and test scaffold)
+---
+author: oompah
+created: 2026-07-23 20:43
+---
+Agent completed successfully in 160s (6919 tokens)
+---
+author: oompah
+created: 2026-07-23 20:43
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 51, Tool calls: 38
+- Tokens: 29 in / 6.9K out [6.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 40s
+- Log: EXOCOMP-42__20260723T204112Z.jsonl
+---
+author: oompah
+created: 2026-07-23 20:43
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
