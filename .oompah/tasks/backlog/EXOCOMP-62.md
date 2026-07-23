@@ -6,11 +6,12 @@ priority: null
 title: Implement LlamaServer OTP process supervisor
 parent: EXOCOMP-11
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
 labels: []
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:03:55.522595Z'
+updated_at: '2026-07-23T21:04:46.892841Z'
 work_branch: null
 target_branch: null
 review_url: null

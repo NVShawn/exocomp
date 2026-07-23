@@ -6,11 +6,12 @@ priority: null
 title: Define versioned proposal schema module
 parent: EXOCOMP-11
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
 labels: []
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:03:38.382843Z'
+updated_at: '2026-07-23T21:04:49.450890Z'
 work_branch: null
 target_branch: null
 review_url: null

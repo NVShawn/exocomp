@@ -6,11 +6,13 @@ priority: null
 title: Implement ProposalClient inference HTTP client
 parent: EXOCOMP-11
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-61
+- EXOCOMP-62
 labels: []
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-23T21:04:13.412982Z'
+updated_at: '2026-07-23T21:04:55.531114Z'
 work_branch: null
 target_branch: null
 review_url: null
