@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:20:49.183567Z'
+updated_at: '2026-07-23T21:20:56.591216Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -139,5 +139,10 @@ Also added:
 - test/fixtures/exocomp_fixture/test/test_fixture.py — 22 Python unittest tests covering all modes, transitions, HTTP contract, and CLI flags
 - test/fixtures/exocomp_fixture/README.md — operator/developer usage guide
 - Makefile target test-fixture-service
+---
+author: oompah
+created: 2026-07-23 21:20
+---
+Verification: 22/22 Python unit tests pass (8.3s). Tests cover: active mode health returns ok, degraded mode health returns degraded while process stays alive (key acceptance criterion), exit-mode startup (failed/flapping/restart-failure all exit immediately with code 1), runtime mode transitions (active→degraded→active, active→failed), workload marker creation and cleanup, SIGTERM clean shutdown (exit 0), HTTP contract (correct status codes and 404 for unknown paths), CLI flags and env vars. Ran via: python3 -m pytest test/fixtures/exocomp_fixture/test/test_fixture.py -v
 ---
 <!-- COMMENTS:END -->
