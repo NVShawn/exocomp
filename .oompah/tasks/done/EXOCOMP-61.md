@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-61
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Define versioned proposal schema module
 parent: EXOCOMP-11
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:21:13.342402Z'
+updated_at: '2026-07-23T21:21:21.000842Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
