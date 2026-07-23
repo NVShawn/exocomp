@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T20:50:53.168450Z'
+updated_at: '2026-07-23T20:51:59.930727Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 4514a72e-3f35-4b5b-9157-13a29210cdb3
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 1553784
-  total_output_tokens: 13145
+  total_input_tokens: 1553836
+  total_output_tokens: 15029
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1553784
-      output_tokens: 13145
+      input_tokens: 1553836
+      output_tokens: 15029
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 8336
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:40:57.716174+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 52
+    output_tokens: 1884
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T20:51:58.540368+00:00'
 ---
 ## Summary
 
@@ -151,5 +157,15 @@ author: oompah
 created: 2026-07-23 20:49
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 20:51
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 33
+- Tokens: 52 in / 1.9K out [1.9K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 3s
+- Log: EXOCOMP-29__20260723T204957Z.jsonl
 ---
 <!-- COMMENTS:END -->

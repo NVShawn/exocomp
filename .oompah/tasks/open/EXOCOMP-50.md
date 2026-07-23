@@ -7,10 +7,12 @@ title: Scaffold the bench Mix app within the Elixir umbrella
 parent: EXOCOMP-35
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T20:50:55.198352Z'
+updated_at: '2026-07-23T20:51:52.566089Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -18,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 0fc19b5d-743e-450c-aaf9-d5440c7ff7b4
 oompah.work_branch: epic-EXOCOMP-5
+oompah.task_costs:
+  total_input_tokens: 24
+  total_output_tokens: 4806
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 24
+      output_tokens: 4806
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 24
+    output_tokens: 4806
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T20:51:48.934766+00:00'
 ---
 ## Summary
 
@@ -40,5 +58,56 @@ author: oompah
 created: 2026-07-23 20:50
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 20:51
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate found. EXOCOMP-50 is a unique task with no overlapping scope in the project.
+
+**Evidence reviewed:**
+- EXOCOMP-7 (Done): Scaffolded the Elixir umbrella with core/protocol, node, and coordinator apps — does NOT create apps/bench
+- EXOCOMP-35 (parent): 'Build the reproducible benchmark harness' — EXOCOMP-50 is explicitly listed as its first child (the scaffold step)
+- EXOCOMP-52–56: Other children of EXOCOMP-35 that implement specific features (config schema, host profiles, raw sample model, BEAM sampler, host sampler) — all depend on apps/bench existing first (EXOCOMP-50)
+- EXOCOMP-36–40: M5 workload benchmark tasks that USE the harness but do not BUILD it
+- EXOCOMP-5 (parent epic): M5 Performance — confirms EXOCOMP-35 is the harness builder and EXOCOMP-50 is its scaffold child
+- Searched codebase: apps/ directory does not yet contain a bench app; plans/milestone-5-performance.md confirms bench as the harness application namespace
+
+**Key finding:** EXOCOMP-50 is the unique scaffold task that creates apps/bench — it is the prerequisite for EXOCOMP-52, 53, 54, 55, 56 (all build within the bench app created here). No existing task covers this scope.
+
+**Remaining work:**
+- Create apps/bench as a new Mix application in the Elixir umbrella
+- Set up mix.exs with Jason and NimbleOptions dependencies
+- Create directory structure: lib/bench/, lib/bench/config.ex, lib/bench/sample.ex, lib/bench/sampler/, lib/bench/report/, lib/bench/driver.ex
+- Add module skeleton to each file
+- Verify compilation and empty test suite passes (make test)
+- Register the app in the umbrella
+
+**Risks:**
+- EXOCOMP-52–56 are blocked until this scaffold is complete
+- Must match umbrella conventions established in EXOCOMP-7 (Elixir 1.20/OTP 28, digest-pinned builder, containerized Make targets)
+
+**Recommended next focus:** feature (or chore) — this is a scaffolding task that creates the Elixir bench Mix application from scratch within the existing umbrella
+---
+author: oompah
+created: 2026-07-23 20:51
+---
+Agent completed successfully in 109s (4830 tokens)
+---
+author: oompah
+created: 2026-07-23 20:51
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 45, Tool calls: 33
+- Tokens: 24 in / 4.8K out [4.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 49s
+- Log: EXOCOMP-50__20260723T205003Z.jsonl
+---
+author: oompah
+created: 2026-07-23 20:51
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
