@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-49
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement A2A 1.0 JSON codecs, error mapping, and version handling
 parent: EXOCOMP-8
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T20:46:43.437720Z'
-work_branch: null
+updated_at: '2026-07-23T21:14:52.880973Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 2e1553fb-f45e-4b2b-902a-821ae4bc2631
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -66,3 +68,16 @@ Quality gate: make test && make lint && make fmt-check must pass.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:14
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:14
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

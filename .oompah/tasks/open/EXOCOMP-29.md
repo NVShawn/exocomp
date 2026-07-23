@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-29
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T21:14:23.778447Z'
+updated_at: '2026-07-23T21:14:37.963161Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null

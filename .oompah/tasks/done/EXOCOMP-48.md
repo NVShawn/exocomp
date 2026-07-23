@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:35:55.059812Z'
-updated_at: '2026-07-23T21:14:25.196556Z'
+updated_at: '2026-07-23T21:14:42.793063Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 19c8b067-3df0-4536-9ca8-69cf50454024
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 1132509
-  total_output_tokens: 5825
+  total_input_tokens: 1132609
+  total_output_tokens: 43422
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1132509
-      output_tokens: 5825
+      input_tokens: 1132609
+      output_tokens: 43422
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 2520
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:53:23.697142+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 100
+    output_tokens: 37597
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:14:38.633115+00:00'
 ---
 ## Summary
 
@@ -198,5 +204,25 @@ Also fixed Podman rootless container permission issue in Makefile (added --usern
 Quality gates: make test (68 tests, 0 failures) + make lint + make fmt-check all pass.
 
 Branch epic-EXOCOMP-8 pushed to origin. EXOCOMP-49 (codecs) can now proceed.
+---
+author: oompah
+created: 2026-07-23 21:14
+---
+Implemented all A2A 1.0 protocol type structs (14 modules) and smoke tests (66 ExUnit tests). All quality gates pass (make test, make lint, make fmt-check). Also fixed Podman --userns=keep-id issue in Makefile.
+---
+author: oompah
+created: 2026-07-23 21:14
+---
+Agent completed successfully in 1248s (37697 tokens)
+---
+author: oompah
+created: 2026-07-23 21:14
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
+- Turns: 174, Tool calls: 118
+- Tokens: 100 in / 37.6K out [37.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 20m 48s
+- Log: EXOCOMP-48__20260723T205748Z.jsonl
 ---
 <!-- COMMENTS:END -->
