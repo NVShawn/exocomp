@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:49:03.124363Z'
+updated_at: '2026-07-23T21:49:05.965977Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -290,5 +290,10 @@ All tests are tagged @moduletag :integration and @moduletag :systemd. Run with:
 (inside a VM or privileged container with systemd as PID 1)
 
 Branch EXOCOMP-71 pushed to origin. Also includes cherry-pick of EXOCOMP-70's commit to keep the branch self-contained until EXOCOMP-70 is merged.
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Wrote all 10 ExUnit integration tests for exocomp-fixture systemd states (install, start/stop, crash, degrade, flap, restart-failure, cleanup, health divergence, idempotent setup, non-fixture isolation). Added fixture-install, fixture-cleanup, and test-integration Makefile targets. Updated test_helper.exs to exclude integration tests from standard CI. Branch EXOCOMP-71 pushed to origin.
 ---
 <!-- COMMENTS:END -->

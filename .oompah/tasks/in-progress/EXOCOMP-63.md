@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-23T21:48:57.770200Z'
+updated_at: '2026-07-23T21:49:08.468228Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -254,5 +254,14 @@ All acceptance criteria met:
 ✓ Raw model output is [REDACTED] in all audit log events
 ✓ Only schema-valid proposals returned (ProposalSchema.validate/1 gate)
 ✓ Diagnostic context is byte-bounded before transmission
+---
+author: oompah
+created: 2026-07-23 21:49
+---
+Completion: ProposalClient implemented and pushed
+
+Delivered Exocomp.Node.ProposalClient on branch EXOCOMP-63 (cherry-picks ProposalSchema from EXOCOMP-61 onto EXOCOMP-62). All security requirements from milestone-1-node-agent.md 'Inference Integration' and 'Failure and Security Behavior' sections are enforced.
+
+No remaining security risks found. EXOCOMP-64 (full scenario ExUnit tests) can now unblock.
 ---
 <!-- COMMENTS:END -->
