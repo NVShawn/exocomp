@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T23:08:50.402332Z'
+updated_at: '2026-07-23T23:08:52.976956Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -322,5 +322,10 @@ author: oompah
 created: 2026-07-23 23:08
 ---
 Completion (continuation): PR #5 'EXOCOMP-38: Benchmark llama.cpp inference and restart behavior' from epic-EXOCOMP-5 was already merged into main on 2026-07-23T23:06:19Z. All deliverables are in main: Bench.Workload.LlamaInference (6 scenarios), Bench.Test.FakeLlamaServer, 22 focused ExUnit tests tagged bench_llama, and make bench-llama-short CI target. Closing task now.
+---
+author: oompah
+created: 2026-07-23 23:08
+---
+Implemented Bench.Workload.LlamaInference with 6 benchmark scenarios (startup/readiness, sequential latency P50/P95/P99, concurrent saturation/queue depth, timeout, invalid-output, crash-restart with diagnostics_available flag), Bench.Test.FakeLlamaServer, 22 focused ExUnit tests (bench_llama tag), and make bench-llama-short CI target. Merged via PR #5 (epic-EXOCOMP-5 -> main).
 ---
 <!-- COMMENTS:END -->
