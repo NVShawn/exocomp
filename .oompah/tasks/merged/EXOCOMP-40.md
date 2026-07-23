@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-40
 type: chore
-status: Open
+status: Merged
 priority: 2
 title: Publish M5 baselines and performance gates
 parent: EXOCOMP-5
@@ -15,7 +15,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:22.415417Z'
-updated_at: '2026-07-23T19:17:27.277381Z'
+updated_at: '2026-07-23T23:30:03.242792Z'
 work_branch: null
 target_branch: null
 review_url: null
