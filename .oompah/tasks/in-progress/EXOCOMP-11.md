@@ -8,10 +8,11 @@ parent: EXOCOMP-1
 children: []
 blocked_by:
 - EXOCOMP-7
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-23T20:46:02.161215Z'
+updated_at: '2026-07-23T20:46:09.718290Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
