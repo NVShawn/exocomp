@@ -11,22 +11,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-23T19:37:40.124119Z'
+updated_at: '2026-07-23T19:46:43.497334Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: e4ba7f22-af4a-4c7c-b667-dfcda32d58f1
+oompah.agent_run_id: f91963bc-449e-4222-85f0-16bcbf3d9eae
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 4233058
-  total_output_tokens: 33619
+  total_input_tokens: 8539742
+  total_output_tokens: 55603
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 4233058
-      output_tokens: 33619
+      input_tokens: 8539742
+      output_tokens: 55603
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 28029
     cost_usd: 0.0
     recorded_at: '2026-07-23T19:37:22.165367+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 4306684
+    output_tokens: 21984
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T19:46:33.878297+00:00'
 ---
 ## Summary
 
@@ -176,6 +182,31 @@ Agent dispatched (profile: deep)
 ---
 author: oompah
 created: 2026-07-23 19:37
+---
+Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-23 19:46
+---
+Agent completed successfully in 535s (4328668 tokens)
+---
+author: oompah
+created: 2026-07-23 19:46
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 30
+- Tokens: 4.3M in / 22.0K out [4.3M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 8m 55s
+- Log: EXOCOMP-7__20260723T193740Z.jsonl
+---
+author: oompah
+created: 2026-07-23 19:46
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 19:46
 ---
 Focus: Maintenance Engineer
 ---
