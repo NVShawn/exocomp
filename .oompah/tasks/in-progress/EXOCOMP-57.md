@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:04:20.527842Z'
+updated_at: '2026-07-23T21:05:39.774199Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -195,5 +195,16 @@ author: oompah
 created: 2026-07-23 21:04
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-23 21:05
+---
+**Understanding:** Creating test fixture infrastructure for EXOCOMP-9's mTLS implementation. Plan:
+1. Create EXOCOMP-57 branch from EXOCOMP-7 (which has the apps/exocomp_node/ scaffold)
+2. Write scripts/gen-test-certs.sh generating CA, node cert (SAN=DNS:exocomp-test-node), wrong_san, expired, and rogue certs under apps/exocomp_node/test/fixtures/certs/
+3. Create JSON config fixtures: config_valid.json, config_missing_fields.json, config_unknown_version.json, config_malformed.json
+4. Add gen-test-fixtures Makefile target with ## comment
+5. Fixture private keys will be committed (dev-only, acceptable for reproducible tests — documented in script)
+6. Verify idempotency and SAN via openssl
 ---
 <!-- COMMENTS:END -->
