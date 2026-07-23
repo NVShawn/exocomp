@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T20:46:49.361044Z'
-work_branch: null
+updated_at: '2026-07-23T21:55:53.191775Z'
+work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 87029622-e026-4fcf-ad65-3f840e201e89
+oompah.work_branch: epic-EXOCOMP-5
 ---
 ## Summary
 
@@ -27,3 +29,21 @@ In apps/bench, implement Bench.HostSampler — a GenServer that reads Linux /pro
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:55
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:55
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:55
+---
+Understanding (Duplicate Investigator): Investigating whether EXOCOMP-56 ('Implement host sampler with per-process/cgroup attribution') is a duplicate of any existing task. The issue requests a Bench.HostSampler GenServer in apps/bench that reads Linux /proc and cgroup v1/v2 to collect per-process metrics (CPU, RSS/PSS, FD count, disk I/O, network I/O, page faults) attributed to :node, :coordinator, and :llama targets. Beginning search across .oompah/tasks, plans/, and docs/ for similar work.
+---
+<!-- COMMENTS:END -->

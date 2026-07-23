@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T21:55:28.201948Z'
+updated_at: '2026-07-23T21:55:37.977649Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 8afa9778-7ee2-42cf-8dde-9669dfd65615
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 2832239
-  total_output_tokens: 27492
+  total_input_tokens: 2832285
+  total_output_tokens: 28923
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 2832239
-      output_tokens: 27492
+      input_tokens: 2832285
+      output_tokens: 28923
       cost_usd: 0.0
   runs:
   - profile: default
@@ -47,6 +47,12 @@ oompah.task_costs:
     output_tokens: 7438
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:53:15.605646+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 46
+    output_tokens: 1431
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:55:36.533136+00:00'
 ---
 ## Summary
 
@@ -202,5 +208,20 @@ author: oompah
 created: 2026-07-23 21:55
 ---
 Completion: EXOCOMP-54 is fully implemented and already on origin/EXOCOMP-54 (commit 75dda39). Delivered: (1) Bench.Sample — full struct with timestamp, source (5 atoms), metric_name, value, unit; to_json/from_json, to_map/from_map. (2) Bench.Run — envelope struct with build_metadata, host_profile, model_version, workload_name, config_ref, samples; new/1, append_sample/2, write_jsonl/2, read_jsonl/1. (3) Tests in run_test.exs and sample_test.exs covering all required scenarios. All 31 tests pass. Previous agents had already committed and pushed the work; this run confirmed correctness and closes the task.
+---
+author: oompah
+created: 2026-07-23 21:55
+---
+Implemented Bench.Sample (full field schema) and Bench.Run (new/1, append_sample/2, write_jsonl/2, read_jsonl/1) with JSON-Lines serialisation. All 31 tests pass. Code on origin/EXOCOMP-54 at commit 75dda39.
+---
+author: oompah
+created: 2026-07-23 21:55
+---
+Run #3 [attempt=3, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 27
+- Tokens: 46 in / 1.4K out [1.5K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 54s
+- Log: EXOCOMP-54__20260723T215343Z.jsonl
 ---
 <!-- COMMENTS:END -->
