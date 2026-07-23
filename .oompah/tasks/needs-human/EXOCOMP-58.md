@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: In Progress
+status: Needs Human
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T21:15:43.760035Z'
+updated_at: '2026-07-23T21:17:41.273700Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: c8984b27-6940-40c0-8b0c-4936f1e48ab8
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 909723
-  total_output_tokens: 5719
+  total_input_tokens: 1592498
+  total_output_tokens: 9047
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 909723
-      output_tokens: 5719
+      input_tokens: 1592498
+      output_tokens: 9047
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 2809
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:15:05.070494+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 682775
+    output_tokens: 3328
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:17:38.104637+00:00'
 ---
 ## Summary
 
@@ -200,5 +206,25 @@ author: oompah
 created: 2026-07-23 21:15
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:17
+---
+Agent completed successfully in 116s (686103 tokens)
+---
+author: oompah
+created: 2026-07-23 21:17
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 12
+- Tokens: 682.8K in / 3.3K out [686.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 56s
+- Log: EXOCOMP-58__20260723T211543Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:17
+---
+Agent completed 3 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
 ---
 <!-- COMMENTS:END -->
