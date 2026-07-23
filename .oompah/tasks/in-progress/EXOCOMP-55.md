@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:36:46.750559Z'
+updated_at: '2026-07-23T22:38:08.433060Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -283,5 +283,10 @@ author: oompah
 created: 2026-07-23 22:36
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-23 22:38
+---
+Implementation: apps/bench/lib/bench/beam_sampler.ex — Bench.BeamSampler GenServer collecting: scheduler utilisation (wall-time diff), process count, run queue length, per-category memory, per-registered-process mailbox depth, and task-registry size (soft dependency). Public API: start_link/1 (validates interval before spawning, so invalid options return {:error, reason} cleanly), stop/1, flush/1. Also apps/bench/test/bench/beam_sampler_test.exs with 6 tests covering all required behaviours. All 33 bench tests pass, lint clean.
 ---
 <!-- COMMENTS:END -->
