@@ -19,7 +19,7 @@ defmodule Bench.Run do
   @required_fields @metadata_fields
   @json_metadata_fields Enum.map(@metadata_fields, &Atom.to_string/1)
   @json_run_fields @json_metadata_fields ++ ["samples"]
-  @sample_fields ~w(timestamp source metric_name value unit)
+  @sample_fields ~w(timestamp source metric_name value unit tags)
 
   @enforce_keys @required_fields
   defstruct @required_fields ++ [samples: []]

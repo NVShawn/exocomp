@@ -31,6 +31,27 @@ defmodule Bench.SampleTest do
     end
   end
 
+  test "round-trips unavailable values and metric tags" do
+    original = %Sample{
+      timestamp: 1_700_000_000_000,
+      source: :node,
+      metric_name: "cpu.percent",
+      value: nil,
+      unit: "percent",
+      tags: [:missing]
+    }
+
+    assert {:ok, json} = Sample.to_json(original)
+    assert {:ok, ^original} = Sample.from_json(json)
+  end
+
+  test "defaults tags for records written before tags were added" do
+    assert {:ok, %Sample{tags: []}} =
+             Sample.from_json(
+               ~s({"timestamp":1,"source":"host","metric_name":"cpu","value":2,"unit":"percent"})
+             )
+  end
+
   test "rejects invalid JSON and unknown sources" do
     assert {:error, _reason} = Sample.from_json("not json {")
 
