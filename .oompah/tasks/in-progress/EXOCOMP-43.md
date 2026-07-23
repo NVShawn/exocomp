@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:11:37.550567Z'
+updated_at: '2026-07-23T23:16:46.468267Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -200,5 +200,35 @@ Files created:
 - release/templates/coordinator.json: Coordinator configuration template with PKI, A2A agent card, approval settings
 - test/installer/test_installer.py: 50 tests covering all acceptance criteria
 - Makefile: test-installer target added
+---
+author: oompah
+created: 2026-07-23 23:16
+---
+Verification: All tests pass.
+
+make test-installer: 50/50 installer tests pass
+  - TestCleanInstall (8 tests): versioned dir, symlink, config, systemd unit, sudoers, manifest
+  - TestRepeatInstall (2 tests): idempotent, config preserved on repeat
+  - TestPermissions (4 tests): 644 unit, 440 sudoers, 640 config, a-w release dir
+  - TestInvalidChecksum (3 tests): tampered bundle rejected, no host mutation on failure
+  - TestExactPrivileges (5 tests): exact entries, no wildcards, metacharacter rejection
+  - TestUpgradePreparation (3 tests): new version beside old, atomic symlink update, config preserved
+  - TestDefaultUninstall (7 tests): unit+sudoers removed, config/log/configdir preserved
+  - TestSystemCachePurge (3 tests): release dirs removed, config+log preserved
+  - TestUserDataPreservation (4 tests): home dir untouched, var/lib preserved, PKI preserved, bad purge rejected
+  - TestDryRun (2 tests): exits 0, no files created
+  - TestMissingComponentFlag (1 test)
+  - TestUnitHardeningDirectives (6 tests): 16 directives verified in both unit files
+  - TestConfigTemplates (2 tests): valid JSON, expected keys present
+
+make test-fixture-service: 22/22 existing fixture tests pass (no regressions)
+bash -n: install.sh and uninstall.sh syntax valid
+
+Acceptance criteria confirmed:
+✓ Installer validates before host mutation (checksum, arch, disk space check)
+✓ Services run unprivileged with expected hardening (16 directives per unit file)
+✓ Only configured exact privilege rules are installed (no wildcards, metacharacter injection rejected)
+✓ Default uninstall preserves protected operator state and all user data
+✓ Install tests pass
 ---
 <!-- COMMENTS:END -->
