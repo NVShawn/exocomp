@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-59
 type: task
-status: In Progress
+status: Open
 priority: null
 title: 'Implement identity validation: cert chain, SAN, and key permissions (Exocomp.Node.Identity)'
 parent: EXOCOMP-9
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:32.320903Z'
-updated_at: '2026-07-23T22:25:51.561798Z'
+updated_at: '2026-07-23T22:27:37.156070Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
