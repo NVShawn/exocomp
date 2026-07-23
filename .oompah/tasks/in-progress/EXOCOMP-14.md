@@ -14,22 +14,22 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-23T22:07:11.458779Z'
+updated_at: '2026-07-23T22:19:28.627821Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 9937ea5a-a5b5-4b5b-bf19-b9b7d2b70b51
+oompah.agent_run_id: 39ffb9b1-df50-493f-9c36-9c4afcbb0541
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 1630422
-  total_output_tokens: 22364
+  total_input_tokens: 5643395
+  total_output_tokens: 52323
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1630422
-      output_tokens: 22364
+      input_tokens: 5643395
+      output_tokens: 52323
       cost_usd: 0.0
   runs:
   - profile: default
@@ -62,6 +62,12 @@ oompah.task_costs:
     output_tokens: 7585
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:06:58.855501+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 4012973
+    output_tokens: 29959
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:19:09.221222+00:00'
 ---
 ## Summary
 
@@ -330,6 +336,36 @@ Agent dispatched (profile: standard)
 ---
 author: oompah
 created: 2026-07-23 22:07
+---
+Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-23 22:19
+---
+Agent completed successfully in 720s (4042932 tokens)
+---
+author: oompah
+created: 2026-07-23 22:19
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 42
+- Tokens: 4.0M in / 30.0K out [4.0M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 12m 0s
+- Log: EXOCOMP-14__20260723T220711Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:19
+---
+Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-2`. Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 22:19
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-23 22:19
 ---
 Focus: Software Engineer
 ---

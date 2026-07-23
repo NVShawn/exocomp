@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-55
 type: task
-status: In Progress
+status: Needs Human
 priority: null
 title: Implement BEAM telemetry sampler
 parent: EXOCOMP-35
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:17:59.828197Z'
+updated_at: '2026-07-23T22:19:36.699730Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -19,13 +19,13 @@ merged_at: null
 oompah.agent_run_id: 3aefbab2-6487-4653-9380-89e2e576e35f
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 1327571
-  total_output_tokens: 9452
+  total_input_tokens: 1883518
+  total_output_tokens: 13084
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1327571
-      output_tokens: 9452
+      input_tokens: 1883518
+      output_tokens: 13084
       cost_usd: 0.0
   runs:
   - profile: default
@@ -46,6 +46,12 @@ oompah.task_costs:
     output_tokens: 4369
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:55:00.498033+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 555947
+    output_tokens: 3632
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:19:32.923579+00:00'
 ---
 ## Summary
 
@@ -170,5 +176,25 @@ author: oompah
 created: 2026-07-23 22:17
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:19
+---
+Agent completed successfully in 95s (559579 tokens)
+---
+author: oompah
+created: 2026-07-23 22:19
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 10
+- Tokens: 555.9K in / 3.6K out [559.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 35s
+- Log: EXOCOMP-55__20260723T221803Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:19
+---
+Agent completed 4 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
 ---
 <!-- COMMENTS:END -->
