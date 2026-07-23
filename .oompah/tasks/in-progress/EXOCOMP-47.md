@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: Open
+status: In Progress
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -16,12 +16,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-23T19:17:32.201082Z'
-work_branch: null
+updated_at: '2026-07-23T23:48:24.674566Z'
+work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 8b00a712-e38c-4339-9c7b-086c729ec63f
+oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -52,3 +54,16 @@ Run the focused release/documentation tests and all repository Make targets affe
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 23:48
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 23:48
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
