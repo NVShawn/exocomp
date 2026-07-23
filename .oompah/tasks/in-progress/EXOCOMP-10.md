@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-10
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement Linux and systemd diagnostic collectors
 parent: EXOCOMP-1
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T19:17:03.787598Z'
-work_branch: null
+updated_at: '2026-07-23T20:41:38.692626Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 40be80c4-999d-48b1-8956-874796f4d173
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -46,3 +48,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 20:41
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:41
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
