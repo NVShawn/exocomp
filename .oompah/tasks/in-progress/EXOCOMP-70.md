@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-70
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Create systemd unit file and fixture installer/cleanup scripts
 parent: EXOCOMP-29
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-69
 labels:
 - focus-complete:duplicate_detector
-- needs:devops
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:29:00.817918Z'
+updated_at: '2026-07-23T21:29:12.564081Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 5f72f1e8-1b66-4ac6-b760-0652d514d678
+oompah.agent_run_id: cb20a695-acf4-45da-af24-e389935863a5
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 23
@@ -131,5 +130,15 @@ author: oompah
 created: 2026-07-23 21:29
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 21:29
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:29
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->
