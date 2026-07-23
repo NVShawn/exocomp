@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-48
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Define A2A 1.0 protocol type structs and task-state enum
 parent: EXOCOMP-8
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:35:55.059812Z'
-updated_at: '2026-07-23T20:35:55.059812Z'
+updated_at: '2026-07-23T20:46:42.533114Z'
 work_branch: null
 target_branch: null
 review_url: null

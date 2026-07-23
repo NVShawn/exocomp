@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T20:39:48.111110Z'
+updated_at: '2026-07-23T20:46:50.208343Z'
 work_branch: null
 target_branch: null
 review_url: null

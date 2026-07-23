@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T20:41:08.526539Z'
+updated_at: '2026-07-23T20:46:51.007730Z'
 work_branch: null
 target_branch: null
 review_url: null

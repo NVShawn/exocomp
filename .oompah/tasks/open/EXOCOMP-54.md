@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T20:37:01.619113Z'
+updated_at: '2026-07-23T20:46:47.755703Z'
 work_branch: null
 target_branch: null
 review_url: null

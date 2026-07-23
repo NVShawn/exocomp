@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-49
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement A2A 1.0 JSON codecs, error mapping, and version handling
 parent: EXOCOMP-8
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T20:36:47.739626Z'
+updated_at: '2026-07-23T20:46:43.437720Z'
 work_branch: null
 target_branch: null
 review_url: null

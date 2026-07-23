@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-51
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Pin A2A 1.0 fixture files and add comprehensive protocol test suite
 parent: EXOCOMP-8
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-23T20:36:49.935471Z'
+updated_at: '2026-07-23T20:46:45.251471Z'
 work_branch: null
 target_branch: null
 review_url: null

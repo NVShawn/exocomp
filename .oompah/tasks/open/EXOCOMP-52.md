@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-52
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement versioned benchmark configuration schema and validation
 parent: EXOCOMP-35
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T20:36:45.706594Z'
+updated_at: '2026-07-23T20:46:46.082910Z'
 work_branch: null
 target_branch: null
 review_url: null

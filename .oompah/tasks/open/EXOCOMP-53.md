@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T20:36:53.820999Z'
+updated_at: '2026-07-23T20:46:46.915722Z'
 work_branch: null
 target_branch: null
 review_url: null

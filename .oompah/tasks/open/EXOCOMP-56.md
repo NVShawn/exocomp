@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T20:37:21.728642Z'
+updated_at: '2026-07-23T20:46:49.361044Z'
 work_branch: null
 target_branch: null
 review_url: null

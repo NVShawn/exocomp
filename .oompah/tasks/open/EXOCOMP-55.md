@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-55
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement BEAM telemetry sampler
 parent: EXOCOMP-35
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T20:37:10.989869Z'
+updated_at: '2026-07-23T20:46:48.569152Z'
 work_branch: null
 target_branch: null
 review_url: null
