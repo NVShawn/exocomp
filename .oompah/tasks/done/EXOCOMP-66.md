@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-66
 type: feature
-status: In Progress
+status: Done
 priority: 2
 title: Package deterministic OTP release archives and identity manifests
 parent: EXOCOMP-42
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-07-23T21:31:14.710119Z'
+updated_at: '2026-07-23T21:31:25.175949Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -144,5 +144,10 @@ Run #3 [attempt=3, profile=deep, role=deep -> Codex/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 13s
 - Log: EXOCOMP-66__20260723T213000Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:31
+---
+Agent completed 3 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
 ---
 <!-- COMMENTS:END -->
