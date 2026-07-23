@@ -6,11 +6,17 @@ priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-40
+- EXOCOMP-41
+- EXOCOMP-43
+- EXOCOMP-44
+- EXOCOMP-45
+- EXOCOMP-46
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-23T19:12:06.325063Z'
+updated_at: '2026-07-23T19:14:01.231495Z'
 work_branch: null
 target_branch: null
 review_url: null
