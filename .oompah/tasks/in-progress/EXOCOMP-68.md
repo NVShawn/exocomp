@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T22:06:15.274703Z'
+updated_at: '2026-07-23T22:11:45.008079Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -239,5 +239,10 @@ author: oompah
 created: 2026-07-23 22:06
 ---
 Understanding: This task requires implementing the OTP release qualification test matrix. After reviewing the codebase, I see that EXOCOMP-65 (pinned builders), EXOCOMP-66 (deterministic packaging), and EXOCOMP-67 (ELF dep inspection) are all done and merged on epic-EXOCOMP-42. The EXOCOMP-68 branch doesn't yet exist. I need to create it and implement: (1) scripts/test-release-matrix.sh - builds each arch/product twice and compares digests for reproducibility, plus tests clean-container startup; (2) scripts/test-matrix-offline.sh - offline structural checks usable in CI without Docker; (3) wrong-arch negative test - verifies actionable diagnostic; (4) missing/corrupted dep negative test - verifies actionable diagnostic; (5) Makefile target test-release-matrix; (6) docs/release-qualification.md covering native vs emulated execution. The existing pattern uses fake fixtures (fake-container-engine.sh, fake-readelf.sh) for offline tests, which I'll extend. The new scripts will follow the same non-interactive, CI-safe pattern.
+---
+author: oompah
+created: 2026-07-23 22:11
+---
+Discovery: The codebase has EXOCOMP-65/66/67 work on the epic-EXOCOMP-42 branch: pinned builders (builders.lock), ELF dep inspection (inspect-release-deps.sh), and test fixtures (fake-readelf.sh, fake-container-engine.sh). The EXOCOMP-68 branch did not yet exist. Implementing: scripts/test-release-matrix.sh (offline + live qualification matrix with double-build reproducibility, clean-container startup, wrong-arch neg test, missing-dep neg test), scripts/test-clean-container.sh (clean-container startup helper + --check-arch ELF machine type checker), docs/release-qualification.md (native vs emulated requirements, QEMU setup, diagnostic documentation), and Makefile test-release-matrix target. The offline mode uses the existing fake-readelf fixture for missing-dep detection and a temporary minimal ELF header for wrong-arch detection.
 ---
 <!-- COMMENTS:END -->

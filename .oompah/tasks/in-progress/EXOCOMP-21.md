@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T21:58:34.037644Z'
+updated_at: '2026-07-23T22:11:43.427026Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -190,5 +190,16 @@ Security invariants I must enforce at the type level:
 Attack surface: Proposal parsing (LLM = untrusted), Evidence validation (staleness/forgery), schema version downgrade/confusion, data-classification bypass, atom injection via string-to-atom conversion (using explicit pattern matching instead).
 
 Plan: implement Exocomp.Node.Safety.{DataClassification, RiskRank, Reversibility, ActionDefinition, Evidence, Proposal, ValidatorResult} in exocomp_node with table-driven tests for every invariant.
+---
+author: oompah
+created: 2026-07-23 22:11
+---
+Discovery: No prior implementation existed on this branch. Explored the M3 safety design in plans/milestone-3-safety-validation.md and found the following security attack surface requiring type-level invariants:
+1. Proposals come from the LLM (untrusted) — strict parsing with unknown-field rejection
+2. Evidence requires integrity hash, timestamp, and schema version — stale/tampered evidence rejected
+3. Data classification must default to :protected_user_data for any unknown value
+4. ActionDefinition must structurally prevent deletion-class actions from targeting :protected_user_data
+5. Risk rank parsing must reject unknown levels (no atom injection via String.to_atom)
+6. ValidatorResult must default to :deny — fail-closed
 ---
 <!-- COMMENTS:END -->
