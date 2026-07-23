@@ -7,13 +7,16 @@ title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
 children:
 - EXOCOMP-65
+- EXOCOMP-66
+- EXOCOMP-67
+- EXOCOMP-68
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T21:06:03.527518Z'
+updated_at: '2026-07-23T21:06:25.755090Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null

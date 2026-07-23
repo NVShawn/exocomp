@@ -5,14 +5,16 @@ status: In Progress
 priority: 1
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
-children: []
+children:
+- EXOCOMP-69
+- EXOCOMP-70
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T21:04:18.158346Z'
+updated_at: '2026-07-23T21:06:39.915328Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -288,5 +290,10 @@ author: oompah
 created: 2026-07-23 21:04
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 21:06
+---
+Understanding (Epic Planner): EXOCOMP-29 needs the isolated systemd fixture for M4 integration testing. The scope covers: (1) a crashable fixture service script with health HTTP endpoint decoupled from systemd state, (2) a systemd unit file + installer/cleanup scripts scoped to fixture resources, (3) focused ExUnit integration tests covering all state modes, and (4) docs on VM/privileged-container requirements. The repo currently has no Elixir code on this branch (EXOCOMP-7 scaffold is on a separate branch). I will decompose EXOCOMP-29 into 4 child tasks with appropriate dependencies, then hand off to a feature agent.
 ---
 <!-- COMMENTS:END -->
