@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -9,16 +9,15 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T21:36:06.654669Z'
+updated_at: '2026-07-23T21:36:20.164703Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 6f5eb836-f78a-4b2f-9c71-dde5f3d47627
+oompah.agent_run_id: 0879f484-8514-4437-ad68-59d91fa76b3b
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
   total_input_tokens: 365453
@@ -158,5 +157,15 @@ author: oompah
 created: 2026-07-23 21:36
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 21:36
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:36
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->
