@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:19:32.187900Z'
+updated_at: '2026-07-23T21:25:17.512956Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 7fab8c25-f25a-4aec-8085-b715e817e85e
+oompah.agent_run_id: d6ad4144-c584-4fec-ab4a-b04d2699eba6
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 75
@@ -207,5 +207,15 @@ Required: open a PR before closing.
   gh pr create --base main --head epic-EXOCOMP-4 --title "EXOCOMP-72: Document VM/privileged-container requirements for systemd fixture tests" --body "..."
 
 Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-23 21:25
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:25
+---
+Focus: Technical Writer
 ---
 <!-- COMMENTS:END -->

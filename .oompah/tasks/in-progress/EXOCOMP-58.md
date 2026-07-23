@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T21:21:55.651219Z'
+updated_at: '2026-07-23T21:25:15.603400Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: c8984b27-6940-40c0-8b0c-4936f1e48ab8
+oompah.agent_run_id: 1815a937-c993-47ec-9c2b-082b034a2a10
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 1592498
@@ -238,5 +238,15 @@ created: 2026-07-23 21:21
 **Evidence:** Last agent comment signals completion without a human question; the Needs Human transition appears accidental.
 
 *This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
+---
+author: oompah
+created: 2026-07-23 21:25
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:25
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
