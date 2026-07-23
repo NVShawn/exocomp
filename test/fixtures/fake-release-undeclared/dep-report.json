@@ -1,0 +1,12 @@
+{
+  "architecture": "amd64",
+  "release_dir": "/home/shedwards/.oompah/worktrees/exocomp/epic-EXOCOMP-42/test/fixtures/fake-release-undeclared",
+  "glibc_baseline": "2.36",
+  "baseline_file": "/home/shedwards/.oompah/worktrees/exocomp/epic-EXOCOMP-42/release/runtime-baseline.lock",
+  "erts_dir": "erts-14.0",
+  "elfs": [
+    {"path": "bin/exocomp_node", "interpreter": null, "needed": ["libc.so.6"], "undeclared": []},
+    {"path": "erts-14.0/bin/beam.smp", "interpreter": "/lib64/ld-linux-x86-64.so.2", "needed": ["libc.so.6", "libm.so.6", "libpthread.so.0"], "undeclared": []},
+    {"path": "lib/exocomp_node-1.0.0/priv/node_nif.so", "interpreter": null, "needed": ["libc.so.6", "libsomething_undeclared.so.99"], "undeclared": ["libsomething_undeclared.so.99"]}
+  ]
+}

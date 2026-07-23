@@ -53,6 +53,8 @@ grep -Fq "mix release exocomp_coordinator --overwrite" scripts/build-releases.sh
   fail "coordinator release is not built"
 grep -Fq "scripts/smoke-releases.sh prod" scripts/build-releases.sh ||
   fail "built releases are not checked for bundled ERTS"
+grep -Fq "scripts/inspect-release-deps.sh" scripts/build-releases.sh ||
+  fail "build script does not invoke dependency inspection"
 
 if grep -Eq -- '(^|[[:space:]])(-i|-it|--interactive)([[:space:]]|$)' \
   scripts/build-releases.sh scripts/check-builder-capability.sh; then
@@ -72,5 +74,30 @@ fi
 if grep -Eq '(^|[-_])(latest|edge)([-_@]|$)' "${lock_file}"; then
   fail "floating image input found in ${lock_file}"
 fi
+
+# Validate the runtime baseline file exists and has required content.
+baseline="release/runtime-baseline.lock"
+[ -f "${baseline}" ] ||
+  fail "release/runtime-baseline.lock is missing"
+grep -qFx "libc.so.6" "${baseline}" ||
+  fail "runtime-baseline.lock must declare libc.so.6"
+grep -qFx "libm.so.6" "${baseline}" ||
+  fail "runtime-baseline.lock must declare libm.so.6"
+
+# Validate the dependency inspection script exists and is executable.
+[ -x "scripts/inspect-release-deps.sh" ] ||
+  fail "scripts/inspect-release-deps.sh is missing or not executable"
+
+# Run the runtime dependency tests (uses fake-readelf fixtures; no container needed).
+./scripts/test-runtime-deps.sh ||
+  fail "runtime dependency inspection tests failed"
+
+# Validate that the runtime-dependencies documentation exists.
+[ -f "docs/runtime-dependencies.md" ] ||
+  fail "docs/runtime-dependencies.md is missing"
+grep -q "glibc" "docs/runtime-dependencies.md" ||
+  fail "docs/runtime-dependencies.md must document the glibc baseline"
+grep -q "inspect-release-deps.sh" "docs/runtime-dependencies.md" ||
+  fail "docs/runtime-dependencies.md must reference the inspection command"
 
 echo "release builder definitions are pinned and valid"

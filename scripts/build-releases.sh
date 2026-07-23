@@ -4,7 +4,8 @@ set -eu
 
 architecture="${1:-}"
 container_engine="${CONTAINER_ENGINE:-docker}"
-lock_file="$(dirname "$0")/../release/builders.lock"
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+lock_file="${script_dir}/../release/builders.lock"
 
 # shellcheck disable=SC1090
 . "${lock_file}"
@@ -31,7 +32,7 @@ require_clean_checkout() {
 
 require_clean_checkout
 
-"$(dirname "$0")/check-builder-capability.sh" "${architecture}"
+"${script_dir}/check-builder-capability.sh" "${architecture}"
 require_clean_checkout
 
 builder_image="docker.io/hexpm/elixir:${BUILDER_TAG}@${builder_digest}"
@@ -62,3 +63,25 @@ echo "Building node and coordinator releases for ${target_platform}"
     scripts/smoke-releases.sh prod "${MIX_BUILD_PATH}"'
 
 echo "Built ${target_platform} releases under ${build_path}/rel"
+
+# Inspect runtime dependencies for each release.
+# Run inside the pinned builder container using the target platform so that
+# ELF headers are read natively (important for arm64 on an amd64 host).
+echo ""
+echo "Inspecting runtime dependencies for ${target_platform} releases"
+for release in exocomp_node exocomp_coordinator; do
+  release_dir="${build_path}/rel/${release}"
+  echo "  ${release}: ${release_dir}"
+  "${container_engine}" run \
+    --rm \
+    --platform "${target_platform}" \
+    --pull never \
+    --user "$(id -u):$(id -g)" \
+    --volume "$(pwd):/workspace" \
+    --workdir /workspace \
+    "${builder_image}" \
+    sh -c "READELF=readelf scripts/inspect-release-deps.sh ${architecture} /workspace/${release_dir}"
+done
+
+echo ""
+echo "All runtime dependency checks passed for ${target_platform}."

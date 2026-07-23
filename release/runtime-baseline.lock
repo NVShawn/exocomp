@@ -1,0 +1,25 @@
+# Declared host-provided shared libraries for Exocomp OTP releases.
+#
+# Every entry here is a shared library that MUST be present on the target Linux
+# host.  Libraries inside the release archive (shipped in the ERTS erts-*/lib/
+# or in a NIF priv/ directory) are NOT listed here — they are self-contained.
+#
+# Format: one SONAME per line, no version suffix (the inspection script matches
+# the base name).  Lines beginning with '#' and blank lines are ignored.
+#
+# Baseline: glibc 2.36 (Debian 12 bookworm) — keep in sync with
+# GLIBC_BASELINE in release/builders.lock.
+#
+# When adding a new host library, also update docs/runtime-dependencies.md.
+
+linux-vdso.so.1
+ld-linux-x86-64.so.2
+ld-linux-aarch64.so.1
+libm.so.6
+libc.so.6
+libpthread.so.0
+libdl.so.2
+librt.so.1
+libutil.so.1
+libgcc_s.so.1
+libstdc++.so.6

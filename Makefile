@@ -26,7 +26,8 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	$(DEV_BUILDER_IMAGE)
 
 .PHONY: help init init-amd64 init-arm64 fmt fmt-check build build-amd64 \
-	build-arm64 test test-builders lint clean
+	build-arm64 test test-builders test-deps inspect-deps-amd64 \
+	inspect-deps-arm64 lint clean
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -58,14 +59,25 @@ build-amd64: ## Build clean Linux amd64 node and coordinator releases.
 build-arm64: ## Build clean Linux arm64 node and coordinator releases.
 	./scripts/build-releases.sh arm64
 
+inspect-deps-amd64: ## Inspect runtime deps for a built amd64 release. Set RELEASE=exocomp_node or exocomp_coordinator.
+	@test -n "$(RELEASE)" || { echo "RELEASE is required; e.g. make inspect-deps-amd64 RELEASE=exocomp_node" >&2; exit 2; }
+	./scripts/inspect-release-deps.sh amd64 _build/release/amd64/rel/$(RELEASE)
+
+inspect-deps-arm64: ## Inspect runtime deps for a built arm64 release. Set RELEASE=exocomp_node or exocomp_coordinator.
+	@test -n "$(RELEASE)" || { echo "RELEASE is required; e.g. make inspect-deps-arm64 RELEASE=exocomp_node" >&2; exit 2; }
+	./scripts/inspect-release-deps.sh arm64 _build/release/arm64/rel/$(RELEASE)
+
 test: test-builders ## Run the test suite.
 	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix test && \
 		MIX_ENV=test mix release exocomp_node --overwrite && \
 		MIX_ENV=test mix release exocomp_coordinator --overwrite && \
 		scripts/smoke-releases.sh test'
 
-test-builders: ## Validate immutable multi-architecture builder definitions.
+test-builders: ## Validate immutable multi-architecture builder definitions and runtime dep inspection.
 	./scripts/test-release-builders.sh
+
+test-deps: ## Run runtime dependency inspection tests (no container required).
+	./scripts/test-runtime-deps.sh
 
 lint: test-builders ## Run static analysis / linters.
 	$(CONTAINER_RUN) sh -c 'mix format --check-formatted && \
