@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: Done
+status: In Progress
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -11,25 +11,24 @@ blocked_by:
 - EXOCOMP-42
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:17:07.256084Z'
+updated_at: '2026-07-23T23:17:27.813805Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 52f1d2f0-03a3-48c7-823d-566b52d2ef3a
+oompah.agent_run_id: 0bc64c04-e17c-4fac-b761-ab53d827f251
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 1125239
-  total_output_tokens: 6758
+  total_input_tokens: 1125328
+  total_output_tokens: 65588
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1125239
-      output_tokens: 6758
+      input_tokens: 1125328
+      output_tokens: 65588
       cost_usd: 0.0
   runs:
   - profile: default
@@ -44,6 +43,12 @@ oompah.task_costs:
     output_tokens: 3478
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:51:12.903265+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 89
+    output_tokens: 58830
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T23:17:18.323183+00:00'
 ---
 ## Summary
 
@@ -259,5 +264,46 @@ author: oompah
 created: 2026-07-23 23:17
 ---
 Implemented hardened installers and uninstallers: install.sh (8-phase, preflight validation, versioned dirs, atomic symlink, sudoers, hardened systemd units, manifest), uninstall.sh (scoped, preserves PKI/config/audit by default), 2 hardened systemd unit files (16 security directives each), 2 config templates, 50 passing tests. All acceptance criteria met.
+---
+author: oompah
+created: 2026-07-23 23:17
+---
+Agent completed successfully in 1534s (58919 tokens)
+---
+author: oompah
+created: 2026-07-23 23:17
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
+- Turns: 183, Tool calls: 105
+- Tokens: 89 in / 58.8K out [58.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 25m 34s
+- Log: EXOCOMP-43__20260723T225148Z.jsonl
+---
+author: oompah
+created: 2026-07-23 23:17
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-6` has 1 commit not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 1
+    3036c94 EXOCOMP-43: implement hardened installers and uninstallers
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-6 --title "EXOCOMP-43: Implement hardened installers and uninstallers" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-23 23:17
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 23:17
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
