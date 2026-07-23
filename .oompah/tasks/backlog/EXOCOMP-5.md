@@ -5,12 +5,18 @@ status: Backlog
 priority: 1
 title: 'M5: Performance and resource analysis'
 parent: null
-children: []
+children:
+- EXOCOMP-35
+- EXOCOMP-36
+- EXOCOMP-37
+- EXOCOMP-38
+- EXOCOMP-39
+- EXOCOMP-40
 blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:11.554597Z'
-updated_at: '2026-07-23T19:08:11.554597Z'
+updated_at: '2026-07-23T19:11:22.435044Z'
 work_branch: null
 target_branch: null
 review_url: null
