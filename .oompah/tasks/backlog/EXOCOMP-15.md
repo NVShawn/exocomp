@@ -6,11 +6,13 @@ priority: 1
 title: Implement DNS discovery and concurrent node polling
 parent: EXOCOMP-2
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-12
+- EXOCOMP-14
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-23T19:09:29.099203Z'
+updated_at: '2026-07-23T19:12:41.892588Z'
 work_branch: null
 target_branch: null
 review_url: null

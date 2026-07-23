@@ -6,11 +6,12 @@ priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T19:08:53.749492Z'
+updated_at: '2026-07-23T19:12:30.920647Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,13 @@ priority: 1
 title: Verify approvals and prevent replay on nodes
 parent: EXOCOMP-3
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-17
+- EXOCOMP-23
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-23T19:10:10.424356Z'
+updated_at: '2026-07-23T19:12:59.392382Z'
 work_branch: null
 target_branch: null
 review_url: null

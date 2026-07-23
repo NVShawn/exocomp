@@ -6,11 +6,12 @@ priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-21
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T19:10:08.344504Z'
+updated_at: '2026-07-23T19:12:55.790445Z'
 work_branch: null
 target_branch: null
 review_url: null

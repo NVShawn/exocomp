@@ -6,11 +6,12 @@ priority: 1
 title: Implement node enrollment and certificate renewal
 parent: EXOCOMP-2
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-16
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-23T19:09:30.784524Z'
+updated_at: '2026-07-23T19:12:44.833448Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,13 @@ priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-16
+- EXOCOMP-21
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-23T19:10:09.330640Z'
+updated_at: '2026-07-23T19:12:57.669989Z'
 work_branch: null
 target_branch: null
 review_url: null

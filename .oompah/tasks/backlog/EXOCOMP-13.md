@@ -6,11 +6,12 @@ priority: 1
 title: Verify the M1 node-agent milestone
 parent: EXOCOMP-1
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-12
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-23T19:08:57.920933Z'
+updated_at: '2026-07-23T19:12:37.899712Z'
 work_branch: null
 target_branch: null
 review_url: null

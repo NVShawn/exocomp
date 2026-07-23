@@ -6,11 +6,13 @@ priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-15
+- EXOCOMP-18
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-23T19:09:32.508992Z'
+updated_at: '2026-07-23T19:12:48.743133Z'
 work_branch: null
 target_branch: null
 review_url: null

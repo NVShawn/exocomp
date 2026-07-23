@@ -6,11 +6,16 @@ priority: 1
 title: Verify the M2 coordinator milestone
 parent: EXOCOMP-2
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-13
+- EXOCOMP-15
+- EXOCOMP-17
+- EXOCOMP-18
+- EXOCOMP-19
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-23T19:09:33.364917Z'
+updated_at: '2026-07-23T19:12:53.812380Z'
 work_branch: null
 target_branch: null
 review_url: null

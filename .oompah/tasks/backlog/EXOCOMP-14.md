@@ -6,11 +6,13 @@ priority: 1
 title: Scaffold coordinator inventory, registry, and audit
 parent: EXOCOMP-2
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
+- EXOCOMP-8
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-23T19:09:28.257166Z'
+updated_at: '2026-07-23T19:12:39.833198Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,12 @@ priority: 1
 title: Supervise llama.cpp and validate structured proposals
 parent: EXOCOMP-1
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-23T19:08:56.242530Z'
+updated_at: '2026-07-23T19:12:33.380292Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,15 @@ priority: 1
 title: Expose diagnostic-only node A2A service
 parent: EXOCOMP-1
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-8
+- EXOCOMP-9
+- EXOCOMP-10
+- EXOCOMP-11
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-23T19:08:57.046675Z'
+updated_at: '2026-07-23T19:12:36.878758Z'
 work_branch: null
 target_branch: null
 review_url: null

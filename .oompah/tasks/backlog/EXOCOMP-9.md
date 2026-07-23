@@ -6,11 +6,12 @@ priority: 1
 title: Implement node configuration, identity, and mTLS startup
 parent: EXOCOMP-1
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-7
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T19:08:54.530229Z'
+updated_at: '2026-07-23T19:12:31.712950Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,12 @@ priority: 1
 title: Implement unprivileged systemd executor and exact sudoers policy
 parent: EXOCOMP-3
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-21
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T19:10:11.402376Z'
+updated_at: '2026-07-23T19:13:00.230862Z'
 work_branch: null
 target_branch: null
 review_url: null
