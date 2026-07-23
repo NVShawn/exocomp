@@ -5,12 +5,19 @@ status: Backlog
 priority: 1
 title: 'M2: Coordinator, discovery, and node enrollment'
 parent: null
-children: []
+children:
+- EXOCOMP-14
+- EXOCOMP-15
+- EXOCOMP-16
+- EXOCOMP-17
+- EXOCOMP-18
+- EXOCOMP-19
+- EXOCOMP-20
 blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-23T19:08:09.243476Z'
+updated_at: '2026-07-23T19:09:33.386078Z'
 work_branch: null
 target_branch: null
 review_url: null
