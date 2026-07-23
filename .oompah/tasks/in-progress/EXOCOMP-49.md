@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T21:35:48.849782Z'
+updated_at: '2026-07-23T21:35:56.332040Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -233,5 +233,10 @@ author: oompah
 created: 2026-07-23 21:35
 ---
 Implementation: The EXOCOMP-49 branch delivers: (1) Exocomp.A2A.Codec with encode/1 and decode/2 for all A2A 1.0 types (TextPart, DataPart, FilePart, FileContent, Message, Task, TaskStatus, Artifact, AgentCard, AgentCapabilities, AgentSkill, all Error types). Keys are camelCase strings; nil fields omitted. Part dispatch on 'type' field; unknown types return UnsupportedOperationError. TaskState string-to-atom mapping with error for unrecognized states. (2) Exocomp.A2A.Version with supported_versions/0, check_version/1, parse_content_type/1. (3) Jason ~> 1.4 added to apps/exocomp_core/mix.exs. (4) Makefile updated to bootstrap Hex non-interactively before mix commands (required since Jason is a hex dependency and the builder container doesn't ship Hex).
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Verification: All quality gates pass on EXOCOMP-49 branch. make test: 77 passed (0 failed) including all codec round-trip tests, missing-field error tests, unknown Part type tests, and Version check tests. make lint: clean compile with --warnings-as-errors. make fmt-check: formatting valid.
 ---
 <!-- COMMENTS:END -->
