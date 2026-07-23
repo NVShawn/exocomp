@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T21:21:34.022630Z'
+updated_at: '2026-07-23T21:30:28.370882Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -257,5 +257,24 @@ author: oompah
 created: 2026-07-23 21:21
 ---
 Implementation: Created apps/bench with all required files. Key decisions: (1) Used comprehensive Bench.Config implementation (parse/1 and validate/1 with full field validation) rather than empty NimbleOptions skeleton — this is equivalent to 'NimbleOptions or similar' as the task description allows; nimble_options is still in mix.exs deps for EXOCOMP-52. (2) Updated Makefile to set MIX_HOME=/workspace/.mix-home and HEX_HOME=/workspace/.hex-home in CONTAINER_RUN so containerised mix deps.get/compile work without root. (3) Established full directory layout: lib/bench/, config.ex, sample.ex, driver.ex, sampler/behaviour.ex, report/summary.ex. (4) 21 bench tests + 4 existing tests all pass. make lint, make fmt-check, and make test all exit 0.
+---
+author: oompah
+created: 2026-07-23 21:30
+---
+Verification: All quality gates pass on EXOCOMP-50 branch (812a83d).
+
+make test: 21 bench tests + 4 existing umbrella tests = 25 passed, 0 failed
+make lint: format check + compile --warnings-as-errors → exit 0
+make fmt: all files formatted → exit 0
+
+Test coverage:
+- Bench.ApplicationTest: OTP application starts with named supervisor
+- Bench.ConfigTest: parse/1 valid/invalid inputs, validate/1 struct and map
+- Bench.SampleTest: JSON encoding/decoding round-trip
+- Bench.DriverTest: run/1 with valid opts, missing fields, unknown opts, bad version
+- Bench.Sampler.BehaviourTest: module defined, all 3 callbacks present
+- Bench.Report.SummaryTest: JSON serialisation
+
+Branch EXOCOMP-50 is at commit 812a83d and pushed to origin/EXOCOMP-50.
 ---
 <!-- COMMENTS:END -->
