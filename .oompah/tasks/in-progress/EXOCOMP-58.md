@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T22:24:55.258191Z'
+updated_at: '2026-07-23T22:25:15.967947Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -407,5 +407,10 @@ author: oompah
 created: 2026-07-23 22:24
 ---
 Implementation: Created the following files on branch EXOCOMP-58: (1) apps/exocomp_node/lib/exocomp/node/redact.ex - Exocomp.Node.Redact helper that identifies sensitive fields (tls.node_key, tls.node_cert, tls.ca_cert) and provides redact_value/2; (2) apps/exocomp_node/lib/exocomp/node/config.ex - Exocomp.Node.Config with load/1, struct with TLS/Listen sub-structs, version check, required field validation, type checking, env var overrides, redaction-safe error messages; (3) test/exocomp/node/config_test.exs - 13 tests covering all required cases. Also updated: mix.exs (added jason ~> 1.4), Makefile (rootless Docker detection + DEPS_BOOTSTRAP for hex/dep fetching), formatted fixture_test.exs. Both make test and make lint pass.
+---
+author: oompah
+created: 2026-07-23 22:25
+---
+Verification: make test passes (17/17 tests: 14 exocomp_node + 2 exocomp_core + 1 exocomp_coordinator). make lint passes (format check + warnings-as-errors compile). All 7 required test cases implemented and passing: enoent, json_parse, unsupported_version, missing_fields, valid config load, EXOCOMP_NODE_ID env override, tls.node_key redaction. Code committed and pushed to origin/EXOCOMP-58.
 ---
 <!-- COMMENTS:END -->
