@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -9,16 +9,15 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T21:35:20.537012Z'
+updated_at: '2026-07-23T21:43:31.491280Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 3077e40f-2e40-4830-9041-08aa717580aa
+oompah.agent_run_id: 811d4039-2008-4851-91b2-6d68ca4789a8
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
   total_input_tokens: 24
@@ -106,5 +105,15 @@ author: oompah
 created: 2026-07-23 21:35
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 21:43
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:43
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
