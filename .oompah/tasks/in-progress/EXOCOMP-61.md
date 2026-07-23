@@ -8,10 +8,11 @@ parent: EXOCOMP-11
 children: []
 blocked_by:
 - EXOCOMP-7
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:11:40.301924Z'
+updated_at: '2026-07-23T21:14:00.697441Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -82,5 +83,41 @@ author: oompah
 created: 2026-07-23 21:11
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:13
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-61 is a unique task with no overlapping scope in the existing task graph.
+
+**Scope searched:**
+- All tasks in .oompah/tasks/ (open, in-progress, done, merged, archived, backlog, proposed)
+- Searched for keywords: proposal_schema, ProposalSchema, proposal schema, versioned proposal, schema validate
+- Reviewed plans/milestone-1-node-agent.md, plans/exocomp.md
+
+**Closest candidates reviewed and ruled out:**
+- EXOCOMP-52 ('Implement versioned benchmark configuration schema'): concerns Bench.Config in apps/bench (benchmark harness) — completely different domain, unrelated to proposal validation
+- EXOCOMP-21 ('Define action, evidence, risk, and data-classification types'): M3-scope, covers a broader JSON schema set for policy types (action definitions, evidence, risk ranks, data classification) — a different milestone and significantly wider scope than EXOCOMP-61's M1 llama-server output validation
+- EXOCOMP-63 ('Implement ProposalClient inference HTTP client'): CONSUMES ProposalSchema.validate/1 (depends on EXOCOMP-61) but does not define the schema — complementary, not duplicate
+- EXOCOMP-27 ('Integrate remediation lifecycle with A2A tasks and audit'): uses structured proposals in M3 orchestration, does not define a proposal schema module
+- EXOCOMP-31 ('Implement automatic recovery of an already-failed service'): M4-level recovery flow using proposals, does not implement a schema module
+
+**Evidence of uniqueness:**
+- The EXOCOMP-11 epic planner explicitly created EXOCOMP-61 as a distinct child for the foundational ProposalSchema module
+- EXOCOMP-61 has a unique dependency position: blocked by EXOCOMP-7 (umbrella scaffold) and blocks EXOCOMP-63 (ProposalClient)
+- No existing task in any state folder contains 'proposal_schema' or 'ProposalSchema' in its content (grep confirmed)
+- The closed-list proposal IDs (:restart_service, :clear_disk_space, :rotate_logs, :increase_swap) and M1-scoped validate/1 function are not defined anywhere in the codebase yet
+
+**Remaining work:**
+1. Create apps/exocomp_node/lib/exocomp_node/proposal_schema.ex with: @schema_version, @valid_proposal_ids, validate/1 with all required error variants
+2. Create apps/exocomp_node/test/exocomp_node/proposal_schema_test.exs with full unit test coverage
+3. Run make test and make lint from umbrella root
+
+**Relevant files:**
+- plans/milestone-1-node-agent.md (Inference Integration + Failure and Security Behavior sections)
+- apps/exocomp_node/ (umbrella app scaffold from EXOCOMP-7, already merged to main)
+
+**Recommended next focus:** feature — implement ExocompNode.ProposalSchema in Elixir
 ---
 <!-- COMMENTS:END -->
