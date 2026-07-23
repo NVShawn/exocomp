@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:29:07.737270Z'
+updated_at: '2026-07-23T22:32:42.801285Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -237,5 +237,10 @@ author: oompah
 created: 2026-07-23 22:29
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-23 22:32
+---
+Understanding: Implementing Bench.Sampler.Beam (a GenServer in apps/bench) that polls BEAM runtime metrics at a configurable interval and accumulates Bench.Sample entries. Metrics: scheduler utilisation (wall-time diff), process count, run queue length, memory categories, mailbox depths for named processes, and task-registry size (soft dependency on Exocomp.Registry). Public API: start_link/1, stop/1, flush/1. Also implementing Bench.Sampler.Behaviour callbacks. Writing tests per the issue: starts/stops cleanly, expected metric names, mailbox depth tracking, scheduler utilisation range [0.0, 1.0]. Working on the epic-EXOCOMP-35 shared branch as directed by previous handoff comments.
 ---
 <!-- COMMENTS:END -->
