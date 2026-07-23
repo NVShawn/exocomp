@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:33:51.038561Z'
+updated_at: '2026-07-23T20:36:25.469032Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -160,5 +160,10 @@ author: oompah
 created: 2026-07-23 20:33
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 20:36
+---
+Understanding (Epic Planner): EXOCOMP-35 is a large feature task building the benchmark harness from scratch. It is a child of EXOCOMP-5 (M5 Performance epic) and currently has no children. The blocker EXOCOMP-7 (Elixir umbrella scaffold) is Done, so development can begin. The scope spans ten distinct subsystems: app scaffold, config/schema validation, host profiles, raw sample data model, BEAM sampler, host/cgroup sampler, summary generation, regression gate, benchmark execution driver, and harness self-tests. I will decompose these into 10 child tasks with appropriate dependencies, then set EXOCOMP-35 to Backlog.
 ---
 <!-- COMMENTS:END -->
