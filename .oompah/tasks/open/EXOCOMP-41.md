@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: In Progress
+status: Open
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-23T19:20:13.259137Z'
+updated_at: '2026-07-23T19:21:14.997945Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null

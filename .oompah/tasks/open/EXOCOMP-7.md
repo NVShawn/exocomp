@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-7
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Scaffold the Elixir umbrella and quality gates
 parent: EXOCOMP-1
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-23T19:20:10.509058Z'
+updated_at: '2026-07-23T19:21:15.626597Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
