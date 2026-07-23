@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-66
 labels:
 - focus-complete:duplicate_detector
-- needs:devops
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:35:08.555380Z'
+updated_at: '2026-07-23T21:35:25.240607Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: fa759aac-8dc3-482b-9a16-f0c11b465352
+oompah.agent_run_id: e5c2a916-31a5-407f-aeba-838753a38921
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
   total_input_tokens: 25
@@ -123,5 +122,15 @@ author: oompah
 created: 2026-07-23 21:35
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->

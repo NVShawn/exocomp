@@ -7,10 +7,12 @@ title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T21:32:56.121464Z'
+updated_at: '2026-07-23T21:35:29.154850Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -86,5 +88,49 @@ author: oompah
 created: 2026-07-23 21:32
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate found. EXOCOMP-53 is a unique task with no overlapping scope in the project.
+
+**Evidence reviewed:**
+- EXOCOMP-35 (parent): 'Build the reproducible benchmark harness' — lists EXOCOMP-53 as a distinct child for host profiles
+- EXOCOMP-50 (Done): Scaffold apps/bench — creates directory structure but does NOT implement Bench.HostProfile
+- EXOCOMP-52 (Done): Implements Bench.Config schema — config validation, completely different scope
+- EXOCOMP-54 (In Progress): Raw sample data model — different scope
+- EXOCOMP-55/56 (Open): BEAM and host samplers — different scope
+- EXOCOMP-36–40: Workload tasks that USE the harness, not build it
+- Searched .oompah/tasks, plans, README: no other task covers Bench.HostProfile, amd64-ci.toml, arm64-ci.toml, or detect/load/compatible? functions
+
+**Key implementation context for the next agent:**
+
+Branch situation: Current worktree is epic-EXOCOMP-35 at 182db99. Must create branch EXOCOMP-53 based on EXOCOMP-50 (812a83d) which has the apps/bench scaffold. EXOCOMP-52 (7ccc5e5) also has the scaffold separately. Pattern used by EXOCOMP-52: git checkout -b EXOCOMP-53 EXOCOMP-50 (or EXOCOMP-7 as base), then create branch and implement.
+
+Files to create:
+- apps/bench/lib/bench/host_profile.ex — Bench.HostProfile struct + detect/0, load/1, compatible?/2
+- apps/bench/priv/bench/profiles/amd64-ci.toml — reference amd64 CI profile
+- apps/bench/priv/bench/profiles/arm64-ci.toml — reference arm64 CI profile
+- apps/bench/test/bench/host_profile_test.exs — test file
+
+Required test cases (from task description):
+- detect/0 returns a well-formed struct
+- compatible?/2 returns false for amd64 vs arm64
+- incompatible profiles produce descriptive errors
+- load/1 with missing profile file returns {:error, :not_found}
+
+Profile struct fields (from task description + milestone-5-performance.md):
+architecture, cpu_model, cpu_count, ram_bytes, kernel_version, linux_distribution, libc_version, governor (power/performance), container_or_vm (boundary)
+
+Makefile targets: make test, make lint, make fmt-check
+
+**Risks:**
+- EXOCOMP-52 and EXOCOMP-50 both scaffold apps/bench independently; EXOCOMP-53 should pick EXOCOMP-50 as base (canonical scaffold) or EXOCOMP-7 and add its own scaffold
+- TOML parsing in Elixir requires a dependency (toml_ex or similar) or native Elixir config parser — check what's available or use a simple string format
+- detect/0 reads /proc/cpuinfo, /proc/meminfo, uname, /etc/os-release — needs Linux-specific implementation
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->

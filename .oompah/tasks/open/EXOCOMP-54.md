@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T21:35:03.833587Z'
+updated_at: '2026-07-23T21:35:20.537012Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -20,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 3077e40f-2e40-4830-9041-08aa717580aa
 oompah.work_branch: epic-EXOCOMP-5
+oompah.task_costs:
+  total_input_tokens: 24
+  total_output_tokens: 5909
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 24
+      output_tokens: 5909
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 24
+    output_tokens: 5909
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:35:16.785195+00:00'
 ---
 ## Summary
 
@@ -70,5 +86,25 @@ Focus handoff: duplicate_detector
 - Branch: should be built on top of EXOCOMP-52 or EXOCOMP-50 (apps/bench already scaffolded there) or re-scaffold bench if needed
 
 **Recommended next focus:** feature
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Agent completed successfully in 145s (5933 tokens)
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 56, Tool calls: 34
+- Tokens: 24 in / 5.9K out [5.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 25s
+- Log: EXOCOMP-54__20260723T213254Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
