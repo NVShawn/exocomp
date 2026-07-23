@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T22:07:49.050457Z'
+updated_at: '2026-07-23T22:26:10.534961Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -274,5 +274,58 @@ author: oompah
 created: 2026-07-23 22:07
 ---
 Discovery: Found the codebase with all dependencies in place after rebasing onto origin/EXOCOMP-63. Key findings: (1) LlamaServer uses raw TCP for health checks on its configured port_number, not the port the OS process listens on - this means FakeLlamaServer just needs to listen on the same port as llama_port config. (2) ProposalClient uses :httpc for completions requests. (3) No external HTTP framework deps (no Plug/Bandit/Cowboy) - need raw TCP server. (4) llama-server-stub is 'exec sleep 5', so LlamaServer tests need to account for 5-second stub lifetime. (5) Current 37 tests all pass. Implementation plan: create FakeLlamaServer TCP HTTP server helper, expand llama_server_test.exs (5 scenarios), expand proposal_client_test.exs (6 scenarios).
+---
+author: oompah
+created: 2026-07-23 22:25
+---
+Implementation: Created all required test infrastructure and wrote all 11 EXOCOMP-64 test scenarios.
+
+New files:
+- apps/exocomp_node/test/support/fake_llama_server.ex: In-process TCP HTTP server using :gen_tcp, no external deps. Handles /health (health_mode: :ok/:error_503/:timeout) and /v1/chat/completions (completions_mode: :valid_json/:schema_violation/:invalid_json/:error_500/:timeout). Controllable via message-passing.
+- apps/exocomp_node/test/fixtures/llama-server-forever: Long-running stub (sleep 300) for crash/restart tests.
+
+Modified files:
+- llama_server_test.exs: 5 new scenarios + 3 retained smoke tests = 8 tests
+- proposal_client_test.exs: 7 new scenarios + 7 retained tests = 14 tests  
+- test_helper.exs: require support file; ensure :public_key in code path for :httpc in OTP 27+
+
+Key implementation decisions:
+- LlamaServer crash simulation uses System.cmd kill -TERM on OS PID (from Port.info/2) rather than Port.close/1 to avoid port ownership issues
+- Backoff test uses a non-existent executable (never recovers to :ready) so backoff_attempt accumulates and can be measured
+- Output redaction test uses a custom OTP :logger handler that captures raw log events+metadata, allowing verification that raw_model_output: '[REDACTED]' is present in the emitted event metadata
+- FakeLlamaServer accept loop uses 50ms gen_tcp.accept timeout to stay responsive without blocking the GenServer
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+Verification: All tests pass.
+
+Local run (via extracted OTP toolchain):
+- mix test: 52 tests pass (2 exocomp_core + 1 exocomp_coordinator + 49 exocomp_node)
+- make lint: passed (mix format --check-formatted + compile --warnings-as-errors)
+- make fmt-check: passed
+
+Test count breakdown:
+- llama_server_test.exs: 8 tests (3 smoke + 5 new scenarios)
+- proposal_client_test.exs: 14 tests (7 smoke + 7 new scenarios)
+- proposal_schema_test.exs: 23 tests (existing, all still pass)
+- application_test.exs: 1 test (existing)
+
+All 11 EXOCOMP-64 acceptance criteria scenarios have passing tests. Tests use only the in-process FakeLlamaServer — no real llama-server binary.
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+Completion: EXOCOMP-64 delivered. Branch epic-EXOCOMP-11 pushed to origin.
+
+Delivered:
+- FakeLlamaServer in-process TCP HTTP server test helper
+- 5 focused LlamaServer scenarios (startup, readiness timeout, crash+restart, exponential backoff, crash isolation)
+- 6 focused ProposalClient scenarios (valid round-trip, invalid JSON, schema violation, timeout, unavailable model, output redaction)
+- All 11 acceptance criteria scenarios pass
+- make lint and make fmt-check both clean
+- 52 total tests pass (12 net new)
+
+Security: Verified raw model content never appears in log output and raw_model_output: '[REDACTED]' metadata is present in audit log events on both success and error paths.
 ---
 <!-- COMMENTS:END -->

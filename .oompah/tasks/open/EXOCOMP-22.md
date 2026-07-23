@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: Needs Human
+status: Open
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T22:18:29.490428Z'
+updated_at: '2026-07-23T22:26:02.726160Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -168,5 +168,17 @@ author: oompah
 created: 2026-07-23 22:18
 ---
 Agent completed 3 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+[watchdog:stalled_task] Stalled-task watchdog audit (run #7)
+
+**State audited:** `Needs Human`
+**Classification:** `actionable`
+**Action:** `reopen`
+**Evidence:** Last agent comment signals completion without a human question; the Needs Human transition appears accidental.
+
+*This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
 ---
 <!-- COMMENTS:END -->

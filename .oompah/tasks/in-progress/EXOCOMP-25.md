@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:23:56.012545Z'
+updated_at: '2026-07-23T22:25:56.768182Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -158,5 +158,27 @@ author: oompah
 created: 2026-07-23 22:23
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-07-23 22:25
+---
+Understanding: As Security Auditor implementing EXOCOMP-25, I will build the unprivileged systemd executor and sudoers policy engine for exocomp_node. The codebase is an Elixir umbrella project. No executor code exists yet.
+
+Scope:
+1. Action catalog — typed map of action IDs to fixed executable/argv/env/timeout (no shell, no arbitrary commands)
+2. Sudoers generator — render exact per-service and per-action sudoers entries from installed allow-list; no user-controlled input
+3. Restricted executor — argv-based process invocation, bounded output capture, per-target serialization, post-action verification hook
+4. Security invariants tested: shell metacharacter injection, argv injection, env injection, executable path changes, unknown units, timeout, oversized output, sudo denial, concurrent targets, sudoers snapshots
+
+Key security decisions:
+- Service names come ONLY from installed allow-list (config), never from request fields
+- Process invocation uses System.cmd/Port with explicit argv list — no shell expansion
+- Environment is fixed per action definition — no caller-supplied env vars
+- Output capped at configured byte limit; excess causes error result
+- Timeouts enforced via Task.yield with hard kill
+- Sudoers entries name exact executable path, exact args pattern — no wildcards
+- Running account check: verify EUID != 0 at startup
+
+Will implement in apps/exocomp_node/lib/exocomp/node/ with unit tests in apps/exocomp_node/test/.
 ---
 <!-- COMMENTS:END -->

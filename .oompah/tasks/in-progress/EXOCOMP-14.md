@@ -14,7 +14,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-23T22:19:28.627821Z'
+updated_at: '2026-07-23T22:26:13.769710Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -368,5 +368,42 @@ author: oompah
 created: 2026-07-23 22:19
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-23 22:25
+---
+**Understanding:** This is a continuation run. The previous Software Engineer agent already implemented and committed the full EXOCOMP-14 feature on branch EXOCOMP-14. The commit 7ab7dc6 contains all coordinator infrastructure: Inventory GenServer (versioned JSON parsing, atomic replacement, duplicate rejection), ETS-backed Registry, JSON-lines Audit sink with redaction, Health module, and comprehensive tests. The previous orchestrator was checking for commits on epic-EXOCOMP-2 instead of EXOCOMP-14, causing false 'no landing' reports. My role is to verify and close.
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+**Verification:** All quality gates pass on branch EXOCOMP-14 (commit 7ab7dc6):
+
+- make test: 15/15 coordinator tests pass, 2/2 core tests pass, 1/1 node test passes (10 integration excluded — systemd-only)
+- make lint: Zero warnings-as-errors, all 9 coordinator modules compile cleanly
+- make fmt-check: All files properly formatted
+
+Test coverage confirmed for all acceptance criteria:
+- inventory_test: valid load, malformed JSON, duplicate node IDs, duplicate cert identities, unsupported versions, file load, structured status
+- registry_test: get/update node state, invalid state rejection, registry reconstruction after restart
+- audit_test: correlated JSON-lines output, recursive secret redaction, rotation at bound, outage-without-crash, sink retry
+- health_test: structured snapshot for all subsystems
+
+Note: Docker userns remapping requires the apps/exocomp_coordinator dir to be world-writable for test tmp dirs. Tests pass correctly in all cases.
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+**Completion:** EXOCOMP-14 implementation is complete and verified. Delivered on branch EXOCOMP-14 (commit 7ab7dc6):
+
+1. Exocomp.Coordinator.Application — OTP supervisor tree wiring Inventory, Registry, and Audit
+2. Exocomp.Coordinator.Inventory — versioned JSON parsing (OTP :json module), schema validation, duplicate node ID/cert-identity rejection, atomic replacement (prior state retained on any failure), structured error reporting
+3. Exocomp.Coordinator.Registry — ETS-backed node registry with initial_entry, rebuild on inventory load, state update validation, reconstruction after restart via Inventory.current()
+4. Exocomp.Coordinator.Audit — GenServer with JSON-lines sink (bounded, rotating), recursive secret redaction, graceful degradation on sink outage, sink retry, correlated events
+5. Exocomp.Coordinator.Audit.JSONLines — durable append sink with 1-rotation at max_bytes
+6. Exocomp.Coordinator.Health — structured snapshot for all subsystems
+7. Exocomp.Coordinator.Error — structured error type
+
+All acceptance criteria satisfied. Focused tests pass. make test/lint/fmt-check all green.
 ---
 <!-- COMMENTS:END -->
