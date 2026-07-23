@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T22:58:32.331114Z'
+updated_at: '2026-07-23T23:00:40.078312Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -168,5 +168,22 @@ Focus handoff: duplicate_detector
    - Test suite: clean install, repeat install, permissions, service startup, invalid checksum/config, exact privileges, upgrade preparation, default uninstall, explicit system-cache purge, proof user data/non-owned resources remain
 
 4. Recommended next focus: feature (shell scripting + Python test suite)
+---
+author: oompah
+created: 2026-07-23 23:00
+---
+Understanding: Implementing hardened installers and uninstallers for exocomp node/coordinator.
+
+Scope (from milestone-6-release.md, M6-CRIT-4 and M6-CRIT-6):
+- scripts/install.sh: Non-interactive installer with preflight validation, dedicated user/dir setup, versioned install directory, atomic current symlink, config templates, systemd hardening, exact sudoers policy, installed-file manifest
+- scripts/uninstall.sh: Scoped uninstaller with purge categories; default preserves config/PKI/audit/execution state
+- release/node/exocomp-node.service: Hardened systemd unit (NoNewPrivileges, ProtectSystem=strict, CapabilityBoundingSet=, etc.)
+- release/coordinator/exocomp-coordinator.service: Same for coordinator
+- release/templates/: node.json and coordinator.json config templates
+- test/installer/test_installer.py: Tests for clean install, repeat install, permissions, invalid checksums/config, sudoers content, default uninstall, system-cache purge, user data preservation
+
+Tests will use EXOCOMP_ROOT env var to redirect paths for root-free CI testing. Systemd-dependent tests are marked and skipped when not in a systemd environment.
+
+Prerequisite EXOCOMP-25 (executor/sudoers Elixir modules) is Done on origin/EXOCOMP-25 but not yet merged to main. The installer generates sudoers entries directly in bash (same format as the Elixir module) so no runtime dependency.
 ---
 <!-- COMMENTS:END -->
