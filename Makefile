@@ -12,10 +12,14 @@ OTP_VERSION := 28.5.0.3
 ALPINE_VERSION := 3.24.1
 BUILDER_IMAGE := docker.io/hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-alpine-$(ALPINE_VERSION)@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6
 CONTAINER_ENGINE ?= docker
+# MIX_HOME and HEX_HOME are pinned inside /workspace so the container's
+# unprivileged user can write package archives without needing $HOME access.
 CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--user "$$(id -u):$$(id -g)" \
 	--env ELIXIR_VERSION=$(ELIXIR_VERSION) \
 	--env OTP_VERSION=$(OTP_VERSION) \
+	--env MIX_HOME=/workspace/.mix-home \
+	--env HEX_HOME=/workspace/.hex-home \
 	--volume "$(CURDIR):/workspace" \
 	--workdir /workspace \
 	$(BUILDER_IMAGE)
@@ -39,18 +43,21 @@ fmt-check: ## Check formatting without modifying files.
 
 build: ## Build the project.
 	$(CONTAINER_RUN) sh -c 'scripts/verify-toolchain.sh && \
+		mix deps.get && \
 		mix compile --warnings-as-errors && \
 		MIX_ENV=prod mix release exocomp_node --overwrite && \
 		MIX_ENV=prod mix release exocomp_coordinator --overwrite'
 
 test: ## Run the test suite.
-	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix test && \
+	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix deps.get && \
+		MIX_ENV=test mix test && \
 		MIX_ENV=test mix release exocomp_node --overwrite && \
 		MIX_ENV=test mix release exocomp_coordinator --overwrite && \
 		scripts/smoke-releases.sh test'
 
 lint: ## Run static analysis / linters.
-	$(CONTAINER_RUN) sh -c 'mix format --check-formatted && \
+	$(CONTAINER_RUN) sh -c 'mix deps.get && \
+		mix format --check-formatted && \
 		MIX_ENV=test mix compile --force --warnings-as-errors'
 
 clean: ## Remove build artifacts.
