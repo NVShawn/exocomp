@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:38:53.311126Z'
+updated_at: '2026-07-23T21:44:42.481945Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -199,5 +199,20 @@ author: oompah
 created: 2026-07-23 21:38
 ---
 Focus: Refactoring Specialist
+---
+author: oompah
+created: 2026-07-23 21:44
+---
+Understanding: This task requires writing 10 ExUnit integration test cases for the exocomp-fixture systemd service (from EXOCOMP-69/70). The previous agent dispatches were duplicate investigators who confirmed no duplicate exists; now I need to actually write the tests.
+
+Plan:
+1. Create EXOCOMP-71 branch from current HEAD (epic-EXOCOMP-29 = main)
+2. Cherry-pick EXOCOMP-70 commit (a93685d) to include install.sh/cleanup.sh/service file
+3. Write apps/exocomp_node/test/integration/fixture_test.exs with all 10 test cases tagged @moduletag :integration and @moduletag :systemd
+4. Update apps/exocomp_node/test/test_helper.exs to exclude integration tags by default
+5. Add fixture-install, fixture-cleanup, and test-integration Makefile targets
+6. Commit and push EXOCOMP-71 branch
+
+Key constraints: tests require root + systemd, use System.cmd for systemctl/curl/bash calls, no extra Elixir deps needed. Tag filter ensures standard CI is unaffected.
 ---
 <!-- COMMENTS:END -->
