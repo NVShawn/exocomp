@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:26:09.491069Z'
+updated_at: '2026-07-23T21:26:18.810435Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 4cf18697-7b63-4cd1-be0d-b52712b073f0
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 2217032
-  total_output_tokens: 26446
+  total_input_tokens: 2217082
+  total_output_tokens: 27874
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 2217032
-      output_tokens: 26446
+      input_tokens: 2217082
+      output_tokens: 27874
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 16142
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:24:00.061338+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 50
+    output_tokens: 1428
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:26:17.629462+00:00'
 ---
 ## Summary
 
@@ -250,5 +256,15 @@ author: oompah
 created: 2026-07-23 21:26
 ---
 Implemented digest-pinned amd64/arm64 OTP release builders on glibc (Debian 12) baseline. Added immutable builders.lock, build-amd64/arm64 Make targets, capability check with QEMU detection, clean-checkout enforcing release script, glibc/toolchain verification, static validation tests, and updated docs. All quality gates pass.
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 0, Tool calls: 28
+- Tokens: 50 in / 1.4K out [1.5K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 2s
+- Log: EXOCOMP-65__20260723T212417Z.jsonl
 ---
 <!-- COMMENTS:END -->

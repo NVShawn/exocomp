@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: Done
+status: Merged
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:26:15.156531Z'
+updated_at: '2026-07-23T21:26:34.838574Z'
 work_branch: EXOCOMP-72
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/3
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: d6ad4144-c584-4fec-ab4a-b04d2699eba6
 oompah.work_branch: EXOCOMP-72
 oompah.task_costs:
-  total_input_tokens: 75
-  total_output_tokens: 10295
+  total_input_tokens: 103
+  total_output_tokens: 10791
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 75
-      output_tokens: 10295
+      input_tokens: 103
+      output_tokens: 10791
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 8719
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:19:29.016961+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 28
+    output_tokens: 496
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:26:23.178771+00:00'
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/3
 oompah.review_number: '3'
 oompah.target_branch: main
@@ -239,5 +245,20 @@ All work was delivered by the previous agent run:
 - Committed and pushed to origin/EXOCOMP-72
 
 This run opened PR #3 (https://github.com/NVShawn/exocomp/pull/3) targeting main, which was the missing step that caused the previous close to be refused. Task is now ready to close.
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+Created docs/testing-systemd-fixture.md covering all 6 required areas (why CI containers fail, supported environments with setup steps, running tests, verification, cleanup). Added pointers in README.md and docs/README.md. Committed, pushed, and opened PR #3 targeting main.
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 10
+- Tokens: 28 in / 496 out [524 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 7s
+- Log: EXOCOMP-72__20260723T212517Z.jsonl
 ---
 <!-- COMMENTS:END -->
