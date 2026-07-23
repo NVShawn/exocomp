@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:46:18.920624Z'
+updated_at: '2026-07-23T21:46:30.826653Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: e5c2a916-31a5-407f-aeba-838753a38921
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 25
-  total_output_tokens: 6275
+  total_input_tokens: 113
+  total_output_tokens: 38438
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 25
-      output_tokens: 6275
+      input_tokens: 113
+      output_tokens: 38438
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 6275
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:35:05.395763+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 88
+    output_tokens: 32163
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:46:28.943080+00:00'
 ---
 ## Summary
 
@@ -247,5 +253,20 @@ author: oompah
 created: 2026-07-23 21:46
 ---
 ELF/NIF dependency inspection tooling, glibc 2.36 runtime baseline, dep-report.json, docs/runtime-dependencies.md, and 8 test fixtures delivered. make test-builders passes. Pushed on epic-EXOCOMP-42.
+---
+author: oompah
+created: 2026-07-23 21:46
+---
+Agent completed successfully in 666s (32251 tokens)
+---
+author: oompah
+created: 2026-07-23 21:46
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 158, Tool calls: 111
+- Tokens: 88 in / 32.2K out [32.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 11m 6s
+- Log: EXOCOMP-67__20260723T213525Z.jsonl
 ---
 <!-- COMMENTS:END -->

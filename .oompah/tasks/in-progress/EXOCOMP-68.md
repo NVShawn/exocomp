@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-68
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Qualify multi-architecture OTP releases and reproducibility
 parent: EXOCOMP-42
@@ -12,12 +12,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T21:10:29.207959Z'
-work_branch: null
+updated_at: '2026-07-23T21:46:38.278206Z'
+work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 71783fe5-6e1c-461e-be6b-f544d83aba7f
+oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -29,3 +31,16 @@ Add the release-build test matrix for node and coordinator on linux-amd64 and li
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:46
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:46
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
