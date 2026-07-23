@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: In Progress
+status: Open
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:34:52.925348Z'
+updated_at: '2026-07-23T21:35:08.555380Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -21,6 +21,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: fa759aac-8dc3-482b-9a16-f0c11b465352
 oompah.work_branch: epic-EXOCOMP-6
+oompah.task_costs:
+  total_input_tokens: 25
+  total_output_tokens: 6275
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 25
+      output_tokens: 6275
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 25
+    output_tokens: 6275
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:35:05.395763+00:00'
 ---
 ## Summary
 
@@ -87,5 +103,25 @@ Focus handoff: duplicate_detector
    - Risk: NIFs in Elixir deps (e.g. telemetry_poller or other native deps) must be enumerated from the release lib/ directory
 
 4. **Recommended next focus:** `devops` — this is a build-pipeline and scripting task (inspection scripts, Makefile targets, report attachment to manifests, CI failure gates). Alternatively `feature` if the implementing agent prefers to frame it as a release infrastructure feature.
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Agent completed successfully in 168s (6300 tokens)
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 52, Tool calls: 33
+- Tokens: 25 in / 6.3K out [6.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 48s
+- Log: EXOCOMP-67__20260723T213221Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
