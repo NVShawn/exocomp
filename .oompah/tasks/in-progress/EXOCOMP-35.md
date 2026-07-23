@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-35
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Build the reproducible benchmark harness
 parent: EXOCOMP-5
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T19:17:23.839616Z'
-work_branch: null
+updated_at: '2026-07-23T20:24:32.156232Z'
+work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: a6551a47-ad8b-4d7d-9e27-176431107aba
+oompah.work_branch: epic-EXOCOMP-5
 ---
 ## Summary
 
@@ -47,3 +49,16 @@ Run the focused benchmark tests and all repository Make targets affected by this
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 20:24
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:24
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

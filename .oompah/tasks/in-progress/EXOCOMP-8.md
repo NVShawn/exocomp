@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T19:17:22.406092Z'
-work_branch: null
+updated_at: '2026-07-23T20:24:24.324074Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 364f519a-253b-4a3c-9946-6b1e85412192
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -46,3 +48,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 20:24
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:24
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
