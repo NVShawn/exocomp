@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-23T23:00:29.627353Z'
+updated_at: '2026-07-23T23:00:57.120409Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -224,5 +224,10 @@ author: oompah
 created: 2026-07-23 23:00
 ---
 Understanding: Plan EXOCOMP-16 as three session-sized children covering (1) secure coordinator PKI bootstrap and state validation, (2) node-bound expiring single-use enrollment tokens, and (3) OTP/operator integration plus cross-cutting redaction and focused security verification. I will inspect existing children first, avoid duplicates, order dependencies, then return the parent epic to Backlog.
+---
+author: oompah
+created: 2026-07-23 23:00
+---
+Discovery: EXOCOMP-16 has no existing children. The Bootstrap PKI design requires a root exported for offline storage, an online intermediate, coordinator leaf, separate Ed25519 approval key, protected state, and ten-minute one-use node-bound tokens. EXOCOMP-14 provides the inventory/audit/supervision foundation on origin/EXOCOMP-14 but is Done and not yet on origin/main; child implementations must base on that work. Key boundaries are apps/exocomp_coordinator/lib/exocomp/coordinator, its mix.exs, and focused coordinator tests.
 ---
 <!-- COMMENTS:END -->
