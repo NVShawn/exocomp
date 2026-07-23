@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-23T22:44:34.981590Z'
+updated_at: '2026-07-23T22:45:10.557933Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -230,5 +230,23 @@ Key design decisions:
 - Key paths use absolute paths in tests to work from umbrella root CWD
 - Tests chmod keys to 0o600 in temp copies to avoid mutating committed fixtures
 - format_status/1 redacts node_key from OTP crash state dumps
+---
+author: oompah
+created: 2026-07-23 22:45
+---
+Verification: make test, make lint, make fmt-check all pass.
+
+Test results: 32 passed, 0 failed, 10 excluded (integration/systemd)
+- exocomp_core: 2 passed
+- exocomp_coordinator: 1 passed
+- exocomp_node: 29 passed (14 pre-existing + 9 identity + 9 listener + application)
+
+Acceptance criteria verified:
+✓ Insecure identity (bad key perms, rogue CA, wrong SAN) prevents listener startup
+✓ Valid fixture identity starts the mTLS listener (TCP port opens)
+✓ Secrets and key paths redacted from errors (format_status, redact_reason)
+✓ All focused config and TLS tests pass
+
+Branch EXOCOMP-60 pushed to origin. Ready for review.
 ---
 <!-- COMMENTS:END -->

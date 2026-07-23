@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: Open
+status: In Progress
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -9,27 +9,25 @@ children: []
 blocked_by:
 - EXOCOMP-11
 - EXOCOMP-35
-labels:
-- focus-complete:duplicate_detector
-- needs:chore
+labels: []
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T22:44:51.742251Z'
+updated_at: '2026-07-23T22:45:09.381311Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: d4c332a4-925b-4d31-a9c6-4c36394a7faa
+oompah.agent_run_id: 8baee450-acb9-4f60-8311-28932a2b7001
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 767083
-  total_output_tokens: 3440
+  total_input_tokens: 767099
+  total_output_tokens: 6818
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 767083
-      output_tokens: 3440
+      input_tokens: 767099
+      output_tokens: 6818
       cost_usd: 0.0
   runs:
   - profile: default
@@ -38,6 +36,12 @@ oompah.task_costs:
     output_tokens: 3440
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:42:56.708834+00:00'
+  - profile: quick
+    model: unknown
+    input_tokens: 16
+    output_tokens: 3378
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:44:56.929455+00:00'
 ---
 ## Summary
 
@@ -124,5 +128,35 @@ Closest related items reviewed:
 The 'Benchmark llama.cpp inference and restart behavior' scope (model startup, readiness, RSS, sequential proposal latency, concurrency through saturation, queue depth, timeout, invalid output, crash/restart on amd64/arm64) is unique in this project. No duplicate found.
 
 Handoff: Task needs chore implementation agent to implement the benchmark harness per plans/milestone-5-performance.md §Inference workloads.
+---
+author: oompah
+created: 2026-07-23 22:44
+---
+Agent completed successfully in 103s (3394 tokens)
+---
+author: oompah
+created: 2026-07-23 22:44
+---
+Run #2 [attempt=2, profile=quick, role=fast -> Claude/default]
+- Turns: 26, Tool calls: 20
+- Tokens: 16 in / 3.4K out [3.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 43s
+- Log: EXOCOMP-38__20260723T224315Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:45
+---
+Focus handoff required before leaving `duplicate_detector`. Add a comment headed `Focus handoff: duplicate_detector` with outcome, evidence, remaining work, and next focus.
+---
+author: oompah
+created: 2026-07-23 22:45
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 22:45
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
