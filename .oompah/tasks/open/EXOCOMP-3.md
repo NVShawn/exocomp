@@ -15,10 +15,11 @@ children:
 - EXOCOMP-27
 - EXOCOMP-28
 blocked_by: []
-labels: []
+labels:
+- epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-07-23T22:51:24.560557Z'
+updated_at: '2026-07-23T23:16:21.029445Z'
 work_branch: null
 target_branch: null
 review_url: null
