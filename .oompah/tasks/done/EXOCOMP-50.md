@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-50
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Scaffold the bench Mix app within the Elixir umbrella
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T21:30:28.370882Z'
+updated_at: '2026-07-23T21:30:43.256537Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -276,5 +276,28 @@ Test coverage:
 - Bench.Report.SummaryTest: JSON serialisation
 
 Branch EXOCOMP-50 is at commit 812a83d and pushed to origin/EXOCOMP-50.
+---
+author: oompah
+created: 2026-07-23 21:30
+---
+Completion: apps/bench scaffolded and verified.
+
+Delivered:
+- apps/bench/mix.exs: OTP application with Jason (~> 1.4) and NimbleOptions (~> 1.1) deps
+- lib/bench.ex: module documentation
+- lib/bench/application.ex: OTP Application with Bench.Supervisor
+- lib/bench/config.ex: versioned config schema, parse/1, validate/1
+- lib/bench/sample.ex: raw sample struct with to_json/1 and from_json/1
+- lib/bench/driver.ex: Bench.Driver.run/1 skeleton
+- lib/bench/sampler/behaviour.ex: Bench.Sampler.Behaviour callbacks
+- lib/bench/report/summary.ex: Bench.Report.Summary.to_json/1 skeleton
+- 6 test files covering all modules above
+- mix.lock with pinned jason 1.4.5 and nimble_options 1.1.1
+- Makefile: add mix deps.get + MIX_HOME/HEX_HOME for containerised builds
+- .gitignore: add /.mix-home/ and /.hex-home/
+
+Note: The comprehensive Config implementation (parse/1 with field validation) is included here rather than as a minimal stub, since a previous agent on EXOCOMP-52 had already written and tested it. EXOCOMP-52 can refine or extend this schema without conflict.
+
+Branch: EXOCOMP-50 at 812a83d (pushed to origin)
 ---
 <!-- COMMENTS:END -->
