@@ -7,10 +7,12 @@ title: Add licensing and open-source governance files
 parent: EXOCOMP-6
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:chore
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-23T19:25:49.353724Z'
+updated_at: '2026-07-23T19:27:34.079108Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -114,5 +116,36 @@ author: oompah
 created: 2026-07-23 19:25
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 19:27
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate found. EXOCOMP-41 is a unique, well-scoped task.
+
+**Evidence reviewed:**
+- EXOCOMP-6 (parent epic): M6 open-source release — confirmed EXOCOMP-41 is a distinct child covering licensing/governance only
+- EXOCOMP-42: OTP release artifacts — distinct scope (build reproducibility, not licensing)
+- EXOCOMP-43: Hardened installers/uninstallers — distinct scope
+- EXOCOMP-44: Offline bundles, SBOMs, provenance — closest to EXOCOMP-41 (both mention 'licenses') but EXOCOMP-44 focuses on bundling/signing artifacts while EXOCOMP-41 focuses on the governance files themselves (LICENSE, NOTICE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, CHANGELOG, release checklist, and automated compliance checks)
+- EXOCOMP-45, EXOCOMP-46, EXOCOMP-47: Documentation and qualification — distinct scope
+- No other tasks in the system mention Apache-2.0 licensing, code of conduct, or security policy
+- Confirmed: no LICENSE, NOTICE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, or CHANGELOG files exist in the repository yet
+
+**Remaining work:** Implement all governance files per the description:
+- Apache-2.0 LICENSE
+- NOTICE files (third-party/runtime/model)
+- CONTRIBUTING.md
+- CODE_OF_CONDUCT.md
+- SECURITY.md (with private vulnerability reporting)
+- CHANGELOG.md / release note template
+- Maintainer release checklist
+- Automated checks: required-file presence, link validation, license-header, dependency-license compatibility, notice inventory
+- Tests for missing/incompatible entries
+
+**Key risk:** The dependency/license compatibility check needs to enumerate all bundled components (llama.cpp, Qwen GGUF model, Elixir/OTP dependencies) — verify each has Apache-2.0-compatible terms.
+
+**Recommended next focus:** chore (governance/compliance file setup with automated checks)
 ---
 <!-- COMMENTS:END -->
