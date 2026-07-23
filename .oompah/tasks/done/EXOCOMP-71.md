@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:48:40.367849Z'
+updated_at: '2026-07-23T21:49:03.124363Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -257,5 +257,38 @@ Files added/modified:
    - Removed duplicate entries introduced by cherry-pick of EXOCOMP-70 commit
 
 Branch also cherry-picked EXOCOMP-70 commit (a93685d) to include install.sh, cleanup.sh, and .service file that the tests depend on.
+---
+author: oompah
+created: 2026-07-23 21:48
+---
+Verification: Standard CI tests pass; integration tests correctly excluded by tag filter.
+
+Verified:
+- make test-fixture-service: 22/22 Python daemon tests PASS (no regressions from Makefile/test_helper changes)
+- git log confirms EXOCOMP-71 branch has 2 new commits on top of main:
+    62d0171  EXOCOMP-70: cherry-pick (install.sh, cleanup.sh, .service)
+    f6bebb2  EXOCOMP-71: integration test suite + Makefile targets
+- make help shows all 3 new targets (fixture-install, fixture-cleanup, test-integration) with no duplicates
+- Integration tests require systemd — they cannot be run in the current environment. They are correctly tagged to be excluded from standard CI.
+
+To run the integration tests (requires privileged container or VM with systemd):
+  make fixture-install   # as root
+  make test-integration
+---
+author: oompah
+created: 2026-07-23 21:48
+---
+Completion: EXOCOMP-71 integration test suite delivered on branch EXOCOMP-71.
+
+Delivered:
+- apps/exocomp_node/test/integration/fixture_test.exs — 10 ExUnit integration tests covering all required fixture states: install, start/stop, crash, degrade, flap, restart-failure, cleanup, health/systemd divergence, idempotent setup, non-fixture isolation
+- apps/exocomp_node/test/test_helper.exs — updated to exclude :integration/:systemd by default so standard CI is unaffected
+- Makefile — 3 new targets: fixture-install, fixture-cleanup, test-integration
+
+All tests are tagged @moduletag :integration and @moduletag :systemd. Run with:
+  make fixture-install && make test-integration
+(inside a VM or privileged container with systemd as PID 1)
+
+Branch EXOCOMP-71 pushed to origin. Also includes cherry-pick of EXOCOMP-70's commit to keep the branch self-contained until EXOCOMP-70 is merged.
 ---
 <!-- COMMENTS:END -->

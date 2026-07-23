@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-23T21:45:22.840972Z'
+updated_at: '2026-07-23T21:48:57.770200Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -213,5 +213,46 @@ Discovery: Security findings from specification and dependency review
 - Branch created from EXOCOMP-62, ProposalSchema cherry-picked from EXOCOMP-61
 - Using built-in :httpc (inets) + built-in JSON module (Elixir 1.18+) — no external deps
 - Will add :inets to extra_applications in mix.exs
+---
+author: oompah
+created: 2026-07-23 21:48
+---
+Implementation: ProposalClient with security-first design
+
+**Files changed:**
+- `apps/exocomp_node/lib/exocomp/node/proposal_client.ex` (new)
+- `apps/exocomp_node/test/exocomp/node/proposal_client_test.exs` (new)
+- `apps/exocomp_node/mix.exs` (added :inets to extra_applications)
+
+**Security pipeline (in execution order):**
+1. Checksum gate: configurable checksum_fn/0, defaults to stub :ok
+2. Availability gate: LlamaServer.base_url/0 -> :inference_unavailable if not ready
+3. Bounded context: byte-truncated to max_context_bytes (default 8192) before send
+4. Fixed system prompt: hardcoded, never caller-configurable
+5. HTTP timeout: configurable inference_timeout_ms (default 15000ms) via :httpc
+6. Response extraction: choices[0].message.content parsed defensively
+7. Atom-safe decode: JSON.decode uses string keys (prevents atom table exhaustion)
+8. Schema gate: ProposalSchema.validate/1 is the last gate before return
+9. Audit logging: every call logged; raw model output ALWAYS [REDACTED]
+
+**Zero new external dependencies:** uses built-in :inets/:httpc + Elixir 1.18+ JSON module.
+
+**Branch:** EXOCOMP-63, cherry-picked ProposalSchema from EXOCOMP-61 on top of EXOCOMP-62.
+---
+author: oompah
+created: 2026-07-23 21:48
+---
+Verification: make test and make lint both pass
+
+- 37/37 tests pass (includes 10 new ProposalClient unit tests)
+- make lint passes with 0 warnings-as-errors
+- make fmt-check passes (formatter applied)
+- Releases build: exocomp_node and exocomp_coordinator both assemble and smoke-start
+
+All acceptance criteria met:
+✓ Invalid/timed-out/unavailable inference never yields an executable action
+✓ Raw model output is [REDACTED] in all audit log events
+✓ Only schema-valid proposals returned (ProposalSchema.validate/1 gate)
+✓ Diagnostic context is byte-bounded before transmission
 ---
 <!-- COMMENTS:END -->
