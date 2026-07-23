@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -16,7 +16,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:37:23.613699Z'
+updated_at: '2026-07-23T20:47:10.285378Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null

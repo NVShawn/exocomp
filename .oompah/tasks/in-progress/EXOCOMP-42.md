@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
-- needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T20:43:53.469154Z'
+updated_at: '2026-07-23T20:47:07.962211Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: f677637d-e8cb-4fb6-ac3f-a3d3d5397798
+oompah.agent_run_id: 084130f8-8c77-43f1-a5d8-1a2ae6f49130
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
   total_input_tokens: 29
@@ -152,5 +151,15 @@ author: oompah
 created: 2026-07-23 20:43
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 20:47
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 20:47
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->
