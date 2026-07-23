@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-46
 type: chore
-status: Open
+status: Merged
 priority: 2
 title: Document and test upgrade, rollback, backup, and removal
 parent: EXOCOMP-6
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:05.467498Z'
-updated_at: '2026-07-23T19:17:31.510852Z'
+updated_at: '2026-07-23T23:45:29.251700Z'
 work_branch: null
 target_branch: null
 review_url: null
