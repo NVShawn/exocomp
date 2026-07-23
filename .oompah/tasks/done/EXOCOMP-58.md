@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T22:25:15.967947Z'
+updated_at: '2026-07-23T22:25:27.021073Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -412,5 +412,10 @@ author: oompah
 created: 2026-07-23 22:25
 ---
 Verification: make test passes (17/17 tests: 14 exocomp_node + 2 exocomp_core + 1 exocomp_coordinator). make lint passes (format check + warnings-as-errors compile). All 7 required test cases implemented and passing: enoent, json_parse, unsupported_version, missing_fields, valid config load, EXOCOMP_NODE_ID env override, tls.node_key redaction. Code committed and pushed to origin/EXOCOMP-58.
+---
+author: oompah
+created: 2026-07-23 22:25
+---
+Completion: Delivered Exocomp.Node.Config versioned JSON config loader on branch EXOCOMP-58. Files: lib/exocomp/node/config.ex (load/1 API, struct with TLS+Listen sub-structs, validation, env overrides), lib/exocomp/node/redact.ex (sensitive field helper), test/exocomp/node/config_test.exs (13 tests). Updated mix.exs (+jason), Makefile (rootless Docker support + dep bootstrap), mix.lock. make test and make lint both pass. Duplicate check: no duplicate found — this is a unique implementation task with no prior art in the codebase.
 ---
 <!-- COMMENTS:END -->
