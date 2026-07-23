@@ -7,6 +7,19 @@
 
 .DEFAULT_GOAL := help
 
+ELIXIR_VERSION := 1.20.2
+OTP_VERSION := 28.5.0.3
+ALPINE_VERSION := 3.24.1
+BUILDER_IMAGE := hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-alpine-$(ALPINE_VERSION)@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6
+CONTAINER_ENGINE ?= docker
+CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
+	--user "$$(id -u):$$(id -g)" \
+	--env ELIXIR_VERSION=$(ELIXIR_VERSION) \
+	--env OTP_VERSION=$(OTP_VERSION) \
+	--volume "$(CURDIR):/workspace" \
+	--workdir /workspace \
+	$(BUILDER_IMAGE)
+
 .PHONY: help init fmt fmt-check build test lint clean
 
 help: ## Show this help.
@@ -15,34 +28,30 @@ help: ## Show this help.
 		$(MAKEFILE_LIST)
 
 init: ## Initialize local repo prerequisites.
-	@set -e; \
-	if [ ! -d .git ]; then \
-		echo "[init] git init"; \
-		git init; \
-	else \
-		echo "[init] git: already initialized"; \
-	fi; \
-	if command -v oompah >/dev/null 2>&1; then \
-		echo "[init] oompah: $$(oompah --help >/dev/null 2>&1 && echo installed)"; \
-	else \
-		echo "[init] oompah CLI not found. Install with:"; \
-		echo "       uv tool install git+https://github.com/lesserevil/oompah"; \
-	fi
+	$(CONTAINER_ENGINE) pull $(BUILDER_IMAGE)
+	$(CONTAINER_RUN) scripts/verify-toolchain.sh
 
 fmt: ## Format all source files in place.
-	@echo "fmt: not yet configured - edit Makefile" && exit 1
+	$(CONTAINER_RUN) mix format
 
 fmt-check: ## Check formatting without modifying files.
-	@echo "fmt-check: not yet configured - edit Makefile" && exit 1
+	$(CONTAINER_RUN) mix format --check-formatted
 
 build: ## Build the project.
-	@echo "build: not yet configured - edit Makefile" && exit 1
+	$(CONTAINER_RUN) sh -c 'scripts/verify-toolchain.sh && \
+		mix compile --warnings-as-errors && \
+		MIX_ENV=prod mix release exocomp_node --overwrite && \
+		MIX_ENV=prod mix release exocomp_coordinator --overwrite'
 
 test: ## Run the test suite.
-	@echo "test: not yet configured - edit Makefile" && exit 1
+	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix test && \
+		MIX_ENV=test mix release exocomp_node --overwrite && \
+		MIX_ENV=test mix release exocomp_coordinator --overwrite && \
+		scripts/smoke-releases.sh test'
 
 lint: ## Run static analysis / linters.
-	@echo "lint: not yet configured - edit Makefile" && exit 1
+	$(CONTAINER_RUN) sh -c 'mix format --check-formatted && \
+		MIX_ENV=test mix compile --force --warnings-as-errors'
 
 clean: ## Remove build artifacts.
-	@echo "clean: not yet configured - edit Makefile" && exit 1
+	$(CONTAINER_RUN) rm -rf _build

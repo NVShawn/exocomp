@@ -10,7 +10,7 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 
 ## Contents
 
-Add project-specific documentation here as user-visible surfaces appear.
+- [Development](development.md)
 
 ## Keeping Docs In Sync
 

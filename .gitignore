@@ -34,5 +34,14 @@ venv/
 .coverage
 htmlcov/
 
+# Elixir build artifacts
+/_build/
+/cover/
+/deps/
+/doc/
+/.elixir_ls/
+/erl_crash.dump
+*.ez
+
 # Logs
 *.log
