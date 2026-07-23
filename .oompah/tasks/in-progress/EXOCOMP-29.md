@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T20:52:12.995722Z'
+updated_at: '2026-07-23T20:53:42.741954Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -177,5 +177,10 @@ author: oompah
 created: 2026-07-23 20:52
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 20:53
+---
+Understanding: EXOCOMP-29 asks for a self-contained, intentionally crashable systemd fixture service to support M4 integration testing. It needs: a health HTTP endpoint independent of systemd process state, a harmless workload marker, controls for active/failed/degraded/flapping/restart-failure modes, a disposable installer, scoped cleanup, and documentation of VM/privileged-container requirements. The blocker EXOCOMP-7 is now Done.
 ---
 <!-- COMMENTS:END -->
