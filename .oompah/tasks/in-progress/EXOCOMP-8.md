@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:26:03.534309Z'
+updated_at: '2026-07-23T20:26:17.299897Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 364f519a-253b-4a3c-9946-6b1e85412192
+oompah.agent_run_id: f90f60d0-c42c-412f-b397-3d186b813da3
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 20
@@ -134,5 +133,15 @@ author: oompah
 created: 2026-07-23 20:26
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->

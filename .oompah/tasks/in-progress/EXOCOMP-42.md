@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T19:17:28.700038Z'
-work_branch: null
+updated_at: '2026-07-23T20:26:21.108024Z'
+work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 1a207481-0c7f-47ba-a7fe-671f5e7cc70b
+oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -47,3 +49,16 @@ Run the focused release/documentation tests and all repository Make targets affe
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 20:26
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

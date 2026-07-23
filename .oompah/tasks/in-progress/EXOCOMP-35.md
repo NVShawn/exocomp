@@ -8,10 +8,12 @@ parent: EXOCOMP-5
 children: []
 blocked_by:
 - EXOCOMP-7
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:26:09.268191Z'
+updated_at: '2026-07-23T20:26:33.025964Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -70,5 +72,38 @@ author: oompah
 created: 2026-07-23 20:26
 ---
 Discovery (Duplicate Investigator): Searched the full task tracker and project docs for any existing task covering the same scope as EXOCOMP-35 ('Build the reproducible benchmark harness'). Reviewed all Milestone 5 children (EXOCOMP-36 through EXOCOMP-40) and the parent epic (EXOCOMP-5). Closest candidates: EXOCOMP-36 (node idle/diagnostic workloads), EXOCOMP-37 (coordinator polling benchmarks), EXOCOMP-38 (llama inference benchmarks), EXOCOMP-39 (soak benchmarks), EXOCOMP-40 (publish baselines) — all of these USE the harness but none BUILD the harness infrastructure itself. No duplicate exists. EXOCOMP-35 is the unique task for harness construction (versioned benchmark definitions, host profiles, sampling, schema, summary generation, baseline comparison, Make targets).
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate found. EXOCOMP-35 is a unique task with no overlapping implementation in the project.
+
+**Evidence reviewed:**
+- EXOCOMP-5 (parent epic: M5 Performance and resource analysis) — confirms EXOCOMP-35 is the designated harness-builder child
+- EXOCOMP-36 through EXOCOMP-40 — all M5 siblings that use the harness; none build harness infrastructure
+- Milestone 5 design (plans/milestone-5-performance.md) — describes the harness as distinct from the workload benchmark tasks
+- Earlier milestones (M1-M4 tasks, EXOCOMP-7 through EXOCOMP-34) — focused on Elixir scaffold, protocol, coordinator, node, safety, recovery; no harness infrastructure
+- M6 tasks (EXOCOMP-41 through EXOCOMP-47) — licensing, release, docs; no overlap
+
+**Remaining work:**
+- Implement versioned benchmark definitions (config schema + validation)
+- Pinned amd64/arm64 host profiles
+- Warm-up/run/repetition controls
+- Process/cgroup attribution for node, coordinator, and llama.cpp processes separately
+- BEAM telemetry sampling and host sampling
+- Raw sample schema (build, host, model, workload, raw metadata)
+- Summary generation (median, p95, p99 percentiles)
+- Baseline comparison with regression gate (non-zero exit on failure with exact metric details)
+- Short CI and full release Make targets (make bench-short, make bench-full or similar)
+- Tests: config validation, synthetic CPU/memory loads, process attribution, missing metrics, percentile calc, threshold direction, incompatible profiles, deterministic summaries, non-zero regression exit
+
+**Risks:**
+- Blocked by EXOCOMP-7 (the Elixir umbrella scaffold — now Done), so that blocker is resolved
+- Process/cgroup attribution requires platform-specific code for Linux amd64 and arm64
+- The harness is a prerequisite for EXOCOMP-36 through EXOCOMP-40; delays cascade to all M5 children
+
+**Recommended next focus:** feature — this is a substantial new implementation task building the Elixir-based benchmark harness from scratch
 ---
 <!-- COMMENTS:END -->
