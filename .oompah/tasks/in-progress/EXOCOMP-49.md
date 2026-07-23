@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T21:27:18.206869Z'
+updated_at: '2026-07-23T21:27:33.823226Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: f7f6c2f2-f59f-4be3-99d1-6f63f7c61a1a
+oompah.agent_run_id: 3cb9fa95-5155-4f44-8b9a-9d356daeae66
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 4185482
@@ -208,5 +208,15 @@ author: oompah
 created: 2026-07-23 21:27
 ---
 Agent completed without closing this issue (548s (3336091 tokens)). Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 21:27
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:27
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
