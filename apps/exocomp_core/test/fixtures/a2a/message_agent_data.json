@@ -1,0 +1,12 @@
+{
+  "role": "agent",
+  "parts": [
+    {
+      "type": "data",
+      "data": {
+        "result": "success",
+        "count": 42
+      }
+    }
+  ]
+}

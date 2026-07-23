@@ -17,8 +17,18 @@ defmodule Exocomp.A2A.Version do
   def check_version(@version), do: :ok
   def check_version(_version), do: {:error, %UnsupportedOperationError{}}
 
-  @doc "Validates the value of a request `Content-Type` header."
+  @doc """
+  Validates the value of a request `Content-Type` header.
+
+  Accepts `application/a2a+json` with or without parameters (e.g.,
+  `application/a2a+json; charset=utf-8`). Any other value, including `nil`,
+  returns `{:error, %ContentTypeNotSupportedError{}}`.
+  """
   @spec parse_content_type(term()) :: :ok | {:error, ContentTypeNotSupportedError.t()}
-  def parse_content_type(@content_type), do: :ok
+  def parse_content_type(content_type) when is_binary(content_type) do
+    base = content_type |> String.split(";", parts: 2) |> List.first() |> String.trim()
+    if base == @content_type, do: :ok, else: {:error, %ContentTypeNotSupportedError{}}
+  end
+
   def parse_content_type(_content_type), do: {:error, %ContentTypeNotSupportedError{}}
 end

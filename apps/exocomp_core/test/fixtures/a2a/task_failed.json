@@ -1,0 +1,17 @@
+{
+  "id": "task-003",
+  "status": {
+    "state": "failed",
+    "message": {
+      "role": "agent",
+      "parts": [
+        {
+          "type": "text",
+          "text": "An error occurred during processing."
+        }
+      ]
+    }
+  },
+  "history": [],
+  "artifacts": []
+}

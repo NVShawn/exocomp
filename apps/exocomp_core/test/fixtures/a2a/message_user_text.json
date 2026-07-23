@@ -1,0 +1,9 @@
+{
+  "role": "user",
+  "parts": [
+    {
+      "type": "text",
+      "text": "Hello, agent!"
+    }
+  ]
+}

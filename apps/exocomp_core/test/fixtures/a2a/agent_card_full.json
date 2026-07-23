@@ -1,0 +1,22 @@
+{
+  "name": "Full Agent",
+  "description": "A fully-configured A2A 1.0 agent with all optional fields populated",
+  "url": "https://example.test/a2a",
+  "version": "1.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true
+  },
+  "skills": [
+    {
+      "id": "summarize",
+      "name": "Summarize",
+      "description": "Summarizes text content into a concise form",
+      "inputModes": ["text/plain"],
+      "outputModes": ["text/plain"]
+    }
+  ],
+  "defaultInputModes": ["text/plain"],
+  "defaultOutputModes": ["text/plain"]
+}

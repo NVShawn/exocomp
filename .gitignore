@@ -42,6 +42,7 @@ htmlcov/
 /.elixir_ls/
 /erl_crash.dump
 *.ez
+/.mix/
 
 # Logs
 *.log

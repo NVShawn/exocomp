@@ -1,0 +1,20 @@
+{
+  "id": "task-002",
+  "status": {
+    "state": "completed"
+  },
+  "history": [],
+  "artifacts": [
+    {
+      "artifactId": "artifact-001",
+      "parts": [
+        {
+          "type": "text",
+          "text": "Task completed successfully."
+        }
+      ],
+      "append": false,
+      "lastChunk": false
+    }
+  ]
+}
