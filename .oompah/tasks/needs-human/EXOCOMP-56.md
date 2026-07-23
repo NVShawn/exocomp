@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: In Progress
+status: Needs Human
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:18:15.728726Z'
+updated_at: '2026-07-23T22:22:43.198395Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 0811654b-7946-4ecf-9f33-443eccae6ca6
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 7114529
-  total_output_tokens: 48575
+  total_input_tokens: 8223936
+  total_output_tokens: 58025
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 7114529
-      output_tokens: 48575
+      input_tokens: 8223936
+      output_tokens: 58025
       cost_usd: 0.0
   runs:
   - profile: default
@@ -54,6 +54,12 @@ oompah.task_costs:
     output_tokens: 11638
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:17:46.494747+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 1109407
+    output_tokens: 9450
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:22:39.908547+00:00'
 ---
 ## Summary
 
@@ -297,5 +303,25 @@ author: oompah
 created: 2026-07-23 22:18
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-23 22:22
+---
+Agent completed successfully in 265s (1118857 tokens)
+---
+author: oompah
+created: 2026-07-23 22:22
+---
+Run #3 [attempt=3, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 15
+- Tokens: 1.1M in / 9.4K out [1.1M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 25s
+- Log: EXOCOMP-56__20260723T221815Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:22
+---
+Agent completed 3 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
 ---
 <!-- COMMENTS:END -->
