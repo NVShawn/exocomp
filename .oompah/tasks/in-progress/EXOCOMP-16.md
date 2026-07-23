@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-9
 - EXOCOMP-14
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-23T22:51:27.281717Z'
+updated_at: '2026-07-23T22:53:06.954106Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -107,5 +109,44 @@ author: oompah
 created: 2026-07-23 22:51
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:53
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-16 is a unique task with no overlap in the existing task graph.
+
+**Evidence reviewed:**
+- EXOCOMP-9 (Done): Node-side config/identity/mTLS — different scope entirely (node agent setup, not coordinator PKI initialization)
+- EXOCOMP-14 (Done): Coordinator inventory, registry, audit — foundational coordinator scaffold; no PKI/CA/enrollment token content
+- EXOCOMP-15 (Open): DNS discovery and polling — no PKI overlap
+- EXOCOMP-17 (Open): Node enrollment and renewal — node-side process that CONSUMES enrollment tokens issued by EXOCOMP-16; complementary, not duplicate
+- EXOCOMP-18 (Open): Diagnostic task orchestration — no PKI overlap
+- EXOCOMP-19, EXOCOMP-20: A2A service and M2 verification — no PKI overlap
+- Searched plans/milestone-2-coordinator.md Bootstrap PKI section for task alignment
+
+**Relevant files for feature agent:**
+- plans/milestone-2-coordinator.md — Bootstrap PKI section (root/intermediate/leaf/approval-key design), enrollment token lifetime, CSR validation requirements
+- apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex — OTP supervisor to extend with PKI GenServer(s)
+- apps/exocomp_coordinator/mix.exs — add PKI deps (x509 or :public_key for cert generation)
+- Branch EXOCOMP-14 is merged; branch EXOCOMP-16 should be based on main/epic branch that includes EXOCOMP-14 work
+
+**Work required (feature agent):**
+1. Coordinator PKI initialization: generate root CA (RSA or ECDSA), export for offline backup, derive online intermediate, issue coordinator leaf cert, generate separate Ed25519 approval-signing key
+2. Enforce key file permissions (600/no group/world readable)
+3. Initialization idempotency (skip if already initialized, detect corrupt state)
+4. Enrollment token API: generate 10-minute HMAC or signed tokens bound to inventory node IDs, single-use via ETS or persisted set, validate token on enrollment request
+5. Integrate into coordinator OTP supervisor tree
+6. Tests: init idempotency, secure permissions, missing/corrupt key material, token expiry, node ID mismatch, token replay, secrets absent from logs
+7. Run make test && make lint && make fmt-check
+
+**Risks:**
+- Elixir's :public_key module covers X.509 cert generation but the API is complex; the x509 hex package provides a nicer interface — check if it's already a dependency
+- Token replay prevention requires persistence across restarts (ETS is lost on restart); consider a bounded durable set or accept replay window equals restart window
+- Root key offline export: must write to a clearly-named backup file and immediately delete the in-memory root private key from the online state directory
+- EXOCOMP-17 (node enrollment/renewal) depends on the token API designed here; interface contract matters
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->
