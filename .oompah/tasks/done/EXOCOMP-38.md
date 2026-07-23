@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T23:05:19.308366Z'
+updated_at: '2026-07-23T23:05:21.816815Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-07-23 23:05
 ---
 Completion: EXOCOMP-38 delivered on branch epic-EXOCOMP-5 (pushed to origin). Deliverables: (1) Bench.Workload.LlamaInference — 6 benchmark scenarios measuring startup/readiness, sequential latency (P50/P95/P99), concurrent saturation/queue depth, timeout, invalid-output rejection, and crash-restart timing with diagnostics-available flag; (2) Bench.Test.FakeLlamaServer — in-process fake for all failure modes; (3) 22 focused ExUnit tests tagged bench_llama; (4) make bench-llama-short CI target. Control-plane (BEAM/host) and model (llama) samples are attributed separately via Bench.Sample source field. Node diagnostic availability is captured during crash/restart via the diagnostics_available metric. Raw samples are Bench.Sample structs compatible with Bench.Run JSONL output.
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Implemented Bench.Workload.LlamaInference with 6 scenarios (startup, sequential, concurrent, timeout, invalid-response, crash-restart), 22 focused ExUnit tests, Bench.Test.FakeLlamaServer, and make bench-llama-short target. All bench tests pass. Merged epic-EXOCOMP-35 harness and epic-EXOCOMP-11 llama-server into epic-EXOCOMP-5.
 ---
 <!-- COMMENTS:END -->
