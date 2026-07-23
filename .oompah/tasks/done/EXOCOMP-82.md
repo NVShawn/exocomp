@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:19:00.042579Z'
-updated_at: '2026-07-23T23:25:56.833411Z'
+updated_at: '2026-07-23T23:26:06.549149Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -18,6 +18,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: af911a77-f327-43dd-9872-a9131fc945e6
 oompah.work_branch: epic-EXOCOMP-6
+oompah.task_costs:
+  total_input_tokens: 43
+  total_output_tokens: 16083
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 43
+      output_tokens: 16083
+      cost_usd: 0.0
+  runs:
+  - profile: standard
+    model: unknown
+    input_tokens: 43
+    output_tokens: 16083
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T23:26:03.435913+00:00'
 ---
 ## Summary
 
@@ -72,5 +88,20 @@ author: oompah
 created: 2026-07-23 23:25
 ---
 Rebased epic-EXOCOMP-6 onto origin/main (fast-forward to merge commit 3949c53). Pruned stale tracking ref and force-pushed with --force-with-lease. Branch is now up to date with main. No duplicate task found during screening.
+---
+author: oompah
+created: 2026-07-23 23:26
+---
+Agent completed successfully in 317s (16126 tokens)
+---
+author: oompah
+created: 2026-07-23 23:26
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 80, Tool calls: 52
+- Tokens: 43 in / 16.1K out [16.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 17s
+- Log: EXOCOMP-82__20260723T232053Z.jsonl
 ---
 <!-- COMMENTS:END -->
