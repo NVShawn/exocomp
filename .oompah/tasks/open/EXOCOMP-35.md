@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-35
 type: feature
-status: In Progress
+status: Open
 priority: 2
 title: Build the reproducible benchmark harness
 parent: EXOCOMP-5
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:26:56.100426Z'
+updated_at: '2026-07-23T20:27:52.887831Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
