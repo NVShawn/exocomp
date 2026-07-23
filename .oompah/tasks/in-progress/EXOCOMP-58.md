@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T20:46:51.007730Z'
-work_branch: null
+updated_at: '2026-07-23T21:12:01.804858Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 24185c20-6dc6-41a3-8a87-e9387d386c24
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -105,3 +107,16 @@ Required test cases:
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:11
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:12
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
