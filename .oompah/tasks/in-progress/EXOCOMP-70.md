@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:29:12.564081Z'
+updated_at: '2026-07-23T21:30:15.948133Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -140,5 +140,24 @@ author: oompah
 created: 2026-07-23 21:29
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-23 21:30
+---
+Understanding (DevOps): Creating the systemd unit file, install.sh, and cleanup.sh for the exocomp-fixture service.
+
+Current state:
+- Branch epic-EXOCOMP-29 is up to date with origin/main
+- test/fixtures/exocomp_fixture/bin/exocomp-fixture exists (Python 3 daemon from EXOCOMP-69)
+- test/fixtures/exocomp_fixture/README.md exists but needs VM/privileged-container note
+- docs/testing-systemd-fixture.md already references make fixture-install and fixture-cleanup targets
+
+Plan:
+1. Create branch EXOCOMP-70 from current HEAD
+2. Create test/fixtures/exocomp_fixture/exocomp-fixture.service (systemd unit with Restart=on-failure, StartLimitBurst=3, RuntimeDirectory, ExecStartPost health probe)
+3. Create test/fixtures/exocomp_fixture/install.sh (idempotent, requires root, copies unit + binary, daemon-reload, enable, start)
+4. Create test/fixtures/exocomp_fixture/cleanup.sh (idempotent, stop/disable/remove only fixture resources, no-op on clean system)
+5. Update README.md with VM/privileged-container requirement note
+6. Add Makefile targets fixture-install and fixture-cleanup
 ---
 <!-- COMMENTS:END -->
