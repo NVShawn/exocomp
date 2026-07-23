@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-68
 type: task
-status: Done
+status: Merged
 priority: 2
 title: Qualify multi-architecture OTP releases and reproducibility
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T22:14:14.782005Z'
+updated_at: '2026-07-23T23:37:43.659602Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
