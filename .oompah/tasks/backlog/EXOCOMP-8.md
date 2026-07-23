@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: In Progress
+status: Backlog
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:36:38.209495Z'
+updated_at: '2026-07-23T20:36:52.190828Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null

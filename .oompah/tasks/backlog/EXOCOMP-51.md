@@ -6,11 +6,12 @@ priority: null
 title: Pin A2A 1.0 fixture files and add comprehensive protocol test suite
 parent: EXOCOMP-8
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-49
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-23T20:36:38.184380Z'
+updated_at: '2026-07-23T20:36:49.935471Z'
 work_branch: null
 target_branch: null
 review_url: null
