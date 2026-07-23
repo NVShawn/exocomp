@@ -10,9 +10,10 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:14:00.697441Z'
+updated_at: '2026-07-23T21:14:04.350727Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
