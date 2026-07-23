@@ -1,19 +1,20 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: In Progress
+status: Backlog
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
 children:
 - EXOCOMP-73
+- EXOCOMP-74
 blocked_by:
 - EXOCOMP-21
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T22:50:44.973867Z'
+updated_at: '2026-07-23T22:51:32.113342Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -22,13 +23,13 @@ merged_at: null
 oompah.agent_run_id: 39dc6ceb-c47b-45d4-96f0-493c1a9a4288
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 2629627
-  total_output_tokens: 16541
+  total_input_tokens: 2629682
+  total_output_tokens: 18317
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 2629627
-      output_tokens: 16541
+      input_tokens: 2629682
+      output_tokens: 18317
       cost_usd: 0.0
   runs:
   - profile: default
@@ -67,6 +68,12 @@ oompah.task_costs:
     output_tokens: 2930
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:32:57.786689+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 55
+    output_tokens: 1776
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:51:30.555284+00:00'
 ---
 ## Summary
 
@@ -305,5 +312,15 @@ author: oompah
 created: 2026-07-23 22:50
 ---
 Understanding (Epic Planner): EXOCOMP-22 implements deterministic least-impact policy selection for the M3 safety engine. It depends on EXOCOMP-21 (type system: Done, on branch origin/EXOCOMP-21) and sits alongside EXOCOMP-25 (executor: Done, on origin/EXOCOMP-25). No policy engine code exists yet — the branch is on epic-EXOCOMP-3 with no local commits. The scope is: (1) filtering ineligible actions from the proposal/catalog pair, (2) risk-ranking the eligible set and selecting the lowest-impact candidate, (3) producing auditable deny/allow/approval_required decisions, and (4) comprehensive table/property tests for ordering, ties, stale evidence, fail-closed errors, escalation prevention, and determinism. I will decompose into two focused child tasks: one for the eligibility-filter pipeline and one for the risk-ordered selection engine and tests.
+---
+author: oompah
+created: 2026-07-23 22:51
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 35
+- Tokens: 55 in / 1.8K out [1.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 57s
+- Log: EXOCOMP-22__20260723T224737Z.jsonl
 ---
 <!-- COMMENTS:END -->

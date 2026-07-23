@@ -6,11 +6,12 @@ priority: null
 title: Implement PolicyContext and eligibility-filter pipeline
 parent: EXOCOMP-22
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-21
 labels: []
 assignee: null
 created_at: '2026-07-23T22:50:44.926199Z'
-updated_at: '2026-07-23T22:50:44.926199Z'
+updated_at: '2026-07-23T22:51:22.015480Z'
 work_branch: null
 target_branch: null
 review_url: null
