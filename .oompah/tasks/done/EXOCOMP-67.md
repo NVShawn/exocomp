@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:46:16.509429Z'
+updated_at: '2026-07-23T21:46:18.920624Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -242,5 +242,10 @@ Acceptance criteria satisfied:
 - Dependency reports (dep-report.json) written to each release dir
 - docs/runtime-dependencies.md identifies runtime contract with inspection commands
 - make test-builders (focused release/doc gate) passes with 8/8 tests
+---
+author: oompah
+created: 2026-07-23 21:46
+---
+ELF/NIF dependency inspection tooling, glibc 2.36 runtime baseline, dep-report.json, docs/runtime-dependencies.md, and 8 test fixtures delivered. make test-builders passes. Pushed on epic-EXOCOMP-42.
 ---
 <!-- COMMENTS:END -->
