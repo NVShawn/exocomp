@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T20:57:58.099727Z'
+updated_at: '2026-07-23T20:59:01.452345Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -154,5 +154,15 @@ author: oompah
 created: 2026-07-23 20:57
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 20:59
+---
+Understanding (Epic Planner): EXOCOMP-50 is already a concrete, single-session child of the EXOCOMP-35 benchmark-harness epic. I will not decompose or implement it in this focus; I am validating its parent/child context and will route it to the feature focus with an implementation-ready handoff.
+---
+author: oompah
+created: 2026-07-23 20:59
+---
+Discovery (Epic Planner): EXOCOMP-35 already lists EXOCOMP-50 as its scaffold child alongside EXOCOMP-52 through EXOCOMP-56, so creating children under EXOCOMP-50 would be incorrect and duplicative. The Milestone 5 Measurement Architecture confirms the bench driver/sampler/report boundaries. Repository evidence also shows this dispatched checkout is branch epic-EXOCOMP-35 at origin/main, not the prompt-stated EXOCOMP-50 branch; it has no apps/ directory because the EXOCOMP-7 umbrella changes are not present in this checkout.
 ---
 <!-- COMMENTS:END -->
