@@ -3,6 +3,22 @@
 Intentionally crashable fixture service for Milestone 4 systemd recovery
 integration tests.  It is **not** intended for production use.
 
+## ⚠️ Environment requirement
+
+The systemd unit file and installer/cleanup scripts in this directory require
+a **real systemd instance** running as PID 1.  They must be used inside a:
+
+- **Disposable VM** (QEMU/KVM or similar), or
+- **Privileged container** (Podman/Docker with `--privileged` and systemd as
+  the init process)
+
+Do **not** run `install.sh` or `cleanup.sh` on your host machine or inside a
+standard (unprivileged) CI container — systemd will not be available and the
+scripts will have no effect or fail unexpectedly.
+
+See [docs/testing-systemd-fixture.md](../../../docs/testing-systemd-fixture.md)
+for step-by-step environment setup instructions.
+
 ## What it does
 
 `bin/exocomp-fixture` is a Python 3 daemon that:

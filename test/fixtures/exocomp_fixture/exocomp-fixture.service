@@ -1,0 +1,46 @@
+[Unit]
+Description=Exocomp Integration Test Fixture Service
+Documentation=file:/usr/local/bin/exocomp-fixture
+# This unit is ONLY for integration testing. Do not install on a production host.
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/exocomp-fixture
+ExecStartPost=/bin/sh -c ' \
+  for i in $(seq 1 10); do \
+    if curl -sf http://127.0.0.1:8877/health >/dev/null 2>&1; then \
+      exit 0; \
+    fi; \
+    sleep 0.5; \
+  done; \
+  echo "exocomp-fixture: health probe failed after 5s" >&2; \
+  exit 1'
+
+# Restart policy suitable for testing all failure modes.
+Restart=on-failure
+RestartSec=1s
+StartLimitIntervalSec=30s
+StartLimitBurst=3
+
+# Runtime state directory — created/removed automatically by systemd.
+# Available as /run/exocomp-fixture inside the service.
+RuntimeDirectory=exocomp-fixture
+RuntimeDirectoryMode=0755
+
+WorkingDirectory=/run/exocomp-fixture
+
+# Pass the runtime directory to the fixture daemon.
+Environment=FIXTURE_STATE_DIR=/run/exocomp-fixture
+
+# Minimal sandboxing (no capability drops needed; the service binds only to
+# loopback and writes only inside RuntimeDirectory).
+PrivateTmp=true
+NoNewPrivileges=true
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=exocomp-fixture
+
+[Install]
+WantedBy=multi-user.target
