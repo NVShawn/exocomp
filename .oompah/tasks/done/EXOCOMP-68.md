@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T22:13:57.876483Z'
+updated_at: '2026-07-23T22:14:00.421699Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -254,5 +254,10 @@ author: oompah
 created: 2026-07-23 22:13
 ---
 Verification: All 17 tests pass (8 original builder/dep tests + 9 new qualification matrix tests). make test-builders succeeds and includes the new offline qualification checks. The complete deliverables: (1) test-release-matrix.sh — non-interactive CI-suitable script covering the full 2-arch × 2-product matrix with double-build reproducibility, clean-container ERTS verification, wrong-arch diagnostic, and missing-dep diagnostic; (2) test-clean-container.sh — per-release clean-container helper with offline --check-arch mode using ELF e_machine field parsing; (3) docs/release-qualification.md — native vs emulated execution requirements (QEMU/binfmt), make test-release-matrix usage, both diagnostic cases documented; (4) Makefile test-release-matrix target (CI-suitable, non-interactive, ARCH= and SKIP_BUILD= flags); (5) test-release-builders.sh extended with structural validation of all new files.
+---
+author: oompah
+created: 2026-07-23 22:14
+---
+Added complete OTP release qualification test matrix: scripts/test-release-matrix.sh (non-interactive CI target covering 2-arch × 2-product double-build reproducibility, clean-container ERTS startup, wrong-arch diagnostic, and missing-dep diagnostic); scripts/test-clean-container.sh (per-release helper with offline --check-arch ELF machine-type check); docs/release-qualification.md (native vs emulated execution requirements, QEMU/binfmt setup, diagnostic case documentation); Makefile test-release-matrix target; extended test-release-builders.sh with offline validation of all new scripts and docs. All 17 tests pass (8 original + 9 new) without Docker.
 ---
 <!-- COMMENTS:END -->
