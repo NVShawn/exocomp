@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: In Review
+status: Done
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -11,14 +11,14 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:26:08.888806Z'
-work_branch: epic-EXOCOMP-4
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-23T21:26:15.156531Z'
+work_branch: EXOCOMP-72
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/3
+review_number: '3'
 merged_at: null
 oompah.agent_run_id: d6ad4144-c584-4fec-ab4a-b04d2699eba6
-oompah.work_branch: epic-EXOCOMP-4
+oompah.work_branch: EXOCOMP-72
 oompah.task_costs:
   total_input_tokens: 75
   total_output_tokens: 10295
@@ -41,6 +41,9 @@ oompah.task_costs:
     output_tokens: 8719
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:19:29.016961+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/3
+oompah.review_number: '3'
+oompah.target_branch: main
 ---
 ## Summary
 
@@ -224,5 +227,17 @@ created: 2026-07-23 21:25
 **Understanding & Resumption**
 
 Previous agent completed all documentation work (docs/testing-systemd-fixture.md, README.md, docs/README.md) and pushed to origin/EXOCOMP-72. The task close was refused because no PR existed targeting main. Resuming to open a PR and close the task.
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+**Completion**
+
+All work was delivered by the previous agent run:
+- Created \`docs/testing-systemd-fixture.md\` (331 lines) covering all 6 required areas: why CI containers fail, supported environments, step-by-step setup, running tests with make target and ExUnit tag filter, verifying non-fixture services, and cleanup
+- Updated \`docs/README.md\` (Contents entry) and \`README.md\` (pointer under Development)
+- Committed and pushed to origin/EXOCOMP-72
+
+This run opened PR #3 (https://github.com/NVShawn/exocomp/pull/3) targeting main, which was the missing step that caused the previous close to be refused. Task is now ready to close.
 ---
 <!-- COMMENTS:END -->
