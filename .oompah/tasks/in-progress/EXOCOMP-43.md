@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:16:46.468267Z'
+updated_at: '2026-07-23T23:16:57.365037Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -230,5 +230,29 @@ Acceptance criteria confirmed:
 ✓ Only configured exact privilege rules are installed (no wildcards, metacharacter injection rejected)
 ✓ Default uninstall preserves protected operator state and all user data
 ✓ Install tests pass
+---
+author: oompah
+created: 2026-07-23 23:16
+---
+Completion: EXOCOMP-43 delivered.
+
+Files created on epic-EXOCOMP-6 branch (commit 3036c94):
+- scripts/install.sh — Hardened 8-phase installer (preflight→user/dir→extract→config→sudoers→unit→activate→manifest)
+- scripts/uninstall.sh — Scoped uninstaller with purge categories; default preserves PKI/config/audit
+- release/node/exocomp-node.service — 16-directive hardened systemd unit (NoNewPrivileges, ProtectSystem=strict, CapabilityBoundingSet=, UMask=0077, SystemCallFilter, etc.)
+- release/coordinator/exocomp-coordinator.service — Same hardening for coordinator
+- release/templates/node.json — Node configuration template
+- release/templates/coordinator.json — Coordinator configuration template
+- test/installer/test_installer.py — 50 tests (pytest, no root/systemd required)
+- Makefile — test-installer target
+
+Security properties enforced:
+1. Checksums verified before any host mutation; tampered bundles rejected
+2. Service names in allow-list validated by strict regex; shell metacharacters rejected unconditionally
+3. Sudoers entries name exact executable + exact argument — no wildcards
+4. Release directories locked a-w after install; only root can write
+5. Uninstaller reads manifest to remove only exocomp-owned files
+6. Config/PKI/log directories preserved by default; explicit purge categories required to remove system cache
+7. Systemd hardening: 16 security directives per unit file, dedicated unprivileged accounts
 ---
 <!-- COMMENTS:END -->
