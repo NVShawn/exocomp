@@ -32,26 +32,28 @@ init: ## Initialize local repo prerequisites.
 	$(CONTAINER_ENGINE) pull $(BUILDER_IMAGE)
 	$(CONTAINER_RUN) scripts/verify-toolchain.sh
 
+HEX_BOOTSTRAP := mix local.hex --force --quiet
+
 fmt: ## Format all source files in place.
-	$(CONTAINER_RUN) mix format
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && mix format'
 
 fmt-check: ## Check formatting without modifying files.
-	$(CONTAINER_RUN) mix format --check-formatted
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && mix format --check-formatted'
 
 build: ## Build the project.
-	$(CONTAINER_RUN) sh -c 'scripts/verify-toolchain.sh && \
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && scripts/verify-toolchain.sh && \
 		mix compile --warnings-as-errors && \
 		MIX_ENV=prod mix release exocomp_node --overwrite && \
 		MIX_ENV=prod mix release exocomp_coordinator --overwrite'
 
 test: ## Run the test suite.
-	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix test && \
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix test && \
 		MIX_ENV=test mix release exocomp_node --overwrite && \
 		MIX_ENV=test mix release exocomp_coordinator --overwrite && \
 		scripts/smoke-releases.sh test'
 
 lint: ## Run static analysis / linters.
-	$(CONTAINER_RUN) sh -c 'mix format --check-formatted && \
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && mix format --check-formatted && \
 		MIX_ENV=test mix compile --force --warnings-as-errors'
 
 clean: ## Remove build artifacts.
