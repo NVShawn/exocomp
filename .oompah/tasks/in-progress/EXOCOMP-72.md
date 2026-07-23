@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:17:06.611350Z'
+updated_at: '2026-07-23T21:18:28.885265Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -134,5 +134,25 @@ Key context gathered:
 - Existing make test target runs in a container — systemd fixture tests require a real systemd environment (VM or --privileged container) and cannot use the standard container runner
 
 Plan: create docs/testing-systemd-fixture.md then add a two-line pointer in README.md, commit and push.
+---
+author: oompah
+created: 2026-07-23 21:18
+---
+**Implementation**
+
+Created docs/testing-systemd-fixture.md (331 lines) covering all 6 required areas:
+
+1. Why systemd tests cannot run in standard CI — explains PID 1, cgroup v2, and D-Bus requirements that standard unprivileged containers lack
+2. Supported environments — privileged Podman/Docker container (recommended for dev) and QEMU/KVM VM (recommended for pre-merge validation), with a Mermaid comparison diagram
+3. Step-by-step setup for both environments (container gets 4 steps, VM gets 3 steps)
+4. How to run tests — make fixture-install, MIX_ENV=test mix test --only systemd_fixture, make test-fixture, expected output with scenario table
+5. How to verify non-fixture services — diff-based pre/post check using systemctl list-units filtered by name prefix
+6. Cleanup — make fixture-cleanup steps enumerated, plus container/VM teardown
+
+Also updated:
+- docs/README.md — added entry in Contents list
+- README.md — added 3-line pointer paragraph under Development section
+
+Note: make fixture-install, make fixture-cleanup, and make test-fixture targets are forward references to work in EXOCOMP-70/71; the doc notes this where relevant.
 ---
 <!-- COMMENTS:END -->
