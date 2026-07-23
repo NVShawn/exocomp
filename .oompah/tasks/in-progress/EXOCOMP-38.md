@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: Done
+status: In Progress
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -13,22 +13,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T23:05:21.816815Z'
+updated_at: '2026-07-23T23:05:41.065888Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: a68927e7-0ba6-4c8a-8bbf-0322c50588bb
+oompah.agent_run_id: 5916cb2a-0d3c-4891-be0f-9d4d361f2225
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 1062837
-  total_output_tokens: 9326
+  total_input_tokens: 1062936
+  total_output_tokens: 56610
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1062837
-      output_tokens: 9326
+      input_tokens: 1062936
+      output_tokens: 56610
       cost_usd: 0.0
   runs:
   - profile: default
@@ -49,6 +49,12 @@ oompah.task_costs:
     output_tokens: 2508
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:46:21.952468+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 99
+    output_tokens: 47284
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T23:05:31.289987+00:00'
 ---
 ## Summary
 
@@ -225,5 +231,55 @@ author: oompah
 created: 2026-07-23 23:05
 ---
 Implemented Bench.Workload.LlamaInference with 6 scenarios (startup, sequential, concurrent, timeout, invalid-response, crash-restart), 22 focused ExUnit tests, Bench.Test.FakeLlamaServer, and make bench-llama-short target. All bench tests pass. Merged epic-EXOCOMP-35 harness and epic-EXOCOMP-11 llama-server into epic-EXOCOMP-5.
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Agent completed successfully in 1139s (47383 tokens)
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 174, Tool calls: 119
+- Tokens: 99 in / 47.3K out [47.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 18m 59s
+- Log: EXOCOMP-38__20260723T224634Z.jsonl
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-5` has 10 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 10
+    0077af0 EXOCOMP-38: implement llama.cpp inference benchmark workload
+    0cff229 Merge epic-EXOCOMP-35 and epic-EXOCOMP-11: integrate bench harness and llama-server supervisor
+    f8e586a EXOCOMP-55: implement BEAM telemetry sampler
+    bd6403d EXOCOMP-54: add raw sample JSONL data model
+    33f6cfb EXOCOMP-52: implement Bench.Config versioned schema and validation
+    5712349 EXOCOMP-64: add focused ExUnit tests for LlamaServer and ProposalClient
+    1d15f62 EXOCOMP-63: implement ProposalClient inference HTTP client
+    73d5b12 EXOCOMP-61: Define versioned proposal schema module
+    d600763 EXOCOMP-62: fix rootless Docker --user flag breaking volume permissions
+    ee74746 EXOCOMP-62: supervise llama-server OS process
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-5 --title "EXOCOMP-38: Benchmark llama.cpp inference and restart behavior" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
