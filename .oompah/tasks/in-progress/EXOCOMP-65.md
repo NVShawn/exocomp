@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:24:17.893345Z'
+updated_at: '2026-07-23T21:25:44.220875Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -198,5 +198,23 @@ author: oompah
 created: 2026-07-23 21:24
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-23 21:25
+---
+**Understanding:** This task requires creating digest-pinned Linux amd64 and arm64 builder definitions using glibc (Debian) base images with Elixir 1.20.2/OTP 28.5.0.3 from EXOCOMP-7, plus explicit architecture-select Make targets, capability checks, an immutable lockfile, and static validation tests. Reviewing previous agent work to continue from where it left off.
+---
+author: oompah
+created: 2026-07-23 21:25
+---
+**Discovery:** The implementation is already committed to the EXOCOMP-65 branch (commit facdca1) and is up-to-date with origin/EXOCOMP-65. The previous DevOps agent successfully implemented all required components. `make test-builders` passes cleanly.
+
+Key files:
+- `release/builders.lock` — immutable lockfile with separate amd64/arm64 digests for debian-bookworm-20260713-slim image
+- `scripts/build-releases.sh` — clean-checkout enforcing, explicit --platform, --pull never, builds node + coordinator with ERTS
+- `scripts/check-builder-capability.sh` — verifies container engine, pulls pinned image, probes actual uname -m for arch
+- `scripts/verify-toolchain.sh` — validates Elixir/OTP/glibc versions match lockfile inside builder
+- `scripts/test-release-builders.sh` — static validation: digest format, arch diff, non-interactive flags, no floating inputs
+- `test/fixtures/fake-container-engine.sh` — mock engine for offline capability-mapping tests
 ---
 <!-- COMMENTS:END -->
