@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T22:12:53.707066Z'
+updated_at: '2026-07-23T22:13:10.484942Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: d93bd5ab-7fd0-47f8-a081-379a97aee8ab
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 357400
-  total_output_tokens: 9332
+  total_input_tokens: 357476
+  total_output_tokens: 56340
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 357400
-      output_tokens: 9332
+      input_tokens: 357476
+      output_tokens: 56340
       cost_usd: 0.0
   runs:
   - profile: default
@@ -43,6 +43,12 @@ oompah.task_costs:
     output_tokens: 2405
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:55:44.025999+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 76
+    output_tokens: 47008
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:13:05.624654+00:00'
 ---
 ## Summary
 
@@ -251,5 +257,25 @@ Security notes for downstream consumers (EXOCOMP-22 through EXOCOMP-28):
 - Always check Proposal.parse/1 return value before using action_id in catalog lookup
 - Evidence integrity_hash must be re-verified before approval binding (caller responsibility)
 - ValidatorResult.deny?/1 is the safe gate predicate; do not pattern-match on :allow without using the predicate function
+---
+author: oompah
+created: 2026-07-23 22:12
+---
+Implemented Exocomp.Node.Safety type system: DataClassification (fail-closed unknown→:protected_user_data), RiskRank (4-dimensional ordering), Reversibility, Evidence (versioned, integrity hash), Proposal (untrusted-input strict parser), ActionDefinition (deletion-ineligibility invariant at construction), ValidatorResult (fail-closed :deny default). 180 tests, make lint passes, 0 warnings.
+---
+author: oompah
+created: 2026-07-23 22:13
+---
+Agent completed successfully in 1031s (47084 tokens)
+---
+author: oompah
+created: 2026-07-23 22:13
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 120, Tool calls: 89
+- Tokens: 76 in / 47.0K out [47.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 17m 11s
+- Log: EXOCOMP-21__20260723T215556Z.jsonl
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T19:17:12.445083Z'
+updated_at: '2026-07-23T22:13:15.612951Z'
 work_branch: null
 target_branch: null
 review_url: null
