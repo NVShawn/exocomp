@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:38:08.433060Z'
+updated_at: '2026-07-23T22:38:47.202626Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -288,5 +288,20 @@ author: oompah
 created: 2026-07-23 22:38
 ---
 Implementation: apps/bench/lib/bench/beam_sampler.ex — Bench.BeamSampler GenServer collecting: scheduler utilisation (wall-time diff), process count, run queue length, per-category memory, per-registered-process mailbox depth, and task-registry size (soft dependency). Public API: start_link/1 (validates interval before spawning, so invalid options return {:error, reason} cleanly), stop/1, flush/1. Also apps/bench/test/bench/beam_sampler_test.exs with 6 tests covering all required behaviours. All 33 bench tests pass, lint clean.
+---
+author: oompah
+created: 2026-07-23 22:38
+---
+Understanding: Implementing Bench.BeamSampler — a GenServer in apps/bench that polls BEAM runtime metrics at a configurable interval and accumulates Bench.Sample entries. Required metrics: scheduler utilisation (wall-time diff), process count, run queue length, memory categories, mailbox depths for named processes, and task-registry size. Public API: start_link/1, stop/1, flush/1. Tests: starts/stops cleanly, expected metric names, mailbox depth tracking, scheduler utilisation in [0.0, 1.0], polling, and invalid interval rejection.
+---
+author: oompah
+created: 2026-07-23 22:38
+---
+Discovery: The implementation (apps/bench/lib/bench/beam_sampler.ex) and tests (apps/bench/test/bench/beam_sampler_test.exs) were already committed in commit f8e586a on branch epic-EXOCOMP-35. The implementation is complete with all required metrics and the interval validation was fixed to happen in start_link/1 (before GenServer spawn) rather than init/1 to avoid EXIT signal propagation issues.
+---
+author: oompah
+created: 2026-07-23 22:38
+---
+Implementation: apps/bench/lib/bench/beam_sampler.ex — GenServer collecting: scheduler utilisation (wall-time diff via :erlang.statistics(:scheduler_wall_time)), process count (:erlang.system_info(:process_count)), run queue length (:erlang.statistics(:run_queue)), mailbox depths for registered processes, memory categories (:erlang.memory/0), and task registry size (soft dep on Exocomp.Registry or standard Registry). Interval validation in start_link/1 returns {:error, {:invalid_interval, n}} without spawning a process. apps/bench/test/bench/beam_sampler_test.exs — 6 tests covering all acceptance criteria.
 ---
 <!-- COMMENTS:END -->
