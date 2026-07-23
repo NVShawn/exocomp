@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T21:36:20.164703Z'
+updated_at: '2026-07-23T21:37:51.071030Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -167,5 +167,10 @@ author: oompah
 created: 2026-07-23 21:36
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-23 21:37
+---
+Understanding: Implementing Bench.HostProfile in apps/bench. Need to create: (1) apps/bench/lib/bench/host_profile.ex with struct + detect/0 (reads /proc/cpuinfo, /proc/meminfo, uname, /etc/os-release), load/1 (reads named .toml profile from priv/bench/profiles/), and compatible?/2 (raises on arch mismatch); (2) priv/bench/profiles/amd64-ci.toml and arm64-ci.toml reference profiles; (3) test file with 4 required test cases. Branch created from EXOCOMP-50 which has the apps/bench scaffold. No TOML library exists in deps, so implementing a minimal flat-TOML parser inline to avoid adding a new dependency.
 ---
 <!-- COMMENTS:END -->

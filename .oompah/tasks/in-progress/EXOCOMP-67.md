@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:35:25.240607Z'
+updated_at: '2026-07-23T21:37:44.891231Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -132,5 +132,28 @@ author: oompah
 created: 2026-07-23 21:35
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-23 21:37
+---
+Understanding (DevOps focus): EXOCOMP-67 requires ELF/NIF runtime dependency inspection tooling for amd64/arm64 OTP releases.
+
+Current state:
+- Branch: epic-EXOCOMP-42 (the shared epic work branch)
+- EXOCOMP-65 work (pinned builders, build-releases.sh, verify-toolchain.sh) is on origin/EXOCOMP-65 but not yet in this branch
+- EXOCOMP-66 was closed Done but no code landed — archive packaging scripts do not exist
+- This task must work with the EXOCOMP-65 infrastructure as its foundation
+
+Plan:
+1. Cherry-pick/merge EXOCOMP-65 work into this branch as foundation
+2. Add scripts/inspect-release-deps.sh: ELF interpreter + SO_NEEDED enumeration via readelf (native arch) or cross-arch readelf; detect NIFs in priv/; fail on undeclared host dependencies
+3. Add release/runtime-baseline.lock: declarative allowlist of permitted host dependencies (glibc 2.36, libstdc++, libm, libpthread, etc.)
+4. Update build-releases.sh to run inspection and attach dep report to build output
+5. Add docs/runtime-dependencies.md: glibc baseline, host library contract, inspection commands
+6. Add test fixtures: fake release with known-good ELFs + one with injected undeclared dep
+7. Add test script scripts/test-runtime-deps.sh covering valid and invalid cases
+8. Wire into Makefile (test-deps target) and test-builders gate
+
+Key risk: cross-arch readelf. Strategy: run inside pinned builder container using --platform flag for arm64 inspection on amd64 host.
 ---
 <!-- COMMENTS:END -->

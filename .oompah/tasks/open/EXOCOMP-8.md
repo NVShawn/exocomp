@@ -16,7 +16,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T21:36:45.547989Z'
+updated_at: '2026-07-23T21:37:57.828098Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null

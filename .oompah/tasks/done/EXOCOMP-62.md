@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:37:24.786729Z'
+updated_at: '2026-07-23T21:37:35.290675Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 7434eea5-7b3b-47c0-9d17-d5c4f3fe07f8
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 1977822
-  total_output_tokens: 24611
+  total_input_tokens: 1977871
+  total_output_tokens: 35913
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1977822
-      output_tokens: 24611
+      input_tokens: 1977871
+      output_tokens: 35913
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 19513
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:32:09.777918+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 49
+    output_tokens: 11302
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:37:33.311490+00:00'
 ---
 ## Summary
 
@@ -275,5 +281,20 @@ author: oompah
 created: 2026-07-23 21:37
 ---
 Implemented Exocomp.Node.LlamaServer GenServer with loopback-only OS process lifecycle management, readiness polling, observable status/0 and base_url/0 APIs, exponential backoff restart, and one_for_one crash isolation. Smoke tests pass. Makefile rootless Docker fix also included.
+---
+author: oompah
+created: 2026-07-23 21:37
+---
+Agent completed successfully in 306s (11351 tokens)
+---
+author: oompah
+created: 2026-07-23 21:37
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 80, Tool calls: 51
+- Tokens: 49 in / 11.3K out [11.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 6s
+- Log: EXOCOMP-62__20260723T213231Z.jsonl
 ---
 <!-- COMMENTS:END -->
