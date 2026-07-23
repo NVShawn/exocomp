@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-64
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Write focused ExUnit tests for LlamaServer and ProposalClient
 parent: EXOCOMP-11
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T22:26:10.534961Z'
+updated_at: '2026-07-23T22:26:16.538619Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
