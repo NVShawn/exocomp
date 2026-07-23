@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-23T22:58:22.338376Z'
+updated_at: '2026-07-23T23:03:28.064324Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -187,5 +187,21 @@ author: oompah
 created: 2026-07-23 22:58
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 23:03
+---
+**Understanding (Epic Planner):** EXOCOMP-12 is the node A2A service epic. Based on codebase exploration:
+
+**Prerequisite code in branches (not yet in main):**
+- `origin/epic-EXOCOMP-8`: A2A type structs (AgentCard, Task, Message, errors, etc.) in apps/exocomp_core/lib/exocomp/a2a/
+- `EXOCOMP-10` / `EXOCOMP-60`: Diagnostic collectors (CPU, Disk, Memory, Systemd, Uptime) in apps/exocomp_node/lib/exocomp/node/collectors/
+- `EXOCOMP-60`: mTLS Listener GenServer + Config + Identity + Plug.Stub in apps/exocomp_node/lib/exocomp/node/
+- `epic-EXOCOMP-11` / `EXOCOMP-63`: LlamaServer + ProposalClient + ProposalSchema in apps/exocomp_node/lib/exocomp/node/
+
+**Core implementation gap (EXOCOMP-12 scope):**
+The mTLS Listener currently uses Exocomp.Node.Plug.Stub. EXOCOMP-12 must replace it with a real A2A Plug router covering Agent Card, message send, task get/list/cancel, with bounded task registry and skill dispatch.
+
+**Decomposition plan:** 5 child tasks covering (A) router scaffold + Agent Card + mTLS enforcement, (B) bounded task registry, (C) skill handlers, (D) endpoint wiring, (E) test suite + quality gate.
 ---
 <!-- COMMENTS:END -->
