@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-48
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Define A2A 1.0 protocol type structs and task-state enum
 parent: EXOCOMP-8
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:35:55.059812Z'
-updated_at: '2026-07-23T21:13:08.734613Z'
+updated_at: '2026-07-23T21:14:25.196556Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -183,5 +183,20 @@ author: oompah
 created: 2026-07-23 21:13
 ---
 Verification: All quality gates pass. make test: 66 tests in exocomp_core (all pass, 0 failures), make lint: clean, make fmt-check: clean. Also fixed a Podman rootless container permission issue in the Makefile (added --userns=keep-id) that was preventing any quality gate from running.
+---
+author: oompah
+created: 2026-07-23 21:14
+---
+Completion: Delivered all A2A 1.0 protocol type struct modules and smoke tests.
+
+Files created (14 modules + 11 test files):
+- apps/exocomp_core/lib/exocomp/a2a/: task_state.ex, agent_capabilities.ex, agent_skill.ex, agent_card.ex, text_part.ex, data_part.ex, file_content.ex, file_part.ex, message.ex, artifact.ex, task_status.ex, task.ex, error.ex, errors.ex
+- apps/exocomp_core/test/exocomp/a2a/: 11 test files, 66 tests total
+
+Also fixed Podman rootless container permission issue in Makefile (added --userns=keep-id).
+
+Quality gates: make test (68 tests, 0 failures) + make lint + make fmt-check all pass.
+
+Branch epic-EXOCOMP-8 pushed to origin. EXOCOMP-49 (codecs) can now proceed.
 ---
 <!-- COMMENTS:END -->
