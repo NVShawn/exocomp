@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-70
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Create systemd unit file and fixture installer/cleanup scripts
 parent: EXOCOMP-29
@@ -13,7 +13,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:28:48.165296Z'
+updated_at: '2026-07-23T21:29:00.817918Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -21,6 +21,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 5f72f1e8-1b66-4ac6-b760-0652d514d678
 oompah.work_branch: epic-EXOCOMP-4
+oompah.task_costs:
+  total_input_tokens: 23
+  total_output_tokens: 5667
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 23
+      output_tokens: 5667
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 23
+    output_tokens: 5667
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:28:57.115019+00:00'
 ---
 ## Summary
 
@@ -95,5 +111,25 @@ Remaining work/risks:
 - The worktree is on branch epic-EXOCOMP-29, but the task targets epic-EXOCOMP-4. Running git pull already fast-forwarded to the latest main (which now includes EXOCOMP-69 and EXOCOMP-72 merged work). The feature agent should check if they are on the correct branch before committing.
 
 Recommended next focus: devops (or feature)
+---
+author: oompah
+created: 2026-07-23 21:28
+---
+Agent completed successfully in 147s (5690 tokens)
+---
+author: oompah
+created: 2026-07-23 21:28
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 44, Tool calls: 28
+- Tokens: 23 in / 5.7K out [5.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 27s
+- Log: EXOCOMP-70__20260723T212634Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:29
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
