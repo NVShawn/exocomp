@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T22:26:02.726160Z'
+updated_at: '2026-07-23T22:27:18.375232Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 54de1d9c-48f3-4c37-a97c-4e6cac1968fc
+oompah.agent_run_id: 13dc8299-5594-4857-af3a-c99cdcfffb05
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 1630939
@@ -180,5 +180,15 @@ created: 2026-07-23 22:26
 **Evidence:** Last agent comment signals completion without a human question; the Needs Human transition appears accidental.
 
 *This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
+---
+author: oompah
+created: 2026-07-23 22:27
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 22:27
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
