@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-65
 type: feature
-status: In Progress
+status: Done
 priority: 2
 title: Pin multi-architecture OTP release builders
 parent: EXOCOMP-42
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:25:51.685477Z'
+updated_at: '2026-07-23T21:26:06.440308Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -229,5 +229,21 @@ created: 2026-07-23 21:25
 - All invocations use --platform flag and no -i/-it interactive flags
 - build-releases.sh uses --pull never and enforces clean git checkout
 - Both node and coordinator releases targeted, with ERTS smoke check
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+**Completion:** EXOCOMP-65 is fully implemented and committed on origin/EXOCOMP-65.
+
+Delivered:
+1. **Immutable builder lockfile** (`release/builders.lock`) — Elixir 1.20.2/OTP 28.5.0.3 on Debian 12 (glibc 2.36) with separate sha256-pinned digests for linux/amd64 and linux/arm64
+2. **Make targets** — `build-amd64`, `build-arm64`, `build ARCH=...`, `init`, `init-amd64`, `init-arm64`, `test-builders`, `lint`
+3. **Capability check** (`scripts/check-builder-capability.sh`) — pulls pinned image, verifies uname -m matches expected machine, fails clearly on missing engine/emulation
+4. **Clean release script** (`scripts/build-releases.sh`) — enforces clean checkout, explicit --platform, --pull never, builds node + coordinator OTP releases with ERTS under `_build/release/<arch>/rel`
+5. **Toolchain verification** (`scripts/verify-toolchain.sh`) — validates Elixir/OTP/glibc inside container against lockfile values
+6. **Static validation tests** (`scripts/test-release-builders.sh` + `test/fixtures/fake-container-engine.sh`) — all acceptance checks pass offline
+7. **Documentation** (`docs/development.md`) — architecture-specific release build workflow documented
+
+All quality gates pass: `make test-builders` exits 0.
 ---
 <!-- COMMENTS:END -->
