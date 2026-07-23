@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-35
 type: feature
-status: In Progress
+status: Open
 priority: 2
 title: Build the reproducible benchmark harness
 parent: EXOCOMP-5
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:26:33.025964Z'
+updated_at: '2026-07-23T20:26:45.760781Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -21,6 +21,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: a6551a47-ad8b-4d7d-9e27-176431107aba
 oompah.work_branch: epic-EXOCOMP-5
+oompah.task_costs:
+  total_input_tokens: 27
+  total_output_tokens: 5105
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 27
+      output_tokens: 5105
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 27
+    output_tokens: 5105
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T20:26:42.677232+00:00'
 ---
 ## Summary
 
@@ -105,5 +121,25 @@ Focus handoff: duplicate_detector
 - The harness is a prerequisite for EXOCOMP-36 through EXOCOMP-40; delays cascade to all M5 children
 
 **Recommended next focus:** feature — this is a substantial new implementation task building the Elixir-based benchmark harness from scratch
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Agent completed successfully in 134s (5132 tokens)
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 44, Tool calls: 35
+- Tokens: 27 in / 5.1K out [5.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 14s
+- Log: EXOCOMP-35__20260723T202432Z.jsonl
+---
+author: oompah
+created: 2026-07-23 20:26
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
