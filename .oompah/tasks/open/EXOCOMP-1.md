@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -17,7 +17,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-23T19:20:12.516699Z'
+updated_at: '2026-07-23T20:12:56.897998Z'
 work_branch: null
 target_branch: null
 review_url: null
