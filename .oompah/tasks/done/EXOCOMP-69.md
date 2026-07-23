@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:22:33.388710Z'
+updated_at: '2026-07-23T21:22:36.115537Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -154,5 +154,10 @@ Completion: Delivered test/fixtures/exocomp_fixture/bin/exocomp-fixture — a Py
 - File-based mode control: active, degraded (process stays alive, health unhealthy), failed/flapping/restart-failure (exit code 1)
 - SIGTERM/SIGINT graceful shutdown
 Also delivered: 22-test Python test suite (all pass, 8.3s), README, and Makefile target test-fixture-service. Branch EXOCOMP-69 pushed. Prerequisite for EXOCOMP-70 and EXOCOMP-71.
+---
+author: oompah
+created: 2026-07-23 21:22
+---
+Delivered crashable fixture service at test/fixtures/exocomp_fixture/bin/exocomp-fixture with health endpoint, workload marker, file-based mode control (active/degraded/failed/flapping/restart-failure), and 22-test Python test suite (all passing). Makefile target test-fixture-service added.
 ---
 <!-- COMMENTS:END -->
