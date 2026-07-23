@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T21:42:41.395525Z'
+updated_at: '2026-07-23T21:43:10.013145Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -182,5 +182,10 @@ author: oompah
 created: 2026-07-23 21:42
 ---
 Verification: All quality gates pass. make test: 37 bench tests + 4 other app tests, all passed. make fmt-check: clean. make lint (compile --warnings-as-errors): no warnings. New tests cover all 4 required cases: (1) detect/0 returns well-formed struct with correct field types, (2) amd64 vs arm64 raises ArgumentError naming both architectures, (3) incompatible arch error message is descriptive (tested via error.message =~ amd64/arm64), (4) load/1 with missing profile returns {:error, :not_found}.
+---
+author: oompah
+created: 2026-07-23 21:43
+---
+Completion: Delivered Bench.HostProfile on branch EXOCOMP-53 (commit 2fb102d). Files: apps/bench/lib/bench/host_profile.ex (module with detect/0, load/1, compatible?/2 + inline flat-TOML parser), apps/bench/priv/bench/profiles/amd64-ci.toml and arm64-ci.toml (pinned GitHub Actions runner specs), apps/bench/test/bench/host_profile_test.exs (19 tests). No new Mix dependency — minimal TOML parser handles the flat subset used in profile files. All 4 required test cases covered; all quality gates (test, lint, fmt-check) pass cleanly.
 ---
 <!-- COMMENTS:END -->

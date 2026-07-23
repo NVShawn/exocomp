@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-23T21:39:58.758805Z'
+updated_at: '2026-07-23T21:43:07.332748Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -160,5 +160,26 @@ author: oompah
 created: 2026-07-23 21:39
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-07-23 21:43
+---
+Focus handoff: security (pre-implementation audit)
+
+**Understanding:** I am the Security Auditor for EXOCOMP-63. No ProposalClient implementation exists yet — the feature agent was not run. I will perform a security-first implementation, embedding all security controls as first-class design elements rather than afterthoughts.
+
+**Security threat model for ProposalClient:**
+1. Log injection / information disclosure: Raw LLM output must NEVER appear in logs (redact to [REDACTED])
+2. SSRF: base_url from LlamaServer is already loopback-only (enforced in LlamaServer.init/1 with a warning and override)
+3. Atom exhaustion: JSON parsing of model output must use string keys, not atom keys, to avoid BEAM atom table exhaustion
+4. Input size bounding: Diagnostic context serialization must be truncated before sending
+5. Arbitrary execution: Model output must pass ProposalSchema.validate/1 gate — no bypass
+6. Timeout: Must enforce HTTP timeout; no blocking forever on a slow model
+7. Schema pinning: System prompt hardcoded (not caller-configurable)
+8. Checksum validation: Model binary verified before use (configurable fn)
+9. Oversized HTTP responses: Must cap response body size
+10. Malformed HTTP: Must handle gracefully without crashing
+
+**Plan:** Create EXOCOMP-63 branch from EXOCOMP-62, bring in ProposalSchema from EXOCOMP-61, implement ProposalClient with all security controls, add unit tests, run quality gates.
 ---
 <!-- COMMENTS:END -->
