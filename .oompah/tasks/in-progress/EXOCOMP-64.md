@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T21:50:53.665191Z'
+updated_at: '2026-07-23T21:51:14.745483Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -104,5 +104,47 @@ Tasks reviewed:
 - EXOCOMP-13: M1 milestone verification (Open) — integration/acceptance tests for the full M1 milestone, different scope from focused LlamaServer+ProposalClient unit tests
 
 Evidence: EXOCOMP-63 comment #3 explicitly states 'Full scenario tests are in the sibling test task' (EXOCOMP-64). No existing task defines FakeLlamaServer or the 11 test scenarios required by EXOCOMP-64. Both blocking dependencies (EXOCOMP-62, EXOCOMP-63) are now Done, so EXOCOMP-64 is unblocked.
+---
+author: oompah
+created: 2026-07-23 21:51
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-64 is a unique, original task that is now fully unblocked (EXOCOMP-62 and EXOCOMP-63 are both Done).
+
+**Evidence:**
+- EXOCOMP-11 Epic Planner (comment #13) explicitly created EXOCOMP-64 as the 4th child for 'Write focused ExUnit tests for LlamaServer and ProposalClient'
+- EXOCOMP-62 (Done): LlamaServer OTP supervisor — includes 3 smoke tests only; not the full 11-scenario suite
+- EXOCOMP-63 (Done): ProposalClient — includes unavailability smoke test only; defers full scenarios to this task explicitly
+- EXOCOMP-13 (Open): M1 milestone verification — broader integration scope, not a duplicate
+- No existing task defines FakeLlamaServer or covers all 11 required test scenarios
+
+**Key implementation context:**
+- Module convention: Exocomp.Node.* (not ExocmpNode.*) — see existing modules in apps/exocomp_node/lib/exocomp/node/
+- FakeLlamaServer should use Bandit+Plug (already in deps) or :cowboy if available; bind to random loopback port via {:tcp, :loopback, 0}
+- Test helper: apps/exocomp_node/test/support/fake_llama_server.ex
+- Test files: apps/exocomp_node/test/exocomp/node/llama_server_test.exs AND apps/exocomp_node/test/exocomp/node/proposal_client_test.exs
+- LlamaServer exposes status/0 -> :ready | :starting | :degraded | :stopped and base_url/0 -> {:ok, url} | {:error, :not_ready}
+- ProposalClient exposes propose/1 -> {:ok, proposal} | {:error, reason}
+- EXOCOMP-62 branch is merged into epic-EXOCOMP-1; EXOCOMP-63 must be checked to see if its commits are on epic-EXOCOMP-1 too
+- ProposalClient uses :httpc (built-in inets), raw model output is always [REDACTED] in logs
+- Makefile uses Docker for quality gates (make test, make lint, make fmt-check)
+- Check the existing tests in apps/exocomp_node/test/ for patterns before writing new tests
+
+**Remaining work:**
+1. Examine current state of apps/exocomp_node/lib/exocomp/node/ and test/ directories
+2. Implement FakeLlamaServer test helper (controllable via message-passing; configurable /health and /v1/chat/completions responses)
+3. Write llama_server_test.exs: 5 scenarios (startup success, readiness timeout, crash+restart, restart backoff, crash isolation)
+4. Write proposal_client_test.exs: 6 scenarios (valid round-trip, invalid JSON, schema violation, request timeout, unavailable model, output redaction)
+5. Run make test, make lint, make fmt-check
+6. Commit and push
+
+**Risks:**
+- Timing tests (backoff measurement) require careful synchronization; use explicit receive/assert_receive patterns with Process.monitor rather than :timer.sleep
+- LlamaServer crash simulation: need to access the OS pid via GenServer state or use a test-only stop/start mechanism
+- If EXOCOMP-63 commits aren't on epic-EXOCOMP-1, the agent must merge/rebase first
+- Port conflicts: always use port 0 (OS-assigned) for fake server
+
+**Recommended next focus:** test
 ---
 <!-- COMMENTS:END -->
