@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: In Progress
+status: Needs Human
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:23:40.342621Z'
+updated_at: '2026-07-23T23:25:21.012302Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: cb5fdf22-791b-4fbb-ab07-38228fd0d3e2
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 2711207
-  total_output_tokens: 74421
+  total_input_tokens: 3081672
+  total_output_tokens: 77666
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 2711207
-      output_tokens: 74421
+      input_tokens: 3081672
+      output_tokens: 77666
       cost_usd: 0.0
   runs:
   - profile: default
@@ -61,6 +61,12 @@ oompah.task_costs:
     output_tokens: 3625
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:23:09.931070+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 370465
+    output_tokens: 3245
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T23:25:17.828670+00:00'
 ---
 ## Summary
 
@@ -377,5 +383,25 @@ author: oompah
 created: 2026-07-23 23:23
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 23:25
+---
+Agent completed successfully in 99s (373710 tokens)
+---
+author: oompah
+created: 2026-07-23 23:25
+---
+Run #3 [attempt=3, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 8
+- Tokens: 370.5K in / 3.2K out [373.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 39s
+- Log: EXOCOMP-43__20260723T232340Z.jsonl
+---
+author: oompah
+created: 2026-07-23 23:25
+---
+Agent completed 3 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
 ---
 <!-- COMMENTS:END -->
