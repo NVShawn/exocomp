@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-23T19:37:25.159215Z'
+updated_at: '2026-07-23T19:37:40.124119Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: bbafc6cf-9419-49b0-8b72-d61a60c88dc6
+oompah.agent_run_id: e4ba7f22-af4a-4c7c-b667-dfcda32d58f1
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 4233058
@@ -168,5 +168,15 @@ author: oompah
 created: 2026-07-23 19:37
 ---
 Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-1`. Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 19:37
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-23 19:37
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
