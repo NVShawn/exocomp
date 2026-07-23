@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:37:22.094962Z'
+updated_at: '2026-07-23T21:37:24.786729Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -270,5 +270,10 @@ Commits:
 - d600763: Makefile rootless Docker fix (this run — required for make test/lint to work in this environment)
 
 Branch origin/EXOCOMP-62 is up to date. Ready for review.
+---
+author: oompah
+created: 2026-07-23 21:37
+---
+Implemented Exocomp.Node.LlamaServer GenServer with loopback-only OS process lifecycle management, readiness polling, observable status/0 and base_url/0 APIs, exponential backoff restart, and one_for_one crash isolation. Smoke tests pass. Makefile rootless Docker fix also included.
 ---
 <!-- COMMENTS:END -->
