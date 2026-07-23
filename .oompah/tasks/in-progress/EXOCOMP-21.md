@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T22:11:43.427026Z'
+updated_at: '2026-07-23T22:11:54.319624Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -201,5 +201,20 @@ Discovery: No prior implementation existed on this branch. Explored the M3 safet
 4. ActionDefinition must structurally prevent deletion-class actions from targeting :protected_user_data
 5. Risk rank parsing must reject unknown levels (no atom injection via String.to_atom)
 6. ValidatorResult must default to :deny — fail-closed
+---
+author: oompah
+created: 2026-07-23 22:11
+---
+Implementation: Created Exocomp.Node.Safety type system in apps/exocomp_node/lib/exocomp/node/safety/:
+
+- DataClassification: classify/1 fail-closed (unknown → :protected_user_data); deletion_eligible?/1 blocks :protected_user_data
+- RiskRank: parse/1 with explicit string pattern matching (no String.to_atom); compare/2 and less_than?/2 for policy ordering
+- Reversibility: parse/1 with no default — explicit required value; unknown strings rejected
+- Evidence: full parse/1 with schema version check, unknown-field rejection, required-field validation, ISO 8601 datetime parsing, flat string→string values validation, SHA-256 hex integrity hash validation (64 lowercase hex chars)
+- Proposal: parse/1 with untrusted-input hardening: action_id restricted to [A-Za-z0-9._-]{1,128}, unknown fields rejected, flat parameters map required
+- ActionDefinition: build/1 with deletion-ineligibility invariant (deletion+:protected_user_data → error at construction), forbidden action_id pattern check (shell/exec/cmd/rm/wildcard), all numeric fields validated
+- ValidatorResult: deny/allow/approval_required constructors with schema version; parse/1 with unknown-field rejection; default struct is :deny
+
+Tests: 180 tests (7 test files) covering valid schemas, malformed values, unknown schema versions, missing fields, risk ordering, fail-closed data classification defaults, and deletion-ineligibility variants.
 ---
 <!-- COMMENTS:END -->
