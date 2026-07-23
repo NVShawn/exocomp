@@ -14,7 +14,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-23T22:26:22.308058Z'
+updated_at: '2026-07-23T22:26:31.654424Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -23,13 +23,13 @@ merged_at: null
 oompah.agent_run_id: 39ffb9b1-df50-493f-9c36-9c4afcbb0541
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 5643395
-  total_output_tokens: 52323
+  total_input_tokens: 5643511
+  total_output_tokens: 55743
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 5643395
-      output_tokens: 52323
+      input_tokens: 5643511
+      output_tokens: 55743
       cost_usd: 0.0
   runs:
   - profile: default
@@ -68,6 +68,12 @@ oompah.task_costs:
     output_tokens: 29959
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:19:09.221222+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 116
+    output_tokens: 3420
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:26:29.908131+00:00'
 ---
 ## Summary
 
@@ -410,5 +416,15 @@ author: oompah
 created: 2026-07-23 22:26
 ---
 Coordinator inventory, registry, and audit scaffolded. All 15 focused tests pass. make test/lint/fmt-check all green. Branch EXOCOMP-14 pushed.
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 0, Tool calls: 72
+- Tokens: 116 in / 3.4K out [3.5K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 7m 3s
+- Log: EXOCOMP-14__20260723T221928Z.jsonl
 ---
 <!-- COMMENTS:END -->

@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T22:26:19.069528Z'
+updated_at: '2026-07-23T22:26:30.348463Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 352f2193-b691-4145-9e76-f48d44c93c2a
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 749887
-  total_output_tokens: 12083
+  total_input_tokens: 750108
+  total_output_tokens: 18110
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 749887
-      output_tokens: 12083
+      input_tokens: 750108
+      output_tokens: 18110
       cost_usd: 0.0
   runs:
   - profile: default
@@ -49,6 +49,12 @@ oompah.task_costs:
     output_tokens: 4421
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:55:23.388190+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 221
+    output_tokens: 6027
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:26:27.876340+00:00'
 ---
 ## Summary
 
@@ -332,5 +338,15 @@ author: oompah
 created: 2026-07-23 22:26
 ---
 Implemented all 11 focused ExUnit test scenarios for LlamaServer and ProposalClient. Created FakeLlamaServer in-process TCP HTTP test helper (no external deps), llama-server-forever fixture, and expanded both test files with full scenario coverage. All 52 tests pass, lint and fmt-check clean. Branch epic-EXOCOMP-11 pushed to origin.
+---
+author: oompah
+created: 2026-07-23 22:26
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
+- Turns: 0, Tool calls: 136
+- Tokens: 221 in / 6.0K out [6.2K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 30m 36s
+- Log: EXOCOMP-64__20260723T215553Z.jsonl
 ---
 <!-- COMMENTS:END -->
