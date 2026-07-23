@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:39:11.762420Z'
+updated_at: '2026-07-23T22:40:11.357731Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -339,5 +339,10 @@ Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 24s
 - Log: EXOCOMP-55__20260723T223646Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:40
+---
+Verification: All 33 tests pass (make test, clean build). Lint clean (make lint, mix format --check-formatted + --warnings-as-errors compile). Commit f8e586a pushed to origin/epic-EXOCOMP-35. Tests cover: start/stop lifecycle, all expected metric names (scheduler.utilization, process.count, run_queue.length, memory.*, mailbox.*.depth, task_registry.size), mailbox growth tracking, scheduler utilisation in [0.0, 1.0] as float, repeated polling, invalid interval rejection.
 ---
 <!-- COMMENTS:END -->

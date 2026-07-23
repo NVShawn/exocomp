@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:39:54.131617Z'
+updated_at: '2026-07-23T22:40:02.866072Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -391,5 +391,10 @@ author: oompah
 created: 2026-07-23 22:39
 ---
 Discovery: Implementation already committed to origin/EXOCOMP-56 (commit 9634b10) by a prior agent run. The branch was never closed because previous orchestration runs were tracking 'epic-EXOCOMP-35' instead of 'EXOCOMP-56'. Files delivered: apps/bench/lib/bench/host_sampler.ex (329 lines - GenServer reading /proc), apps/bench/lib/bench/sample.ex (updated with tags field + nil value support), apps/bench/lib/bench/run.ex (minor update), apps/bench/test/bench/host_sampler_test.exs (183 lines - 4 tests), apps/bench/test/bench/sample_test.exs (21 lines - added tag/nil coverage).
+---
+author: oompah
+created: 2026-07-23 22:40
+---
+Verification: All quality gates pass on EXOCOMP-56 branch. make test: 33 bench tests pass (+ 7 from other apps). make fmt-check: clean. make lint: clean (no warnings-as-errors). Tests cover: missing-PID produces :missing-tagged nil samples without crashing, attribution tags (:node/:coordinator/:llama) preserved in sample.source, CPU/RSS/FD/disk-IO/page-fault metrics read from synthetic /proc fixtures, cgroup v2 network accounting reads net.stat, fallback from smaps_rollup to VmRSS in /proc/status when smaps unavailable. The @linux-tagged live-load test is excluded in CI (requires real OS subprocess) but tests all other behaviors with synthetic /proc fixtures.
 ---
 <!-- COMMENTS:END -->
