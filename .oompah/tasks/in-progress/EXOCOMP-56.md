@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:11:00.910311Z'
+updated_at: '2026-07-23T22:17:49.672150Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: c9a935fe-fca6-4373-9a7e-87364cc08b6a
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 3455262
-  total_output_tokens: 36937
+  total_input_tokens: 7114529
+  total_output_tokens: 48575
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 3455262
-      output_tokens: 36937
+      input_tokens: 7114529
+      output_tokens: 48575
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 21249
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:10:38.952560+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 3659267
+    output_tokens: 11638
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:17:46.494747+00:00'
 ---
 ## Summary
 
@@ -261,5 +267,25 @@ author: oompah
 created: 2026-07-23 22:11
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-23 22:17
+---
+Agent completed successfully in 407s (3670905 tokens)
+---
+author: oompah
+created: 2026-07-23 22:17
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 43
+- Tokens: 3.7M in / 11.6K out [3.7M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 47s
+- Log: EXOCOMP-56__20260723T221100Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:17
+---
+Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-35`. No stronger profile is configured; retrying with 'deep' in 20s (2/3).
 ---
 <!-- COMMENTS:END -->
