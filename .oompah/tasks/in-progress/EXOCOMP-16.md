@@ -14,9 +14,10 @@ blocked_by:
 - EXOCOMP-14
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-23T23:01:30.293243Z'
+updated_at: '2026-07-23T23:02:23.913069Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -232,5 +233,30 @@ author: oompah
 created: 2026-07-23 23:00
 ---
 Discovery: EXOCOMP-16 has no existing children. The Bootstrap PKI design requires a root exported for offline storage, an online intermediate, coordinator leaf, separate Ed25519 approval key, protected state, and ten-minute one-use node-bound tokens. EXOCOMP-14 provides the inventory/audit/supervision foundation on origin/EXOCOMP-14 but is Done and not yet on origin/main; child implementations must base on that work. Key boundaries are apps/exocomp_coordinator/lib/exocomp/coordinator, its mix.exs, and focused coordinator tests.
+---
+author: oompah
+created: 2026-07-23 23:02
+---
+Implementation: Created three high-priority child tasks. EXOCOMP-75 owns secure root/intermediate/coordinator/approval-key bootstrap and state validation; EXOCOMP-76 owns durable inventory-bound ten-minute single-use tokens; EXOCOMP-77 owns supervision, operator initialization, interface wiring, and cross-cutting security verification. Each description includes concrete contracts, failure behavior, tests, files, and quality gates.
+---
+author: oompah
+created: 2026-07-23 23:02
+---
+Verification: Re-read the tracker-backed task files after creation. EXOCOMP-16 lists exactly EXOCOMP-75, EXOCOMP-76, and EXOCOMP-77 as children. Dependencies are recorded as 75 -> EXOCOMP-14; 76 -> EXOCOMP-75 and EXOCOMP-14; 77 -> EXOCOMP-75 and EXOCOMP-76. All children are high priority (priority 1), Backlog, and collectively cover every parent acceptance criterion. No repository code was changed, as required for epic planning.
+---
+author: oompah
+created: 2026-07-23 23:02
+---
+Focus handoff: epic_planner
+
+Outcome: EXOCOMP-16 is fully decomposed into three independently actionable children: EXOCOMP-75 secure PKI bootstrap/state validation, EXOCOMP-76 durable node-bound enrollment tokens, and EXOCOMP-77 coordinator/operator integration and end-to-end security checks.
+
+Evidence and decisions: plans/milestone-2-coordinator.md Bootstrap PKI defines the root/intermediate/leaf/approval-key split and ten-minute one-use tokens. The coordinator implementation surface is apps/exocomp_coordinator; EXOCOMP-14 supplies inventory, audit, and supervision foundations. Token storage is specified as digest-only and durable across restart, with atomic consume and constant-time comparison. The approval key remains separate from CA and token purposes. Root private material is confined to an explicitly protected offline backup and forbidden from online state.
+
+Dependencies: EXOCOMP-75 depends on EXOCOMP-14; EXOCOMP-76 depends on EXOCOMP-75 and EXOCOMP-14; EXOCOMP-77 depends on EXOCOMP-75 and EXOCOMP-76. EXOCOMP-17 already depends on the parent and will consume the resulting interface.
+
+Risks: EXOCOMP-14 is Done on origin/EXOCOMP-14 but is not yet present on origin/main, so implementation branches must include that foundation. PKI library selection must preserve required algorithms and encrypted private-key handling. Enrollment persistence must fail closed on corruption and concurrency.
+
+Recommended next focus: feature, beginning with EXOCOMP-75.
 ---
 <!-- COMMENTS:END -->
