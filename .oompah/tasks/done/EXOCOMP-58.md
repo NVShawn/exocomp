@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T22:25:27.021073Z'
+updated_at: '2026-07-23T22:25:29.467579Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -417,5 +417,10 @@ author: oompah
 created: 2026-07-23 22:25
 ---
 Completion: Delivered Exocomp.Node.Config versioned JSON config loader on branch EXOCOMP-58. Files: lib/exocomp/node/config.ex (load/1 API, struct with TLS+Listen sub-structs, validation, env overrides), lib/exocomp/node/redact.ex (sensitive field helper), test/exocomp/node/config_test.exs (13 tests). Updated mix.exs (+jason), Makefile (rootless Docker support + dep bootstrap), mix.lock. make test and make lint both pass. Duplicate check: no duplicate found — this is a unique implementation task with no prior art in the codebase.
+---
+author: oompah
+created: 2026-07-23 22:25
+---
+Implemented Exocomp.Node.Config versioned JSON config loader with Exocomp.Node.Redact helper, 13 tests, Jason dep, Makefile rootless Docker fix. All make test and make lint gates pass. Branch EXOCOMP-58 pushed to origin.
 ---
 <!-- COMMENTS:END -->
