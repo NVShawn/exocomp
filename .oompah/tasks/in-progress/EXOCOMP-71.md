@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:36:38.299776Z'
+updated_at: '2026-07-23T21:38:17.446186Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -142,5 +142,10 @@ author: oompah
 created: 2026-07-23 21:36
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:38
+---
+Understanding (duplicate screening): EXOCOMP-71 is the focused ExUnit/systemd integration-test slice of parent EXOCOMP-29. I will compare its complete scope and comments with the parent and sibling fixture tasks, then either archive a confirmed duplicate or hand off to test implementation without changing code.
 ---
 <!-- COMMENTS:END -->
