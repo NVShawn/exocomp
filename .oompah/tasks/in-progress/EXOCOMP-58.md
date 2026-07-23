@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T22:17:21.566966Z'
+updated_at: '2026-07-23T22:24:55.258191Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -402,5 +402,10 @@ author: oompah
 created: 2026-07-23 22:17
 ---
 Discovery: Fixture files from EXOCOMP-57 are on origin/main with schema: {version, node_id, tls: {ca_cert, node_cert, node_key}, listen: {host, port}}. The config_missing_fields.json only has version:1. Existing scaffold in apps/exocomp_node/lib/exocomp/node/application.ex with no jason dep yet. Proceeding with implementation on new EXOCOMP-58 branch.
+---
+author: oompah
+created: 2026-07-23 22:24
+---
+Implementation: Created the following files on branch EXOCOMP-58: (1) apps/exocomp_node/lib/exocomp/node/redact.ex - Exocomp.Node.Redact helper that identifies sensitive fields (tls.node_key, tls.node_cert, tls.ca_cert) and provides redact_value/2; (2) apps/exocomp_node/lib/exocomp/node/config.ex - Exocomp.Node.Config with load/1, struct with TLS/Listen sub-structs, version check, required field validation, type checking, env var overrides, redaction-safe error messages; (3) test/exocomp/node/config_test.exs - 13 tests covering all required cases. Also updated: mix.exs (added jason ~> 1.4), Makefile (rootless Docker detection + DEPS_BOOTSTRAP for hex/dep fetching), formatted fixture_test.exs. Both make test and make lint pass.
 ---
 <!-- COMMENTS:END -->
