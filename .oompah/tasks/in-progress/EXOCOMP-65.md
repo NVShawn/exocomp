@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:13:24.961751Z'
+updated_at: '2026-07-23T21:15:55.410648Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -87,5 +87,17 @@ author: oompah
 created: 2026-07-23 21:13
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:15
+---
+Duplicate screening: No duplicate found. EXOCOMP-65 is a unique child task deliberately created by the EXOCOMP-42 epic planner (see EXOCOMP-42 comment #27-29).
+
+Closest candidates reviewed:
+- **EXOCOMP-7** (Done): Establishes Elixir 1.20.2/OTP 28.5.0.3 with a SINGLE digest-pinned Alpine builder (sha256:53d8a7a0caf...). EXOCOMP-65 scope is distinct: it needs SEPARATE digest-pinned builders for BOTH amd64 and arm64 using a glibc baseline, plus architecture-selection Make targets, capability checks, and arch-mapping validation.
+- **EXOCOMP-42** (Open, parent): Covers the full reproducible artifact epic; EXOCOMP-65 is its first child and first dependency in the chain 65 -> 66 -> 67 -> 68.
+- **EXOCOMP-68** (Open): Qualification task that *consumes* EXOCOMP-65 artifacts; does not duplicate the builder pinning scope.
+
+Evidence: `git show origin/EXOCOMP-7:Makefile` confirms EXOCOMP-7 uses a single-arch Alpine (musl) builder without `--platform` flag. EXOCOMP-65 must add glibc-based amd64+arm64 builders with explicit `--platform linux/amd64` and `--platform linux/arm64` and their respective digest pins.
 ---
 <!-- COMMENTS:END -->

@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T21:12:58.241328Z'
+updated_at: '2026-07-23T21:15:57.949903Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -219,5 +219,30 @@ created: 2026-07-23 21:12
 - Security: allow-list enforcement, argv inspection for no shell metacharacters
 
 About to run make test, make lint, make fmt-check for quality gate.
+---
+author: oompah
+created: 2026-07-23 21:15
+---
+**Implementation:** Added 6 Elixir modules and 5 test files to apps/exocomp_node/:
+
+Collector modules (lib/exocomp/node/collectors/):
+- types.ex — shared Types module: ok/1, err/2, build/4 returning versioned observation maps
+- uptime.ex — reads /proc/uptime, 256B ceiling, partial error on parse failure
+- memory.ex — reads /proc/meminfo, 128KB ceiling, 5 fields (MemTotal/Free/Available, SwapTotal/Free)
+- cpu.ex — reads /proc/stat (8 tick counters) + /proc/cpuinfo (count, model name), independent partial failures
+- disk.ex — invokes df -Pk via argv-only MFA (configurable timeout_ms option for test injection)
+- systemd.ex — invokes systemctl show --property=<FIXED_LIST> <service> via argv-only MFA; allow-list enforced before any exec; no shell involved
+
+Test files (test/exocomp/node/collectors/):
+- uptime_test.exs, memory_test.exs, cpu_test.exs, disk_test.exs, systemd_test.exs
+
+Fixture files (test/fixtures/proc/): 10 files covering valid, partial, malformed, missing-fields, and no-aggregate-line cases.
+
+Key decisions:
+- Fixed else-clause ordering bug in uptime.ex where {:error, :malformed} was shadowed by the generic is_atom guard
+- cmd_runner option uses MFA {mod, fun, extra_args} pattern; extra_args are appended last in apply/3 so public stubs receive (cmd, args, opts, extra_arg...)
+- timeout_ms configurable on both disk and systemd collectors for testing
+
+Quality gates passed — see Verification comment.
 ---
 <!-- COMMENTS:END -->

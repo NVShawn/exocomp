@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -9,17 +9,32 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
-- needs:docs
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:15:24.256282Z'
+updated_at: '2026-07-23T21:15:58.865988Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: c76c0f28-9bde-4f60-a8fa-33f8f8be227c
+oompah.agent_run_id: 7fab8c25-f25a-4aec-8085-b715e817e85e
 oompah.work_branch: epic-EXOCOMP-4
+oompah.task_costs:
+  total_input_tokens: 45
+  total_output_tokens: 1576
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 45
+      output_tokens: 1576
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 45
+    output_tokens: 1576
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:15:40.042344+00:00'
 ---
 ## Summary
 
@@ -84,5 +99,25 @@ Focus handoff: duplicate_detector
 - EXOCOMP-70 and EXOCOMP-71 are not yet done, so some make targets/ExUnit tags may not exist yet — the doc agent should note expected targets based on plans and EXOCOMP-71 description rather than verifying live
 
 **Recommended next focus:** docs
+---
+author: oompah
+created: 2026-07-23 21:15
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 31
+- Tokens: 45 in / 1.6K out [1.6K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 19s
+- Log: EXOCOMP-72__20260723T211330Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:15
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:15
+---
+Focus: Technical Writer
 ---
 <!-- COMMENTS:END -->
