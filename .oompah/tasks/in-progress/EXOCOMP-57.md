@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:08:06.455733Z'
+updated_at: '2026-07-23T21:08:31.086558Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -238,5 +238,23 @@ All .key files chmod 0600. Script is idempotent. Used -not_before/-not_after (Op
 **Makefile** — added gen-test-fixtures target with ## comment (visible in make help).
 
 Private keys committed intentionally (dev-only fixtures, documented in script header).
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+**Verification:** All acceptance criteria met:
+
+1. ✅ scripts/gen-test-certs.sh is idempotent — ran twice, no errors
+2. ✅ All fixture files created and committed to git:
+   - certs: ca.crt, node.crt/key, wrong_san.crt/key, expired.crt/key, rogue.crt/key
+   - JSON: config_valid.json, config_missing_fields.json, config_unknown_version.json, config_malformed.json
+3. ✅ make gen-test-fixtures passes (exit 0)
+4. ✅ node.crt SAN verified: DNS:exocomp-test-node
+5. ✅ expired.crt dates: notBefore=Jan 1 00:00:00 2020, notAfter=Jan 2 00:00:00 2020
+6. ✅ rogue.crt correctly fails verification against ca.crt (error 20: unable to get local issuer certificate)
+7. ✅ All .key files are chmod 0600
+8. ✅ make help shows gen-test-fixtures target
+
+Branch EXOCOMP-57 pushed to origin.
 ---
 <!-- COMMENTS:END -->
