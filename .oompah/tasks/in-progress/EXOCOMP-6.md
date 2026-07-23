@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-6
 type: epic
-status: Open
+status: In Progress
 priority: 1
 title: 'M6: Packaging, documentation, and open-source release'
 parent: null
@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-07-23T21:37:42.627524Z'
+updated_at: '2026-07-23T21:38:57.644160Z'
 work_branch: null
 target_branch: null
 review_url: null

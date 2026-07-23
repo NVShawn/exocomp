@@ -9,25 +9,26 @@ children: []
 blocked_by:
 - EXOCOMP-69
 - EXOCOMP-70
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:38:17.446186Z'
+updated_at: '2026-07-23T21:38:53.311126Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 79918816-d644-458a-8181-7e2c066ece25
+oompah.agent_run_id: 7af677f7-d6f3-4584-9f87-f998daccca84
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 827365
-  total_output_tokens: 5253
+  total_input_tokens: 1496164
+  total_output_tokens: 9809
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 827365
-      output_tokens: 5253
+      input_tokens: 1496164
+      output_tokens: 9809
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +43,12 @@ oompah.task_costs:
     output_tokens: 2811
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:36:06.713530+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 668799
+    output_tokens: 4556
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:38:42.202487+00:00'
 ---
 ## Summary
 
@@ -147,5 +154,50 @@ author: oompah
 created: 2026-07-23 21:38
 ---
 Understanding (duplicate screening): EXOCOMP-71 is the focused ExUnit/systemd integration-test slice of parent EXOCOMP-29. I will compare its complete scope and comments with the parent and sibling fixture tasks, then either archive a confirmed duplicate or hand off to test implementation without changing code.
+---
+author: oompah
+created: 2026-07-23 21:38
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate found. EXOCOMP-71 is the unique integration-test child of EXOCOMP-29 and should proceed to test implementation.
+
+Evidence: Searched the complete tracker state and repository plans/docs for systemd fixture, integration test, restart-failure, and health/systemd divergence. Read EXOCOMP-29, EXOCOMP-69, EXOCOMP-70, EXOCOMP-71, and EXOCOMP-72 descriptions and comments. EXOCOMP-29 explicitly decomposes into EXOCOMP-69 (daemon), EXOCOMP-70 (unit/installer/cleanup), EXOCOMP-71 (10-scenario ExUnit integration suite), and EXOCOMP-72 (environment documentation). EXOCOMP-69 Python tests exercise the daemon without systemd; they do not cover real systemctl behavior. EXOCOMP-70 tests script syntax and daemon tests; it explicitly leaves real systemd integration to EXOCOMP-71. EXOCOMP-72 documents how to run future tests but contains no test implementation. No other task or branch contains test/integration/fixture_test.exs or equivalent.
+
+Relevant files: test/fixtures/exocomp_fixture/bin/exocomp-fixture; test/fixtures/exocomp_fixture/exocomp-fixture.service, install.sh, cleanup.sh (present on origin/EXOCOMP-70 but not yet merged into current origin/main); test/fixtures/exocomp_fixture/test/test_fixture.py; docs/testing-systemd-fixture.md; plans/milestone-4-service-recovery.md; Makefile.
+
+Remaining work/risks: First ensure EXOCOMP-70 is merged or base the implementation on its committed deliverables. Add tagged ExUnit integration coverage for all 10 required scenarios, an opt-in tag filter, and a Make target/documentation alignment. Real verification requires a VM or privileged container running systemd. Check naming drift in docs (systemd_fixture/exocomp_fixture) against the implemented dash-named unit exocomp-fixture.service. The current worktree is on epic-EXOCOMP-29 despite task metadata naming epic-EXOCOMP-4, so the implementation agent must create/use the actual EXOCOMP-71 issue branch before committing.
+
+Recommended next focus: test.
+---
+author: oompah
+created: 2026-07-23 21:38
+---
+Agent completed successfully in 126s (673355 tokens)
+---
+author: oompah
+created: 2026-07-23 21:38
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 11
+- Tokens: 668.8K in / 4.6K out [673.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 6s
+- Log: EXOCOMP-71__20260723T213638Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:38
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 21:38
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:38
+---
+Focus: Refactoring Specialist
 ---
 <!-- COMMENTS:END -->
