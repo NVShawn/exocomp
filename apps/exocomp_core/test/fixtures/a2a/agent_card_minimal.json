@@ -1,0 +1,7 @@
+{
+  "name": "Minimal Agent",
+  "description": "A minimal valid A2A 1.0 agent",
+  "url": "https://example.test/a2a",
+  "version": "1.0",
+  "skills": []
+}

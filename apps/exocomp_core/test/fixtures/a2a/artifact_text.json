@@ -1,0 +1,11 @@
+{
+  "artifactId": "artifact-standalone-001",
+  "parts": [
+    {
+      "type": "text",
+      "text": "Standalone artifact text content."
+    }
+  ],
+  "append": false,
+  "lastChunk": false
+}
