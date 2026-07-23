@@ -112,10 +112,11 @@ defmodule Exocomp.Integration.FixtureTest do
     # Stop the service.
     {_, 0} = run_systemctl(["stop", @service_name])
 
-    assert :ok == wait_for_condition(
-                    fn -> service_state() in ["inactive", "failed"] end,
-                    @state_timeout_ms
-                  ),
+    assert :ok ==
+             wait_for_condition(
+               fn -> service_state() in ["inactive", "failed"] end,
+               @state_timeout_ms
+             ),
            "service should reach inactive/failed state after systemctl stop"
 
     assert service_state() in ["inactive", "failed"],
@@ -481,8 +482,14 @@ defmodule Exocomp.Integration.FixtureTest do
     {output, _} =
       System.cmd(
         "systemctl",
-        ["list-units", "--type=service", "--state=active", "--no-legend", "--no-pager",
-         "--plain"],
+        [
+          "list-units",
+          "--type=service",
+          "--state=active",
+          "--no-legend",
+          "--no-pager",
+          "--plain"
+        ],
         stderr_to_stdout: true
       )
 
