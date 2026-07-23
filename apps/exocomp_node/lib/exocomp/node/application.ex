@@ -5,6 +5,8 @@ defmodule Exocomp.Node.Application do
 
   require Logger
 
+  alias Exocomp.Node.ExecutorLock
+
   # Capture the Mix env at compile time so the release binary behaves correctly
   # without Mix being available at runtime.
   @env Mix.env()
@@ -15,7 +17,13 @@ defmodule Exocomp.Node.Application do
   end
 
   defp children do
-    [Exocomp.Node.TaskRegistry | llama_server_children()] ++ listener_children()
+    [
+      # Per-target execution serializer — ensures at most one action runs
+      # against a given service at any time.
+      {ExecutorLock, name: ExecutorLock},
+      Exocomp.Node.TaskRegistry
+      | llama_server_children()
+    ] ++ listener_children()
   end
 
   defp llama_server_children do
