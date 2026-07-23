@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T22:51:47.074233Z'
+updated_at: '2026-07-23T22:58:23.567409Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -143,5 +143,28 @@ author: oompah
 created: 2026-07-23 22:51
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:58
+---
+Focus handoff: duplicate_detector
+
+1. Outcome: No duplicate confirmed. EXOCOMP-43 is a unique task.
+
+2. Evidence reviewed:
+   - EXOCOMP-25 (Done): Implements unprivileged executor and exact sudoers POLICY — a prerequisite runtime security module, not an installer. Distinct scope.
+   - EXOCOMP-42 (Done): Builds reproducible OTP release archives — a prerequisite artifact builder, not a system installer/uninstaller. Distinct scope.
+   - EXOCOMP-44 (Open): Signed offline bundles, SBOMs, provenance — downstream bundling step, not installer scripts.
+   - No existing task covers: dedicated user/directory creation, versioned install directories, atomic symlinks, systemd unit deployment with hardening, sudoers installation, installed-file manifests, or scoped uninstall/purge categories.
+   - plans/milestone-6-release.md: EXOCOMP-43 maps to M6-CRIT-4 and M6-CRIT-6.
+
+3. Remaining work:
+   - Node and coordinator install scripts (preflight → user creation → versioned dir → atomic link → systemd unit → sudoers → manifest)
+   - Hardened systemd unit files for node and coordinator
+   - Configuration templates
+   - Uninstall with scoped purge categories (default preserves PKI/config/audit)
+   - Test suite: clean install, repeat install, permissions, service startup, invalid checksum/config, exact privileges, upgrade preparation, default uninstall, explicit system-cache purge, proof user data/non-owned resources remain
+
+4. Recommended next focus: feature (shell scripting + Python test suite)
 ---
 <!-- COMMENTS:END -->
