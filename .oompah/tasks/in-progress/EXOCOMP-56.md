@@ -12,13 +12,13 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:32:45.196624Z'
+updated_at: '2026-07-23T22:33:07.860189Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: d47bf67c-1705-4081-98d4-ad69f6d9d480
+oompah.agent_run_id: cd408519-4f18-428f-87f0-05f5e5d59f8c
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
   total_input_tokens: 9796647
@@ -371,5 +371,15 @@ author: oompah
 created: 2026-07-23 22:32
 ---
 Agent completed without closing this issue (223s (1580808 tokens)). Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 22:33
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 22:33
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->

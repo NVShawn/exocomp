@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:28:58.997908Z'
+updated_at: '2026-07-23T22:33:05.447722Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -190,5 +190,35 @@ author: oompah
 created: 2026-07-23 22:28
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-07-23 22:33
+---
+Understanding: Implementing EXOCOMP-25 — unprivileged systemd executor and exact sudoers policy.
+
+Codebase context:
+- Elixir umbrella project: apps/exocomp_node, exocomp_core, exocomp_coordinator
+- apps/exocomp_node/lib/exocomp/node/ currently has only application.ex
+- Integration tests (fixture_test.exs) exist for systemd fixture service — distinct from this task
+- No executor, sudoers, or privilege-separation code exists yet
+
+Implementation plan:
+1. Exocomp.Node.ActionCatalog — Fixed map of action IDs to typed definitions (executable, argv-builder, fixed env, timeout, output limit). Only :restart_service and :vacuum_logs. No generic command.
+2. Exocomp.Node.OsCommander — Behavior + SystemCommander (System.cmd, argv list, no shell). Injectable in tests via Application config.
+3. Exocomp.Node.Executor — Validates action+target against catalog+allow-list, acquires per-target lock, runs subprocess with fixed argv/env/timeout, caps output, invokes post-action verifier.
+4. Exocomp.Node.ExecutorLock — GenServer for per-target serialization (rejects concurrent executions on same target).
+5. Exocomp.Node.SudoersPolicy — Generates exact sudoers entries from allow-listed service names. Empty allow-list → no privileged entries.
+6. Exocomp.Node.Privilege — Checks EUID != 0 at startup.
+
+Security invariants enforced:
+- Service names validated by strict regex before any subprocess; only allow-listed names proceed
+- argv built from catalog definition (pre-validated target), never from raw request/model fields
+- Environment is fixed per action; no caller-supplied env
+- Output capped at 64 KB; excess causes error result
+- Timeout enforced via Task.yield + brutal kill
+- Sudoers entries name exact executable path and exact arg prefix — no wildcards
+- No shell expansion: System.cmd with explicit argv list
+
+Tests will cover: service allow-list, unknown units, shell metacharacters, argv injection, env injection, executable path immutability, timeout, oversized output, sudo denial (non-zero exit), concurrent targets, and sudoers snapshot.
 ---
 <!-- COMMENTS:END -->
