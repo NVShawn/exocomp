@@ -5,14 +5,15 @@ status: In Progress
 priority: 2
 title: Build the reproducible benchmark harness
 parent: EXOCOMP-5
-children: []
+children:
+- EXOCOMP-50
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:36:25.469032Z'
+updated_at: '2026-07-23T20:36:33.708855Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
