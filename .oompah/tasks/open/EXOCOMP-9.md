@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-9
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement node configuration, identity, and mTLS startup
 parent: EXOCOMP-1
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T20:27:42.197957Z'
+updated_at: '2026-07-23T20:29:15.243819Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
