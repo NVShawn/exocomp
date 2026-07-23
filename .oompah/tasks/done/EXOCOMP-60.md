@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-23T22:45:22.033718Z'
+updated_at: '2026-07-23T22:45:24.374433Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -262,5 +262,10 @@ Delivered modules:
 - 18 new focused tests; all gates green
 
 Branch: EXOCOMP-60 on origin/NVShawn/exocomp. PR link available at repo.
+---
+author: oompah
+created: 2026-07-23 22:45
+---
+Implemented Exocomp.Node.Identity (cert chain/SAN/key-perm validation) and Exocomp.Node.Listener (GenServer owning Bandit mTLS server with fail-closed startup and atomic reload). Added 18 new tests. make test 32 passed, make lint pass, make fmt-check pass.
 ---
 <!-- COMMENTS:END -->
