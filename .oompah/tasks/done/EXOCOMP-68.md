@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T22:14:00.421699Z'
+updated_at: '2026-07-23T22:14:14.782005Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 51a15c44-d9f0-49bc-be97-4119100ca21e
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 694090
-  total_output_tokens: 11170
+  total_input_tokens: 694155
+  total_output_tokens: 44946
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 694090
-      output_tokens: 11170
+      input_tokens: 694155
+      output_tokens: 44946
       cost_usd: 0.0
   runs:
   - profile: default
@@ -55,6 +55,12 @@ oompah.task_costs:
     output_tokens: 2201
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:58:52.632741+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 65
+    output_tokens: 33776
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:14:12.968770+00:00'
 ---
 ## Summary
 
@@ -259,5 +265,20 @@ author: oompah
 created: 2026-07-23 22:14
 ---
 Added complete OTP release qualification test matrix: scripts/test-release-matrix.sh (non-interactive CI target covering 2-arch × 2-product double-build reproducibility, clean-container ERTS startup, wrong-arch diagnostic, and missing-dep diagnostic); scripts/test-clean-container.sh (per-release helper with offline --check-arch ELF machine-type check); docs/release-qualification.md (native vs emulated execution requirements, QEMU/binfmt setup, diagnostic case documentation); Makefile test-release-matrix target; extended test-release-builders.sh with offline validation of all new scripts and docs. All 17 tests pass (8 original + 9 new) without Docker.
+---
+author: oompah
+created: 2026-07-23 22:14
+---
+Agent completed successfully in 891s (33841 tokens)
+---
+author: oompah
+created: 2026-07-23 22:14
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
+- Turns: 124, Tool calls: 81
+- Tokens: 65 in / 33.8K out [33.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 14m 51s
+- Log: EXOCOMP-68__20260723T215924Z.jsonl
 ---
 <!-- COMMENTS:END -->
