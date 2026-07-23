@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-63
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement ProposalClient inference HTTP client
 parent: EXOCOMP-11
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-23T21:49:08.468228Z'
+updated_at: '2026-07-23T21:49:16.232069Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
