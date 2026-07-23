@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-5
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: 'M5: Performance and resource analysis'
 parent: null
@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:11.554597Z'
-updated_at: '2026-07-23T21:26:43.706488Z'
+updated_at: '2026-07-23T21:27:54.053567Z'
 work_branch: null
 target_branch: null
 review_url: null
