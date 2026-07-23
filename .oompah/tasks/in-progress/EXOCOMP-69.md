@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-69
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Create crashable fixture service script with health endpoint and state controls
 parent: EXOCOMP-29
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:10:34.140262Z'
-work_branch: null
+updated_at: '2026-07-23T21:11:46.429893Z'
+work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 3b4dc232-acfb-4c87-baaa-ab8a815b2947
+oompah.work_branch: epic-EXOCOMP-4
 ---
 ## Summary
 
@@ -37,3 +39,16 @@ Reference: plans/milestone-4-service-recovery.md, section 'Reference Fixture'. T
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:11
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:11
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

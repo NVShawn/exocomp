@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: Done
+status: Merged
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:11:33.346514Z'
+updated_at: '2026-07-23T21:11:47.808771Z'
 work_branch: EXOCOMP-57
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/1
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: a6b9ac53-8dde-4275-93d0-5d938c3fc60e
 oompah.work_branch: EXOCOMP-57
 oompah.task_costs:
-  total_input_tokens: 667474
-  total_output_tokens: 26612
+  total_input_tokens: 667489
+  total_output_tokens: 34025
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 667474
-      output_tokens: 26612
+      input_tokens: 667489
+      output_tokens: 34025
       cost_usd: 0.0
   runs:
   - profile: default
@@ -47,6 +47,12 @@ oompah.task_costs:
     output_tokens: 12504
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:08:52.689143+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 15
+    output_tokens: 7413
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:11:43.213425+00:00'
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/1
 oompah.review_number: '1'
 oompah.target_branch: main
@@ -341,5 +347,25 @@ created: 2026-07-23 21:11
 - Makefile gen-test-fixtures target with ## comment (visible in make help)
 - Fixture private keys committed intentionally (dev-only, documented in script header)
 - All verification checks passed: SAN correct, expired cert dates correct, rogue cert fails CA verification, key permissions 0600
+---
+author: oompah
+created: 2026-07-23 21:11
+---
+Generated test fixture TLS certs (CA, node SAN=DNS:exocomp-test-node, wrong_san, expired, rogue) and JSON config fixtures. Added gen-test-fixtures Makefile target. All committed on branch EXOCOMP-57 and PR #1 opened to main.
+---
+author: oompah
+created: 2026-07-23 21:11
+---
+Agent completed successfully in 146s (7428 tokens)
+---
+author: oompah
+created: 2026-07-23 21:11
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 30, Tool calls: 18
+- Tokens: 15 in / 7.4K out [7.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 26s
+- Log: EXOCOMP-57__20260723T210919Z.jsonl
 ---
 <!-- COMMENTS:END -->
