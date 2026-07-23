@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:21:23.506681Z'
+updated_at: '2026-07-23T21:21:33.390939Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 0d5b7da2-9c44-41bc-9460-a8acf7c1a393
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 23
-  total_output_tokens: 6059
+  total_input_tokens: 67
+  total_output_tokens: 24504
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 23
-      output_tokens: 6059
+      input_tokens: 67
+      output_tokens: 24504
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 6059
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:14:11.558964+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 44
+    output_tokens: 18445
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:21:31.533824+00:00'
 ---
 ## Summary
 
@@ -195,5 +201,20 @@ author: oompah
 created: 2026-07-23 21:21
 ---
 Implemented Exocomp.Node.ProposalSchema: versioned (v1), closed proposal IDs, 5 required fields, validate/1 with 4 error variants, 25 unit tests. make test and make lint pass. Fixed rootless Docker Makefile issue.
+---
+author: oompah
+created: 2026-07-23 21:21
+---
+Agent completed successfully in 432s (18489 tokens)
+---
+author: oompah
+created: 2026-07-23 21:21
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 88, Tool calls: 57
+- Tokens: 44 in / 18.4K out [18.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 12s
+- Log: EXOCOMP-61__20260723T211423Z.jsonl
 ---
 <!-- COMMENTS:END -->

@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T21:14:57.606100Z'
+updated_at: '2026-07-23T21:21:36.804417Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -141,5 +141,10 @@ author: oompah
 created: 2026-07-23 21:14
 ---
 Implementation: Created apps/bench/lib/bench/config.ex with Bench.Config struct, parse/1, and validate/1. Schema has 10 required fields (schema_version, name, version, warm_up_duration, run_duration, repetitions, concurrency, sample_interval, host_profile, workload_scenario). Custom validators enforce: version compatibility (:incompatible_version), positive integers, non-empty strings, unknown field rejection, missing field detection. Also: updated Bench.Driver to use Config.parse/1 instead of Config.new/1, updated driver tests, added Jason dep for sample/report modules, added mix deps.get to Makefile build/test/lint targets. Running Docker tests now.
+---
+author: oompah
+created: 2026-07-23 21:21
+---
+Verification: All tests pass. 21 bench tests + 4 in other apps = 25 total. Test coverage: (1) valid string/atom-key maps parse into Bench.Config struct, (2) missing required fields return {:error, {:missing_fields, _}}, (3) unknown fields return {:error, {:unknown_fields, _}}, (4) schema_version mismatch returns {:error, :incompatible_version}, (5) negative/zero numeric fields return {:error, {:invalid_field, _, :must_be_positive}}. Format check (mix format --check-formatted) passes. Driver tests updated to use real config maps via Config.parse/1.
 ---
 <!-- COMMENTS:END -->

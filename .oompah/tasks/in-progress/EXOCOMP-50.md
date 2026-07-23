@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T21:08:03.628660Z'
+updated_at: '2026-07-23T21:21:34.022630Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -252,5 +252,10 @@ author: oompah
 created: 2026-07-23 21:08
 ---
 Discovery: Successfully created EXOCOMP-50 branch based on EXOCOMP-7 (the umbrella scaffold commit). Current state: apps/exocomp_core, exocomp_node, exocomp_coordinator exist; apps/bench does not yet exist. Umbrella conventions: mix.exs uses build_path/config_path/deps_path/lockfile pointing to umbrella root, each app uses OTP Application with an empty supervisor, tests use ExUnit.Case async:true. Will now create apps/bench with all required files.
+---
+author: oompah
+created: 2026-07-23 21:21
+---
+Implementation: Created apps/bench with all required files. Key decisions: (1) Used comprehensive Bench.Config implementation (parse/1 and validate/1 with full field validation) rather than empty NimbleOptions skeleton — this is equivalent to 'NimbleOptions or similar' as the task description allows; nimble_options is still in mix.exs deps for EXOCOMP-52. (2) Updated Makefile to set MIX_HOME=/workspace/.mix-home and HEX_HOME=/workspace/.hex-home in CONTAINER_RUN so containerised mix deps.get/compile work without root. (3) Established full directory layout: lib/bench/, config.ex, sample.ex, driver.ex, sampler/behaviour.ex, report/summary.ex. (4) 21 bench tests + 4 existing tests all pass. make lint, make fmt-check, and make test all exit 0.
 ---
 <!-- COMMENTS:END -->
