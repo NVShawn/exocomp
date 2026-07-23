@@ -1,0 +1,4 @@
+#!/bin/sh
+# Test fixture: a long-running stub for llama-server tests that need the
+# OS process to remain alive longer than llama-server-stub's 5-second window.
+exec sleep 300
