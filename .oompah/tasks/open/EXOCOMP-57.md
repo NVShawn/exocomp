@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T20:50:06.421919Z'
+updated_at: '2026-07-23T20:50:55.846101Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
