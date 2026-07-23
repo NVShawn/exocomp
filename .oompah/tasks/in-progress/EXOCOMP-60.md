@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-23T22:36:57.573693Z'
+updated_at: '2026-07-23T22:44:34.981590Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -207,5 +207,28 @@ Discovery: Created EXOCOMP-60 branch from EXOCOMP-58 (Config loader). Full pictu
 - Docker rootless available for make test/lint
 
 Implementation starting now.
+---
+author: oompah
+created: 2026-07-23 22:44
+---
+Implementation complete. Summary of changes:
+
+Files created:
+- apps/exocomp_node/lib/exocomp/node/identity.ex: Exocomp.Node.Identity with key-permission, chain, and SAN validation using :public_key BEAM built-ins
+- apps/exocomp_node/lib/exocomp/node/plug/stub.ex: Exocomp.Node.Plug.Stub returning 200 OK
+- apps/exocomp_node/lib/exocomp/node/listener.ex: GenServer owning Bandit mTLS process; fail-closed init; :reload call; format_status redacts key paths from crash logs
+- apps/exocomp_node/test/exocomp/node/identity_test.exs: 9 tests covering key perms, chain, SAN, redaction
+- apps/exocomp_node/test/exocomp/node/listener_test.exs: 9 tests covering all required cases incl. reload
+
+Files modified:
+- apps/exocomp_node/lib/exocomp/node/application.ex: Listener wired in production mode only; EXOCOMP_CONFIG_FILE absence logged not crashed
+- apps/exocomp_node/mix.exs: Added {:bandit, ~> 1.0} and {:plug, ~> 1.17}
+- mix.lock: Updated with bandit 1.12.0, plug 1.20.3, thousand_island 1.5.0 and deps
+
+Key design decisions:
+- Config struct field names (node_cert/node_key/ca_cert) match EXOCOMP-58 implementation
+- Key paths use absolute paths in tests to work from umbrella root CWD
+- Tests chmod keys to 0o600 in temp copies to avoid mutating committed fixtures
+- format_status/1 redacts node_key from OTP crash state dumps
 ---
 <!-- COMMENTS:END -->
