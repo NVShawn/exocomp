@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T21:02:05.364394Z'
+updated_at: '2026-07-23T21:03:41.431413Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -172,5 +172,26 @@ author: oompah
 created: 2026-07-23 21:02
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 21:03
+---
+**Understanding:** Implementing Linux and systemd diagnostic collectors for the Exocomp node agent.
+
+**Scope:** Add versioned CPU (from /proc/stat, /proc/cpuinfo), memory (/proc/meminfo), disk (filesystem stats), uptime (/proc/uptime), and allow-listed systemd service collectors (systemctl show via argv-only System.cmd). All collectors return bounded versioned observations with explicit units and per-field partial errors.
+
+**Approach:**
+1. Created EXOCOMP-10 branch from EXOCOMP-7 scaffold (which has the Elixir umbrella structure)
+2. Implementing modules under apps/exocomp_node/lib/exocomp/node/collectors/
+3. Using fixture files in test/fixtures/proc/ for unit tests without host dependency
+4. Stubbing systemctl execution via a configurable command runner (MFA-based injection)
+5. Running make test, make lint, make fmt-check for quality gates
+
+Key design decisions:
+- Collector versioning via @collector_version module attribute
+- Partial failures return {:error, reason} per measurement while other fields succeed
+- systemctl allow-list is passed in as config; no shell interpolation or sh -c
+- Output capped at 64KB max per systemctl invocation
+- Timeout enforced for systemctl via Task.await with configurable ms
 ---
 <!-- COMMENTS:END -->

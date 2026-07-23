@@ -5,14 +5,15 @@ status: In Progress
 priority: 1
 title: Supervise llama.cpp and validate structured proposals
 parent: EXOCOMP-1
-children: []
+children:
+- EXOCOMP-61
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-23T21:03:25.212048Z'
+updated_at: '2026-07-23T21:03:38.417721Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
