@@ -1,0 +1,86 @@
+schema_version = 1
+
+[policy]
+project_license = "Apache-2.0"
+compatible_licenses = [
+  "0BSD",
+  "Apache-2.0",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "ISC",
+  "MIT",
+  "Unicode-3.0",
+  "Zlib",
+]
+required_components = [
+  "exocomp",
+  "erlang-otp",
+  "elixir",
+  "llama-cpp",
+  "qwen2.5-1.5b-instruct-q4-k-m",
+]
+
+[[components]]
+id = "exocomp"
+name = "Exocomp"
+version = "source"
+scope = "project"
+distribution = "source-and-binary"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/NVShawn/exocomp"
+license_url = "https://github.com/NVShawn/exocomp/blob/main/LICENSE"
+notice_file = "NOTICE"
+notice_heading = "Exocomp"
+
+[[components]]
+id = "erlang-otp"
+name = "Erlang/OTP"
+version = "28.x; exact patch pinned by each release manifest"
+scope = "runtime"
+distribution = "planned-offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/erlang/otp"
+license_url = "https://github.com/erlang/otp/blob/master/LICENSE.txt"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Erlang/OTP"
+
+[[components]]
+id = "elixir"
+name = "Elixir"
+version = "1.20.x; exact patch pinned by each builder image"
+scope = "build"
+distribution = "build-only"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/elixir-lang/elixir"
+license_url = "https://github.com/elixir-lang/elixir/blob/main/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Elixir"
+
+[[components]]
+id = "llama-cpp"
+name = "llama.cpp"
+version = "exact commit pinned by each release manifest"
+scope = "runtime"
+distribution = "planned-offline-bundle"
+license = "MIT"
+redistribution = "permitted"
+source_url = "https://github.com/ggml-org/llama.cpp"
+license_url = "https://github.com/ggml-org/llama.cpp/blob/master/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### llama.cpp"
+
+[[components]]
+id = "qwen2.5-1.5b-instruct-q4-k-m"
+name = "Qwen2.5 1.5B Instruct Q4_K_M GGUF"
+version = "repository revision and artifact SHA-256 pinned by each release"
+scope = "model"
+distribution = "planned-offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+license_url = "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/blob/main/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Qwen2.5 1.5B Instruct Q4_K_M GGUF"

@@ -10,7 +10,9 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 
 ## Contents
 
-Add project-specific documentation here as user-visible surfaces appear.
+- [Changelog policy](changelog-policy.md)
+- [Maintainer release checklist](maintainer-release-checklist.md)
+- [Release-notes template](release-notes-template.md)
 
 ## Keeping Docs In Sync
 
