@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-23T22:58:20.877920Z'
+updated_at: '2026-07-23T23:00:29.627353Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -219,5 +219,10 @@ author: oompah
 created: 2026-07-23 22:58
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 23:00
+---
+Understanding: Plan EXOCOMP-16 as three session-sized children covering (1) secure coordinator PKI bootstrap and state validation, (2) node-bound expiring single-use enrollment tokens, and (3) OTP/operator integration plus cross-cutting redaction and focused security verification. I will inspect existing children first, avoid duplicates, order dependencies, then return the parent epic to Backlog.
 ---
 <!-- COMMENTS:END -->
