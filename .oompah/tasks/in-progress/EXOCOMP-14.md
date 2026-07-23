@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-23T21:59:48.140087Z'
+updated_at: '2026-07-23T22:01:32.284077Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -251,5 +251,10 @@ author: oompah
 created: 2026-07-23 21:59
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 22:01
+---
+Understanding: EXOCOMP-14 is a leaf feature task (child of EXOCOMP-2 epic), not a sub-epic itself. The scope covers: (1) coordinator OTP supervisor tree, (2) versioned JSON inventory parser with atomic replacement, (3) ETS-backed node registry, (4) journald/JSON-lines audit sink with redaction, (5) structured health/error reporting, and (6) focused tests for all of the above. Blockers EXOCOMP-7 (umbrella scaffold) and EXOCOMP-8 (A2A types) are both Done. The codebase currently has only an empty coordinator Application stub. No child tasks are needed — this is a single-session feature implementation task. Will hand off to feature agent.
 ---
 <!-- COMMENTS:END -->

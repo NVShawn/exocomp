@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -9,9 +9,11 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:frontend
+- needs:feature
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:00:49.242555Z'
+updated_at: '2026-07-23T22:01:36.537693Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -134,5 +136,59 @@ author: oompah
 created: 2026-07-23 22:00
 ---
 Understanding (Frontend Developer): This task requires implementing Bench.HostSampler, a backend Elixir GenServer that reads Linux /proc and cgroup v1/v2 files to collect per-process CPU/memory/IO metrics. There is no UI, HTML, CSS, or JavaScript component. This is outside the Frontend Developer focus area and requires a feature/backend Elixir specialist. Initiating handoff.
+---
+author: oompah
+created: 2026-07-23 22:01
+---
+Focus handoff: frontend
+
+Outcome: No frontend/UI work exists on this task. EXOCOMP-56 is 100% backend Elixir code. A feature specialist must implement this.
+
+Relevant findings for the next agent:
+
+**Branch state:**
+- The worktree is currently on branch \`epic-EXOCOMP-35\` (NOT \`EXOCOMP-56\` — no such branch exists yet)
+- The EXOCOMP-56 branch must be created from \`origin/EXOCOMP-54\` (commit 75dda39), the most recent completed bench task
+- Create with: \`git checkout -b EXOCOMP-56 origin/EXOCOMP-54\`
+
+**Key files from EXOCOMP-54 (already done):**
+- \`apps/bench/lib/bench/sample.ex\`: Bench.Sample struct with fields: timestamp, source (atom: :beam/:host/:node/:coordinator/:llama), metric_name (string), value (number), unit (string)
+- \`apps/bench/lib/bench/sampler/behaviour.ex\`: Bench.Sampler.Behaviour with callbacks init/1, collect/1, terminate/1
+- \`apps/bench/mix.exs\`: deps are {:jason, '~> 1.4'}, {:nimble_options, '~> 1.1'} — no additional deps needed
+- Umbrella structure: apps/bench is a Mix app in an Elixir umbrella (build_path ../../_build, deps_path ../../deps)
+
+**IMPORTANT — Bench.Sample value field:**
+- Currently typed as \`value: number()\` with \`is_number(value)\` guard in from_map
+- Issue requires emitting samples with \`value: nil\` and metric tag \`:missing\` for missing PIDs
+- The struct and its from_map/to_map must be updated to allow \`nil\` values, OR emit a separate metadata field
+- Easiest path: add optional \`tags\` field to Bench.Sample and relax value type to \`number() | nil\`
+
+**Implementation target:**
+- New file: \`apps/bench/lib/bench/host_sampler.ex\` as \`Bench.HostSampler\` GenServer
+- API: start_link/1 (opts with targets keyword list [{:node, os_pid}, {:coordinator, os_pid}, {:llama, os_pid}]), stop/1, flush/1
+- Reads /proc/<pid>/stat (CPU%, page faults), /proc/<pid>/status or /proc/<pid>/smaps_rollup (RSS/PSS), /proc/<pid>/fd count (open FDs), /proc/<pid>/io (disk I/O bytes), optional cgroup v2 net_cls for network I/O
+- CPU% requires two consecutive readings with time delta (store previous stat in GenServer state)
+- Missing PID: emit sample with value nil and tag :missing — do not crash
+- Sampling interval: configurable (default ~1000ms), collect on tick via Process.send_after
+
+**Tests:**
+- New file: \`apps/bench/test/bench/host_sampler_test.exs\`
+- Test CPU% increases under tight loop (spawn a port running \`yes > /dev/null\` or similar)
+- Test RSS increases after allocation
+- Test missing PID produces :missing samples (not exception)
+- Test attribution tags (:node/:coordinator/:llama) preserved in sample.source
+- Use System.cmd or Port.open to spawn a real OS process for a valid PID
+
+**Quality gates:**
+- \`make test\` (runs mix test in umbrella)
+- \`make lint\` (credo)
+- \`make fmt-check\` (mix format --check-formatted)
+
+**Risks:**
+- smaps_rollup not available on older kernels — fall back to VmRSS from /proc/<pid>/status
+- cgroup v2 net accounting may not be available — emit nil, do not crash
+- EXOCOMP-55 (BeamSampler) is in Needs Human; do not depend on it
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
