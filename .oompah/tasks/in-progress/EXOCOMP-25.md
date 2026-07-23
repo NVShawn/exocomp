@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:17:11.887184Z'
+updated_at: '2026-07-23T22:23:28.288984Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: d5ff8a15-8a42-45a7-8e8a-88c55bd0b799
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 52
-  total_output_tokens: 1803
+  total_input_tokens: 79
+  total_output_tokens: 2395
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 52
-      output_tokens: 1803
+      input_tokens: 79
+      output_tokens: 2395
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 1803
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:16:55.975515+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 27
+    output_tokens: 592
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:23:26.603314+00:00'
 ---
 ## Summary
 
@@ -132,5 +138,15 @@ author: oompah
 created: 2026-07-23 22:17
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-07-23 22:23
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 16
+- Tokens: 27 in / 592 out [619 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 6m 17s
+- Log: EXOCOMP-25__20260723T221711Z.jsonl
 ---
 <!-- COMMENTS:END -->
