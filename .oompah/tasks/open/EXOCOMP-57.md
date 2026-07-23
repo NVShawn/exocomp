@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: Done
+status: Open
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:08:44.360162Z'
+updated_at: '2026-07-23T21:08:56.438609Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 98927511-64d5-43c5-95e0-7cb1fbbcdd77
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 667432
-  total_output_tokens: 14108
+  total_input_tokens: 667474
+  total_output_tokens: 26612
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 667432
-      output_tokens: 14108
+      input_tokens: 667474
+      output_tokens: 26612
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 10159
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:03:59.222371+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 42
+    output_tokens: 12504
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:08:52.689143+00:00'
 ---
 ## Summary
 
@@ -273,5 +279,37 @@ author: oompah
 created: 2026-07-23 21:08
 ---
 Generated test fixture TLS certs (CA, node, wrong_san, expired, rogue) and JSON config fixtures. Added gen-test-fixtures Makefile target. All committed on branch EXOCOMP-57.
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+Agent completed successfully in 276s (12546 tokens)
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 78, Tool calls: 49
+- Tokens: 42 in / 12.5K out [12.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 36s
+- Log: EXOCOMP-57__20260723T210422Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-1` has 2 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 2
+    129427c EXOCOMP-7: qualify pinned builder image
+    dfa360c EXOCOMP-7: scaffold Elixir umbrella and quality gates
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-1 --title "EXOCOMP-57: Generate test fixture certificates and config files" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
 ---
 <!-- COMMENTS:END -->

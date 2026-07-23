@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T21:05:51.680356Z'
+updated_at: '2026-07-23T21:09:01.735616Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -131,5 +131,10 @@ author: oompah
 created: 2026-07-23 21:05
 ---
 Understanding (Maintenance Engineer): Implementing Bench.Config in apps/bench — a versioned benchmark configuration schema with parse/1 and validate/1 functions. Required fields: schema_version, benchmark name/version, warm_up_duration, run_duration, repetitions, concurrency, sample_interval, host_profile ref, workload_scenario ref. Will use NimbleOptions-based validation with Elixir structs. Test coverage required: valid parse, missing required fields, unknown fields rejected, version mismatch returns {:error, :incompatible_version}, negative numerics rejected. Starting by exploring workspace structure to determine if apps/bench scaffold exists.
+---
+author: oompah
+created: 2026-07-23 21:09
+---
+Discovery: The project has an Elixir umbrella scaffold from EXOCOMP-7 in apps/ with exocomp_core, exocomp_node, exocomp_coordinator. The apps/bench directory does NOT exist yet (EXOCOMP-50 not merged). I need to scaffold apps/bench as a new umbrella child app and implement Bench.Config with parse/1 and validate/1. Build uses Docker (podman available). Pattern: mix.exs refs shared _build/deps_path at root level, Application module as entry point, ExUnit tests. No NimbleOptions in existing deps — will use custom validators with Elixir structs (no external deps needed). Implementing now.
 ---
 <!-- COMMENTS:END -->

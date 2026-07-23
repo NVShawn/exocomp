@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T21:08:04.280982Z'
+updated_at: '2026-07-23T21:09:04.495199Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -25,13 +25,13 @@ merged_at: null
 oompah.agent_run_id: 6c1977cf-187d-494f-8b57-90ad0e3fd69e
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 2022317
-  total_output_tokens: 23307
+  total_input_tokens: 2022366
+  total_output_tokens: 24486
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 2022317
-      output_tokens: 23307
+      input_tokens: 2022366
+      output_tokens: 24486
       cost_usd: 0.0
   runs:
   - profile: default
@@ -64,6 +64,12 @@ oompah.task_costs:
     output_tokens: 3010
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:03:52.287393+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 49
+    output_tokens: 1179
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:09:03.125251+00:00'
 ---
 ## Summary
 
@@ -297,5 +303,50 @@ author: oompah
 created: 2026-07-23 21:06
 ---
 Understanding (Epic Planner): EXOCOMP-29 needs the isolated systemd fixture for M4 integration testing. The scope covers: (1) a crashable fixture service script with health HTTP endpoint decoupled from systemd state, (2) a systemd unit file + installer/cleanup scripts scoped to fixture resources, (3) focused ExUnit integration tests covering all state modes, and (4) docs on VM/privileged-container requirements. The repo currently has no Elixir code on this branch (EXOCOMP-7 scaffold is on a separate branch). I will decompose EXOCOMP-29 into 4 child tasks with appropriate dependencies, then hand off to a feature agent.
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+Focus handoff: epic_planner
+
+**Outcome:** EXOCOMP-29 decomposed into 4 child tasks covering the complete fixture implementation scope. A fixture design document was committed to epic-EXOCOMP-4 at plans/fixture-design.md.
+
+**Child tasks created:**
+- EXOCOMP-69 (priority 1): Fixture service daemon script with health endpoint, workload marker, and state controls (active/degraded/failed/flapping/restart-failure)
+- EXOCOMP-70 (priority 1): systemd unit file + idempotent install.sh + cleanup.sh, scoped only to fixture resources. Depends on EXOCOMP-69.
+- EXOCOMP-71 (priority 1): Focused ExUnit integration tests covering all 10 required scenarios. Depends on EXOCOMP-69 and EXOCOMP-70.
+- EXOCOMP-72 (priority 2): docs/testing-systemd-fixture.md explaining VM/privileged-container requirements. Independent.
+
+**Key design decisions captured in plans/fixture-design.md:**
+- Fixture lives under test/fixtures/exocomp_fixture/
+- Health endpoint on 127.0.0.1:8877 can disagree with systemd state (degraded mode = active process + 503 health)
+- All fixture resources scoped to /etc/systemd/system/exocomp-fixture.service, /usr/local/bin/exocomp-fixture, /run/exocomp-fixture/
+- Mode controlled via /run/exocomp-fixture/mode control file
+
+**Dependencies set:**
+- EXOCOMP-70 → depends on EXOCOMP-69
+- EXOCOMP-71 → depends on EXOCOMP-69 and EXOCOMP-70
+- EXOCOMP-72 is independent
+
+**Remaining work:**
+- Feature agent must implement EXOCOMP-69, EXOCOMP-70, EXOCOMP-71, EXOCOMP-72 in dependency order
+- Elixir umbrella (EXOCOMP-7, on branch EXOCOMP-7) must be merged before ExUnit tests can be wired in
+- Tests require VM or privileged container with systemd; CI gating must account for this
+
+**Risks:**
+- EXOCOMP-31 and EXOCOMP-33 are blocked on EXOCOMP-29 completion; this is on the critical path
+- The Elixir umbrella is on branch EXOCOMP-7, not yet merged to main; ExUnit test task (EXOCOMP-71) should set-dependency on EXOCOMP-7
+
+**Recommended next focus:** feature (start with EXOCOMP-69, the fixture service daemon)
+---
+author: oompah
+created: 2026-07-23 21:09
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 0, Tool calls: 26
+- Tokens: 49 in / 1.2K out [1.2K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 47s
+- Log: EXOCOMP-29__20260723T210418Z.jsonl
 ---
 <!-- COMMENTS:END -->
