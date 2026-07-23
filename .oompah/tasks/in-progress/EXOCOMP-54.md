@@ -11,22 +11,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T21:49:44.645053Z'
+updated_at: '2026-07-23T21:53:43.846305Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 4b93ed69-74aa-404c-bf5f-a848ea26dec2
+oompah.agent_run_id: 8afa9778-7ee2-42cf-8dde-9669dfd65615
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 1568967
-  total_output_tokens: 20054
+  total_input_tokens: 2832239
+  total_output_tokens: 27492
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1568967
-      output_tokens: 20054
+      input_tokens: 2832239
+      output_tokens: 27492
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 14145
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:49:23.283269+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 1263272
+    output_tokens: 7438
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:53:15.605646+00:00'
 ---
 ## Summary
 
@@ -149,6 +155,36 @@ Agent dispatched (profile: deep)
 ---
 author: oompah
 created: 2026-07-23 21:49
+---
+Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-23 21:53
+---
+Agent completed successfully in 213s (1270710 tokens)
+---
+author: oompah
+created: 2026-07-23 21:53
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 19
+- Tokens: 1.3M in / 7.4K out [1.3M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 33s
+- Log: EXOCOMP-54__20260723T214944Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:53
+---
+Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-35`. No stronger profile is configured; retrying with 'deep' in 20s (2/3).
+---
+author: oompah
+created: 2026-07-23 21:53
+---
+Retrying (attempt #2, agent: standard)
+---
+author: oompah
+created: 2026-07-23 21:53
 ---
 Focus: Maintenance Engineer
 ---
