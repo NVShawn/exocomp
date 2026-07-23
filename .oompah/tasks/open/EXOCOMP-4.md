@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-4
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: 'M4: Minimal-impact systemd service recovery'
 parent: null
@@ -17,7 +17,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-07-23T21:49:45.944197Z'
+updated_at: '2026-07-23T21:50:53.075342Z'
 work_branch: null
 target_branch: null
 review_url: null
