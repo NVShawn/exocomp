@@ -13,10 +13,11 @@ blocked_by:
 - EXOCOMP-44
 - EXOCOMP-45
 - EXOCOMP-46
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-23T23:50:09.705438Z'
+updated_at: '2026-07-23T23:50:23.627750Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -85,5 +86,15 @@ author: oompah
 created: 2026-07-23 23:50
 ---
 Verification: Searched the tracker state ref and repository plans/docs for qualification, clean-host, release-gate, recovery, upgrade, rollback, and uninstall overlap; reviewed EXOCOMP-6, EXOCOMP-40 through EXOCOMP-46, and EXOCOMP-68 through full tracker views. No code changed, so Make quality gates are not applicable to this screening-only run.
+---
+author: oompah
+created: 2026-07-23 23:50
+---
+Focus handoff: duplicate_detector
+
+1. Outcome: No duplicate confirmed; EXOCOMP-47 uniquely owns final end-to-end M6 candidate qualification.
+2. Evidence: Reviewed EXOCOMP-6, EXOCOMP-40 through EXOCOMP-46, and closest candidate EXOCOMP-68 in full; searched origin/oompah/state/proj-c260b117 plus plans/docs. EXOCOMP-68 explicitly excludes the PKI, multi-node, M4/M5, lifecycle, hardening, documentation, and signed-evidence scope owned here.
+3. Remaining work/risks: The live tracker already marks EXOCOMP-47 and its parent Merged. If qualification evidence was not actually captured before that transition, a subsequent implementation audit must verify every M6-CRIT item and both native architectures from the candidate tag; clean-host and signed-evidence claims cannot be established by fixture-only tests.
+4. Recommended next focus: test or devops for a release-evidence audit, only if the current Merged state is determined premature. No repository files changed in this focus.
 ---
 <!-- COMMENTS:END -->
