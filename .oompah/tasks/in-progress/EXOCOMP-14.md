@@ -11,9 +11,11 @@ blocked_by:
 - EXOCOMP-8
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-23T22:01:32.284077Z'
+updated_at: '2026-07-23T22:06:26.529956Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -256,5 +258,44 @@ author: oompah
 created: 2026-07-23 22:01
 ---
 Understanding: EXOCOMP-14 is a leaf feature task (child of EXOCOMP-2 epic), not a sub-epic itself. The scope covers: (1) coordinator OTP supervisor tree, (2) versioned JSON inventory parser with atomic replacement, (3) ETS-backed node registry, (4) journald/JSON-lines audit sink with redaction, (5) structured health/error reporting, and (6) focused tests for all of the above. Blockers EXOCOMP-7 (umbrella scaffold) and EXOCOMP-8 (A2A types) are both Done. The codebase currently has only an empty coordinator Application stub. No child tasks are needed — this is a single-session feature implementation task. Will hand off to feature agent.
+---
+author: oompah
+created: 2026-07-23 22:06
+---
+Focus handoff: epic_planner
+
+**Outcome:** EXOCOMP-14 is a leaf feature task — not a sub-epic — and does NOT require child task decomposition. It should be implemented directly by a feature agent. No children were created.
+
+**Evidence reviewed:**
+- EXOCOMP-2 already has 7 well-scoped children (EXOCOMP-14 through EXOCOMP-20), each sized for a single agent session. EXOCOMP-14 is one of them.
+- Existing codebase: `apps/exocomp_coordinator/` has only an empty OTP Application stub (no logic). `apps/exocomp_core/` has only `Exocomp.Protocol.version/0` and an empty supervisor. Blockers EXOCOMP-7 and EXOCOMP-8 are Done.
+- Branch `EXOCOMP-14` is based on main (last commit 1db1135, includes EXOCOMP-7 and EXOCOMP-8 work).
+- plans/milestone-2-coordinator.md §§ Inventory and Discovery, Node State, Audit are the authoritative spec.
+
+**Key files for feature agent:**
+- `apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex` — empty OTP Application (start here)
+- `apps/exocomp_coordinator/mix.exs` — add deps here (Jason for JSON parsing; journald dep if available)
+- `apps/exocomp_coordinator/test/exocomp/coordinator/application_test.exs` — existing test pattern
+- `apps/exocomp_core/lib/exocomp/protocol.ex` — protocol version constant
+- `Makefile` — use `make test`, `make lint`, `make fmt-check` for quality gates
+- `plans/milestone-2-coordinator.md` — full design spec
+
+**Work required (feature agent):**
+1. Add Jason (JSON parsing) dependency to apps/exocomp_coordinator/mix.exs
+2. Implement `Exocomp.Coordinator.Inventory` GenServer: versioned JSON parsing, schema validation, duplicate node ID/identity rejection, atomic replacement (retain prior state on failure)
+3. Implement `Exocomp.Coordinator.Registry` module: ETS-backed node registry, load from inventory, support registry reconstruction after restart
+4. Implement `Exocomp.Coordinator.Audit` GenServer: journald adapter OR bounded JSON-lines file sink, structured/correlated events, redaction of sensitive fields, graceful degradation on outage
+5. Wire all three into `Exocomp.Coordinator.Application` supervisor tree with appropriate restart strategies
+6. Implement `Exocomp.Coordinator.Health` for structured health/error reporting
+7. Write focused tests: malformed inventory, duplicate IDs, duplicate cert identities, failed replacement retaining prior inventory, registry reconstruction, sink redaction, audit outage behavior
+8. Run `make test && make lint && make fmt-check`; commit and push
+
+**Risks:**
+- Journald integration may require `systemd_journal` Erlang dep; if unavailable in the container image, fall back to JSON-lines only and note it
+- The container build uses Alpine Linux — journald may not be available; JSON-lines sink is the safe default
+- Jason is not yet in mix.lock; it will need to be fetched inside the container
+- The coordinator release is already defined in root mix.exs; no release config changes needed
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->
