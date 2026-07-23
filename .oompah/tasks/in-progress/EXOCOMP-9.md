@@ -5,14 +5,15 @@ status: In Progress
 priority: 1
 title: Implement node configuration, identity, and mTLS startup
 parent: EXOCOMP-1
-children: []
+children:
+- EXOCOMP-57
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T20:39:30.773738Z'
+updated_at: '2026-07-23T20:39:48.135760Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
