@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:44:42.481945Z'
+updated_at: '2026-07-23T21:45:00.080400Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -214,5 +214,22 @@ Plan:
 6. Commit and push EXOCOMP-71 branch
 
 Key constraints: tests require root + systemd, use System.cmd for systemctl/curl/bash calls, no extra Elixir deps needed. Tag filter ensures standard CI is unaffected.
+---
+author: oompah
+created: 2026-07-23 21:45
+---
+Discovery: Explored the codebase and found all the pieces needed to write the integration tests.
+
+Key findings:
+- exocomp-fixture daemon: test/fixtures/exocomp_fixture/bin/exocomp-fixture (Python 3, HTTP health endpoint on port 8877, mode file at /run/exocomp-fixture/mode)
+- install.sh / cleanup.sh / .service file: available on origin/EXOCOMP-70 (cherry-picked to EXOCOMP-71 branch)
+- Service: exocomp-fixture.service with Restart=on-failure, RestartSec=1s, StartLimitBurst=3 (within 30s)
+- Elixir umbrella: apps/exocomp_node, apps/exocomp_core, apps/exocomp_coordinator - tests go in apps/exocomp_node/test/integration/
+- Existing test_helper.exs: ExUnit.start() - needs tag exclude filter added
+- No Jason/HTTPoison deps - will use System.cmd(curl) for health checks and System.cmd(systemctl) for service state
+- docs/testing-systemd-fixture.md already documents the environment setup
+- Makefile currently has test and test-fixture-service targets but lacks fixture-install, fixture-cleanup, and test-integration
+
+Writing: apps/exocomp_node/test/integration/fixture_test.exs with all 10 required test scenarios.
 ---
 <!-- COMMENTS:END -->
