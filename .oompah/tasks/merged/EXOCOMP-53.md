@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T21:43:25.486088Z'
+updated_at: '2026-07-23T23:18:13.060061Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
