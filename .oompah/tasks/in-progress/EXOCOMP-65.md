@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:25:44.220875Z'
+updated_at: '2026-07-23T21:25:51.685477Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -216,5 +216,18 @@ Key files:
 - `scripts/verify-toolchain.sh` — validates Elixir/OTP/glibc versions match lockfile inside builder
 - `scripts/test-release-builders.sh` — static validation: digest format, arch diff, non-interactive flags, no floating inputs
 - `test/fixtures/fake-container-engine.sh` — mock engine for offline capability-mapping tests
+---
+author: oompah
+created: 2026-07-23 21:25
+---
+**Verification:** `make test-builders` exits 0 with output 'release builder definitions are pinned and valid'. Static validation confirms:
+- SUPPORTED_ARCHITECTURES=amd64,arm64 (exactly)
+- Elixir 1.20.2 / OTP 28.5.0.3 / Debian 12 / glibc 2.36
+- BUILDER_TAG pinned to specific debian-bookworm-20260713-slim snapshot (no floating :latest/edge)
+- AMD64 and ARM64 digests are sha256:64-hex-char format and differ from each other
+- build-amd64 and build-arm64 targets exist in Makefile
+- All invocations use --platform flag and no -i/-it interactive flags
+- build-releases.sh uses --pull never and enforces clean git checkout
+- Both node and coordinator releases targeted, with ERTS smoke check
 ---
 <!-- COMMENTS:END -->
