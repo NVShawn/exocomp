@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-7
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Scaffold the Elixir umbrella and quality gates
 parent: EXOCOMP-1
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-23T20:20:26.819001Z'
+updated_at: '2026-07-23T20:20:58.067120Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -297,5 +297,10 @@ author: oompah
 created: 2026-07-23 20:20
 ---
 Verification: From an artifact-free checkout, make init, make fmt, make build, make test, make fmt-check, and make lint passed using only the digest-pinned builder. ExUnit: core 2 passed, coordinator 1 passed, node 1 passed. Both exocomp_node and exocomp_coordinator test releases started successfully and reported bundled ERTS. make help and make clean also passed; git diff remains empty.
+---
+author: oompah
+created: 2026-07-23 20:20
+---
+Completion: Delivered and pushed commits dfa360c and 129427c on EXOCOMP-7. The repository now has the Elixir 1.20.2/OTP 28.5.0.3 umbrella, shared protocol/core plus node/coordinator apps, digest-pinned container build, ERTS-inclusive releases, non-interactive Make gates, tests, smoke release startup checks, and development documentation. All acceptance gates pass and the branch is clean/up to date with origin.
 ---
 <!-- COMMENTS:END -->
