@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -13,13 +13,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:27:15.424746Z'
+updated_at: '2026-07-23T23:29:48.318454Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: cb5fdf22-791b-4fbb-ab07-38228fd0d3e2
+oompah.agent_run_id: ad8668c7-1873-4097-a88d-7fd6c493decd
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
   total_input_tokens: 3081672
@@ -415,5 +415,15 @@ created: 2026-07-23 23:27
 **Evidence:** Last agent comment signals completion without a human question; the Needs Human transition appears accidental.
 
 *This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
+---
+author: oompah
+created: 2026-07-23 23:29
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 23:29
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
