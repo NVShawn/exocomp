@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:37:02.778073Z'
+updated_at: '2026-07-23T21:37:10.821688Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -244,5 +244,20 @@ Implementation: Previous agent (Codex) already wrote the core implementation in 
 - apps/exocomp_node/lib/exocomp/node/application.ex: wires LlamaServer into the one_for_one supervisor tree when llama_server_path is configured
 
 Additional fix in this run (d600763): Makefile rootless Docker detection — omit --user flag when running rootless Docker to fix volume write permission errors.
+---
+author: oompah
+created: 2026-07-23 21:37
+---
+Verification: make lint and make test both pass cleanly.
+
+- make lint: format check + compile --warnings-as-errors passes with no warnings
+- make test: 4 tests pass in exocomp_node (including 3 LlamaServer tests), releases build and smoke-releases.sh pass
+- Expected log: [error] failed to start llama-server: Erlang error: :enoent — this is the test asserting :degraded state when binary is missing
+
+All acceptance criteria met:
+- Crash isolation: LlamaServer is under :one_for_one supervisor; crash does not propagate to siblings
+- Exponential backoff: schedule_restart/1 applies 2^attempt backoff with jitter, capped at max_restart_backoff_ms
+- status/0: returns :ready | :starting | :degraded | :stopped
+- Loopback binding: host is always 127.0.0.1, non-loopback llama_host config is logged and ignored
 ---
 <!-- COMMENTS:END -->
