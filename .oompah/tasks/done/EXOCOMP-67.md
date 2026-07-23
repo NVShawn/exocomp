@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: In Progress
+status: Done
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:45:58.765924Z'
+updated_at: '2026-07-23T21:46:16.509429Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -219,5 +219,28 @@ make test-builders output:
 make test-deps: 8/8 pass
 
 Committed on epic-EXOCOMP-42 and pushed to origin.
+---
+author: oompah
+created: 2026-07-23 21:46
+---
+Completion: EXOCOMP-67 delivered.
+
+Deliverables:
+1. scripts/inspect-release-deps.sh — ELF/NIF runtime dependency inspector. Scans all ELF binaries in a release directory, runs readelf -d inside the pinned builder container (target-platform flag ensures arm64-correct inspection on amd64 host), classifies NEEDED entries as bundled/declared-host/undeclared, emits dep-report.json, exits non-zero on undeclared deps.
+
+2. release/runtime-baseline.lock — Authoritative declarative allowlist for glibc 2.36 host library contract (11 SONAMEs).
+
+3. docs/runtime-dependencies.md — Runtime contract documentation: supported targets, glibc 2.36 baseline table, host library table, dep-report.json schema, maintainer inspection commands for amd64 and arm64, READELF=readelf shortcut for native use inside builder, cross-arch dev notes, and Mermaid build pipeline diagram.
+
+4. Test fixtures (test/fixtures/fake-release-valid/, test/fixtures/fake-release-undeclared/, test/fixtures/fake-readelf.sh) — Zero-container, zero-ELF fixture system using .readelf-d sidecar files.
+
+5. scripts/test-runtime-deps.sh — 8-case test script: valid/invalid releases, missing ERTS, unsupported arch, missing baseline, dep-report.json production.
+
+6. Build integration — build-releases.sh runs inspection after smoke-check; test-release-builders.sh gate validates all new components; Makefile adds test-deps, inspect-deps-amd64, inspect-deps-arm64 targets.
+
+Acceptance criteria satisfied:
+- Dependency reports (dep-report.json) written to each release dir
+- docs/runtime-dependencies.md identifies runtime contract with inspection commands
+- make test-builders (focused release/doc gate) passes with 8/8 tests
 ---
 <!-- COMMENTS:END -->
