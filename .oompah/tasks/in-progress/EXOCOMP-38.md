@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T22:46:34.110811Z'
+updated_at: '2026-07-23T22:49:11.470838Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -195,5 +195,10 @@ author: oompah
 created: 2026-07-23 22:46
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-23 22:49
+---
+Understanding (Maintenance Engineer): EXOCOMP-38 requires implementing the llama.cpp inference benchmark workload for Milestone 5. The task builds on two Done blockers: EXOCOMP-35 (benchmark harness in apps/bench/ on epic-EXOCOMP-35) and EXOCOMP-11 (LlamaServer/ProposalClient on epic-EXOCOMP-11). I am on epic-EXOCOMP-5 (M5 epic branch). Plan: (1) merge harness and llama-server branches into epic-EXOCOMP-5, (2) implement Bench.Workload.LlamaInference module covering startup/readiness, sequential proposals, concurrent saturation, timeout, invalid output, and crash/restart scenarios, (3) write ExUnit tests using the existing FakeLlamaServer fixture, (4) add bench-llama-short Make target, (5) push and close.
 ---
 <!-- COMMENTS:END -->

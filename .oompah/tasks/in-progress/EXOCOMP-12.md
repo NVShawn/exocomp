@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-12
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Expose diagnostic-only node A2A service
 parent: EXOCOMP-1
@@ -14,12 +14,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-23T19:17:05.192510Z'
-work_branch: null
+updated_at: '2026-07-23T22:49:18.837912Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 5b5acbd3-5be2-49bc-8571-0d372747059e
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -50,3 +52,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 22:49
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 22:49
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
