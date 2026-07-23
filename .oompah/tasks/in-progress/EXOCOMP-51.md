@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-23T21:40:55.874481Z'
+updated_at: '2026-07-23T21:41:28.384942Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 797d7c32-81f2-4add-841f-0d91cdee7100
+oompah.agent_run_id: 97bda7e8-7d76-43ca-904b-73e10b914126
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 1106218
@@ -160,5 +160,15 @@ author: oompah
 created: 2026-07-23 21:40
 ---
 Agent completed without closing this issue (123s (659116 tokens)). Escalating from 'standard' to 'deep'. Retrying in 20s (2/3).
+---
+author: oompah
+created: 2026-07-23 21:41
+---
+Retrying (attempt #2, agent: deep)
+---
+author: oompah
+created: 2026-07-23 21:41
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
