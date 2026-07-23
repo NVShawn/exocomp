@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T21:49:39.828936Z'
+updated_at: '2026-07-23T21:50:50.445819Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -89,5 +89,19 @@ author: oompah
 created: 2026-07-23 21:49
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Duplicate screening found no duplicate. EXOCOMP-64 is a unique child task of EXOCOMP-11, explicitly created by the Epic Planner (see EXOCOMP-11 comment #13) with a distinct scope: focused ExUnit tests for LlamaServer and ProposalClient using an in-process fake llama-server.
+
+Tasks reviewed:
+- EXOCOMP-11: Parent epic (Open) — too broad, intentionally decomposed into 4 children; EXOCOMP-64 is child #4
+- EXOCOMP-61: ProposalSchema module (Done) — foundational schema, no test infrastructure
+- EXOCOMP-62: LlamaServer OTP supervisor (Done) — implementation only; includes smoke tests but NOT the 11 focused scenarios described in EXOCOMP-64
+- EXOCOMP-63: ProposalClient HTTP client (Done) — implementation with unit smoke test, explicitly defers full scenario tests to 'the sibling test task' (this task)
+- EXOCOMP-13: M1 milestone verification (Open) — integration/acceptance tests for the full M1 milestone, different scope from focused LlamaServer+ProposalClient unit tests
+
+Evidence: EXOCOMP-63 comment #3 explicitly states 'Full scenario tests are in the sibling test task' (EXOCOMP-64). No existing task defines FakeLlamaServer or the 11 test scenarios required by EXOCOMP-64. Both blocking dependencies (EXOCOMP-62, EXOCOMP-63) are now Done, so EXOCOMP-64 is unblocked.
 ---
 <!-- COMMENTS:END -->

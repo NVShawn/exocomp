@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-23T21:50:31.410488Z'
+updated_at: '2026-07-23T21:50:42.835673Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 97bda7e8-7d76-43ca-904b-73e10b914126
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 1106218
-  total_output_tokens: 6778
+  total_input_tokens: 1106283
+  total_output_tokens: 34670
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1106218
-      output_tokens: 6778
+      input_tokens: 1106283
+      output_tokens: 34670
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 3914
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:40:53.385195+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 65
+    output_tokens: 27892
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:50:39.253045+00:00'
 ---
 ## Summary
 
@@ -190,5 +196,20 @@ author: oompah
 created: 2026-07-23 21:50
 ---
 Added 10 A2A 1.0 fixture JSON files and 4 ExUnit test modules (FixtureTest, InvalidPayloadTest, VersionNegotiationTest, MediaTypeTest) covering all EXOCOMP-8 acceptance criteria. Updated parse_content_type to strip media-type params. All 103 tests pass.
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Agent completed successfully in 552s (27957 tokens)
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
+- Turns: 126, Tool calls: 84
+- Tokens: 65 in / 27.9K out [28.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 9m 12s
+- Log: EXOCOMP-51__20260723T214128Z.jsonl
 ---
 <!-- COMMENTS:END -->
