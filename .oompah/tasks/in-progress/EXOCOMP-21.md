@@ -8,10 +8,12 @@ parent: EXOCOMP-3
 children: []
 blocked_by:
 - EXOCOMP-8
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T21:51:43.319375Z'
+updated_at: '2026-07-23T21:54:08.201980Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -64,5 +66,18 @@ author: oompah
 created: 2026-07-23 21:51
 ---
 Understanding: Investigating whether EXOCOMP-21 ('Define action, evidence, risk, and data-classification types') is a duplicate of an existing task. Will search for related tasks covering type definitions for actions, evidence, risk ranks, reversibility, data classification, and schema versioning before any implementation proceeds.
+---
+author: oompah
+created: 2026-07-23 21:54
+---
+Duplicate screening found no duplicate.
+
+Closest reviewed task: EXOCOMP-61 (Done, parent EXOCOMP-11) — 'Define versioned proposal schema module'. This adds Exocomp.Node.ProposalSchema which validates LLM proposal output (closed proposal_id set, required fields, schema version, forbidden shell-command indicators). It is a Milestone 1/inference-client task that validates *what the LLM proposes*. EXOCOMP-21 is a Milestone 3/safety task that defines the *action catalog types, evidence structure, risk ranks, reversibility, and data classification* consumed by the policy engine. Scope and domain are distinct.
+
+All other candidate tasks reviewed: EXOCOMP-3 (M3 parent epic), EXOCOMP-8 (A2A protocol types, Done), EXOCOMP-22–28 (M3 siblings that *depend on* EXOCOMP-21). None define action/evidence/risk/data-classification types.
+
+Evidence: searched git log, plans/milestone-3-safety-validation.md, all .oompah/tasks/ entries in origin/oompah/state/proj-c260b117, and commit diffs for EXOCOMP-61.
+
+Conclusion: EXOCOMP-21 is a unique task. Handing off to feature implementation focus.
 ---
 <!-- COMMENTS:END -->
