@@ -5,14 +5,15 @@ status: In Progress
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
-children: []
+children:
+- EXOCOMP-73
 blocked_by:
 - EXOCOMP-21
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T22:50:06.842204Z'
+updated_at: '2026-07-23T22:50:44.973867Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
