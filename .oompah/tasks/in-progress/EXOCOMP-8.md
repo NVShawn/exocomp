@@ -5,14 +5,15 @@ status: In Progress
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
-children: []
+children:
+- EXOCOMP-48
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:35:34.527647Z'
+updated_at: '2026-07-23T20:35:55.083549Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
