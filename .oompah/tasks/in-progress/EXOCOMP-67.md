@@ -10,9 +10,10 @@ blocked_by:
 - EXOCOMP-66
 labels:
 - focus-complete:duplicate_detector
+- needs:devops
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:34:21.941391Z'
+updated_at: '2026-07-23T21:34:52.925348Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -58,5 +59,33 @@ Key distinctions from closest candidates:
 No other task in the project (reviewed all 70+ tasks across all states) covers ELF interpreter inspection, shared-library dependency enumeration, NIF detection, glibc baseline documentation, build-time failure on unresolved/undeclared dependencies, or the corresponding test fixtures.
 
 EXOCOMP-67 is unique and should proceed to implementation.
+---
+author: oompah
+created: 2026-07-23 21:34
+---
+Focus handoff: duplicate_detector
+
+1. **Outcome:** No duplicate confirmed. EXOCOMP-67 is a unique, properly-scoped child of EXOCOMP-42, created by the epic planner (EXOCOMP-42 comment #27) to handle ELF/NIF runtime dependency inspection and glibc baseline documentation. All 70+ project tasks reviewed.
+
+2. **Evidence and relevant files/decisions:**
+   - `plans/milestone-6-release.md` — confirms the glibc-based Linux (x86_64 and aarch64) supported-target list; M6-CRIT-2 requires releases starting on clean hosts; 'Release qualification verifies that shipped binaries use only documented runtime dependencies'
+   - `release/builders.lock` (on origin/EXOCOMP-65 branch) — glibc 2.36 baseline (Debian 12 bookworm), Elixir 1.20.2/OTP 28.5.0.3, separate sha256-pinned amd64 and arm64 builder digests
+   - `scripts/build-releases.sh` (EXOCOMP-65 work) — clean-checkout release builds under `_build/release/<arch>/rel/`
+   - EXOCOMP-66 (Done) produced four versioned archives and manifests with file inventory and SHA-256; these are the input artifacts EXOCOMP-67 must inspect
+   - EXOCOMP-68 (Open, blocked by this task) — qualification test matrix; depends on EXOCOMP-67 dependency reports being in place
+   - Work branch for this task is `epic-EXOCOMP-6`
+
+3. **Remaining work and risks:**
+   - Add an ELF inspection script that runs `readelf`/`objdump` (cross-arch via target-platform builders) against all ELF binaries in each release archive (ERTS beam.smp, NIFs in priv/, llvm libs etc.)
+   - Enumerate all SO_NEEDED entries and identify those expected to be satisfied by the host (outside the archive)
+   - Fail build on unresolved or undeclared dynamic dependencies
+   - Define and document the glibc ABI baseline (already known: glibc 2.36 from builders.lock)
+   - Emit per-archive dependency reports and attach them to manifests or as sidecar files
+   - Add docs/runtime-dependencies.md (or similar) identifying the runtime contract with inspection commands
+   - Add test fixtures: one valid release + one with an injected unresolved/undeclared dependency
+   - Risk: cross-arch inspection (arm64 ELF on amd64 host) requires `aarch64-linux-gnu-readelf` or running inspection inside the arm64 builder container — must use the pinned builder for target-architecture tooling
+   - Risk: NIFs in Elixir deps (e.g. telemetry_poller or other native deps) must be enumerated from the release lib/ directory
+
+4. **Recommended next focus:** `devops` — this is a build-pipeline and scripting task (inspection scripts, Makefile targets, report attachment to manifests, CI failure gates). Alternatively `feature` if the implementing agent prefers to frame it as a release infrastructure feature.
 ---
 <!-- COMMENTS:END -->
