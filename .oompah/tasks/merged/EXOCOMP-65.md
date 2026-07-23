@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-65
 type: feature
-status: Done
+status: Merged
 priority: 2
 title: Pin multi-architecture OTP release builders
 parent: EXOCOMP-42
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:26:18.810435Z'
+updated_at: '2026-07-23T23:34:55.307734Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
