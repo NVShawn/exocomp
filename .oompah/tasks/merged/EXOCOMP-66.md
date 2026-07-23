@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-66
 type: feature
-status: Done
+status: Merged
 priority: 2
 title: Package deterministic OTP release archives and identity manifests
 parent: EXOCOMP-42
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-07-23T21:31:25.175949Z'
+updated_at: '2026-07-23T23:34:57.765387Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
