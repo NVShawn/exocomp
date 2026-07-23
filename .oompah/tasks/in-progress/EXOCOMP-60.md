@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-23T22:31:13.890833Z'
+updated_at: '2026-07-23T22:36:57.573693Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -191,5 +191,21 @@ Plan:
 8. Verify make test, make lint, make fmt-check pass
 
 Note: Config struct uses field names node_cert/node_key/ca_cert and listen.port (not the spec's cert_path/key_path/ca_path/listen_port) — will use actual implementation.
+---
+author: oompah
+created: 2026-07-23 22:36
+---
+Discovery: Created EXOCOMP-60 branch from EXOCOMP-58 (Config loader). Full picture:
+
+- EXOCOMP-57 merged to main: fixture certs available (node.crt, wrong_san.crt, rogue.crt, expired.crt + keys, ca.crt)
+- EXOCOMP-58 local branch: Config loader + Redact module + Jason dep + updated Makefile
+- EXOCOMP-59 (Identity) is Open/unimplemented - must be implemented as part of this task
+- config_valid.json: port 4433, node_id=exocomp-test-node, relative cert paths
+- Cert SAN: DNS:exocomp-test-node; wrong_san cert: DNS:wrong-san-node; rogue.crt signed by Rogue CA
+- Key files currently 0o664 on disk (git doesn't preserve 0600) - tests must chmod keys before identity checks
+- Config.TLS struct fields: ca_cert/node_cert/node_key (not ca_path/cert_path/key_path as spec says)
+- Docker rootless available for make test/lint
+
+Implementation starting now.
 ---
 <!-- COMMENTS:END -->
