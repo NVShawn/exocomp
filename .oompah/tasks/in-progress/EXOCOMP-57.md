@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:05:39.774199Z'
+updated_at: '2026-07-23T21:05:58.578188Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -206,5 +206,14 @@ created: 2026-07-23 21:05
 4. Add gen-test-fixtures Makefile target with ## comment
 5. Fixture private keys will be committed (dev-only, acceptable for reproducible tests — documented in script)
 6. Verify idempotency and SAN via openssl
+---
+author: oompah
+created: 2026-07-23 21:05
+---
+**Discovery:** Found EXOCOMP-7 scaffold. apps/exocomp_node/test/ exists but has no fixtures/ directory. scripts/ has smoke-releases.sh and verify-toolchain.sh. Need to create:
+- apps/exocomp_node/test/fixtures/certs/ directory with all cert files
+- apps/exocomp_node/test/fixtures/ JSON config fixtures  
+- scripts/gen-test-certs.sh
+- Makefile gen-test-fixtures target
 ---
 <!-- COMMENTS:END -->

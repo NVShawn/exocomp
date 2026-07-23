@@ -5,14 +5,15 @@ status: In Progress
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
-children: []
+children:
+- EXOCOMP-65
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T21:05:33.920902Z'
+updated_at: '2026-07-23T21:06:03.527518Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -248,5 +249,10 @@ author: oompah
 created: 2026-07-23 21:05
 ---
 Understanding: Decomposing EXOCOMP-42 into independently deliverable children covering pinned multi-architecture builders, deterministic release packaging/identity, runtime dependency inspection, and clean-target/reproducibility diagnostics. I will preserve scope boundaries with EXOCOMP-43 installers and EXOCOMP-44 signed bundles/SBOMs, wire child dependencies, then return the epic to Backlog for implementation.
+---
+author: oompah
+created: 2026-07-23 21:06
+---
+Discovery: EXOCOMP-42 currently has no children. plans/milestone-6-release.md maps it to M6-CRIT-2 plus the reproducible build-identity portion of M6-CRIT-8. The current branch is still the project skeleton, so children must depend on EXOCOMP-7 and remain implementation-ready after the umbrella/release configs land. Downstream EXOCOMP-43 and EXOCOMP-44 already depend on this epic, confirming installers, signatures, SBOMs, and offline bundle assembly are out of scope.
 ---
 <!-- COMMENTS:END -->
