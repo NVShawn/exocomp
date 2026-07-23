@@ -12,13 +12,13 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:10:43.613187Z'
+updated_at: '2026-07-23T22:11:00.910311Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: f2f3aebe-1961-4f8f-a0a1-c45a050fbee0
+oompah.agent_run_id: c9a935fe-fca6-4373-9a7e-87364cc08b6a
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
   total_input_tokens: 3455262
@@ -251,5 +251,15 @@ author: oompah
 created: 2026-07-23 22:10
 ---
 Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-35`. Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 22:11
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-23 22:11
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
