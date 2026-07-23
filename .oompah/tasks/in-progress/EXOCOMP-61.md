@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:20:40.394883Z'
+updated_at: '2026-07-23T21:20:48.133083Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -180,5 +180,10 @@ author: oompah
 created: 2026-07-23 21:20
 ---
 Implementation: Created apps/exocomp_node/lib/exocomp/node/proposal_schema.ex (Exocomp.Node.ProposalSchema) with: @schema_version '1', @valid_proposal_ids [:restart_service, :clear_disk_space, :rotate_logs, :increase_swap], validate/1 returning {:ok, proposal} or {:error, reason} for all 4 error variants (unknown_schema_version, unknown_proposal_id, {:missing_field, field}, :forbidden_field). Created 25 unit tests in apps/exocomp_node/test/exocomp/node/proposal_schema_test.exs. Also fixed Makefile rootless Docker incompatibility (--user flag breaks volume permissions in rootless mode) — auto-detected and omitted in rootless Docker.
+---
+author: oompah
+created: 2026-07-23 21:20
+---
+Verification: make lint passed (mix format --check-formatted + compile with --warnings-as-errors). make test passed: 27 tests total — 25 new ProposalSchema tests + 2 existing application tests, all passing. Releases built and smoke-tested successfully.
 ---
 <!-- COMMENTS:END -->

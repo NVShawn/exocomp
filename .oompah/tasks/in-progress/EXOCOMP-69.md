@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:17:56.096308Z'
+updated_at: '2026-07-23T21:20:49.183567Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -125,5 +125,19 @@ author: oompah
 created: 2026-07-23 21:17
 ---
 Discovery: The project is an Elixir umbrella app under apps/. The fixture service is a new, standalone artifact outside the Elixir build: a Python daemon at test/fixtures/exocomp_fixture/bin/exocomp-fixture. The plans/milestone-4-service-recovery.md confirms the 5 required modes (active, degraded, failed, flapping, restart-failure). No fixture-design.md exists yet on this branch. Will implement: (1) Python daemon with stdlib http.server, file-based mode control, workload marker, SIGTERM handling; (2) Python unittest tests exercising all modes via subprocess. The state dir defaults to /run/exocomp-fixture and is configurable via env var or CLI flag.
+---
+author: oompah
+created: 2026-07-23 21:20
+---
+Implementation: Created test/fixtures/exocomp_fixture/bin/exocomp-fixture (executable Python 3 daemon) with:
+- HTTP health endpoint (configurable addr/port, default 127.0.0.1:8877) returning {"status":"ok"} (200) or {"status":"degraded"} (503)
+- Workload marker file updated atomically on every poll cycle; removed on clean shutdown
+- File-based mode control ($STATE_DIR/mode): active, degraded (process alive but health bad), failed/flapping/restart-failure (immediate exit code 1) — readable both at startup and dynamically while running
+- SIGTERM/SIGINT graceful shutdown
+- Poll interval configurable (default 1s, tests use 0.1s)
+Also added:
+- test/fixtures/exocomp_fixture/test/test_fixture.py — 22 Python unittest tests covering all modes, transitions, HTTP contract, and CLI flags
+- test/fixtures/exocomp_fixture/README.md — operator/developer usage guide
+- Makefile target test-fixture-service
 ---
 <!-- COMMENTS:END -->
