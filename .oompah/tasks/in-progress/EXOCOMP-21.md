@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T21:55:55.600271Z'
+updated_at: '2026-07-23T21:58:34.037644Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -173,5 +173,22 @@ author: oompah
 created: 2026-07-23 21:55
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-07-23 21:58
+---
+Understanding (Security Auditor): EXOCOMP-21 requires defining the type-level security contracts for the M3 policy engine — action definitions, proposals, evidence, validator results, risk ranks, reversibility, and data classification. No implementation exists yet on this branch; previous agents confirmed no duplicate and identified the scope.
+
+Security invariants I must enforce at the type level:
+1. Unknown data classification defaults to :protected_user_data (fail-closed)
+2. Deletion-class actions targeting :protected_user_data are structurally ineligible — enforced at ActionDefinition construction, not runtime policy
+3. All security-relevant parse paths reject unknown schema versions and unknown fields
+4. Evidence includes integrity hash and observed_at; validator rejects stale or mismatched evidence
+5. Proposal parser rejects unknown action IDs and unknown fields (LLM output is untrusted input)
+6. Risk ranks support deterministic lexicographic ordering for policy selection
+
+Attack surface: Proposal parsing (LLM = untrusted), Evidence validation (staleness/forgery), schema version downgrade/confusion, data-classification bypass, atom injection via string-to-atom conversion (using explicit pattern matching instead).
+
+Plan: implement Exocomp.Node.Safety.{DataClassification, RiskRank, Reversibility, ActionDefinition, Evidence, Proposal, ValidatorResult} in exocomp_node with table-driven tests for every invariant.
 ---
 <!-- COMMENTS:END -->
