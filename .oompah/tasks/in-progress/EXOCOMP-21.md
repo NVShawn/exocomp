@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T22:11:54.319624Z'
+updated_at: '2026-07-23T22:12:30.988113Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -216,5 +216,22 @@ Implementation: Created Exocomp.Node.Safety type system in apps/exocomp_node/lib
 - ValidatorResult: deny/allow/approval_required constructors with schema version; parse/1 with unknown-field rejection; default struct is :deny
 
 Tests: 180 tests (7 test files) covering valid schemas, malformed values, unknown schema versions, missing fields, risk ordering, fail-closed data classification defaults, and deletion-ineligibility variants.
+---
+author: oompah
+created: 2026-07-23 22:12
+---
+Verification: All quality gates pass.
+
+make lint: PASS (format check + compile --warnings-as-errors, 0 warnings)
+MIX_ENV=test mix test: 180 tests, 0 failures
+
+Test breakdown by module:
+- DataClassification: 18 tests — all 13 unknown-input fail-closed cases including nil, empty string, uppercase strings, integers, booleans, maps, lists; round-trip classify→deletion_eligible?
+- RiskRank: 30 tests — all 5 valid level strings for all 4 fields; missing defaults; 6 unknown level rejections; compare ordering: tiebreak sequences, full none<minimal<moderate<high<critical order proof (10 ordered pairs)
+- Reversibility: 15 tests — known strings/atoms; 11 unknown scalar rejections; map/list rejections
+- Evidence: 31 tests — valid map; schema version checks; unknown-field rejection; 7 required-field validations; datetime valid/invalid; values map validation; integrity hash (too short/long/uppercase/non-hex/non-string)
+- Proposal: 25 tests — valid map; schema version; unknown-field injection; action_id allowlist (5 valid, 7 invalid patterns); parameters validation; evidence_refs validation
+- ActionDefinition: 33 tests — deletion-ineligibility invariant (5 cases including nil/unknown classification); forbidden patterns (6); schema version; unknown action_class; numeric field validation; risk_rank from map
+- ValidatorResult: 28 tests — all 3 constructors; predicate helpers; fail-closed default; parse/1 all decisions; schema version; unknown fields; malformed decision
 ---
 <!-- COMMENTS:END -->
