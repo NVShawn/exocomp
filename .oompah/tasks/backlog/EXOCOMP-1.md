@@ -5,12 +5,19 @@ status: Backlog
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
-children: []
+children:
+- EXOCOMP-7
+- EXOCOMP-8
+- EXOCOMP-9
+- EXOCOMP-10
+- EXOCOMP-11
+- EXOCOMP-12
+- EXOCOMP-13
 blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-23T19:07:34.132470Z'
+updated_at: '2026-07-23T19:08:57.942813Z'
 work_branch: null
 target_branch: null
 review_url: null
