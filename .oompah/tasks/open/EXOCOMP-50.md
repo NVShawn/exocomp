@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-50
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Scaffold the bench Mix app within the Elixir umbrella
 parent: EXOCOMP-35
@@ -9,9 +9,11 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
+- needs:feature
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T20:59:01.452345Z'
+updated_at: '2026-07-23T20:59:16.156090Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -164,5 +166,26 @@ author: oompah
 created: 2026-07-23 20:59
 ---
 Discovery (Epic Planner): EXOCOMP-35 already lists EXOCOMP-50 as its scaffold child alongside EXOCOMP-52 through EXOCOMP-56, so creating children under EXOCOMP-50 would be incorrect and duplicative. The Milestone 5 Measurement Architecture confirms the bench driver/sampler/report boundaries. Repository evidence also shows this dispatched checkout is branch epic-EXOCOMP-35 at origin/main, not the prompt-stated EXOCOMP-50 branch; it has no apps/ directory because the EXOCOMP-7 umbrella changes are not present in this checkout.
+---
+author: oompah
+created: 2026-07-23 20:59
+---
+Focus handoff: epic_planner
+
+**Outcome:** EXOCOMP-50 needs no further decomposition. It is already the appropriately scoped scaffold child of EXOCOMP-35 and is ready for implementation. No child tasks were created and no repository files were changed.
+
+**Evidence and decisions:**
+- `oompah task view EXOCOMP-35` lists EXOCOMP-50 plus sibling implementation tasks EXOCOMP-52 through EXOCOMP-56.
+- `plans/milestone-5-performance.md` (Measurement Architecture) establishes the Driver, Sampler, Raw sample, and Report boundaries that the requested skeleton anticipates.
+- `git branch --show-current` returned `epic-EXOCOMP-35`, and HEAD is `182db99` at `origin/main`; this conflicts with the prompt claim that the checkout is branch EXOCOMP-50.
+- The current checkout has no `apps/` directory, so it does not contain the umbrella scaffold delivered by EXOCOMP-7. The implementation agent must begin from the actual EXOCOMP-50 worktree/branch containing EXOCOMP-7, or rebase that branch onto the commit containing EXOCOMP-7 before scaffolding bench.
+
+**Remaining work and risks:**
+- Create `apps/bench` using existing umbrella conventions, with Jason and NimbleOptions dependencies, ExUnit setup, and the requested Bench module/directory skeleton.
+- Add focused scaffold/module tests, then run the available Makefile build/test/format gates.
+- Commit and push on EXOCOMP-50, then close the task.
+- Do not implement in this `epic-EXOCOMP-35` checkout: doing so would land task code on the wrong branch and against a pre-umbrella base.
+
+**Recommended next focus:** feature.
 ---
 <!-- COMMENTS:END -->
