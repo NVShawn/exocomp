@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-23T23:33:00.471604Z'
+updated_at: '2026-07-23T23:33:12.180437Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -128,5 +128,24 @@ author: oompah
 created: 2026-07-23 23:32
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-23 23:33
+---
+Understanding: DevOps focus for EXOCOMP-44 - Assemble signed offline bundles, SBOMs, and provenance.
+
+Plan:
+1. Explore existing codebase structure - especially release/, scripts/, plans/milestone-6-release.md
+2. Understand what EXOCOMP-40 (llama-server/model) and EXOCOMP-42 (OTP deterministic builds) have produced
+3. Implement bundle assembly scripts for amd64/arm64 complete and runtime-only variants
+4. Add SHA-256 manifest generation covering every nested file
+5. Add SBOM generation (CycloneDX or SPDX format)
+6. Add provenance metadata (SLSA-style: source, builder, toolchain, deps)
+7. Add GPG/minisign signature step
+8. Write tamper-detection verification scripts
+9. Add Makefile targets and focused tests
+10. Verify network-disabled install path
+
+Key inputs from upstream tasks: OTP archives (EXOCOMP-42/66), llama-server binary (EXOCOMP-40), Qwen GGUF model, systemd/install assets (EXOCOMP-43), licenses (EXOCOMP-41).
 ---
 <!-- COMMENTS:END -->
