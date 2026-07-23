@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-68
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Qualify multi-architecture OTP releases and reproducibility
 parent: EXOCOMP-42
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T21:06:38.746468Z'
+updated_at: '2026-07-23T21:10:29.207959Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-62
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement LlamaServer OTP process supervisor
 parent: EXOCOMP-11
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:04:46.892841Z'
+updated_at: '2026-07-23T21:10:31.307873Z'
 work_branch: null
 target_branch: null
 review_url: null

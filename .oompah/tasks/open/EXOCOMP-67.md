@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:06:36.864737Z'
+updated_at: '2026-07-23T21:10:28.177576Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-64
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Write focused ExUnit tests for LlamaServer and ProposalClient
 parent: EXOCOMP-11
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-23T21:05:01.040520Z'
+updated_at: '2026-07-23T21:10:33.196157Z'
 work_branch: null
 target_branch: null
 review_url: null

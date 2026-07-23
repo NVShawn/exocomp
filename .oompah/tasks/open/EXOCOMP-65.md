@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-65
 type: feature
-status: Backlog
+status: Open
 priority: 2
 title: Pin multi-architecture OTP release builders
 parent: EXOCOMP-42
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:06:35.034557Z'
+updated_at: '2026-07-23T21:10:26.164413Z'
 work_branch: null
 target_branch: null
 review_url: null

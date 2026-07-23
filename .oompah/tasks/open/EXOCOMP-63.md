@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-63
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement ProposalClient inference HTTP client
 parent: EXOCOMP-11
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-23T21:04:55.531114Z'
+updated_at: '2026-07-23T21:10:32.277059Z'
 work_branch: null
 target_branch: null
 review_url: null

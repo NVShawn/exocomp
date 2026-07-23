@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:06:59.701752Z'
+updated_at: '2026-07-23T21:10:37.039150Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-66
 type: feature
-status: Backlog
+status: Open
 priority: 2
 title: Package deterministic OTP release archives and identity manifests
 parent: EXOCOMP-42
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-07-23T21:06:35.947247Z'
+updated_at: '2026-07-23T21:10:27.211163Z'
 work_branch: null
 target_branch: null
 review_url: null

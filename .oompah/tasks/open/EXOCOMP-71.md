@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:07:07.583567Z'
+updated_at: '2026-07-23T21:10:36.092933Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-69
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Create crashable fixture service script with health endpoint and state controls
 parent: EXOCOMP-29
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:06:29.970644Z'
+updated_at: '2026-07-23T21:10:34.140262Z'
 work_branch: null
 target_branch: null
 review_url: null
