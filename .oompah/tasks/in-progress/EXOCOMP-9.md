@@ -9,13 +9,14 @@ children:
 - EXOCOMP-57
 - EXOCOMP-58
 - EXOCOMP-59
+- EXOCOMP-60
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T20:40:32.338613Z'
+updated_at: '2026-07-23T20:41:01.069955Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
