@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-23T21:05:08.843995Z'
+updated_at: '2026-07-23T21:05:24.104472Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -170,5 +170,36 @@ author: oompah
 created: 2026-07-23 21:03
 ---
 Understanding: Acting as Epic Planner for EXOCOMP-11. This epic requires decomposing the llama.cpp supervision and proposal validation work into 4 focused child tasks: (1) define the versioned proposal schema module, (2) implement the LlamaServer OTP process supervisor, (3) implement the ProposalClient HTTP inference client, and (4) write focused ExUnit tests with a fake llama-server. Prerequisite: EXOCOMP-7 (umbrella scaffold) is Done. Plan doc reference: plans/milestone-1-node-agent.md, Inference Integration section.
+---
+author: oompah
+created: 2026-07-23 21:05
+---
+Focus handoff: epic_planner
+
+**Outcome:** Epic decomposed into 4 focused child tasks covering the full EXOCOMP-11 scope. Epic status set to Backlog.
+
+**Child tasks created:**
+- EXOCOMP-61: Define versioned proposal schema module (foundational, no blocking deps beyond EXOCOMP-7)
+- EXOCOMP-62: Implement LlamaServer OTP process supervisor (depends on EXOCOMP-7)
+- EXOCOMP-63: Implement ProposalClient inference HTTP client (depends on EXOCOMP-61 + EXOCOMP-62)
+- EXOCOMP-64: Write focused ExUnit tests for LlamaServer and ProposalClient (depends on EXOCOMP-62 + EXOCOMP-63)
+
+**Dependency graph:**
+EXOCOMP-7 (Done) → EXOCOMP-61, EXOCOMP-62 → EXOCOMP-63 → EXOCOMP-64
+
+**Key design decisions:**
+- Fake llama-server uses in-process Plug/Cowboy to avoid real binary dependency in CI
+- Checksum validation in ProposalClient uses a configurable stub (real impl in EXOCOMP-9)
+- LlamaServer uses :one_for_one isolation under a dedicated supervisor branch
+- ProposalClient redacts raw model output in audit logs (replaces with [REDACTED])
+- Schema is closed (fixed proposal ID allowlist), versioned, no shell commands
+
+**Relevant files:**
+- plans/milestone-1-node-agent.md (Inference Integration + Failure and Security Behavior sections)
+- apps/exocomp_node/ (umbrella app from EXOCOMP-7 branch)
+
+**Remaining work:** None for epic_planner. Feature implementation follows task order: EXOCOMP-61 and EXOCOMP-62 can run in parallel (both unblocked), then EXOCOMP-63, then EXOCOMP-64.
+
+**Recommended next focus:** feature — implement EXOCOMP-61 (schema) and EXOCOMP-62 (LlamaServer supervisor) in parallel
 ---
 <!-- COMMENTS:END -->
