@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T21:54:46.475083Z'
+updated_at: '2026-07-23T21:55:28.201948Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -192,5 +192,15 @@ author: oompah
 created: 2026-07-23 21:54
 ---
 Understanding: Reviewing previous work. The EXOCOMP-54 branch already has commit 75dda39 on origin with the full implementation (Bench.Sample extended, Bench.Run with new/1, append_sample/2, write_jsonl/2, read_jsonl/1, and tests). Now verifying tests pass before closing.
+---
+author: oompah
+created: 2026-07-23 21:55
+---
+Verification: All 31 tests pass (27 bench + 2 exocomp_core + 1 exocomp_coordinator + 1 exocomp_node). Tests cover: round-trip serialisation losslessness, write_jsonl valid JSON per line, read_jsonl malformed line rejection with line numbers, build/host/workload metadata preservation, all 5 source atoms (:beam :host :node :coordinator :llama).
+---
+author: oompah
+created: 2026-07-23 21:55
+---
+Completion: EXOCOMP-54 is fully implemented and already on origin/EXOCOMP-54 (commit 75dda39). Delivered: (1) Bench.Sample — full struct with timestamp, source (5 atoms), metric_name, value, unit; to_json/from_json, to_map/from_map. (2) Bench.Run — envelope struct with build_metadata, host_profile, model_version, workload_name, config_ref, samples; new/1, append_sample/2, write_jsonl/2, read_jsonl/1. (3) Tests in run_test.exs and sample_test.exs covering all required scenarios. All 31 tests pass. Previous agents had already committed and pushed the work; this run confirmed correctness and closes the task.
 ---
 <!-- COMMENTS:END -->
