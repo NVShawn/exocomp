@@ -43,5 +43,11 @@ htmlcov/
 /erl_crash.dump
 *.ez
 
+# Mix/Hex cache directories written by containerised builds
+/.mix-home/
+/.hex-home/
+/.mix_cache/
+/.hex_cache/
+
 # Logs
 *.log

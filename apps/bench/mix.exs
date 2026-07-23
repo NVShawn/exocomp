@@ -1,9 +1,9 @@
-defmodule Exocomp.Node.MixProject do
+defmodule Bench.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :exocomp_node,
+      app: :bench,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -18,13 +18,14 @@ defmodule Exocomp.Node.MixProject do
   def application do
     [
       extra_applications: [:logger, :inets],
-      mod: {Exocomp.Node.Application, []}
+      mod: {Bench.Application, []}
     ]
   end
 
   defp deps do
     [
-      {:exocomp_core, in_umbrella: true}
+      {:jason, "~> 1.4"},
+      {:nimble_options, "~> 1.1"}
     ]
   end
 end
