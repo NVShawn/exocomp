@@ -1,16 +1,18 @@
 ---
 id: EXOCOMP-72
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:docs
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:15:13.436244Z'
+updated_at: '2026-07-23T21:15:24.256282Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
