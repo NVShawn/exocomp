@@ -1,36 +1,42 @@
 defmodule Bench.SampleTest do
   use ExUnit.Case, async: true
 
-  describe "to_json/1" do
-    test "encodes a sample to JSON" do
-      sample = %Bench.Sample{
-        timestamp_ms: 1_700_000_000_000,
-        source: :beam,
-        metrics: %{scheduler_usage: 0.02}
+  alias Bench.Sample
+
+  test "round-trips every sample field through JSON" do
+    original = %Sample{
+      timestamp: 1_700_000_000_000,
+      source: :host,
+      metric_name: "cpu.percent",
+      value: 5.25,
+      unit: "percent"
+    }
+
+    assert {:ok, json} = Sample.to_json(original)
+    assert {:ok, ^original} = Sample.from_json(json)
+  end
+
+  test "supports every sample source" do
+    for source <- [:beam, :host, :node, :coordinator, :llama] do
+      sample = %Sample{
+        timestamp: "2026-07-23T21:00:00Z",
+        source: source,
+        metric_name: "requests",
+        value: 1,
+        unit: "count"
       }
 
-      assert {:ok, json} = Bench.Sample.to_json(sample)
-      assert is_binary(json)
-      assert {:ok, decoded} = Jason.decode(json)
-      assert decoded["timestamp_ms"] == 1_700_000_000_000
+      assert {:ok, json} = Sample.to_json(sample)
+      assert {:ok, ^sample} = Sample.from_json(json)
     end
   end
 
-  describe "from_json/1" do
-    test "round-trips a sample through JSON" do
-      original = %Bench.Sample{
-        timestamp_ms: 1_700_000_000_000,
-        source: :host,
-        metrics: %{cpu_percent: 5.0}
-      }
+  test "rejects invalid JSON and unknown sources" do
+    assert {:error, _reason} = Sample.from_json("not json {")
 
-      assert {:ok, json} = Bench.Sample.to_json(original)
-      assert {:ok, recovered} = Bench.Sample.from_json(json)
-      assert recovered.timestamp_ms == original.timestamp_ms
-    end
-
-    test "returns error for invalid JSON" do
-      assert {:error, _reason} = Bench.Sample.from_json("not json {")
-    end
+    assert {:error, {:invalid_sample_field, :source}} =
+             Sample.from_json(
+               ~s({"timestamp":1,"source":"other","metric_name":"cpu","value":2,"unit":"percent"})
+             )
   end
 end
