@@ -8,10 +8,12 @@ parent: EXOCOMP-1
 children: []
 blocked_by:
 - EXOCOMP-7
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T20:34:53.209102Z'
+updated_at: '2026-07-23T20:35:16.883411Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -110,5 +112,43 @@ author: oompah
 created: 2026-07-23 20:34
 ---
 Understanding: Acting as Duplicate Investigator for EXOCOMP-9 (Implement node configuration, identity, and mTLS startup). Searched all sibling M1 tasks (EXOCOMP-7 through EXOCOMP-13), reviewed plans/milestone-1-node-agent.md, and checked the prior EXOCOMP-7 duplicate investigator's comprehensive 47-task scan. No duplicate found.
+---
+author: oompah
+created: 2026-07-23 20:35
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-9 is unique with no overlap in the existing task graph.
+
+**Evidence reviewed:**
+- Reviewed EXOCOMP-7 (scaffold, Done): covers umbrella, OTP apps, Make gates — no config/identity/TLS implementation
+- Reviewed EXOCOMP-8 (A2A protocol types, In Progress): covers HTTP+JSON codecs, Agent Card, Message/Task types — not configuration loading or mTLS startup
+- Reviewed EXOCOMP-10 (Linux/systemd collectors): covers /proc, /sys, systemctl — not identity or TLS
+- Reviewed EXOCOMP-11 (llama.cpp supervision): covers model process supervision — not config or TLS
+- Reviewed EXOCOMP-12 (Node A2A service): covers exposing HTTP A2A endpoints — depends on mTLS but does not implement config loading, identity validation, or key permission checks
+- Reviewed EXOCOMP-13 (M1 verification): covers end-to-end acceptance testing — not implementation
+- The EXOCOMP-7 duplicate investigator ran a 47-task scan and found EXOCOMP-9 to be a distinct task
+- EXOCOMP-7 (blocker) is now Done, clearing the dependency for EXOCOMP-9
+
+**Relevant files:**
+- plans/milestone-1-node-agent.md — 'Runtime Configuration' section (lines ~56–78) and 'Failure and Security Behavior' (lines ~151–163) describe EXOCOMP-9 scope
+- Branch epic-EXOCOMP-1 has the scaffold from EXOCOMP-7 (apps/exocomp_core, apps/exocomp_node, Makefile, mix.exs)
+
+**Remaining work:**
+1. Implement versioned JSON config loader with env overrides (node ID, listen address, cert/key/trust paths, diagnostic allow-list, llama paths/checksums, timeouts)
+2. Validate config schema version; reject unknown versions
+3. Validate certificate chain and SAN matches node ID
+4. Enforce private-key file permissions (no group/world-readable)
+5. Start mTLS Bandit/Plug listener only after all checks pass
+6. Redact key paths and cert content from errors and logs
+7. Add focused ExUnit tests: missing config, malformed config, unknown version, bad permissions, invalid chain, wrong SAN/node ID, atomic reload, fixture certificates
+8. Run make test, make lint, make fmt-check
+
+**Risks:**
+- Fixture certificates must be generated for test use; scripts or a mix task may be needed
+- The TLS listener setup ties into EXOCOMP-12 (A2A service); EXOCOMP-9 should provide the listener foundation, not the full A2A routing
+- Private-key permission checks use POSIX file stat — needs Linux test environment or mocking
+
+**Recommended next focus:** feature — straightforward Elixir/OTP implementation of config loading, identity validation, and mTLS Bandit startup
 ---
 <!-- COMMENTS:END -->
