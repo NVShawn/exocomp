@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T20:37:35.148686Z'
+updated_at: '2026-07-23T20:39:30.773738Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -185,5 +185,10 @@ author: oompah
 created: 2026-07-23 20:37
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 20:39
+---
+Understanding: Acting as Epic Planner for EXOCOMP-9. This epic covers three things: (1) versioned JSON config loading with env overrides, (2) certificate identity validation + key permission enforcement, and (3) mTLS Bandit listener startup that fails closed on any identity failure. The scaffold from EXOCOMP-7 (apps/exocomp_node, apps/exocomp_core, Makefile with Docker targets) is Done and provides the base. I will decompose into 4 focused child tasks: fixture cert generation (needed by all tests), config loader module, identity validation module, and mTLS listener startup. Each is a single-session agent unit with clear in/out contracts.
 ---
 <!-- COMMENTS:END -->
