@@ -12,13 +12,33 @@ OTP_VERSION := 28.5.0.3
 ALPINE_VERSION := 3.24.1
 BUILDER_IMAGE := docker.io/hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-alpine-$(ALPINE_VERSION)@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6
 CONTAINER_ENGINE ?= docker
+# Detect rootless Docker.  In rootless mode container uid 0 already maps to
+# the host user, so --user is not only unnecessary but actively breaks dep
+# fetching because it maps to an in-container uid that does not own the
+# workspace mount.  In rootful Docker the --user flag is required so that
+# generated artifacts are owned by the real user rather than root.
+DOCKER_ROOTLESS := $(shell $(CONTAINER_ENGINE) info 2>/dev/null | grep -c 'rootless: true')
+ifeq ($(DOCKER_ROOTLESS),1)
+CONTAINER_USER :=
+else
+CONTAINER_USER := --user "$$(id -u):$$(id -g)"
+endif
+
+# Give the process a writable home in /tmp so that `mix local.hex` and the
+# Hex package cache can write there regardless of which uid is used inside
+# the container.
 CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
-	--user "$$(id -u):$$(id -g)" \
+	$(CONTAINER_USER) \
+	--env HOME=/tmp \
+	--env MIX_HOME=/tmp/.mix \
+	--env HEX_HOME=/tmp/.hex \
 	--env ELIXIR_VERSION=$(ELIXIR_VERSION) \
 	--env OTP_VERSION=$(OTP_VERSION) \
 	--volume "$(CURDIR):/workspace" \
 	--workdir /workspace \
 	$(BUILDER_IMAGE)
+# Bootstrap snippet prepended to every shell target that needs Hex/deps.
+DEPS_BOOTSTRAP := mix local.hex --force --quiet && mix local.rebar --force --quiet && mix deps.get --quiet &&
 
 .PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service fixture-install fixture-cleanup test-integration
 
@@ -32,25 +52,25 @@ init: ## Initialize local repo prerequisites.
 	$(CONTAINER_RUN) scripts/verify-toolchain.sh
 
 fmt: ## Format all source files in place.
-	$(CONTAINER_RUN) mix format
+	$(CONTAINER_RUN) sh -c '$(DEPS_BOOTSTRAP) mix format'
 
 fmt-check: ## Check formatting without modifying files.
-	$(CONTAINER_RUN) mix format --check-formatted
+	$(CONTAINER_RUN) sh -c '$(DEPS_BOOTSTRAP) mix format --check-formatted'
 
 build: ## Build the project.
-	$(CONTAINER_RUN) sh -c 'scripts/verify-toolchain.sh && \
+	$(CONTAINER_RUN) sh -c '$(DEPS_BOOTSTRAP) scripts/verify-toolchain.sh && \
 		mix compile --warnings-as-errors && \
 		MIX_ENV=prod mix release exocomp_node --overwrite && \
 		MIX_ENV=prod mix release exocomp_coordinator --overwrite'
 
 test: ## Run the test suite.
-	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix test && \
+	$(CONTAINER_RUN) sh -c '$(DEPS_BOOTSTRAP) MIX_ENV=test mix test && \
 		MIX_ENV=test mix release exocomp_node --overwrite && \
 		MIX_ENV=test mix release exocomp_coordinator --overwrite && \
 		scripts/smoke-releases.sh test'
 
 lint: ## Run static analysis / linters.
-	$(CONTAINER_RUN) sh -c 'mix format --check-formatted && \
+	$(CONTAINER_RUN) sh -c '$(DEPS_BOOTSTRAP) mix format --check-formatted && \
 		MIX_ENV=test mix compile --force --warnings-as-errors'
 
 clean: ## Remove build artifacts.
