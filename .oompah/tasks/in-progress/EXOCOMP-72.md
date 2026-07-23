@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:15:58.865988Z'
+updated_at: '2026-07-23T21:17:06.611350Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -119,5 +119,20 @@ author: oompah
 created: 2026-07-23 21:15
 ---
 Focus: Technical Writer
+---
+author: oompah
+created: 2026-07-23 21:17
+---
+**Understanding & Plan**
+
+This is a pure documentation task. The previous agent confirmed no duplicates exist. My role is to create docs/testing-systemd-fixture.md covering all 6 required areas, and add a pointer to it in README.md.
+
+Key context gathered:
+- plans/milestone-4-service-recovery.md defines the fixture: crashable systemd service with health endpoint, mode controls (active/failed/degraded/flapping/restart-failure), and clean installer/cleanup
+- Health port: 8877 (from fixture design); mode file controls behavior; fixture resources are isolated from operator services
+- Sibling tasks EXOCOMP-69/70/71 are not yet complete, so make targets/ExUnit tags referenced in the doc are based on the plans (test-fixture make target, @tag :systemd_fixture ExUnit filter)
+- Existing make test target runs in a container — systemd fixture tests require a real systemd environment (VM or --privileged container) and cannot use the standard container runner
+
+Plan: create docs/testing-systemd-fixture.md then add a two-line pointer in README.md, commit and push.
 ---
 <!-- COMMENTS:END -->
