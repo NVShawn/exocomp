@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: Done
+status: Merged
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T23:09:02.468998Z'
+updated_at: '2026-07-23T23:26:54.710929Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
