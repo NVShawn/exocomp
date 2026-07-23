@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-52
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement versioned benchmark configuration schema and validation
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T21:22:25.947056Z'
+updated_at: '2026-07-23T23:16:30.166999Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
