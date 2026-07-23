@@ -20,7 +20,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--workdir /workspace \
 	$(BUILDER_IMAGE)
 
-.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures
+.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -58,3 +58,6 @@ clean: ## Remove build artifacts.
 
 gen-test-fixtures: ## Generate TLS test fixture certificates for apps/exocomp_node test suite.
 	bash scripts/gen-test-certs.sh
+
+test-fixture-service: ## Run exocomp-fixture daemon unit tests (requires Python 3.11+, no systemd needed).
+	python3 -m pytest test/fixtures/exocomp_fixture/test/test_fixture.py -v
