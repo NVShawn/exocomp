@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:37:44.891231Z'
+updated_at: '2026-07-23T21:39:22.287182Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -155,5 +155,27 @@ Plan:
 8. Wire into Makefile (test-deps target) and test-builders gate
 
 Key risk: cross-arch readelf. Strategy: run inside pinned builder container using --platform flag for arm64 inspection on amd64 host.
+---
+author: oompah
+created: 2026-07-23 21:39
+---
+Discovery: Foundation merged from EXOCOMP-65.
+
+Key files now available:
+- release/builders.lock: glibc 2.36 (Debian 12 bookworm), OTP 28.5.0.3/Elixir 1.20.2, sha256-pinned amd64/arm64 digests
+- scripts/build-releases.sh: runs inside pinned builder container per arch, outputs to _build/release/<arch>/rel/
+- scripts/verify-toolchain.sh: validates Elixir/OTP/glibc inside builder
+- scripts/test-release-builders.sh: static validation of builder definitions
+- test/fixtures/fake-container-engine.sh: fake docker for test isolation
+
+EXOCOMP-66 produced no code (3 failed agent runs), so archive packaging scripts don't exist. My inspection script will operate on the unpacked release directory (_build/release/<arch>/rel/<release>/) rather than archives.
+
+Implementing:
+1. scripts/inspect-release-deps.sh — ELF inspection inside the pinned builder container using native readelf; emits JSON dep report; fails on undeclared host libs
+2. release/runtime-baseline.lock — declarative allowlist of permitted host-provided .so files
+3. scripts/test-runtime-deps.sh — tests: valid release passes, injected undeclared dep fails
+4. test/fixtures/fake-elf/ — minimal ELF test fixtures with controlled NEEDED entries
+5. docs/runtime-dependencies.md — runtime contract, glibc baseline, inspection commands
+6. Makefile: add inspect-deps and test-deps targets
 ---
 <!-- COMMENTS:END -->
