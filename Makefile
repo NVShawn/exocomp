@@ -14,6 +14,7 @@ BUILDER_IMAGE := docker.io/hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-
 CONTAINER_ENGINE ?= docker
 CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--user "$$(id -u):$$(id -g)" \
+	--userns=keep-id \
 	--env ELIXIR_VERSION=$(ELIXIR_VERSION) \
 	--env OTP_VERSION=$(OTP_VERSION) \
 	--volume "$(CURDIR):/workspace" \
