@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-23T22:28:16.671003Z'
+updated_at: '2026-07-23T22:28:34.307642Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: f322272b-d2f1-4d0b-9dcc-47a386470a28
 oompah.work_branch: epic-EXOCOMP-1
+oompah.task_costs:
+  total_input_tokens: 428383
+  total_output_tokens: 2429
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 428383
+      output_tokens: 2429
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 428383
+    output_tokens: 2429
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:28:31.827693+00:00'
 ---
 ## Summary
 
@@ -123,5 +139,25 @@ author: oompah
 created: 2026-07-23 22:27
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:28
+---
+Agent completed successfully in 70s (430812 tokens)
+---
+author: oompah
+created: 2026-07-23 22:28
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 13
+- Tokens: 428.4K in / 2.4K out [430.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 10s
+- Log: EXOCOMP-60__20260723T222725Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:28
+---
+Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-9`. Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
 ---
 <!-- COMMENTS:END -->
