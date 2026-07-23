@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:17:04.848413Z'
+updated_at: '2026-07-23T23:17:07.256084Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -254,5 +254,10 @@ Security properties enforced:
 5. Uninstaller reads manifest to remove only exocomp-owned files
 6. Config/PKI/log directories preserved by default; explicit purge categories required to remove system cache
 7. Systemd hardening: 16 security directives per unit file, dedicated unprivileged accounts
+---
+author: oompah
+created: 2026-07-23 23:17
+---
+Implemented hardened installers and uninstallers: install.sh (8-phase, preflight validation, versioned dirs, atomic symlink, sudoers, hardened systemd units, manifest), uninstall.sh (scoped, preserves PKI/config/audit by default), 2 hardened systemd unit files (16 security directives each), 2 config templates, 50 passing tests. All acceptance criteria met.
 ---
 <!-- COMMENTS:END -->
