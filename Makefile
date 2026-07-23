@@ -26,8 +26,8 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	$(DEV_BUILDER_IMAGE)
 
 .PHONY: help init init-amd64 init-arm64 fmt fmt-check build build-amd64 \
-	build-arm64 test test-builders test-deps inspect-deps-amd64 \
-	inspect-deps-arm64 lint clean
+	build-arm64 test test-builders test-deps test-release-matrix \
+	inspect-deps-amd64 inspect-deps-arm64 lint clean
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -78,6 +78,11 @@ test-builders: ## Validate immutable multi-architecture builder definitions and 
 
 test-deps: ## Run runtime dependency inspection tests (no container required).
 	./scripts/test-runtime-deps.sh
+
+test-release-matrix: ## Run OTP release qualification matrix (requires Docker and real builds). Pass ARCH=amd64|arm64 to test one arch; SKIP_BUILD=1 to skip rebuild.
+	./scripts/test-release-matrix.sh \
+		$(if $(ARCH),--arch $(ARCH)) \
+		$(if $(filter 1,$(SKIP_BUILD)),--skip-build)
 
 lint: test-builders ## Run static analysis / linters.
 	$(CONTAINER_RUN) sh -c 'mix format --check-formatted && \

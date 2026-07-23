@@ -100,4 +100,32 @@ grep -q "glibc" "docs/runtime-dependencies.md" ||
 grep -q "inspect-release-deps.sh" "docs/runtime-dependencies.md" ||
   fail "docs/runtime-dependencies.md must reference the inspection command"
 
+# ---------------------------------------------------------------------------
+# Validate release qualification matrix scripts (EXOCOMP-68).
+# ---------------------------------------------------------------------------
+
+# Verify the matrix test script exists and is executable.
+[ -x "scripts/test-release-matrix.sh" ] ||
+  fail "scripts/test-release-matrix.sh is missing or not executable"
+
+# Verify the clean-container test helper exists and is executable.
+[ -x "scripts/test-clean-container.sh" ] ||
+  fail "scripts/test-clean-container.sh is missing or not executable"
+
+# Verify the Makefile exposes the test-release-matrix target.
+grep -Eq '^test-release-matrix:' Makefile ||
+  fail "Makefile is missing test-release-matrix target"
+
+# Verify the release qualification documentation exists and covers required topics.
+[ -f "docs/release-qualification.md" ] ||
+  fail "docs/release-qualification.md is missing"
+grep -q "binfmt\|QEMU\|qemu\|emulat" "docs/release-qualification.md" ||
+  fail "docs/release-qualification.md must document native vs emulated execution requirements"
+grep -q "wrong.arch\|wrong arch\|format error\|Exec format" "docs/release-qualification.md" ||
+  fail "docs/release-qualification.md must document wrong-arch diagnostic"
+
+# Run the full offline qualification matrix checks (uses fake fixtures, no Docker).
+./scripts/test-release-matrix.sh --offline ||
+  fail "offline release qualification matrix checks failed"
+
 echo "release builder definitions are pinned and valid"
