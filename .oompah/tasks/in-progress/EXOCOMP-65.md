@@ -10,10 +10,9 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
-- needs:devops
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-23T21:16:35.782353Z'
+updated_at: '2026-07-23T21:16:39.500397Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -153,5 +152,15 @@ author: oompah
 created: 2026-07-23 21:16
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->

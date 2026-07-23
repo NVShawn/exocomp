@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-10
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement Linux and systemd diagnostic collectors
 parent: EXOCOMP-1
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T21:16:09.214405Z'
+updated_at: '2026-07-23T21:16:48.926465Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -266,5 +266,24 @@ Test coverage per collector:
 - CPU: valid tick values, malformed stat, no aggregate line, no model name, missing files, partial independence, oversized stat
 - Disk: valid values, multiple mount points, non-zero exit, malformed output (no data, bad columns), oversized output, timeout, partial independence
 - Systemd: empty allow-list, service key naming (dots/hyphens), all active states, hyphens in name, partial independence, timeout, non-zero exit, empty output, oversized output, allow-list security (no cmd_runner calls with empty list), argv inspection (no shell metacharacters)
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+**Completion:** Delivered Linux and systemd diagnostic collectors on branch EXOCOMP-10.
+
+What was delivered:
+1. **5 collector modules** in apps/exocomp_node/lib/exocomp/node/collectors/ — Types (shared envelope), Uptime, Memory, CPU, Disk, Systemd
+2. **49 new collector tests** across 5 test files covering all required scenarios
+3. **10 proc fixture files** enabling host-independent testing
+
+Acceptance criteria met:
+✅ Collectors return bounded versioned observations with explicit units (/proc/uptime→seconds, /proc/meminfo→bytes, /proc/stat→ticks, df→bytes, systemctl→string)
+✅ Partial failures preserve successful measurements (independent error paths per field and per service)
+✅ No caller or model input becomes a shell command or arbitrary service (allow-list enforced before exec; argv-only dispatch; no sh -c)
+✅ Focused collector tests pass (52/52 total, 49 new collector tests)
+
+Quality gates: make test ✅ make lint ✅ make fmt-check ✅
+Branch pushed: origin/EXOCOMP-10 (commit d9034c8)
 ---
 <!-- COMMENTS:END -->
