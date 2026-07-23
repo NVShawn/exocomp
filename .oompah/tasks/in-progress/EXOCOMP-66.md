@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-07-23T21:28:02.604437Z'
+updated_at: '2026-07-23T21:28:18.009047Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 7950f0ff-8bab-4c46-a315-bf2e5be9b694
+oompah.agent_run_id: 7f69e3b1-e819-4c8b-b1d9-917737e1f5e0
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
   total_input_tokens: 585734
@@ -77,5 +77,15 @@ author: oompah
 created: 2026-07-23 21:28
 ---
 Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-42`. Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 21:28
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:28
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
