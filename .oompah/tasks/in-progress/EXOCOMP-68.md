@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T22:11:45.008079Z'
+updated_at: '2026-07-23T22:13:18.871550Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -244,5 +244,10 @@ author: oompah
 created: 2026-07-23 22:11
 ---
 Discovery: The codebase has EXOCOMP-65/66/67 work on the epic-EXOCOMP-42 branch: pinned builders (builders.lock), ELF dep inspection (inspect-release-deps.sh), and test fixtures (fake-readelf.sh, fake-container-engine.sh). The EXOCOMP-68 branch did not yet exist. Implementing: scripts/test-release-matrix.sh (offline + live qualification matrix with double-build reproducibility, clean-container startup, wrong-arch neg test, missing-dep neg test), scripts/test-clean-container.sh (clean-container startup helper + --check-arch ELF machine type checker), docs/release-qualification.md (native vs emulated requirements, QEMU setup, diagnostic documentation), and Makefile test-release-matrix target. The offline mode uses the existing fake-readelf fixture for missing-dep detection and a temporary minimal ELF header for wrong-arch detection.
+---
+author: oompah
+created: 2026-07-23 22:13
+---
+Implementation: Created all required deliverables for the OTP release qualification matrix. (1) scripts/test-release-matrix.sh — non-interactive matrix test script; offline mode tests wrong-arch detection (ELF e_machine check) and missing-dep detection (via fake-undeclared fixture); live mode builds each arch/product twice and compares SHA-256 digests, tests clean-container startup, and runs wrong-arch and missing-dep negative tests with real containers. (2) scripts/test-clean-container.sh — clean-container startup helper; --check-arch mode checks ELF e_machine field offline without Docker; default mode runs release in minimal debian:bookworm-slim container with no Elixir/Erlang. (3) docs/release-qualification.md — documents native vs emulated execution requirements, QEMU/binfmt setup, CLEAN_TARGET_IMAGE configuration, both diagnostic cases (wrong-arch Exec format error, corrupted dep linker error), and the double-build reproducibility comparison. (4) Makefile test-release-matrix target. (5) Updated scripts/test-release-builders.sh to validate all new scripts and documentation exist.
 ---
 <!-- COMMENTS:END -->
