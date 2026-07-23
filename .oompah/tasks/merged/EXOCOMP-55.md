@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-55
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement BEAM telemetry sampler
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:40:31.500246Z'
+updated_at: '2026-07-23T23:23:32.386267Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
