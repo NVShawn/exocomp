@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: In Progress
+status: Done
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:30:41.748515Z'
+updated_at: '2026-07-23T23:30:49.244268Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
