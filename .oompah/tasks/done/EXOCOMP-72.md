@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:19:17.927643Z'
+updated_at: '2026-07-23T21:19:20.736115Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -165,5 +165,10 @@ Delivered: docs/testing-systemd-fixture.md (331 lines, all 6 required areas cove
 Committed on branch EXOCOMP-72 and pushed to origin. Branch is up to date with origin/EXOCOMP-72.
 
 No code changes — documentation only. No tests required. EXOCOMP-70 and EXOCOMP-71 are siblings that will deliver the referenced make targets (fixture-install, fixture-cleanup, test-fixture); the doc notes those are forthcoming from those tasks.
+---
+author: oompah
+created: 2026-07-23 21:19
+---
+Created docs/testing-systemd-fixture.md covering all 6 required areas (why CI fails, supported environments, setup steps, running tests, verification, cleanup). Added pointers in README.md and docs/README.md. Committed and pushed on branch EXOCOMP-72.
 ---
 <!-- COMMENTS:END -->
