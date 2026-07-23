@@ -36,11 +36,27 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--workdir /workspace \
 	$(BUILDER_IMAGE)
 
-.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service fixture-install fixture-cleanup test-integration bench-llama-short test-installer
+.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service fixture-install fixture-cleanup test-integration bench-llama-short test-installer test-bundle bundle-amd64 bundle-arm64 bundle-runtime-amd64 bundle-runtime-arm64 verify-bundle
+
+# Bundle assembly variables (override on command line as needed)
+BUNDLE_VERSION ?= $(shell git describe --tags --exact-match 2>/dev/null | sed 's/^v//' || echo "dev")
+BUNDLE_SOURCE_COMMIT ?= $(shell git rev-parse HEAD 2>/dev/null || echo "unknown")
+BUNDLE_DIST ?= dist
+# Paths to pre-built OTP archives (set these when calling bundle targets)
+NODE_ARCHIVE_AMD64 ?= _build/release/amd64/rel/exocomp_node
+NODE_ARCHIVE_ARM64 ?= _build/release/arm64/rel/exocomp_node
+COORD_ARCHIVE_AMD64 ?= _build/release/amd64/rel/exocomp_coordinator
+COORD_ARCHIVE_ARM64 ?= _build/release/arm64/rel/exocomp_coordinator
+# Path to llama-server binary (set to the pinned binary for the target arch)
+LLAMA_SERVER_AMD64 ?=
+LLAMA_SERVER_ARM64 ?=
+# Path to verified Qwen GGUF model and its SHA-256 (complete bundle only)
+MODEL_PATH ?=
+MODEL_SHA256 ?=
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
-		/^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' \
+		/^[a-zA-Z0-9_-]+:.*?## / {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' \
 		$(MAKEFILE_LIST)
 
 init: ## Initialize local repo prerequisites.
@@ -98,3 +114,61 @@ bench-llama-short: ## Run focused llama.cpp inference benchmark tests (CI short 
 
 test-installer: ## Run hardened installer/uninstaller tests (requires Python 3.11+, no systemd or root needed).
 	python3 -m pytest test/installer/test_installer.py -v
+
+test-bundle: ## Run offline bundle assembly, SBOM, provenance, and tamper-detection tests (requires Python 3.11+).
+	python3 -m pytest tests/test_bundle.py -v
+
+bundle-amd64: ## Assemble complete offline bundle for amd64. Set NODE_ARCHIVE_AMD64, COORD_ARCHIVE_AMD64, LLAMA_SERVER_AMD64, MODEL_PATH, MODEL_SHA256.
+	bash scripts/assemble-bundle.sh \
+		--arch amd64 \
+		--version "$(BUNDLE_VERSION)" \
+		--kind complete \
+		$(if $(NODE_ARCHIVE_AMD64),--node-archive "$(NODE_ARCHIVE_AMD64)") \
+		$(if $(COORD_ARCHIVE_AMD64),--coord-archive "$(COORD_ARCHIVE_AMD64)") \
+		$(if $(LLAMA_SERVER_AMD64),--llama-server "$(LLAMA_SERVER_AMD64)") \
+		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
+		$(if $(MODEL_SHA256),--model-sha256 "$(MODEL_SHA256)") \
+		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
+		--dist-dir "$(BUNDLE_DIST)"
+
+bundle-arm64: ## Assemble complete offline bundle for arm64. Set NODE_ARCHIVE_ARM64, COORD_ARCHIVE_ARM64, LLAMA_SERVER_ARM64, MODEL_PATH, MODEL_SHA256.
+	bash scripts/assemble-bundle.sh \
+		--arch arm64 \
+		--version "$(BUNDLE_VERSION)" \
+		--kind complete \
+		$(if $(NODE_ARCHIVE_ARM64),--node-archive "$(NODE_ARCHIVE_ARM64)") \
+		$(if $(COORD_ARCHIVE_ARM64),--coord-archive "$(COORD_ARCHIVE_ARM64)") \
+		$(if $(LLAMA_SERVER_ARM64),--llama-server "$(LLAMA_SERVER_ARM64)") \
+		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
+		$(if $(MODEL_SHA256),--model-sha256 "$(MODEL_SHA256)") \
+		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
+		--dist-dir "$(BUNDLE_DIST)"
+
+bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64 (no model). Set NODE_ARCHIVE_AMD64, COORD_ARCHIVE_AMD64, LLAMA_SERVER_AMD64.
+	bash scripts/assemble-bundle.sh \
+		--arch amd64 \
+		--version "$(BUNDLE_VERSION)" \
+		--kind runtime \
+		$(if $(NODE_ARCHIVE_AMD64),--node-archive "$(NODE_ARCHIVE_AMD64)") \
+		$(if $(COORD_ARCHIVE_AMD64),--coord-archive "$(COORD_ARCHIVE_AMD64)") \
+		$(if $(LLAMA_SERVER_AMD64),--llama-server "$(LLAMA_SERVER_AMD64)") \
+		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
+		--dist-dir "$(BUNDLE_DIST)"
+
+bundle-runtime-arm64: ## Assemble runtime-only bundle for arm64 (no model). Set NODE_ARCHIVE_ARM64, COORD_ARCHIVE_ARM64, LLAMA_SERVER_ARM64.
+	bash scripts/assemble-bundle.sh \
+		--arch arm64 \
+		--version "$(BUNDLE_VERSION)" \
+		--kind runtime \
+		$(if $(NODE_ARCHIVE_ARM64),--node-archive "$(NODE_ARCHIVE_ARM64)") \
+		$(if $(COORD_ARCHIVE_ARM64),--coord-archive "$(COORD_ARCHIVE_ARM64)") \
+		$(if $(LLAMA_SERVER_ARM64),--llama-server "$(LLAMA_SERVER_ARM64)") \
+		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
+		--dist-dir "$(BUNDLE_DIST)"
+
+verify-bundle: ## Verify an extracted bundle. Set BUNDLE_DIR=<path> and optionally PUBLIC_KEY=<path>.
+	@test -n "$(BUNDLE_DIR)" || (echo "ERROR: BUNDLE_DIR is required (e.g. make verify-bundle BUNDLE_DIR=./dist/exocomp-complete-1.0.0-linux-amd64)" && exit 1)
+	bash scripts/verify-bundle.sh \
+		--bundle-dir "$(BUNDLE_DIR)" \
+		$(if $(PUBLIC_KEY),--public-key "$(PUBLIC_KEY)") \
+		$(if $(BUNDLE_STRICT),--strict)
