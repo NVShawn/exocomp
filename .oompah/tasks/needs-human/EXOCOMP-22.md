@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: In Progress
+status: Needs Human
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T22:16:56.232326Z'
+updated_at: '2026-07-23T22:18:29.490428Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 54de1d9c-48f3-4c37-a97c-4e6cac1968fc
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 1152850
-  total_output_tokens: 5849
+  total_input_tokens: 1630939
+  total_output_tokens: 8708
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1152850
-      output_tokens: 5849
+      input_tokens: 1630939
+      output_tokens: 8708
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 2963
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:16:30.350033+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 478089
+    output_tokens: 2859
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:18:25.652836+00:00'
 ---
 ## Summary
 
@@ -142,5 +148,25 @@ author: oompah
 created: 2026-07-23 22:16
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:18
+---
+Agent completed successfully in 91s (480948 tokens)
+---
+author: oompah
+created: 2026-07-23 22:18
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 15
+- Tokens: 478.1K in / 2.9K out [480.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 31s
+- Log: EXOCOMP-22__20260723T221657Z.jsonl
+---
+author: oompah
+created: 2026-07-23 22:18
+---
+Agent completed 3 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
 ---
 <!-- COMMENTS:END -->
