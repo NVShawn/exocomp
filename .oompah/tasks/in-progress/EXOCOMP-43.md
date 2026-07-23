@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:29:48.318454Z'
+updated_at: '2026-07-23T23:30:41.748515Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -425,5 +425,27 @@ author: oompah
 created: 2026-07-23 23:29
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 23:30
+---
+Completion: EXOCOMP-43 is fully implemented and merged.
+
+PR #6 (epic-EXOCOMP-6 → main) was merged on 2026-07-23T23:18:50Z with commit 6af8ec9.
+
+Delivered:
+- scripts/install.sh — 8-phase hardened installer (preflight→user/dir→extract→config→sudoers→unit→activate→manifest)
+- scripts/uninstall.sh — Scoped uninstaller; default preserves PKI/config/audit
+- release/node/exocomp-node.service — 16-directive hardened systemd unit
+- release/coordinator/exocomp-coordinator.service — Same hardening for coordinator
+- release/templates/node.json and coordinator.json — Config templates
+- test/installer/test_installer.py — 50 passing tests
+
+All acceptance criteria met:
+✓ Installer validates before host mutation
+✓ Services run unprivileged with expected hardening
+✓ Only exact privilege rules are installed (no wildcards)
+✓ Default uninstall preserves protected operator state
+✓ 50/50 install tests pass
 ---
 <!-- COMMENTS:END -->
