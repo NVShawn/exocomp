@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -12,13 +12,13 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:26:05.735660Z'
+updated_at: '2026-07-23T22:29:02.165111Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 0811654b-7946-4ecf-9f33-443eccae6ca6
+oompah.agent_run_id: d47bf67c-1705-4081-98d4-ad69f6d9d480
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
   total_input_tokens: 8223936
@@ -335,5 +335,15 @@ created: 2026-07-23 22:26
 **Evidence:** Last agent comment signals completion without a human question; the Needs Human transition appears accidental.
 
 *This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
+---
+author: oompah
+created: 2026-07-23 22:29
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 22:29
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->

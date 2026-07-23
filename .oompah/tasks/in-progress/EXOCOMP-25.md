@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-25
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement unprivileged systemd executor and exact sudoers policy
 parent: EXOCOMP-3
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:27:35.758393Z'
+updated_at: '2026-07-23T22:28:58.997908Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 10e42833-d99f-4032-a613-733411f4c9d7
+oompah.agent_run_id: 37a456ec-a794-4780-a630-b771588aab73
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 79
@@ -180,5 +180,15 @@ Key security decisions:
 - Running account check: verify EUID != 0 at startup
 
 Will implement in apps/exocomp_node/lib/exocomp/node/ with unit tests in apps/exocomp_node/test/.
+---
+author: oompah
+created: 2026-07-23 22:28
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 22:28
+---
+Focus: Security Auditor
 ---
 <!-- COMMENTS:END -->
