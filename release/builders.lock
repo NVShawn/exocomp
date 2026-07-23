@@ -1,0 +1,11 @@
+# Immutable inputs for Linux OTP release builders.
+# Keep this file shell- and Make-compatible: NAME=value with no shell expansion.
+SUPPORTED_ARCHITECTURES=amd64,arm64
+ELIXIR_VERSION=1.20.2
+OTP_VERSION=28.5.0.3
+BUILDER_DISTRIBUTION=debian
+BUILDER_DISTRIBUTION_VERSION=12
+GLIBC_BASELINE=2.36
+BUILDER_TAG=1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim
+BUILDER_AMD64_DIGEST=sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d
+BUILDER_ARM64_DIGEST=sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc

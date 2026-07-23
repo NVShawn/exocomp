@@ -7,29 +7,40 @@
 
 .DEFAULT_GOAL := help
 
-ELIXIR_VERSION := 1.20.2
-OTP_VERSION := 28.5.0.3
-ALPINE_VERSION := 3.24.1
-BUILDER_IMAGE := docker.io/hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-alpine-$(ALPINE_VERSION)@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6
+include release/builders.lock
+
 CONTAINER_ENGINE ?= docker
+HOST_MACHINE := $(shell uname -m)
+DEV_ARCH := $(if $(filter x86_64,$(HOST_MACHINE)),amd64,$(if $(filter aarch64 arm64,$(HOST_MACHINE)),arm64,unsupported))
+DEV_BUILDER_DIGEST := $(if $(filter amd64,$(DEV_ARCH)),$(BUILDER_AMD64_DIGEST),$(BUILDER_ARM64_DIGEST))
+DEV_BUILDER_IMAGE := docker.io/hexpm/elixir:$(BUILDER_TAG)@$(DEV_BUILDER_DIGEST)
 CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
+	--platform linux/$(DEV_ARCH) \
+	--pull always \
 	--user "$$(id -u):$$(id -g)" \
 	--env ELIXIR_VERSION=$(ELIXIR_VERSION) \
 	--env OTP_VERSION=$(OTP_VERSION) \
+	--env GLIBC_BASELINE=$(GLIBC_BASELINE) \
 	--volume "$(CURDIR):/workspace" \
 	--workdir /workspace \
-	$(BUILDER_IMAGE)
+	$(DEV_BUILDER_IMAGE)
 
-.PHONY: help init fmt fmt-check build test lint clean
+.PHONY: help init init-amd64 init-arm64 fmt fmt-check build build-amd64 \
+	build-arm64 test test-builders lint clean
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
-		/^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' \
+		/^[a-zA-Z0-9_-]+:.*?## / {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' \
 		$(MAKEFILE_LIST)
 
-init: ## Initialize local repo prerequisites.
-	$(CONTAINER_ENGINE) pull $(BUILDER_IMAGE)
-	$(CONTAINER_RUN) scripts/verify-toolchain.sh
+init: ## Check the native development builder.
+	./scripts/check-builder-capability.sh $(DEV_ARCH)
+
+init-amd64: ## Check Linux amd64 builder capability.
+	./scripts/check-builder-capability.sh amd64
+
+init-arm64: ## Check Linux arm64 builder capability.
+	./scripts/check-builder-capability.sh arm64
 
 fmt: ## Format all source files in place.
 	$(CONTAINER_RUN) mix format
@@ -37,19 +48,26 @@ fmt: ## Format all source files in place.
 fmt-check: ## Check formatting without modifying files.
 	$(CONTAINER_RUN) mix format --check-formatted
 
-build: ## Build the project.
-	$(CONTAINER_RUN) sh -c 'scripts/verify-toolchain.sh && \
-		mix compile --warnings-as-errors && \
-		MIX_ENV=prod mix release exocomp_node --overwrite && \
-		MIX_ENV=prod mix release exocomp_coordinator --overwrite'
+build: ## Build releases for ARCH=amd64 or ARCH=arm64.
+	@test -n "$(ARCH)" || { echo "ARCH is required; use make build ARCH=amd64 or ARCH=arm64" >&2; exit 2; }
+	./scripts/build-releases.sh "$(ARCH)"
 
-test: ## Run the test suite.
+build-amd64: ## Build clean Linux amd64 node and coordinator releases.
+	./scripts/build-releases.sh amd64
+
+build-arm64: ## Build clean Linux arm64 node and coordinator releases.
+	./scripts/build-releases.sh arm64
+
+test: test-builders ## Run the test suite.
 	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix test && \
 		MIX_ENV=test mix release exocomp_node --overwrite && \
 		MIX_ENV=test mix release exocomp_coordinator --overwrite && \
 		scripts/smoke-releases.sh test'
 
-lint: ## Run static analysis / linters.
+test-builders: ## Validate immutable multi-architecture builder definitions.
+	./scripts/test-release-builders.sh
+
+lint: test-builders ## Run static analysis / linters.
 	$(CONTAINER_RUN) sh -c 'mix format --check-formatted && \
 		MIX_ENV=test mix compile --force --warnings-as-errors'
 
