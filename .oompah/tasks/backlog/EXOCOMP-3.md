@@ -5,12 +5,20 @@ status: Backlog
 priority: 1
 title: 'M3: Safety validation and controlled remediation'
 parent: null
-children: []
+children:
+- EXOCOMP-21
+- EXOCOMP-22
+- EXOCOMP-23
+- EXOCOMP-24
+- EXOCOMP-25
+- EXOCOMP-26
+- EXOCOMP-27
+- EXOCOMP-28
 blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-07-23T19:08:10.012498Z'
+updated_at: '2026-07-23T19:10:14.621631Z'
 work_branch: null
 target_branch: null
 review_url: null
