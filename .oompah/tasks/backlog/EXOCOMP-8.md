@@ -16,7 +16,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:37:12.177627Z'
+updated_at: '2026-07-23T20:37:23.613699Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -25,13 +25,13 @@ merged_at: null
 oompah.agent_run_id: b0d7b63a-cac6-45b8-94dc-50a880b399b4
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 20
-  total_output_tokens: 3749
+  total_input_tokens: 73
+  total_output_tokens: 5390
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 20
-      output_tokens: 3749
+      input_tokens: 73
+      output_tokens: 5390
       cost_usd: 0.0
   runs:
   - profile: default
@@ -40,6 +40,12 @@ oompah.task_costs:
     output_tokens: 3749
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:25:59.424210+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 53
+    output_tokens: 1641
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T20:37:21.791221+00:00'
 ---
 ## Summary
 
@@ -190,5 +196,15 @@ Focus handoff: epic_planner
 - EXOCOMP-12 (node A2A service) depends on these types; that task should not start until EXOCOMP-51 is Done
 
 **Recommended next focus:** feature — begin with EXOCOMP-48 (struct definitions, the unblocked starting point)
+---
+author: oompah
+created: 2026-07-23 20:37
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 33
+- Tokens: 53 in / 1.6K out [1.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 39s
+- Log: EXOCOMP-8__20260723T203345Z.jsonl
 ---
 <!-- COMMENTS:END -->
