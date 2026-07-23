@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:36:19.062672Z'
+updated_at: '2026-07-23T22:36:46.750559Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 0cc90d8d-5e0d-4a64-9aa1-82ac2687407d
+oompah.agent_run_id: bc5a0b65-4424-43cd-9f3e-b6556379aa77
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
   total_input_tokens: 1883588
@@ -273,5 +273,15 @@ author: oompah
 created: 2026-07-23 22:36
 ---
 Agent completed without closing this issue (430s (2437 tokens)). Escalating from 'standard' to 'deep'. Retrying in 20s (2/3).
+---
+author: oompah
+created: 2026-07-23 22:36
+---
+Retrying (attempt #2, agent: deep)
+---
+author: oompah
+created: 2026-07-23 22:36
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
