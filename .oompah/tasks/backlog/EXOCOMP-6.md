@@ -5,12 +5,19 @@ status: Backlog
 priority: 1
 title: 'M6: Packaging, documentation, and open-source release'
 parent: null
-children: []
+children:
+- EXOCOMP-41
+- EXOCOMP-42
+- EXOCOMP-43
+- EXOCOMP-44
+- EXOCOMP-45
+- EXOCOMP-46
+- EXOCOMP-47
 blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-07-23T19:08:12.347323Z'
+updated_at: '2026-07-23T19:12:06.354420Z'
 work_branch: null
 target_branch: null
 review_url: null
