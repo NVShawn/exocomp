@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:08:31.086558Z'
+updated_at: '2026-07-23T21:08:41.959065Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -256,5 +256,17 @@ created: 2026-07-23 21:08
 8. ✅ make help shows gen-test-fixtures target
 
 Branch EXOCOMP-57 pushed to origin.
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+**Completion:** Delivered all test fixture infrastructure for EXOCOMP-9's mTLS implementation tasks:
+
+- scripts/gen-test-certs.sh — idempotent cert generation script (bash, OpenSSL 3.x compatible) producing CA, node, wrong_san, expired, and rogue certs under apps/exocomp_node/test/fixtures/certs/
+- 4 JSON config fixtures under apps/exocomp_node/test/fixtures/
+- Makefile gen-test-fixtures target documented with ## comment
+- Fixture private keys committed intentionally (dev-only, no production exposure)
+
+All files committed on branch EXOCOMP-57, pushed to origin.
 ---
 <!-- COMMENTS:END -->
