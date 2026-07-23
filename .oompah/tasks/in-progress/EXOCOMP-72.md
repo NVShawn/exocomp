@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:13:29.411030Z'
+updated_at: '2026-07-23T21:15:13.436244Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -52,5 +52,35 @@ author: oompah
 created: 2026-07-23 21:13
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:15
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate found. EXOCOMP-72 is a unique, dedicated documentation task.
+
+**Evidence reviewed:**
+- Searched all task files and plans for: systemd, fixture, testing-systemd, VM, privileged, document
+- Read EXOCOMP-29 (parent), EXOCOMP-69, EXOCOMP-70, EXOCOMP-71 (siblings) in full including all comments
+- EXOCOMP-29 was explicitly decomposed by an Epic Planner into 4 children: EXOCOMP-69 (daemon script), EXOCOMP-70 (unit file/installer/cleanup), EXOCOMP-71 (ExUnit tests), EXOCOMP-72 (documentation). See EXOCOMP-29 comment #31.
+- Closest candidate for overlap: EXOCOMP-70 mentions 'Add a README in test/fixtures/exocomp_fixture/ noting VM or privileged-container requirement' — but that is a brief in-fixture README, not the full docs/testing-systemd-fixture.md that EXOCOMP-72 requires. Distinct scope.
+- No other task in the tracker covers creating docs/testing-systemd-fixture.md with step-by-step VM/privileged-container setup, make targets, ExUnit tag filters, expected output, verification, and cleanup procedures.
+
+**Relevant files:**
+- plans/milestone-4-service-recovery.md — Section 'Reference Fixture' defines what the documentation must explain
+- plans/fixture-design.md — Design decisions that the documentation should reference (health port 8877, mode file, fixture resource paths)
+- docs/README.md, README.md, AGENTS.md — Locations where a pointer to the new doc should be added
+
+**Remaining work:**
+- Create docs/testing-systemd-fixture.md covering all 6 required content areas
+- Add a brief pointer in README.md or AGENTS.md
+- Commit and push
+
+**Risks:**
+- None identified; this is pure documentation with no code dependencies
+- EXOCOMP-70 and EXOCOMP-71 are not yet done, so some make targets/ExUnit tags may not exist yet — the doc agent should note expected targets based on plans and EXOCOMP-71 description rather than verifying live
+
+**Recommended next focus:** docs
 ---
 <!-- COMMENTS:END -->
