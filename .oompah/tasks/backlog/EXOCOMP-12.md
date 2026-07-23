@@ -19,7 +19,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-23T23:05:40.324492Z'
+updated_at: '2026-07-23T23:05:49.519567Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -28,13 +28,13 @@ merged_at: null
 oompah.agent_run_id: 60e31b3a-b045-4fdf-8017-adb981cd9fe6
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 832860
-  total_output_tokens: 12490
+  total_input_tokens: 832973
+  total_output_tokens: 16408
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 832860
-      output_tokens: 12490
+      input_tokens: 832973
+      output_tokens: 16408
       cost_usd: 0.0
   runs:
   - profile: default
@@ -49,6 +49,12 @@ oompah.task_costs:
     output_tokens: 6918
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:58:04.405188+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 113
+    output_tokens: 3918
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T23:05:46.778020+00:00'
 ---
 ## Summary
 
@@ -207,5 +213,15 @@ created: 2026-07-23 23:03
 The mTLS Listener currently uses Exocomp.Node.Plug.Stub. EXOCOMP-12 must replace it with a real A2A Plug router covering Agent Card, message send, task get/list/cancel, with bounded task registry and skill dispatch.
 
 **Decomposition plan:** 5 child tasks covering (A) router scaffold + Agent Card + mTLS enforcement, (B) bounded task registry, (C) skill handlers, (D) endpoint wiring, (E) test suite + quality gate.
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 0, Tool calls: 77
+- Tokens: 113 in / 3.9K out [4.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 7m 26s
+- Log: EXOCOMP-12__20260723T225822Z.jsonl
 ---
 <!-- COMMENTS:END -->
