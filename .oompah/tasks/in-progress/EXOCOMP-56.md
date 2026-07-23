@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T22:40:02.866072Z'
+updated_at: '2026-07-23T22:40:13.925440Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -396,5 +396,10 @@ author: oompah
 created: 2026-07-23 22:40
 ---
 Verification: All quality gates pass on EXOCOMP-56 branch. make test: 33 bench tests pass (+ 7 from other apps). make fmt-check: clean. make lint: clean (no warnings-as-errors). Tests cover: missing-PID produces :missing-tagged nil samples without crashing, attribution tags (:node/:coordinator/:llama) preserved in sample.source, CPU/RSS/FD/disk-IO/page-fault metrics read from synthetic /proc fixtures, cgroup v2 network accounting reads net.stat, fallback from smaps_rollup to VmRSS in /proc/status when smaps unavailable. The @linux-tagged live-load test is excluded in CI (requires real OS subprocess) but tests all other behaviors with synthetic /proc fixtures.
+---
+author: oompah
+created: 2026-07-23 22:40
+---
+Completion: Bench.HostSampler is implemented and merged to origin/EXOCOMP-56 (commit 9634b10). Delivered: GenServer with start_link/1 (accepts [{:node,pid},{:coordinator,pid},{:llama,pid}] + interval/proc_root/cgroup_root/clock_ticks opts), stop/1, flush/1. Metrics per target: cpu.percent, memory.rss.bytes, memory.pss.bytes, file_descriptors.open, disk.io.bytes, network.io.bytes, page_faults. Missing/exited PIDs emit nil samples with :missing tag. Bench.Sample struct updated to support nil values and atom tags. All existing tests continue passing.
 ---
 <!-- COMMENTS:END -->
