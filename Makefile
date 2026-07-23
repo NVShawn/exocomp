@@ -10,7 +10,7 @@
 ELIXIR_VERSION := 1.20.2
 OTP_VERSION := 28.5.0.3
 ALPINE_VERSION := 3.24.1
-BUILDER_IMAGE := hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-alpine-$(ALPINE_VERSION)@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6
+BUILDER_IMAGE := docker.io/hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-alpine-$(ALPINE_VERSION)@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6
 CONTAINER_ENGINE ?= docker
 CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--user "$$(id -u):$$(id -g)" \
