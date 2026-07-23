@@ -6,11 +6,13 @@ priority: null
 title: Implement mTLS Bandit listener startup with fail-closed identity gate (Exocomp.Node.Listener)
 parent: EXOCOMP-9
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-57
+- EXOCOMP-58
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-23T20:41:00.937857Z'
+updated_at: '2026-07-23T20:41:20.161285Z'
 work_branch: null
 target_branch: null
 review_url: null

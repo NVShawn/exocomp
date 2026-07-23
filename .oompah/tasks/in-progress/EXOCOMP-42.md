@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T20:27:54.062823Z'
+updated_at: '2026-07-23T20:41:20.909598Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 1a207481-0c7f-47ba-a7fe-671f5e7cc70b
+oompah.agent_run_id: f677637d-e8cb-4fb6-ac3f-a3d3d5397798
 oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
@@ -60,5 +60,20 @@ author: oompah
 created: 2026-07-23 20:26
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 20:41
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:41
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 20:41
+---
+Understanding: Investigating EXOCOMP-42 for duplicates. The issue requests building reproducible amd64 and arm64 OTP release artifacts with ERTS-bundled archives, manifests, runtime dependency inspection, and build identity recording. Searching existing tasks for overlap.
 ---
 <!-- COMMENTS:END -->

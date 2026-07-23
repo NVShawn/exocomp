@@ -6,11 +6,13 @@ priority: null
 title: 'Implement identity validation: cert chain, SAN, and key permissions (Exocomp.Node.Identity)'
 parent: EXOCOMP-9
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-57
+- EXOCOMP-58
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:32.320903Z'
-updated_at: '2026-07-23T20:40:32.320903Z'
+updated_at: '2026-07-23T20:41:14.254523Z'
 work_branch: null
 target_branch: null
 review_url: null

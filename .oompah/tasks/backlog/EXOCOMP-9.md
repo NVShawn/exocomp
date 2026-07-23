@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-9
 type: feature
-status: In Progress
+status: Backlog
 priority: 1
 title: Implement node configuration, identity, and mTLS startup
 parent: EXOCOMP-1
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-23T20:41:01.069955Z'
+updated_at: '2026-07-23T20:41:12.993844Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
