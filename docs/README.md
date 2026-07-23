@@ -11,6 +11,7 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 ## Contents
 
 - [Development](development.md)
+- [Testing the Systemd Fixture](testing-systemd-fixture.md)
 
 ## Keeping Docs In Sync
 
