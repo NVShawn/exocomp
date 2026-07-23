@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-23T23:39:58.659939Z'
+updated_at: '2026-07-23T23:44:03.185104Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -168,5 +168,19 @@ Implementation plan:
 5. scripts/sign-bundle.sh — signs bundle manifest (minisign or GPG; graceful no-op when key not available)
 6. Makefile targets: bundle-amd64, bundle-arm64, bundle-runtime-amd64, bundle-runtime-arm64, verify-bundle
 7. tests/test_bundle.py — unit tests: assembly with mock artifacts, tamper detection, SBOM/provenance structure, manifest coverage
+---
+author: oompah
+created: 2026-07-23 23:44
+---
+Implementation: Assembled the signed offline bundle infrastructure.
+
+Files added/changed:
+- scripts/assemble-bundle.sh: Main assembly script. Stages OTP archives, llama-server binary, GGUF model, systemd units, installer scripts, and license files into a versioned bundle directory. Generates manifest.sha256 (SHA-256 for every nested file), manifest.json (structured metadata), sbom.spdx.json, provenance.json. Creates reproducible tar.gz archive with SOURCE_DATE_EPOCH support plus archive-level .sha256. Validates model SHA-256 before staging (fails before any host mutation). Skips signing if no --sign-key provided.
+- scripts/generate-sbom.sh: Generates SPDX 2.3 JSON SBOM with packages for Exocomp, Erlang/OTP, llama.cpp, and conditionally the Qwen model (complete bundle only). Includes DESCRIBES/CONTAINS relationships, license fields, and PURL external references.
+- scripts/generate-provenance.sh: Generates SLSA v0.2 provenance (in-toto Statement). Records source commit, builder image digest, toolchain versions (from builders.lock), dependency locks (mix.lock SHA-256), build invocation parameters.
+- scripts/sign-bundle.sh: Signs manifest.sha256 with minisign. Gracefully fails if minisign not installed.
+- scripts/verify-bundle.sh: Ships inside the bundle. Verifies: (1) manifest.sha256 exists and is non-empty, (2) every listed file exists and matches its SHA-256, (3) sbom.spdx.json has required SPDX 2.3 structure, (4) provenance.json has required SLSA fields, (5) optional signature verification via minisign. --strict mode requires bundle.minisig.
+- Makefile: Added test-bundle, bundle-amd64, bundle-arm64, bundle-runtime-amd64, bundle-runtime-arm64, verify-bundle targets. Fixed help awk pattern to include digits (for amd64/arm64 target names). Bundle variable overrides (NODE_ARCHIVE_*, COORD_ARCHIVE_*, LLAMA_SERVER_*, MODEL_PATH, MODEL_SHA256).
+- tests/test_bundle.py: 68 tests covering assembly, manifest coverage, SBOM structure, provenance structure, tamper detection (modify/delete), checksum self-consistency, runtime bundle (no model), model SHA-256 pre-verification, SBOM complete-vs-runtime, strict mode, standalone script invocation.
 ---
 <!-- COMMENTS:END -->
