@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T21:35:40.548611Z'
+updated_at: '2026-07-23T21:35:48.849782Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -228,5 +228,10 @@ author: oompah
 created: 2026-07-23 21:35
 ---
 Discovery: The previous Maintenance Engineer agent (run #1, ~9 min) had already implemented and pushed the full solution to origin/EXOCOMP-49, but didn't close the task. The implementation includes: codec.ex (439 lines), version.ex (24 lines), codec_test.exs (146 lines), version_test.exs (31 lines), mix.exs with Jason ~> 1.4 dep, and mix.lock with the jason hex entry.
+---
+author: oompah
+created: 2026-07-23 21:35
+---
+Implementation: The EXOCOMP-49 branch delivers: (1) Exocomp.A2A.Codec with encode/1 and decode/2 for all A2A 1.0 types (TextPart, DataPart, FilePart, FileContent, Message, Task, TaskStatus, Artifact, AgentCard, AgentCapabilities, AgentSkill, all Error types). Keys are camelCase strings; nil fields omitted. Part dispatch on 'type' field; unknown types return UnsupportedOperationError. TaskState string-to-atom mapping with error for unrecognized states. (2) Exocomp.A2A.Version with supported_versions/0, check_version/1, parse_content_type/1. (3) Jason ~> 1.4 added to apps/exocomp_core/mix.exs. (4) Makefile updated to bootstrap Hex non-interactively before mix commands (required since Jason is a hex dependency and the builder container doesn't ship Hex).
 ---
 <!-- COMMENTS:END -->
