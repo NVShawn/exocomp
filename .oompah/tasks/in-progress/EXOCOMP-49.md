@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T21:27:33.823226Z'
+updated_at: '2026-07-23T21:28:37.434368Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -218,5 +218,10 @@ author: oompah
 created: 2026-07-23 21:27
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-23 21:28
+---
+Understanding: Implementing Exocomp.A2A.Codec and Exocomp.A2A.Version modules in apps/exocomp_core. EXOCOMP-48 structs are all in place (TextPart, DataPart, FilePart, FileContent, Message, Task, TaskStatus, TaskState, Artifact, AgentCard, AgentCapabilities, AgentSkill, Error types). Plan: (1) Add Jason dep to apps/exocomp_core/mix.exs, (2) Implement codec.ex with encode/1 and decode/2 for all types with required-field validation, (3) Implement version.ex with supported_versions/0, check_version/1, parse_content_type/1, (4) Write tests in codec_test.exs and version_test.exs, (5) Run make test && make lint && make fmt-check.
 ---
 <!-- COMMENTS:END -->

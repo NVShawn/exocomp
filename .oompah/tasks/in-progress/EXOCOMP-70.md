@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:28:22.650567Z'
+updated_at: '2026-07-23T21:28:42.864929Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -55,5 +55,43 @@ author: oompah
 created: 2026-07-23 21:28
 ---
 Understanding (duplicate screening): EXOCOMP-70 is the systemd unit/installer/cleanup slice of parent feature EXOCOMP-29. Investigating whether any existing task covers the same scope before implementation begins.
+---
+author: oompah
+created: 2026-07-23 21:28
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate found. EXOCOMP-70 is a distinct implementation child of EXOCOMP-29 and should proceed to implementation.
+
+Evidence: Reviewed all sibling tasks under EXOCOMP-29 in full, including all comments and task states:
+- EXOCOMP-69 (Merged): fixture service daemon script at test/fixtures/exocomp_fixture/bin/exocomp-fixture — distinct scope (the ExecStart target binary)
+- EXOCOMP-70 (this task): systemd unit file + install.sh + cleanup.sh — distinct scope
+- EXOCOMP-71 (Open): ExUnit integration tests — distinct scope
+- EXOCOMP-72 (Merged): docs/testing-systemd-fixture.md — distinct scope (full test environment doc)
+
+Searched for: systemd, fixture, install, cleanup, exocomp-fixture across all task files and plans.
+
+Note on README: EXOCOMP-70 description mentions 'Add a README in test/fixtures/exocomp_fixture/ noting VM or privileged-container requirement.' The README already exists from EXOCOMP-69 (test/fixtures/exocomp_fixture/README.md) and covers the fixture daemon. The feature agent should check if VM/privileged-container requirement is already noted there and either update it or confirm it is covered. Given EXOCOMP-72 already created docs/testing-systemd-fixture.md with full detail, the README may just need a brief note and pointer.
+
+Current state of test/fixtures/exocomp_fixture/:
+- bin/exocomp-fixture (executable Python 3 daemon, from EXOCOMP-69, health on 127.0.0.1:8877, state in /run/exocomp-fixture/)
+- README.md (exists, from EXOCOMP-69)
+- test/test_fixture.py (Python unit tests, from EXOCOMP-69)
+
+Missing deliverables (what EXOCOMP-70 must create):
+1. test/fixtures/exocomp_fixture/exocomp-fixture.service — systemd unit with Restart=on-failure, StartLimitBurst=3, WorkingDirectory, RuntimeDirectory=exocomp-fixture, ExecStartPost health probe
+2. test/fixtures/exocomp_fixture/install.sh — idempotent: copy unit to /etc/systemd/system/, copy bin to /usr/local/bin/, systemctl daemon-reload, enable, start; requires root; safe to repeat
+3. test/fixtures/exocomp_fixture/cleanup.sh — idempotent: stop, disable, remove only /etc/systemd/system/exocomp-fixture.service, /usr/local/bin/exocomp-fixture, /run/exocomp-fixture/; no-op on clean system
+
+The docs/testing-systemd-fixture.md (EXOCOMP-72) already references make fixture-install and make fixture-cleanup targets — the feature agent should also add these Makefile targets.
+
+Remaining work/risks:
+- The feature agent must create the 3 files above
+- Should also add Makefile targets fixture-install and fixture-cleanup (referenced in docs but not yet defined)
+- All scripts must be non-interactive (use -f flags, etc.)
+- Branch is currently behind main — MUST run git pull before starting work
+- The worktree is on branch epic-EXOCOMP-29, but the task targets epic-EXOCOMP-4. Running git pull already fast-forwarded to the latest main (which now includes EXOCOMP-69 and EXOCOMP-72 merged work). The feature agent should check if they are on the correct branch before committing.
+
+Recommended next focus: devops (or feature)
 ---
 <!-- COMMENTS:END -->
