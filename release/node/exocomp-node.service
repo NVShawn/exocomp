@@ -1,0 +1,136 @@
+[Unit]
+Description=Exocomp Node Agent
+Documentation=https://github.com/NVShawn/exocomp
+After=network-online.target
+Wants=network-online.target
+
+# ── Ordering and dependency ────────────────────────────────────────────────────
+# Require network connectivity before starting.  The coordinator connection is
+# established after start, not as a hard systemd dependency, because the node
+# retries the connection internally with back-off.
+
+[Service]
+Type=exec
+
+# ── Identity ──────────────────────────────────────────────────────────────────
+# Run as a dedicated unprivileged account created by the installer.
+# @ACCOUNT@ and @INSTALL_DIR@ are substituted by install.sh at install time.
+User=@ACCOUNT@
+Group=@ACCOUNT@
+
+# ── Executable ────────────────────────────────────────────────────────────────
+ExecStart=@INSTALL_DIR@/current/bin/exocomp_node start
+ExecStop=@INSTALL_DIR@/current/bin/exocomp_node stop
+ExecReload=/bin/kill -HUP $MAINPID
+
+WorkingDirectory=@INSTALL_DIR@
+
+# ── Environment ───────────────────────────────────────────────────────────────
+Environment=EXOCOMP_CONFIG=@INSTALL_DIR@/config/node.json
+Environment=EXOCOMP_LOG_DIR=@INSTALL_DIR@/log
+Environment=ERL_CRASH_DUMP=@INSTALL_DIR@/log/erl_crash.dump
+# Prevent BEAM from trying to write to ${HOME}
+Environment=HOME=@INSTALL_DIR@
+
+# ── Runtime directories ───────────────────────────────────────────────────────
+# systemd creates and removes these automatically.
+RuntimeDirectory=exocomp-node
+RuntimeDirectoryMode=0750
+
+# State directory for persistent data (kept across restarts and upgrades).
+StateDirectory=exocomp-node
+StateDirectoryMode=0750
+
+# Log directory managed by the installer (not systemd) so audit logs survive
+# across package upgrades and uninstalls.  Installer creates it with correct
+# ownership.
+
+# ── Restart policy ───────────────────────────────────────────────────────────
+Restart=on-failure
+RestartSec=5s
+StartLimitIntervalSec=120s
+StartLimitBurst=4
+TimeoutStartSec=30s
+TimeoutStopSec=30s
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=exocomp-node
+
+# ── Capability hardening ──────────────────────────────────────────────────────
+# Drop all capabilities.  The service never needs root privileges.
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# ── Privilege escalation prevention ──────────────────────────────────────────
+NoNewPrivileges=true
+SecureBits=noroot noroot-locked
+
+# ── Filesystem access ─────────────────────────────────────────────────────────
+# Mount the system namespace read-only and grant write access only to the
+# directories the service legitimately needs.
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config
+
+# Private /tmp prevents the service from accessing /tmp state written by other
+# processes.
+PrivateTmp=true
+
+# The service does not use kernel debugging, modules, or control groups.
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+
+# Prevent namespace creation and clock changes.
+RestrictNamespaces=true
+ProtectClock=true
+
+# Do not expose host identity beyond what is needed.
+ProtectHostname=true
+
+# Block setuid/setgid bits on executed files.
+RestrictSUIDSGID=true
+
+# ── Process and memory restrictions ──────────────────────────────────────────
+# Deny mmap with PROT_EXEC | PROT_WRITE (code injection mitigation).
+MemoryDenyWriteExecute=true
+
+# Lock the execution domain / personality.
+LockPersonality=true
+
+# Do not allow real-time scheduling (prevents starvation attacks).
+RestrictRealtime=true
+
+# ── Device access ─────────────────────────────────────────────────────────────
+# Mount a private /dev with only the handful of pseudo-devices that are always
+# safe (null, random, urandom, tty).
+PrivateDevices=true
+
+# ── System call filter ────────────────────────────────────────────────────────
+# Allow only the syscalls needed by a typical BEAM-based service.
+# @system-service covers the minimal set for init/supervision; remaining BEAM
+# syscalls (futex, io_uring compatible subset, epoll, etc.) are included.
+SystemCallFilter=@system-service @network-io @file-system @process
+SystemCallFilter=~@clock @cpu-emulation @debug @keyring @module @mount @raw-io @reboot @resources @swap @obsolete
+SystemCallErrorNumber=EPERM
+
+# ── Address family restriction ────────────────────────────────────────────────
+# The node connects to the coordinator over TCP/TLS and binds a local health
+# socket.  UNIX sockets are needed for gRPC and internal communication.
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+# ── Resource limits ───────────────────────────────────────────────────────────
+# Limit file descriptors (BEAM default is high; cap to a reasonable amount).
+LimitNOFILE=65536
+# Limit core dumps (suppress by default; set to unlimited for debugging).
+LimitCORE=0
+
+# ── umask ─────────────────────────────────────────────────────────────────────
+# Files created by the service are readable only by the service account.
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

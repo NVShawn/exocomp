@@ -36,7 +36,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--workdir /workspace \
 	$(BUILDER_IMAGE)
 
-.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service fixture-install fixture-cleanup test-integration bench-llama-short
+.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures test-fixture-service fixture-install fixture-cleanup test-integration bench-llama-short test-installer
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -95,3 +95,6 @@ test-integration: ## Run ExUnit systemd integration tests (requires root + syste
 bench-llama-short: ## Run focused llama.cpp inference benchmark tests (CI short run; no real llama-server required).
 	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix deps.get && \
 		MIX_ENV=test mix test --only bench_llama apps/bench/test/bench/workload/llama_inference_test.exs'
+
+test-installer: ## Run hardened installer/uninstaller tests (requires Python 3.11+, no systemd or root needed).
+	python3 -m pytest test/installer/test_installer.py -v
