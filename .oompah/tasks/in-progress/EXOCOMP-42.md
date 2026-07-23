@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T20:52:17.996073Z'
+updated_at: '2026-07-23T20:57:55.805126Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 4c24c62b-74a5-4c00-bbaf-ef713a0d64b8
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 29
-  total_output_tokens: 6890
+  total_input_tokens: 495949
+  total_output_tokens: 10011
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 29
-      output_tokens: 6890
+      input_tokens: 495949
+      output_tokens: 10011
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 6890
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:43:50.347840+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 495920
+    output_tokens: 3121
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T20:57:52.048717+00:00'
 ---
 ## Summary
 
@@ -171,5 +177,25 @@ author: oompah
 created: 2026-07-23 20:52
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 20:57
+---
+Agent completed successfully in 336s (499041 tokens)
+---
+author: oompah
+created: 2026-07-23 20:57
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 8
+- Tokens: 495.9K in / 3.1K out [499.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 36s
+- Log: EXOCOMP-42__20260723T205218Z.jsonl
+---
+author: oompah
+created: 2026-07-23 20:57
+---
+Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-6`. Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
 ---
 <!-- COMMENTS:END -->

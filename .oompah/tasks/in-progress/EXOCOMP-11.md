@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-11
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Supervise llama.cpp and validate structured proposals
 parent: EXOCOMP-1
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-23T20:50:25.297586Z'
+updated_at: '2026-07-23T20:58:04.063175Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 619fb067-66b7-423c-906a-683205f79ce7
+oompah.agent_run_id: 7bcb788c-a65c-4d23-9455-8e38f27cd7de
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 23

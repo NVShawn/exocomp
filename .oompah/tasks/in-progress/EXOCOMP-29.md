@@ -8,10 +8,11 @@ parent: EXOCOMP-4
 children: []
 blocked_by:
 - EXOCOMP-7
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-23T20:53:42.741954Z'
+updated_at: '2026-07-23T20:58:02.768057Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -182,5 +183,38 @@ author: oompah
 created: 2026-07-23 20:53
 ---
 Understanding: EXOCOMP-29 asks for a self-contained, intentionally crashable systemd fixture service to support M4 integration testing. It needs: a health HTTP endpoint independent of systemd process state, a harmless workload marker, controls for active/failed/degraded/flapping/restart-failure modes, a disposable installer, scoped cleanup, and documentation of VM/privileged-container requirements. The blocker EXOCOMP-7 is now Done.
+---
+author: oompah
+created: 2026-07-23 20:57
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate found. EXOCOMP-29 is a unique, foundational fixture task.
+
+**Evidence reviewed:**
+- All tasks in the oompah/state/proj-c260b117 branch surveyed (done, in-progress, open, archived)
+- EXOCOMP-29 is child of epic EXOCOMP-4 (M4: Minimal-impact systemd service recovery)
+- Sibling tasks EXOCOMP-30 (state machine), EXOCOMP-31 (automatic recovery), EXOCOMP-32 (approval-required recovery), EXOCOMP-33 (idempotency tests), EXOCOMP-34 (milestone verification) all cover distinct scopes
+- No other task in the full tracker covers creating an intentionally crashable systemd test fixture with health endpoint, workload marker, state controls, installer, and scoped cleanup
+- EXOCOMP-7 (blocker: Scaffold the Elixir umbrella) is Done; EXOCOMP-29 can proceed
+
+**Relevant files:**
+- plans/milestone-4-service-recovery.md — M4 design doc; Section 'Reference Fixture' describes exactly what EXOCOMP-29 must implement
+- The fixture should live under tests/ or a fixture/ subdirectory alongside the Elixir apps
+
+**Remaining work:**
+- Create a bash or Python-based systemd fixture service (crashable, with health endpoint on localhost, harmless workload marker file)
+- Install/cleanup scripts scoped to fixture resources only (e.g., /run/exocomp-fixture/)
+- Controls to set service mode: active, failed, degraded, flapping, restart-failure
+- systemd unit file for the fixture
+- Focused ExUnit/integration tests covering all required states plus health-vs-systemd divergence and idempotent setup/cleanup
+- Documentation of VM or privileged-container requirement
+
+**Risks:**
+- This is the prerequisite for EXOCOMP-31 and EXOCOMP-33; delays cascade
+- Tests require systemd access; must run in a VM or privileged container
+- Health endpoint must be able to disagree with systemd active state (health unhealthy while systemd shows active)
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->
