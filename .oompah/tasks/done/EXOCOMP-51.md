@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-51
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Pin A2A 1.0 fixture files and add comprehensive protocol test suite
 parent: EXOCOMP-8
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-23T21:50:15.462449Z'
+updated_at: '2026-07-23T21:50:28.711961Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -180,5 +180,10 @@ author: oompah
 created: 2026-07-23 21:50
 ---
 Verification: make test (103 tests, all green), make lint (no warnings), make fmt-check (clean). Test breakdown: 10 fixture round-trips in FixtureTest, 5 invalid payload cases in InvalidPayloadTest, 5 version negotiation cases in VersionNegotiationTest, 5 media type cases in MediaTypeTest. All EXOCOMP-8 acceptance criteria covered.
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Completion: Delivered on branch EXOCOMP-51 (built on top of EXOCOMP-49). Added 10 A2A 1.0 fixture JSON files (agent_card_minimal, agent_card_full, message_user_text, message_agent_data, task_submitted, task_completed_with_artifact, task_failed, artifact_text, error_invalid_request, error_task_not_found) and 4 ExUnit test modules (FixtureTest, InvalidPayloadTest, VersionNegotiationTest, MediaTypeTest). Also patched Version.parse_content_type/1 to strip media-type parameters, added /.mix/ to .gitignore. All 103 tests pass, no lint or format issues.
 ---
 <!-- COMMENTS:END -->
