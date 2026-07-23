@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-25
 - EXOCOMP-42
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T22:58:23.567409Z'
+updated_at: '2026-07-23T22:58:32.331114Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
