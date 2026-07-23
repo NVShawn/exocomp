@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-44
 type: chore
-status: In Progress
+status: Merged
 priority: 2
 title: Assemble signed offline bundles, SBOMs, and provenance
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-23T23:35:08.717928Z'
+updated_at: '2026-07-23T23:39:58.659939Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
