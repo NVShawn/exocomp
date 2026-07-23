@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:19:00.042579Z'
-updated_at: '2026-07-23T23:24:33.574339Z'
+updated_at: '2026-07-23T23:25:35.523718Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -47,5 +47,10 @@ author: oompah
 created: 2026-07-23 23:24
 ---
 Understanding: EXOCOMP-82 asks to rebase epic-EXOCOMP-6 onto origin/main and force-push. The branch is at 6af8ec9 (EXOCOMP-43: hardened installers) while origin/main is at 3949c53 (the merge commit that brought epic-EXOCOMP-6 into main via PR #6). No duplicate task exists — no other open or in-progress task covers this rebase. The only in-progress sibling is EXOCOMP-43 (hardened installers), which is a distinct feature task. Duplicate screening: complete, no duplicate found.
+---
+author: oompah
+created: 2026-07-23 23:25
+---
+Discovery: epic-EXOCOMP-6 was at 6af8ec9 (EXOCOMP-43 hardened installers), while origin/main was at 3949c53 (the merge commit that brought the epic into main via PR #6). The remote branch had a stale tracking ref because GitHub deleted the source branch after merge, but it was already at 3949c53 on the actual remote. No duplicate task exists — EXOCOMP-82 is unique.
 ---
 <!-- COMMENTS:END -->
