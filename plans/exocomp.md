@@ -1,95 +1,103 @@
 # Exocomp Project Plan
 
 ## Overview
-Exocomp is a distributed AI agent system designed to run lightweight LLM‑based agents on individual cluster nodes, orchestrated by a central management agent via an A2A‑style protocol. The goal is to enable autonomous node‑level diagnostics, metric collection, and simple remediation while keeping resource usage minimal.
+
+Exocomp is a distributed AI agent system for Linux clusters. A lightweight
+Elixir/OTP node agent runs on each managed host, while an Elixir/OTP
+coordinator discovers nodes, maintains live cluster state, and delegates
+diagnostic and tightly controlled remediation tasks using the Agent2Agent
+(A2A) 1.0 protocol.
+
+The model proposes structured intents. Deterministic code owns authorization,
+least-impact selection, execution, verification, and audit.
 
 ## Objectives
-- Deploy a tiny LLM (1‑3B parameters) on each node using a lightweight inference runtime (llama.cpp or Ollama).
-- Expose a simple HTTP/gRPC endpoint for "ask"/"act" calls on each node.
-- Wrap each endpoint in a Hermes‑style agent capable of:
-  - Running local diagnostics (CPU, memory, disk, service status).
-  - Collecting and forwarding metrics.
-  - Executing predefined remediation actions (e.g., restart service, clear logs).
-- Implement a coordinator (master) Hermes agent that:
-  - Discovers node agents and maintains a cluster state graph.
-  - Issues high‑level goals (e.g., "rebalance‑PGs", "replace‑failed‑node").
-  - Translates goals into atomic commands for node agents.
-  - Validates results and triggers fallback to traditional scripts when needed.
-- Ensure safety by pairing LLM suggestions with deterministic validation scripts before applying any changes.
+
+- Ship self-contained node and coordinator OTP releases with bundled ERTS for
+  Linux amd64 and arm64.
+- Supervise a local llama.cpp runtime using Qwen2.5 1.5B Instruct GGUF.
+- Expose standards-compliant A2A 1.0 HTTP+JSON interfaces secured by mTLS.
+- Collect node and systemd diagnostics without arbitrary shell execution.
+- Discover configured nodes through a static inventory and DNS.
+- Validate every state-changing action through deterministic policy.
+- Prefer the action with the lowest data-loss, work-loss, disruption, and
+  scope risk.
+- Never delete user or unknown data.
+- Permit only bounded, allow-listed system-data maintenance when deterministic
+  checks prove it is necessary.
 
 ## Architecture
-```
-[Coordinator Agent] <-- A2A --> [Node Agent (per node)]
-                                   |
-                                   v
-                           [Lightweight LLM Runtime]
-                                   |
-                                   v
-                           [Node OS / Services]
+
+```mermaid
+flowchart LR
+    Coordinator[Coordinator OTP release] <-->|A2A 1.0 over mTLS| Node[Node OTP release]
+    Node --> Diagnostics[Linux and systemd diagnostics]
+    Node --> Policy[Deterministic policy]
+    Policy --> Executor[Restricted action executor]
+    Node -->|loopback HTTP| Llama[llama-server and GGUF model]
+    Coordinator --> Inventory[Static inventory and DNS]
+    Coordinator --> Audit[Durable audit sink]
 ```
 
-### Components
-1. **Node Agent**
-   - Inference server: llama.cpp/Ollama serving a 1‑3B model.
-   - Hermes agent wrapper: exposes `/ask` and `/act` endpoints.
-   - Local tools: metric collectors, diagnostic scripts, remediation scripts.
-2. **Coordinator Agent**
-   - Hermes agent with planning capabilities.
-   - A2A client to communicate with node agents.
-   - Cluster state graph (in‑memory or lightweight DB).
-   - Scheduler for periodic health checks and goal execution.
-3. **Validation Layer**
-   - Pre‑defined policy/scripts that must approve any LLM‑suggested action.
-   - Runs synchronously before state changes.
+The repository will use an Elixir umbrella with shared protocol and policy
+libraries and separate node and coordinator releases. Agents run under systemd
+as dedicated unprivileged users. Exact per-service sudoers rules grant only
+installed, allow-listed actions.
+
+## Protocol and Identity
+
+Node and coordinator agents implement the A2A 1.0 HTTP+JSON binding, publish
+Agent Cards, and require mTLS for operational requests. Exocomp operates a
+bootstrap certificate authority with a pinned root fingerprint, short-lived
+node-bound enrollment tokens, locally generated node keys, and authenticated
+renewal.
+
+Live coordinator state is reconstructible and held in memory. Correlated audit
+events are durable through journald or a configured JSON-lines sink.
+
+## Safety Invariants
+
+- LLM output is a structured proposal, never an executable command.
+- Evidence is deterministic, target-bound, time-bounded, and refreshed before
+  execution.
+- User and unknown data are never eligible for deletion.
+- System data may be reclaimed only through typed actions with installed
+  retention and byte/age limits.
+- An already-failed allow-listed service may be restarted automatically after
+  validation.
+- Restarting an active or degraded service requires a short-lived, single-use,
+  task-bound approval.
+- No arbitrary shell, command, path, service, or deletion interface exists.
+- State-changing work fails closed when policy, approval, audit, or
+  verification is unavailable.
 
 ## Milestones
-| Milestone | Description | Target Date |
-|-----------|-------------|-------------|
-| M1 | Prototype node agent with basic diagnostics endpoint | 2026-08-15 |
-| M2 | Coordinator agent capable of discovering nodes and issuing simple commands | 2026-08-31 |
-| M3 | Integrate validation scripts for safety‑critical actions | 2026-09-15 |
-| M4 | End‑to‑end test: automated pod restart on node failure | 2026-09-30 |
-| M5 | Performance overhead analysis (<5% CPU/RAM per node) | 2026-10-15 |
-| M6 | Documentation and open‑source release prep | 2026-10-31 |
 
-## Initial Tasks (Node Agent)
-- [ ] Install llama.cpp/Ollama on a test node.
-- [ ] Download and quantize a 2B‑parameter model (e.g., TinyLlama).
-- [ ] Create Hermes agent that loads the model and exposes `/ask` (text generation) and `/act` (invoke predefined tool).
-- [ ] Implement diagnostic tool: collect `top`, `df`, `free`, service status.
-- [ ] Implement remediation tool: restart a given systemd service.
-- [ ] Wire tools into Hermes agent so LLM can request them via structured output.
-- [ ] Expose HTTP server (FastAPI or Flask) forwarding to Hermes agent.
-- [ ] Write unit tests for each tool.
-- [ ] Document usage and environment variables.
+| Milestone | Design | Target Date |
+|---|---|---|
+| M1 | [Prototype Elixir node agent](milestone-1-node-agent.md) | 2026-08-15 |
+| M2 | [Coordinator, discovery, and enrollment](milestone-2-coordinator.md) | 2026-08-31 |
+| M3 | [Safety validation and controlled remediation](milestone-3-safety-validation.md) | 2026-09-15 |
+| M4 | [Minimal-impact systemd service recovery](milestone-4-service-recovery.md) | 2026-09-30 |
+| M5 | [Performance and resource analysis](milestone-5-performance.md) | 2026-10-15 |
+| M6 | [Documentation and open-source release](milestone-6-release.md) | 2026-10-31 |
 
-## Initial Tasks (Coordinator Agent)
-- [ ] Set up Hermes agent with planning plugin.
-- [ ] Implement A2A client to call `/ask`/`act` on node agents (discovery via static IP list or DNS).
-- [ ] Create simple cluster state graph (node ID, last seen, metrics).
-- [ ] Implement goal parser: translate high‑level goal into list of atomic commands.
-- [ ] Add validation step: before executing any node‑agent command, run associated policy script.
-- [ ] Implement periodic health‑check loop (query node agents every 30s).
-- [ ] Log all interactions and decisions for audit.
-- [ ] Build a basic CLI/dashboard to view cluster state and issue manual goals.
+Milestone completion is ordered, but shared foundations, test fixtures,
+benchmark infrastructure, governance, and release automation may proceed in
+parallel when their concrete dependencies are satisfied.
 
-## Safety & Validation
-- Every LLM‑suggested action must pass through a deterministic validation script (e.g., check service is actually failed before restart).
-- Validation scripts return a boolean; only proceed if true.
-- Maintain an allow‑list of allowed commands per node (e.g., `systemctl restart <service>`, `journalctl -u <service>`).
-- Log LLM raw output and validation result for debugging.
+## Shared Acceptance
 
-## Open Questions / Risks
-- Model quantization accuracy: ensure the small model still understands the limited command set.
-- Network partition handling: what happens if a node agent is unreachable?
-- Updating models across many nodes: consider using a configuration server or side‑car.
-- Monitoring inference overhead: tune batch size and concurrency to stay under resource budget.
-
-## Next Steps
-1. Create a test VM or container to simulate a cluster node.
-2. Follow the "Initial Tasks (Node Agent)" checklist.
-3. Once node agent is functional, deploy to two more test nodes.
-4. Build coordinator agent and validate end‑to‑end flow.
+- Each milestone satisfies the numbered acceptance criteria in its design.
+- Code changes include focused tests and use repository Make targets.
+- Node and coordinator artifacts behave consistently on supported amd64 and
+  arm64 Linux targets.
+- Security-sensitive failures are fail-closed and auditable.
+- The release qualification runs the full failed-service recovery flow using
+  shipped artifacts.
 
 ---
-*Created: 2026-07-14*
+
+Created: 2026-07-14
+
+Architecture decisions updated: 2026-07-23
