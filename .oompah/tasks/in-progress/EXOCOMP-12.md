@@ -7,6 +7,7 @@ title: Expose diagnostic-only node A2A service
 parent: EXOCOMP-1
 children:
 - EXOCOMP-78
+- EXOCOMP-79
 blocked_by:
 - EXOCOMP-8
 - EXOCOMP-9
@@ -16,7 +17,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-23T23:04:01.424310Z'
+updated_at: '2026-07-23T23:04:29.475091Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
