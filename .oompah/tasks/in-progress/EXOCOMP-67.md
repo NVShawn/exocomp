@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:39:22.287182Z'
+updated_at: '2026-07-23T21:45:26.148418Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -177,5 +177,26 @@ Implementing:
 4. test/fixtures/fake-elf/ — minimal ELF test fixtures with controlled NEEDED entries
 5. docs/runtime-dependencies.md — runtime contract, glibc baseline, inspection commands
 6. Makefile: add inspect-deps and test-deps targets
+---
+author: oompah
+created: 2026-07-23 21:45
+---
+Implementation complete. Changes:
+
+**New files:**
+- scripts/inspect-release-deps.sh: ELF inspection script. Finds all ELF binaries in a release dir, runs readelf -d via pinned builder container (or READELF env override for native use), classifies each NEEDED as bundled/declared host/undeclared, emits dep-report.json, exits 1 on undeclared deps.
+- release/runtime-baseline.lock: Declared host-library allowlist (libc.so.6, libm.so.6, libpthread.so.0, libdl.so.2, librt.so.1, libutil.so.1, libgcc_s.so.1, libstdc++.so.6, vdso, ld-linux-{x86-64,aarch64}).
+- scripts/test-runtime-deps.sh: 8 test cases covering valid release, undeclared dep rejection, missing ERTS, unsupported arch, missing baseline, dep-report.json production.
+- test/fixtures/fake-readelf.sh: Fake readelf reading .readelf-d sidecar files; no real ELF or container needed.
+- test/fixtures/fake-release-valid/: ELF fixtures with correct NEEDED entries (all in baseline).
+- test/fixtures/fake-release-undeclared/: ELF fixtures with libsomething_undeclared.so.99 injection.
+- docs/runtime-dependencies.md: Runtime contract docs with glibc 2.36 baseline table, host library table, dep-report.json schema, inspection commands, and Mermaid build pipeline diagram.
+
+**Modified:**
+- scripts/build-releases.sh: Adds inspection loop (exocomp_node, exocomp_coordinator) after smoke check; runs inside pinned builder with READELF=readelf.
+- scripts/test-release-builders.sh: Adds validation that baseline file exists, inspect script is executable, test-runtime-deps.sh passes, and docs/runtime-dependencies.md exists with required content.
+- Makefile: Adds test-deps, inspect-deps-amd64, inspect-deps-arm64 targets.
+
+All 8 tests pass. make test-builders passes.
 ---
 <!-- COMMENTS:END -->

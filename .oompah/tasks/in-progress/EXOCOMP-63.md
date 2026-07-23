@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-23T21:43:07.332748Z'
+updated_at: '2026-07-23T21:45:22.840972Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -181,5 +181,37 @@ Focus handoff: security (pre-implementation audit)
 10. Malformed HTTP: Must handle gracefully without crashing
 
 **Plan:** Create EXOCOMP-63 branch from EXOCOMP-62, bring in ProposalSchema from EXOCOMP-61, implement ProposalClient with all security controls, add unit tests, run quality gates.
+---
+author: oompah
+created: 2026-07-23 21:45
+---
+Discovery: Security findings from specification and dependency review
+
+**ProposalSchema (EXOCOMP-61) — SECURE:**
+- Uses String.to_existing_atom (prevents atom table exhaustion)
+- Closed valid_proposal_ids set (prevents unknown proposal execution)
+- schema_version pinning enforced
+- Forbidden field detection (prevents shell-command injection via extra keys)
+- No execution interface
+
+**LlamaServer (EXOCOMP-62) — SECURE with one note:**
+- Enforces loopback-only (127.0.0.1) — ignores non-loopback config with warning
+- Health checks use :gen_tcp directly (no HTTP library needed)
+- LlamaServer returns {:error, :not_ready} when not available
+
+**Security requirements for ProposalClient implementation:**
+1. Checksum gate must be called FIRST (before any network I/O)
+2. LlamaServer availability check SECOND
+3. Diagnostic context MUST be serialized + byte-truncated (not character-truncated for safety with multi-byte chars)
+4. HTTP request MUST use :inets/:httpc (zero external deps, loopback already enforced)
+5. Raw model response must NEVER appear in Logger calls
+6. Schema validation must be the LAST gate before return
+7. Atom table safety: JSON keys from model output must be string keys (not atoms!) — JSON.decode/1 defaults to string keys in Elixir 1.18+ ✓
+8. All error paths must return structured {:error, reason} — no exceptions/crashes
+
+**Key findings:**
+- Branch created from EXOCOMP-62, ProposalSchema cherry-picked from EXOCOMP-61
+- Using built-in :httpc (inets) + built-in JSON module (Elixir 1.18+) — no external deps
+- Will add :inets to extra_applications in mix.exs
 ---
 <!-- COMMENTS:END -->
