@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: In Progress
+status: In Review
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:49:41.414880Z'
+updated_at: '2026-07-23T21:52:01.949400Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
