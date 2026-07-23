@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T21:51:34.624410Z'
+updated_at: '2026-07-23T21:51:43.319375Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -59,5 +59,10 @@ author: oompah
 created: 2026-07-23 21:51
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:51
+---
+Understanding: Investigating whether EXOCOMP-21 ('Define action, evidence, risk, and data-classification types') is a duplicate of an existing task. Will search for related tasks covering type definitions for actions, evidence, risk ranks, reversibility, data classification, and schema versioning before any implementation proceeds.
 ---
 <!-- COMMENTS:END -->
