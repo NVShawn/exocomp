@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T23:04:39.430863Z'
+updated_at: '2026-07-23T23:05:07.071999Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -210,5 +210,10 @@ author: oompah
 created: 2026-07-23 23:04
 ---
 Implementation: Added Bench.Workload.LlamaInference module (apps/bench/lib/bench/workload/llama_inference.ex) with 6 scenarios: (1) measure_startup/2 - polls /health and records startup_ms, (2) measure_sequential/2 - N sequential proposals with P50/P95/P99 latency, throughput, token counts, error counts, (3) measure_concurrent/2 - per-concurrency-level samples including queue depth, (4) measure_timeout/2 - timeout detection and elapsed ms, (5) measure_invalid_response/2 - rejection count and rate, (6) measure_restart/3 - crash-to-ready timing including down_ms, recovery_ms, total_ms, and diagnostics_available. All metrics emitted as Bench.Sample structs with source :llama. Added Bench.Test.FakeLlamaServer (apps/bench/test/support/fake_llama_server.ex) for in-process testing. Added make bench-llama-short target. Merged epic-EXOCOMP-35 (harness) and epic-EXOCOMP-11 (LlamaServer) into epic-EXOCOMP-5.
+---
+author: oompah
+created: 2026-07-23 23:05
+---
+Verification: Tests pass — 22/22 bench_llama tests (all inference workload scenarios) and 55/55 full bench suite tests. Lint/format-check clean. The 2 failing exocomp_node crash tests (llama_server_test crash/isolation scenarios) are pre-existing Alpine environment issues from epic-EXOCOMP-11 (missing /usr/bin/kill in Alpine busybox); not introduced by this change. make bench-llama-short target verified to work end-to-end in the builder container.
 ---
 <!-- COMMENTS:END -->
