@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: In Progress
+status: Merged
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -16,7 +16,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-23T23:48:24.674566Z'
+updated_at: '2026-07-23T23:48:34.657847Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
