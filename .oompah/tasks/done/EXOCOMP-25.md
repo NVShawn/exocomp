@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:47:16.684347Z'
+updated_at: '2026-07-23T22:47:19.139094Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -284,5 +284,10 @@ Key security properties enforced:
 7. Per-target serialization via GenServer lock — no concurrent restarts of same service
 8. Post-action verification always invoked after exit 0
 9. EUID check at startup — RuntimeError if running as root
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Implemented unprivileged systemd executor and exact sudoers policy: ActionCatalog (strict regex validation + allow-list), Executor (no-shell argv, fixed env, timeout, output limit, per-target lock, post-action verifier), ExecutorLock GenServer, SudoersPolicy (exact NOPASSWD entries, no wildcards, deterministic), Privilege (EUID check), OsCommander behaviour + SystemCommander. 121 new focused tests covering all security scenarios. All make targets pass.
 ---
 <!-- COMMENTS:END -->
