@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: In Review
+status: Done
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -11,14 +11,14 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:11:23.542352Z'
-work_branch: epic-EXOCOMP-1
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-23T21:11:33.346514Z'
+work_branch: EXOCOMP-57
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/1
+review_number: '1'
 merged_at: null
 oompah.agent_run_id: a6b9ac53-8dde-4275-93d0-5d938c3fc60e
-oompah.work_branch: epic-EXOCOMP-1
+oompah.work_branch: EXOCOMP-57
 oompah.task_costs:
   total_input_tokens: 667474
   total_output_tokens: 26612
@@ -47,6 +47,9 @@ oompah.task_costs:
     output_tokens: 12504
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:08:52.689143+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/1
+oompah.review_number: '1'
+oompah.target_branch: main
 ---
 ## Summary
 
@@ -326,5 +329,17 @@ author: oompah
 created: 2026-07-23 21:11
 ---
 **Understanding:** All implementation work is complete and pushed to origin/EXOCOMP-57. The previous DevOps agent created scripts/gen-test-certs.sh, all fixture certs, JSON config files, and the Makefile target. The task close failed because no PR was open against main. Now creating the required PR to unblock closure.
+---
+author: oompah
+created: 2026-07-23 21:11
+---
+**Completion:** All acceptance criteria met and PR opened.
+
+- PR #1 opened: https://github.com/NVShawn/exocomp/pull/1 (EXOCOMP-57 → main)
+- scripts/gen-test-certs.sh: idempotent, OpenSSL 3.x compatible, generates CA/node/wrong_san/expired/rogue certs under apps/exocomp_node/test/fixtures/certs/
+- 4 JSON config fixtures: config_valid.json, config_missing_fields.json, config_unknown_version.json, config_malformed.json
+- Makefile gen-test-fixtures target with ## comment (visible in make help)
+- Fixture private keys committed intentionally (dev-only, documented in script header)
+- All verification checks passed: SAN correct, expired cert dates correct, rogue cert fails CA verification, key permissions 0600
 ---
 <!-- COMMENTS:END -->

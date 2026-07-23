@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-61
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Define versioned proposal schema module
 parent: EXOCOMP-11
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:10:30.328889Z'
+updated_at: '2026-07-23T21:11:31.842196Z'
 work_branch: null
 target_branch: null
 review_url: null
