@@ -7,13 +7,15 @@ title: Supervise llama.cpp and validate structured proposals
 parent: EXOCOMP-1
 children:
 - EXOCOMP-61
+- EXOCOMP-62
+- EXOCOMP-63
 blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-23T21:03:38.417721Z'
+updated_at: '2026-07-23T21:04:13.448722Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
