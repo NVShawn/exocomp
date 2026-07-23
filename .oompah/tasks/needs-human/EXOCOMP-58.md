@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: In Progress
+status: Needs Human
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-23T21:25:15.603400Z'
+updated_at: '2026-07-23T21:26:59.029298Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 1815a937-c993-47ec-9c2b-082b034a2a10
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 1592498
-  total_output_tokens: 9047
+  total_input_tokens: 2124468
+  total_output_tokens: 12265
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1592498
-      output_tokens: 9047
+      input_tokens: 2124468
+      output_tokens: 12265
       cost_usd: 0.0
   runs:
   - profile: default
@@ -47,6 +47,12 @@ oompah.task_costs:
     output_tokens: 3328
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:17:38.104637+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 531970
+    output_tokens: 3218
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:26:53.912011+00:00'
 ---
 ## Summary
 
@@ -248,5 +254,25 @@ author: oompah
 created: 2026-07-23 21:25
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+Agent completed successfully in 100s (535188 tokens)
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 11
+- Tokens: 532.0K in / 3.2K out [535.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 40s
+- Log: EXOCOMP-58__20260723T212515Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:26
+---
+Agent completed 4 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
 ---
 <!-- COMMENTS:END -->
