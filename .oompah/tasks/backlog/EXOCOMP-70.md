@@ -6,11 +6,12 @@ priority: null
 title: Create systemd unit file and fixture installer/cleanup scripts
 parent: EXOCOMP-29
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-69
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:06:39.885357Z'
+updated_at: '2026-07-23T21:07:02.645018Z'
 work_branch: null
 target_branch: null
 review_url: null

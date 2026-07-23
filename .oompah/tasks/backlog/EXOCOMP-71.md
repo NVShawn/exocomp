@@ -6,11 +6,13 @@ priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-69
+- EXOCOMP-70
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:06:51.547848Z'
+updated_at: '2026-07-23T21:07:07.583567Z'
 work_branch: null
 target_branch: null
 review_url: null

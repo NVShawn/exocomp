@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: In Progress
+status: Backlog
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -14,9 +14,11 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
+- needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T21:06:25.755090Z'
+updated_at: '2026-07-23T21:07:15.470286Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -257,5 +259,25 @@ author: oompah
 created: 2026-07-23 21:06
 ---
 Discovery: EXOCOMP-42 currently has no children. plans/milestone-6-release.md maps it to M6-CRIT-2 plus the reproducible build-identity portion of M6-CRIT-8. The current branch is still the project skeleton, so children must depend on EXOCOMP-7 and remain implementation-ready after the umbrella/release configs land. Downstream EXOCOMP-43 and EXOCOMP-44 already depend on this epic, confirming installers, signatures, SBOMs, and offline bundle assembly are out of scope.
+---
+author: oompah
+created: 2026-07-23 21:07
+---
+Implementation: Created four child tasks: EXOCOMP-65 pinned amd64/arm64 builders; EXOCOMP-66 deterministic node/coordinator archives and build-identity manifests; EXOCOMP-67 ELF/NIF runtime dependency inspection and documentation; EXOCOMP-68 clean-target, wrong-architecture, missing-runtime, and double-build reproducibility qualification. Dependencies are EXOCOMP-65 <- EXOCOMP-7, EXOCOMP-66 <- EXOCOMP-65, EXOCOMP-67 <- EXOCOMP-66, and EXOCOMP-68 <- EXOCOMP-66/67.
+---
+author: oompah
+created: 2026-07-23 21:07
+---
+Verification: Re-read EXOCOMP-42 and all four new children through the tracker. The children are linked to the parent, start in Backlog at priority 2, carry independent context/acceptance criteria/tests, cover every stated acceptance criterion, and explicitly exclude EXOCOMP-43 installer and EXOCOMP-44 signing/SBOM/offline-bundle scope. No repository files changed, so code quality gates are not applicable to this planning-only focus.
+---
+author: oompah
+created: 2026-07-23 21:07
+---
+Completion: Epic decomposition is complete. EXOCOMP-65 through EXOCOMP-68 collectively cover pinned builders, four ERTS-inclusive architecture/product archives, reproducible identity manifests, inspected/documented runtime dependencies, and the required clean-target/negative/repeat-build test matrix. The parent is ready to return to Backlog while its children are implemented.
+---
+author: oompah
+created: 2026-07-23 21:07
+---
+Focus handoff: epic_planner\n\n1. Outcome: Decomposed EXOCOMP-42 into four actionable children (EXOCOMP-65 through EXOCOMP-68) with acceptance criteria and dependencies.\n2. Evidence/decisions: plans/milestone-6-release.md M6-CRIT-2 and reproducible identity from M6-CRIT-8 define scope; EXOCOMP-43 owns installers and EXOCOMP-44 owns signatures/SBOMs/offline bundles. Dependency chain: 7 -> 65 -> 66 -> 67 -> 68, with 68 also explicitly consuming 66 artifacts.\n3. Remaining work/risks: Implement the children in order; multi-architecture execution may require binfmt/QEMU or native runners, and runtime-library baselines must be pinned consistently with builder glibc.\n4. Recommended next focus: devops for EXOCOMP-65, followed by feature/test work for EXOCOMP-66 through EXOCOMP-68.
 ---
 <!-- COMMENTS:END -->
