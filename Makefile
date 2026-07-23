@@ -12,8 +12,20 @@ OTP_VERSION := 28.5.0.3
 ALPINE_VERSION := 3.24.1
 BUILDER_IMAGE := docker.io/hexpm/elixir:$(ELIXIR_VERSION)-erlang-$(OTP_VERSION)-alpine-$(ALPINE_VERSION)@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6
 CONTAINER_ENGINE ?= docker
+
+# In rootless Docker, the container root (uid=0) is remapped to the host
+# user by the kernel's user namespace, so passing --user breaks volume
+# permissions.  In standard (rootful) Docker, --user is needed so that files
+# written to the mounted volume are owned by the host user rather than root.
+_DOCKER_ROOTLESS := $(shell $(CONTAINER_ENGINE) info 2>/dev/null | grep -c 'rootless: true')
+ifneq ($(_DOCKER_ROOTLESS),0)
+  _CONTAINER_USER_FLAG :=
+else
+  _CONTAINER_USER_FLAG := --user "$$(id -u):$$(id -g)"
+endif
+
 CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
-	--user "$$(id -u):$$(id -g)" \
+	$(_CONTAINER_USER_FLAG) \
 	--env ELIXIR_VERSION=$(ELIXIR_VERSION) \
 	--env OTP_VERSION=$(OTP_VERSION) \
 	--volume "$(CURDIR):/workspace" \
