@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-6
 type: epic
-status: In Review
+status: Merged
 priority: 1
 title: 'M6: Packaging, documentation, and open-source release'
 parent: null
@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-07-23T23:19:01.436878Z'
+updated_at: '2026-07-23T23:20:12.325876Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -55,3 +55,11 @@ Acceptance Criteria
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 23:20
+---
+YOLO: merged PR #6.
+---
+<!-- COMMENTS:END -->
