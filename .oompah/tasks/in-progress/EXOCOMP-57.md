@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:05:58.578188Z'
+updated_at: '2026-07-23T21:08:06.455733Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -215,5 +215,28 @@ created: 2026-07-23 21:05
 - apps/exocomp_node/test/fixtures/ JSON config fixtures  
 - scripts/gen-test-certs.sh
 - Makefile gen-test-fixtures target
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+**Implementation:** Created all required test fixture infrastructure:
+
+**scripts/gen-test-certs.sh** — bash script generating 5 cert types:
+- ca.crt (self-signed CA)
+- node.crt + node.key (SAN=DNS:exocomp-test-node, signed by CA)
+- wrong_san.crt + wrong_san.key (SAN=DNS:wrong-san-node, for mismatch tests)
+- expired.crt + expired.key (validity 2020-01-01 to 2020-01-02)
+- rogue.crt + rogue.key (signed by separate rogue CA, for trust-root tests)
+All .key files chmod 0600. Script is idempotent. Used -not_before/-not_after (OpenSSL 3.5 flags).
+
+**apps/exocomp_node/test/fixtures/** JSON configs:
+- config_valid.json — version 1 with all required fields
+- config_missing_fields.json — minimal, missing node_id and tls fields
+- config_unknown_version.json — version: 99
+- config_malformed.json — truncated JSON
+
+**Makefile** — added gen-test-fixtures target with ## comment (visible in make help).
+
+Private keys committed intentionally (dev-only fixtures, documented in script header).
 ---
 <!-- COMMENTS:END -->
