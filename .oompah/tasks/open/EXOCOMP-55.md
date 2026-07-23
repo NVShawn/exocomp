@@ -1,16 +1,18 @@
 ---
 id: EXOCOMP-55
 type: task
-status: Needs Human
+status: Open
 priority: null
 title: Implement BEAM telemetry sampler
 parent: EXOCOMP-35
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T22:19:36.699730Z'
+updated_at: '2026-07-23T22:23:11.040121Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -196,5 +198,15 @@ author: oompah
 created: 2026-07-23 22:19
 ---
 Agent completed 4 times without closing this issue. Human action required: review the agent run history and task state, then either close the task if the work is done or add specific guidance and move it back to Open.
+---
+author: oompah
+created: 2026-07-23 22:23
+---
+Duplicate screening is complete: no duplicate exists. The detector could not persist its own handoff because this agent environment did not expose task-mutation tools, so the landing gate retried that same phase. Human resolution: the tracker handoff has now been recorded. Implement Bench.BeamSampler on the parent shared branch epic-EXOCOMP-5; consume Bench.Sample from EXOCOMP-54, add the requested BEAM runtime metrics and tests, run the affected Make targets, and commit/push the work. Do not create a child PR to main.
+---
+author: oompah
+created: 2026-07-23 22:23
+---
+Duplicate phase completed; requeued explicitly for feature implementation.
 ---
 <!-- COMMENTS:END -->
