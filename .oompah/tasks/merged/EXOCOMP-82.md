@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-82
 type: task
-status: Done
+status: Merged
 priority: 0
 title: Rebase epic-EXOCOMP-6 onto main
 parent: EXOCOMP-6
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:19:00.042579Z'
-updated_at: '2026-07-23T23:26:06.549149Z'
+updated_at: '2026-07-23T23:31:18.143822Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
