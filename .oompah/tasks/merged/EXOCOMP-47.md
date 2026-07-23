@@ -17,7 +17,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-23T23:50:23.627750Z'
+updated_at: '2026-07-23T23:50:40.357206Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -25,6 +25,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 8b00a712-e38c-4339-9c7b-086c729ec63f
 oompah.work_branch: epic-EXOCOMP-6
+oompah.task_costs:
+  total_input_tokens: 1007700
+  total_output_tokens: 3823
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 1007700
+      output_tokens: 3823
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 1007700
+    output_tokens: 3823
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T23:50:37.782495+00:00'
 ---
 ## Summary
 
@@ -96,5 +112,20 @@ Focus handoff: duplicate_detector
 2. Evidence: Reviewed EXOCOMP-6, EXOCOMP-40 through EXOCOMP-46, and closest candidate EXOCOMP-68 in full; searched origin/oompah/state/proj-c260b117 plus plans/docs. EXOCOMP-68 explicitly excludes the PKI, multi-node, M4/M5, lifecycle, hardening, documentation, and signed-evidence scope owned here.
 3. Remaining work/risks: The live tracker already marks EXOCOMP-47 and its parent Merged. If qualification evidence was not actually captured before that transition, a subsequent implementation audit must verify every M6-CRIT item and both native architectures from the candidate tag; clean-host and signed-evidence claims cannot be established by fixture-only tests.
 4. Recommended next focus: test or devops for a release-evidence audit, only if the current Merged state is determined premature. No repository files changed in this focus.
+---
+author: oompah
+created: 2026-07-23 23:50
+---
+Agent completed successfully in 136s (1011523 tokens)
+---
+author: oompah
+created: 2026-07-23 23:50
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 24
+- Tokens: 1.0M in / 3.8K out [1.0M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 16s
+- Log: EXOCOMP-47__20260723T234824Z.jsonl
 ---
 <!-- COMMENTS:END -->
