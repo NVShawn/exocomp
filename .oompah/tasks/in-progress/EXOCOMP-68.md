@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T22:13:18.871550Z'
+updated_at: '2026-07-23T22:13:50.086343Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -249,5 +249,10 @@ author: oompah
 created: 2026-07-23 22:13
 ---
 Implementation: Created all required deliverables for the OTP release qualification matrix. (1) scripts/test-release-matrix.sh — non-interactive matrix test script; offline mode tests wrong-arch detection (ELF e_machine check) and missing-dep detection (via fake-undeclared fixture); live mode builds each arch/product twice and compares SHA-256 digests, tests clean-container startup, and runs wrong-arch and missing-dep negative tests with real containers. (2) scripts/test-clean-container.sh — clean-container startup helper; --check-arch mode checks ELF e_machine field offline without Docker; default mode runs release in minimal debian:bookworm-slim container with no Elixir/Erlang. (3) docs/release-qualification.md — documents native vs emulated execution requirements, QEMU/binfmt setup, CLEAN_TARGET_IMAGE configuration, both diagnostic cases (wrong-arch Exec format error, corrupted dep linker error), and the double-build reproducibility comparison. (4) Makefile test-release-matrix target. (5) Updated scripts/test-release-builders.sh to validate all new scripts and documentation exist.
+---
+author: oompah
+created: 2026-07-23 22:13
+---
+Verification: All 17 tests pass (8 original builder/dep tests + 9 new qualification matrix tests). make test-builders succeeds and includes the new offline qualification checks. The complete deliverables: (1) test-release-matrix.sh — non-interactive CI-suitable script covering the full 2-arch × 2-product matrix with double-build reproducibility, clean-container ERTS verification, wrong-arch diagnostic, and missing-dep diagnostic; (2) test-clean-container.sh — per-release clean-container helper with offline --check-arch mode using ELF e_machine field parsing; (3) docs/release-qualification.md — native vs emulated execution requirements (QEMU/binfmt), make test-release-matrix usage, both diagnostic cases documented; (4) Makefile test-release-matrix target (CI-suitable, non-interactive, ARCH= and SKIP_BUILD= flags); (5) test-release-builders.sh extended with structural validation of all new files.
 ---
 <!-- COMMENTS:END -->
