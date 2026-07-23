@@ -16,7 +16,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-23T23:48:34.657847Z'
+updated_at: '2026-07-23T23:48:41.262113Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -65,5 +65,10 @@ author: oompah
 created: 2026-07-23 23:48
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 23:48
+---
+Understanding: Screening EXOCOMP-47 for duplication only. I will compare its M6 clean-host release qualification scope against existing tasks and their full descriptions/comments, then archive only if the same underlying work is already tracked; otherwise I will record the closest candidates and hand off to the next focus.
 ---
 <!-- COMMENTS:END -->
