@@ -6,9 +6,10 @@ defmodule Bench.Sample do
   """
 
   @sources [:beam, :host, :node, :coordinator, :llama]
+  @tags [:missing, :unavailable, :warming_up]
 
   @enforce_keys [:timestamp, :source, :metric_name, :value, :unit]
-  defstruct @enforce_keys
+  defstruct @enforce_keys ++ [tags: []]
 
   @type source :: :beam | :host | :node | :coordinator | :llama
 
@@ -16,8 +17,9 @@ defmodule Bench.Sample do
           timestamp: integer() | String.t(),
           source: source(),
           metric_name: String.t(),
-          value: number(),
-          unit: String.t()
+          value: number() | nil,
+          unit: String.t(),
+          tags: [atom()]
         }
 
   @doc """
@@ -48,7 +50,8 @@ defmodule Bench.Sample do
       "source" => Atom.to_string(sample.source),
       "metric_name" => sample.metric_name,
       "value" => sample.value,
-      "unit" => sample.unit
+      "unit" => sample.unit,
+      "tags" => Enum.map(sample.tags, &Atom.to_string/1)
     }
   end
 
@@ -58,15 +61,17 @@ defmodule Bench.Sample do
     with {:ok, timestamp} <- fetch_timestamp(map),
          {:ok, source} <- fetch_source(map),
          {:ok, metric_name} <- fetch_string(map, "metric_name"),
-         {:ok, value} <- fetch_number(map, "value"),
-         {:ok, unit} <- fetch_string(map, "unit") do
+         {:ok, value} <- fetch_value(map),
+         {:ok, unit} <- fetch_string(map, "unit"),
+         {:ok, tags} <- fetch_tags(map) do
       {:ok,
        %__MODULE__{
          timestamp: timestamp,
          source: source,
          metric_name: metric_name,
          value: value,
-         unit: unit
+         unit: unit,
+         tags: tags
        }}
     end
   end
@@ -106,10 +111,39 @@ defmodule Bench.Sample do
     end
   end
 
-  defp fetch_number(map, key) do
-    case Map.fetch(map, key) do
-      {:ok, value} when is_number(value) -> {:ok, value}
-      _ -> {:error, {:invalid_sample_field, String.to_existing_atom(key)}}
+  defp fetch_value(map) do
+    case Map.fetch(map, "value") do
+      {:ok, value} when is_number(value) or is_nil(value) -> {:ok, value}
+      _ -> {:error, {:invalid_sample_field, :value}}
     end
   end
+
+  defp fetch_tags(map) do
+    case Map.get(map, "tags", []) do
+      tags when is_list(tags) ->
+        tags
+        |> Enum.reduce_while({:ok, []}, fn
+          tag, {:ok, parsed} when is_binary(tag) ->
+            case tag_atom(tag) do
+              atom when atom in @tags -> {:cont, {:ok, [atom | parsed]}}
+              _ -> {:halt, {:error, {:invalid_sample_field, :tags}}}
+            end
+
+          _tag, _acc ->
+            {:halt, {:error, {:invalid_sample_field, :tags}}}
+        end)
+        |> case do
+          {:ok, tags} -> {:ok, Enum.reverse(tags)}
+          error -> error
+        end
+
+      _ ->
+        {:error, {:invalid_sample_field, :tags}}
+    end
+  end
+
+  defp tag_atom("missing"), do: :missing
+  defp tag_atom("unavailable"), do: :unavailable
+  defp tag_atom("warming_up"), do: :warming_up
+  defp tag_atom(_), do: nil
 end
