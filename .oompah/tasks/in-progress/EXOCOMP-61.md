@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:16:20.458705Z'
+updated_at: '2026-07-23T21:20:40.394883Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -175,5 +175,10 @@ author: oompah
 created: 2026-07-23 21:16
 ---
 Discovery: EXOCOMP-7 umbrella scaffold exists on its branch with module convention Exocomp.Node.* (not ExocompNode.*). Created EXOCOMP-61 branch from EXOCOMP-7. Will create: apps/exocomp_node/lib/exocomp/node/proposal_schema.ex (module Exocomp.Node.ProposalSchema) and matching test at apps/exocomp_node/test/exocomp/node/proposal_schema_test.exs. The Makefile uses Docker for make test/lint.
+---
+author: oompah
+created: 2026-07-23 21:20
+---
+Implementation: Created apps/exocomp_node/lib/exocomp/node/proposal_schema.ex (Exocomp.Node.ProposalSchema) with: @schema_version '1', @valid_proposal_ids [:restart_service, :clear_disk_space, :rotate_logs, :increase_swap], validate/1 returning {:ok, proposal} or {:error, reason} for all 4 error variants (unknown_schema_version, unknown_proposal_id, {:missing_field, field}, :forbidden_field). Created 25 unit tests in apps/exocomp_node/test/exocomp/node/proposal_schema_test.exs. Also fixed Makefile rootless Docker incompatibility (--user flag breaks volume permissions in rootless mode) — auto-detected and omitted in rootless Docker.
 ---
 <!-- COMMENTS:END -->
