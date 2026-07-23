@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T21:36:26.539767Z'
+updated_at: '2026-07-23T21:36:40.469470Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 3cb9fa95-5155-4f44-8b9a-9d356daeae66
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 4185482
-  total_output_tokens: 26506
+  total_input_tokens: 4185608
+  total_output_tokens: 30654
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 4185482
-      output_tokens: 26506
+      input_tokens: 4185608
+      output_tokens: 30654
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 21498
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:27:15.769587+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 126
+    output_tokens: 4148
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:36:38.576098+00:00'
 ---
 ## Summary
 
@@ -243,5 +249,20 @@ author: oompah
 created: 2026-07-23 21:36
 ---
 Completion: Delivered Exocomp.A2A.Codec and Exocomp.A2A.Version modules with full test coverage (77 tests total). All A2A 1.0 struct types have encode/decode with camelCase map keys and nil-omission. Error returns use InvalidParamsError/UnsupportedOperationError structs (no exceptions cross module boundaries). Version.check_version/1 and Version.parse_content_type/1 gate HTTP protocol headers. Jason ~> 1.4 added as dependency; Makefile bootstraps Hex in the builder container for make test/lint/fmt-check.
+---
+author: oompah
+created: 2026-07-23 21:36
+---
+Implemented Exocomp.A2A.Codec (encode/decode for all A2A 1.0 types with camelCase keys, nil-omission, Part dispatch, TaskState mapping, InvalidParamsError/UnsupportedOperationError returns) and Exocomp.A2A.Version (supported_versions/0, check_version/1, parse_content_type/1). Added Jason ~>1.4 dep and updated Makefile to bootstrap Hex in builder container. 77 tests pass; make test && make lint && make fmt-check all green on EXOCOMP-49 branch.
+---
+author: oompah
+created: 2026-07-23 21:36
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 86
+- Tokens: 126 in / 4.1K out [4.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 9m 6s
+- Log: EXOCOMP-49__20260723T212733Z.jsonl
 ---
 <!-- COMMENTS:END -->
