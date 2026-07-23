@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: In Progress
+status: Open
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-11
 - EXOCOMP-35
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:chore
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T22:43:15.849354Z'
+updated_at: '2026-07-23T22:44:51.742251Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -107,5 +109,20 @@ author: oompah
 created: 2026-07-23 22:43
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:44
+---
+Duplicate screening complete — no duplicate found.
+
+Searched: .oompah/tasks (server-side only, no local files), plans/, docs/, README.md for 'benchmark', 'llama', 'llama.cpp', 'inference', 'restart'.
+
+Closest related items reviewed:
+- plans/milestone-5-performance.md: This is the DESIGN document for this task (milestone 5 performance benchmarking), not a separate task covering the same ground.
+- EXOCOMP-11, EXOCOMP-35: Listed as blockers (prerequisites), not duplicates — they cover different concerns.
+
+The 'Benchmark llama.cpp inference and restart behavior' scope (model startup, readiness, RSS, sequential proposal latency, concurrency through saturation, queue depth, timeout, invalid output, crash/restart on amd64/arm64) is unique in this project. No duplicate found.
+
+Handoff: Task needs chore implementation agent to implement the benchmark harness per plans/milestone-5-performance.md §Inference workloads.
 ---
 <!-- COMMENTS:END -->
