@@ -17,7 +17,7 @@ defmodule Exocomp.Node.MixProject do
 
   def application do
     [
-      extra_applications: [:logger, :inets],
+      extra_applications: [:logger, :inets, :crypto, :public_key, :ssl],
       mod: {Exocomp.Node.Application, []}
     ]
   end
@@ -25,7 +25,9 @@ defmodule Exocomp.Node.MixProject do
   defp deps do
     [
       {:exocomp_core, in_umbrella: true},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:bandit, "~> 1.0"},
+      {:plug, "~> 1.17"}
     ]
   end
 end
