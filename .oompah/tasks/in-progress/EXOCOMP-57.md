@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -10,13 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T20:51:56.615762Z'
+updated_at: '2026-07-23T20:52:11.275414Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 4d8c310d-ae3f-4f6f-a7fc-fb9a6a8b6f00
+oompah.agent_run_id: 423e4373-1cda-4706-95d0-4e07a363fcf8
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 667413
@@ -116,5 +116,15 @@ author: oompah
 created: 2026-07-23 20:51
 ---
 Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-9`. Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 20:52
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 20:52
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->

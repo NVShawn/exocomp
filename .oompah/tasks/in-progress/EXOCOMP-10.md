@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-10
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement Linux and systemd diagnostic collectors
 parent: EXOCOMP-1
@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T20:50:24.545207Z'
+updated_at: '2026-07-23T20:52:15.409592Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 40be80c4-999d-48b1-8956-874796f4d173
+oompah.agent_run_id: 8d9a5373-7113-48d5-b9d1-1a369da23dcd
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 383893
@@ -95,5 +95,15 @@ author: oompah
 created: 2026-07-23 20:43
 ---
 Agent completed without closing this issue (90s (386684 tokens)). Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 20:52
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 20:52
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
