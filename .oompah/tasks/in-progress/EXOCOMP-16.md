@@ -7,6 +7,7 @@ title: Implement coordinator CA initialization and enrollment tokens
 parent: EXOCOMP-2
 children:
 - EXOCOMP-75
+- EXOCOMP-76
 blocked_by:
 - EXOCOMP-9
 - EXOCOMP-14
@@ -14,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-23T23:01:08.175069Z'
+updated_at: '2026-07-23T23:01:19.349389Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
