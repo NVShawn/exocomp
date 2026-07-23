@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:08:41.959065Z'
+updated_at: '2026-07-23T21:08:44.360162Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -268,5 +268,10 @@ created: 2026-07-23 21:08
 - Fixture private keys committed intentionally (dev-only, no production exposure)
 
 All files committed on branch EXOCOMP-57, pushed to origin.
+---
+author: oompah
+created: 2026-07-23 21:08
+---
+Generated test fixture TLS certs (CA, node, wrong_san, expired, rogue) and JSON config fixtures. Added gen-test-fixtures Makefile target. All committed on branch EXOCOMP-57.
 ---
 <!-- COMMENTS:END -->
