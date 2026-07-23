@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T21:55:37.977649Z'
+updated_at: '2026-07-23T23:20:27.206286Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
