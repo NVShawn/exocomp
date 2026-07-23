@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T21:16:48.926465Z'
+updated_at: '2026-07-23T21:16:51.333186Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -285,5 +285,10 @@ Acceptance criteria met:
 
 Quality gates: make test ✅ make lint ✅ make fmt-check ✅
 Branch pushed: origin/EXOCOMP-10 (commit d9034c8)
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+Implemented Linux and systemd diagnostic collectors: Types, Uptime, Memory, CPU, Disk, and Systemd collector modules with 49 focused tests and 10 proc fixture files. All quality gates pass (52/52 tests, lint, fmt-check). Branch EXOCOMP-10 pushed.
 ---
 <!-- COMMENTS:END -->
