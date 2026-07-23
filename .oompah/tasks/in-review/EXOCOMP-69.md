@@ -11,14 +11,14 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:24:54.382303Z'
-work_branch: epic-EXOCOMP-4
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-23T21:24:59.131308Z'
+work_branch: EXOCOMP-69
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/2
+review_number: '2'
 merged_at: null
 oompah.agent_run_id: 35fb83c8-dbf7-4c39-96ce-869fe1ae86c7
-oompah.work_branch: epic-EXOCOMP-4
+oompah.work_branch: EXOCOMP-69
 oompah.task_costs:
   total_input_tokens: 456541
   total_output_tokens: 22578
@@ -41,6 +41,9 @@ oompah.task_costs:
     output_tokens: 19803
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:22:44.929228+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/2
+oompah.review_number: '2'
+oompah.target_branch: main
 ---
 ## Summary
 
