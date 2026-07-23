@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-39
 type: chore
-status: Open
+status: Merged
 priority: 2
 title: Run recovery and multi-hour soak benchmarks
 parent: EXOCOMP-5
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:21.493438Z'
-updated_at: '2026-07-23T19:17:26.580482Z'
+updated_at: '2026-07-23T23:30:00.628880Z'
 work_branch: null
 target_branch: null
 review_url: null
