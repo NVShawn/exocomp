@@ -7,10 +7,12 @@ title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:devops
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T20:52:11.275414Z'
+updated_at: '2026-07-23T21:03:24.497427Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -126,5 +128,37 @@ author: oompah
 created: 2026-07-23 20:52
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 21:03
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate found. EXOCOMP-57 is unique.
+
+**Evidence reviewed:**
+- Searched all tasks in oompah/state/proj-c260b117 for cert/fixture/TLS/openssl keywords
+- EXOCOMP-57 is a child of EXOCOMP-9 (epic: Implement node configuration, identity, and mTLS startup)
+- Closest candidates reviewed:
+  - EXOCOMP-59 (identity validation: cert chain, SAN, key permissions) — consumes these fixtures, does not create them
+  - EXOCOMP-60 (mTLS Bandit listener startup) — implementation that uses fixtures
+  - EXOCOMP-17 (node enrollment and certificate renewal) — production feature, not test infrastructure
+  - EXOCOMP-8 (A2A 1.0 shared protocol types and fixtures) — A2A protocol types, not TLS certs
+  - EXOCOMP-51 (Pin A2A 1.0 fixture files, protocol test suite) — A2A protocol, not TLS
+- None of these cover the same scope as EXOCOMP-57
+
+**Remaining work:**
+1. Write scripts/gen-test-certs.sh with openssl to generate: ca.crt, node.crt+key (SAN=DNS:exocomp-test-node), wrong_san.crt+key, expired.crt+key, rogue.crt+key — output to apps/exocomp_node/test/fixtures/certs/
+2. Create JSON config fixtures: config_valid.json, config_missing_fields.json, config_unknown_version.json, config_malformed.json
+3. Add gen-test-fixtures Make target with ## comment
+4. Do NOT add *.key to .gitignore (fixture private keys are dev-only, acceptable to commit for reproducible tests — document in script)
+5. Verify idempotency and SAN with openssl x509 -noout -ext subjectAltName
+
+**Key risks:**
+- Branch is epic-EXOCOMP-9; the apps/exocomp_node/ scaffold from EXOCOMP-7 needs to be merged into this branch first (or work done atop EXOCOMP-7 commits)
+- openssl must be available in the containerized build environment
+- git pull --rebase from EXOCOMP-7 needed before implementing
+
+**Recommended next focus:** devops — this is a build/test infrastructure task (shell scripts, Makefile target, JSON config files)
 ---
 <!-- COMMENTS:END -->
