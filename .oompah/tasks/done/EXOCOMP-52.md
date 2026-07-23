@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-52
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement versioned benchmark configuration schema and validation
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T21:21:36.804417Z'
+updated_at: '2026-07-23T21:22:12.092288Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -146,5 +146,17 @@ author: oompah
 created: 2026-07-23 21:21
 ---
 Verification: All tests pass. 21 bench tests + 4 in other apps = 25 total. Test coverage: (1) valid string/atom-key maps parse into Bench.Config struct, (2) missing required fields return {:error, {:missing_fields, _}}, (3) unknown fields return {:error, {:unknown_fields, _}}, (4) schema_version mismatch returns {:error, :incompatible_version}, (5) negative/zero numeric fields return {:error, {:invalid_field, _, :must_be_positive}}. Format check (mix format --check-formatted) passes. Driver tests updated to use real config maps via Config.parse/1.
+---
+author: oompah
+created: 2026-07-23 21:22
+---
+Completion: Implemented Bench.Config in apps/bench/lib/bench/config.ex with:
+- parse/1: accepts string or atom-keyed maps, validates schema version, required fields, unknown fields, type/range constraints
+- validate/1: validates a Bench.Config struct (or delegates to parse/1 for maps)
+- All 5 required test scenarios covered and passing (21 bench tests, 25 total)
+- Distinct error tuples: :incompatible_version, {:missing_fields, _}, {:unknown_fields, _}, {:invalid_field, field, reason}
+- Makefile updated: mix deps.get added, MIX_HOME/HEX_HOME set for container builds
+- mix.lock generated with jason 1.4.5 and nimble_options 1.1.1
+- Branch EXOCOMP-52 pushed to origin
 ---
 <!-- COMMENTS:END -->
