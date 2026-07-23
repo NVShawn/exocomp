@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-23T21:44:20.599910Z'
+updated_at: '2026-07-23T21:50:15.462449Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -175,5 +175,10 @@ author: oompah
 created: 2026-07-23 21:44
 ---
 Understanding & Plan: This task adds A2A 1.0 fixture JSON files and 4 ExUnit test modules. EXOCOMP-49 (codec + version handling) is merged into the EXOCOMP-51 branch. Work plan: (1) create 10 fixture JSON files in apps/exocomp_core/test/fixtures/a2a/, (2) implement FixtureTest with round-trip tests, (3) implement InvalidPayloadTest for error handling, (4) implement VersionNegotiationTest, (5) implement MediaTypeTest. Note: Version.parse_content_type needs updating to strip params from content-type before matching (for 'application/a2a+json; charset=utf-8' test case). Will run make test + make lint + make fmt-check before committing.
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Verification: make test (103 tests, all green), make lint (no warnings), make fmt-check (clean). Test breakdown: 10 fixture round-trips in FixtureTest, 5 invalid payload cases in InvalidPayloadTest, 5 version negotiation cases in VersionNegotiationTest, 5 media type cases in MediaTypeTest. All EXOCOMP-8 acceptance criteria covered.
 ---
 <!-- COMMENTS:END -->
