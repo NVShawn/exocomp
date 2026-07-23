@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:45:26.148418Z'
+updated_at: '2026-07-23T21:45:58.765924Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -198,5 +198,26 @@ Implementation complete. Changes:
 - Makefile: Adds test-deps, inspect-deps-amd64, inspect-deps-arm64 targets.
 
 All 8 tests pass. make test-builders passes.
+---
+author: oompah
+created: 2026-07-23 21:45
+---
+Verification: All 8 runtime dependency inspection tests pass.
+
+make test-builders output:
+- 8/8 tests passed including:
+  * valid amd64/arm64 release accepted
+  * release with injected undeclared dep (libsomething_undeclared.so.99) correctly rejected
+  * missing ERTS directory rejected with exit code 2
+  * unsupported architecture (riscv64) rejected
+  * missing baseline file rejected
+  * dep-report.json produced on both pass and fail
+- static validation: baseline file has libc.so.6 and libm.so.6
+- inspection script present and executable
+- docs/runtime-dependencies.md present with glibc and inspect-release-deps.sh references
+
+make test-deps: 8/8 pass
+
+Committed on epic-EXOCOMP-42 and pushed to origin.
 ---
 <!-- COMMENTS:END -->
