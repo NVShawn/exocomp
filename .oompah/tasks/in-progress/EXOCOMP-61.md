@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:20:48.133083Z'
+updated_at: '2026-07-23T21:21:13.342402Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -185,5 +185,10 @@ author: oompah
 created: 2026-07-23 21:20
 ---
 Verification: make lint passed (mix format --check-formatted + compile with --warnings-as-errors). make test passed: 27 tests total — 25 new ProposalSchema tests + 2 existing application tests, all passing. Releases built and smoke-tested successfully.
+---
+author: oompah
+created: 2026-07-23 21:21
+---
+Completion: Delivered Exocomp.Node.ProposalSchema in apps/exocomp_node/lib/exocomp/node/proposal_schema.ex. Schema version '1', four closed proposal IDs, five required fields, validate/1 with all four error variants. 25 unit tests cover all acceptance criteria. make lint and make test both pass (27 tests total green). Also fixed rootless Docker --user flag issue in Makefile. Branch EXOCOMP-61 pushed to origin.
 ---
 <!-- COMMENTS:END -->
