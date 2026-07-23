@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-59
 type: task
-status: In Progress
+status: Archived
 priority: null
 title: 'Implement identity validation: cert chain, SAN, and key permissions (Exocomp.Node.Identity)'
 parent: EXOCOMP-9
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:32.320903Z'
-updated_at: '2026-07-23T22:45:44.501365Z'
+updated_at: '2026-07-23T22:47:52.545168Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -106,5 +106,18 @@ author: oompah
 created: 2026-07-23 22:45
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Duplicate screening result: EXOCOMP-59 implementation was absorbed by EXOCOMP-60.
+
+**Evidence:**
+- EXOCOMP-60 ('Implement mTLS Bandit listener startup with fail-closed identity gate') is marked Done.
+- EXOCOMP-60 agent comment #10 explicitly states: 'apps/exocomp_node/lib/exocomp/node/identity.ex: Exocomp.Node.Identity with key-permission, chain, and SAN validation using :public_key BEAM built-ins' and 'apps/exocomp_node/test/exocomp/node/identity_test.exs: 9 tests covering key perms, chain, SAN, redaction'.
+- EXOCOMP-60 agent comment #12 explicitly acknowledges: 'Delivered Exocomp.Node.Listener (EXOCOMP-60) plus Exocomp.Node.Identity (EXOCOMP-59 spec, not yet claimed) as dependencies.'
+- Confirmed via git: origin/EXOCOMP-60 contains a complete apps/exocomp_node/lib/exocomp/node/identity.ex and apps/exocomp_node/test/exocomp/node/identity_test.exs covering all EXOCOMP-59 requirements (key permissions 0o600/0o640/0o644, rogue CA, expired cert, wrong SAN, valid chain, redaction).
+
+**Conclusion:** All EXOCOMP-59 deliverables have been implemented on branch EXOCOMP-60. No separate implementation work is needed. Archiving this task as absorbed by EXOCOMP-60.
 ---
 <!-- COMMENTS:END -->
