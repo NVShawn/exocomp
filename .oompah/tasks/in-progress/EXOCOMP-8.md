@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:33:45.696785Z'
+updated_at: '2026-07-23T20:35:34.527647Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-07-23 20:33
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-23 20:35
+---
+Understanding (Epic Planner): EXOCOMP-8 implements A2A 1.0 shared protocol types and test fixtures in the Elixir umbrella scaffolded by EXOCOMP-7. The scaffold (origin/EXOCOMP-7) provides apps/exocomp_core with a stub Exocomp.Protocol module (version string only) and a single test. The full scope requires: (1) struct definitions for all A2A 1.0 types (AgentCard, Message, Task, Part variants, Artifact, task states, standard errors); (2) JSON encode/decode codecs with required-field validation returning proper A2A error types, plus A2A-Version header negotiation and media-type handling; (3) official fixture files pinned as test data and a comprehensive ExUnit suite covering round-trips, invalid payloads, missing required fields, media-type checks, and version negotiation. Plan: decompose into 3 child tasks with explicit dependencies, then set status to Backlog.
 ---
 <!-- COMMENTS:END -->
