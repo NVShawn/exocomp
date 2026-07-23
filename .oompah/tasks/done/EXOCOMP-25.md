@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:47:19.139094Z'
+updated_at: '2026-07-23T22:47:29.866627Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 37a456ec-a794-4780-a630-b771588aab73
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 79
-  total_output_tokens: 2395
+  total_input_tokens: 172
+  total_output_tokens: 60615
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 79
-      output_tokens: 2395
+      input_tokens: 172
+      output_tokens: 60615
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 592
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:23:26.603314+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 93
+    output_tokens: 58220
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T22:47:27.835633+00:00'
 ---
 ## Summary
 
@@ -289,5 +295,20 @@ author: oompah
 created: 2026-07-23 22:47
 ---
 Implemented unprivileged systemd executor and exact sudoers policy: ActionCatalog (strict regex validation + allow-list), Executor (no-shell argv, fixed env, timeout, output limit, per-target lock, post-action verifier), ExecutorLock GenServer, SudoersPolicy (exact NOPASSWD entries, no wildcards, deterministic), Privilege (EUID check), OsCommander behaviour + SystemCommander. 121 new focused tests covering all security scenarios. All make targets pass.
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Agent completed successfully in 1112s (58313 tokens)
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 155, Tool calls: 111
+- Tokens: 93 in / 58.2K out [58.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 18m 32s
+- Log: EXOCOMP-25__20260723T222859Z.jsonl
 ---
 <!-- COMMENTS:END -->

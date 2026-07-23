@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -12,12 +12,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T19:17:29.411916Z'
-work_branch: null
+updated_at: '2026-07-23T22:47:40.518177Z'
+work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 589411ab-72b1-4625-b50a-81164d065314
+oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -48,3 +50,16 @@ Run the focused release/documentation tests and all repository Make targets affe
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 22:47
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

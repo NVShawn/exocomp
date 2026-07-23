@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-21
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-23T22:35:18.836556Z'
+updated_at: '2026-07-23T22:47:37.893191Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: fdfe8db6-7c28-494d-b526-659908c22fda
+oompah.agent_run_id: 39dc6ceb-c47b-45d4-96f0-493c1a9a4288
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 2629627
@@ -290,5 +289,15 @@ author: oompah
 created: 2026-07-23 22:35
 ---
 Resolved erroneous Needs Human escalation: duplicate screen is complete and the task is requeued for feature implementation.
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
