@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-23T23:33:12.180437Z'
+updated_at: '2026-07-23T23:35:08.717928Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -147,5 +147,26 @@ Plan:
 10. Verify network-disabled install path
 
 Key inputs from upstream tasks: OTP archives (EXOCOMP-42/66), llama-server binary (EXOCOMP-40), Qwen GGUF model, systemd/install assets (EXOCOMP-43), licenses (EXOCOMP-41).
+---
+author: oompah
+created: 2026-07-23 23:35
+---
+Discovery: Explored full codebase and upstream branch outputs.
+
+Key findings:
+- Current HEAD is epic-EXOCOMP-6 (main branch). EXOCOMP-44 branch created fresh from here.
+- EXOCOMP-41 branch: provides licenses/components.toml and scripts/check_compliance.py (governance gate)
+- EXOCOMP-42 branch: provides release/builders.lock (pinned digests), scripts/build-releases.sh, release/runtime-baseline.lock. OTP releases built to _build/release/{arch}/rel/{release}.
+- EXOCOMP-43 (merged to main): scripts/install.sh, scripts/uninstall.sh, release/{node,coordinator}/*.service, release/templates/*.json
+- No bundle assembly, SBOM, provenance, or signature tooling exists yet.
+
+Implementation plan:
+1. scripts/assemble-bundle.sh — assembles complete and runtime-only bundles from OTP archives, llama-server binary, GGUF model, systemd/install assets, licenses, manifest; parameterized by arch and bundle-kind
+2. scripts/verify-bundle.sh — verifies SHA-256 manifest of every nested file; validates SBOM/provenance references; fails on tamper; ships inside the bundle
+3. scripts/generate-sbom.sh — generates SPDX 2.3 JSON SBOM from bundle contents and components.toml
+4. scripts/generate-provenance.sh — generates SLSA-conformant provenance (source commit, builder image digest, toolchain, deps)
+5. scripts/sign-bundle.sh — signs bundle manifest (minisign or GPG; graceful no-op when key not available)
+6. Makefile targets: bundle-amd64, bundle-arm64, bundle-runtime-amd64, bundle-runtime-arm64, verify-bundle
+7. tests/test_bundle.py — unit tests: assembly with mock artifacts, tamper detection, SBOM/provenance structure, manifest coverage
 ---
 <!-- COMMENTS:END -->
