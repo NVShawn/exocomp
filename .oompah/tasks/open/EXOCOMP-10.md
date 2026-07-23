@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-10
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement Linux and systemd diagnostic collectors
 parent: EXOCOMP-1
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T20:43:08.924415Z'
+updated_at: '2026-07-23T20:50:24.545207Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
