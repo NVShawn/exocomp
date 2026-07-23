@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-70
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Create systemd unit file and fixture installer/cleanup scripts
 parent: EXOCOMP-29
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:32:16.005912Z'
+updated_at: '2026-07-23T21:32:48.665764Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -230,5 +230,19 @@ Makefile targets confirmed visible in make help:
 - fixture-cleanup: Remove the exocomp-fixture systemd service (requires root; idempotent, no-op if not installed)
 
 Note: systemd integration testing (actual install/cleanup execution) requires a VM or privileged container as documented — cannot be run in the current environment.
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Completion: All EXOCOMP-70 deliverables implemented and pushed to branch EXOCOMP-70.
+
+Delivered:
+- test/fixtures/exocomp_fixture/exocomp-fixture.service — systemd unit with health probe, restart policy (Restart=on-failure, StartLimitBurst=3), RuntimeDirectory=exocomp-fixture, WorkingDirectory, and FIXTURE_STATE_DIR environment variable
+- test/fixtures/exocomp_fixture/install.sh — idempotent installer requiring root; copies binary+unit, daemon-reload, enable, start/restart; validates inputs; non-interactive
+- test/fixtures/exocomp_fixture/cleanup.sh — idempotent cleanup requiring root; stops/disables/removes only fixture resources; no-op on clean system; non-interactive
+- test/fixtures/exocomp_fixture/README.md — updated with VM/privileged-container requirement note and pointer to docs/testing-systemd-fixture.md
+- Makefile — added fixture-install and fixture-cleanup targets (referenced in docs but previously missing)
+
+Verification: bash -n syntax checks pass; 22 existing fixture tests pass (make test-fixture-service).
 ---
 <!-- COMMENTS:END -->

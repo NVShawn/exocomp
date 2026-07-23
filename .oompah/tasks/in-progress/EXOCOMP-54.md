@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -10,12 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T20:46:47.755703Z'
+updated_at: '2026-07-23T21:32:47.870740Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 3077e40f-2e40-4830-9041-08aa717580aa
 ---
 ## Summary
 
