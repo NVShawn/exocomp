@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: Open
+status: In Progress
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-23T19:17:27.958755Z'
-work_branch: null
+updated_at: '2026-07-23T19:20:13.259137Z'
+work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: efa21bbc-f29f-4ed0-bc97-1b626c78bd3f
+oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -45,3 +47,16 @@ Run the focused release/documentation tests and all repository Make targets affe
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 19:20
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 19:20
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
