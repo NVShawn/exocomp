@@ -13,9 +13,10 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-23T20:36:52.190828Z'
+updated_at: '2026-07-23T20:37:12.177627Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -161,5 +162,33 @@ author: oompah
 created: 2026-07-23 20:35
 ---
 Understanding (Epic Planner): EXOCOMP-8 implements A2A 1.0 shared protocol types and test fixtures in the Elixir umbrella scaffolded by EXOCOMP-7. The scaffold (origin/EXOCOMP-7) provides apps/exocomp_core with a stub Exocomp.Protocol module (version string only) and a single test. The full scope requires: (1) struct definitions for all A2A 1.0 types (AgentCard, Message, Task, Part variants, Artifact, task states, standard errors); (2) JSON encode/decode codecs with required-field validation returning proper A2A error types, plus A2A-Version header negotiation and media-type handling; (3) official fixture files pinned as test data and a comprehensive ExUnit suite covering round-trips, invalid payloads, missing required fields, media-type checks, and version negotiation. Plan: decompose into 3 child tasks with explicit dependencies, then set status to Backlog.
+---
+author: oompah
+created: 2026-07-23 20:37
+---
+Focus handoff: epic_planner
+
+**Outcome:** EXOCOMP-8 decomposed into 3 actionable child tasks covering the full scope of A2A 1.0 shared protocol types and fixtures.
+
+**Child tasks created:**
+- EXOCOMP-48: Define A2A 1.0 protocol type structs and task-state enum — all defstruct modules for AgentCard, Message, Task, Part variants, Artifact, TaskState enum, and standard error types in apps/exocomp_core/lib/exocomp/a2a/
+- EXOCOMP-49: Implement A2A 1.0 JSON codecs, error mapping, and version handling — Exocomp.A2A.Codec (encode/decode with required-field validation) and Exocomp.A2A.Version (A2A-Version header check, media-type check); depends on EXOCOMP-48
+- EXOCOMP-51: Pin A2A 1.0 fixture files and add comprehensive protocol test suite — vendor fixture JSON files, round-trip tests, invalid payload tests, required-field tests, version negotiation tests, media-type tests; depends on EXOCOMP-49
+
+**Dependency chain:** EXOCOMP-48 → EXOCOMP-49 → EXOCOMP-51
+
+**Relevant files:**
+- apps/exocomp_core/lib/exocomp/protocol.ex — existing stub (version string only)
+- apps/exocomp_core/test/exocomp/protocol_test.exs — existing single test
+- apps/exocomp_core/mix.exs — will need Jason added as dependency
+- Makefile — quality gate targets: make test, make lint, make fmt-check
+- plans/milestone-1-node-agent.md — A2A Interface section (lines 128–145), test strategy (lines ~162–175), acceptance criteria
+
+**Risks:**
+- Jason (Elixir JSON library) needs to be added to exocomp_core deps in mix.exs; make sure it is also available from the container build
+- The official A2A 1.0 schema/fixture source is the A2A GitHub repository (https://github.com/google-a2a/A2A/tree/main/samples); fixtures should be derived from spec examples, not auto-generated
+- EXOCOMP-12 (node A2A service) depends on these types; that task should not start until EXOCOMP-51 is Done
+
+**Recommended next focus:** feature — begin with EXOCOMP-48 (struct definitions, the unblocked starting point)
 ---
 <!-- COMMENTS:END -->
