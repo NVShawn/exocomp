@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-23T21:50:28.711961Z'
+updated_at: '2026-07-23T21:50:31.410488Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -185,5 +185,10 @@ author: oompah
 created: 2026-07-23 21:50
 ---
 Completion: Delivered on branch EXOCOMP-51 (built on top of EXOCOMP-49). Added 10 A2A 1.0 fixture JSON files (agent_card_minimal, agent_card_full, message_user_text, message_agent_data, task_submitted, task_completed_with_artifact, task_failed, artifact_text, error_invalid_request, error_task_not_found) and 4 ExUnit test modules (FixtureTest, InvalidPayloadTest, VersionNegotiationTest, MediaTypeTest). Also patched Version.parse_content_type/1 to strip media-type parameters, added /.mix/ to .gitignore. All 103 tests pass, no lint or format issues.
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Added 10 A2A 1.0 fixture JSON files and 4 ExUnit test modules (FixtureTest, InvalidPayloadTest, VersionNegotiationTest, MediaTypeTest) covering all EXOCOMP-8 acceptance criteria. Updated parse_content_type to strip media-type params. All 103 tests pass.
 ---
 <!-- COMMENTS:END -->

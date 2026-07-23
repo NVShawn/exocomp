@@ -13,13 +13,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T21:50:27.964370Z'
+updated_at: '2026-07-23T21:50:33.568510Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: d6bd9df9-6091-4e2f-b22f-11fa03b21430
+oompah.agent_run_id: d3370445-88dd-4a54-bbef-24d5fe69c7b3
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
   total_input_tokens: 403258
@@ -162,5 +162,15 @@ author: oompah
 created: 2026-07-23 21:50
 ---
 Agent completed without closing this issue (72s (405238 tokens)). Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:50
+---
+Focus: Refactoring Specialist
 ---
 <!-- COMMENTS:END -->
