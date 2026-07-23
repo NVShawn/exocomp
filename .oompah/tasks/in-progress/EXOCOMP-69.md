@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:16:00.382636Z'
+updated_at: '2026-07-23T21:17:56.096308Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -120,5 +120,10 @@ author: oompah
 created: 2026-07-23 21:16
 ---
 Understanding: Implementing the exocomp-fixture daemon script at test/fixtures/exocomp_fixture/bin/exocomp-fixture. This is a Python-based long-lived service that: (1) serves a health HTTP endpoint on a configurable localhost port returning JSON status, (2) maintains a workload marker file, (3) accepts file-based control triggers to switch between modes: active/healthy, degraded (process alive but health bad), failed (exits nonzero), flapping (rapid restarts), restart-failure (immediate exit to exhaust StartLimitBurst). Will also add focused tests. Reading plan files first to align with design.
+---
+author: oompah
+created: 2026-07-23 21:17
+---
+Discovery: The project is an Elixir umbrella app under apps/. The fixture service is a new, standalone artifact outside the Elixir build: a Python daemon at test/fixtures/exocomp_fixture/bin/exocomp-fixture. The plans/milestone-4-service-recovery.md confirms the 5 required modes (active, degraded, failed, flapping, restart-failure). No fixture-design.md exists yet on this branch. Will implement: (1) Python daemon with stdlib http.server, file-based mode control, workload marker, SIGTERM handling; (2) Python unittest tests exercising all modes via subprocess. The state dir defaults to /run/exocomp-fixture and is configurable via env var or CLI flag.
 ---
 <!-- COMMENTS:END -->
