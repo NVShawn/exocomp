@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-21
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Define action, evidence, risk, and data-classification types
 parent: EXOCOMP-3
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T19:17:11.739176Z'
-work_branch: null
+updated_at: '2026-07-23T21:51:34.624410Z'
+work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 24c869e4-eddc-4f1e-ad81-4f36d5feef3b
+oompah.work_branch: epic-EXOCOMP-3
 ---
 ## Summary
 
@@ -46,3 +48,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:51
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:51
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
