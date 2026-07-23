@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T21:22:14.591564Z'
+updated_at: '2026-07-23T21:22:25.947056Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 5185ffea-c461-4aca-bce4-a82b87eed8eb
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 34
-  total_output_tokens: 4894
+  total_input_tokens: 116
+  total_output_tokens: 56788
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 34
-      output_tokens: 4894
+      input_tokens: 116
+      output_tokens: 56788
       cost_usd: 0.0
   runs:
   - profile: default
@@ -35,6 +35,12 @@ oompah.task_costs:
     output_tokens: 4894
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:04:24.958553+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 82
+    output_tokens: 51894
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:22:24.001713+00:00'
 ---
 ## Summary
 
@@ -163,5 +169,20 @@ author: oompah
 created: 2026-07-23 21:22
 ---
 Implemented Bench.Config with parse/1 and validate/1, strict schema validation, 5 required test scenarios all passing (21 bench tests). Branch EXOCOMP-52 pushed.
+---
+author: oompah
+created: 2026-07-23 21:22
+---
+Agent completed successfully in 1007s (51976 tokens)
+---
+author: oompah
+created: 2026-07-23 21:22
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 167, Tool calls: 99
+- Tokens: 82 in / 51.9K out [52.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 16m 47s
+- Log: EXOCOMP-52__20260723T210541Z.jsonl
 ---
 <!-- COMMENTS:END -->

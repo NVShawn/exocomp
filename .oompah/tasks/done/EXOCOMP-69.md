@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-69
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Create crashable fixture service script with health endpoint and state controls
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:20:56.591216Z'
+updated_at: '2026-07-23T21:22:33.388710Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -144,5 +144,15 @@ author: oompah
 created: 2026-07-23 21:20
 ---
 Verification: 22/22 Python unit tests pass (8.3s). Tests cover: active mode health returns ok, degraded mode health returns degraded while process stays alive (key acceptance criterion), exit-mode startup (failed/flapping/restart-failure all exit immediately with code 1), runtime mode transitions (active→degraded→active, active→failed), workload marker creation and cleanup, SIGTERM clean shutdown (exit 0), HTTP contract (correct status codes and 404 for unknown paths), CLI flags and env vars. Ran via: python3 -m pytest test/fixtures/exocomp_fixture/test/test_fixture.py -v
+---
+author: oompah
+created: 2026-07-23 21:22
+---
+Completion: Delivered test/fixtures/exocomp_fixture/bin/exocomp-fixture — a Python 3 daemon (no third-party deps) with:
+- HTTP /health endpoint (127.0.0.1:8877, configurable) returning {"status":"ok"}|{"status":"degraded"}
+- Atomic workload marker file updated each poll cycle, removed on shutdown
+- File-based mode control: active, degraded (process stays alive, health unhealthy), failed/flapping/restart-failure (exit code 1)
+- SIGTERM/SIGINT graceful shutdown
+Also delivered: 22-test Python test suite (all pass, 8.3s), README, and Makefile target test-fixture-service. Branch EXOCOMP-69 pushed. Prerequisite for EXOCOMP-70 and EXOCOMP-71.
 ---
 <!-- COMMENTS:END -->
