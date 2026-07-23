@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T21:15:57.949903Z'
+updated_at: '2026-07-23T21:16:09.214405Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -244,5 +244,27 @@ Key decisions:
 - timeout_ms configurable on both disk and systemd collectors for testing
 
 Quality gates passed — see Verification comment.
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+**Verification:** All quality gates pass on branch EXOCOMP-10:
+
+- make test: 52 tests, 0 failures (52 passed)
+  - exocomp_core: 2 passed
+  - exocomp_coordinator: 1 passed
+  - exocomp_node: 49 passed (all collector tests)
+  - Release smoke test: both node and coordinator releases start with bundled ERTS
+
+- make lint: 0 warnings-as-errors, format check passed
+
+- make fmt-check: all files formatted correctly
+
+Test coverage per collector:
+- Uptime: valid parse, malformed, unavailable (missing file), output_limit (>256B), ISO 8601 timestamp
+- Memory: valid values (kB×1024), partial field malformed, missing fields, unavailable, output_limit
+- CPU: valid tick values, malformed stat, no aggregate line, no model name, missing files, partial independence, oversized stat
+- Disk: valid values, multiple mount points, non-zero exit, malformed output (no data, bad columns), oversized output, timeout, partial independence
+- Systemd: empty allow-list, service key naming (dots/hyphens), all active states, hyphens in name, partial independence, timeout, non-zero exit, empty output, oversized output, allow-list security (no cmd_runner calls with empty list), argv inspection (no shell metacharacters)
 ---
 <!-- COMMENTS:END -->

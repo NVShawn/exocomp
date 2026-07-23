@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-23T21:14:33.540940Z'
+updated_at: '2026-07-23T21:16:20.458705Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -170,5 +170,10 @@ author: oompah
 created: 2026-07-23 21:14
 ---
 Understanding: Implementing ExocompNode.ProposalSchema module. Plan: (1) Create apps/exocomp_node/lib/exocomp_node/proposal_schema.ex with @schema_version, @valid_proposal_ids, required fields, and validate/1 with all error variants. (2) Create full unit test coverage in apps/exocomp_node/test/exocomp_node/proposal_schema_test.exs. (3) Run make test and make lint to verify quality gates pass.
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+Discovery: EXOCOMP-7 umbrella scaffold exists on its branch with module convention Exocomp.Node.* (not ExocompNode.*). Created EXOCOMP-61 branch from EXOCOMP-7. Will create: apps/exocomp_node/lib/exocomp/node/proposal_schema.ex (module Exocomp.Node.ProposalSchema) and matching test at apps/exocomp_node/test/exocomp/node/proposal_schema_test.exs. The Makefile uses Docker for make test/lint.
 ---
 <!-- COMMENTS:END -->

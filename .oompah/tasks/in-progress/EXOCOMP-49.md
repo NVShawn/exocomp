@@ -11,13 +11,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-23T21:16:05.978527Z'
+updated_at: '2026-07-23T21:16:25.467068Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 2e1553fb-f45e-4b2b-902a-821ae4bc2631
+oompah.agent_run_id: e274acf6-7bb7-4a8a-8d60-d93c60374b59
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 369357
@@ -110,5 +110,20 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 14s
 - Log: EXOCOMP-49__20260723T211452Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+Agent completed without closing this issue (74s (371711 tokens)). Escalating from 'default' to 'standard'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-23 21:16
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
