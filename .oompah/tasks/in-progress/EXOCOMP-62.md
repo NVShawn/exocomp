@@ -10,9 +10,10 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:23:04.569037Z'
+updated_at: '2026-07-23T21:23:28.591287Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -97,5 +98,53 @@ Tasks reviewed:
 - Sibling milestone tasks EXOCOMP-21, EXOCOMP-27, EXOCOMP-31, EXOCOMP-52: different milestones/domains
 
 Evidence: EXOCOMP-11 comment #13 (Epic Planner handoff) explicitly created EXOCOMP-62 for 'Implement LlamaServer OTP process supervisor'. No other task in the system defines Exocomp.Node.LlamaServer, the status/0 API, base_url/0 API, or llama-server OS process lifecycle management.
+---
+author: oompah
+created: 2026-07-23 21:23
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-62 is unique — it implements the OS-process lifecycle manager for llama-server that no other task covers.
+
+**Evidence:**
+- EXOCOMP-11 Epic Planner explicitly created EXOCOMP-62 as a distinct child for the LlamaServer OTP supervisor (comment #13)
+- EXOCOMP-61 (Done): proposal schema module — no process management
+- EXOCOMP-63 (Open): ProposalClient — consumes LlamaServer.base_url/0 but does NOT implement the supervisor
+- EXOCOMP-64 (Open): tests only — depends on this task
+- All other M1 tasks (EXOCOMP-7 through EXOCOMP-13) cover different scope: umbrella scaffold, A2A types, identity/TLS, diagnostics, A2A service, verification
+- No existing file Exocomp.Node.LlamaServer exists in the codebase
+
+**Relevant files:**
+- plans/milestone-1-node-agent.md (Inference Integration section) — defines the design
+- apps/exocomp_node/lib/exocomp/node/ — target directory for implementation (EXOCOMP-61 established the module convention Exocomp.Node.*)
+- Target file: apps/exocomp_node/lib/exocomp/node/llama_server.ex
+
+**Key implementation notes from EXOCOMP-11 history:**
+- Module convention is Exocomp.Node.* (not ExocompNode.*)
+- Makefile uses Docker for make test/lint (rootless Docker --user flag issue was fixed in EXOCOMP-61)
+- EXOCOMP-61 already merged its branch with the umbrella scaffold; build should work
+- Test files go in apps/exocomp_node/test/exocomp/node/
+
+**Remaining work:**
+1. Implement Exocomp.Node.LlamaServer GenServer (or Supervisor+GenServer pair) in apps/exocomp_node/lib/exocomp/node/llama_server.ex:
+   - Spawn llama-server with --host 127.0.0.1 and configurable port
+   - Poll GET /health every 500ms until ready (max configurable timeout, default 30s) or enter :degraded
+   - Expose status/0 → :ready | :starting | :degraded | :stopped
+   - Expose base_url/0 → {:ok, url} | {:error, :not_ready}
+   - Exponential backoff on process exit (base 1s, max 60s, jitter); track restart count
+   - Must be under :one_for_one supervisor for crash isolation
+   - Config keys: :llama_server_path, :llama_model_path, :llama_port, :llama_host, :llama_ready_timeout_ms, :llama_max_restart_backoff_ms
+2. Write smoke tests in apps/exocomp_node/test/exocomp/node/llama_server_test.exs:
+   - Starts without error under test supervisor
+   - status/0 returns :starting before readiness
+   - Nonexistent binary path → :degraded without crashing test process
+3. Run make test and make lint
+
+**Risks:**
+- Port management in tests: use a random high port to avoid conflicts
+- Rebase on the EXOCOMP-61 branch (already merged to epic-EXOCOMP-1 per task history) to get the latest scaffold
+- The :sys.get_state approach may not work across supervisor restarts; design state observation carefully
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->
