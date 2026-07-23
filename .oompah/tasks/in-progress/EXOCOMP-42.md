@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-23T21:57:23.004335Z'
+updated_at: '2026-07-23T21:58:55.923997Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
