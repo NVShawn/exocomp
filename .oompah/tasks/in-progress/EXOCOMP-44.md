@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-44
 type: chore
-status: Open
+status: In Progress
 priority: 2
 title: Assemble signed offline bundles, SBOMs, and provenance
 parent: EXOCOMP-6
@@ -12,12 +12,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-23T19:17:30.118661Z'
-work_branch: null
+updated_at: '2026-07-23T23:31:05.493539Z'
+work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 3710aa5e-b66f-435b-9f78-bfb331f7546c
+oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -48,3 +50,16 @@ Run the focused release/documentation tests and all repository Make targets affe
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 23:31
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 23:31
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
