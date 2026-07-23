@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:30:15.948133Z'
+updated_at: '2026-07-23T21:31:56.155420Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -159,5 +159,21 @@ Plan:
 4. Create test/fixtures/exocomp_fixture/cleanup.sh (idempotent, stop/disable/remove only fixture resources, no-op on clean system)
 5. Update README.md with VM/privileged-container requirement note
 6. Add Makefile targets fixture-install and fixture-cleanup
+---
+author: oompah
+created: 2026-07-23 21:31
+---
+Discovery: Reviewed existing codebase state.
+
+Key findings:
+- bin/exocomp-fixture listens on 127.0.0.1:8877/health, uses /run/exocomp-fixture as state dir (via FIXTURE_STATE_DIR env var)
+- docs/testing-systemd-fixture.md references make fixture-install and fixture-cleanup targets that do not yet exist in the Makefile
+- README.md existed but had no VM/privileged-container note
+- The docs use 'exocomp_fixture' (underscore) in some places, but the actual binary and task spec use 'exocomp-fixture' (dash) — following the task spec and binary naming
+
+Files to create:
+1. exocomp-fixture.service — health probe via ExecStartPost (curl loop with 5s timeout), RuntimeDirectory=exocomp-fixture, Restart=on-failure, StartLimitBurst=3
+2. install.sh — copies binary + unit, daemon-reload, enable, start/restart; requires root
+3. cleanup.sh — stops/disables/removes only fixture resources; no-op on clean system
 ---
 <!-- COMMENTS:END -->
