@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-25
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement unprivileged systemd executor and exact sudoers policy
 parent: EXOCOMP-3
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:47:00.023568Z'
+updated_at: '2026-07-23T22:47:16.684347Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -258,5 +258,31 @@ Acceptance criteria status:
 - No request/model field becomes shell syntax or arbitrary argv: argv built from catalog only; regex rejects metacharacters before allow-list; tested
 - Privilege policy is minimal and deterministic: SudoersPolicy generates exact NOPASSWD entries per-service, no wildcards; snapshot tested
 - Focused executor tests pass: 121 new tests in exocomp_node, all passing
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Completion: EXOCOMP-25 delivered.
+
+Files created (apps/exocomp_node/):
+- lib/exocomp/node/privilege.ex — EUID != 0 startup check
+- lib/exocomp/node/os_commander.ex — OsCommander behaviour + SystemCommander
+- lib/exocomp/node/action_catalog.ex — Fixed typed action catalog with strict regex validation
+- lib/exocomp/node/executor_lock.ex — Per-target serialization GenServer
+- lib/exocomp/node/executor.ex — Restricted executor with all security invariants
+- lib/exocomp/node/sudoers_policy.ex — Exact sudoers policy generator
+- test/support/mock_commander.ex — Injectable test double for OS commands
+- test/exocomp/node/{action_catalog,executor,executor_lock,sudoers_policy,privilege}_test.exs — 121 focused tests
+
+Key security properties enforced:
+1. Service names validated by strict regex before any subprocess — no shell metacharacters reachable
+2. Allow-list checked before action definition returned — request fields never become service names
+3. argv built from catalog only — no caller string ever appears in subprocess argv
+4. Fixed environment per action — no caller-supplied env vars
+5. Output capped at 64KB; timeout enforced with Task.yield + brutal kill
+6. Sudoers entries name exact executable + exact args — no wildcards
+7. Per-target serialization via GenServer lock — no concurrent restarts of same service
+8. Post-action verification always invoked after exit 0
+9. EUID check at startup — RuntimeError if running as root
 ---
 <!-- COMMENTS:END -->
