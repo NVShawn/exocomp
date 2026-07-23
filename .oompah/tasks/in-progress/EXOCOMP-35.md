@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-23T20:24:32.156232Z'
+updated_at: '2026-07-23T20:24:44.868215Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -60,5 +60,10 @@ author: oompah
 created: 2026-07-23 20:24
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-23 20:24
+---
+Understanding (Duplicate Investigator): I am screening EXOCOMP-35 ('Build the reproducible benchmark harness') for duplicates before any implementation begins. The issue asks for: versioned benchmark definitions, pinned host profiles, warm-up/run/repetition controls, process/cgroup attribution, BEAM and host sampling, raw sample schema, summary generation, baseline comparison, and Make targets. I will now search the task tracker and project docs for any existing tasks covering the same ground.
 ---
 <!-- COMMENTS:END -->
