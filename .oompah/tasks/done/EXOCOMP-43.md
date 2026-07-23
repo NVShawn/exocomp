@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-23T23:30:49.244268Z'
+updated_at: '2026-07-23T23:30:58.688265Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: ad8668c7-1873-4097-a88d-7fd6c493decd
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 3081672
-  total_output_tokens: 77666
+  total_input_tokens: 3081680
+  total_output_tokens: 80869
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 3081672
-      output_tokens: 77666
+      input_tokens: 3081680
+      output_tokens: 80869
       cost_usd: 0.0
   runs:
   - profile: default
@@ -67,6 +67,12 @@ oompah.task_costs:
     output_tokens: 3245
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:25:17.828670+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 8
+    output_tokens: 3203
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T23:30:56.455225+00:00'
 ---
 ## Summary
 
@@ -447,5 +453,25 @@ All acceptance criteria met:
 ✓ Only exact privilege rules are installed (no wildcards)
 ✓ Default uninstall preserves protected operator state
 ✓ 50/50 install tests pass
+---
+author: oompah
+created: 2026-07-23 23:30
+---
+Implemented hardened installers and uninstallers: install.sh (8-phase, preflight validation, versioned dirs, atomic symlink, sudoers, hardened systemd units, manifest), uninstall.sh (scoped, preserves PKI/config/audit by default), 2 hardened systemd unit files (16 security directives each), 2 config templates, 50 passing tests. PR #6 merged 2026-07-23.
+---
+author: oompah
+created: 2026-07-23 23:30
+---
+Agent completed successfully in 70s (3211 tokens)
+---
+author: oompah
+created: 2026-07-23 23:30
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 13, Tool calls: 7
+- Tokens: 8 in / 3.2K out [3.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 10s
+- Log: EXOCOMP-43__20260723T232948Z.jsonl
 ---
 <!-- COMMENTS:END -->
