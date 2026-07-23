@@ -20,7 +20,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	--workdir /workspace \
 	$(BUILDER_IMAGE)
 
-.PHONY: help init fmt fmt-check build test lint clean
+.PHONY: help init fmt fmt-check build test lint clean gen-test-fixtures
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -55,3 +55,6 @@ lint: ## Run static analysis / linters.
 
 clean: ## Remove build artifacts.
 	$(CONTAINER_RUN) rm -rf _build
+
+gen-test-fixtures: ## Generate TLS test fixture certificates for apps/exocomp_node test suite.
+	bash scripts/gen-test-certs.sh

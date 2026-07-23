@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "node_id": "exocomp-test-node",
+  "tls": {
+    "ca_cert": "test/fixtures/certs/ca.crt",
+    "node_cert": "test/fixtures/certs/node.crt",
+    "node_key": "test/fixtures/certs/node.key"
+  },
+  "listen": {
+    "host": "127.0.0.1",
+    "port": 4433
+  }
+}
