@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-23T20:19:29.320737Z'
+updated_at: '2026-07-23T20:20:26.819001Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -277,5 +277,25 @@ author: oompah
 created: 2026-07-23 20:19
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-23 20:20
+---
+Understanding: EXOCOMP-7 requires a container-built Elixir 1.20/OTP 28 umbrella with shared core/protocol, node, and coordinator apps; separate ERTS-inclusive releases; exact toolchain/image pins; non-interactive Make quality gates; and smoke coverage. Plan: audit the existing branch work, clean the checkout, run every affected Make target, verify release startup, then push and close.
+---
+author: oompah
+created: 2026-07-23 20:20
+---
+Discovery: The worktree had not been switched to EXOCOMP-7, while origin/EXOCOMP-7 already contained commits dfa360c and 129427c implementing and qualifying the scaffold. Key files are mix.exs, apps/exocomp_{core,node,coordinator}, Makefile, scripts/verify-toolchain.sh, scripts/smoke-releases.sh, and docs/development.md. The builder resolves by its pinned digest and reports Elixir 1.20.2 / OTP 28.5.0.3.
+---
+author: oompah
+created: 2026-07-23 20:20
+---
+Implementation: Confirmed the landed scaffold provides all three OTP applications, node/coordinator Mix releases with include_erts: true, exact .tool-versions plus digest-pinned hexpm builder, containerized init/fmt/fmt-check/build/test/lint/clean targets, application/protocol ExUnit tests, and release smoke startup checks. No corrective source changes were needed during this audit.
+---
+author: oompah
+created: 2026-07-23 20:20
+---
+Verification: From an artifact-free checkout, make init, make fmt, make build, make test, make fmt-check, and make lint passed using only the digest-pinned builder. ExUnit: core 2 passed, coordinator 1 passed, node 1 passed. Both exocomp_node and exocomp_coordinator test releases started successfully and reported bundled ERTS. make help and make clean also passed; git diff remains empty.
 ---
 <!-- COMMENTS:END -->
