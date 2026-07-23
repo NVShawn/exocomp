@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:32.320903Z'
-updated_at: '2026-07-23T22:47:52.545168Z'
+updated_at: '2026-07-23T22:47:54.986568Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -119,5 +119,10 @@ Duplicate screening result: EXOCOMP-59 implementation was absorbed by EXOCOMP-60
 - Confirmed via git: origin/EXOCOMP-60 contains a complete apps/exocomp_node/lib/exocomp/node/identity.ex and apps/exocomp_node/test/exocomp/node/identity_test.exs covering all EXOCOMP-59 requirements (key permissions 0o600/0o640/0o644, rogue CA, expired cert, wrong SAN, valid chain, redaction).
 
 **Conclusion:** All EXOCOMP-59 deliverables have been implemented on branch EXOCOMP-60. No separate implementation work is needed. Archiving this task as absorbed by EXOCOMP-60.
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+duplicate-of:EXOCOMP-60 — Exocomp.Node.Identity was fully implemented on the EXOCOMP-60 branch as an explicit dependency of the mTLS listener task. All required modules and tests (key permissions, chain validation, SAN match, redaction) are present on origin/EXOCOMP-60.
 ---
 <!-- COMMENTS:END -->
