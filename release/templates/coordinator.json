@@ -1,0 +1,34 @@
+{
+  "_version": "1",
+  "_comment": "Exocomp coordinator configuration. See docs/coordinator-installation.md for field descriptions.",
+
+  "coordinator": {
+    "bind": "0.0.0.0:4443",
+    "tls": {
+      "ca_cert":  "@INSTALL_DIR@/config/pki/ca.crt",
+      "cert":     "@INSTALL_DIR@/config/pki/coordinator.crt",
+      "key":      "@INSTALL_DIR@/config/pki/coordinator.key",
+      "verify":   "verify_peer",
+      "crl_file": "@INSTALL_DIR@/config/pki/crl.pem"
+    }
+  },
+
+  "pki": {
+    "ca_cert": "@INSTALL_DIR@/config/pki/ca.crt",
+    "root_hint": "@INSTALL_DIR@/config/pki/root_fingerprint.txt"
+  },
+
+  "approvals": {
+    "timeout_seconds": 3600
+  },
+
+  "diagnostics": {
+    "health_bind": "127.0.0.1:8991",
+    "log_dir":     "@INSTALL_DIR@/log"
+  },
+
+  "agent_card": {
+    "well_known_path": "/.well-known/agent.json",
+    "bind": "127.0.0.1:8992"
+  }
+}

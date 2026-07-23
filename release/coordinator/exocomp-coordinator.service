@@ -1,0 +1,103 @@
+[Unit]
+Description=Exocomp Coordinator
+Documentation=https://github.com/NVShawn/exocomp
+After=network-online.target
+Wants=network-online.target
+
+# ── Ordering and dependency ────────────────────────────────────────────────────
+# Require network before starting.  Node connections are accepted after start.
+
+[Service]
+Type=exec
+
+# ── Identity ──────────────────────────────────────────────────────────────────
+# Run as a dedicated unprivileged account created by the installer.
+# @ACCOUNT@ and @INSTALL_DIR@ are substituted by install.sh at install time.
+User=@ACCOUNT@
+Group=@ACCOUNT@
+
+# ── Executable ────────────────────────────────────────────────────────────────
+ExecStart=@INSTALL_DIR@/current/bin/exocomp_coordinator start
+ExecStop=@INSTALL_DIR@/current/bin/exocomp_coordinator stop
+ExecReload=/bin/kill -HUP $MAINPID
+
+WorkingDirectory=@INSTALL_DIR@
+
+# ── Environment ───────────────────────────────────────────────────────────────
+Environment=EXOCOMP_CONFIG=@INSTALL_DIR@/config/coordinator.json
+Environment=EXOCOMP_LOG_DIR=@INSTALL_DIR@/log
+Environment=ERL_CRASH_DUMP=@INSTALL_DIR@/log/erl_crash.dump
+Environment=HOME=@INSTALL_DIR@
+
+# ── Runtime directories ───────────────────────────────────────────────────────
+RuntimeDirectory=exocomp-coordinator
+RuntimeDirectoryMode=0750
+
+StateDirectory=exocomp-coordinator
+StateDirectoryMode=0750
+
+# ── Restart policy ───────────────────────────────────────────────────────────
+Restart=on-failure
+RestartSec=5s
+StartLimitIntervalSec=120s
+StartLimitBurst=4
+TimeoutStartSec=60s
+TimeoutStopSec=60s
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=exocomp-coordinator
+
+# ── Capability hardening ──────────────────────────────────────────────────────
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# ── Privilege escalation prevention ──────────────────────────────────────────
+NoNewPrivileges=true
+SecureBits=noroot noroot-locked
+
+# ── Filesystem access ─────────────────────────────────────────────────────────
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config
+
+PrivateTmp=true
+
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+
+RestrictNamespaces=true
+ProtectClock=true
+ProtectHostname=true
+RestrictSUIDSGID=true
+
+# ── Process and memory restrictions ──────────────────────────────────────────
+MemoryDenyWriteExecute=true
+LockPersonality=true
+RestrictRealtime=true
+
+# ── Device access ─────────────────────────────────────────────────────────────
+PrivateDevices=true
+
+# ── System call filter ────────────────────────────────────────────────────────
+# The coordinator manages PKI, accepts TLS connections from nodes, and talks
+# to an offline root CA.  The same BEAM service syscall profile applies.
+SystemCallFilter=@system-service @network-io @file-system @process
+SystemCallFilter=~@clock @cpu-emulation @debug @keyring @module @mount @raw-io @reboot @resources @swap @obsolete
+SystemCallErrorNumber=EPERM
+
+# ── Address family restriction ────────────────────────────────────────────────
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+# ── Resource limits ───────────────────────────────────────────────────────────
+LimitNOFILE=65536
+LimitCORE=0
+
+# ── umask ─────────────────────────────────────────────────────────────────────
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

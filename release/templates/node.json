@@ -1,0 +1,38 @@
+{
+  "_version": "1",
+  "_comment": "Exocomp node configuration. See docs/node-installation.md for field descriptions.",
+
+  "coordinator": {
+    "host": "coordinator.example.internal",
+    "port": 4443,
+    "tls": {
+      "ca_cert": "@INSTALL_DIR@/config/pki/ca.crt",
+      "cert":    "@INSTALL_DIR@/config/pki/node.crt",
+      "key":     "@INSTALL_DIR@/config/pki/node.key",
+      "verify":  "verify_peer"
+    }
+  },
+
+  "node": {
+    "id": "",
+    "label": ""
+  },
+
+  "actions": {
+    "allow_list": []
+  },
+
+  "diagnostics": {
+    "health_bind": "127.0.0.1:8990",
+    "log_dir": "@INSTALL_DIR@/log"
+  },
+
+  "resources": {
+    "inference": {
+      "model": "",
+      "llama_server": "@INSTALL_DIR@/current/bin/llama-server",
+      "context_size": 4096,
+      "threads": 4
+    }
+  }
+}
