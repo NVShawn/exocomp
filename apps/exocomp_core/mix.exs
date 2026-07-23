@@ -21,4 +21,10 @@ defmodule Exocomp.Core.MixProject do
       mod: {Exocomp.Core.Application, []}
     ]
   end
+
+  defp deps do
+    [
+      {:jason, "~> 1.4"}
+    ]
+  end
 end
