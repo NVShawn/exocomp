@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:31:56.155420Z'
+updated_at: '2026-07-23T21:32:16.005912Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -175,5 +175,60 @@ Files to create:
 1. exocomp-fixture.service — health probe via ExecStartPost (curl loop with 5s timeout), RuntimeDirectory=exocomp-fixture, Restart=on-failure, StartLimitBurst=3
 2. install.sh — copies binary + unit, daemon-reload, enable, start/restart; requires root
 3. cleanup.sh — stops/disables/removes only fixture resources; no-op on clean system
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Implementation: Created all required deliverables.
+
+Files created/modified:
+1. test/fixtures/exocomp_fixture/exocomp-fixture.service
+   - Type=simple, ExecStart=/usr/local/bin/exocomp-fixture
+   - ExecStartPost: curl health probe loop (10 attempts × 0.5s = 5s timeout), fails service if unhealthy
+   - Restart=on-failure, RestartSec=1s, StartLimitIntervalSec=30s, StartLimitBurst=3
+   - RuntimeDirectory=exocomp-fixture (systemd creates/removes /run/exocomp-fixture)
+   - WorkingDirectory=/run/exocomp-fixture
+   - Environment=FIXTURE_STATE_DIR=/run/exocomp-fixture
+   - PrivateTmp=true, NoNewPrivileges=true for minimal sandboxing
+
+2. test/fixtures/exocomp_fixture/install.sh (executable, non-interactive)
+   - Requires root (exits with error if not)
+   - Validates source files exist
+   - cp -f binary to /usr/local/bin/exocomp-fixture with chmod 755
+   - cp -f unit to /etc/systemd/system/ with chmod 644
+   - systemctl daemon-reload, enable, start (or restart if already running)
+   - Idempotent: safe to run repeatedly
+
+3. test/fixtures/exocomp_fixture/cleanup.sh (executable, non-interactive)
+   - Requires root
+   - Stops only if running (is-active check), disables only if enabled (is-enabled check)
+   - Removes only: /etc/systemd/system/exocomp-fixture.service, /usr/local/bin/exocomp-fixture, /run/exocomp-fixture/
+   - Each removal is a no-op when file/dir absent
+   - No-op on clean system (safe to run when fixture was never installed)
+
+4. test/fixtures/exocomp_fixture/README.md
+   - Added prominent VM/privileged-container requirement section with pointer to docs/testing-systemd-fixture.md
+
+5. Makefile
+   - Added fixture-install and fixture-cleanup targets (referenced in docs but previously missing)
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Verification: All tests pass.
+
+Shell script syntax check:
+- install.sh: bash -n syntax OK
+- cleanup.sh: bash -n syntax OK
+
+Existing fixture unit tests (make test-fixture-service):
+- 22 passed, 0 failures (8.52s)
+- No systemd required for these tests — they exercise the Python daemon directly
+
+Makefile targets confirmed visible in make help:
+- fixture-install: Install the exocomp-fixture systemd service (requires root; run inside a VM or privileged container)
+- fixture-cleanup: Remove the exocomp-fixture systemd service (requires root; idempotent, no-op if not installed)
+
+Note: systemd integration testing (actual install/cleanup execution) requires a VM or privileged container as documented — cannot be run in the current environment.
 ---
 <!-- COMMENTS:END -->

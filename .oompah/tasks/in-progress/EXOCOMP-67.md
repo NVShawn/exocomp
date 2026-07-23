@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-23T21:10:28.177576Z'
-work_branch: null
+updated_at: '2026-07-23T21:32:21.494874Z'
+work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: fa759aac-8dc3-482b-9a16-f0c11b465352
+oompah.work_branch: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -28,3 +30,16 @@ For every node/coordinator amd64/arm64 release produced by EXOCOMP-42, inspect E
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-23 21:32
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

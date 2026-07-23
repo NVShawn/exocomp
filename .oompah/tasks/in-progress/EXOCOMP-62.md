@@ -12,22 +12,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:23:47.362064Z'
+updated_at: '2026-07-23T21:32:29.931364Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 756c5427-1a59-4ce5-af9d-93ca129d32f2
+oompah.agent_run_id: 7434eea5-7b3b-47c0-9d17-d5c4f3fe07f8
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 24
-  total_output_tokens: 5098
+  total_input_tokens: 1977822
+  total_output_tokens: 24611
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 24
-      output_tokens: 5098
+      input_tokens: 1977822
+      output_tokens: 24611
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 5098
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:23:38.042504+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 1977798
+    output_tokens: 19513
+    cost_usd: 0.0
+    recorded_at: '2026-07-23T21:32:09.777918+00:00'
 ---
 ## Summary
 
@@ -189,6 +195,36 @@ Agent dispatched (profile: standard)
 ---
 author: oompah
 created: 2026-07-23 21:23
+---
+Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Agent completed successfully in 504s (1997311 tokens)
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 36
+- Tokens: 2.0M in / 19.5K out [2.0M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 8m 24s
+- Log: EXOCOMP-62__20260723T212347Z.jsonl
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-11`. Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-23 21:32
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-23 21:32
 ---
 Focus: Maintenance Engineer
 ---
