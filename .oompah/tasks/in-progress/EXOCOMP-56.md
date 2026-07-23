@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T21:58:52.315220Z'
+updated_at: '2026-07-23T22:00:49.242555Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -129,5 +129,10 @@ author: oompah
 created: 2026-07-23 21:58
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-07-23 22:00
+---
+Understanding (Frontend Developer): This task requires implementing Bench.HostSampler, a backend Elixir GenServer that reads Linux /proc and cgroup v1/v2 files to collect per-process CPU/memory/IO metrics. There is no UI, HTML, CSS, or JavaScript component. This is outside the Frontend Developer focus area and requires a feature/backend Elixir specialist. Initiating handoff.
 ---
 <!-- COMMENTS:END -->
