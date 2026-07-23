@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:45:00.080400Z'
+updated_at: '2026-07-23T21:48:40.367849Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -231,5 +231,31 @@ Key findings:
 - Makefile currently has test and test-fixture-service targets but lacks fixture-install, fixture-cleanup, and test-integration
 
 Writing: apps/exocomp_node/test/integration/fixture_test.exs with all 10 required test scenarios.
+---
+author: oompah
+created: 2026-07-23 21:48
+---
+Implementation: Created all required files on branch EXOCOMP-71.
+
+Files added/modified:
+1. apps/exocomp_node/test/integration/fixture_test.exs (NEW, 498 lines)
+   - Module: Exocomp.Integration.FixtureTest
+   - @moduletag :integration + @moduletag :systemd on all 10 tests
+   - setup block: snapshots non-fixture services, calls install.sh, registers on_exit cleanup
+   - All 10 required test cases with clear assertions and polling helpers
+   - Uses System.cmd(systemctl/bash/curl) — zero added Elixir dependencies
+   - Path to fixture scripts resolved at compile time via __DIR__ (4 levels up to project root)
+
+2. apps/exocomp_node/test/test_helper.exs (MODIFIED)
+   - Changed ExUnit.start() → ExUnit.start(exclude: [:integration, :systemd])
+   - Standard CI is now safe: integration tests are excluded by default
+
+3. Makefile (MODIFIED)
+   - fixture-install: runs test/fixtures/exocomp_fixture/install.sh
+   - fixture-cleanup: runs test/fixtures/exocomp_fixture/cleanup.sh
+   - test-integration: MIX_ENV=test mix test --only integration apps/exocomp_node/test/integration/
+   - Removed duplicate entries introduced by cherry-pick of EXOCOMP-70 commit
+
+Branch also cherry-picked EXOCOMP-70 commit (a93685d) to include install.sh, cleanup.sh, and .service file that the tests depend on.
 ---
 <!-- COMMENTS:END -->

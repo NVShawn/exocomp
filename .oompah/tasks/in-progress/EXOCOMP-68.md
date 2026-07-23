@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T21:48:12.915284Z'
+updated_at: '2026-07-23T21:48:40.992508Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -59,5 +59,36 @@ Key distinctions from the closest candidates reviewed:
 Evidence: EXOCOMP-42 comment #27 explicitly lists EXOCOMP-68 as the fourth and final child covering 'clean-target, wrong-architecture, missing-runtime, and double-build reproducibility qualification'. All 70+ tasks in the project have been reviewed via prior screening passes (see EXOCOMP-42 comment #6, EXOCOMP-67 comment #3).
 
 EXOCOMP-68 is unique and should proceed to implementation.
+---
+author: oompah
+created: 2026-07-23 21:48
+---
+Focus handoff: duplicate_detector
+
+1. **Outcome:** No duplicate confirmed. EXOCOMP-68 is a unique, properly-scoped fourth child of EXOCOMP-42, created by the epic planner (EXOCOMP-42 comment #27) to handle the OTP release qualification test matrix. All 70+ project tasks reviewed (including prior screening passes documented in EXOCOMP-42 comment #6 and EXOCOMP-67 comment #3).
+
+2. **Relevant files, commands, evidence, decisions:**
+   - `plans/milestone-6-release.md` — M6-CRIT-2: amd64 and arm64 OTP releases include ERTS and start on clean supported hosts without installed Elixir or Erlang; M6-CRIT-8: reproducible source/build identity on every artifact
+   - `plans/exocomp.md` — confirms node and coordinator as the two products; aarch64/x86_64 as supported targets
+   - `release/builders.lock` (on epic-EXOCOMP-6 branch) — Elixir 1.20.2/OTP 28.5.0.3 on Debian 12 (glibc 2.36) with separate sha256-pinned digests for amd64 and arm64 — confirms the builder infrastructure EXOCOMP-68 will consume
+   - `scripts/build-releases.sh` — runs builds in pinned builder containers, outputs to `_build/release/<arch>/rel/`
+   - `scripts/inspect-release-deps.sh` — ELF inspection script from EXOCOMP-67; emits dep-report.json per release
+   - `release/runtime-baseline.lock` — declarative allowlist of permitted host .so files (glibc 2.36 ABI set)
+   - `docs/runtime-dependencies.md` — glibc baseline, host library contract, inspection commands (from EXOCOMP-67)
+   - `test/fixtures/fake-container-engine.sh`, `test/fixtures/fake-readelf.sh` — existing test isolation fixtures to reuse
+   - Work branch is `epic-EXOCOMP-6`; blocked-by EXOCOMP-66 (Done) and EXOCOMP-67 (Done) — all blockers are resolved
+
+3. **Remaining work and risks:**
+   - Add `scripts/test-release-matrix.sh`: for each arch (amd64, arm64) and each product (node, coordinator), build twice and compare SHA-256 of deterministic fields (archive TOC/modes/timestamps and manifest fields like `source_commit`, `elixir_version`, `otp_version`, `erts_version`, `dependency_lock_hash`)
+   - Add `scripts/test-clean-container.sh`: extract each release into a minimal Docker image with no Elixir/Erlang/compiler/pkg-manager tooling; start it and verify bundled ERTS is used (check that `erl` on PATH comes from inside the release, not the host)
+   - Add negative test: attempt to start wrong-arch release in wrong-arch container; assert the error output is actionable (clear diagnostic, not a segfault or silent hang)
+   - Add negative test: inject a missing or corrupted required runtime dependency (e.g. corrupt/remove a .so from inside the release dir); assert the process emits an actionable diagnostic (not crash silently)
+   - Add non-interactive Make target (e.g. `make test-release-matrix`) suitable for CI
+   - Add documentation for native vs emulated execution requirements (binfmt/QEMU setup for arm64-on-amd64)
+   - Risk: clean-container approach requires a minimal base image (e.g. `debian:bookworm-slim` or `scratch`) with no Erlang/Elixir packages — must ensure OTP release ERTS self-boot works
+   - Risk: cross-arch 'wrong-arch' test requires launching an amd64 container on an amd64 host and trying to exec an arm64 binary (or vice versa) — Docker `--platform` can help but the failing case may need explicit handling
+   - Risk: double-build archive digest comparison depends on EXOCOMP-66 having implemented deterministic archive normalization; since EXOCOMP-66 was Done but may not have landed code, verify what's actually on the branch first
+
+4. **Recommended next focus:** `test` or `devops` — this is primarily test scaffolding (shell scripts, Docker-based test containers, Makefile targets) with a documentation component.
 ---
 <!-- COMMENTS:END -->
