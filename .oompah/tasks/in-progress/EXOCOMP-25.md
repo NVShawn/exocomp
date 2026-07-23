@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:33:05.447722Z'
+updated_at: '2026-07-23T22:47:00.023568Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -220,5 +220,43 @@ Security invariants enforced:
 - No shell expansion: System.cmd with explicit argv list
 
 Tests will cover: service allow-list, unknown units, shell metacharacters, argv injection, env injection, executable path immutability, timeout, oversized output, sudo denial (non-zero exit), concurrent targets, and sudoers snapshot.
+---
+author: oompah
+created: 2026-07-23 22:46
+---
+Implementation: Implemented unprivileged systemd executor and exact sudoers policy in apps/exocomp_node/.
+
+New modules (lib/exocomp/node/):
+- action_catalog.ex: Fixed typed catalog for :restart_service and :vacuum_logs. Strict service-name regex (alphanumeric + hyphen/underscore/dot/at-sign only) rejects all shell metacharacters unconditionally before the allow-list is consulted. No generic command action.
+- os_commander.ex: OsCommander behaviour + SystemCommander (System.cmd with explicit argv list, no shell). Injectable via Application env for tests — accepts both module atom and 3-arity function closure.
+- executor.ex: Validates action+target against catalog+allow-list; acquires per-target serialization lock; builds argv from catalog (never from caller strings); passes fixed env only; enforces timeout and 64KB output limit; invokes post-action verifier; releases lock in 'after' clause.
+- executor_lock.ex: GenServer for per-target serialization; rejects concurrent executions on same target; started under application supervisor.
+- sudoers_policy.ex: Generates exact NOPASSWD entries for each allow-listed service; no wildcards; deterministic output; account name validated against strict POSIX regex; empty allow-list produces only vacuum entry or empty string.
+- privilege.ex: Checks EUID != 0 via 'id -u'; raises RuntimeError if root.
+
+Updated: application.ex (starts ExecutorLock), mix.exs (adds test/support to elixirc_paths).
+
+Test coverage: 124 tests covering service allow-list, 11 shell metacharacter injection vectors, argv/env injection invariants, executable path immutability, timeout, oversized output, sudo denial, concurrent target serialization, post-action verification, verifier failure, sudoers policy snapshots, account validation, and privilege check.
+---
+author: oompah
+created: 2026-07-23 22:47
+---
+Verification: All quality gates pass.
+
+make test: 124/124 tests pass (0 failures)
+- exocomp_core: 2 passed
+- exocomp_coordinator: 1 passed
+- exocomp_node: 121 passed (includes 11 metacharacter injection tests, 4 argv/env invariant tests, timeout/output-limit/sudo-denial tests, concurrent serialization, verifier tests, sudoers snapshots, privilege check)
+
+make lint: passes (format check + warnings-as-errors compile)
+
+Release builds: both exocomp_node and exocomp_coordinator release successfully under MIX_ENV=test.
+
+Acceptance criteria status:
+- Node release does not run as root: Privilege.check_not_root!/0 in application; tested
+- Only allow-listed services can reach systemctl: enforced in ActionCatalog.lookup/3; tested with 11 injection vectors
+- No request/model field becomes shell syntax or arbitrary argv: argv built from catalog only; regex rejects metacharacters before allow-list; tested
+- Privilege policy is minimal and deterministic: SudoersPolicy generates exact NOPASSWD entries per-service, no wildcards; snapshot tested
+- Focused executor tests pass: 121 new tests in exocomp_node, all passing
 ---
 <!-- COMMENTS:END -->
