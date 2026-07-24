@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-105
 type: task
-status: Done
+status: Merged
 priority: 1
 title: Verify coordinator diagnostic orchestration end to end
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T18:23:21.528882Z'
+updated_at: '2026-07-24T20:25:59.203144Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
