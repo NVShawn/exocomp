@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:49:09.189874Z'
+updated_at: '2026-07-24T19:56:09.494062Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -158,5 +158,17 @@ author: oompah
 created: 2026-07-24 19:49
 ---
 Implementation: Created apps/exocomp_node/test/integration/m3_acceptance_test.exs (53174 bytes) — comprehensive M3 acceptance suite with 8 describe blocks mapping to M3-CRIT-1 through M3-CRIT-8. Each test carries # [PASS/FAIL evidence for M3-CRIT-X] markers following the M1 pattern. Tests cover all required adversarial cases: injection, stale evidence, schema mismatches, policy ordering determinism, user-data deletion blocked at type AND policy level, VacuumBounds eligibility/source rejection, service approval/automatic behavior, token tampering/replay/expiry/binding mismatch, privilege separation, argv enforcement, and audit trail coverage. Running make test revealed 3 failures to fix: (1) VacuumBounds.user_data_path?/1 missing exact match for /home and /root bare paths, (2) M3-CRIT-7a test flunks in rootless Podman where UID=0 inside container, (3) pre-existing PrivilegeTest check_not_root/0 has same rootless issue. Applying targeted fixes to all three now.
+---
+author: oompah
+created: 2026-07-24 19:56
+---
+Verification: make test passes cleanly — 761 ExUnit tests passed, 10 excluded (systemd/integration), 0 failures. Releases smoke-tested successfully with bundled musl ERTS inside the Alpine container.
+
+Three issues were found and fixed during testing:
+1. VacuumBounds.user_data_path?/1 did not match bare /home or /root paths (only /home/... sub-paths). Fixed — M3-CRIT-4e now correctly records :user_data_path for all user directory roots.
+2. M3-CRIT-7a flunked in rootless Podman (kernel maps host UID to 0 inside the container namespace). Fixed to branch on actual UID, consistent with the check_not_root!/0 test already in the file.
+3. PrivilegeTest check_not_root/0 had the same pre-existing rootless-Podman issue. Fixed with the same branching strategy.
+
+All M3-CRIT acceptance evidence is now recorded in the test file comments.
 ---
 <!-- COMMENTS:END -->
