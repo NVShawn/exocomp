@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-18
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement coordinator diagnostic task orchestration and audit
 parent: EXOCOMP-2
@@ -21,7 +21,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:31.642631Z'
-updated_at: '2026-07-24T16:03:15.433068Z'
+updated_at: '2026-07-24T16:03:32.044540Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null

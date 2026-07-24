@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-97
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement durable replay ledger with write-ahead semantics, concurrent serialization,
   and restart reconciliation
@@ -11,7 +11,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:02:14.243765Z'
+updated_at: '2026-07-24T16:03:34.992253Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -168,5 +168,20 @@ author: oompah
 created: 2026-07-24 16:02
 ---
 Understanding: I will perform the assigned duplicate-detector phase only. I will search the native task corpus and project docs for replay-ledger, durable nonce, write-ahead, and at-most-once execution work; inspect each credible candidate's full description/comments; then archive EXOCOMP-97 only if the same underlying work is confirmed, otherwise record a focus handoff and label the screening complete without implementing code.
+---
+author: oompah
+created: 2026-07-24 16:03
+---
+Focus handoff: duplicate_detector
+
+Outcome: Duplicate screening found no duplicate. EXOCOMP-97 is the intentionally decomposed replay-ledger child of EXOCOMP-24 and should proceed to implementation.
+
+Evidence and decisions: The prescribed local .oompah/tasks path and WORKFLOW.md are absent, so tracker records were inspected through oompah task view and repository history/all refs. Full records reviewed include EXOCOMP-24, EXOCOMP-25, EXOCOMP-87, EXOCOMP-95, EXOCOMP-96, and EXOCOMP-98. EXOCOMP-24's epic-planner history explicitly creates EXOCOMP-97 as the standalone DETS write-ahead/reconciliation child; the parent is decomposition, not competing implementation. EXOCOMP-25 supplies only restricted execution and per-target locking. EXOCOMP-87 concerns coordinator CSR/leaf certificate issuance (its restart-safe enrollment-token wording is a different protocol). EXOCOMP-95 verifies token signatures/bindings, EXOCOMP-96 re-checks evidence, and EXOCOMP-98 depends on and integrates the completed ReplayLedger. Searches across docs/plans and every remote git ref found the Milestone 3/4 design requirement but no ReplayLedger/replay_ledger implementation or matching API/status vocabulary.
+
+Relevant files/requirements: plans/milestone-3-safety-validation.md Approval Tokens, Audit and Failure Behavior, and Test Strategy sections; plans/milestone-4-service-recovery.md Concurrency and Idempotency. Requested implementation remains apps/exocomp_node/lib/exocomp/node/safety/replay_ledger.ex plus its focused test and application supervision entry.
+
+Remaining work/risks: Implement crash-safe DETS claim/complete/status/wait behavior, durable sync before proceed, duplicate waiter serialization, startup conversion of pending to crashed_incomplete, and fail-closed open/sync handling; add focused tests including corruption and sync failure; run make test and make lint. The supplied worktree is on epic-EXOCOMP-24 tracking origin/main, while the prompt names epic-EXOCOMP-3; the implementation agent must reconcile the intended checkout before editing or committing.
+
+Recommended next focus: feature. No repository files were changed; quality gates were not applicable to this read-only screening.
 ---
 <!-- COMMENTS:END -->
