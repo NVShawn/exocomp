@@ -25,20 +25,22 @@ defmodule Exocomp.Node.Application do
     end
   end
 
-  defp listener_children when @env != :prod, do: []
-
   defp listener_children do
-    case System.get_env("EXOCOMP_CONFIG_FILE") do
-      nil ->
-        Logger.error(
-          "[Node.Application] EXOCOMP_CONFIG_FILE is not set; " <>
-            "the listener will not start. Set the environment variable and restart the release."
-        )
+    if @env == :prod do
+      case System.get_env("EXOCOMP_CONFIG_FILE") do
+        nil ->
+          Logger.error(
+            "[Node.Application] EXOCOMP_CONFIG_FILE is not set; " <>
+              "the listener will not start. Set the environment variable and restart the release."
+          )
 
-        []
+          []
 
-      config_path ->
-        [{Exocomp.Node.Listener, config_path: config_path}]
+        config_path ->
+          [{Exocomp.Node.Listener, config_path: config_path}]
+      end
+    else
+      []
     end
   end
 end
