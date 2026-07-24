@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-13
 type: chore
-status: Done
+status: Merged
 priority: 1
 title: Verify the M1 node-agent milestone
 parent: EXOCOMP-1
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:49:58.112999Z'
+updated_at: '2026-07-24T03:36:21.526813Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
