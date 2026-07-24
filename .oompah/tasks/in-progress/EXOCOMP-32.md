@@ -15,7 +15,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:01:56.935181Z'
+updated_at: '2026-07-24T19:05:02.049333Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -225,5 +225,10 @@ author: oompah
 created: 2026-07-24 19:01
 ---
 Understanding: Implement the backend-only active/degraded service recovery lifecycle. I will build on the existing Recovery.StateMachine and node approval gate, expose a service recovery skill through the A2A dispatcher, emit input-required approval context with exact impact/evidence, re-read evidence immediately before restart, reject stale/mismatched/replayed decisions without action, and cover approve, deny, expiry, timeout, identity/token mismatch, state drift, cancellation, and duplicates. I will use Makefile quality gates and preserve the existing one-attempt/audit invariants.
+---
+author: oompah
+created: 2026-07-24 19:05
+---
+Discovery: Integrated the completed EXOCOMP-27 branch, which brings in the generic remediation lifecycle plus EXOCOMP-24's ApprovalGate/Verifier/PreconditionChecker/ReplayLedger and restricted Executor. The clean EXOCOMP-32 boundary is a service-specific recovery flow: Recovery.StateMachine owns legal/audited transitions; A2A Task exposes input_required with exact impact/evidence; ApprovalGate remains the sole approval-to-execution path. Its injected executor boundary lets this flow durably record the executing transition after token/precondition/replay checks and before the actual restart, without duplicating token validation.
 ---
 <!-- COMMENTS:END -->
