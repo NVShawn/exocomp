@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-32
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement approval-required active and degraded recovery
 parent: EXOCOMP-4
@@ -13,12 +13,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-23T19:17:19.606230Z'
-work_branch: null
+updated_at: '2026-07-24T18:55:53.368927Z'
+work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 5e30ed94-6ac7-4a07-9603-4659224ba31b
+oompah.work_branch: epic-EXOCOMP-4
 ---
 ## Summary
 
@@ -48,3 +50,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 18:55
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:55
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
