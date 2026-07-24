@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T00:53:55.550013Z'
+updated_at: '2026-07-24T01:02:38.478119Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-07-24 00:53
 ---
 Discovery: Coordinator PKI does not yet exist. The worktree was incorrectly on epic-EXOCOMP-16; created EXOCOMP-75 from current main and cherry-picked the completed EXOCOMP-14 scaffold. Design will stage sibling directories and atomically rename complete online/offline trees, with a versioned manifest binding canonical paths and fingerprint; repeat init validates both trees, modes, certificate roles/signatures/key matches, encrypted root backup, and Ed25519 approval-key separation before returning metadata.
+---
+author: oompah
+created: 2026-07-24 01:02
+---
+Implementation: Added Exocomp.Coordinator.PKI.Bootstrap and x509/public_key dependencies. The API requires absolute separate destinations plus {:passphrase, value}; creates P-384 root/intermediate CAs, P-256 30-day coordinator TLS identity, and separate raw Ed25519 approval key; writes versioned path/role manifests through protected sibling staging directories and atomic renames. Repeat calls validate exact trees/modes, manifests, encrypted backup root key, key/cert matches, CA/key usages, RFC 5280 path/signatures/validity, approval signing capability, and fingerprint. Invalid state returns redacted structured errors without rotation.
 ---
 <!-- COMMENTS:END -->
