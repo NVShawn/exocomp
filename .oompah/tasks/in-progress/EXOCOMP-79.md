@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:25:23.740779Z'
+updated_at: '2026-07-24T01:32:12.118718Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -244,5 +244,10 @@ author: oompah
 created: 2026-07-24 01:25
 ---
 Discovery: The intended checkout branch was absent and current main did not contain EXOCOMP-48's required A2A types. I created EXOCOMP-79 from current main and merged the completed origin/epic-EXOCOMP-8 type-layer prerequisite, resolving the Makefile conflict in favor of main's newer rootless-engine handling. Existing structs represent lifecycle via Task.status (%TaskStatus{state, message, timestamp}), input via Task.history, and metadata is suitable for skill_id. Count eviction must target max_tasks - 1 before insertion; when all retained tasks are active, submission must return :at_capacity to preserve the hard bound and active-task non-eviction invariant.
+---
+author: oompah
+created: 2026-07-24 01:32
+---
+Implementation: Added Exocomp.Node.TaskRegistry with configurable hard count/concurrency bounds, UUID A2A task creation, get/list APIs, validated transitions, cancellation and worker shutdown signaling, periodic TTL eviction, and oldest-terminal count eviction that never drops active tasks. Added TaskRegistry to Exocomp.Node.Application, declared :crypto for UUID generation, and added focused coverage for the full public lifecycle plus supervision startup and bound edge cases.
 ---
 <!-- COMMENTS:END -->

@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:31:17.122369Z'
+updated_at: '2026-07-24T01:32:11.348209Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -143,5 +143,17 @@ REDACTION: format_status/1 replaces all digest values with '[REDACTED]'. rand_fn
 SEAMS: now_fn, rand_fn, store_path, inventory_fn, max_lifetime all injectable.
 
 TESTS: 61 tests covering all required scenarios: membership checks, default (600s) and shorter lifetimes, expiry boundary, node mismatch, sequential/concurrent replay, restart persistence, corrupt storage (3 variants), pruning, file/dir permissions, log/audit/error/format_status redaction.
+---
+author: oompah
+created: 2026-07-24 01:32
+---
+Verification: All quality gates pass on commit af14041 (branch epic-EXOCOMP-16):
+
+- make test: 61/61 coordinator tests pass including all 61 new EnrollmentToken tests. 55/55 bench tests pass. 2/2 core tests pass. 2 pre-existing node failures (EXOCOMP-83: missing /usr/bin/kill in Alpine) are unrelated.
+- make lint: Zero warnings-as-errors.
+- make fmt-check: All files properly formatted.
+
+Test coverage confirmed for all acceptance criteria:
+- enrollment_token_test.exs (61 tests): inventory membership, 600s default + shorter overrides, lifetime validation (>600 rejected, <=0 rejected), expiry boundary (valid at T+599, rejected at T+600 and T+601), node mismatch, sequential replay, concurrent replay (exactly 1 success out of 2 concurrent calls), restart persistence (issue pre-restart consumed post-restart, replay of pre-consumed token rejected post-restart), 3 corrupt storage variants (invalid JSON, empty file, wrong version), pruning (removes expired, preserves unexpired, pruned file contains no records), file permissions (0700 dir, 0600 file), log/audit/error/format_status redaction.
 ---
 <!-- COMMENTS:END -->
