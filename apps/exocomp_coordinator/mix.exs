@@ -17,7 +17,7 @@ defmodule Exocomp.Coordinator.MixProject do
 
   def application do
     [
-      extra_applications: [:logger, :inets, :crypto, :public_key, :ssl],
+      extra_applications: [:crypto, :inets, :logger, :public_key, :ssl],
       mod: {Exocomp.Coordinator.Application, []}
     ]
   end
