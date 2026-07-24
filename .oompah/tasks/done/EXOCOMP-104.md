@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:08:52.358740Z'
+updated_at: '2026-07-24T18:09:04.211700Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 7fb6ade8-6dba-41ba-abb8-254d0f72c405
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 514862
-  total_output_tokens: 2803
+  total_input_tokens: 514901
+  total_output_tokens: 15780
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 514862
-      output_tokens: 2803
+      input_tokens: 514901
+      output_tokens: 15780
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 2803
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:02:34.279497+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 39
+    output_tokens: 12977
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T18:09:01.726400+00:00'
 ---
 ## Summary
 
@@ -189,5 +195,20 @@ author: oompah
 created: 2026-07-24 18:08
 ---
 Added docs/coordinator-restart-recovery.md documenting volatile restart behavior, reconstruction sequence, explicit unavailable responses, safe idempotent resubmission, operator-visible degraded states, limits, and audit trail boundaries. Updated docs/README.md. All defaults, config keys, and test names verified against source. All 201 tests pass.
+---
+author: oompah
+created: 2026-07-24 18:09
+---
+Agent completed successfully in 372s (13016 tokens)
+---
+author: oompah
+created: 2026-07-24 18:09
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 72, Tool calls: 55
+- Tokens: 39 in / 13.0K out [13.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 12s
+- Log: EXOCOMP-104__20260724T180252Z.jsonl
 ---
 <!-- COMMENTS:END -->
