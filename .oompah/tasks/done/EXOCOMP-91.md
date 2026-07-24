@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T04:01:14.354961Z'
+updated_at: '2026-07-24T04:01:27.641595Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -159,5 +159,20 @@ author: oompah
 created: 2026-07-24 04:01
 ---
 Completion: delivered and pushed commit c88cf3e on EXOCOMP-91. The coordinator now supervises bounded concurrent per-node DNS/probe jobs with token-based deduplication, independent deadlines and cleanup, crash/timeout isolation, atomic observation metadata, and poller/worker restart recovery. Added application-tree wiring and deterministic focused tests; full local compile/test/format gates pass. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-07-24 04:01
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 54
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 8m 16s
+- Log: EXOCOMP-91__20260724T035313Z.jsonl
+---
+author: oompah
+created: 2026-07-24 04:01
+---
+Implemented supervised bounded concurrent health polling with per-node timeout/crash isolation, in-flight deduplication, atomic Registry observations, restart recovery, application wiring, and focused tests; pushed c88cf3e.
 ---
 <!-- COMMENTS:END -->
