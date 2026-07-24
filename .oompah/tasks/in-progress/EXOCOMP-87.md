@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T02:51:51.309583Z'
+updated_at: '2026-07-24T02:52:01.193705Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -116,5 +116,20 @@ author: oompah
 created: 2026-07-24 02:51
 ---
 Discovery: no duplicate confirmed. Searched the tracker state branch and project plans for CSR validation, certificate-signing requests, leaf issuance, node certificates, and intermediate-CA usage. Reviewed full records for EXOCOMP-16, EXOCOMP-17, EXOCOMP-75, and EXOCOMP-77. EXOCOMP-75 owns CA bootstrap/state validation, EXOCOMP-77 explicitly excludes CSR issuance, and EXOCOMP-17 is the parent epic whose planner deliberately decomposed this exact pure issuer-library scope into EXOCOMP-87. No other task owns validate_csr/2 or issue_leaf/3.
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Focus handoff: duplicate_detector
+
+Outcome: Duplicate screening found no duplicate; EXOCOMP-87 should proceed to implementation.
+
+Evidence: The git-backed tracker search on origin/oompah/state/proj-c260b117 and plans/milestone-2-coordinator.md found the closest tasks EXOCOMP-16, EXOCOMP-17, EXOCOMP-75, and EXOCOMP-77. Full histories confirm EXOCOMP-75 only bootstraps/validates root, intermediate, and coordinator material; EXOCOMP-77 integrates protected state and enrollment-token operations while expressly excluding CSR issuance; EXOCOMP-16 covers the completed bootstrap/token epic; EXOCOMP-17 is the parent enrollment/renewal epic and its planner intentionally created EXOCOMP-87 for coordinator CSR validation and node leaf issuance. No separate task implements validate_csr/2 or issue_leaf/3.
+
+Relevant files: plans/milestone-2-coordinator.md; apps/exocomp_coordinator/lib/exocomp/coordinator/pki/bootstrap.ex; apps/exocomp_coordinator/lib/exocomp/coordinator/pki/state.ex; the requested new issuer.ex and issuer_test.exs paths.
+
+Remaining work/risks: implement strict CSR parsing, key strength/extensions/SAN/self-signature checks, intermediate-signed 30-day node chains, redacted failures, and focused tests. Ensure the implementation checkout contains EXOCOMP-75/77 PKI work and reconcile the reported branch/worktree mismatch before committing. No code or repository files were changed during screening.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
