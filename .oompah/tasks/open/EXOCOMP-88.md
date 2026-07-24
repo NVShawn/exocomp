@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:07:48.539921Z'
+updated_at: '2026-07-24T03:08:01.864416Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: d2153cdd-a31c-43cb-8b89-1d04f7b6c960
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 22
-  total_output_tokens: 4926
+  total_input_tokens: 40
+  total_output_tokens: 8957
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 22
-      output_tokens: 4926
+      input_tokens: 40
+      output_tokens: 8957
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 4926
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:52:32.459298+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 18
+    output_tokens: 4031
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T03:07:57.066106+00:00'
 ---
 ## Summary
 
@@ -201,5 +207,25 @@ Focus handoff: frontend
 - Candidates must be stored separately from Registry.addresses (the Registry may need a candidates field added)
 
 **Recommended next focus:** feature
+---
+author: oompah
+created: 2026-07-24 03:07
+---
+Agent completed successfully in 102s (4049 tokens)
+---
+author: oompah
+created: 2026-07-24 03:07
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 27, Tool calls: 21
+- Tokens: 18 in / 4.0K out [4.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 42s
+- Log: EXOCOMP-88__20260724T030617Z.jsonl
+---
+author: oompah
+created: 2026-07-24 03:08
+---
+Focus handoff from `frontend` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->

@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-07-24T02:53:07.283315Z'
+updated_at: '2026-07-24T03:08:02.717677Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -176,5 +176,10 @@ author: oompah
 created: 2026-07-24 02:53
 ---
 Understanding: Implementing VacuumBounds module with eligibility gate and VacuumState GenServer. Plan: (1) Read existing dependency code (DataClassification, ActionCatalog, DiskPressureCollector), (2) Create VacuumBounds module with validate_source/1 and check_eligible/1, (3) Create VacuumState GenServer for per-mount cooldown/retry tracking, (4) Wire VacuumState into app supervisor, (5) Write focused tests covering all 10 specified scenarios, (6) Run make test and make lint.
+---
+author: oompah
+created: 2026-07-24 03:08
+---
+Discovery: Prerequisites identified. EXOCOMP-84 (DiskPressureCollector + Evidence on branch EXOCOMP-84), EXOCOMP-73 (DataClassification on origin/EXOCOMP-73), and EXOCOMP-25 (ActionCatalog on origin/EXOCOMP-25) are all separate unmerged branches. Plan: cherry-pick EXOCOMP-84 commit, bring in safety/data_classification.ex from EXOCOMP-73, then implement VacuumBounds + VacuumState on top. The two Evidence.ex files on EXOCOMP-84 and EXOCOMP-73 are identical so merge will be clean.
 ---
 <!-- COMMENTS:END -->

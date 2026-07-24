@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-24T03:07:00.183124Z'
+updated_at: '2026-07-24T03:08:00.153840Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -66,5 +66,10 @@ author: oompah
 created: 2026-07-24 03:07
 ---
 Understanding: Duplicate screening only. I will search existing tasks and design docs for node approval verification, durable replay prevention, and concurrent duplicate handling; inspect plausible candidates in full; then either archive EXOCOMP-24 as a confirmed duplicate or record a duplicate-detector handoff for implementation.
+---
+author: oompah
+created: 2026-07-24 03:08
+---
+Discovery: Duplicate screening found no duplicate. Reviewed full tracker records/comments for EXOCOMP-17, EXOCOMP-23, EXOCOMP-25, EXOCOMP-76, EXOCOMP-32, and EXOCOMP-33 after searching the git-backed tracker state plus plans/docs for approval, replay, execution-ID, durability, signature, and concurrency terms. EXOCOMP-23 is the coordinator-side signer/issuer; EXOCOMP-25 is the restricted executor; EXOCOMP-76 is a different coordinator enrollment-token protocol; EXOCOMP-32/33 are Milestone 4 orchestration and fault testing. The Milestone 3 plan uniquely assigns signature/binding/precondition verification and durable pre-execution replay state on the node to EXOCOMP-24.
 ---
 <!-- COMMENTS:END -->
