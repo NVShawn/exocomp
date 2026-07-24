@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:57:46.545172Z'
+updated_at: '2026-07-24T22:58:38.701159Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-07-24 22:57
 ---
 Understanding: Resuming the interrupted software-engineering run. I will audit the current worktree and prior partial implementation, preserve sound changes, finish the node enrollment client, atomic credential installer, and expiry-driven renewal scheduler with focused tests, then run Makefile quality gates, commit, push, and close the task.
+---
+author: oompah
+created: 2026-07-24 22:58
+---
+Discovery: The worktree is clean except for commit 021ed42, which merged the coordinator PKI/token prerequisite. The node app still has only Config/Identity/Listener and no enrollment, installation, or renewal code. Existing coordinator PKI.Issuer expects a locally generated P-256 CSR with SAN, digitalSignature, clientAuth, and serverAuth extensions and returns leaf+intermediate PEM. I will add a direct x509 dependency, an injectable HTTPS enrollment client, a generation-based atomic installer, and a GenServer renewal scheduler with deterministic timing seams.
 ---
 <!-- COMMENTS:END -->
