@@ -91,7 +91,10 @@ defmodule Exocomp.Coordinator.A2A.HTTPTransport do
   end
 
   defp timeout_reason?(reason) when reason in [:timeout, :connect_timeout, :etimedout], do: true
-  defp timeout_reason?(reason) when is_tuple(reason), do: reason |> Tuple.to_list() |> Enum.any?(&timeout_reason?/1)
+
+  defp timeout_reason?(reason) when is_tuple(reason),
+    do: reason |> Tuple.to_list() |> Enum.any?(&timeout_reason?/1)
+
   defp timeout_reason?(reason) when is_list(reason), do: Enum.any?(reason, &timeout_reason?/1)
   defp timeout_reason?(_reason), do: false
 
