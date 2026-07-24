@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-95
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement node-side approval token verifier (signature, bindings, freshness)
 parent: EXOCOMP-24
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:00:33.111078Z'
+updated_at: '2026-07-24T16:02:00.584343Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
