@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:52:53.010932Z'
+updated_at: '2026-07-24T01:52:55.507777Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -289,5 +289,10 @@ author: oompah
 created: 2026-07-24 01:52
 ---
 Completion: Delivered all 5 skill handler modules (Behaviour, SystemDiagnose, ServiceDiagnose, RemediationPropose, Dispatcher) and 22 focused ExUnit tests. Key implementation details: (1) Try/rescue inside Task.async prevents partial collector failures from propagating as EXIT signals; (2) Task.yield_many handles timeout detection; (3) All skill handlers use Application.get_env injection points for testability without Mox; (4) Prerequisite branches EXOCOMP-78, EXOCOMP-79, EXOCOMP-10 merged into epic-EXOCOMP-12. The Dispatcher is ready to be wired by EXOCOMP-81.
+---
+author: oompah
+created: 2026-07-24 01:52
+---
+Implemented Behaviour, SystemDiagnose, ServiceDiagnose, RemediationPropose, and Dispatcher skill handler modules with 22 focused ExUnit tests. 171/173 tests pass (2 pre-existing LlamaServer OS-process failures unrelated to this task). Merged prerequisite branches EXOCOMP-78/79/EXOCOMP-10. Pushed to origin/epic-EXOCOMP-12.
 ---
 <!-- COMMENTS:END -->
