@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-27
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:26:21.271227Z'
+updated_at: '2026-07-24T18:26:36.921518Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -23,6 +23,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 203eb2b3-bf49-4a2a-8f20-eed106761f31
 oompah.work_branch: epic-EXOCOMP-3
+oompah.task_costs:
+  total_input_tokens: 17
+  total_output_tokens: 4970
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 17
+      output_tokens: 4970
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 17
+    output_tokens: 4970
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T18:26:30.532188+00:00'
 ---
 ## Summary
 
@@ -122,5 +138,25 @@ Focus handoff: duplicate_detector
 7. Run make test, make lint, make fmt-check
 
 **Recommended next focus:** feature
+---
+author: oompah
+created: 2026-07-24 18:26
+---
+Agent completed successfully in 122s (4987 tokens)
+---
+author: oompah
+created: 2026-07-24 18:26
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 34, Tool calls: 23
+- Tokens: 17 in / 5.0K out [5.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 2s
+- Log: EXOCOMP-27__20260724T182432Z.jsonl
+---
+author: oompah
+created: 2026-07-24 18:26
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
