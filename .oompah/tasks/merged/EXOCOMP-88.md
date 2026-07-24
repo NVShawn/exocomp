@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:18:20.881585Z'
+updated_at: '2026-07-24T19:30:51.815255Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null

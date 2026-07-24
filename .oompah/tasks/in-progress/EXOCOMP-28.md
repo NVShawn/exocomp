@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:30:37.480184Z'
+updated_at: '2026-07-24T19:30:49.295738Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -132,5 +132,10 @@ author: oompah
 created: 2026-07-24 19:30
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 19:30
+---
+Understanding: As Maintenance Engineer, my role is to run the M3 safety and remediation verification suite and record pass/fail evidence for every M3-CRIT-* criterion. The duplicate_detector confirmed this is the unique broad M3 acceptance-verification task. I will: (1) explore the codebase to find existing M3 tests and the milestone-3-safety-validation plan, (2) run all focused tests and Make gates, (3) record evidence per criterion, and (4) hand off to a test specialist if new test scaffolding is needed. Starting now.
 ---
 <!-- COMMENTS:END -->
