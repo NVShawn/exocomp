@@ -13,7 +13,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T22:50:44.926199Z'
-updated_at: '2026-07-24T00:56:27.403564Z'
+updated_at: '2026-07-24T01:09:18.396487Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -251,5 +251,18 @@ author: oompah
 created: 2026-07-24 00:56
 ---
 Discovery: Created EXOCOMP-73 branch from epic-EXOCOMP-22 and merged EXOCOMP-21 safety types (ActionDefinition, Evidence, Proposal, RiskRank, ValidatorResult, DataClassification, Reversibility). All 15 files from EXOCOMP-21 are now available. Key findings: Evidence has evidence_id, collector, target_id, observed_at fields; ActionDefinition has required_evidence (list of collector IDs), max_evidence_age_secs, cooldown_secs, max_retries, data_classification, action_class. Proceeding to implement PolicyContext and PolicyEngine.Filter.
+---
+author: oompah
+created: 2026-07-24 01:09
+---
+Implementation: Created three new modules on branch EXOCOMP-73 (merged from epic-EXOCOMP-22 + EXOCOMP-21):
+
+1. apps/exocomp_node/lib/exocomp/node/safety/policy_context.ex — PolicyContext struct with authorized_action_ids (MapSet), cooldown_state, retry_counts, now (DateTime). build/1 validates all fields; fail-closed (nil/invalid → error).
+
+2. apps/exocomp_node/lib/exocomp/node/safety/policy_engine.ex — PolicyEngine module with FilterResult struct and filter/4 function. Implements all 7 eligibility checks in order using a with-chain. Evidence is scoped to proposal.target_id so wrong-target evidence is treated as missing. Each check produces a specific deny reason string.
+
+3. apps/exocomp_node/test/exocomp/node/safety/policy_context_test.exs — Unit tests for PolicyContext.build/1.
+
+4. apps/exocomp_node/test/exocomp/node/safety/policy_engine_filter_test.exs — Comprehensive unit tests covering all 7 filter checks individually, ordering guarantee, mixed candidates, empty catalog, empty evidence, wrong target_id evidence, nil context fields, nil proposal, and all-rejected output.
 ---
 <!-- COMMENTS:END -->
