@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:14:44.491921Z'
+updated_at: '2026-07-24T01:17:20.194705Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -196,5 +196,10 @@ author: oompah
 created: 2026-07-24 01:14
 ---
 Discovery: Created the missing EXOCOMP-74 branch from prerequisite EXOCOMP-73 because the dispatched worktree was actually on epic-EXOCOMP-22/origin-main. EXOCOMP-73's filter/4 evaluates only proposal.action_id, but EXOCOMP-74 must rank catalog alternatives; tests will target evaluate/4 behavior and require per-candidate eligibility, deterministic RiskRank/action_id ordering, complete eligible/rejected audit text, selected evidence refs, and exception fail-closed handling without prescribing internal implementation.
+---
+author: oompah
+created: 2026-07-24 01:17
+---
+Implementation (test focus): Added apps/exocomp_node/test/exocomp/node/safety/policy_engine_test.exs with independent fixed-time fixtures and coverage for allow/approval/deny, complete rejection audit, RiskRank ordering, alphabetical ties, stale and multi-collector evidence, evidence_refs, nil/unexpected inputs, escalation prevention, repeated-call determinism, and caught filter exceptions. Added a single-Evidence API regression case beyond the required table.
 ---
 <!-- COMMENTS:END -->
