@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-24
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Verify approvals and prevent replay on nodes
 parent: EXOCOMP-3
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-23T19:17:13.857252Z'
+updated_at: '2026-07-24T03:06:43.590885Z'
 work_branch: null
 target_branch: null
 review_url: null
