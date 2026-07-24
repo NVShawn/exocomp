@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T00:52:16.807141Z'
+updated_at: '2026-07-24T00:52:27.886385Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -123,5 +123,10 @@ author: oompah
 created: 2026-07-24 00:52
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 00:52
+---
+Understanding: Investigating EXOCOMP-78 (A2A router scaffold, Agent Card endpoint, mTLS enforcement) for duplicates. Will search task tracker for existing tasks covering Plug/Bandit HTTP router, A2A routing, mTLS enforcement, and Agent Card endpoint. Task is a child of EXOCOMP-12.
 ---
 <!-- COMMENTS:END -->
