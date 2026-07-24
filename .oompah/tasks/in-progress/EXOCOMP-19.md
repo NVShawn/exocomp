@@ -11,9 +11,11 @@ blocked_by:
 - EXOCOMP-18
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:chore
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:30:04.912877Z'
+updated_at: '2026-07-24T18:30:13.808726Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
