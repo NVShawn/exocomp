@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:26:46.766490Z'
+updated_at: '2026-07-24T18:27:00.611820Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -168,5 +168,10 @@ author: oompah
 created: 2026-07-24 18:26
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 18:27
+---
+Understanding: Implement the coordinator-side remediation integration that accepts only typed proposals, refreshes and validates evidence, applies policy and approval gates, enforces durable intent audit before any mutation, executes through the restricted node interface, verifies outcomes, and records redacted/correlated A2A history and terminal artifacts. I will first map the existing M2 A2A and M3 safety components, then add focused lifecycle/adversarial tests and run affected Make targets.
 ---
 <!-- COMMENTS:END -->
