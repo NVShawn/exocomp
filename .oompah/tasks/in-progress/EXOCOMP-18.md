@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:31.642631Z'
-updated_at: '2026-07-24T04:28:27.362669Z'
+updated_at: '2026-07-24T04:29:14.039232Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-07-24 04:28
 ---
 Understanding: This focus will decompose EXOCOMP-18 into concrete, single-session child tasks covering orchestration, dispatch/result handling, bounded state and restart recovery, correlated audit, documentation, and focused verification. I will inspect existing children first, avoid duplicates, set child dependencies, then return the epic to Backlog with an epic_planner handoff; no code will be implemented in this focus.
+---
+author: oompah
+created: 2026-07-24 04:29
+---
+Discovery: The milestone contract is concentrated in plans/milestone-2-coordinator.md (Coordinator Task Flow, A2A Interface, Audit, M2-CRIT-5/6). The displayed tracker state contains no existing children. Current checkout is the epic branch behind the completed foundation branches: coordinator currently has only its empty supervisor, while EXOCOMP-14/15 implementations are visible in git history on their epic branches. Decomposition therefore separates stable protocol/client and in-memory task primitives from fan-out aggregation, cancellation, audit, restart recovery/docs, and final integration verification; implementation children must begin from a branch containing the completed EXOCOMP-14/15 foundations.
 ---
 <!-- COMMENTS:END -->
