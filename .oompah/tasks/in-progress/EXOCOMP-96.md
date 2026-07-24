@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:45:13.820227Z'
+updated_at: '2026-07-24T16:45:26.623469Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -234,5 +234,10 @@ author: oompah
 created: 2026-07-24 16:45
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-07-24 16:45
+---
+Understanding: Test Engineer focus. I will explore the existing implementation (if any) of Exocomp.Node.Safety.PreconditionChecker and write comprehensive tests covering: (1) happy path — evidence unchanged → :ok, (2) evidence changed → {:error, :precondition_changed}, (3) collection failure → fail-closed {:error, {:collection_failed, reason}}, (4) injectable mock collectors via Application config, (5) byte-for-byte hash comparison, (6) field-order independence in canonical encoding. Will explore the relevant branches (EXOCOMP-86, EXOCOMP-95) for ApprovalToken struct and hash_evidence/1.
 ---
 <!-- COMMENTS:END -->
