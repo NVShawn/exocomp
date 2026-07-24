@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:57:08.758430Z'
+updated_at: '2026-07-24T16:57:12.925866Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -310,5 +310,10 @@ Files added:
 - apps/exocomp_node/test/exocomp/node/safety/precondition_checker_test.exs — 50+ focused tests
 
 Branch EXOCOMP-96 pushed to origin. All tests pass (254/254), lint clean. Ready for merge and EXOCOMP-98 integration gate.
+---
+author: oompah
+created: 2026-07-24 16:57
+---
+Implemented Exocomp.Node.Safety.PreconditionChecker with injectable SystemCollector for :restart_service (systemctl show) and :vacuum_logs (df -Pk). verify/3 collects fresh evidence, hashes with ApprovalToken.hash_evidence/1, compares byte-for-byte with token.evidence_hash, fails closed on collection failure. 50+ tests covering happy path, state change detection, field sensitivity, fail-closed behavior, injectable mocks, field order independence, and byte-for-byte comparison. 254 tests pass, lint clean.
 ---
 <!-- COMMENTS:END -->
