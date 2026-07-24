@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T02:53:23.532819Z'
+updated_at: '2026-07-24T03:03:47.734427Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -188,5 +188,10 @@ author: oompah
 created: 2026-07-24 02:53
 ---
 Discovery: the supplied worktree was actually on epic-EXOCOMP-17 at origin/main, where coordinator PKI code is absent. The required EXOCOMP-75 bootstrap and EXOCOMP-77 state work are present together on origin/epic-EXOCOMP-16 (commit 9afb6f8). I will create the required EXOCOMP-87 branch from that prerequisite-complete base and implement against its x509 APIs.
+---
+author: oompah
+created: 2026-07-24 03:03
+---
+Implementation: added PKI.Issuer with strict PEM/PKCS#10 parsing, P-256+/RSA-3072+ strength checks, exact DNS SAN and CA/KU/EKU policies, self-signature verification, OTP-compatible extensionRequest decoding, redacted intermediate loading, dedicated-key enforcement, and intermediate-signed leaf chains with exact configurable validity. Added 15 focused real-bootstrap tests covering all requested success and rejection cases.
 ---
 <!-- COMMENTS:END -->
