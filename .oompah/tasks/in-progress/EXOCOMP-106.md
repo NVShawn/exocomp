@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-24T18:51:09.808562Z'
+updated_at: '2026-07-24T18:52:43.317050Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -143,5 +143,10 @@ author: oompah
 created: 2026-07-24 18:51
 ---
 Discovery: After fetching origin, epic-EXOCOMP-4 is 40 commits behind origin/main and has 2 branch-only commits: EXOCOMP-29 fixture design/decomposition and EXOCOMP-30 service-recovery state machine. The worktree is clean, so the rebase can proceed without stashing user changes.
+---
+author: oompah
+created: 2026-07-24 18:52
+---
+Implementation: Rebased both epic-only commits onto origin/main. EXOCOMP-29 replayed cleanly. EXOCOMP-30 conflicted only with newer umbrella scaffold/build files; I retained main's pinned containerized Make targets, Elixir 1.20.2/release configuration, and Exocomp.Core application setup, while preserving the recovery state-machine modules/tests. I also dropped obsolete generated hello-world scaffold files from the replayed commit. The branch is now exactly 2 commits ahead and 0 behind origin/main.
 ---
 <!-- COMMENTS:END -->
