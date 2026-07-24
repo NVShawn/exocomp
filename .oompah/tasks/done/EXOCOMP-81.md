@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -13,7 +13,7 @@ labels:
 - focus-complete:refactor
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:28:35.786855Z'
+updated_at: '2026-07-24T02:28:54.618982Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -649,5 +649,25 @@ Implementation: Implemented all A2A endpoint wiring in apps/exocomp_node.
 - apps/exocomp_node/test/exocomp/node/a2a_router_test.exs — 13 new tests (plus 6 preserved)
 
 Key decisions: TaskRegistry and Dispatcher passed as opts for test isolation; async worker uses Task.start with inner Task.yield for timeout; cancellation races handled by checking transition return value.
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Verification: make test passes with 185/187 tests (185 passed, 2 excluded as pre-existing llama_server_test.exs failures — :enoent when trying to kill OS processes inside the Docker container, unrelated to this change). make fmt-check passes. All 19 A2A router tests pass including all 12 specified scenarios: submit valid/invalid/unknown-skill/at-capacity, get by id/unknown, list, cancel submitted/completed/unknown, async success, async failure.
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Completion: EXOCOMP-81 is fully implemented and pushed on branch EXOCOMP-81.
+
+Delivered:
+- POST /message:send — decodes A2A Message, validates skill, submits to TaskRegistry, spawns async worker with 30s timeout, returns 202
+- GET /tasks/:id — TaskRegistry.get → 200 or 404 TaskNotFoundError
+- GET /tasks — TaskRegistry.list → 200 with array
+- POST /tasks/:id:cancel — TaskRegistry.cancel → 200/400/404
+- Exocomp.Node.A2A.Codec — decode_message/1, extract_skill/1, encode_task/1 (handles completed artifact in status.message)
+- Async run_skill_async/5 — working transition, worker registration, dispatch with yield/timeout, terminal transition with cancellation-race safety
+- JSONBodyParser extended to rescue Plug.Parsers.ParseError → 400
+- Full test coverage: 19 tests for all specified scenarios
 ---
 <!-- COMMENTS:END -->

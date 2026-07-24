@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-17
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement node enrollment and certificate renewal
 parent: EXOCOMP-2
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-23T19:17:08.862575Z'
-work_branch: null
+updated_at: '2026-07-24T02:28:53.402320Z'
+work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: d18cdf21-49b1-4ff7-85a6-3fee6d98c002
+oompah.work_branch: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -47,3 +49,11 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 02:28
+---
+Agent dispatched (profile: default)
+---
+<!-- COMMENTS:END -->

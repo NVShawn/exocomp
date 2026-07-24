@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
@@ -12,12 +12,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-23T19:17:13.150985Z'
+updated_at: '2026-07-24T02:28:54.007179Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: a24369b8-5e26-4588-a07e-2d4c1cc12528
 ---
 ## Summary
 
