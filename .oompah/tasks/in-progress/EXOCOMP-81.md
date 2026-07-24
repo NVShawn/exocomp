@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T00:48:33.593918Z'
-work_branch: null
+updated_at: '2026-07-24T01:53:17.674012Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: f585f257-e5e0-418b-b8c0-cca20752de55
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -102,3 +104,16 @@ mix test apps/exocomp_node (focused)
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 01:53
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 01:53
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
