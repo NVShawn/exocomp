@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:25:01.983716Z'
+updated_at: '2026-07-24T22:25:11.039162Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -174,5 +174,10 @@ author: oompah
 created: 2026-07-24 22:25
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 22:25
+---
+Understanding: Implementing the three missing node-agent components from the EXOCOMP-17 gap: (1) Enrollment client that calls coordinator enrollment endpoint with node ID and CSR, (2) Atomic credential installer that safely writes chain PEM + private key, (3) Renewal scheduler that monitors cert expiry and triggers renewal. Plan: First explore the codebase to understand existing node/coordinator code, then implement the three components with full test coverage following security requirements from previous security review (pinned root, no token logging, atomic staged writes with rollback, mTLS renewal, jittered backoff scheduler).
 ---
 <!-- COMMENTS:END -->
