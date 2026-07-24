@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T18:49:45.345903Z'
+updated_at: '2026-07-24T18:49:58.938515Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -154,5 +154,10 @@ author: oompah
 created: 2026-07-24 18:49
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-07-24 18:49
+---
+Understanding: I will verify M2 with a deterministic disposable coordinator and 3+ local node fixtures, covering inventory/DNS/polling, enrollment and renewal failures, cluster diagnostics including partial failure/cancellation, durable audit and restart reconstruction, and proof that no remediation path runs. I will follow the M1 acceptance-test pattern, record M2-CRIT-1..8 evidence, and run all affected Make targets.
 ---
 <!-- COMMENTS:END -->
