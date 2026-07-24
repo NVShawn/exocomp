@@ -23,5 +23,17 @@ defmodule Exocomp.Node.Plug.JSONBodyParser do
       |> put_resp_content_type("application/json")
       |> send_resp(413, Jason.encode!(body))
       |> halt()
+
+    Plug.Parsers.ParseError ->
+      body = %{
+        jsonrpc: "2.0",
+        id: nil,
+        error: %{code: -32600, message: "Invalid Request", data: nil}
+      }
+
+      conn
+      |> put_resp_content_type("application/json")
+      |> send_resp(400, Jason.encode!(body))
+      |> halt()
   end
 end
