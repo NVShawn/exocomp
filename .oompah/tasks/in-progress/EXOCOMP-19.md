@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:29:45.107372Z'
+updated_at: '2026-07-24T18:30:04.912877Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -148,5 +148,37 @@ author: oompah
 created: 2026-07-24 18:29
 ---
 Implementation: Added bandit, plug, and jason deps to apps/exocomp_coordinator/mix.exs and expanded extra_applications to include inets, crypto, public_key, ssl. These are required for the A2A HTTP service implementation and were already pinned in mix.lock. Committed and pushed to epic-EXOCOMP-2. The coordinator tmp/ directory (apps/exocomp_coordinator/tmp/) contains ExUnit artifacts from prior test runs (Exocomp.Coordinator.AuditTest and Exocomp.Coordinator.InventoryTest tmp dirs) suggesting those modules were implemented and tested in a parallel environment. They are preserved as untracked; the feature agent should evaluate whether to commit or .gitignore them.
+---
+author: oompah
+created: 2026-07-24 18:30
+---
+Focus handoff: chore
+
+Outcome: Maintenance work complete. Updated apps/exocomp_coordinator/mix.exs to add bandit, plug, jason, and OTP networking/crypto extra_applications. Branch synced from origin/main (was 29 commits behind). Committed and pushed to epic-EXOCOMP-2.
+
+Relevant files/decisions:
+- apps/exocomp_coordinator/mix.exs — updated with HTTP deps (bandit ~>1.0, plug ~>1.17, jason ~>1.4)
+- apps/exocomp_node/lib/exocomp/node/a2a_router.ex — A2ARouter pattern to follow (Plug.Router with mTLS authenticate_mtls plug, require_a2a_version plug, JSONBodyParser, routes: GET /.well-known/agent-card.json, POST /message:send, GET /tasks, GET /tasks/:id, POST /tasks/:id [with :cancel suffix], POST /message/stream → UnsupportedOperationError, POST /tasks/:id/resubscribe → UnsupportedOperationError)
+- apps/exocomp_node/lib/exocomp/node/a2a/codec.ex — Codec encode/decode helpers
+- apps/exocomp_node/lib/exocomp/node/task_registry.ex — TaskRegistry GenServer (bounded history, get/list/submit/cancel/transition/register_worker)
+- apps/exocomp_node/lib/exocomp/node/handlers/agent_card_handler.ex — AgentCardHandler pattern
+- apps/exocomp_node/lib/exocomp/node/listener.ex — Bandit mTLS HTTPS listener GenServer
+- apps/exocomp_coordinator/tmp/ — Untracked ExUnit tmp dirs from prior test runs of Exocomp.Coordinator.AuditTest and Exocomp.Coordinator.InventoryTest; investigate whether these represent in-progress implementation artifacts
+
+Remaining work/risks:
+1. Implement Exocomp.Coordinator.A2ARouter exposing exocomp.cluster.health and exocomp.cluster.diagnose (NOT remediation execution per plans/milestone-2-coordinator.md)
+2. Implement Exocomp.Coordinator.Handlers.AgentCardHandler with cluster skills
+3. Reuse or mirror TaskRegistry for coordinator task lifecycle (or alias from node if shared)
+4. Implement Codec for coordinator (cluster skills use different params than node skills)
+5. Implement authorization of inventory selections (reject unauthorized node selections)
+6. Aggregate bounded partial results from nodes (EXOCOMP-18 orchestration delegate)
+7. Implement Exocomp.Coordinator.Config and Listener (mirrors node pattern; coordinator.json template in release/templates/coordinator.json uses bind/tls/pki fields, different from node config shape)
+8. Tests: selection authorization, partial results, cancellation, mTLS, unsupported capabilities, version negotiation, concurrent callers, no-remediation path
+9. Check apps/exocomp_coordinator/tmp/ for any usable in-progress code
+10. Run make test and make lint after implementation
+
+Architecture boundary: handlers authorize inventory selections and delegate to EXOCOMP-18 orchestration; MUST NOT expose remediation execution skills.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
