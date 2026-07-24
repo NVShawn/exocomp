@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-92
 type: task
-status: In Progress
+status: Done
 priority: 1
 title: Add multi-node discovery and polling integration coverage
 parent: EXOCOMP-15
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T04:22:12.718123Z'
+updated_at: '2026-07-24T04:22:30.668187Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -131,5 +131,26 @@ author: oompah
 created: 2026-07-24 04:22
 ---
 Implementation: Created apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs with 16 cross-component integration tests. Key decisions: (1) Merged EXOCOMP-91 (HealthPoller) and EXOCOMP-90 (poll scheduling) via fast-forward first, since they were prerequisites on separate branches. (2) Used the existing injectable seams — clock/random for Registry, resolver_adapter and probe_adapter for HealthPoller — so no wall-clock sleeps anywhere. (3) Wired Registry + HealthPoller directly without the real Inventory or Resolver processes (uses resolver_adapter to push DNS candidates into the pipeline deterministically). (4) Stale transitions tested via clockagent advancement rather than Process.sleep. All tests pass: 55 coordinator + 92 node + 49/10 excluded = no failures. All make gates (test, lint, fmt-check, build) pass.
+---
+author: oompah
+created: 2026-07-24 04:22
+---
+Verification: All make quality gates pass on the EXOCOMP-92 branch after merging EXOCOMP-90 and EXOCOMP-91 prerequisites and adding the new test file.
+
+Results:
+- make test: 55 coordinator tests passed, 92 node tests passed, 49 passed / 10 excluded (systemd-only tests documented exclusion)
+- make lint: clean (no warnings, no errors)
+- make fmt-check: clean (ran make fmt first to apply formatter, then confirmed fmt-check passes)
+- make build: releases assembled successfully
+
+The 10 excluded tests are systemd integration tests tagged @moduletag :integration that require root + systemd — this is an environment constraint documented in the Makefile target description (test-integration) and is a pre-existing exclusion, not introduced by this work.
+
+New test file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs
+16 integration tests covering all scenarios from the task description: healthy/degraded/slow/stale/unreachable/wrong-identity nodes, multiple addresses, DNS change adoption, failed change preservation, bounded concurrency, per-node timeout isolation, exponential backoff, recovery, audit events, redaction.
+---
+author: oompah
+created: 2026-07-24 04:22
+---
+Completion: EXOCOMP-92 is done. Delivered multi_node_discovery_polling_test.exs with 16 cross-component integration tests satisfying all requirements from the task description and plans/milestone-2-coordinator.md (M2-CRIT-2, M2-CRIT-8). Prerequisites EXOCOMP-90 and EXOCOMP-91 were merged into the epic branch. All make quality gates (test, lint, fmt-check, build) pass. Branch pushed: epic-EXOCOMP-15 at commit 9e9462b.
 ---
 <!-- COMMENTS:END -->
