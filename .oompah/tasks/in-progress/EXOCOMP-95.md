@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-95
 type: task
-status: Backlog
+status: In Progress
 priority: null
 title: Implement node-side approval token verifier (signature, bindings, freshness)
 parent: EXOCOMP-24
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T03:12:09.769791Z'
-work_branch: null
+updated_at: '2026-07-24T15:58:06.054498Z'
+work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 019f9807-0618-4c20-880b-458df85dd7f8
+oompah.work_branch: epic-EXOCOMP-3
 ---
 ## Summary
 
@@ -106,3 +108,16 @@ Run \`make test\` and \`make lint\` before closing.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 15:58
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 15:58
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

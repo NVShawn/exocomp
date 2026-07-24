@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-97
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement durable replay ledger with write-ahead semantics, concurrent serialization,
   and restart reconciliation
@@ -11,7 +11,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T03:13:24.988532Z'
+updated_at: '2026-07-24T15:58:00.287017Z'
 work_branch: null
 target_branch: null
 review_url: null

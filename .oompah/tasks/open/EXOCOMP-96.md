@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: Backlog
+status: Open
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T03:14:09.487807Z'
+updated_at: '2026-07-24T15:57:59.338585Z'
 work_branch: null
 target_branch: null
 review_url: null
