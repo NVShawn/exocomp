@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-62
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement LlamaServer OTP process supervisor
 parent: EXOCOMP-11
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:55.522595Z'
-updated_at: '2026-07-23T21:37:35.290675Z'
+updated_at: '2026-07-24T03:41:21.995619Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
