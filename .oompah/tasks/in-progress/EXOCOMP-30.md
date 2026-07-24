@@ -9,10 +9,11 @@ children: []
 blocked_by:
 - EXOCOMP-18
 - EXOCOMP-22
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:24:57.580792Z'
+updated_at: '2026-07-24T18:25:34.660000Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -66,5 +67,15 @@ author: oompah
 created: 2026-07-24 18:24
 ---
 Understanding: screening EXOCOMP-30 for duplication before any implementation. I will search the tracker and Milestone 4 plan for tasks covering the same recovery-state-machine states, transition guards, audit durability, and exhaustive tests; confirmed candidates will be read in full.
+---
+author: oompah
+created: 2026-07-24 18:25
+---
+Discovery: Duplicate screening found no duplicate. The closest candidate is EXOCOMP-27, which integrates the generic Milestone 3 remediation lifecycle with A2A tasks and audit; it does not define EXOCOMP-30's explicit Milestone 4 service-recovery states, legal event matrix, recovery-episode one-attempt/cooldown rules, restart restoration, or exhaustive transition tests. EXOCOMP-18 supplies coordinator orchestration/audit, EXOCOMP-22 supplies policy decisions, and M4 siblings EXOCOMP-29/31/32/33/34 respectively own the fixture, automatic flow, approval flow, fault testing, and milestone verification.
+---
+author: oompah
+created: 2026-07-24 18:25
+---
+Focus handoff: duplicate_detector\n\nOutcome: No duplicate confirmed; EXOCOMP-30 is a unique Milestone 4 state-machine implementation task.\n\nEvidence and decisions:\n- Repository search covered service-recovery/state-machine/cooldown/fresh-evidence terms in plans and docs. The checkout has no .oompah/tasks directory, so candidate task records were read through the tracker.\n- Reviewed full records for EXOCOMP-4, EXOCOMP-18, EXOCOMP-21, EXOCOMP-22, EXOCOMP-25 through EXOCOMP-27, and EXOCOMP-29 through EXOCOMP-34.\n- EXOCOMP-27 is the closest candidate but owns generic M3 remediation-to-A2A integration; EXOCOMP-30 owns the explicit M4 recovery state graph and its transition semantics.\n- EXOCOMP-18 and EXOCOMP-22 are prerequisites providing orchestration/audit and policy selection. EXOCOMP-31/32 consume the machine for automatic and approval-required service flows; EXOCOMP-33 fault-tests execution boundaries; EXOCOMP-34 verifies the milestone.\n- Relevant specification: plans/milestone-4-service-recovery.md, especially Recovery State Machine, Minimal-Impact Rules, Concurrency and Idempotency, Failure Behavior, and Test Strategy.\n\nRemaining work and risks: Implement observe, diagnose, propose, validate, awaiting-approval, execute, verify, cooldown, complete, and escalate states with a closed legal event matrix; correlated durable audit per accepted transition; stale/out-of-order/duplicate rejection; cancellation/deadlines; fresh evidence; one execution attempt; restart restoration; and exhaustive focused tests. Preserve a clean boundary with EXOCOMP-27's generic lifecycle layer and interfaces expected by EXOCOMP-31/32.\n\nRecommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
