@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-91
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Run bounded concurrent node polls with per-node isolation
 parent: EXOCOMP-15
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T04:00:04.946626Z'
+updated_at: '2026-07-24T04:01:14.354961Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -154,5 +154,10 @@ author: oompah
 created: 2026-07-24 04:00
 ---
 Implementation: added HealthPoller with bounded TaskSupervisor workers, Registry token claims/in-flight deduplication, per-node kill timers, immediate capacity refill, isolated resolver/probe adapters, and crash/timeout outcome recording. Poller startup kills orphan workers and Registry.recover_in_flight clears stale claims. Registry now atomically stores verified addresses, Agent Card protocol version/skills, health diagnostics, and timestamps. Wired configurable Registry/HealthPoller plus PollTaskSupervisor into the application tree and added focused coverage.
+---
+author: oompah
+created: 2026-07-24 04:01
+---
+Completion: delivered and pushed commit c88cf3e on EXOCOMP-91. The coordinator now supervises bounded concurrent per-node DNS/probe jobs with token-based deduplication, independent deadlines and cleanup, crash/timeout isolation, atomic observation metadata, and poller/worker restart recovery. Added application-tree wiring and deterministic focused tests; full local compile/test/format gates pass. Branch is clean and up to date with origin.
 ---
 <!-- COMMENTS:END -->
