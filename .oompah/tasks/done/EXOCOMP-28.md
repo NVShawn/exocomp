@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-28
 type: chore
-status: In Progress
+status: Done
 priority: 1
 title: Verify M3 safety and remediation controls
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:56:09.494062Z'
+updated_at: '2026-07-24T19:56:26.950332Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -170,5 +170,24 @@ Three issues were found and fixed during testing:
 3. PrivilegeTest check_not_root/0 had the same pre-existing rootless-Podman issue. Fixed with the same branching strategy.
 
 All M3-CRIT acceptance evidence is now recorded in the test file comments.
+---
+author: oompah
+created: 2026-07-24 19:56
+---
+Completion: EXOCOMP-28 is done.
+
+Delivered:
+- apps/exocomp_node/test/integration/m3_acceptance_test.exs — 1493 lines, 8 describe blocks (one per M3-CRIT), 44 tests total. Every test carries a # [PASS/FAIL evidence for M3-CRIT-X] marker following the M1 acceptance test pattern.
+- apps/exocomp_node/lib/exocomp/node/vacuum_bounds.ex — user_data_path?/1 now matches bare /home and /root (previously only subdirectory paths with trailing slash were matched; M3-CRIT-4e defense-in-depth tightened).
+- apps/exocomp_node/test/exocomp/node/privilege_test.exs — pre-existing rootless-Podman failure resolved; test now branches on actual UID rather than unconditionally asserting :ok.
+
+Acceptance criteria status:
+  [PASS] Every M3-CRIT-1 through M3-CRIT-8 item has recorded pass/fail evidence.
+  [PASS] No test path permits user-data deletion or arbitrary commands (M3-CRIT-3, M3-CRIT-7).
+  [PASS] System cleanup stays within fixed bounds under proved need (M3-CRIT-4).
+  [PASS] Automatic vs approval-required service behavior matches policy (M3-CRIT-5).
+  [PASS] All quality gates pass — 761/761 ExUnit tests, releases smoke-passed.
+
+Branch: EXOCOMP-28, commit 27f5c5e
 ---
 <!-- COMMENTS:END -->
