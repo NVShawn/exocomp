@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-19
 type: feature
-status: Done
+status: In Progress
 priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:45:23.830826Z'
+updated_at: '2026-07-24T18:45:44.274189Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -23,13 +23,13 @@ merged_at: null
 oompah.agent_run_id: 91f071f1-a18c-4c21-80e3-cecb9cd15695
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 396055
-  total_output_tokens: 6422
+  total_input_tokens: 396125
+  total_output_tokens: 52625
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 396055
-      output_tokens: 6422
+      input_tokens: 396125
+      output_tokens: 52625
       cost_usd: 0.0
   runs:
   - profile: default
@@ -44,6 +44,12 @@ oompah.task_costs:
     output_tokens: 4595
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:30:33.197521+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 70
+    output_tokens: 46203
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T18:45:34.335248+00:00'
 ---
 ## Summary
 
@@ -237,5 +243,37 @@ author: oompah
 created: 2026-07-24 18:45
 ---
 Implemented coordinator cluster A2A service: A2ARouter with mTLS/version gating, Agent Card (cluster.health + cluster.diagnose only), TaskRegistry, Codec, InventoryAuthorizer, Listener, Config. 83 tests pass covering selection auth, partial results, cancellation, mTLS, unsupported capabilities, version negotiation, concurrent callers, no-remediation boundary. All umbrella tests pass, lint clean.
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Agent completed successfully in 885s (46273 tokens)
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
+- Turns: 115, Tool calls: 86
+- Tokens: 70 in / 46.2K out [46.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 14m 45s
+- Log: EXOCOMP-19__20260724T183051Z.jsonl
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-2` has 2 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 2
+    a8f2e25 EXOCOMP-19: expose coordinator cluster A2A service
+    332ffa8 EXOCOMP-19: add HTTP deps to coordinator mix.exs
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-2 --title "EXOCOMP-19: Expose coordinator cluster A2A service" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
 ---
 <!-- COMMENTS:END -->
