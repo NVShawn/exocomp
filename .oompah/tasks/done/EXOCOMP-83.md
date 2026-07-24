@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-83
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Make LlamaServer crash tests portable in Alpine builder
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:37:44.106424Z'
+updated_at: '2026-07-24T02:38:43.001516Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -163,5 +163,10 @@ author: oompah
 created: 2026-07-24 02:37
 ---
 Verification: In the pinned Alpine 3.24.1 builder, the focused LlamaServer suite passes 8/8 with the fix. Negative regression proof: temporarily restoring /usr/bin/kill makes exactly the two crash tests fail with Erlang :enoent/invalid port name; restoring PATH-based kill makes them pass. Full make test also passes: bench 55, core 2, coordinator 1, node 49 (10 integration/systemd excluded), followed by successful node/coordinator release assembly and smoke startup.
+---
+author: oompah
+created: 2026-07-24 02:38
+---
+Completion: Delivered and pushed commit 8c067f2 on origin/EXOCOMP-83. LlamaServer crash tests now resolve kill through PATH for BusyBox/Alpine portability while retaining TERM behavior. Focused regression proof and the full make test/release smoke gate pass; the branch is clean and up to date with origin. No follow-up work identified.
 ---
 <!-- COMMENTS:END -->
