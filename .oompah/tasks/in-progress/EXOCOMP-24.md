@@ -7,6 +7,7 @@ title: Verify approvals and prevent replay on nodes
 parent: EXOCOMP-3
 children:
 - EXOCOMP-95
+- EXOCOMP-96
 blocked_by:
 - EXOCOMP-17
 - EXOCOMP-23
@@ -14,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-24T03:12:09.821975Z'
+updated_at: '2026-07-24T03:12:36.287051Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
