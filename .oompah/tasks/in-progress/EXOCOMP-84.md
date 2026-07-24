@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:49:07.487895Z'
+updated_at: '2026-07-24T02:51:31.202963Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -287,5 +287,10 @@ author: oompah
 created: 2026-07-24 02:49
 ---
 Discovery: Implementation files are present (disk_pressure_collector.ex, disk_pressure_collector_test.exs, mock_commander.ex). Tests run with 3 failures: (1) and (2) are pre-existing LlamaServer crash tests that fail in this container because /usr/bin/kill is not present — unrelated to our work. (3) The critical threshold boundary test fails due to integer truncation in compute_pct/2: trunc(966367641/1073741824*100) = 89 instead of 90, because div(total*90,100) truncates slightly below 90%. Fix: change trunc to round.
+---
+author: oompah
+created: 2026-07-24 02:51
+---
+Implementation: Fixed the integer-truncation bug in compute_pct/2 (trunc → round) so boundary-threshold tests pass correctly. All 6 files staged for commit on new branch EXOCOMP-84: os_commander.ex (OsCommander behaviour + SystemCommander), evidence.ex (Evidence schema), disk_pressure_collector.ex (new: DiskPressureCollector with collect/0 and integrity_hash_for/1), disk_pressure_collector_test.exs (new: 21 unit tests covering all threshold scenarios, OS failures, evidence record structure, and config-only access), mock_commander.ex (new: Agent-based test double), test_helper.exs (require mock_commander support file).
 ---
 <!-- COMMENTS:END -->
