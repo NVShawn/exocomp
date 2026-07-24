@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -11,22 +11,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:03:31.119716Z'
+updated_at: '2026-07-24T16:04:19.838030Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: bb336ee8-0356-4a14-ae5f-dcca9947fc94
+oompah.agent_run_id: 09784ef6-1e57-435c-a337-c422d1f6e928
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 606360
-  total_output_tokens: 3429
+  total_input_tokens: 606414
+  total_output_tokens: 5945
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 606360
-      output_tokens: 3429
+      input_tokens: 606414
+      output_tokens: 5945
       cost_usd: 0.0
   runs:
   - profile: default
@@ -35,6 +35,12 @@ oompah.task_costs:
     output_tokens: 3429
     cost_usd: 0.0
     recorded_at: '2026-07-24T15:56:50.871923+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 54
+    output_tokens: 2516
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T16:04:03.622518+00:00'
 ---
 ## Summary
 
@@ -110,6 +116,26 @@ Agent dispatched (profile: default)
 ---
 author: oompah
 created: 2026-07-24 16:01
+---
+Focus: Feature Developer
+---
+author: oompah
+created: 2026-07-24 16:04
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 43
+- Tokens: 54 in / 2.5K out [2.6K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 25s
+- Log: EXOCOMP-100__20260724T160140Z.jsonl
+---
+author: oompah
+created: 2026-07-24 16:04
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 16:04
 ---
 Focus: Feature Developer
 ---

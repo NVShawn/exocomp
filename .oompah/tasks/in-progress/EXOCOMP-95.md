@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-95
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement node-side approval token verifier (signature, bindings, freshness)
 parent: EXOCOMP-24
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:02:00.584343Z'
+updated_at: '2026-07-24T16:04:15.966200Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: f22f79c2-e6d5-488f-9c7c-8f678d22d4fd
+oompah.agent_run_id: 162ddc09-69f1-48d0-ae3f-25f4f8bc5bb6
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 794652
@@ -204,5 +204,15 @@ Understanding: I'm implementing Exocomp.Node.Safety.ApprovalVerifier — the nod
 5. Run make test && make lint before closing
 
 Key design decisions to document: config-path key loading, shared encoding in exocomp_core, no cross-app coordinator dependency.
+---
+author: oompah
+created: 2026-07-24 16:04
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 16:04
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
