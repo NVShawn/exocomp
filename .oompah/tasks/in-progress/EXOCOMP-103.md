@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T17:36:19.253387Z'
+updated_at: '2026-07-24T17:41:52.496030Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -113,5 +113,17 @@ author: oompah
 created: 2026-07-24 17:36
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 17:41
+---
+Understanding: Implementing audit instrumentation for the diagnostic orchestrator. The codebase has a working Audit GenServer (apps/exocomp_coordinator/lib/exocomp/coordinator/audit.ex) that provides emit/3, recursive redaction, and health signaling. The Registry module already uses the audit_server injection pattern as a reference.
+
+Plan:
+1. Extend Orchestrator with an 'audit' field (injectable, defaulting to Audit) and emit structured events at: goal_accepted, goal_deduplicated, goal_dispatching, node_dispatching, node_dispatched, node_result, node_failed, node_unreachable, node_timeout, goal_timeout, cancellation_requested, node_canceled, cluster_completed.
+2. Extend GoalStore with an 'audit' field and emit goal_evicted events from run_eviction/2.
+3. All events carry the goal.id as correlation_id. Recursive redaction is handled automatically by Audit.emit/3 (already calls redact/1 on all attributes including params). Audit failures are non-fatal for orchestration (catch :exit, handle {:error, _} as no-op).
+4. The Health module already reports degraded via Audit.status().healthy == false — no code change needed there.
+5. Add a focused test module with a CollectorSink and tests for: event ordering/correlation, redaction, sink write failures, degraded signaling, and recovery.
 ---
 <!-- COMMENTS:END -->
