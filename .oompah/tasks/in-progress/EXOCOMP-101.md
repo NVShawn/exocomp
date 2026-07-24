@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-24T16:32:27.588866Z'
+updated_at: '2026-07-24T16:53:01.055010Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -122,5 +122,10 @@ author: oompah
 created: 2026-07-24 16:32
 ---
 Discovery: Merged EXOCOMP-99 (DiagnosticClient + ClientError + Codec + Transport + HTTPTransport + DiagnosticGoal + NodeOutcome) and EXOCOMP-100 (GoalStore with idempotency, eviction, caps, downstream_key/2) into this branch. Key implementation points: (1) Orchestrator must be a GenServer using Task.Supervisor for bounded fan-out; (2) HealthPoller is the structural template for bounded concurrency with per-task isolation; (3) GoalStore.accept/4 → transition(:dispatching) → transition(:running) → per-node put_node_outcome → transition(:completed/:failed) is the lifecycle path; (4) downstream_key/2 gives stable idempotency per (goal_id, node_id) pair; (5) DiagnosticClient.send + get_task are the dispatch primitives; (6) A2A Task terminal states are :completed, :failed, :canceled. Will implement Orchestrator GenServer + focused tests.
+---
+author: oompah
+created: 2026-07-24 16:53
+---
+Implementation: Added Exocomp.Coordinator.Orchestrator GenServer in apps/exocomp_coordinator/lib/exocomp/coordinator/orchestrator.ex. Key design decisions: (1) GoalStore.accept/4 used for idempotent goal creation; per-call client_opts merged with state client_opts so test adapters work; (2) Bounded concurrency via task_ref→meta map; take_pending implements round-robin fair scheduling across goals while filling available slots from same goal if needed; (3) Each node task runs as async_nolink Task.Supervisor task with FakeClient.send + poll_until_terminal loop; (4) Per-node deadline via Process.send_after(:node_timeout, ref) — kills task and marks :unreachable; (5) Overall goal deadline via Process.send_after(:goal_timeout, goal_id) — kills all in-flight tasks, marks in-flight and pending nodes :unreachable, transitions goal to :completed; (6) Lifecycle: accepted→dispatching (synchronous in run), dispatching→running (on first dispatch, synchronous), running→completed (when remaining==0); (7) NodeOutcome set to :running synchronously before Task starts; (8) Late results silently ignored (task removed from state.tasks before result arrives); (9) Application.ex updated with GoalStore, DiagTaskSupervisor, Orchestrator. Added 18 tests covering all required scenarios.
 ---
 <!-- COMMENTS:END -->
