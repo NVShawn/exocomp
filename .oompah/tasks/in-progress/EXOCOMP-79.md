@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:32:12.118718Z'
+updated_at: '2026-07-24T01:32:21.186446Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -249,5 +249,10 @@ author: oompah
 created: 2026-07-24 01:32
 ---
 Implementation: Added Exocomp.Node.TaskRegistry with configurable hard count/concurrency bounds, UUID A2A task creation, get/list APIs, validated transitions, cancellation and worker shutdown signaling, periodic TTL eviction, and oldest-terminal count eviction that never drops active tasks. Added TaskRegistry to Exocomp.Node.Application, declared :crypto for UUID generation, and added focused coverage for the full public lifecycle plus supervision startup and bound edge cases.
+---
+author: oompah
+created: 2026-07-24 01:32
+---
+Verification: Focused TaskRegistry + Application tests pass: 14 tests, 0 failures. mix format --check-formatted passes. MIX_ENV=test mix compile --force --warnings-as-errors passes for all umbrella apps. The broader exocomp_node suite compiled and ran 62 tests; 60 passed and the only 2 failures are existing LlamaServer tests requiring /usr/bin/kill, which is absent from the pinned Alpine builder image and unrelated to this change. git diff --check is clean.
 ---
 <!-- COMMENTS:END -->
