@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-27
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
@@ -14,12 +14,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-23T19:17:16.052208Z'
-work_branch: null
+updated_at: '2026-07-24T18:24:32.615937Z'
+work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 203eb2b3-bf49-4a2a-8f20-eed106761f31
+oompah.work_branch: epic-EXOCOMP-3
 ---
 ## Summary
 
@@ -49,3 +51,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 18:24
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:24
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
