@@ -8,10 +8,11 @@ title: Implement durable replay ledger with write-ahead semantics, concurrent se
 parent: EXOCOMP-24
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:03:34.992253Z'
+updated_at: '2026-07-24T16:03:39.819800Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
