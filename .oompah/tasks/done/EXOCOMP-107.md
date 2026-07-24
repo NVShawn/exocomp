@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-107
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement node-agent enrollment client, credential installer, and renewal scheduler
   (EXOCOMP-17 gap)
@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T23:07:12.154573Z'
+updated_at: '2026-07-24T23:07:59.617792Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -235,5 +235,10 @@ author: oompah
 created: 2026-07-24 23:07
 ---
 Verification: Added 11 focused ExUnit tests covering CSR constraints/private-key locality, successful enrollment/install, HTTPS refusal, mismatched key rejection, chain/SAN/mode validation, atomic old-generation fallback, symlink refusal, certificate expiry parsing, threshold scheduling, and bounded retry state. Local formatter check, AST parsing, git diff --check, and in-memory compilation of all three modules against typed dependency stubs pass. The canonical make test/fmt-check/lint/build gates were each attempted but could not start because Podman cannot chmod/read /run/user/1000/libpod in this managed environment; no containerized ExUnit test executed.
+---
+author: oompah
+created: 2026-07-24 23:07
+---
+Completion: Delivered and pushed commit ed8b906 on origin/EXOCOMP-107. The node now has a local-key enrollment client with constrained CSR and pinned HTTPS transport, a validated generation-based atomic credential installer that preserves prior credentials, and an expiry-driven single-flight renewal scheduler with jittered exponential retry. Added 11 focused tests and updated the M2 acceptance gap note. Branch is clean and exactly synchronized with origin/EXOCOMP-107. Canonical Makefile gates remain environment-blocked before execution by the managed Podman /run/user/1000/libpod read-only error; local format/static checks pass.
 ---
 <!-- COMMENTS:END -->
