@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: Done
+status: Merged
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:33:19.428506Z'
+updated_at: '2026-07-24T03:53:26.197942Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
