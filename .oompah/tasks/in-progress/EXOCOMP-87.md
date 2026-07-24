@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T02:50:35.266390Z'
+updated_at: '2026-07-24T02:51:51.309583Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -111,5 +111,10 @@ author: oompah
 created: 2026-07-24 02:50
 ---
 Understanding: screening EXOCOMP-87 for duplicate work covering coordinator CSR validation and node leaf certificate issuance. I will search task/docs records, inspect credible candidate tasks in full, and either archive as a confirmed duplicate or hand off for implementation without changing code.
+---
+author: oompah
+created: 2026-07-24 02:51
+---
+Discovery: no duplicate confirmed. Searched the tracker state branch and project plans for CSR validation, certificate-signing requests, leaf issuance, node certificates, and intermediate-CA usage. Reviewed full records for EXOCOMP-16, EXOCOMP-17, EXOCOMP-75, and EXOCOMP-77. EXOCOMP-75 owns CA bootstrap/state validation, EXOCOMP-77 explicitly excludes CSR issuance, and EXOCOMP-17 is the parent epic whose planner deliberately decomposed this exact pure issuer-library scope into EXOCOMP-87. No other task owns validate_csr/2 or issue_leaf/3.
 ---
 <!-- COMMENTS:END -->
