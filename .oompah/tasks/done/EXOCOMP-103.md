@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T18:00:41.239891Z'
+updated_at: '2026-07-24T18:00:43.819112Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -197,5 +197,10 @@ What was delivered:
 - orchestrator_audit_test.exs (new, 17 tests): event ordering/correlation, downstream_task_id tracking, deduplication events, recursive redaction (nested api_key/password), sink write failures (non-fatal, diagnostics available), Audit.status/1 reports healthy:false, server survives repeated failures, sink recovery, cancellation event ordering, per-node cancel events, timeouts, transport errors, protocol errors, GoalStore eviction, empty node lists.
 
 All 197 coordinator tests pass. Audit failures are non-fatal — Health.check/0 already maps Audit.status().healthy == false to :degraded, preserving diagnostic read availability during audit outages.
+---
+author: oompah
+created: 2026-07-24 18:00
+---
+Instrumented orchestrator and goal store with structured, correlated audit events for every diagnostic lifecycle transition. All events carry the goal.id as correlation_id, params are recursively redacted, audit failures are non-fatal. 17 new focused tests cover ordering, redaction, write failures, degraded health signaling, recovery, cancellation, timeouts, and eviction.
 ---
 <!-- COMMENTS:END -->
