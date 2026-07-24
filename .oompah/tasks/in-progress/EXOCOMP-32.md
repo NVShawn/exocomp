@@ -15,7 +15,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:17:47.952751Z'
+updated_at: '2026-07-24T19:17:58.160892Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -235,5 +235,10 @@ author: oompah
 created: 2026-07-24 19:17
 ---
 Implementation: Added Exocomp.Node.Recovery.ApprovalRequired, a data-only A2A recovery flow for active/degraded services. It advances the recovery machine into awaiting_approval, exposes input_required with the exact disruption impact, full evidence, and approval bindings, validates the signed operator through ApprovalGate, refreshes evidence both before and inside the gate, persists execution intent before the restricted restart, verifies health, and emits terminal artifacts. Deny/timeout/expiry/evidence drift/healthy-or-failed transitions escalate with no action; invalid identity/token stays pending; replay/cancel are safe. Added 14 focused tests. Also completed the prerequisite branch integration by removing obsolete coordinator modules/tests that conflicted with EXOCOMP-27's replacement architecture.
+---
+author: oompah
+created: 2026-07-24 19:17
+---
+Verification: Focused approval-flow suite passes (14 tests, 0 failures). Full host umbrella suite passes: bench 55, core 152, node 740, coordinator 280 = 1,227 tests, 0 failures, 10 excluded integration/systemd tests. Host format check and forced test compilation with warnings-as-errors pass. make fmt-check/test/lint were each invoked but cannot start their pinned container in this managed sandbox because rootless Podman cannot chmod /run/user/1000/libpod (read-only); equivalent host gates used Elixir 1.18/OTP 27 with the matching Erlang development header. git diff --check passes.
 ---
 <!-- COMMENTS:END -->
