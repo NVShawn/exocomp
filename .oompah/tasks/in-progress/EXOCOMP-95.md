@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:04:50.336619Z'
+updated_at: '2026-07-24T16:08:46.095857Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -219,5 +219,15 @@ author: oompah
 created: 2026-07-24 16:04
 ---
 Understanding: Implementing the node-side Ed25519 verifier with a configurable lazy-loaded raw 32-byte public-key path, shared canonical token encoding/hash helpers in exocomp_core, strict binding/freshness checks, and comprehensive focused tests. The supplied worktree was clean but on epic-EXOCOMP-24; I corrected it in place to a new EXOCOMP-95 branch at origin/main.
+---
+author: oompah
+created: 2026-07-24 16:08
+---
+Implementation: Added Exocomp.Core.ApprovalToken for deterministic canonical JSON and SHA-256 helpers; added Exocomp.Node.Safety.ApprovalVerifier with documented nested wire format, lazy raw-key loading with redacted fail-closed errors, Ed25519 verification, all execution bindings, and strict issued/expires checks. Added focused core and node tests covering correct/bad keys, binary/base64url signatures, all eleven tamper fields, expiry/future issuance, and node/action/parameter mismatches.
+---
+author: oompah
+created: 2026-07-24 16:08
+---
+Discovery: origin/EXOCOMP-86 contains the canonical JSON/hash contract but is based on an older divergent history, so merging it would delete current node/A2A work. I copied the exact eleven-field encoding contract into a shared exocomp_core module. Existing node identity is passed through runtime configuration objects rather than stored globally, so the verifier takes node_id in its execution context; the approval public-key file path is injected through Application config.
 ---
 <!-- COMMENTS:END -->
