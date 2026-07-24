@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:27:41.510392Z'
+updated_at: '2026-07-24T02:27:57.324977Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -426,5 +426,20 @@ Changes delivered:
    - Online/offline dir permissions 0700; private files 0600
 
 9. mix_task_test.exs (new) — Mix task tests: output format, new vs already-initialized, fingerprint stability, passphrase/private-key redaction, missing-arg and missing-passphrase error cases.
+---
+author: oompah
+created: 2026-07-24 02:27
+---
+Verification: All quality gates pass.
+
+make fmt-check: PASSED
+make build: PASSED (release built successfully)
+make lint: PASSED (0 warnings, warnings-as-errors enabled)
+make test: 101/101 coordinator tests pass (up from 69), plus 55 bench + 2 core = 158 total non-node tests passing. The 2 pre-existing LlamaServer failures in exocomp_node are unrelated (require /usr/bin/kill which does not exist in the CI container).
+
+Test count breakdown for exocomp_coordinator:
+- Prior count: 69 (security hardening)
+- New integration tests: +32 (EXOCOMP-77 integration_test.exs + mix_task_test.exs)
+- Total: 101/101
 ---
 <!-- COMMENTS:END -->
