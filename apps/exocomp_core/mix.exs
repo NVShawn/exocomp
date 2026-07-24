@@ -11,7 +11,7 @@ defmodule Exocomp.Core.MixProject do
       lockfile: "../../mix.lock",
       elixir: "1.20.2",
       start_permanent: Mix.env() == :prod,
-      deps: []
+      deps: [{:jason, "~> 1.4"}]
     ]
   end
 
