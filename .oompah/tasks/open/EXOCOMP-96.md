@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: In Progress
+status: Open
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:43:02.472545Z'
+updated_at: '2026-07-24T16:43:16.761332Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -21,6 +21,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: fdca66ab-8034-4ddb-8506-426c76e5a7ce
 oompah.work_branch: epic-EXOCOMP-3
+oompah.task_costs:
+  total_input_tokens: 23
+  total_output_tokens: 5794
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 23
+      output_tokens: 5794
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 23
+    output_tokens: 5794
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T16:43:12.359012+00:00'
 ---
 ## Summary
 
@@ -153,5 +169,25 @@ Relevant files for the feature agent:
 Remaining work: implement Exocomp.Node.Safety.PreconditionChecker with injectable evidence collectors for :restart_service and :vacuum_logs, verify/3 API, and focused tests per the spec. Prerequisites branches (EXOCOMP-86, EXOCOMP-21, EXOCOMP-25, EXOCOMP-95) must be merged/inspected before implementation. The canonical evidence map field names must match what the coordinator used in hash_evidence/1 — coordinate with origin/EXOCOMP-95's Exocomp.Core.ApprovalToken.
 
 Recommended next focus: feature (security-sensitive).
+---
+author: oompah
+created: 2026-07-24 16:43
+---
+Agent completed successfully in 198s (5817 tokens)
+---
+author: oompah
+created: 2026-07-24 16:43
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 44, Tool calls: 31
+- Tokens: 23 in / 5.8K out [5.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 18s
+- Log: EXOCOMP-96__20260724T163958Z.jsonl
+---
+author: oompah
+created: 2026-07-24 16:43
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
