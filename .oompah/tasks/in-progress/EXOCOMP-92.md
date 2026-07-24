@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T04:16:40.723141Z'
+updated_at: '2026-07-24T04:22:12.718123Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -126,5 +126,10 @@ author: oompah
 created: 2026-07-24 04:16
 ---
 Discovery: Merged prerequisite branches EXOCOMP-90 and EXOCOMP-91 via fast-forward into the current branch. Codebase now has: Registry (injectable clock/random, state machine with begin_poll/record_observation, exponential backoff, degraded_after_ms/stale_after_ms thresholds), HealthPoller (injectable resolver_adapter and probe_adapter, Task.Supervisor concurrency bound, per-node timeout, orphan recovery), Resolver (injectable resolver_fn), NodeProber (injectable probe_fn), Audit (injectable sink). All 124 existing tests pass. Writing multi-node integration test at apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs.
+---
+author: oompah
+created: 2026-07-24 04:22
+---
+Implementation: Created apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs with 16 cross-component integration tests. Key decisions: (1) Merged EXOCOMP-91 (HealthPoller) and EXOCOMP-90 (poll scheduling) via fast-forward first, since they were prerequisites on separate branches. (2) Used the existing injectable seams — clock/random for Registry, resolver_adapter and probe_adapter for HealthPoller — so no wall-clock sleeps anywhere. (3) Wired Registry + HealthPoller directly without the real Inventory or Resolver processes (uses resolver_adapter to push DNS candidates into the pipeline deterministically). (4) Stale transitions tested via clockagent advancement rather than Process.sleep. All tests pass: 55 coordinator + 92 node + 49/10 excluded = no failures. All make gates (test, lint, fmt-check, build) pass.
 ---
 <!-- COMMENTS:END -->
