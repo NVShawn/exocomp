@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-84
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement disk-pressure evidence collector
 parent: EXOCOMP-26
@@ -10,16 +10,15 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:epic_planner
-- needs:feature
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:36:59.582014Z'
+updated_at: '2026-07-24T02:37:08.949830Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 7eef4222-8916-43ea-b90f-be5dceec2f01
+oompah.agent_run_id: bbfea449-893a-472e-8ed7-5cedd5a72e32
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 89
@@ -248,5 +247,20 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 59s
 - Log: EXOCOMP-84__20260724T023359Z.jsonl
+---
+author: oompah
+created: 2026-07-24 02:37
+---
+Focus handoff from `epic_planner` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 02:37
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 02:37
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
