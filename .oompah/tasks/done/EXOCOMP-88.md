@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:17:54.332423Z'
+updated_at: '2026-07-24T03:18:05.712989Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -256,5 +256,10 @@ author: oompah
 created: 2026-07-24 03:17
 ---
 Verification: All quality gates pass. make test: 133 total tests (10 excluded for systemd integration), 0 failures. make lint: fmt-check clean, warnings-as-errors clean. Resolver tests (11 cases) cover: IPv4 success, multiple IPv4+IPv6, dedup, address-set change, NXDOMAIN, timeout, empty-ok, servfail, multi-node, inventory refresh, empty inventory. All fake-resolver tests use no real DNS. Registry.addresses field verified to remain [] after resolution (candidates only).
+---
+author: oompah
+created: 2026-07-24 03:18
+---
+Completion: Delivered Exocomp.Coordinator.Resolver — a supervised, dependency-injectable DNS resolver GenServer. Reads hostnames from Inventory, resolves IPv4+IPv6 forward-only, normalizes+deduplicates deterministically, stores as candidate_addresses in Registry (never touches Registry.addresses), and emits structured :dns_resolved/:dns_resolution_failed Audit events. 11 focused ExUnit tests with fake resolver fns cover all required scenarios. EXOCOMP-14 foundation cherry-picked onto epic-EXOCOMP-15. Pushed to origin/epic-EXOCOMP-15.
 ---
 <!-- COMMENTS:END -->
