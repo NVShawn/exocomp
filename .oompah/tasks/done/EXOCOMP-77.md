@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: In Progress
+status: Done
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:27:57.324977Z'
+updated_at: '2026-07-24T02:28:10.683805Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -441,5 +441,19 @@ Test count breakdown for exocomp_coordinator:
 - Prior count: 69 (security hardening)
 - New integration tests: +32 (EXOCOMP-77 integration_test.exs + mix_task_test.exs)
 - Total: 101/101
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Completion: EXOCOMP-77 integration is complete and pushed to epic-EXOCOMP-16 at commit 9afb6f8.
+
+Delivered:
+- Coordinator startup validates PKI state via Bootstrap.initialize before starting any services
+- Operator initialization entry point: mix exocomp.coordinator.init (stable output: offline backup path + root fingerprint; no private keys; distinct PKI_INITIALIZED / PKI_ALREADY_INITIALIZED / error exits)
+- Supervised EnrollmentToken service with configurable :audit_server (EXOCOMP-17 boundary documented in module @moduledoc)
+- PKI.State GenServer publishes non-secret metadata for health checks
+- 32 new integration tests covering all required EXOCOMP-77 scenarios
+- All four make targets pass: fmt-check, build, test, lint
+- No root private key retained online (verified by test); all private paths/modes asserted
 ---
 <!-- COMMENTS:END -->
