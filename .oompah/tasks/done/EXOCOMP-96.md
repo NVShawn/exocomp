@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:57:12.925866Z'
+updated_at: '2026-07-24T16:57:24.171155Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 61086a84-c136-4dc7-bf80-e6c83cfda1de
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 23
-  total_output_tokens: 5794
+  total_input_tokens: 73
+  total_output_tokens: 35977
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 23
-      output_tokens: 5794
+      input_tokens: 73
+      output_tokens: 35977
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 5794
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:43:12.359012+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 50
+    output_tokens: 30183
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T16:57:22.083203+00:00'
 ---
 ## Summary
 
@@ -315,5 +321,20 @@ author: oompah
 created: 2026-07-24 16:57
 ---
 Implemented Exocomp.Node.Safety.PreconditionChecker with injectable SystemCollector for :restart_service (systemctl show) and :vacuum_logs (df -Pk). verify/3 collects fresh evidence, hashes with ApprovalToken.hash_evidence/1, compares byte-for-byte with token.evidence_hash, fails closed on collection failure. 50+ tests covering happy path, state change detection, field sensitivity, fail-closed behavior, injectable mocks, field order independence, and byte-for-byte comparison. 254 tests pass, lint clean.
+---
+author: oompah
+created: 2026-07-24 16:57
+---
+Agent completed successfully in 731s (30233 tokens)
+---
+author: oompah
+created: 2026-07-24 16:57
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 91, Tool calls: 66
+- Tokens: 50 in / 30.2K out [30.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 12m 11s
+- Log: EXOCOMP-96__20260724T164516Z.jsonl
 ---
 <!-- COMMENTS:END -->
