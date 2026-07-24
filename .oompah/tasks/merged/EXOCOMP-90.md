@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T03:48:11.178503Z'
+updated_at: '2026-07-24T19:34:17.734226Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
