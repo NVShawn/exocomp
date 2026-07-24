@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:45:21.317292Z'
+updated_at: '2026-07-24T18:45:23.830826Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -232,5 +232,10 @@ author: oompah
 created: 2026-07-24 18:45
 ---
 Completion: Coordinator cluster A2A service fully implemented and tested. Delivered: (1) A2A 1.0 compliant service with mTLS auth, version negotiation, cluster Agent Card; (2) exocomp.cluster.health and exocomp.cluster.diagnose skills - no remediation execution; (3) Inventory selection authorization (unauthorized node IDs rejected with -32602); (4) Bounded task history with async execution, partial results via Orchestrator.Stub (EXOCOMP-18 integration point); (5) Cancellation propagation to workers; (6) 83 focused tests passing all acceptance criteria. Branch epic-EXOCOMP-2, commit a8f2e25.
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Implemented coordinator cluster A2A service: A2ARouter with mTLS/version gating, Agent Card (cluster.health + cluster.diagnose only), TaskRegistry, Codec, InventoryAuthorizer, Listener, Config. 83 tests pass covering selection auth, partial results, cancellation, mTLS, unsupported capabilities, version negotiation, concurrent callers, no-remediation boundary. All umbrella tests pass, lint clean.
 ---
 <!-- COMMENTS:END -->
