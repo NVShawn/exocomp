@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T02:52:36.464086Z'
+updated_at: '2026-07-24T03:06:10.674412Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
