@@ -1,12 +1,15 @@
 defmodule Exocomp.Node.Safety.PolicyEngine do
   @moduledoc """
-  First-stage policy engine: eligibility filter pipeline.
+  Policy engine: eligibility filter pipeline and risk-ordered candidate selection.
 
-  `PolicyEngine` applies an ordered sequence of fail-closed checks to a
-  `Proposal`, returning the eligible `ActionDefinition` from the supplied
-  catalog along with an auditable deny reason for any rejection.
+  `PolicyEngine` provides two public entry points:
 
-  ## Pipeline order
+  - `filter/4` — first-stage eligibility filter for a single proposal action.
+  - `evaluate/4` — second-stage selection: evaluates all catalog candidates,
+    sorts eligible ones by risk rank (lowest first), and returns an auditable
+    `ValidatorResult`.
+
+  ## filter/4 pipeline order
 
   Checks are applied in the order below. The first failing check produces the
   deny reason; subsequent checks are not evaluated.
@@ -20,20 +23,44 @@ defmodule Exocomp.Node.Safety.PolicyEngine do
   6. **Cooldown** — last execution was too recent
   7. **Retry exhausted** — consecutive failure count at or above the configured max
 
-  ## Evidence target scoping
+  ## evaluate/4 selection
 
-  Evidence is scoped to `proposal.target_id`. Evidence collected for a
-  different target is treated as absent for the purpose of the missing-evidence
-  and staleness checks. This prevents evidence from one resource being accepted
-  as proof about a different resource.
+  `evaluate/4` runs `filter/4` independently for each candidate in the catalog,
+  then:
+
+  1. Collects eligible and rejected candidates.
+  2. If no candidates are eligible, returns `ValidatorResult.deny/1` with an
+     auditable summary of all rejection reasons.
+  3. Sorts eligible candidates by `RiskRank.compare/2` (data_loss → work_loss
+     → disruption → scope), with alphabetical `action_id` as tiebreaker.
+  4. Selects the lowest-risk candidate and maps it to a `ValidatorResult`:
+     - `requires_approval: false` → `:allow`
+     - `requires_approval: true` → `:approval_required`
+
+  ## Evidence scoping
+
+  Evidence is scoped to `proposal.target_id` **and** to the candidate's
+  `required_evidence` collectors during per-candidate evaluation. This prevents
+  unrelated stale evidence from rejecting an otherwise-eligible candidate and
+  prevents evidence from one resource being accepted as proof about a different
+  resource.
 
   ## Fail-closed behaviour
 
   Any `nil`, structurally invalid, or otherwise unexpected input causes the
-  candidate to be **denied**, never silently permitted.
+  result to be **denied**, never silently permitted. Any exception inside the
+  filter or selection logic is caught and returned as
+  `ValidatorResult.deny("internal policy error")`.
   """
 
-  alias Exocomp.Node.Safety.{ActionDefinition, Evidence, PolicyContext, Proposal}
+  alias Exocomp.Node.Safety.{
+    ActionDefinition,
+    Evidence,
+    PolicyContext,
+    Proposal,
+    RiskRank,
+    ValidatorResult
+  }
 
   defmodule FilterResult do
     @moduledoc """
@@ -106,6 +133,66 @@ defmodule Exocomp.Node.Safety.PolicyEngine do
 
   def filter(_proposal, _catalog, _evidence, _context) do
     %FilterResult{eligible: [], rejected: [{nil, "invalid filter arguments"}]}
+  end
+
+  # ── evaluate/4: risk-ordered candidate selection ──────────────────────────
+
+  @doc """
+  Evaluates all catalog candidates against the proposal and evidence, returning
+  the lowest-risk eligible action as a `ValidatorResult`.
+
+  ## Parameters
+
+  - `proposal` — a `%Proposal{}` from the LLM inference client (untrusted).
+  - `catalog` — list of trusted `%ActionDefinition{}` structs available on
+    this node, or `nil` (treated as unavailable policy → deny).
+  - `evidence` — one or more `%Evidence{}` structs. A single struct is
+    normalised to a one-element list. `nil` is treated as invalid → deny.
+  - `context` — `%PolicyContext{}` holding operator allow-list and runtime
+    state.
+
+  ## Returns
+
+  `ValidatorResult.t()` with fields populated:
+  - `decision` — `:allow`, `:approval_required`, or `:deny`
+  - `action_id` — the selected action's ID, or `nil` on deny
+  - `reason` — auditable human-readable string with ordered candidate list
+  - `evidence_refs` — IDs of evidence that satisfied required collectors for
+    the selected action
+
+  ## Fail-closed
+
+  Any `nil`, unexpected, or structurally invalid input returns
+  `ValidatorResult.deny/1`. Any exception inside the filter or selection logic
+  is caught and returned as `ValidatorResult.deny("internal policy error")`.
+  """
+  @spec evaluate(
+          Proposal.t() | nil,
+          [ActionDefinition.t()] | nil,
+          Evidence.t() | [Evidence.t()] | nil,
+          PolicyContext.t() | nil
+        ) :: ValidatorResult.t()
+
+  # Normalize a single Evidence struct to a list and recurse.
+  def evaluate(proposal, catalog, %Evidence{} = ev, context) do
+    evaluate(proposal, catalog, [ev], context)
+  end
+
+  # Main implementation: valid proposal, list catalog, list evidence, valid context.
+  def evaluate(%Proposal{} = proposal, catalog, evidence, %PolicyContext{} = context)
+      when is_list(catalog) and is_list(evidence) do
+    try do
+      do_evaluate(proposal, catalog, evidence, context)
+    rescue
+      _ -> ValidatorResult.deny("internal policy error")
+    catch
+      _, _ -> ValidatorResult.deny("internal policy error")
+    end
+  end
+
+  # Catchall: nil/unexpected inputs → fail closed.
+  def evaluate(_proposal, _catalog, _evidence, _context) do
+    ValidatorResult.deny("policy unavailable or invalid inputs")
   end
 
   # ── pipeline ──────────────────────────────────────────────────────────────
@@ -305,4 +392,157 @@ defmodule Exocomp.Node.Safety.PolicyEngine do
 
   defp build_rejected([], reason), do: [{nil, reason}]
   defp build_rejected(catalog, reason), do: Enum.map(catalog, &{&1, reason})
+
+  # ── evaluate/4 private helpers ─────────────────────────────────────────────
+
+  # Core evaluate logic (called from the try block in evaluate/4).
+  defp do_evaluate(%Proposal{target_id: target_id} = proposal, catalog, evidence, context) do
+    # Evaluate each catalog candidate independently.
+    # Accumulate eligible definitions and tagged rejection tuples.
+    {eligible_rev, rejected} =
+      Enum.reduce(catalog, {[], []}, fn candidate, {elig, rej} ->
+        # Scope evidence to this candidate's required collectors AND the target.
+        # This prevents unrelated stale evidence from penalising eligible candidates.
+        candidate_evidence = scope_evidence_for_candidate(candidate, evidence, target_id)
+
+        # Create a per-candidate proposal so the authorization check uses the
+        # candidate's action_id, not the original proposal's action_id.
+        candidate_proposal = %Proposal{proposal | action_id: candidate.action_id}
+
+        case filter(candidate_proposal, [candidate], candidate_evidence, context) do
+          %FilterResult{eligible: [definition]} ->
+            {[definition | elig], rej}
+
+          %FilterResult{eligible: [], rejected: rejections} ->
+            # Replace {nil, reason} rejections with {candidate, reason} so the
+            # candidate's action_id is available for the audit reason string.
+            tagged =
+              Enum.map(rejections, fn
+                {nil, reason} -> {candidate, reason}
+                other -> other
+              end)
+
+            {elig, rej ++ tagged}
+        end
+      end)
+
+    # eligible_rev is in reverse order due to prepend — reverse to restore catalog order
+    # before sorting (this does not affect correctness but aids determinism).
+    eligible = Enum.reverse(eligible_rev)
+
+    case eligible do
+      [] ->
+        # All candidates were filtered — build auditable deny reason.
+        ValidatorResult.deny(build_deny_reason(rejected))
+
+      _ ->
+        # Sort eligible candidates by risk rank (lowest first), then alphabetically.
+        sorted = sort_candidates(eligible)
+        selected = hd(sorted)
+
+        # Collect evidence IDs that satisfied the selected action's required collectors.
+        refs = collect_evidence_refs(selected, evidence, target_id)
+
+        # Build auditable allow/approval reason.
+        reason = build_allow_reason(selected, sorted, rejected)
+
+        if selected.requires_approval do
+          ValidatorResult.approval_required(selected.action_id, reason, refs)
+        else
+          ValidatorResult.allow(selected.action_id, reason, refs)
+        end
+    end
+  end
+
+  # Filters evidence to only the records relevant to a specific candidate:
+  # - target_id must match the proposal's target
+  # - collector must be in the candidate's required_evidence list
+  defp scope_evidence_for_candidate(candidate, evidence, target_id) do
+    required = MapSet.new(candidate.required_evidence)
+
+    Enum.filter(evidence, fn
+      %Evidence{collector: c, target_id: tid} ->
+        tid == target_id and MapSet.member?(required, c)
+
+      _ ->
+        false
+    end)
+  end
+
+  # Sorts candidates by RiskRank (lowest first), with alphabetical action_id
+  # as a deterministic tiebreaker.
+  defp sort_candidates(candidates) do
+    Enum.sort(candidates, fn a, b ->
+      case RiskRank.compare(a.risk_rank, b.risk_rank) do
+        :lt -> true
+        :gt -> false
+        :eq -> a.action_id <= b.action_id
+      end
+    end)
+  end
+
+  # Collects evidence IDs for evidence records whose collector satisfies a
+  # required_evidence entry for the selected action and whose target matches.
+  defp collect_evidence_refs(selected, evidence, target_id) do
+    required = MapSet.new(selected.required_evidence)
+
+    evidence
+    |> Enum.filter(fn
+      %Evidence{collector: c, target_id: tid} ->
+        tid == target_id and MapSet.member?(required, c)
+
+      _ ->
+        false
+    end)
+    |> Enum.map(fn %Evidence{evidence_id: id} -> id end)
+  end
+
+  # Builds an auditable deny reason listing all rejected candidates in order.
+  defp build_deny_reason(rejected) do
+    if rejected == [] do
+      "no eligible actions; catalog is empty"
+    else
+      items =
+        Enum.map(rejected, fn
+          {nil, reason} ->
+            "unknown: #{reason}"
+
+          {%ActionDefinition{action_id: id}, reason} ->
+            "#{id}: #{reason}"
+        end)
+
+      "no eligible actions; rejections: #{Enum.join(items, "; ")}"
+    end
+  end
+
+  # Builds an auditable allow/approval-required reason string that includes:
+  # - the selected candidate and its risk rank
+  # - the full ordered list of eligible candidates with risk ranks
+  # - a summary of rejected candidates and their reasons
+  defp build_allow_reason(selected, sorted_eligible, rejected) do
+    eligible_parts =
+      Enum.map(sorted_eligible, fn candidate ->
+        "#{candidate.action_id} (risk: #{inspect(candidate.risk_rank)})"
+      end)
+
+    parts = [
+      "selected #{selected.action_id} (risk: #{inspect(selected.risk_rank)})",
+      "eligible by risk order: #{Enum.join(eligible_parts, ", ")}"
+    ]
+
+    parts =
+      if rejected != [] do
+        rejection_parts =
+          Enum.map(rejected, fn
+            {nil, reason} -> "unknown: #{reason}"
+            {%ActionDefinition{action_id: id}, reason} -> "#{id} rejected: #{reason}"
+          end)
+
+        parts ++ ["rejected: #{Enum.join(rejection_parts, "; ")}"]
+      else
+        parts
+      end
+
+    Enum.join(parts, "; ")
+  end
 end
