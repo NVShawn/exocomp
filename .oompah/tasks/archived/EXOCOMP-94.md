@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-94
 type: task
-status: In Progress
+status: Archived
 priority: 0
 title: Rebase epic-EXOCOMP-1 onto main
 parent: EXOCOMP-1
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T03:06:49.728224Z'
-updated_at: '2026-07-24T03:11:21.511401Z'
+updated_at: '2026-07-24T03:11:59.597817Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -47,5 +47,10 @@ author: oompah
 created: 2026-07-24 03:11
 ---
 Understanding: This run is limited to duplicate investigation. I will search prior tasks for epic-EXOCOMP-1 stale/rebase work, inspect the full state and comments of plausible candidates, then archive EXOCOMP-94 if confirmed duplicate or hand off for implementation if none is confirmed.
+---
+author: oompah
+created: 2026-07-24 03:11
+---
+Discovery / completion: Confirmed duplicate of EXOCOMP-93. EXOCOMP-93 has the identical title, target branch, and requested rebase operation; its full history records that epic-EXOCOMP-1 was rebased onto origin/main, force-pushed with lease, auto-merged as PR #8 at 7e04074, and the remote epic branch was deleted. No implementation or repository changes were made for EXOCOMP-94 because the original task already completed the work.
 ---
 <!-- COMMENTS:END -->
