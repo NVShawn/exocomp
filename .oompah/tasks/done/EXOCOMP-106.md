@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-106
 type: task
-status: In Progress
+status: Done
 priority: 0
 title: Rebase epic-EXOCOMP-4 onto main
 parent: EXOCOMP-4
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-24T18:55:02.829181Z'
+updated_at: '2026-07-24T18:55:26.286046Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-07-24 18:55
 ---
 Verification: Rebase integrity checks pass: branch is 2 ahead/0 behind origin/main, git diff --check passes, all 131 Elixir source files pass a parser/formatter-equivalence check, and the isolated recovery suite passes 84 tests with 0 failures. The full 'make test && make lint && make fmt-check' gate was attempted but could not start because docker delegates to rootless Podman and /run/user/1000/libpod is read-only; an isolated /tmp Podman store was also blocked by the host user's exhausted disk quota. No test failure occurred—the container runtime failed before compilation.
+---
+author: oompah
+created: 2026-07-24 18:55
+---
+Completion: epic-EXOCOMP-4 has been rebased from a21fb61 onto origin/main at 6deabae, producing tip 9b8f772, and force-pushed with --force-with-lease. The branch is clean, synchronized with origin/epic-EXOCOMP-4, and 0 commits behind origin/main. Conflict resolution retained main's current umbrella/build configuration and the epic's EXOCOMP-29/EXOCOMP-30 deliverables.
 ---
 <!-- COMMENTS:END -->
