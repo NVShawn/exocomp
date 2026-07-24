@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T02:52:59.227575Z'
+updated_at: '2026-07-24T02:53:55.791256Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -45,5 +45,10 @@ author: oompah
 created: 2026-07-24 02:52
 ---
 Understanding: This run is limited to duplicate screening. I will search task history and design/docs for coordinator polling, scheduling, backoff, registry transitions, stale callbacks, and audit events; read plausible task candidates in full; then archive only if the same deliverable is already covered, otherwise hand off with evidence to an implementation focus.
+---
+author: oompah
+created: 2026-07-24 02:53
+---
+Discovery: No duplicate confirmed. The closest reviewed tasks were EXOCOMP-15 (parent epic), EXOCOMP-14 (completed Registry/Audit scaffold), EXOCOMP-89 (mTLS probe boundary and typed outcomes), EXOCOMP-91 (bounded concurrent poll execution), and EXOCOMP-92 (cross-component integration coverage). EXOCOMP-90 is the intentionally decomposed child that uniquely owns deterministic scheduling, backoff, freshness/state transitions, timestamps, stale-result protection, and transition-audit unit behavior. The milestone plan's Node State/Audit/Test Strategy sections match that boundary.
 ---
 <!-- COMMENTS:END -->
