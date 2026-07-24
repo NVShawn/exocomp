@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-76
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement durable node-bound enrollment token service
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-23T23:01:43.210524Z'
+updated_at: '2026-07-24T00:48:20.527206Z'
 work_branch: null
 target_branch: null
 review_url: null
