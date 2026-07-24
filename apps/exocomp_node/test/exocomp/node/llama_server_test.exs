@@ -61,7 +61,7 @@ defmodule Exocomp.Node.LlamaServerTest do
   defp kill_port_os_process(port) do
     case Port.info(port, :os_pid) do
       {:os_pid, os_pid} ->
-        System.cmd("/usr/bin/kill", ["-TERM", Integer.to_string(os_pid)])
+        System.cmd("kill", ["-TERM", Integer.to_string(os_pid)])
         :ok
 
       _other ->
