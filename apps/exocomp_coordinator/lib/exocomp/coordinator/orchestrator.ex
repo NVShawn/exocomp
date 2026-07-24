@@ -25,6 +25,16 @@ defmodule Exocomp.Coordinator.Orchestrator do
   * **Late-result rejection** – if a task result arrives after its per-node
     deadline or after the goal's overall deadline, it is silently discarded.
 
+  ## Audit
+
+  Every significant lifecycle transition emits a structured, correlated event
+  to the configured audit sink (defaulting to `Exocomp.Coordinator.Audit`).
+  All attribute values, including diagnostic parameters, are recursively
+  redacted before persisting. Audit failures are non-fatal: diagnostics
+  continue running and diagnostic reads remain available, while the audit
+  subsystem signals a local degraded-health status visible through
+  `Exocomp.Coordinator.Health.check/0`.
+
   ## Cancellation
 
   `cancel/2` atomically marks the goal as `:canceled` in `GoalStore`, stops
@@ -70,7 +80,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
 
   alias Exocomp.A2A.TaskState
   alias Exocomp.Coordinator.A2A.{ClientError, DiagnosticClient}
-  alias Exocomp.Coordinator.{DiagnosticGoal, GoalStore, NodeOutcome}
+  alias Exocomp.Coordinator.{Audit, DiagnosticGoal, GoalStore, NodeOutcome}
 
   @default_concurrency 8
   @default_node_timeout_ms 30_000
@@ -93,6 +103,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
     :node_timeout_ms,
     :overall_timeout_ms,
     :poll_interval_ms,
+    :audit,
     # task_ref => %{goal_id, node_id, timeout_ref, task}
     tasks: %{},
     # goal_id => %{remaining, pending, skill_id, params, client_opts, overall_timeout_ref}
@@ -177,7 +188,8 @@ defmodule Exocomp.Coordinator.Orchestrator do
       concurrency: positive_option(opts, :concurrency, @default_concurrency),
       node_timeout_ms: positive_option(opts, :node_timeout_ms, @default_node_timeout_ms),
       overall_timeout_ms: positive_option(opts, :overall_timeout_ms, @default_overall_timeout_ms),
-      poll_interval_ms: positive_option(opts, :poll_interval_ms, @default_poll_interval_ms)
+      poll_interval_ms: positive_option(opts, :poll_interval_ms, @default_poll_interval_ms),
+      audit: Keyword.get(opts, :audit, Audit)
     }
 
     {:ok, state}
@@ -193,14 +205,35 @@ defmodule Exocomp.Coordinator.Orchestrator do
         cond do
           # Dedup hit: goal already being managed by this orchestrator.
           Map.has_key?(state.goals, goal.id) ->
+            emit_audit(state, :goal_deduplicated, %{
+              goal_id: goal.id,
+              caller_key: caller_key,
+              skill_id: skill_id
+            }, goal.id)
+
             {:reply, {:ok, goal}, state}
 
           # Goal is already terminal (dedup from a prior run).
           DiagnosticGoal.terminal?(goal) ->
+            emit_audit(state, :goal_deduplicated, %{
+              goal_id: goal.id,
+              caller_key: caller_key,
+              skill_id: skill_id,
+              terminal_state: goal.state
+            }, goal.id)
+
             {:reply, {:ok, goal}, state}
 
           # Fresh goal: begin dispatching.
           true ->
+            emit_audit(state, :goal_accepted, %{
+              goal_id: goal.id,
+              caller_key: caller_key,
+              skill_id: skill_id,
+              params: params,
+              node_count: length(node_ids)
+            }, goal.id)
+
             # Merge per-call client_opts over the base client_opts.
             effective_client_opts = Keyword.merge(state.client_opts, call_client_opts)
             state = begin_dispatch(goal, Enum.uniq(node_ids), effective_client_opts, state)
@@ -225,6 +258,8 @@ defmodule Exocomp.Coordinator.Orchestrator do
         {:reply, {:ok, goal}, state}
 
       {:ok, _canceled_goal} ->
+        emit_audit(state, :cancellation_requested, %{goal_id: goal_id}, goal_id)
+
         # Goal successfully marked :canceled in GoalStore. Stop pending and
         # in-flight work, attempt downstream A2A cancellation for known tasks.
         state = do_cancel_goal(goal_id, state)
@@ -324,6 +359,12 @@ defmodule Exocomp.Coordinator.Orchestrator do
   def handle_info({:node_dispatched, goal_id, node_id, downstream_task_id}, state) do
     # Only register if the goal is still active (not yet completed or canceled).
     if Map.has_key?(state.goals, goal_id) do
+      emit_audit(state, :node_dispatched, %{
+        goal_id: goal_id,
+        node_id: node_id,
+        downstream_task_id: downstream_task_id
+      }, goal_id)
+
       key = {goal_id, node_id}
       updated = Map.put(state.downstream_task_ids, key, downstream_task_id)
       {:noreply, %{state | downstream_task_ids: updated}}
@@ -344,6 +385,17 @@ defmodule Exocomp.Coordinator.Orchestrator do
     GoalStore.transition(goal.id, :dispatching, nil, state.goal_store)
     GoalStore.transition(goal.id, :running, nil, state.goal_store)
     GoalStore.transition(goal.id, :completed, nil, state.goal_store)
+
+    emit_audit(state, :goal_dispatching, %{
+      goal_id: goal.id,
+      node_count: 0
+    }, goal.id)
+
+    emit_audit(state, :cluster_completed, %{
+      goal_id: goal.id,
+      node_count: 0
+    }, goal.id)
+
     state
   end
 
@@ -359,6 +411,11 @@ defmodule Exocomp.Coordinator.Orchestrator do
     end)
 
     GoalStore.transition(goal.id, :dispatching, nil, state.goal_store)
+
+    emit_audit(state, :goal_dispatching, %{
+      goal_id: goal.id,
+      node_count: length(node_ids)
+    }, goal.id)
 
     overall_timeout_ref =
       Process.send_after(self(), {:goal_timeout, goal.id}, state.overall_timeout_ms)
@@ -445,6 +502,13 @@ defmodule Exocomp.Coordinator.Orchestrator do
 
     # Transition goal to :running (no-op if already :running).
     GoalStore.transition(goal_id, :running, nil, state.goal_store)
+
+    emit_audit(state, :node_dispatching, %{
+      goal_id: goal_id,
+      node_id: node_id,
+      skill_id: skill_id,
+      params: params
+    }, goal_id)
 
     task =
       Task.Supervisor.async_nolink(state.task_supervisor, fn ->
@@ -534,6 +598,14 @@ defmodule Exocomp.Coordinator.Orchestrator do
     }
 
     GoalStore.put_node_outcome(goal_id, node_id, outcome, state.goal_store)
+
+    emit_audit(state, :node_result, %{
+      goal_id: goal_id,
+      node_id: node_id,
+      downstream_task_id: a2a_task.id,
+      outcome: :succeeded
+    }, goal_id)
+
     decrement_remaining(goal_id, state)
   end
 
@@ -560,6 +632,23 @@ defmodule Exocomp.Coordinator.Orchestrator do
     }
 
     GoalStore.put_node_outcome(goal_id, node_id, outcome, state.goal_store)
+
+    event_type =
+      case {outcome_state, error} do
+        {:unreachable, :node_timeout} -> :node_timeout
+        {:unreachable, _} -> :node_unreachable
+        {:failed, {:crash, _}} -> :node_failed
+        {:failed, _} -> :node_failed
+        _ -> :node_state_change
+      end
+
+    emit_audit(state, event_type, %{
+      goal_id: goal_id,
+      node_id: node_id,
+      outcome: outcome_state,
+      error: inspect(error)
+    }, goal_id)
+
     decrement_remaining(goal_id, state)
   end
 
@@ -574,6 +663,9 @@ defmodule Exocomp.Coordinator.Orchestrator do
         # Last node — close the goal.
         Process.cancel_timer(timer_ref)
         GoalStore.transition(goal_id, :completed, nil, state.goal_store)
+
+        emit_audit(state, :cluster_completed, %{goal_id: goal_id}, goal_id)
+
         %{state | goals: Map.delete(state.goals, goal_id)}
 
       %{remaining: n} = meta ->
@@ -639,6 +731,13 @@ defmodule Exocomp.Coordinator.Orchestrator do
             },
             state.goal_store
           )
+
+          emit_audit(state, :node_canceled, %{
+            goal_id: goal_id,
+            node_id: task_meta.node_id,
+            outcome: outcome_state,
+            downstream_task_id: downstream_task_id
+          }, goal_id)
         end)
 
         # Record pending (undispatched) nodes as :canceled.
@@ -649,6 +748,13 @@ defmodule Exocomp.Coordinator.Orchestrator do
             %NodeOutcome{node_id: node_id, state: :canceled, error: :goal_canceled},
             state.goal_store
           )
+
+          # Pending nodes were never dispatched, so there is no downstream_task_id.
+          emit_audit(state, :node_canceled, %{
+            goal_id: goal_id,
+            node_id: node_id,
+            outcome: :canceled
+          }, goal_id)
         end)
 
         # Clean up downstream task ID entries for this goal.
@@ -685,6 +791,12 @@ defmodule Exocomp.Coordinator.Orchestrator do
 
   # Kill all remaining work for `goal_id` and force the goal to :completed.
   defp force_complete_goal(goal_id, goal_meta, state) do
+    emit_audit(state, :goal_timeout, %{
+      goal_id: goal_id,
+      in_flight_count: Enum.count(state.tasks, fn {_ref, m} -> m.goal_id == goal_id end),
+      pending_count: length(goal_meta.pending)
+    }, goal_id)
+
     # Partition tasks into those belonging to this goal and the rest.
     {goal_tasks, other_tasks} =
       Enum.split_with(state.tasks, fn {_ref, meta} -> meta.goal_id == goal_id end)
@@ -705,6 +817,13 @@ defmodule Exocomp.Coordinator.Orchestrator do
         %NodeOutcome{node_id: node_id, state: :unreachable, error: :overall_timeout},
         state.goal_store
       )
+
+      emit_audit(state, :node_unreachable, %{
+        goal_id: goal_id,
+        node_id: node_id,
+        outcome: :unreachable,
+        error: "overall_timeout"
+      }, goal_id)
     end)
 
     # Record unreachable for every pending (not yet dispatched) node.
@@ -715,6 +834,13 @@ defmodule Exocomp.Coordinator.Orchestrator do
         %NodeOutcome{node_id: node_id, state: :unreachable, error: :overall_timeout},
         state.goal_store
       )
+
+      emit_audit(state, :node_unreachable, %{
+        goal_id: goal_id,
+        node_id: node_id,
+        outcome: :unreachable,
+        error: "overall_timeout"
+      }, goal_id)
     end)
 
     # Clean up downstream task ID entries for this goal.
@@ -729,7 +855,24 @@ defmodule Exocomp.Coordinator.Orchestrator do
     GoalStore.transition(goal_id, :running, nil, state.goal_store)
     GoalStore.transition(goal_id, :completed, nil, state.goal_store)
 
+    emit_audit(state, :cluster_completed, %{
+      goal_id: goal_id,
+      reason: :overall_timeout
+    }, goal_id)
+
     state
+  end
+
+  # ---------------------------------------------------------------------------
+  # Private: audit helpers
+  # ---------------------------------------------------------------------------
+
+  # Emit a structured audit event. Failures are non-fatal: orchestration
+  # continues and the degraded-health signal is surfaced by the Audit subsystem.
+  defp emit_audit(state, event_type, attributes, correlation_id) do
+    Audit.emit(event_type, attributes, server: state.audit, correlation_id: correlation_id)
+  catch
+    :exit, _reason -> :ok
   end
 
   # ---------------------------------------------------------------------------

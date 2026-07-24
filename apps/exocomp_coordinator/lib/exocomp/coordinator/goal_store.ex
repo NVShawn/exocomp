@@ -50,11 +50,16 @@ defmodule Exocomp.Coordinator.GoalStore do
   the full state machine.
 
   Per-node outcome states are defined in `Exocomp.Coordinator.NodeOutcome`.
+
+  ## Audit
+
+  Eviction events are emitted to the configured audit sink (defaulting to
+  `Exocomp.Coordinator.Audit`). Audit failures are non-fatal.
   """
 
   use GenServer
 
-  alias Exocomp.Coordinator.{DiagnosticGoal, NodeOutcome}
+  alias Exocomp.Coordinator.{Audit, DiagnosticGoal, NodeOutcome}
 
   @default_max_active 50
   @default_max_history 500
@@ -71,7 +76,8 @@ defmodule Exocomp.Coordinator.GoalStore do
             max_history: @default_max_history,
             max_artifacts: @default_max_artifacts,
             max_output_bytes: @default_max_output_bytes,
-            eviction_interval_ms: @default_eviction_interval_ms
+            eviction_interval_ms: @default_eviction_interval_ms,
+            audit: Audit
 
   @type t :: %__MODULE__{
           goals: %{String.t() => {DiagnosticGoal.t(), non_neg_integer()}},
@@ -81,7 +87,8 @@ defmodule Exocomp.Coordinator.GoalStore do
           max_history: pos_integer(),
           max_artifacts: pos_integer(),
           max_output_bytes: pos_integer(),
-          eviction_interval_ms: pos_integer()
+          eviction_interval_ms: pos_integer(),
+          audit: GenServer.server()
         }
 
   # ---------------------------------------------------------------------------
@@ -217,7 +224,8 @@ defmodule Exocomp.Coordinator.GoalStore do
       max_history: option(opts, :max_history, @default_max_history),
       max_artifacts: option(opts, :max_artifacts, @default_max_artifacts),
       max_output_bytes: option(opts, :max_output_bytes, @default_max_output_bytes),
-      eviction_interval_ms: option(opts, :eviction_interval_ms, @default_eviction_interval_ms)
+      eviction_interval_ms: option(opts, :eviction_interval_ms, @default_eviction_interval_ms),
+      audit: Keyword.get(opts, :audit, Audit)
     }
 
     schedule_eviction(state)
@@ -414,6 +422,12 @@ defmodule Exocomp.Coordinator.GoalStore do
       to_evict = Enum.take(terminal_by_age, to_evict_count)
 
       Enum.reduce(to_evict, state, fn {id, {goal, _ts}}, acc ->
+        emit_audit(acc, :goal_evicted, %{
+          goal_id: id,
+          caller_key: goal.caller_key,
+          final_state: goal.state
+        }, id)
+
         %{
           acc
           | goals: Map.delete(acc.goals, id),
@@ -453,6 +467,13 @@ defmodule Exocomp.Coordinator.GoalStore do
 
   defp schedule_eviction(state) do
     Process.send_after(self(), :evict, state.eviction_interval_ms)
+  end
+
+  # Emit a structured audit event. Failures are non-fatal.
+  defp emit_audit(state, event_type, attributes, correlation_id) do
+    Audit.emit(event_type, attributes, server: state.audit, correlation_id: correlation_id)
+  catch
+    :exit, _reason -> :ok
   end
 
   defp option(opts, key, default) do
