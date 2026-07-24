@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T23:06:22.424291Z'
+updated_at: '2026-07-24T23:07:12.154573Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -230,5 +230,10 @@ author: oompah
 created: 2026-07-24 23:06
 ---
 Implementation: Added Exocomp.Node.EnrollmentClient, CredentialInstaller, and RenewalScheduler plus direct x509 dependency and focused tests. Enrollment generates a constrained P-256 key/CSR locally, submits only node ID+CSR with a bearer token through an injectable HTTPS transport, verifies pinned CA/hostname with redirects disabled, bounds responses, and rejects a mismatched leaf key. Installation validates key/SAN/chain, writes 0600 material in 0700 versioned generations, fsyncs files, and atomically swaps a current symlink while preserving the old generation. Renewal derives timing from leaf expiry, permits one in-flight renewal, reloads expiry after success, and uses bounded full-jitter exponential retry without replacing credentials on failure.
+---
+author: oompah
+created: 2026-07-24 23:07
+---
+Verification: Added 11 focused ExUnit tests covering CSR constraints/private-key locality, successful enrollment/install, HTTPS refusal, mismatched key rejection, chain/SAN/mode validation, atomic old-generation fallback, symlink refusal, certificate expiry parsing, threshold scheduling, and bounded retry state. Local formatter check, AST parsing, git diff --check, and in-memory compilation of all three modules against typed dependency stubs pass. The canonical make test/fmt-check/lint/build gates were each attempted but could not start because Podman cannot chmod/read /run/user/1000/libpod in this managed environment; no containerized ExUnit test executed.
 ---
 <!-- COMMENTS:END -->
