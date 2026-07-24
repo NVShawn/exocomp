@@ -13,7 +13,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:33:56.245554Z'
+updated_at: '2026-07-24T01:33:58.820512Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -265,5 +265,10 @@ author: oompah
 created: 2026-07-24 01:33
 ---
 Completion: EXOCOMP-74 delivered. Two commits on origin/EXOCOMP-74: (1) e742b5b [test] 14 comprehensive tests for evaluate/4 (test focus); (2) 5bf40d2 [feature] PolicyEngine.evaluate/4 implementation. The evaluate/4 function provides deterministic risk-ordered candidate selection with: per-candidate eligibility filtering using EXOCOMP-73 pipeline; evidence scoped to each candidate's required_evidence collectors; RiskRank.compare/2 sort with alphabetical tiebreaker; auditable reason string with ordered eligible list and rejection audit; fail-closed on nil/unexpected inputs; exception handling returning 'internal policy error'. All 12 required test scenarios covered plus 2 additional regression cases. No regressions in EXOCOMP-21 or EXOCOMP-25 tests.
+---
+author: oompah
+created: 2026-07-24 01:33
+---
+Implemented PolicyEngine.evaluate/4 risk-ordered candidate selection. All 14 tests pass, make test and make lint clean. Branch EXOCOMP-74 pushed at commit 5bf40d2.
 ---
 <!-- COMMENTS:END -->
