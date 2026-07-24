@@ -12,7 +12,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-24T18:49:27.797686Z'
+updated_at: '2026-07-24T18:50:13.645914Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -66,5 +66,27 @@ Evidence:
 Closest reviewed tasks: EXOCOMP-4 (parent epic, 'epic:rebasing' label applied when staleness detected — not a prior rebase task), EXOCOMP-105 (unrelated integration tests on a different branch).
 
 Recommendation: This task is not a duplicate. Proceed with git rebase implementation (devops/chore focus).
+---
+author: oompah
+created: 2026-07-24 18:50
+---
+Focus handoff: duplicate_detector
+
+1. Outcome: No duplicate confirmed. EXOCOMP-106 is a unique child task of EXOCOMP-4 and is the only rebase task for the epic-EXOCOMP-4 branch. The task is valid and should proceed to implementation.
+
+2. Evidence and decisions:
+   - Searched git log (all branches), docs/, plans/, README.md for 'rebase', 'stale', 'epic-EXOCOMP-4' — no matches.
+   - Read EXOCOMP-4 (parent epic): lists EXOCOMP-106 as the single rebase child; epic has label 'epic:rebasing', meaning the system flagged it as stale when filing this task.
+   - git log --left-right HEAD...origin/main confirms the staleness: epic-EXOCOMP-4 has 1 unique commit (EXOCOMP-30: service-recovery state machine) and is missing ~30+ commits that have landed on origin/main via merged PRs for epics 1, 2, 5, 6, and other work.
+   - No earlier EXOCOMP task ID describes or resolves the same rebase operation.
+
+3. Remaining work and risks:
+   - Perform `git fetch origin && git rebase origin/main` on branch epic-EXOCOMP-4.
+   - Resolve any merge conflicts (most likely in .oompah/tasks if any tasks files were added on main, and possibly in apps/exocomp_coordinator or apps/exocomp_node if overlapping changes exist).
+   - Run `make test && make lint && make fmt-check` to verify the rebased branch is clean.
+   - Force-push with `git push --force-with-lease`.
+   - Risk: EXOCOMP-30 (service-recovery state machine) may conflict with main-branch changes to coordinator files that were introduced by epics 1 and 2.
+
+4. Recommended next focus: devops (or chore — git rebase + conflict resolution, no new feature code).
 ---
 <!-- COMMENTS:END -->
