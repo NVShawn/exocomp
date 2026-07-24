@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:17:20.194705Z'
+updated_at: '2026-07-24T01:17:29.939970Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -201,5 +201,10 @@ author: oompah
 created: 2026-07-24 01:17
 ---
 Implementation (test focus): Added apps/exocomp_node/test/exocomp/node/safety/policy_engine_test.exs with independent fixed-time fixtures and coverage for allow/approval/deny, complete rejection audit, RiskRank ordering, alphabetical ties, stale and multi-collector evidence, evidence_refs, nil/unexpected inputs, escalation prevention, repeated-call determinism, and caught filter exceptions. Added a single-Evidence API regression case beyond the required table.
+---
+author: oompah
+created: 2026-07-24 01:17
+---
+Verification (test focus): git diff --cached --check passes. The new suite is intentionally red against EXOCOMP-73 because PolicyEngine.evaluate/4 does not exist yet, demonstrating it covers the missing behavior. make fmt/test could not execute in this managed environment: the Docker-compatible Podman wrapper fails before container startup with a read-only /run/user/1000/libpod runtime lock/config error; no local mix executable is installed. Feature agent must run make fmt, focused tests, make test, and make lint after implementation.
 ---
 <!-- COMMENTS:END -->
