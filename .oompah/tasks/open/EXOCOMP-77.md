@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -12,9 +12,11 @@ blocked_by:
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:security
+- focus-complete:chore
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T01:48:40.623611Z'
+updated_at: '2026-07-24T01:49:02.200498Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -226,5 +228,18 @@ author: oompah
 created: 2026-07-24 01:48
 ---
 Discovery: The worktree is clean and synchronized at commit 867836d (EXOCOMP-77 security hardening), with EXOCOMP-75 and EXOCOMP-76 commits present. application.ex and enrollment_token.ex are the integration points; no operator Mix task is present. make help confirms fmt-check, build, test, and lint are the required project gates. The checkout reports branch epic-EXOCOMP-16 rather than the prompt's stated EXOCOMP-77; this should be preserved and checked by the feature agent before committing further work.
+---
+author: oompah
+created: 2026-07-24 01:48
+---
+Focus handoff: chore
+
+Outcome: Maintenance triage is complete. No code changes were appropriate in this focus; the remaining work is the core feature implementation already identified by the security handoff.
+
+Evidence: git status is clean and up to date with origin/epic-EXOCOMP-16 at 867836d; EXOCOMP-75/76 and the EXOCOMP-77 security hardening commit are present. make help exposes the required fmt-check/build/test/lint gates. Relevant files are apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex, bootstrap.ex, enrollment_token.ex, coordinator config/tests, and a new Mix task path.
+
+Remaining work/risks: Implement protected-state startup validation, explicit safe initialization with stable outcomes, the supervised/audited issue-consume contract for EXOCOMP-17, module documentation, and all requested integration/security tests. Run all four gates. The actual checkout branch is epic-EXOCOMP-16 despite the task prompt saying EXOCOMP-77, so confirm intended branch handling before the next commit.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
