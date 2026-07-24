@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-80
 type: task
-status: Open
+status: In Progress
 priority: null
 title: 'Skill handler implementations: system.diagnose, service.diagnose, remediation.propose'
 parent: EXOCOMP-12
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T00:48:32.654279Z'
-work_branch: null
+updated_at: '2026-07-24T01:33:28.819315Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 43401dfe-c07d-44cc-a171-7efbae346962
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -102,3 +104,16 @@ mix test apps/exocomp_node (focused)
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 01:33
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 01:33
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
