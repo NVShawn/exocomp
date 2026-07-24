@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: Backlog
+status: In Progress
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -10,12 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T02:42:48.305068Z'
+updated_at: '2026-07-24T02:49:32.943491Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 5d37f51f-8fa6-47c7-8729-7d8dfdd624aa
 ---
 ## Summary
 

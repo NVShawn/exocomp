@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-92
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Add multi-node discovery and polling integration coverage
 parent: EXOCOMP-15
@@ -14,7 +14,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T02:43:53.595269Z'
+updated_at: '2026-07-24T02:49:34.699274Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-87
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement coordinator CSR validation and node leaf cert issuance
 parent: EXOCOMP-17
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T02:40:05.872303Z'
+updated_at: '2026-07-24T02:49:35.539138Z'
 work_branch: null
 target_branch: null
 review_url: null

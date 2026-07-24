@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T02:43:03.724012Z'
+updated_at: '2026-07-24T02:49:32.151299Z'
 work_branch: null
 target_branch: null
 review_url: null

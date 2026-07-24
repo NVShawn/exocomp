@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-89
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Verify node mTLS identity and safely adopt resolved addresses
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T02:43:26.875901Z'
+updated_at: '2026-07-24T02:49:30.517249Z'
 work_branch: null
 target_branch: null
 review_url: null

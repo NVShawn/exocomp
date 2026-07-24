@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-91
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Run bounded concurrent node polls with per-node isolation
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T02:43:34.627109Z'
+updated_at: '2026-07-24T02:49:33.715040Z'
 work_branch: null
 target_branch: null
 review_url: null
