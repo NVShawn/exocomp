@@ -7,10 +7,12 @@ title: A2A router scaffold, Agent Card endpoint, and mTLS enforcement
 parent: EXOCOMP-12
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T00:54:21.901784Z'
+updated_at: '2026-07-24T00:54:29.980362Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
