@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T02:45:00.842669Z'
+updated_at: '2026-07-24T02:45:13.303477Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -179,5 +179,10 @@ author: oompah
 created: 2026-07-24 02:45
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 02:45
+---
+Understanding: Implementing ApprovalToken struct and deterministic canonical encoding. Plan: (1) Verify coordinator app structure and Jason dependency situation; (2) Create approval_token.ex with 11-field @enforce_keys struct, canonical_encode/1, sha256_hex/1, hash_params/1, hash_evidence/1, validate_schema_version/1 using manually sorted JSON since Jason 1.4.x lacks sort_keys; (3) Write tests for all required scenarios; (4) Add Jason dependency to coordinator mix.exs; (5) Run make test and make lint.
 ---
 <!-- COMMENTS:END -->
