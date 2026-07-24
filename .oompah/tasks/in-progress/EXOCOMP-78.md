@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T00:54:53.953660Z'
+updated_at: '2026-07-24T01:13:29.739927Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -212,5 +212,15 @@ author: oompah
 created: 2026-07-24 00:54
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 01:13
+---
+Understanding: Implement the A2A 1.0 Plug/Bandit router foundation, enforcing mTLS and version checks before JSON parsing, serving the Agent Card, scaffolding task/message routes, wiring Listener, and adding focused tests.
+---
+author: oompah
+created: 2026-07-24 01:13
+---
+Discovery: The dispatched worktree was on epic-EXOCOMP-12 and lacked prerequisites. Created EXOCOMP-78 locally, merged epic-EXOCOMP-8 and EXOCOMP-60, preserved newer Makefile container behavior, and composed Listener with the existing LlamaServer supervision child.
 ---
 <!-- COMMENTS:END -->
