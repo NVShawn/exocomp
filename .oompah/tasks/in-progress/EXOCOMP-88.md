@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:11:58.948249Z'
+updated_at: '2026-07-24T03:17:46.849306Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -246,5 +246,10 @@ author: oompah
 created: 2026-07-24 03:11
 ---
 Discovery: Cherry-picked EXOCOMP-14 (commit 7ab7dc6) onto epic-EXOCOMP-15 cleanly — Audit, Registry, Inventory, Health, Error, and InventoryNode modules are now present. Implementation plan: (1) Add candidate_addresses field + put_candidates/3 to Registry; (2) Implement Resolver GenServer with injectable resolver_fn, dual-stack (inet+inet6) forward-only DNS, deterministic normalization/dedup, and Audit events; (3) Add Resolver to Application supervisor; (4) Write resolver_test.exs with fake resolver fns covering success/multiple-addrs/changed/NXDOMAIN/timeout/error/inventory-refresh. No existing code conflicts. candidates stay separate from Registry.addresses per spec.
+---
+author: oompah
+created: 2026-07-24 03:17
+---
+Implementation: Cherry-picked EXOCOMP-14 foundation (Audit/Registry/Inventory/Health/Error/InventoryNode) then implemented Exocomp.Coordinator.Resolver GenServer. Key decisions: (1) Injectable resolver_fn option (defaults to :inet.getaddrs/2) for test isolation; (2) Dual-stack: resolves :inet (IPv4) and :inet6 (IPv6) separately, combines results; (3) Normalizes via :inet.ntoa/1, Enum.uniq + Enum.sort for deterministic dedup; (4) Stores in Registry.candidate_addresses (new field), never touches Registry.addresses; (5) Emits :dns_resolved or :dns_resolution_failed Audit events per node per sweep; (6) Gracefully handles NXDOMAIN/timeout/empty/servfail; (7) Added Registry.put_candidates/3 API; (8) Added Resolver to Application supervisor after Inventory.
 ---
 <!-- COMMENTS:END -->
