@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:42:11.747416Z'
+updated_at: '2026-07-24T18:42:14.329377Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -242,5 +242,10 @@ Acceptance criteria:
 ✓ Focused state-machine tests pass (85 tests, 0 failures)
 
 Quality gate: make fmt-check, make build, make test, make lint all pass.
+---
+author: oompah
+created: 2026-07-24 18:42
+---
+Implemented Exocomp.Recovery.StateMachine with 10 states, closed event matrix, durable audit per transition, evidence freshness, one-attempt limit, cancellation, deadlines, and restart restoration. 85 exhaustive tests, 0 failures. All Makefile quality gates pass.
 ---
 <!-- COMMENTS:END -->
