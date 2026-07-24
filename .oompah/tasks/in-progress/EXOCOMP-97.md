@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:15:32.881062Z'
+updated_at: '2026-07-24T16:16:54.153885Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -271,5 +271,10 @@ author: oompah
 created: 2026-07-24 16:15
 ---
 Understanding: Continuing the maintenance implementation of Exocomp.Node.Safety.ReplayLedger. I will verify any partial work, implement the DETS-backed write-ahead claim/complete/status/wait API with startup reconciliation and fail-closed storage behavior, add supervision and focused tests, run make test and make lint, then commit, push, and close the task.
+---
+author: oompah
+created: 2026-07-24 16:16
+---
+Discovery: The ledger does not yet exist. Exocomp.Node.Application builds a simple one_for_one child list, and TaskRegistry establishes the local GenServer conventions. The shared worktree contained unrelated untracked EXOCOMP-95 approval-token files, which I am preserving and excluding from this task's commit. The checkout was incorrectly left on epic-EXOCOMP-24; I created the requested EXOCOMP-97 branch in place without moving worktrees.
 ---
 <!-- COMMENTS:END -->
