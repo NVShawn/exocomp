@@ -14,13 +14,13 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:45:44.274189Z'
+updated_at: '2026-07-24T18:45:48.256037Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 91f071f1-a18c-4c21-80e3-cecb9cd15695
+oompah.agent_run_id: 228c36b8-44d2-4d9d-8602-480f4d24af29
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 396125
@@ -275,5 +275,15 @@ Required: open a PR before closing.
   gh pr create --base main --head epic-EXOCOMP-2 --title "EXOCOMP-19: Expose coordinator cluster A2A service" --body "..."
 
 Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
