@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:29:54.875025Z'
+updated_at: '2026-07-24T02:30:06.261810Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -113,5 +113,10 @@ author: oompah
 created: 2026-07-24 02:29
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-07-24 02:30
+---
+Understanding: The LlamaServer crash-test helper hard-codes /usr/bin/kill, which is unavailable in the pinned Alpine builder. I will inspect Make targets and test conventions, reproduce the failure, replace the absolute path with a PATH-resolved portable mechanism while preserving TERM behavior, then run focused and full make test gates.
 ---
 <!-- COMMENTS:END -->
