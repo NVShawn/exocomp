@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-19
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:47:37.143542Z'
+updated_at: '2026-07-24T20:30:57.172169Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
