@@ -14,12 +14,13 @@ children:
 - EXOCOMP-12
 - EXOCOMP-13
 - EXOCOMP-93
+- EXOCOMP-94
 blocked_by: []
 labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-24T02:52:49.305012Z'
+updated_at: '2026-07-24T03:06:50.038369Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
