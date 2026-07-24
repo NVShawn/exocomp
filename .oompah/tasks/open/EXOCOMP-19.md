@@ -15,7 +15,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:30:23.893986Z'
+updated_at: '2026-07-24T18:30:34.717494Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ merged_at: null
 oompah.agent_run_id: 2cba563c-1f5e-4ab9-8244-614994f682fe
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 395947
-  total_output_tokens: 1827
+  total_input_tokens: 396055
+  total_output_tokens: 6422
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 395947
-      output_tokens: 1827
+      input_tokens: 396055
+      output_tokens: 6422
       cost_usd: 0.0
   runs:
   - profile: default
@@ -39,6 +39,12 @@ oompah.task_costs:
     output_tokens: 1827
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:25:38.164152+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 108
+    output_tokens: 4595
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T18:30:33.197521+00:00'
 ---
 ## Summary
 
@@ -182,5 +188,15 @@ Remaining work/risks:
 Architecture boundary: handlers authorize inventory selections and delegate to EXOCOMP-18 orchestration; MUST NOT expose remediation execution skills.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 18:30
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 86
+- Tokens: 108 in / 4.6K out [4.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 43s
+- Log: EXOCOMP-19__20260724T182552Z.jsonl
 ---
 <!-- COMMENTS:END -->
