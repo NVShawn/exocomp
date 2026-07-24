@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-24T02:29:32.172796Z'
+updated_at: '2026-07-24T02:30:46.997295Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -65,5 +65,10 @@ author: oompah
 created: 2026-07-24 02:29
 ---
 Understanding: duplicate screening will compare this node enrollment/certificate-renewal feature against existing tasks and milestone plans. I will inspect full records for candidates covering local key generation, pinned-root bootstrap, one-use node tokens, CSR validation, atomic credential installation, or mTLS renewal; I will not implement code in this focus.
+---
+author: oompah
+created: 2026-07-24 02:30
+---
+Discovery: duplicate screening found no duplicate. Reviewed full tracker histories for EXOCOMP-9, EXOCOMP-16, EXOCOMP-20, EXOCOMP-59, EXOCOMP-60, EXOCOMP-75, EXOCOMP-76, and EXOCOMP-77 after searching the git-backed task store and milestone plans for enrollment, renewal, CSR, pinned-root, token, and identity terms. EXOCOMP-60/59 only validate an already-installed node identity and start mTLS; EXOCOMP-75/76/77 implement coordinator PKI, token service, and integration, and EXOCOMP-77 explicitly excludes CSR issuance and node-side enrollment. EXOCOMP-20 is milestone verification. EXOCOMP-17 uniquely owns node-local key generation, pinned-root enrollment, CSR exchange/validation, atomic chain installation, and mTLS-authenticated renewal.
 ---
 <!-- COMMENTS:END -->

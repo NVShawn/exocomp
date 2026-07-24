@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:30:06.261810Z'
+updated_at: '2026-07-24T02:30:29.171036Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -118,5 +118,10 @@ author: oompah
 created: 2026-07-24 02:30
 ---
 Understanding: The LlamaServer crash-test helper hard-codes /usr/bin/kill, which is unavailable in the pinned Alpine builder. I will inspect Make targets and test conventions, reproduce the failure, replace the absolute path with a PATH-resolved portable mechanism while preserving TERM behavior, then run focused and full make test gates.
+---
+author: oompah
+created: 2026-07-24 02:30
+---
+Discovery: apps/exocomp_node/test/exocomp/node/llama_server_test.exs:61 hard-codes System.cmd("/usr/bin/kill", ...). The helper is exercised by two behavioral crash tests covering restart/recovery and supervisor isolation. The pinned make test target runs these inside Alpine 3.24.1, where PATH-based BusyBox kill is available but /usr/bin/kill is not.
 ---
 <!-- COMMENTS:END -->
