@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-95
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement node-side approval token verifier (signature, bindings, freshness)
 parent: EXOCOMP-24
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:10:38.437819Z'
+updated_at: '2026-07-24T16:29:07.194956Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 162ddc09-69f1-48d0-ae3f-25f4f8bc5bb6
+oompah.agent_run_id: f962930a-a159-4505-873d-04268a70c5ce
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 794652
@@ -229,5 +229,15 @@ author: oompah
 created: 2026-07-24 16:08
 ---
 Discovery: origin/EXOCOMP-86 contains the canonical JSON/hash contract but is based on an older divergent history, so merging it would delete current node/A2A work. I copied the exact eleven-field encoding contract into a shared exocomp_core module. Existing node identity is passed through runtime configuration objects rather than stored globally, so the verifier takes node_id in its execution context; the approval public-key file path is injected through Application config.
+---
+author: oompah
+created: 2026-07-24 16:29
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 16:29
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

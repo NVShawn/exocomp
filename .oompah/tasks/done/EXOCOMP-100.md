@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:28:46.099752Z'
+updated_at: '2026-07-24T16:28:57.050787Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: b848852b-7a3f-4af0-8040-8551e3be745c
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 606414
-  total_output_tokens: 5945
+  total_input_tokens: 606463
+  total_output_tokens: 43511
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 606414
-      output_tokens: 5945
+      input_tokens: 606463
+      output_tokens: 43511
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 2516
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:04:03.622518+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 49
+    output_tokens: 37566
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T16:28:54.974766+00:00'
 ---
 ## Summary
 
@@ -183,5 +189,20 @@ author: oompah
 created: 2026-07-24 16:28
 ---
 Implemented GoalStore volatile diagnostic task store with UUIDv4 correlation IDs, atomic caller_key deduplication, configurable bounds (max_active/max_history/max_artifacts/max_output_bytes), deterministic oldest-terminal eviction, output front-truncation, downstream_key/2 pure function, and public internal API (accept/get/list/transition/put_node_outcome/append_output/put_artifact/cancel). 36 focused tests cover all required scenarios. All 153 coordinator tests pass.
+---
+author: oompah
+created: 2026-07-24 16:28
+---
+Agent completed successfully in 817s (37615 tokens)
+---
+author: oompah
+created: 2026-07-24 16:28
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 79, Tool calls: 54
+- Tokens: 49 in / 37.6K out [37.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 13m 37s
+- Log: EXOCOMP-100__20260724T161521Z.jsonl
 ---
 <!-- COMMENTS:END -->
