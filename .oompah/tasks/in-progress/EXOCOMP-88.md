@@ -7,10 +7,11 @@ title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T02:51:43.867693Z'
+updated_at: '2026-07-24T02:52:13.275775Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -62,5 +63,40 @@ Discovery: No duplicate confirmed. Full review of all candidate tasks:
 **EXOCOMP-16/17/18/19/20:** PKI, enrollment, orchestration, A2A service, milestone verification — no DNS resolution overlap.
 
 EXOCOMP-88 uniquely owns: supervised DNS resolver GenServer, hostname-to-IPv4/IPv6 resolution (no reverse DNS), normalization/deduplication, candidate state management (candidates only, not direct Registry.addresses replacement), and audit/health events for resolution success/failure. This scope is not covered anywhere else in the task graph.
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-88 is a unique, well-scoped child task of EXOCOMP-15 covering DNS hostname resolution into address candidates. No existing task covers this specific functionality.
+
+**Evidence reviewed:**
+- EXOCOMP-14 (Done): inventory/registry/audit scaffold — no DNS resolver
+- EXOCOMP-15 (Open): parent task for DNS discovery + polling (EXOCOMP-88 is a child)
+- EXOCOMP-89 (Open): mTLS verification and address adoption — sibling, not duplicate
+- EXOCOMP-90/91/92: poll scheduling, concurrency, integration — no DNS overlap
+- EXOCOMP-16/17/18/19/20: PKI, enrollment, orchestration, A2A service — no overlap
+
+**Relevant files:**
+- plans/milestone-2-coordinator.md — §Inventory and Discovery: 'Normal DNS resolution supplies addresses. The coordinator retains the hostname as identity context and does not trust reverse DNS. Address changes are adopted on successful resolution and mTLS verification.'
+- apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex — OTP supervisor stub (from EXOCOMP-14)
+- origin/EXOCOMP-14 (commit 7ab7dc6) — has Inventory, Registry, Audit, Health modules; feature agent should rebase on this
+- EXOCOMP-89 — sibling task; EXOCOMP-88's candidates feed into EXOCOMP-89's adoption logic
+
+**Remaining work:**
+1. Implement `Exocomp.Coordinator.Resolver` GenServer reading hostnames from Inventory, resolving forward DNS (IPv4+IPv6), normalizing/deduplicating, storing as candidates
+2. Report structured resolution success/failure audit/health events
+3. Handle NXDOMAIN/empty/timeout/error cases
+4. Refresh resolution on inventory changes
+5. Test with deterministic resolver fakes (no real DNS)
+6. Ensure candidates are NOT written to Registry.addresses (that's EXOCOMP-89's job)
+
+**Risks:**
+- The current epic-EXOCOMP-2 branch does NOT yet include EXOCOMP-14 commits (still on origin/EXOCOMP-14); feature agent must check branch state and merge/rebase if needed
+- The resolver should use `:inet.getaddrs/2` or `:inet_res` for DNS lookups; prefer `:inet.getaddrs` for fake-ability via process injection
+- Elixir's `:inet.getaddrs` returns both A and AAAA records when passed `:inet6` — need both families
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->

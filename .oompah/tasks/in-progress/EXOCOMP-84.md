@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:51:31.202963Z'
+updated_at: '2026-07-24T02:52:18.893173Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -292,5 +292,15 @@ author: oompah
 created: 2026-07-24 02:51
 ---
 Implementation: Fixed the integer-truncation bug in compute_pct/2 (trunc → round) so boundary-threshold tests pass correctly. All 6 files staged for commit on new branch EXOCOMP-84: os_commander.ex (OsCommander behaviour + SystemCommander), evidence.ex (Evidence schema), disk_pressure_collector.ex (new: DiskPressureCollector with collect/0 and integrity_hash_for/1), disk_pressure_collector_test.exs (new: 21 unit tests covering all threshold scenarios, OS failures, evidence record structure, and config-only access), mock_commander.ex (new: Agent-based test double), test_helper.exs (require mock_commander support file).
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Verification: Tests pass. make test: 69/71 passed (2 excluded LlamaServer crash tests are pre-existing failures due to /usr/bin/kill not being present in the builder container — unrelated to this PR). make lint: clean (format check and compile --warnings-as-errors both pass). DiskPressureCollector tests: all 21 pass including all threshold boundary cases, OS failure scenarios, evidence structure validation, integrity hash correctness, and config-only access checks.
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Completion: EXOCOMP-84 is done. Delivered on branch EXOCOMP-84 (pushed to origin): (1) Exocomp.Node.Safety.DiskPressureCollector — runs df -B1 via OsCommander, builds a SHA-256-integrity-hashed Evidence struct, evaluates :below_threshold/:warning/:critical from Application config thresholds. compute_pct uses round/1 (not trunc) for correct boundary behaviour. (2) 21 unit tests via MockCommander covering all spec requirements. (3) Evidence schema (evidence.ex) and OsCommander behaviour (os_commander.ex) from dependency branches included. make test: 69/71 (pre-existing LlamaServer failures unrelated). make lint: clean.
 ---
 <!-- COMMENTS:END -->
