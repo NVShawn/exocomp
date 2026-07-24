@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-28
 type: chore
-status: In Progress
+status: Open
 priority: 1
 title: Verify M3 safety and remediation controls
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:30:17.106137Z'
+updated_at: '2026-07-24T19:30:27.357851Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -22,6 +22,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: af8b338f-98db-45df-b855-ec6ac3391cfa
 oompah.work_branch: epic-EXOCOMP-3
+oompah.task_costs:
+  total_input_tokens: 556290
+  total_output_tokens: 2674
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 556290
+      output_tokens: 2674
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 556290
+    output_tokens: 2674
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T19:30:22.416759+00:00'
 ---
 ## Summary
 
@@ -86,5 +102,25 @@ Evidence and decisions: Repository search covered M3, safety validation, remedia
 Remaining work and risks: Integrate the completed M3 prerequisite branches into epic-EXOCOMP-3 as needed; build the cross-component adversarial/integration acceptance suite; explicitly cover arbitrary commands/paths/services, unknown and user data, approval tampering, concurrent/sequential/restart replay, failed versus active/degraded services, bounded cleanup, privilege rules, and correlated audit; record criterion-by-criterion evidence and run affected Make gates. Existing task history indicates the epic worktree may lag completed child branches, so confirm integration state first.
 
 Recommended next focus: test. No repository files were changed; quality gates were not applicable to this read-only duplicate screening.
+---
+author: oompah
+created: 2026-07-24 19:30
+---
+Agent completed successfully in 85s (558964 tokens)
+---
+author: oompah
+created: 2026-07-24 19:30
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 14
+- Tokens: 556.3K in / 2.7K out [559.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 25s
+- Log: EXOCOMP-28__20260724T192900Z.jsonl
+---
+author: oompah
+created: 2026-07-24 19:30
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
