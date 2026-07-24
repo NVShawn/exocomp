@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-75
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement secure coordinator PKI bootstrap and state validation
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T01:04:32.469679Z'
+updated_at: '2026-07-24T01:04:56.682632Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -169,5 +169,10 @@ author: oompah
 created: 2026-07-24 01:04
 ---
 Verification: focused PKI suite passes 10/10; full coordinator suite passes 25/25; make lint, make fmt-check, and make build (including both production releases) pass. make test reaches 129 passing tests overall but fails 2 pre-existing node LlamaServer crash tests because they hard-code /usr/bin/kill, absent in the pinned Alpine builder; filed EXOCOMP-83 for that unrelated portability defect. No PKI/coordinator failures.
+---
+author: oompah
+created: 2026-07-24 01:04
+---
+Completion: Delivered and pushed commit 7ceead4 on EXOCOMP-75. Coordinator initialization now securely bootstraps separated CA/leaf/approval material, keeps the protected root key offline, atomically persists strict-mode state, returns only path/fingerprint metadata, and performs comprehensive fail-closed repeat validation. Added 10 focused security/idempotency/storage tests and dependency/release integration. Quality evidence: focused 10/10, coordinator 25/25, lint/fmt/build pass; unrelated full-suite Alpine kill-path defect tracked as EXOCOMP-83.
 ---
 <!-- COMMENTS:END -->
