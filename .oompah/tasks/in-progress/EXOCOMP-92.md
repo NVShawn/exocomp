@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-92
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add multi-node discovery and polling integration coverage
 parent: EXOCOMP-15
@@ -14,12 +14,13 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T02:49:34.699274Z'
+updated_at: '2026-07-24T04:01:21.933132Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: d99a5474-6eb8-4710-836e-c637378b17e3
 ---
 ## Summary
 

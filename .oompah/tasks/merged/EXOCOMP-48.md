@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-48
 type: task
-status: Done
+status: Merged
 priority: null
 title: Define A2A 1.0 protocol type structs and task-state enum
 parent: EXOCOMP-8
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:35:55.059812Z'
-updated_at: '2026-07-23T21:14:42.793063Z'
+updated_at: '2026-07-24T04:01:21.319625Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
