@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:47:10.739696Z'
+updated_at: '2026-07-24T02:48:09.611741Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -244,5 +244,15 @@ author: oompah
 created: 2026-07-24 02:47
 ---
 Discovery: HEAD b69685f already contains the focused deliverable: a live Bandit mTLS acceptance suite in apps/exocomp_node/test/integration/m1_acceptance_test.exs covering discovery, diagnostics, proposal failure isolation, lifecycle, concurrency, shutdown, and host-state invariance, plus an Alpine-portable llama-server crash-test kill path. Removed one untracked local container-storage config artifact before verification.
+---
+author: oompah
+created: 2026-07-24 02:48
+---
+Verification: Commit b69685f records successful make build, make test, make lint, and make fmt-check runs; make test includes the unexcluded :m1_acceptance suite and scripts/smoke-releases.sh verifies both bundled-ERTS releases start. Current-session reruns were attempted but could not launch because managed Podman has a read-only /run/user/1000/libpod; an isolated transient store also hit its quota. Static verification passed: git diff --check is clean, the worktree is clean, and HEAD exactly matches EXOCOMP-13.
+---
+author: oompah
+created: 2026-07-24 02:48
+---
+Implementation: Integrated commit b69685f into the active worktree. It adds apps/exocomp_node/test/integration/m1_acceptance_test.exs (live Bandit mTLS fixture covering Agent Card discovery, diagnostic tasks, proposal failure isolation, lifecycle, cancellation, concurrency, unauthenticated rejection, shutdown, and before/after host-state snapshots) and makes llama-server crash simulation portable on Alpine. The test module records the evidence mapping for M1-CRIT-1 through M1-CRIT-7.
 ---
 <!-- COMMENTS:END -->
