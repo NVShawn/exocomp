@@ -15,7 +15,8 @@ defmodule Exocomp.Node.Application do
   end
 
   defp children do
-    [Exocomp.Node.TaskRegistry | llama_server_children()] ++ listener_children()
+    [Exocomp.Node.TaskRegistry, Exocomp.Node.Safety.ReplayLedger] ++
+      llama_server_children() ++ listener_children()
   end
 
   defp llama_server_children do
