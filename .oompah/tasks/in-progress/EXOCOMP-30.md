@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:28:49.429274Z'
+updated_at: '2026-07-24T18:31:19.970693Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -154,5 +154,24 @@ Key requirements:
 - Exhaustive state-transition tests covering all legal/illegal/stale/duplicate/timeout/cancellation/cooldown/escalation paths
 
 Plan: Create an Elixir umbrella project under apps/exocomp_core with Recovery.StateMachine (pure functional), Recovery.Audit (audit event types/writing), and Recovery.Evidence (freshness). Update Makefile targets for fmt/fmt-check/build/test/lint. Write exhaustive ExUnit tests in apps/exocomp_core/test/.
+---
+author: oompah
+created: 2026-07-24 18:31
+---
+Discovery: The repository has plans and a stub Makefile but no Elixir source code yet. Need to create the umbrella project and implement the state machine from scratch.
+
+Key design decisions:
+- Pure functional state machine (no GenServer) — callers own persistence and I/O
+- 10 states: observing, diagnosing, proposed, validating, awaiting_approval, executing, verifying, cooling_down, completed, escalated; plus cancelled terminal state
+- Closed legal event matrix with 15 transition rules + universal cancel
+- Evidence freshness via collected_at age check (default 300s, injectable for tests)
+- Approval expiry check via expires_at field
+- Monotonic sequence counter — stale/out-of-order events produce {:error, :already_terminal}
+- execution_attempted boolean flag as defense-in-depth against re-entry to :executing
+- Restart restoration via restore/5 replaying transition log
+- AuditEvent struct produced for every accepted transition, caller must persist before external action
+
+Files: apps/exocomp_core/lib/exocomp/recovery/{evidence,audit_event,state_machine}.ex
+Tests: apps/exocomp_core/test/exocomp/recovery/state_machine_test.exs
 ---
 <!-- COMMENTS:END -->
