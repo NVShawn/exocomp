@@ -1,4 +1,5 @@
 Code.require_file("support/fake_llama_server.ex", __DIR__)
+Code.require_file("support/mock_commander.ex", __DIR__)
 
 # Exclude integration and systemd tests by default.
 #
