@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:31:00.539291Z'
+updated_at: '2026-07-24T18:34:27.959608Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -212,5 +212,10 @@ author: oompah
 created: 2026-07-24 18:31
 ---
 Understanding: Taking over as Software Engineer to implement the coordinator cluster A2A service. Based on previous agent handoffs: the codebase has a complete node A2A service (apps/exocomp_node) as a pattern to follow. The coordinator app (apps/exocomp_coordinator) has had HTTP deps (bandit, plug, jason) added but still needs the full A2A implementation. Plan: (1) Read node A2A patterns thoroughly, (2) Implement coordinator A2ARouter with exocomp.cluster.health and exocomp.cluster.diagnose skills, (3) Implement AgentCardHandler, TaskRegistry, Codec, Listener, (4) Implement inventory selection authorization, (5) Write comprehensive tests, (6) Run quality gates.
+---
+author: oompah
+created: 2026-07-24 18:34
+---
+Discovery: Full codebase analysis complete. The node A2A service (apps/exocomp_node) is the reference implementation with: A2ARouter (Plug.Router with mTLS + version gating), TaskRegistry (bounded GenServer), A2A.Codec (encode/decode), AgentCardHandler, Skills.Dispatcher. The coordinator app has only application.ex plus the HTTP deps added by the maintenance agent. Implementation plan: (1) Coordinator JSONBodyParser plug, (2) TaskRegistry (coordinator namespace), (3) A2A.Codec with cluster skills, (4) AgentCardHandler (cluster skills only, no remediation), (5) Skills.Behaviour + ClusterHealth + ClusterDiagnose + Dispatcher, (6) InventoryAuthorizer for selection validation, (7) A2ARouter with selection authorization, (8) Config + Listener, (9) Update Application supervision tree, (10) Comprehensive tests.
 ---
 <!-- COMMENTS:END -->
