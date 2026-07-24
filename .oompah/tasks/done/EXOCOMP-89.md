@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:31:37.776747Z'
+updated_at: '2026-07-24T03:31:53.249792Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: a44df019-a626-4f60-a5ac-ed7e94641fca
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 515838
-  total_output_tokens: 2419
+  total_input_tokens: 515900
+  total_output_tokens: 31798
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 515838
-      output_tokens: 2419
+      input_tokens: 515900
+      output_tokens: 31798
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 2419
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:19:50.983157+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 62
+    output_tokens: 29379
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T03:31:51.293382+00:00'
 ---
 ## Summary
 
@@ -143,5 +149,20 @@ author: oompah
 created: 2026-07-24 03:31
 ---
 Implemented NodeProber module (mTLS authenticated probe boundary) with 32 focused ExUnit tests covering all typed outcomes, address adoption/preservation, identity mismatch halting, audit events, and Registry isolation. make test and make lint pass.
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Agent completed successfully in 713s (29441 tokens)
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 110, Tool calls: 74
+- Tokens: 62 in / 29.4K out [29.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 11m 53s
+- Log: EXOCOMP-89__20260724T032000Z.jsonl
 ---
 <!-- COMMENTS:END -->

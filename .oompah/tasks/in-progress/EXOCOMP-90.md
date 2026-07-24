@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T03:05:52.958068Z'
+updated_at: '2026-07-24T03:31:57.845499Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: c958afc9-f12d-4a01-8f3d-b9c5ce7f61f2
+oompah.agent_run_id: 5b537988-9c46-4c92-a27a-d86a2680551b
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 560598
@@ -100,5 +100,15 @@ author: oompah
 created: 2026-07-24 03:05
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
