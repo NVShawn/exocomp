@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T04:22:33.062552Z'
+updated_at: '2026-07-24T04:22:46.456096Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ merged_at: null
 oompah.agent_run_id: d3bdff2a-775a-4938-9c68-8c9fc3e864be
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 524986
-  total_output_tokens: 2437
+  total_input_tokens: 525046
+  total_output_tokens: 62485
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 524986
-      output_tokens: 2437
+      input_tokens: 525046
+      output_tokens: 62485
       cost_usd: 0.0
   runs:
   - profile: default
@@ -39,6 +39,12 @@ oompah.task_costs:
     output_tokens: 2437
     cost_usd: 0.0
     recorded_at: '2026-07-24T04:02:54.382953+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 60
+    output_tokens: 60048
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T04:22:44.648922+00:00'
 ---
 ## Summary
 
@@ -157,5 +163,20 @@ author: oompah
 created: 2026-07-24 04:22
 ---
 Added 16-test cross-component integration suite covering multi-node discovery and polling: healthy/degraded/slow/stale/unreachable/wrong-identity nodes; multiple DNS addresses; address adoption/preservation; bounded concurrency; per-node timeout isolation; exponential backoff; recovery; audit events; redaction. All make quality gates pass. Prerequisites EXOCOMP-90 and EXOCOMP-91 merged.
+---
+author: oompah
+created: 2026-07-24 04:22
+---
+Agent completed successfully in 1182s (60108 tokens)
+---
+author: oompah
+created: 2026-07-24 04:22
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 99, Tool calls: 72
+- Tokens: 60 in / 60.0K out [60.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 19m 42s
+- Log: EXOCOMP-92__20260724T040305Z.jsonl
 ---
 <!-- COMMENTS:END -->
