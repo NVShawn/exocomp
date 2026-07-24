@@ -13,7 +13,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:33:58.820512Z'
+updated_at: '2026-07-24T01:34:11.019955Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: edd3f14a-b8d9-4403-9ca5-9c88d830f837
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 26
-  total_output_tokens: 7149
+  total_input_tokens: 69
+  total_output_tokens: 40193
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 26
-      output_tokens: 7149
+      input_tokens: 69
+      output_tokens: 40193
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 7149
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:13:12.746477+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 43
+    output_tokens: 33044
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T01:34:09.087751+00:00'
 ---
 ## Summary
 
@@ -270,5 +276,20 @@ author: oompah
 created: 2026-07-24 01:33
 ---
 Implemented PolicyEngine.evaluate/4 risk-ordered candidate selection. All 14 tests pass, make test and make lint clean. Branch EXOCOMP-74 pushed at commit 5bf40d2.
+---
+author: oompah
+created: 2026-07-24 01:34
+---
+Agent completed successfully in 767s (33087 tokens)
+---
+author: oompah
+created: 2026-07-24 01:34
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 85, Tool calls: 50
+- Tokens: 43 in / 33.0K out [33.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 12m 47s
+- Log: EXOCOMP-74__20260724T012125Z.jsonl
 ---
 <!-- COMMENTS:END -->

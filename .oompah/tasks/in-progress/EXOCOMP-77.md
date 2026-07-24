@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T01:33:29.571065Z'
+updated_at: '2026-07-24T01:34:11.641707Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,5 +47,10 @@ author: oompah
 created: 2026-07-24 01:33
 ---
 Understanding: Screening EXOCOMP-77 for duplication only. I will search existing tasks and project docs for coordinator PKI initialization, protected-state startup, and enrollment issue/consume integration; inspect full candidate task descriptions/comments; then either archive as a confirmed duplicate or document no duplicate and hand off to implementation.
+---
+author: oompah
+created: 2026-07-24 01:34
+---
+Discovery: No duplicate confirmed. EXOCOMP-16 comments #19-23 explicitly created EXOCOMP-77 as the distinct integration child after separating PKI bootstrap into EXOCOMP-75 and durable enrollment tokens into EXOCOMP-76. EXOCOMP-14 supplies the supervision/inventory/audit foundation, while EXOCOMP-17 is the node-side consumer. None covers EXOCOMP-77's operator Mix task, protected-state startup validation, supervised issue/consume boundary, or cross-cutting integration/security verification.
 ---
 <!-- COMMENTS:END -->
