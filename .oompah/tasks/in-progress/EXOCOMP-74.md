@@ -13,7 +13,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:27:34.562276Z'
+updated_at: '2026-07-24T01:30:46.308597Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -250,5 +250,10 @@ author: oompah
 created: 2026-07-24 01:27
 ---
 Discovery: On branch EXOCOMP-74. Analyzed PolicyEngine.ex (EXOCOMP-73 filter pipeline), policy_engine_test.exs (14 tests already written by test agent), ValidatorResult, RiskRank, ActionDefinition, and Evidence modules. Key findings: (1) evaluate/4 is completely missing from policy_engine.ex; (2) evaluate/4 must evaluate all catalog candidates independently (not just proposal.action_id), creating per-candidate proposals for the filter pipeline; (3) evidence must be scoped to each candidate's required_evidence collectors to avoid cross-candidate staleness rejection; (4) Docker builder image is cached locally (sha256:53d8...c4979), make test should work; (5) All 14 test cases are clearly mapped to the implementation needed. Beginning implementation now.
+---
+author: oompah
+created: 2026-07-24 01:30
+---
+Implementation: Added PolicyEngine.evaluate/4 to apps/exocomp_node/lib/exocomp/node/safety/policy_engine.ex. Key design decisions: (1) Per-candidate evaluation — creates a per-candidate proposal (with candidate action_id) and calls filter/4 for each catalog item independently; (2) Evidence scoping — scope_evidence_for_candidate/3 filters evidence to only the candidate's required_evidence collectors AND matching target_id, preventing cross-candidate staleness interference; (3) Risk-ordered sort — sort_candidates/1 uses RiskRank.compare/2 with alphabetical action_id tiebreaker; (4) Fail-closed — nil/unexpected inputs hit catchall clause returning deny; exceptions wrapped in try/rescue returning 'internal policy error'; (5) Auditable reason string includes full ordered eligible list with inspect(risk_rank) and all rejection reasons. Running tests now.
 ---
 <!-- COMMENTS:END -->
