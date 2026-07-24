@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:44:18.056580Z'
+updated_at: '2026-07-24T18:45:08.064089Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -222,5 +222,10 @@ author: oompah
 created: 2026-07-24 18:44
 ---
 Implementation: Implemented the full coordinator A2A service with the following files: (1) Exocomp.Coordinator.Plug.JSONBodyParser - HTTP request body parsing with 1MiB limit; (2) Exocomp.Coordinator.TaskRegistry - bounded in-memory task lifecycle GenServer; (3) Exocomp.Coordinator.A2A.Codec - cluster skill encoding/decoding (exocomp.cluster.health, exocomp.cluster.diagnose only - no remediation); (4) Exocomp.Coordinator.Handlers.AgentCardHandler - cluster skills only agent card; (5) Exocomp.Coordinator.Skills.{Behaviour, ClusterHealth, ClusterDiagnose, Dispatcher} - skill handlers delegating to orchestrator stub; (6) Exocomp.Coordinator.Orchestrator.Stub - placeholder for EXOCOMP-18 orchestration; (7) Exocomp.Coordinator.InventoryAuthorizer - validates node_ids selections against configured inventory; (8) Exocomp.Coordinator.A2ARouter - mTLS auth, version gating, authorization, cluster skill routing; (9) Exocomp.Coordinator.Config - JSON config loading; (10) Exocomp.Coordinator.Listener - Bandit mTLS listener. Updated Application supervision tree to start TaskRegistry. Key boundary enforced: no remediation execution skill is reachable.
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Verification: All quality gates pass. Test results: bench 55/55, exocomp_core 66/66, exocomp_coordinator 83/83, exocomp_node 201/201 (10 excluded = integration/systemd tests requiring privileged container). Lint (mix format --check-formatted + mix compile --warnings-as-errors) passes clean. Tests cover: mTLS auth, version negotiation, cluster skills (health/diagnose), selection authorization (authorized/unauthorized/partial node IDs), task lifecycle (submit/get/list/cancel), concurrent callers (5 simultaneous), partial results, unsupported capabilities (streaming/resubscribe), no-remediation boundary, bounded history, config loading, codec encode/decode.
 ---
 <!-- COMMENTS:END -->
