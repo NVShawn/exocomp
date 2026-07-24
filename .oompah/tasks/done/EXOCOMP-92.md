@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T04:22:30.668187Z'
+updated_at: '2026-07-24T04:22:33.062552Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -152,5 +152,10 @@ author: oompah
 created: 2026-07-24 04:22
 ---
 Completion: EXOCOMP-92 is done. Delivered multi_node_discovery_polling_test.exs with 16 cross-component integration tests satisfying all requirements from the task description and plans/milestone-2-coordinator.md (M2-CRIT-2, M2-CRIT-8). Prerequisites EXOCOMP-90 and EXOCOMP-91 were merged into the epic branch. All make quality gates (test, lint, fmt-check, build) pass. Branch pushed: epic-EXOCOMP-15 at commit 9e9462b.
+---
+author: oompah
+created: 2026-07-24 04:22
+---
+Added 16-test cross-component integration suite covering multi-node discovery and polling: healthy/degraded/slow/stale/unreachable/wrong-identity nodes; multiple DNS addresses; address adoption/preservation; bounded concurrency; per-node timeout isolation; exponential backoff; recovery; audit events; redaction. All make quality gates pass. Prerequisites EXOCOMP-90 and EXOCOMP-91 merged.
 ---
 <!-- COMMENTS:END -->
