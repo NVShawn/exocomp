@@ -418,6 +418,26 @@ defmodule Exocomp.Integration.M1AcceptanceTest do
     assert {:ok, 200, task_body} = mtls_get(port, "/tasks/#{task_id}")
     assert {:ok, completed} = Jason.decode(task_body)
     assert completed["status"]["state"] == "completed"
+
+    assert [
+             %{
+               "artifactId" => artifact_id,
+               "name" => "system-diagnose",
+               "parts" => [
+                 %{
+                   "type" => "data",
+                   "data" => %{
+                     "schema_version" => "1",
+                     "skill" => "exocomp.system.diagnose",
+                     "observations" => observations
+                   }
+                 }
+               ]
+             }
+           ] = completed["artifacts"]
+
+    assert is_binary(artifact_id)
+    assert Map.keys(observations) |> Enum.sort() == ["cpu", "disk", "memory", "uptime"]
   end
 
   test "M1-CRIT-3c: GET /tasks returns the list of tasks including submitted one" do
@@ -639,15 +659,16 @@ defmodule Exocomp.Integration.M1AcceptanceTest do
     assert {:ok, 200, _} = mtls_get(port, "/.well-known/agent-card.json")
     assert {:ok, 200, _} = mtls_get(port, "/tasks")
 
-    # Stop the listener (start_supervised! teardown fires on_exit, but we
-    # can also check the snapshot now while the node is still running).
-    after_snap_running = snapshot.(system_paths)
+    # Stop the listener before taking the final snapshot so the comparison
+    # spans the complete node lifecycle, including graceful shutdown.
+    :ok = stop_supervised(Listener)
+    after_snap = snapshot.(system_paths)
 
     # Snapshot must be identical before and after node operation.
-    assert before_snap == after_snap_running,
+    assert before_snap == after_snap,
            "Host state changed during node operation:\n" <>
              "Before: #{inspect(before_snap)}\n" <>
-             "After:  #{inspect(after_snap_running)}"
+             "After:  #{inspect(after_snap)}"
   end
 
   test "M1-CRIT-7: invalid A2A requests do not cause host state changes" do
