@@ -7,10 +7,12 @@ title: 'Skill handler implementations: system.diagnose, service.diagnose, remedi
 parent: EXOCOMP-12
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:34:52.374619Z'
+updated_at: '2026-07-24T01:34:56.585496Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
