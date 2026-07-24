@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-07-24T15:57:02.299043Z'
+updated_at: '2026-07-24T15:59:28.373372Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -50,5 +50,10 @@ author: oompah
 created: 2026-07-24 15:57
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 15:59
+---
+Understanding: Duplicate Investigator pass. I will search the full task tracker (done, open, in-progress, archived, merged) and repository code for any existing task that implements the coordinator-side outbound A2A 1.0 HTTP client used for sending diagnostic tasks to nodes — covering send, status/result retrieval, cancel, version negotiation, mTLS registry integration, per-request timeouts, and normalized error handling.
 ---
 <!-- COMMENTS:END -->

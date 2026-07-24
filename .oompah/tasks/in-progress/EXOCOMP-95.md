@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T15:58:33.271931Z'
+updated_at: '2026-07-24T15:59:30.359726Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -124,5 +124,10 @@ author: oompah
 created: 2026-07-24 15:58
 ---
 Understanding: duplicate screening only. I will search task records and repository plans for prior work covering the same node-side Ed25519 approval verifier, inspect each plausible candidate's full description/comments, and either archive EXOCOMP-95 as duplicate or hand it off for implementation with evidence.
+---
+author: oompah
+created: 2026-07-24 15:59
+---
+Discovery: no duplicate confirmed. Full records reviewed: EXOCOMP-24 is the parent epic whose planner deliberately decomposed this exact verifier into EXOCOMP-95; EXOCOMP-86 defines only the coordinator-side canonical token contract/hash helpers; EXOCOMP-23 is coordinator-side issuance; EXOCOMP-96 owns fresh-evidence comparison; EXOCOMP-98 only integrates the completed verifier/checker/ledger. EXOCOMP-87 issues node TLS certificates and does not provision or verify approval-token keys. A repository/all-ref search found no ApprovalVerifier implementation. The Milestone 3 plan uniquely assigns node-side signature, binding, and freshness validation to this child.
 ---
 <!-- COMMENTS:END -->
