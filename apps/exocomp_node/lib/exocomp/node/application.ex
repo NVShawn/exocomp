@@ -9,9 +9,12 @@ defmodule Exocomp.Node.Application do
   end
 
   defp children do
-    case Application.get_env(:exocomp_node, :llama_server_path) do
-      path when is_binary(path) and path != "" -> [Exocomp.Node.LlamaServer]
-      _other -> []
-    end
+    llama_children =
+      case Application.get_env(:exocomp_node, :llama_server_path) do
+        path when is_binary(path) and path != "" -> [Exocomp.Node.LlamaServer]
+        _other -> []
+      end
+
+    [Exocomp.Node.VacuumState] ++ llama_children
   end
 end
