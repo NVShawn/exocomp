@@ -20,7 +20,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:31.642631Z'
-updated_at: '2026-07-24T04:30:05.223842Z'
+updated_at: '2026-07-24T04:30:48.101183Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -165,5 +165,15 @@ author: oompah
 created: 2026-07-24 04:29
 ---
 Discovery: The milestone contract is concentrated in plans/milestone-2-coordinator.md (Coordinator Task Flow, A2A Interface, Audit, M2-CRIT-5/6). The displayed tracker state contains no existing children. Current checkout is the epic branch behind the completed foundation branches: coordinator currently has only its empty supervisor, while EXOCOMP-14/15 implementations are visible in git history on their epic branches. Decomposition therefore separates stable protocol/client and in-memory task primitives from fan-out aggregation, cancellation, audit, restart recovery/docs, and final integration verification; implementation children must begin from a branch containing the completed EXOCOMP-14/15 foundations.
+---
+author: oompah
+created: 2026-07-24 04:30
+---
+Implementation (planning): Created seven explicit children: EXOCOMP-99 A2A client adapter; EXOCOMP-100 volatile store/idempotency/bounds; EXOCOMP-101 fan-out and partial results; EXOCOMP-102 cancellation; EXOCOMP-103 correlated durable audit; EXOCOMP-104 restart reconstruction and operator docs; EXOCOMP-105 end-to-end verification. Set the graph so 99 and 100 unblock 101, followed by 102 -> 103 -> 104 -> 105. Each child includes focused test expectations and a single coherent ownership boundary.
+---
+author: oompah
+created: 2026-07-24 04:30
+---
+Verification: Re-read EXOCOMP-18 and confirmed all seven children are attached in Backlog; tracker accepted every dependency edge (101<-99/100, 102<-101, 103<-102, 104<-103, 105<-104). Coverage maps to every stated implementation/testing item and acceptance criterion, including explicit per-node failures, duplicate suppression, bounds/eviction, cancellation, restart-safe resubmission documentation, correlated redacted audit, sink outage, and affected Make gates. No repository files were changed in this planning-only focus, so code quality gates were not applicable.
 ---
 <!-- COMMENTS:END -->
