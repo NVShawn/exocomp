@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:08:57.415240Z'
+updated_at: '2026-07-24T01:11:54.412344Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -119,5 +119,10 @@ author: oompah
 created: 2026-07-24 01:08
 ---
 Understanding: Dispatched as Maintenance Engineer to EXOCOMP-76. This task requires implementing a durable node-bound enrollment token service in the coordinator. The previous duplicate_detector confirmed this is unique work. I will now explore the codebase to understand what exists (EXOCOMP-14 inventory/audit contracts, EXOCOMP-75 online state) before determining if this is maintenance-scope or requires a feature handoff.
+---
+author: oompah
+created: 2026-07-24 01:11
+---
+Discovery: EXOCOMP-14 (inventory/registry/audit) and EXOCOMP-75 (PKI bootstrap) are both Done and merged. I've fast-forwarded EXOCOMP-76 branch to include both via EXOCOMP-75 merge. Current coordinator has: Inventory GenServer, ETS Registry, Audit GenServer with redaction, Health, Error struct, and PKI Bootstrap module. Enrollment token service is completely absent. Will implement EnrollmentToken GenServer with: inventory-bound issuance (rejects unknown node IDs), 600s default lifetime (shorter overrides allowed), high-entropy opaque tokens (48 random bytes split into 16-byte ID + 32-byte secret), single-use (digest-only storage), durable protected storage (JSON file at 0o600 in 0o700 dir), atomic constant-time consumption, fail-closed on corrupt storage, pruning after expiry, injected time/rand/store seams, and full audit/log redaction of all secret material.
 ---
 <!-- COMMENTS:END -->
