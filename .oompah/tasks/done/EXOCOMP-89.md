@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:31:35.052954Z'
+updated_at: '2026-07-24T03:31:37.776747Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-07-24 03:31
 ---
 Completion: EXOCOMP-89 delivered. NodeProber module implements the authenticated node probe boundary per milestone-2-coordinator.md spec: explicit-IP TLS connections (injectable), hostname-as-SNI identity context, no reverse-DNS trust, typed outcomes (:healthy/:degraded/:timeout/:unreachable/:identity_mismatch), Registry.addresses adopted only after full verification, prior addresses preserved on all failure paths, redacted audit events via Audit.emit/3. 32 focused ExUnit tests cover all required scenarios. make test and make lint both pass. Pushed to epic-EXOCOMP-15.
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Implemented NodeProber module (mTLS authenticated probe boundary) with 32 focused ExUnit tests covering all typed outcomes, address adoption/preservation, identity mismatch halting, audit events, and Registry isolation. make test and make lint pass.
 ---
 <!-- COMMENTS:END -->
