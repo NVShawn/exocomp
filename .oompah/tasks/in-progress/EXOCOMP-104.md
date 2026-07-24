@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:03:02.148271Z'
+updated_at: '2026-07-24T18:04:53.480981Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -118,5 +118,31 @@ author: oompah
 created: 2026-07-24 18:03
 ---
 Understanding: I am the Technical Writer focus for EXOCOMP-104. My job is to document the volatile restart recovery feature in docs/. Based on previous handoff comments, the feature involves: (1) startup reconstruction without a database by reloading inventory/registry ETS state; (2) re-querying node A2A task state using deterministic idempotency keys; (3) explicitly reporting unavailable volatile coordinator history; (4) safe idempotent resubmission. I will explore the codebase to find what has been implemented, then write docs covering volatile restart behavior, idempotent resubmission, limits, and operator-visible degraded states.
+---
+author: oompah
+created: 2026-07-24 18:04
+---
+Discovery: Read all relevant coordinator source files. Key findings:
+
+**Reconstructed on restart:**
+- Inventory (GenServer) reloads its JSON file on init via `handle_info({:load_initial, path})`.
+- Registry (ETS GenServer) receives a `:reconstruct` message on init and rebuilds from the live Inventory, seeding every configured node at `:unknown` reachability.
+- HealthPoller kills orphan workers (`terminate_orphan_workers/1`), converts any dangling in-flight poll claims to `:timeout` failures via `Registry.recover_in_flight/2`, then resumes polling immediately.
+
+**Permanently lost on restart (volatile):**
+- GoalStore: all diagnostic goals, their lifecycle states, per-node outcomes, and the caller_key deduplication index.
+- Orchestrator: all in-flight task tracking, goal metadata, downstream task IDs.
+
+**Safe resubmission semantics:**
+- Callers looking up an old goal ID after restart receive `{:error, :not_found}`.
+- Resubmitting the same `caller_key` creates a NEW goal with a new UUIDv4 correlation ID and new downstream idempotency keys (SHA-256 of new goal_id:node_id). The coordinator-level deduplication is safe, but node A2A tasks may re-run if the original dispatch already completed a node-side task.
+- The audit trail (journald or JSON-lines) is durable and correlated; it is NOT a recovery database and cannot prove task state on node side after restart.
+
+**Operator-visible degraded states:**
+- `Health.check/0` reports `:degraded` if Inventory, Registry, or Audit are unavailable.
+- An unreachable audit sink blocks enrollment and state-changing operations (but not diagnostic polling).
+- Registry node states reset to `:unknown` after restart and transition to accurate states as polls complete.
+
+Will now write docs/coordinator-restart-recovery.md covering all of the above.
 ---
 <!-- COMMENTS:END -->
