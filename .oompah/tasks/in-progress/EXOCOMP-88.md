@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:17:46.849306Z'
+updated_at: '2026-07-24T03:17:54.332423Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -251,5 +251,10 @@ author: oompah
 created: 2026-07-24 03:17
 ---
 Implementation: Cherry-picked EXOCOMP-14 foundation (Audit/Registry/Inventory/Health/Error/InventoryNode) then implemented Exocomp.Coordinator.Resolver GenServer. Key decisions: (1) Injectable resolver_fn option (defaults to :inet.getaddrs/2) for test isolation; (2) Dual-stack: resolves :inet (IPv4) and :inet6 (IPv6) separately, combines results; (3) Normalizes via :inet.ntoa/1, Enum.uniq + Enum.sort for deterministic dedup; (4) Stores in Registry.candidate_addresses (new field), never touches Registry.addresses; (5) Emits :dns_resolved or :dns_resolution_failed Audit events per node per sweep; (6) Gracefully handles NXDOMAIN/timeout/empty/servfail; (7) Added Registry.put_candidates/3 API; (8) Added Resolver to Application supervisor after Inventory.
+---
+author: oompah
+created: 2026-07-24 03:17
+---
+Verification: All quality gates pass. make test: 133 total tests (10 excluded for systemd integration), 0 failures. make lint: fmt-check clean, warnings-as-errors clean. Resolver tests (11 cases) cover: IPv4 success, multiple IPv4+IPv6, dedup, address-set change, NXDOMAIN, timeout, empty-ok, servfail, multi-node, inventory refresh, empty inventory. All fake-resolver tests use no real DNS. Registry.addresses field verified to remain [] after resolution (candidates only).
 ---
 <!-- COMMENTS:END -->
