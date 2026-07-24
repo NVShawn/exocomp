@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:28:30.301230Z'
+updated_at: '2026-07-24T16:28:43.006011Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -173,5 +173,10 @@ author: oompah
 created: 2026-07-24 16:28
 ---
 Verification: All 153 coordinator tests pass (55 exocomp_core + 66 exocomp_node + 153 exocomp_coordinator — total 274 coordinator-side). The 36 new goal_store_test.exs cases exercise: duplicate acceptance, concurrent race dedup, max_active and max_history bounds, deterministic oldest-terminal eviction, caller_key index cleanup, output truncation, artifact caps, cancel, transition state machine, downstream_key format/determinism, and terminal? helper coverage. Zero failures.
+---
+author: oompah
+created: 2026-07-24 16:28
+---
+Completion: Delivered GoalStore GenServer (apps/exocomp_coordinator/lib/exocomp/coordinator/goal_store.ex) and test suite (apps/exocomp_coordinator/test/exocomp/coordinator/goal_store_test.exs). The store provides the full coordinator orchestration state model and public internal API required by EXOCOMP-100: UUIDv4 correlation IDs, atomic caller_key deduplication (concurrent/retry-safe), stable downstream_key/2 idempotency, bounded active/history/artifact/output storage, deterministic oldest-terminal eviction, output front-truncation, and EXOCOMP-19/EXOCOMP-101-compatible get/list/cancel/transition API. DiagnosticGoal and NodeOutcome structs (already present) define all required state and outcome shapes. Branch EXOCOMP-99 pushed; all tests green.
 ---
 <!-- COMMENTS:END -->
