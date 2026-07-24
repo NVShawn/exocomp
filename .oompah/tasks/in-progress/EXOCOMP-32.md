@@ -12,9 +12,10 @@ blocked_by:
 - EXOCOMP-30
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:00:12.573586Z'
+updated_at: '2026-07-24T19:00:20.627948Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
