@@ -6,11 +6,14 @@ priority: null
 title: Integrate approval gate and implement comprehensive focused replay test suite
 parent: EXOCOMP-24
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-95
+- EXOCOMP-96
+- EXOCOMP-97
 labels: []
 assignee: null
 created_at: '2026-07-24T03:14:05.495739Z'
-updated_at: '2026-07-24T03:14:05.495739Z'
+updated_at: '2026-07-24T03:14:14.093864Z'
 work_branch: null
 target_branch: null
 review_url: null

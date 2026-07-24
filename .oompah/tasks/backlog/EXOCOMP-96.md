@@ -6,11 +6,12 @@ priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-95
 labels: []
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T03:12:36.235284Z'
+updated_at: '2026-07-24T03:14:09.487807Z'
 work_branch: null
 target_branch: null
 review_url: null

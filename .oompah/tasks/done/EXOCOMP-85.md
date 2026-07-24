@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-85
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement installed vacuum bounds and eligibility gate
 parent: EXOCOMP-26
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-07-24T03:14:01.448622Z'
+updated_at: '2026-07-24T03:14:15.812634Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -203,5 +203,17 @@ author: oompah
 created: 2026-07-24 03:14
 ---
 Verification: make test — 103 passed, 10 excluded (integration/systemd, no docker). make lint — clean (format check + warnings-as-errors compile). All 30 new vacuum_bounds_test.exs tests pass covering the 10 required scenarios from the task spec.
+---
+author: oompah
+created: 2026-07-24 03:14
+---
+Completion: Delivered VacuumBounds (check_eligible/1, validate_source/1) and VacuumState GenServer on epic-EXOCOMP-26.
+
+Key properties:
+- All limits read from Application config at evaluation time; no caller-supplied path or limit accepted.
+- validate_source/1 allowlists /var/log/journal and /run/log/journal only; user/tmp/root paths rejected.
+- check_eligible/1 enforces critical pressure, cooldown, and retry limit before returning bounds_map.
+- VacuumState tracks per-mount cooldown and retry counts under application supervisor.
+- 30 focused tests, all passing. make test and make lint clean.
 ---
 <!-- COMMENTS:END -->
