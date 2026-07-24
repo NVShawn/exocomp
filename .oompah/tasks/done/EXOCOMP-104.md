@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:08:49.851540Z'
+updated_at: '2026-07-24T18:08:52.358740Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -184,5 +184,10 @@ Remaining work/risks:
 - The feature implementation (EXOCOMP-103 foundations + coordinator reconstruction code) and restart-focused tests described in the issue description are not yet implemented. The docs written here accurately describe the EXISTING partial behavior (Registry reconstruct, HealthPoller orphan recovery) and the MISSING behavior (GoalStore and Orchestrator are volatile with no reconstruction). The test focus should add targeted restart-scenario tests per the issue's acceptance criteria.
 
 Recommended next focus: feature (to implement GoalStore/Orchestrator post-restart query via deterministic keys and node A2A re-query) and test (to add restart-focused test coverage per the issue description).
+---
+author: oompah
+created: 2026-07-24 18:08
+---
+Added docs/coordinator-restart-recovery.md documenting volatile restart behavior, reconstruction sequence, explicit unavailable responses, safe idempotent resubmission, operator-visible degraded states, limits, and audit trail boundaries. Updated docs/README.md. All defaults, config keys, and test names verified against source. All 201 tests pass.
 ---
 <!-- COMMENTS:END -->
