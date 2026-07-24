@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-32
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement approval-required active and degraded recovery
 parent: EXOCOMP-4
@@ -13,16 +13,15 @@ blocked_by:
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:frontend
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:01:08.989602Z'
+updated_at: '2026-07-24T19:01:19.045854Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 4a96994b-4adb-4ed5-98f1-2b3e765c8918
+oompah.agent_run_id: d98f9a4d-cbd4-4bcb-a8c2-a5f39ec4c340
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 458571
@@ -211,5 +210,15 @@ author: oompah
 created: 2026-07-24 19:01
 ---
 Focus handoff from `frontend` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 19:01
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 19:01
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
