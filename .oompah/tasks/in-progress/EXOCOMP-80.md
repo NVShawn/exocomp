@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:36:00.523069Z'
+updated_at: '2026-07-24T01:36:08.042743Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -212,5 +212,10 @@ author: oompah
 created: 2026-07-24 01:36
 ---
 Discovery (epic_planner): EXOCOMP-12 already has a complete four-child decomposition: EXOCOMP-78 router/mTLS (Done), EXOCOMP-79 registry (Done), EXOCOMP-80 skill handlers (current), and EXOCOMP-81 endpoint wiring (Open). EXOCOMP-81 explicitly depends on the dispatcher and three handlers from EXOCOMP-80. EXOCOMP-80 has no children and is a task, not an epic; its five small modules plus focused tests form one cohesive, single-session feature unit.
+---
+author: oompah
+created: 2026-07-24 01:36
+---
+Implementation (epic_planner): No child tasks were created and no code was changed. Further decomposition would split tightly coupled handler contracts from their focused tests and duplicate the already accepted EXOCOMP-80 scope. The existing parent decomposition is complete; this task should proceed directly to the feature implementation focus.
 ---
 <!-- COMMENTS:END -->
