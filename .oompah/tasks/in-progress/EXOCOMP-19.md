@@ -13,13 +13,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:25:47.731202Z'
+updated_at: '2026-07-24T18:25:51.930111Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 99e3cf5e-5e2a-43c7-9174-d367727fc5aa
+oompah.agent_run_id: 2cba563c-1f5e-4ab9-8244-614994f682fe
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 395947
@@ -123,5 +123,15 @@ author: oompah
 created: 2026-07-24 18:25
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 18:25
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:25
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
