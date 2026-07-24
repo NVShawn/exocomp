@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: In Progress
+status: Done
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:56:48.232387Z'
+updated_at: '2026-07-24T16:57:08.758430Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -276,5 +276,39 @@ Implementation: Created two modules in a single file:
    - OS cmd runner injectable via :precondition_cmd_runner Application config
 
 Key design decision: collected_at excluded from hashed evidence map — a changing timestamp would cause permanent hash mismatch between coordinator (approval time) and node (execution time). Only state values are hashed.
+---
+author: oompah
+created: 2026-07-24 16:56
+---
+Verification: All quality gates pass.
+
+make test: 254 tests pass, 10 excluded (integration tests requiring real systemd/OS)
+make lint: clean (mix format, mix credo, mix dialyzer)
+
+Test coverage in apps/exocomp_node/test/exocomp/node/safety/precondition_checker_test.exs:
+- Happy path: unchanged restart_service and vacuum_logs evidence → :ok
+- Service state changed (active→inactive, active→failed) → {:error, :precondition_changed}
+- Sub-state change while active_state unchanged → :precondition_changed
+- Single field changes (active_state, sub_state, unit_name, available_bytes, total_bytes) → :precondition_changed
+- Extra field added, field removed → :precondition_changed
+- Collection failures (timeout, systemctl_failed, missing_active_state, malformed_df) → {:error, {:collection_failed, reason}}
+- Fail-closed: collection failure never returns :ok even if evidence would match
+- Token key format: atom keys and string keys both work
+- Byte-for-byte: all-zero hash, empty map hash, single-character difference all cause mismatch
+- Field order independence: different Elixir map insertion order hashes identically
+- Injectable collectors via Application config: AlwaysActiveCollector, AlwaysInactiveCollector, AlwaysFailingCollector
+- SystemCollector unit tests with injected cmd runner (stub MFA pattern)
+- Integration: SystemCollector → verify/3 with injected cmd runner
+---
+author: oompah
+created: 2026-07-24 16:57
+---
+Completion: EXOCOMP-96 delivered.
+
+Files added:
+- apps/exocomp_node/lib/exocomp/node/safety/precondition_checker.ex — PreconditionChecker + SystemCollector
+- apps/exocomp_node/test/exocomp/node/safety/precondition_checker_test.exs — 50+ focused tests
+
+Branch EXOCOMP-96 pushed to origin. All tests pass (254/254), lint clean. Ready for merge and EXOCOMP-98 integration gate.
 ---
 <!-- COMMENTS:END -->
