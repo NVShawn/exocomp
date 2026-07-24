@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:10:19.522172Z'
+updated_at: '2026-07-24T16:15:31.848468Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 09784ef6-1e57-435c-a337-c422d1f6e928
+oompah.agent_run_id: b848852b-7a3f-4af0-8040-8551e3be745c
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 606414
@@ -143,5 +143,20 @@ author: oompah
 created: 2026-07-24 16:07
 ---
 Understanding: Implementing coordinator-side volatile diagnostic goal store (GoalStore) in apps/exocomp_coordinator/. Key design: (1) DiagnosticGoal struct with UUIDv4 correlation ID, caller idempotency key, goal states (:accepted/:dispatching/:running/:completed/:failed/:canceled), per-node outcomes, bounded artifacts and output; (2) NodeOutcome struct for per-node results (:pending/:running/:succeeded/:failed/:unreachable/:canceled); (3) GoalStore GenServer with atomic accept/dedup by caller_key, configurable max_active/max_history/max_artifacts/max_output_bytes, oldest-terminal TTL+count eviction, and downstream_key/2 pure function; (4) focused tests for duplicate submissions, concurrent races, bounds, eviction, output truncation, and lookup/list semantics. Following patterns from apps/exocomp_node/lib/exocomp/node/task_registry.ex.
+---
+author: oompah
+created: 2026-07-24 16:15
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 16:15
+---
+Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 16:15
+---
+Understanding: Implementing coordinator-side volatile diagnostic goal store. Plan: (1) Explore codebase structure, existing patterns from node task_registry.ex, and plans/milestone-2-coordinator.md; (2) Implement GoalStore GenServer in apps/exocomp_coordinator/ with DiagnosticGoal/NodeOutcome structs, UUIDv4 correlation IDs, caller-key deduplication, configurable bounds, deterministic oldest-terminal eviction, output/artifact truncation; (3) Implement public internal API for EXOCOMP-19 consumers; (4) Write focused tests for all requirements; (5) Verify with mix test.
 ---
 <!-- COMMENTS:END -->

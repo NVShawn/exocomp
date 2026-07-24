@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-97
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement durable replay ledger with write-ahead semantics, concurrent serialization,
   and restart reconciliation
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:14:56.412830Z'
+updated_at: '2026-07-24T16:15:32.881062Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 0be09be3-b070-4554-892f-bfd118bb93d3
+oompah.agent_run_id: d477eaa2-b5c5-4878-942e-ce8464158cdb
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 593226
@@ -256,5 +256,20 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 58s
 - Log: EXOCOMP-97__20260724T160959Z.jsonl
+---
+author: oompah
+created: 2026-07-24 16:15
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 16:15
+---
+Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 16:15
+---
+Understanding: Continuing the maintenance implementation of Exocomp.Node.Safety.ReplayLedger. I will verify any partial work, implement the DETS-backed write-ahead claim/complete/status/wait API with startup reconciliation and fail-closed storage behavior, add supervision and focused tests, run make test and make lint, then commit, push, and close the task.
 ---
 <!-- COMMENTS:END -->
