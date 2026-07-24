@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:01:03.198947Z'
+updated_at: '2026-07-24T18:01:16.526489Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -41,5 +41,10 @@ author: oompah
 created: 2026-07-24 18:01
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 18:01
+---
+Understanding: screening this restart-recovery feature against existing coordinator recovery/idempotency tasks. I will search task records and project docs, inspect full candidate histories, and either archive only on a confirmed scope match or hand off with evidence; no implementation will be performed in this focus.
 ---
 <!-- COMMENTS:END -->
