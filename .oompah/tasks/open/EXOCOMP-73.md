@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-73
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement PolicyContext and eligibility-filter pipeline
 parent: EXOCOMP-22
@@ -10,9 +10,11 @@ blocked_by:
 - EXOCOMP-21
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
+- needs:feature
 assignee: null
 created_at: '2026-07-23T22:50:44.926199Z'
-updated_at: '2026-07-24T00:53:25.491365Z'
+updated_at: '2026-07-24T00:53:51.353456Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -202,5 +204,23 @@ author: oompah
 created: 2026-07-24 00:53
 ---
 Implementation (Epic Planner): No new child tasks were created because the existing EXOCOMP-22 decomposition already covers the full policy-engine scope without gaps. Recorded the required tracker dependency: EXOCOMP-74 now depends on EXOCOMP-73.
+---
+author: oompah
+created: 2026-07-24 00:53
+---
+Verification (Epic Planner): Re-read EXOCOMP-22 and EXOCOMP-74 after planning. The parent has exactly two non-overlapping children; EXOCOMP-74 remains the second-stage consumer and the tracker accepted its dependency on EXOCOMP-73. No code or tests were run because this focus is prohibited from implementation.
+---
+author: oompah
+created: 2026-07-24 00:53
+---
+Focus handoff: epic_planner
+
+Outcome: EXOCOMP-73 requires no further decomposition and is ready for implementation as one focused feature task.
+
+Evidence/decisions: EXOCOMP-22 already has exactly two children: EXOCOMP-73 owns PolicyContext plus ordered, fail-closed eligibility filtering and focused filter tests; EXOCOMP-74 owns risk ordering, ValidatorResult evaluation, and broader policy tests. Added the explicit tracker dependency EXOCOMP-74 -> EXOCOMP-73 and returned the fully planned parent epic to Backlog.
+
+Remaining work/risks: A feature agent must verify the merged EXOCOMP-21 type shapes, implement the structs/filter pipeline, add every specified rejection-path test, run make test and make lint, commit, push, and close EXOCOMP-73. Pay particular attention to representing catalog-miss rejection despite FilterResult rejected tuples requiring an ActionDefinition.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
