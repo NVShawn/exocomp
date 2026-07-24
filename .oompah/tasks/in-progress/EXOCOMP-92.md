@@ -11,10 +11,12 @@ blocked_by:
 - EXOCOMP-89
 - EXOCOMP-90
 - EXOCOMP-91
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:test
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T04:02:26.135372Z'
+updated_at: '2026-07-24T04:02:49.272846Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -54,5 +56,20 @@ author: oompah
 created: 2026-07-24 04:02
 ---
 Discovery: No duplicate confirmed. Reviewed full records for EXOCOMP-15, EXOCOMP-20, and prerequisite children EXOCOMP-88 through EXOCOMP-91. EXOCOMP-15 is the parent that intentionally decomposed this suite into EXOCOMP-92; EXOCOMP-88/89/90/91 contain component-level DNS, probe, scheduling, and concurrency tests, while EXOCOMP-20 is broader milestone verification spanning enrollment, diagnostics, restart, and all M2 criteria. Repository search shows separate Resolver/NodeProber/Registry unit coverage but no existing cross-component multi-node TLS discovery/polling suite. EXOCOMP-92 uniquely owns that integration boundary.
+---
+author: oompah
+created: 2026-07-24 04:02
+---
+Focus handoff: duplicate_detector
+
+Outcome: Duplicate screening found no duplicate; EXOCOMP-92 should proceed as a test/integration implementation task.
+
+Evidence and decisions: Full tracker histories reviewed for EXOCOMP-15 and EXOCOMP-88 through EXOCOMP-91, plus closest broader verifier EXOCOMP-20. The four completed siblings explicitly reserve cross-component integration for EXOCOMP-92. EXOCOMP-20 verifies the entire M2 milestone (enrollment, renewal, diagnostics, cancellation, restart, audit) and should consume this focused evidence rather than replace it. plans/milestone-2-coordinator.md lines 172-195 separately require at least three node fixtures and the multi-node integration suite. Existing tests under apps/exocomp_coordinator/test/exocomp/coordinator cover Resolver, NodeProber, and Registry in isolation; repository search found no combined TLS/DNS/HealthPoller scenario suite.
+
+Relevant files: plans/milestone-2-coordinator.md Test Strategy and M2-CRIT-2/M2-CRIT-8; apps/exocomp_coordinator/test/exocomp/coordinator/resolver_test.exs; node_prober_test.exs; registry_test.exs. EXOCOMP-91's pushed HealthPoller implementation/coverage is the final prerequisite and may need integration into the current epic branch before this work begins.
+
+Remaining work and risks: Build controllable TLS node fixtures and a deterministic resolver/clock/event seam; test three-node concurrency, slow/timeout isolation, identity mismatch, address adoption/preservation, state/backoff/timestamp/Agent Card metadata, recovery, and redacted audits without wall-clock sleeps. Ensure the branch contains all completed sibling commits, especially EXOCOMP-91, then run focused coordinator plus affected Make gates and document only genuine environment exclusions.
+
+Recommended next focus: test.
 ---
 <!-- COMMENTS:END -->
