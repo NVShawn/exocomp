@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:18:39.882342Z'
+updated_at: '2026-07-24T16:28:02.544623Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -163,5 +163,10 @@ author: oompah
 created: 2026-07-24 16:18
 ---
 Discovery: DiagnosticGoal and NodeOutcome structs already exist in apps/exocomp_coordinator/lib/exocomp/coordinator/. The node-side TaskRegistry (apps/exocomp_node/lib/exocomp/node/task_registry.ex) provides the eviction/GenServer patterns to follow. Need to implement GoalStore GenServer with: atomic dedup by caller_key, UUIDv4 correlation IDs, configurable max_active/max_history/max_artifacts/max_output_bytes bounds, oldest-terminal eviction, front-truncated output, per-node outcome management, downstream_key/2 pure function, and comprehensive tests.
+---
+author: oompah
+created: 2026-07-24 16:28
+---
+Implementation: Created GoalStore GenServer in apps/exocomp_coordinator/lib/exocomp/coordinator/goal_store.ex. Key design decisions: (1) UUIDv4 correlation IDs via :crypto; (2) atomic caller_key deduplication in GenServer handle_call — concurrent calls serialised, one goal created; (3) sequence counter (not monotonic_ms) for stable insertion-order list semantics; (4) configurable max_active/max_history/max_artifacts/max_output_bytes with oldest-terminal eviction on every accept via make_room, plus periodic :evict message; (5) front-truncation on output overflow with sticky output_truncated flag; (6) caller_key index cleaned up at eviction time so re-submissions after eviction get fresh IDs; (7) downstream_key/2 pure function (SHA-256 hex of goal_id:node_id). Tests in goal_store_test.exs cover all required scenarios: duplicates, concurrent races, bounds, eviction, output truncation, and lookup/list semantics. All 153 coordinator tests pass.
 ---
 <!-- COMMENTS:END -->
