@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:40:20.047118Z'
+updated_at: '2026-07-24T18:41:58.049340Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -198,5 +198,30 @@ Design decisions:
 - Durable audit event produced per transition; caller must persist BEFORE external action
 
 All 4 Make targets pass: fmt-check, build, test, lint
+---
+author: oompah
+created: 2026-07-24 18:41
+---
+Verification: All quality gates pass.
+
+make fmt-check  ✓  (mix format --check-formatted)
+make build      ✓  (mix compile --warnings-as-errors, 0 warnings)
+make test       ✓  (1 doctest + 85 unit tests, 0 failures, 0.5s)
+make lint       ✓  (build + fmt-check)
+
+Test suite covers:
+- All 15 legal transitions (both happy paths + escalation paths)
+- All illegal transition state/event combinations
+- Stale evidence (age > max, negative/future age)
+- Approval expiry
+- Cancellation from all 8 non-terminal states
+- Deadline enforcement (past, at boundary, no deadline)
+- One-execution-attempt defense-in-depth flag
+- Duplicate event rejection
+- Restart restoration via restore/5 (full path, partial, empty log, sequence gap, approval path)
+- Audit event field correctness (correlation, meta, timestamp, sequence integrity)
+- Evidence tracking in machine struct
+- Pure-functional guarantee
+- Post-terminal event rejection
 ---
 <!-- COMMENTS:END -->
