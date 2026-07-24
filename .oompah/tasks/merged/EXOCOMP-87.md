@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-87
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement coordinator CSR validation and node leaf cert issuance
 parent: EXOCOMP-17
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T03:05:39.527990Z'
+updated_at: '2026-07-24T20:10:58.301764Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
