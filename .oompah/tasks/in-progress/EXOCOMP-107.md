@@ -11,7 +11,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:20:33.381243Z'
+updated_at: '2026-07-24T22:21:40.886407Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -45,5 +45,10 @@ author: oompah
 created: 2026-07-24 22:20
 ---
 Understanding: Screening EXOCOMP-107 for duplication before any implementation. I will search existing enrollment, node-agent, credential-installation, renewal, CSR, and EXOCOMP-17 tasks, then inspect the full descriptions/comments of plausible candidates. If no task already owns all of this node-side gap, I will record evidence and hand off to an implementation focus without modifying code.
+---
+author: oompah
+created: 2026-07-24 22:21
+---
+Discovery: Duplicate screening found no confirmed duplicate. The closest task is EXOCOMP-17, whose stated umbrella scope included node enrollment/renewal, but its full history shows the planner only created/delivered EXOCOMP-87 (coordinator-only CSR validation/leaf issuance) before EXOCOMP-17 was marked Merged. EXOCOMP-20 subsequently verified and documented the exact gap and created EXOCOMP-107 as corrective follow-up. Full histories reviewed for EXOCOMP-17, EXOCOMP-20, EXOCOMP-76, EXOCOMP-77, and EXOCOMP-87: EXOCOMP-76/77 supply coordinator token/PKI boundaries and explicitly exclude node-side enrollment; EXOCOMP-87 contains no HTTP/network/node client code. Tracker-state and source searches found no separate enrollment client, atomic credential installer, or renewal scheduler. Therefore archiving EXOCOMP-107 as duplicate-of:EXOCOMP-17 would leave known missing implementation unowned.
 ---
 <!-- COMMENTS:END -->
