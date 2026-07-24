@@ -13,13 +13,13 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:57:21.097073Z'
+updated_at: '2026-07-24T22:57:36.169746Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 2424075e-1d8b-48f3-b740-88d39c4e0da6
+oompah.agent_run_id: b8cf9847-e28b-4cdf-84a1-ede0133d231d
 oompah.task_costs:
   total_input_tokens: 1393782
   total_output_tokens: 107466
@@ -205,5 +205,15 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: error, Duration: 32m 19s
 - Log: EXOCOMP-107__20260724T222502Z.jsonl
+---
+author: oompah
+created: 2026-07-24 22:57
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 22:57
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
