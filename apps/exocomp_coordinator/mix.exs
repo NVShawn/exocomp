@@ -17,14 +17,15 @@ defmodule Exocomp.Coordinator.MixProject do
 
   def application do
     [
-      extra_applications: [:crypto, :logger],
+      extra_applications: [:crypto, :inets, :logger, :public_key, :ssl],
       mod: {Exocomp.Coordinator.Application, []}
     ]
   end
 
   defp deps do
     [
-      {:exocomp_core, in_umbrella: true}
+      {:exocomp_core, in_umbrella: true},
+      {:jason, "~> 1.4"}
     ]
   end
 end
