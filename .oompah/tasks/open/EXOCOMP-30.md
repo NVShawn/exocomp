@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-30
 type: feature
-status: Done
+status: Open
 priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:42:14.329377Z'
+updated_at: '2026-07-24T18:42:28.470552Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 1abd3c15-68a9-4065-b1aa-72252bd0272d
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 315727
-  total_output_tokens: 3014
+  total_input_tokens: 315770
+  total_output_tokens: 61713
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 315727
-      output_tokens: 3014
+      input_tokens: 315770
+      output_tokens: 61713
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 3014
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:25:56.732926+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 43
+    output_tokens: 58699
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T18:42:25.138080+00:00'
 ---
 ## Summary
 
@@ -247,5 +253,37 @@ author: oompah
 created: 2026-07-24 18:42
 ---
 Implemented Exocomp.Recovery.StateMachine with 10 states, closed event matrix, durable audit per transition, evidence freshness, one-attempt limit, cancellation, deadlines, and restart restoration. 85 exhaustive tests, 0 failures. All Makefile quality gates pass.
+---
+author: oompah
+created: 2026-07-24 18:42
+---
+Agent completed successfully in 977s (58742 tokens)
+---
+author: oompah
+created: 2026-07-24 18:42
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 82, Tool calls: 48
+- Tokens: 43 in / 58.7K out [58.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 16m 17s
+- Log: EXOCOMP-30__20260724T182610Z.jsonl
+---
+author: oompah
+created: 2026-07-24 18:42
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-4` has 2 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 2
+    a21fb61 EXOCOMP-30: Implement service-recovery state machine
+    5096f79 EXOCOMP-29: Add fixture design document and decompose into child tasks
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-4 --title "EXOCOMP-30: Implement the service-recovery state machine" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
 ---
 <!-- COMMENTS:END -->
