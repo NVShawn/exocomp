@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-73
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement PolicyContext and eligibility-filter pipeline
 parent: EXOCOMP-22
@@ -13,7 +13,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T22:50:44.926199Z'
-updated_at: '2026-07-24T01:09:38.282561Z'
+updated_at: '2026-07-24T01:10:08.858515Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -269,5 +269,20 @@ author: oompah
 created: 2026-07-24 01:09
 ---
 Verification: make test shows 283/285 passed, 10 excluded. The 2 failures are pre-existing LlamaServer OS process crash tests (require real systemd/process environment) unrelated to this task. make lint passes with no warnings or errors. All new PolicyContext and PolicyEngine filter tests pass.
+---
+author: oompah
+created: 2026-07-24 01:10
+---
+Completion: Delivered PolicyContext and eligibility-filter pipeline on branch EXOCOMP-73.
+
+Files created:
+- apps/exocomp_node/lib/exocomp/node/safety/policy_context.ex
+- apps/exocomp_node/lib/exocomp/node/safety/policy_engine.ex (with FilterResult submodule)
+- apps/exocomp_node/test/exocomp/node/safety/policy_context_test.exs
+- apps/exocomp_node/test/exocomp/node/safety/policy_engine_filter_test.exs
+
+All 7 ordered eligibility checks implemented: unauthorized, inapplicable, unsafe data classification, missing evidence, stale evidence, cooldown, retry exhausted. Evidence is scoped by target_id. Fail-closed on nil/invalid inputs. Test coverage includes every rejection path, ordering guarantees, mixed candidates, empty catalog, empty evidence, wrong-target evidence, and nil context fields.
+
+Quality gates: make test 283/285 (2 pre-existing LlamaServer failures), make lint clean.
 ---
 <!-- COMMENTS:END -->
