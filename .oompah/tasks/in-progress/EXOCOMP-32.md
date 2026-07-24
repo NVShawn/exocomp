@@ -15,7 +15,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:05:02.049333Z'
+updated_at: '2026-07-24T19:17:47.952751Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -230,5 +230,10 @@ author: oompah
 created: 2026-07-24 19:05
 ---
 Discovery: Integrated the completed EXOCOMP-27 branch, which brings in the generic remediation lifecycle plus EXOCOMP-24's ApprovalGate/Verifier/PreconditionChecker/ReplayLedger and restricted Executor. The clean EXOCOMP-32 boundary is a service-specific recovery flow: Recovery.StateMachine owns legal/audited transitions; A2A Task exposes input_required with exact impact/evidence; ApprovalGate remains the sole approval-to-execution path. Its injected executor boundary lets this flow durably record the executing transition after token/precondition/replay checks and before the actual restart, without duplicating token validation.
+---
+author: oompah
+created: 2026-07-24 19:17
+---
+Implementation: Added Exocomp.Node.Recovery.ApprovalRequired, a data-only A2A recovery flow for active/degraded services. It advances the recovery machine into awaiting_approval, exposes input_required with the exact disruption impact, full evidence, and approval bindings, validates the signed operator through ApprovalGate, refreshes evidence both before and inside the gate, persists execution intent before the restricted restart, verifies health, and emits terminal artifacts. Deny/timeout/expiry/evidence drift/healthy-or-failed transitions escalate with no action; invalid identity/token stays pending; replay/cancel are safe. Added 14 focused tests. Also completed the prerequisite branch integration by removing obsolete coordinator modules/tests that conflicted with EXOCOMP-27's replacement architecture.
 ---
 <!-- COMMENTS:END -->
