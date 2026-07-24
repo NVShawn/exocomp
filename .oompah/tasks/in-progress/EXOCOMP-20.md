@@ -15,7 +15,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T18:47:57.529391Z'
+updated_at: '2026-07-24T18:49:02.168160Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -69,5 +69,10 @@ author: oompah
 created: 2026-07-24 18:47
 ---
 Understanding: I am the Duplicate Investigator for EXOCOMP-20 ('Verify the M2 coordinator milestone'). My role is to determine whether this task is a duplicate of an existing one before any implementation begins. I will search for tasks with similar keywords (M2, coordinator, milestone, verify) and review any candidates in detail.
+---
+author: oompah
+created: 2026-07-24 18:49
+---
+Discovery: No duplicate confirmed. Searched plans/, docs/, README.md, WORKFLOW.md for M2, milestone, coordinator, verify keywords; reviewed all EXOCOMP-2 epic children in full (EXOCOMP-14 Done, EXOCOMP-15 Done, EXOCOMP-16 Done, EXOCOMP-17 Done, EXOCOMP-18 Done, EXOCOMP-19 Done). Closest structural analogue is EXOCOMP-13 ('Verify the M1 node-agent milestone') — same milestone-verification pattern but covers M1/node-agent, not M2/coordinator. EXOCOMP-20 uniquely owns end-to-end M2 acceptance evidence (M2-CRIT-1 through M2-CRIT-8): disposable coordinator fixture, 3+ node fixtures, inventory/DNS/polling/enrollment/renewal/diagnostics/partial-failure/cancellation/audit/restart scenarios, and all quality gates. No implementation task (EXOCOMP-14–19) provides this cross-cutting acceptance evidence.
 ---
 <!-- COMMENTS:END -->
