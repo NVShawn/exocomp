@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:39:57.801301Z'
+updated_at: '2026-07-24T16:40:09.667474Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -106,5 +106,10 @@ author: oompah
 created: 2026-07-24 16:39
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 16:40
+---
+Understanding: As Duplicate Investigator, I am screening EXOCOMP-96 ('Implement precondition re-check: verify current evidence matches token evidence_hash') for duplicates before any implementation proceeds. This task involves implementing Exocomp.Node.Safety.PreconditionChecker on the node side to collect fresh evidence, hash it using ApprovalToken.hash_evidence/1, and compare with token.evidence_hash. I will search for any existing tasks covering the same ground — node-side precondition checking, evidence hash verification, or PreconditionChecker — before concluding.
 ---
 <!-- COMMENTS:END -->
