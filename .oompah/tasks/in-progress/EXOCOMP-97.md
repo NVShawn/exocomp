@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:16:54.153885Z'
+updated_at: '2026-07-24T16:19:17.892845Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -276,5 +276,10 @@ author: oompah
 created: 2026-07-24 16:16
 ---
 Discovery: The ledger does not yet exist. Exocomp.Node.Application builds a simple one_for_one child list, and TaskRegistry establishes the local GenServer conventions. The shared worktree contained unrelated untracked EXOCOMP-95 approval-token files, which I am preserving and excluding from this task's commit. The checkout was incorrectly left on epic-EXOCOMP-24; I created the requested EXOCOMP-97 branch in place without moving worktrees.
+---
+author: oompah
+created: 2026-07-24 16:19
+---
+Implementation: Added ReplayLedger as a DETS-backed GenServer with synced write-ahead claims, durable completion results, duplicate serialization, timed waiter notification, startup pending-to-crashed_incomplete reconciliation with warnings, and fail-closed storage error handling. Added it to Exocomp.Node.Application, configured a production /var/lib path plus non-production temp path, and added focused coverage for all requested scenarios. Unrelated approval-token files remain untouched/untracked.
 ---
 <!-- COMMENTS:END -->
