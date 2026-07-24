@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-24T02:35:27.540157Z'
+updated_at: '2026-07-24T02:39:41.745475Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -132,5 +132,10 @@ author: oompah
 created: 2026-07-24 02:35
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-24 02:39
+---
+Understanding: Epic planner focus. EXOCOMP-17 is the node-side enrollment and renewal epic. EXOCOMP-16 (coordinator PKI + enrollment tokens) is Done, delivering: (a) EXOCOMP-75 — separated root/intermediate/coordinator CA and Ed25519 approval key with strict file modes; (b) EXOCOMP-76 — durable inventory-bound single-use 600s enrollment tokens with EnrollmentToken.issue/2 and EnrollmentToken.consume/3; (c) EXOCOMP-77 — coordinator supervision, validated-PKI startup, Mix init task, and integration tests. The node currently has no enrollment code. Both the coordinator (needs enrollment/renewal HTTP endpoints and CSR issuance) and the node (needs key gen, CSR, pinned-HTTPS client, atomic credential install, and renewal scheduler) require new code. I will decompose EXOCOMP-17 into 6 session-sized children covering: (1) coordinator CSR validation + leaf cert issuance library, (2) coordinator HTTPS enrollment endpoint, (3) coordinator mTLS renewal endpoint, (4) node private key management and atomic credential store, (5) node enrollment client with pinned root fingerprint, (6) node renewal scheduler and focused test suite.
 ---
 <!-- COMMENTS:END -->
