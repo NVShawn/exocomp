@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-101
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Orchestrate bounded diagnostic fan-out and partial results
 parent: EXOCOMP-18
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-24T16:54:33.707023Z'
+updated_at: '2026-07-24T20:16:01.507640Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
