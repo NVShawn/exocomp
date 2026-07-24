@@ -7,10 +7,11 @@ title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:54:11.715734Z'
+updated_at: '2026-07-24T01:54:35.609877Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -125,5 +126,20 @@ author: oompah
 created: 2026-07-24 01:54
 ---
 Discovery: Duplicate screening found no confirmed duplicate. Reviewed EXOCOMP-78 (router scaffold with these handlers explicitly left as stubs for child D), EXOCOMP-79 (TaskRegistry only), EXOCOMP-80 (skill handlers/Dispatcher only), EXOCOMP-12 (parent epic whose child graph assigns endpoint wiring uniquely to EXOCOMP-81), EXOCOMP-13 (integration verification only), and EXOCOMP-48 (A2A structs only). The repository task directory is not materialized in this worktree; the required rg search of docs/plans found only the milestone endpoint specification. These tasks are prerequisites, parent, or verification/type-layer work—not duplicates.
+---
+author: oompah
+created: 2026-07-24 01:54
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate is confirmed. EXOCOMP-81 is the unique endpoint-integration child of EXOCOMP-12; no code was changed.
+
+Evidence and decisions: EXOCOMP-78 explicitly leaves POST /message:send and task get/list/cancel as stubs to be wired by child D. EXOCOMP-79 implements only the bounded TaskRegistry. EXOCOMP-80 implements only Behaviour, three skill handlers, and Dispatcher. EXOCOMP-12 lists all four as complementary children. EXOCOMP-13 covers later end-to-end milestone verification, and EXOCOMP-48 supplies structs without endpoint logic. The current checkout is epic-EXOCOMP-12 (not the prompt's epic-EXOCOMP-1), and it already contains the merged prerequisites from EXOCOMP-80's completion.
+
+Relevant files: apps/exocomp_node/lib/exocomp/node/a2a_router.ex; apps/exocomp_node/lib/exocomp/node/task_registry.ex; apps/exocomp_node/lib/exocomp/node/skills/dispatcher.ex; apps/exocomp_core/lib/exocomp/a2a/; plans/milestone-1-node-agent.md.
+
+Remaining work and risks: Implement message decoding/skill extraction, task submission and async dispatch with timeout/error transitions, task get/list/cancel responses, A2A encoding/error helpers, and all focused endpoint/lifecycle tests. Confirm actual struct field and Dispatcher arity conventions before wiring. Preserve authentication/version/body-limit behavior already established by EXOCOMP-78. Run the focused node test gate and repository quality checks.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
