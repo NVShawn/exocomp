@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-78
 type: task
-status: Done
+status: Merged
 priority: null
 title: A2A router scaffold, Agent Card endpoint, and mTLS enforcement
 parent: EXOCOMP-12
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T01:14:14.188075Z'
+updated_at: '2026-07-24T03:53:23.562792Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
