@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-24
 type: feature
-status: Open
+status: Backlog
 priority: 1
 title: Verify approvals and prevent replay on nodes
 parent: EXOCOMP-3
@@ -18,7 +18,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-24T03:14:56.315879Z'
+updated_at: '2026-07-24T03:16:07.407663Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
