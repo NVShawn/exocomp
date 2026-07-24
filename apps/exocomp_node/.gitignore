@@ -1,0 +1,2 @@
+# Test artifacts (DETS files, temp keys generated during ExUnit runs)
+tmp/
