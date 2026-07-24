@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -12,13 +12,13 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:01:29.664911Z'
+updated_at: '2026-07-24T02:01:45.723459Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: fc59dd2f-6e85-46cc-b344-b1b97b30ae0f
+oompah.agent_run_id: 3d9037d6-8716-4dcd-abd8-514ecabc75d6
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 336673
@@ -529,5 +529,15 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 1s
 - Log: EXOCOMP-81__20260724T015830Z.jsonl
+---
+author: oompah
+created: 2026-07-24 02:01
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 02:01
+---
+Focus: Refactoring Specialist
 ---
 <!-- COMMENTS:END -->
