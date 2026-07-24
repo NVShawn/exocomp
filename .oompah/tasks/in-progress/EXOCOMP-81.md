@@ -13,7 +13,7 @@ labels:
 - focus-complete:refactor
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:09:02.713445Z'
+updated_at: '2026-07-24T02:15:21.116349Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -629,5 +629,10 @@ author: oompah
 created: 2026-07-24 02:09
 ---
 Understanding (Maintenance Engineer): This task requires implementing real A2A endpoint wiring to replace stub handlers in a2a_router.ex. Specifically: (1) POST /message:send → decode Message, extract skill_id/params, call TaskRegistry.submit, spawn async worker, return 202; (2) GET /tasks/:id → TaskRegistry.get, return 200 or 404; (3) GET /tasks → TaskRegistry.list, return 200; (4) POST /tasks/:id:cancel → TaskRegistry.cancel, return 200/400/404. Also need: A2A codec (decode_message/1, encode_task/1, encode_error/1), async skill execution with timeout/transitions, and full test coverage. Will explore existing code first to understand actual struct/API shapes before implementing.
+---
+author: oompah
+created: 2026-07-24 02:15
+---
+Discovery: Full codebase scan complete. Key findings: (1) a2a_router.ex has 4 stub handlers; (2) TaskRegistry exposes submit/get/list/transition/cancel/register_worker with server-as-3rd-arg pattern; (3) Skills.Dispatcher.dispatch/3 takes skill_id, params, context; (4) A2A structs: Message, Task, TaskStatus, Artifact, DataPart, TextPart all exist; (5) Error structs: TaskNotFoundError (-32001), TaskNotCancelableError (-32002), InternalError (-32603), InvalidParamsError (-32602) all exist; (6) JSONBodyParser needs to rescue Plug.Parsers.ParseError for the invalid-JSON test; (7) Router uses copy_opts_to_assign: :router_opts so opts are available as conn.assigns.router_opts. Plan: create Codec module, modify JSONBodyParser, rewrite router handlers, add async worker, update tests.
 ---
 <!-- COMMENTS:END -->
