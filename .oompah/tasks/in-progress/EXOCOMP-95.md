@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:04:15.966200Z'
+updated_at: '2026-07-24T16:04:50.336619Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -214,5 +214,10 @@ author: oompah
 created: 2026-07-24 16:04
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 16:04
+---
+Understanding: Implementing the node-side Ed25519 verifier with a configurable lazy-loaded raw 32-byte public-key path, shared canonical token encoding/hash helpers in exocomp_core, strict binding/freshness checks, and comprehensive focused tests. The supplied worktree was clean but on epic-EXOCOMP-24; I corrected it in place to a new EXOCOMP-95 branch at origin/main.
 ---
 <!-- COMMENTS:END -->
