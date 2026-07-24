@@ -18,12 +18,16 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-24T02:50:02.906138Z'
-work_branch: null
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-24T02:50:07.914462Z'
+work_branch: epic-EXOCOMP-1
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/8
+review_number: '8'
 merged_at: null
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/8
+oompah.review_number: '8'
+oompah.work_branch: epic-EXOCOMP-1
+oompah.target_branch: main
 ---
 ## Summary
 
