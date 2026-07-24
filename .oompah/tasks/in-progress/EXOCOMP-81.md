@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:53:17.674012Z'
+updated_at: '2026-07-24T01:53:31.952022Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -115,5 +115,10 @@ author: oompah
 created: 2026-07-24 01:53
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 01:53
+---
+Understanding: Screening EXOCOMP-81 for duplication before any implementation. I will search existing tasks and project docs for A2A message endpoint, TaskRegistry, and skill-dispatch wiring, then read plausible candidate tasks in full and either archive this issue as duplicate or hand it off for implementation.
 ---
 <!-- COMMENTS:END -->
