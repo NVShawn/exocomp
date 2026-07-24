@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-07-24T16:00:10.818109Z'
+updated_at: '2026-07-24T16:00:33.935674Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -142,5 +142,10 @@ author: oompah
 created: 2026-07-24 16:00
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 16:00
+---
+Understanding: Implement the coordinator-only outbound A2A 1.0 diagnostic client boundary. I will reuse the EXOCOMP-14/15 registry identity/address model and shared/node A2A codecs, enforce diagnostic-only requests, normalize timeout/transport/protocol failures, cover send/status-result/cancel plus version negotiation with deterministic fake-transport tests, run the relevant Makefile quality gate, then commit and push.
 ---
 <!-- COMMENTS:END -->

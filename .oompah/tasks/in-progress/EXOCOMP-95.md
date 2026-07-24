@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:00:01.016542Z'
+updated_at: '2026-07-24T16:00:33.111078Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -191,5 +191,18 @@ author: oompah
 created: 2026-07-24 16:00
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 16:00
+---
+Understanding: I'm implementing Exocomp.Node.Safety.ApprovalVerifier — the node-side cryptographic and binding-validation layer for Ed25519-signed approval tokens. Plan:
+
+1. Merge/inspect EXOCOMP-86's ApprovalToken (coordinator side) for canonical_encode logic
+2. Extract canonical_encode to exocomp_core as a shared module (avoids cross-app dependency)
+3. Implement ApprovalVerifier in apps/exocomp_node/ with: public key loading (config-path approach), Ed25519 signature verification via :crypto.verify, and all 11 binding checks
+4. Write comprehensive tests covering all specified cases
+5. Run make test && make lint before closing
+
+Key design decisions to document: config-path key loading, shared encoding in exocomp_core, no cross-app coordinator dependency.
 ---
 <!-- COMMENTS:END -->
