@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:32:11.348209Z'
+updated_at: '2026-07-24T01:32:28.608476Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -155,5 +155,23 @@ Verification: All quality gates pass on commit af14041 (branch epic-EXOCOMP-16):
 
 Test coverage confirmed for all acceptance criteria:
 - enrollment_token_test.exs (61 tests): inventory membership, 600s default + shorter overrides, lifetime validation (>600 rejected, <=0 rejected), expiry boundary (valid at T+599, rejected at T+600 and T+601), node mismatch, sequential replay, concurrent replay (exactly 1 success out of 2 concurrent calls), restart persistence (issue pre-restart consumed post-restart, replay of pre-consumed token rejected post-restart), 3 corrupt storage variants (invalid JSON, empty file, wrong version), pruning (removes expired, preserves unexpired, pruned file contains no records), file permissions (0700 dir, 0600 file), log/audit/error/format_status redaction.
+---
+author: oompah
+created: 2026-07-24 01:32
+---
+Completion: Delivered durable node-bound enrollment token service on branch epic-EXOCOMP-16 (commit af14041).
+
+Files delivered:
+- apps/exocomp_coordinator/lib/exocomp/coordinator/enrollment_token.ex — 591 lines, full GenServer implementation
+- apps/exocomp_coordinator/test/exocomp/coordinator/enrollment_token_test.exs — 701 lines, 61 focused tests
+- apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex — updated to wire EnrollmentToken into supervisor tree
+
+Acceptance criteria satisfied:
+✅ Tokens are inventory-node-bound (checked at issuance via injectable inventory_fn)
+✅ Expiring (default 600s; shorter overrides allowed; longer rejected)
+✅ Single-use under concurrency (atomic GenServer call prevents double-consumption)
+✅ Single-use across restarts (consumed state persisted to mode-0600 JSON file)
+✅ Stored protected (mode-0700 dir, mode-0600 file, atomic rename, fail-closed on corrupt)
+✅ Secret-free in observable output (format_status/1 redacts digests; audit has only node_id/result/correlation; tokens never logged; error structs never contain token values)
 ---
 <!-- COMMENTS:END -->
