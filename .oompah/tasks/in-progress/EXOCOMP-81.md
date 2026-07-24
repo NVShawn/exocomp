@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:53:31.952022Z'
+updated_at: '2026-07-24T01:54:11.715734Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -120,5 +120,10 @@ author: oompah
 created: 2026-07-24 01:53
 ---
 Understanding: Screening EXOCOMP-81 for duplication before any implementation. I will search existing tasks and project docs for A2A message endpoint, TaskRegistry, and skill-dispatch wiring, then read plausible candidate tasks in full and either archive this issue as duplicate or hand it off for implementation.
+---
+author: oompah
+created: 2026-07-24 01:54
+---
+Discovery: Duplicate screening found no confirmed duplicate. Reviewed EXOCOMP-78 (router scaffold with these handlers explicitly left as stubs for child D), EXOCOMP-79 (TaskRegistry only), EXOCOMP-80 (skill handlers/Dispatcher only), EXOCOMP-12 (parent epic whose child graph assigns endpoint wiring uniquely to EXOCOMP-81), EXOCOMP-13 (integration verification only), and EXOCOMP-48 (A2A structs only). The repository task directory is not materialized in this worktree; the required rg search of docs/plans found only the milestone endpoint specification. These tasks are prerequisites, parent, or verification/type-layer work—not duplicates.
 ---
 <!-- COMMENTS:END -->
