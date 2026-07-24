@@ -15,7 +15,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:01:19.045854Z'
+updated_at: '2026-07-24T19:01:56.935181Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-07-24 19:01
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 19:01
+---
+Understanding: Implement the backend-only active/degraded service recovery lifecycle. I will build on the existing Recovery.StateMachine and node approval gate, expose a service recovery skill through the A2A dispatcher, emit input-required approval context with exact impact/evidence, re-read evidence immediately before restart, reject stale/mismatched/replayed decisions without action, and cover approve, deny, expiry, timeout, identity/token mismatch, state drift, cancellation, and duplicates. I will use Makefile quality gates and preserve the existing one-attempt/audit invariants.
 ---
 <!-- COMMENTS:END -->
