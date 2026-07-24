@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T02:40:51.424812Z'
+updated_at: '2026-07-24T02:41:08.734456Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -202,5 +202,10 @@ author: oompah
 created: 2026-07-24 02:40
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-24 02:41
+---
+Understanding: EXOCOMP-15 is a sufficiently broad implementation epic spanning DNS resolution/address adoption, mTLS identity validation, concurrent polling/state/backoff, and cross-cutting focused verification. I will first inventory existing children and the Milestone 2 design/current coordinator interfaces, then create only missing single-session child tasks, order them with explicit dependencies, and return the parent to Backlog for orchestration. No code will be changed in this planning focus.
 ---
 <!-- COMMENTS:END -->
