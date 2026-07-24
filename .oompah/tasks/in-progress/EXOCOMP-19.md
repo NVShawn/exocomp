@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:34:27.959608Z'
+updated_at: '2026-07-24T18:44:18.056580Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -217,5 +217,10 @@ author: oompah
 created: 2026-07-24 18:34
 ---
 Discovery: Full codebase analysis complete. The node A2A service (apps/exocomp_node) is the reference implementation with: A2ARouter (Plug.Router with mTLS + version gating), TaskRegistry (bounded GenServer), A2A.Codec (encode/decode), AgentCardHandler, Skills.Dispatcher. The coordinator app has only application.ex plus the HTTP deps added by the maintenance agent. Implementation plan: (1) Coordinator JSONBodyParser plug, (2) TaskRegistry (coordinator namespace), (3) A2A.Codec with cluster skills, (4) AgentCardHandler (cluster skills only, no remediation), (5) Skills.Behaviour + ClusterHealth + ClusterDiagnose + Dispatcher, (6) InventoryAuthorizer for selection validation, (7) A2ARouter with selection authorization, (8) Config + Listener, (9) Update Application supervision tree, (10) Comprehensive tests.
+---
+author: oompah
+created: 2026-07-24 18:44
+---
+Implementation: Implemented the full coordinator A2A service with the following files: (1) Exocomp.Coordinator.Plug.JSONBodyParser - HTTP request body parsing with 1MiB limit; (2) Exocomp.Coordinator.TaskRegistry - bounded in-memory task lifecycle GenServer; (3) Exocomp.Coordinator.A2A.Codec - cluster skill encoding/decoding (exocomp.cluster.health, exocomp.cluster.diagnose only - no remediation); (4) Exocomp.Coordinator.Handlers.AgentCardHandler - cluster skills only agent card; (5) Exocomp.Coordinator.Skills.{Behaviour, ClusterHealth, ClusterDiagnose, Dispatcher} - skill handlers delegating to orchestrator stub; (6) Exocomp.Coordinator.Orchestrator.Stub - placeholder for EXOCOMP-18 orchestration; (7) Exocomp.Coordinator.InventoryAuthorizer - validates node_ids selections against configured inventory; (8) Exocomp.Coordinator.A2ARouter - mTLS auth, version gating, authorization, cluster skill routing; (9) Exocomp.Coordinator.Config - JSON config loading; (10) Exocomp.Coordinator.Listener - Bandit mTLS listener. Updated Application supervision tree to start TaskRegistry. Key boundary enforced: no remediation execution skill is reachable.
 ---
 <!-- COMMENTS:END -->
