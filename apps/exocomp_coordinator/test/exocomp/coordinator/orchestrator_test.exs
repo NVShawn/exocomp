@@ -10,14 +10,17 @@ defmodule Exocomp.Coordinator.OrchestratorTest do
   # ---------------------------------------------------------------------------
   # Fake A2A client adapter (injected via client_adapter:)
   #
-  # Each test starts a per-test Agent that maps {:send, node_id} and
-  # {:get_task, node_id, task_id} to response values or functions.
-  # The FakeClient reads from the Agent referenced in client_opts[:agent].
+  # Each test starts a per-test Agent that maps response keys to response values
+  # or functions. The FakeClient reads from the Agent referenced in
+  # client_opts[:agent].
   #
   # Response values accepted in the Agent map:
-  #   {:send, node_id}             => {:ok, a2a_task} | {:error, client_error}
-  #                                 | {:block, blocker_pid}   ← blocks until :proceed
-  #   {:get_task, node_id, task_id}=> {:ok, a2a_task} | {:error, client_error}
+  #   {:send, node_id}               => {:ok, a2a_task} | {:error, client_error}
+  #                                   | {:block, blocker_pid}  ← blocks until :proceed
+  #   {:get_task, node_id, task_id}  => {:ok, a2a_task} | {:error, client_error}
+  #                                   | {:block, _}   ← blocks, notifies owner
+  #   {:cancel, node_id, task_id}    => {:ok, a2a_task} | {:error, client_error}
+  #                                   | nil (default) ← :unsupported_operation
   # ---------------------------------------------------------------------------
 
   defmodule FakeClient do
@@ -40,7 +43,7 @@ defmodule Exocomp.Coordinator.OrchestratorTest do
             # Respond with an explicit result injected by the test.
             {:proceed, result} -> result
             # Plain :proceed returns unreachable (for timeout / capacity tests).
-            :proceed -> {:error, make_error(:transport, :unreachable, node_id)}
+            :proceed -> {:error, make_error(:transport, :unreachable, :send, node_id)}
           end
 
         {:ok, _} = ok ->
@@ -50,23 +53,55 @@ defmodule Exocomp.Coordinator.OrchestratorTest do
           err
 
         nil ->
-          {:error, make_error(:configuration, :unknown_node, node_id)}
+          {:error, make_error(:configuration, :unknown_node, :send, node_id)}
       end
     end
 
     def get_task(node_id, task_id, opts) do
+      owner = Keyword.get(opts, :owner)
       agent = Keyword.fetch!(opts, :agent)
       response = Agent.get(agent, &Map.get(&1, {:get_task, node_id, task_id}))
 
       case response do
-        {:ok, _} = ok -> ok
-        {:error, _} = err -> err
-        nil -> {:error, make_error(:transport, :unreachable, node_id)}
+        {:block, _} ->
+          # Notify the owner so the test knows polling is in progress.
+          if owner, do: send(owner, {:blocking_get_task, node_id, self()})
+
+          receive do
+            {:proceed, result} -> result
+            :proceed -> {:error, make_error(:transport, :unreachable, :get_task, node_id)}
+          end
+
+        {:ok, _} = ok ->
+          ok
+
+        {:error, _} = err ->
+          err
+
+        nil ->
+          {:error, make_error(:transport, :unreachable, :get_task, node_id)}
       end
     end
 
-    defp make_error(kind, reason, node_id) do
-      %ClientError{kind: kind, reason: reason, operation: :send, node_id: node_id}
+    def cancel(node_id, task_id, opts) do
+      agent = Keyword.fetch!(opts, :agent)
+      response = Agent.get(agent, &Map.get(&1, {:cancel, node_id, task_id}))
+
+      case response do
+        {:ok, _} = ok ->
+          ok
+
+        {:error, _} = err ->
+          err
+
+        nil ->
+          # Default: node does not support A2A cancel.
+          {:error, make_error(:protocol, :unsupported_operation, :cancel, node_id)}
+      end
+    end
+
+    defp make_error(kind, reason, operation, node_id) do
+      %ClientError{kind: kind, reason: reason, operation: operation, node_id: node_id}
     end
   end
 
@@ -151,6 +186,10 @@ defmodule Exocomp.Coordinator.OrchestratorTest do
     )
   end
 
+  defp cancel(orchestrator, goal_id) do
+    Orchestrator.cancel(goal_id, orchestrator: orchestrator)
+  end
+
   # Poll GoalStore until predicate is satisfied or attempts exhausted.
   defp eventually(assertion, attempts \\ 200)
   defp eventually(assertion, 0), do: assert(assertion.())
@@ -171,10 +210,26 @@ defmodule Exocomp.Coordinator.OrchestratorTest do
     end
   end
 
+  defp goal_canceled?(goal_store, goal_id) do
+    case GoalStore.get(goal_id, goal_store) do
+      {:ok, %DiagnosticGoal{state: :canceled}} -> true
+      _ -> false
+    end
+  end
+
   defp unique_name(prefix), do: :"#{prefix}_#{System.unique_integer([:positive])}"
 
+  # Flush the orchestrator's mailbox by making a synchronous call, ensuring
+  # that all previously-sent async messages have been processed. Use this after
+  # receiving an async notification from a worker (e.g. {:blocking_get_task, ...})
+  # to guarantee that {:node_dispatched, ...} messages have also been handled
+  # before calling cancel.
+  defp sync_orchestrator(orchestrator) do
+    Orchestrator.in_flight_count(orchestrator)
+  end
+
   # ---------------------------------------------------------------------------
-  # Tests
+  # Tests: existing fan-out behaviour
   # ---------------------------------------------------------------------------
 
   test "three-node success: all nodes succeed, goal reaches :completed" do
@@ -702,5 +757,289 @@ defmodule Exocomp.Coordinator.OrchestratorTest do
     refute key1 == key3
     assert byte_size(key1) == 64
     assert key1 =~ ~r/^[0-9a-f]{64}$/
+  end
+
+  # ---------------------------------------------------------------------------
+  # Tests: cancellation
+  # ---------------------------------------------------------------------------
+
+  test "cancel before dispatch: pending nodes are marked :canceled without A2A call" do
+    # concurrency=1 so node-1 runs and node-2 stays pending.
+    # node-1 blocks in send so neither node completes before cancel.
+    blocker = self()
+
+    agent =
+      start_agent(%{
+        {:send, "node-1"} => {:block, blocker}
+        # No cancel entry for node-1 — we don't expect A2A cancel to be attempted
+        # for a node that hasn't finished the send call.
+        # node-2 is never dispatched, so no cancel needed.
+      })
+
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+
+    orchestrator =
+      start_orchestrator(goal_store, task_sup,
+        concurrency: 1,
+        node_timeout_ms: 5_000,
+        overall_timeout_ms: 5_000
+      )
+
+    assert {:ok, %DiagnosticGoal{id: goal_id}} =
+             run(orchestrator, "key-cancel-before-dispatch", ["node-1", "node-2"], agent)
+
+    # node-1 is in-flight (blocking in send), node-2 is pending.
+    assert_receive {:blocking_send, _node1_pid}, 1_000
+
+    assert {:ok, %DiagnosticGoal{state: :canceled}} = cancel(orchestrator, goal_id)
+
+    eventually(fn -> goal_canceled?(goal_store, goal_id) end)
+
+    {:ok, goal} = GoalStore.get(goal_id, goal_store)
+    assert goal.state == :canceled
+
+    # node-1: killed before completing send → :canceled (no downstream task to cancel)
+    assert goal.node_outcomes["node-1"].state == :canceled
+    assert goal.node_outcomes["node-1"].error == :goal_canceled
+
+    # node-2: never dispatched → :canceled directly
+    assert goal.node_outcomes["node-2"].state == :canceled
+    assert goal.node_outcomes["node-2"].error == :goal_canceled
+  end
+
+  test "cancel during fan-out: A2A cancel is attempted for dispatched nodes" do
+    # node-1: send returns a non-terminal task, then blocks in get_task (polling).
+    # cancel/2 should attempt client_adapter.cancel for the downstream task.
+    agent =
+      start_agent(%{
+        {:send, "node-1"} => {:ok, make_task("t1", "working")},
+        # Block in get_task so cancel can catch the node while polling.
+        {:get_task, "node-1", "t1"} => {:block, :any},
+        # FakeClient.cancel returns success for this downstream task.
+        {:cancel, "node-1", "t1"} => {:ok, make_task("t1", "canceled")}
+      })
+
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+
+    orchestrator =
+      start_orchestrator(goal_store, task_sup,
+        node_timeout_ms: 5_000,
+        overall_timeout_ms: 5_000
+      )
+
+    assert {:ok, %DiagnosticGoal{id: goal_id}} =
+             run(orchestrator, "key-cancel-fanout", ["node-1"], agent)
+
+    # Wait for polling to start (worker is now blocking in get_task).
+    assert_receive {:blocking_get_task, "node-1", _worker_pid}, 1_000
+
+    # Sync: ensure the {:node_dispatched, ...} message has been processed by
+    # the orchestrator so downstream_task_ids is populated before we cancel.
+    sync_orchestrator(orchestrator)
+
+    assert {:ok, %DiagnosticGoal{state: :canceled}} = cancel(orchestrator, goal_id)
+
+    {:ok, goal} = GoalStore.get(goal_id, goal_store)
+    assert goal.state == :canceled
+
+    # node-1: downstream A2A cancel succeeded → :canceled
+    assert goal.node_outcomes["node-1"].state == :canceled
+    assert goal.node_outcomes["node-1"].error == :goal_canceled
+  end
+
+  test "cancel with unsupported downstream: node is marked :cancel_failed" do
+    # The downstream node's A2A agent does not support the cancel endpoint.
+    agent =
+      start_agent(%{
+        {:send, "node-1"} => {:ok, make_task("t1", "working")},
+        {:get_task, "node-1", "t1"} => {:block, :any},
+        # Simulate :unsupported_operation (default when no cancel key is set,
+        # but being explicit for clarity).
+        {:cancel, "node-1", "t1"} =>
+          {:error,
+           %ClientError{
+             kind: :protocol,
+             reason: :unsupported_operation,
+             operation: :cancel,
+             node_id: "node-1"
+           }}
+      })
+
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+
+    orchestrator =
+      start_orchestrator(goal_store, task_sup,
+        node_timeout_ms: 5_000,
+        overall_timeout_ms: 5_000
+      )
+
+    assert {:ok, %DiagnosticGoal{id: goal_id}} =
+             run(orchestrator, "key-cancel-unsupported", ["node-1"], agent)
+
+    assert_receive {:blocking_get_task, "node-1", _worker_pid}, 1_000
+    sync_orchestrator(orchestrator)
+
+    assert {:ok, %DiagnosticGoal{state: :canceled}} = cancel(orchestrator, goal_id)
+
+    {:ok, goal} = GoalStore.get(goal_id, goal_store)
+    assert goal.state == :canceled
+
+    # A2A cancel was unsupported — node marked :cancel_failed.
+    assert goal.node_outcomes["node-1"].state == :cancel_failed
+    assert goal.node_outcomes["node-1"].error == :goal_canceled
+  end
+
+  test "partial cancel failure: some nodes canceled, others cancel_failed" do
+    agent =
+      start_agent(%{
+        {:send, "node-1"} => {:ok, make_task("t1", "working")},
+        {:get_task, "node-1", "t1"} => {:block, :any},
+        {:cancel, "node-1", "t1"} => {:ok, make_task("t1", "canceled")},
+        {:send, "node-2"} => {:ok, make_task("t2", "working")},
+        {:get_task, "node-2", "t2"} => {:block, :any},
+        {:cancel, "node-2", "t2"} =>
+          {:error,
+           %ClientError{
+             kind: :protocol,
+             reason: :unsupported_operation,
+             operation: :cancel,
+             node_id: "node-2"
+           }}
+      })
+
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+
+    orchestrator =
+      start_orchestrator(goal_store, task_sup,
+        concurrency: 4,
+        node_timeout_ms: 5_000,
+        overall_timeout_ms: 5_000
+      )
+
+    assert {:ok, %DiagnosticGoal{id: goal_id}} =
+             run(orchestrator, "key-cancel-partial", ["node-1", "node-2"], agent)
+
+    # Wait for both nodes to start polling.
+    assert_receive {:blocking_get_task, _, _}, 1_000
+    assert_receive {:blocking_get_task, _, _}, 1_000
+
+    sync_orchestrator(orchestrator)
+
+    assert {:ok, %DiagnosticGoal{state: :canceled}} = cancel(orchestrator, goal_id)
+
+    {:ok, goal} = GoalStore.get(goal_id, goal_store)
+    assert goal.state == :canceled
+
+    assert goal.node_outcomes["node-1"].state == :canceled
+    assert goal.node_outcomes["node-2"].state == :cancel_failed
+  end
+
+  test "repeated cancel: second call returns the same terminal goal (idempotent)" do
+    blocker = self()
+
+    agent =
+      start_agent(%{
+        {:send, "node-1"} => {:block, blocker}
+      })
+
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+
+    orchestrator =
+      start_orchestrator(goal_store, task_sup,
+        node_timeout_ms: 5_000,
+        overall_timeout_ms: 5_000
+      )
+
+    assert {:ok, %DiagnosticGoal{id: goal_id}} =
+             run(orchestrator, "key-cancel-repeat", ["node-1"], agent)
+
+    assert_receive {:blocking_send, _pid}, 1_000
+
+    # First cancel.
+    assert {:ok, %DiagnosticGoal{id: ^goal_id, state: :canceled}} = cancel(orchestrator, goal_id)
+
+    # Second cancel — goal is already terminal (:canceled); returns same goal.
+    assert {:ok, %DiagnosticGoal{id: ^goal_id, state: :canceled}} = cancel(orchestrator, goal_id)
+
+    {:ok, goal} = GoalStore.get(goal_id, goal_store)
+    assert goal.state == :canceled
+    assert goal.node_outcomes["node-1"].state in [:canceled, :cancel_failed]
+  end
+
+  test "completion/cancel race: node completing before cancel is idempotent (goal stays :completed)" do
+    agent =
+      start_agent(%{
+        {:send, "node-1"} => {:ok, make_task("t1", "completed")}
+      })
+
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+
+    orchestrator =
+      start_orchestrator(goal_store, task_sup,
+        node_timeout_ms: 5_000,
+        overall_timeout_ms: 5_000
+      )
+
+    assert {:ok, %DiagnosticGoal{id: goal_id}} =
+             run(orchestrator, "key-cancel-race-complete", ["node-1"], agent)
+
+    # Wait for the goal to complete before calling cancel.
+    eventually(fn -> goal_completed?(goal_store, goal_id) end)
+
+    # Cancel on an already-completed goal returns the completed goal (idempotent).
+    assert {:ok, %DiagnosticGoal{id: ^goal_id, state: :completed}} =
+             cancel(orchestrator, goal_id)
+
+    # Goal and node outcome remain unchanged.
+    {:ok, goal} = GoalStore.get(goal_id, goal_store)
+    assert goal.state == :completed
+    assert goal.node_outcomes["node-1"].state == :succeeded
+  end
+
+  test "cancel/2 returns :not_found for an unknown goal_id" do
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+    orchestrator = start_orchestrator(goal_store, task_sup)
+
+    assert {:error, :not_found} = cancel(orchestrator, "nonexistent-goal-id")
+  end
+
+  test "cancel drains orchestrator in-flight count to zero" do
+    blocker = self()
+
+    agent =
+      start_agent(%{
+        {:send, "node-1"} => {:block, blocker},
+        {:send, "node-2"} => {:block, blocker}
+      })
+
+    goal_store = start_goal_store()
+    task_sup = start_task_supervisor()
+
+    orchestrator =
+      start_orchestrator(goal_store, task_sup,
+        concurrency: 4,
+        node_timeout_ms: 5_000,
+        overall_timeout_ms: 5_000
+      )
+
+    assert {:ok, %DiagnosticGoal{id: goal_id}} =
+             run(orchestrator, "key-cancel-drain", ["node-1", "node-2"], agent)
+
+    assert_receive {:blocking_send, _}, 1_000
+    assert_receive {:blocking_send, _}, 1_000
+
+    assert Orchestrator.in_flight_count(orchestrator) == 2
+
+    assert {:ok, %DiagnosticGoal{state: :canceled}} = cancel(orchestrator, goal_id)
+
+    # After cancel, no tasks should remain in flight.
+    assert Orchestrator.in_flight_count(orchestrator) == 0
   end
 end

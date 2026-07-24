@@ -15,15 +15,26 @@ defmodule Exocomp.Coordinator.Orchestrator do
   * **Isolation** – each node task runs under `Task.Supervisor` as an unlinked
     task; a crash or timeout on one node does not affect others.
   * **Explicit outcomes** – every targeted node receives an explicit
-    `NodeOutcome`: `:succeeded`, `:failed`, `:unreachable`, or `:canceled`.
-    Slow, malformed, rejected, or unavailable nodes cannot erase successful
-    observations from peer nodes.
+    `NodeOutcome`: `:succeeded`, `:failed`, `:unreachable`, `:canceled`, or
+    `:cancel_failed`. Slow, malformed, rejected, or unavailable nodes cannot
+    erase successful observations from peer nodes.
   * **Bounded concurrency** – at most `:concurrency` node tasks run at once
     across all active goals; queued nodes are dispatched as capacity frees.
   * **Lifecycle persistence** – all state transitions and per-node outcomes
     are persisted exclusively through `GoalStore`.
   * **Late-result rejection** – if a task result arrives after its per-node
     deadline or after the goal's overall deadline, it is silently discarded.
+
+  ## Cancellation
+
+  `cancel/2` atomically marks the goal as `:canceled` in `GoalStore`, stops
+  all undispatched (pending) nodes, kills in-flight worker tasks, and attempts
+  downstream A2A cancellation for every active node task whose downstream task
+  ID is known. Per-node outcomes are recorded as `:canceled` (when A2A cancel
+  succeeded or the node was never dispatched), `:cancel_failed` (when the A2A
+  cancel call was rejected or unsupported), or `:canceled` when the task was
+  already in a terminal state. Repeated calls to `cancel/2` on an already-
+  terminal goal are idempotent and return the current goal.
 
   ## Dispatching and polling
 
@@ -50,6 +61,9 @@ defmodule Exocomp.Coordinator.Orchestrator do
 
       # Poll for completion
       {:ok, updated} = GoalStore.get(goal.id)
+
+      # Cancel in-flight work
+      {:ok, canceled} = Orchestrator.cancel(goal.id)
   """
 
   use GenServer
@@ -68,6 +82,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
   # `pending`    – node IDs not yet dispatched (queue)
   # `skill_id`   – skill forwarded to every node task
   # `params`     – params forwarded to every node task
+  # `client_opts` – effective client options for this goal
   # `overall_timeout_ref` – reference for the overall deadline timer
   defstruct [
     :goal_store,
@@ -80,8 +95,10 @@ defmodule Exocomp.Coordinator.Orchestrator do
     :poll_interval_ms,
     # task_ref => %{goal_id, node_id, timeout_ref, task}
     tasks: %{},
-    # goal_id => %{remaining, pending, skill_id, params, overall_timeout_ref}
-    goals: %{}
+    # goal_id => %{remaining, pending, skill_id, params, client_opts, overall_timeout_ref}
+    goals: %{},
+    # {goal_id, node_id} => downstream A2A task ID (registered by worker after send)
+    downstream_task_ids: %{}
   ]
 
   # ---------------------------------------------------------------------------
@@ -111,6 +128,30 @@ defmodule Exocomp.Coordinator.Orchestrator do
     # Per-call client_opts override the orchestrator's base client_opts.
     call_client_opts = Keyword.get(opts, :client_opts, [])
     GenServer.call(server, {:run, caller_key, skill_id, params, node_ids, call_client_opts})
+  end
+
+  @doc """
+  Cancels an active diagnostic goal.
+
+  Atomically marks the goal as `:canceled` in `GoalStore`, stops undispatched
+  nodes, kills in-flight worker tasks, and attempts downstream A2A cancellation
+  for every active node whose downstream task ID is known.
+
+  Per-node outcomes:
+  * `:canceled` – node was pending (never dispatched), or A2A cancel succeeded,
+    or the downstream task was already terminal.
+  * `:cancel_failed` – A2A cancel was attempted but rejected (unsupported
+    operation, transport error, etc.). The downstream task may still be running.
+
+  Returns `{:ok, goal}` with the updated goal on success. If the goal is
+  already in a terminal state, returns `{:ok, goal}` with the current goal
+  (idempotent). Returns `{:error, :not_found}` when the goal does not exist.
+  """
+  @spec cancel(String.t(), keyword()) ::
+          {:ok, DiagnosticGoal.t()} | {:error, :not_found}
+  def cancel(goal_id, opts \\ []) when is_binary(goal_id) do
+    server = Keyword.get(opts, :orchestrator, __MODULE__)
+    GenServer.call(server, {:cancel, goal_id})
   end
 
   @doc """
@@ -173,6 +214,25 @@ defmodule Exocomp.Coordinator.Orchestrator do
     {:reply, map_size(state.tasks), state}
   end
 
+  def handle_call({:cancel, goal_id}, _from, state) do
+    case GoalStore.cancel(goal_id, state.goal_store) do
+      {:error, :not_found} ->
+        {:reply, {:error, :not_found}, state}
+
+      {:error, :not_cancelable} ->
+        # Goal already terminal — idempotent: return the current goal.
+        {:ok, goal} = GoalStore.get(goal_id, state.goal_store)
+        {:reply, {:ok, goal}, state}
+
+      {:ok, _canceled_goal} ->
+        # Goal successfully marked :canceled in GoalStore. Stop pending and
+        # in-flight work, attempt downstream A2A cancellation for known tasks.
+        state = do_cancel_goal(goal_id, state)
+        {:ok, refreshed} = GoalStore.get(goal_id, state.goal_store)
+        {:reply, {:ok, refreshed}, state}
+    end
+  end
+
   # Task completed with a successful A2A task result.
   @impl true
   def handle_info({ref, {:ok, a2a_task}}, state) when is_reference(ref) do
@@ -185,6 +245,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
       {%{goal_id: goal_id, node_id: node_id, timeout_ref: timeout_ref}, tasks} ->
         Process.cancel_timer(timeout_ref)
         state = %{state | tasks: tasks}
+        state = drop_downstream_key(state, goal_id, node_id)
         state = record_node_success(goal_id, node_id, a2a_task, state)
         {:noreply, dispatch_pending(state)}
     end
@@ -201,6 +262,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
       {%{goal_id: goal_id, node_id: node_id, timeout_ref: timeout_ref}, tasks} ->
         Process.cancel_timer(timeout_ref)
         state = %{state | tasks: tasks}
+        state = drop_downstream_key(state, goal_id, node_id)
         state = record_node_error(goal_id, node_id, error, state)
         {:noreply, dispatch_pending(state)}
     end
@@ -221,6 +283,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
       {%{goal_id: goal_id, node_id: node_id, timeout_ref: timeout_ref}, tasks} ->
         Process.cancel_timer(timeout_ref)
         state = %{state | tasks: tasks}
+        state = drop_downstream_key(state, goal_id, node_id)
         state = record_node_outcome(goal_id, node_id, :failed, nil, {:crash, reason}, state)
         {:noreply, dispatch_pending(state)}
     end
@@ -236,6 +299,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
       {%{goal_id: goal_id, node_id: node_id, task: task}, tasks} ->
         Task.shutdown(task, :brutal_kill)
         state = %{state | tasks: tasks}
+        state = drop_downstream_key(state, goal_id, node_id)
         state = record_node_outcome(goal_id, node_id, :unreachable, nil, :node_timeout, state)
         {:noreply, dispatch_pending(state)}
     end
@@ -252,6 +316,19 @@ defmodule Exocomp.Coordinator.Orchestrator do
         state = %{state | goals: goals}
         state = force_complete_goal(goal_id, goal_meta, state)
         {:noreply, dispatch_pending(state)}
+    end
+  end
+
+  # Worker notified us of the downstream A2A task ID after a successful send.
+  # Store it so that cancel/2 can attempt downstream A2A cancellation.
+  def handle_info({:node_dispatched, goal_id, node_id, downstream_task_id}, state) do
+    # Only register if the goal is still active (not yet completed or canceled).
+    if Map.has_key?(state.goals, goal_id) do
+      key = {goal_id, node_id}
+      updated = Map.put(state.downstream_task_ids, key, downstream_task_id)
+      {:noreply, %{state | downstream_task_ids: updated}}
+    else
+      {:noreply, state}
     end
   end
 
@@ -348,6 +425,10 @@ defmodule Exocomp.Coordinator.Orchestrator do
     client_adapter = state.client_adapter
     poll_interval_ms = state.poll_interval_ms
 
+    # Capture the orchestrator PID so the worker can notify it of the
+    # downstream A2A task ID after a successful send.
+    orchestrator_pid = self()
+
     client_opts =
       Keyword.merge(goal_client_opts,
         message_id: downstream_key,
@@ -367,7 +448,16 @@ defmodule Exocomp.Coordinator.Orchestrator do
 
     task =
       Task.Supervisor.async_nolink(state.task_supervisor, fn ->
-        run_node_task(node_id, skill_id, params, client_adapter, client_opts, poll_interval_ms)
+        run_node_task(
+          goal_id,
+          node_id,
+          skill_id,
+          params,
+          client_adapter,
+          client_opts,
+          poll_interval_ms,
+          orchestrator_pid
+        )
       end)
 
     timeout_ref =
@@ -382,12 +472,25 @@ defmodule Exocomp.Coordinator.Orchestrator do
   # ---------------------------------------------------------------------------
 
   # Send the diagnostic task to the node and poll until a terminal result.
-  defp run_node_task(node_id, skill_id, params, client_adapter, client_opts, poll_interval_ms) do
+  defp run_node_task(
+         goal_id,
+         node_id,
+         skill_id,
+         params,
+         client_adapter,
+         client_opts,
+         poll_interval_ms,
+         orchestrator_pid
+       ) do
     case client_adapter.send(node_id, skill_id, params, client_opts) do
       {:error, error} ->
         {:error, error}
 
       {:ok, a2a_task} ->
+        # Notify the orchestrator of the downstream A2A task ID so it can
+        # attempt A2A cancellation if cancel/2 is called later.
+        send(orchestrator_pid, {:node_dispatched, goal_id, node_id, a2a_task.id})
+
         if TaskState.terminal?(a2a_task.status.state) do
           {:ok, a2a_task}
         else
@@ -464,7 +567,7 @@ defmodule Exocomp.Coordinator.Orchestrator do
   defp decrement_remaining(goal_id, state) do
     case Map.get(state.goals, goal_id) do
       nil ->
-        # Goal was already cleaned up (e.g., overall timeout fired first).
+        # Goal was already cleaned up (e.g., overall timeout or cancel fired first).
         state
 
       %{remaining: 1, overall_timeout_ref: timer_ref} ->
@@ -476,6 +579,103 @@ defmodule Exocomp.Coordinator.Orchestrator do
       %{remaining: n} = meta ->
         updated_goals = Map.put(state.goals, goal_id, %{meta | remaining: n - 1})
         %{state | goals: updated_goals}
+    end
+  end
+
+  # ---------------------------------------------------------------------------
+  # Private: cancellation
+  # ---------------------------------------------------------------------------
+
+  # Cancel all pending and in-flight work for a goal.
+  # GoalStore.cancel/2 has already marked the goal as :canceled before this runs.
+  defp do_cancel_goal(goal_id, state) do
+    case Map.pop(state.goals, goal_id) do
+      {nil, _goals} ->
+        # Goal not in orchestrator tracking — already completed before cancel
+        # reached us. GoalStore.cancel already handled the state machine side.
+        state
+
+      {goal_meta, goals} ->
+        state = %{state | goals: goals}
+        Process.cancel_timer(goal_meta.overall_timeout_ref)
+
+        # Partition in-flight tasks by goal.
+        {goal_tasks, other_tasks} =
+          Enum.split_with(state.tasks, fn {_ref, meta} -> meta.goal_id == goal_id end)
+
+        state = %{state | tasks: Map.new(other_tasks)}
+
+        # Kill workers and attempt downstream A2A cancellation.
+        Enum.each(goal_tasks, fn {_ref, task_meta} ->
+          Process.cancel_timer(task_meta.timeout_ref)
+          # Task.shutdown(:brutal_kill) kills the worker and flushes both the
+          # task result message and the DOWN message from the orchestrator's mailbox.
+          Task.shutdown(task_meta.task, :brutal_kill)
+
+          downstream_task_id =
+            Map.get(state.downstream_task_ids, {goal_id, task_meta.node_id})
+
+          outcome_state =
+            if is_nil(downstream_task_id) do
+              # Worker was killed before it dispatched to downstream, or the
+              # {:node_dispatched, ...} notification hasn't been processed yet.
+              :canceled
+            else
+              attempt_a2a_cancel(
+                task_meta.node_id,
+                downstream_task_id,
+                goal_meta.client_opts,
+                state.client_adapter
+              )
+            end
+
+          GoalStore.put_node_outcome(
+            goal_id,
+            task_meta.node_id,
+            %NodeOutcome{
+              node_id: task_meta.node_id,
+              state: outcome_state,
+              error: :goal_canceled
+            },
+            state.goal_store
+          )
+        end)
+
+        # Record pending (undispatched) nodes as :canceled.
+        Enum.each(goal_meta.pending, fn node_id ->
+          GoalStore.put_node_outcome(
+            goal_id,
+            node_id,
+            %NodeOutcome{node_id: node_id, state: :canceled, error: :goal_canceled},
+            state.goal_store
+          )
+        end)
+
+        # Clean up downstream task ID entries for this goal.
+        new_downstream_ids =
+          Map.reject(state.downstream_task_ids, fn {{gid, _nid}, _id} -> gid == goal_id end)
+
+        %{state | downstream_task_ids: new_downstream_ids}
+    end
+  end
+
+  # Attempt A2A cancellation of a downstream task. Returns the NodeOutcome state.
+  defp attempt_a2a_cancel(node_id, task_id, client_opts, client_adapter) do
+    case client_adapter.cancel(node_id, task_id, client_opts) do
+      {:ok, _a2a_task} ->
+        # Downstream task successfully canceled (or was already in :canceled state).
+        :canceled
+
+      {:error, %ClientError{reason: reason}}
+      when reason in [:task_not_cancelable, :task_not_found] ->
+        # Task was already in a terminal state before our cancel arrived.
+        # From the coordinator's perspective the outcome is still :canceled.
+        :canceled
+
+      {:error, _other} ->
+        # Cancel was rejected or failed (e.g. :unsupported_operation, transport
+        # error). The downstream task may still be running.
+        :cancel_failed
     end
   end
 
@@ -517,6 +717,12 @@ defmodule Exocomp.Coordinator.Orchestrator do
       )
     end)
 
+    # Clean up downstream task ID entries for this goal.
+    new_downstream_ids =
+      Map.reject(state.downstream_task_ids, fn {{gid, _nid}, _id} -> gid == goal_id end)
+
+    state = %{state | downstream_task_ids: new_downstream_ids}
+
     # Drive the goal state machine to :completed.
     # The goal may be in :dispatching or :running at this point; either path
     # is valid once we transition through :running.
@@ -527,8 +733,13 @@ defmodule Exocomp.Coordinator.Orchestrator do
   end
 
   # ---------------------------------------------------------------------------
-  # Private: options
+  # Private: helpers
   # ---------------------------------------------------------------------------
+
+  # Remove the downstream task ID entry for a (goal_id, node_id) pair.
+  defp drop_downstream_key(state, goal_id, node_id) do
+    %{state | downstream_task_ids: Map.delete(state.downstream_task_ids, {goal_id, node_id})}
+  end
 
   defp positive_option(opts, key, default) do
     case Keyword.get(opts, key, default) do

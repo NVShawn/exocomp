@@ -9,12 +9,18 @@ defmodule Exocomp.Coordinator.NodeOutcome do
   `state` transitions from `:pending` (initial, not yet dispatched) through
   active states to one of the terminal states:
 
-  * `:pending`     – goal accepted; node task not yet submitted downstream.
-  * `:running`     – downstream A2A task submitted and in progress.
-  * `:succeeded`   – node task completed with a usable result.
-  * `:failed`      – node task completed with an error or unusable result.
-  * `:unreachable` – node could not be contacted at dispatch or went away.
-  * `:canceled`    – goal was canceled before or during node execution.
+  * `:pending`       – goal accepted; node task not yet submitted downstream.
+  * `:running`       – downstream A2A task submitted and in progress.
+  * `:succeeded`     – node task completed with a usable result.
+  * `:failed`        – node task completed with an error or unusable result.
+  * `:unreachable`   – node could not be contacted at dispatch or went away.
+  * `:canceled`      – goal was canceled before or during node execution, and
+                       the downstream A2A task was successfully canceled (or
+                       was never dispatched, or was already terminal).
+  * `:cancel_failed` – goal cancellation was requested but the downstream A2A
+                       cancel call was rejected or failed (e.g. unsupported
+                       operation, transport error). The downstream task may
+                       still be running on the node.
 
   `result` and `error` carry free-form caller data (maps, binary, etc.) and
   are not validated here. `artifacts` are structured A2A artifacts produced
@@ -28,9 +34,16 @@ defmodule Exocomp.Coordinator.NodeOutcome do
             artifacts: [],
             updated_at: nil
 
-  @type state :: :pending | :running | :succeeded | :failed | :unreachable | :canceled
+  @type state ::
+          :pending
+          | :running
+          | :succeeded
+          | :failed
+          | :unreachable
+          | :canceled
+          | :cancel_failed
 
-  @terminal_states [:succeeded, :failed, :unreachable, :canceled]
+  @terminal_states [:succeeded, :failed, :unreachable, :canceled, :cancel_failed]
 
   @type t :: %__MODULE__{
           node_id: String.t(),
