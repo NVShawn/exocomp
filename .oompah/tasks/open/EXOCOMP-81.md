@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:57:09.130919Z'
+updated_at: '2026-07-24T01:57:19.790828Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -489,5 +489,15 @@ Evidence and decisions: The EXOCOMP-12 task view shows the complete child graph:
 Remaining work and risks: Implement strict Message decoding and skill/params extraction against actual A2A structs; encode Task, artifact, and error shapes with application/a2a+json; wire submit/get/list/cancel; run Dispatcher asynchronously with per-skill timeout and safe terminal transitions; preserve mTLS, version, and body-limit middleware; add all specified endpoint and lifecycle tests. Key risks are races between immediate 202 responses and fast workers, cancellation/worker registration semantics, Plug parsing of the task-cancel path, and matching existing Dispatcher/TaskRegistry return shapes.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 01:57
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 16
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 13s
+- Log: EXOCOMP-81__20260724T015509Z.jsonl
 ---
 <!-- COMMENTS:END -->
