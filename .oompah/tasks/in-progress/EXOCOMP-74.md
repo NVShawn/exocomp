@@ -13,7 +13,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:30:46.308597Z'
+updated_at: '2026-07-24T01:33:44.878925Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -255,5 +255,10 @@ author: oompah
 created: 2026-07-24 01:30
 ---
 Implementation: Added PolicyEngine.evaluate/4 to apps/exocomp_node/lib/exocomp/node/safety/policy_engine.ex. Key design decisions: (1) Per-candidate evaluation — creates a per-candidate proposal (with candidate action_id) and calls filter/4 for each catalog item independently; (2) Evidence scoping — scope_evidence_for_candidate/3 filters evidence to only the candidate's required_evidence collectors AND matching target_id, preventing cross-candidate staleness interference; (3) Risk-ordered sort — sort_candidates/1 uses RiskRank.compare/2 with alphabetical action_id tiebreaker; (4) Fail-closed — nil/unexpected inputs hit catchall clause returning deny; exceptions wrapped in try/rescue returning 'internal policy error'; (5) Auditable reason string includes full ordered eligible list with inspect(risk_rank) and all rejection reasons. Running tests now.
+---
+author: oompah
+created: 2026-07-24 01:33
+---
+Verification: All quality gates pass. (1) make fmt: reformatted policy_engine.ex cleanly with no changes needed. (2) make test: 297/299 passed — all 14 new PolicyEngine.evaluate/4 tests pass; the 2 failures are pre-existing LlamaServer OS-process tests confirmed unrelated in prior handoffs. (3) make lint: compilation with --warnings-as-errors succeeds, 14 source files compiled cleanly. Committed as 5bf40d2 and pushed to origin/EXOCOMP-74.
 ---
 <!-- COMMENTS:END -->
