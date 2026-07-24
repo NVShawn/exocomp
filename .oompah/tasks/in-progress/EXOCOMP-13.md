@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:44:50.035406Z'
+updated_at: '2026-07-24T02:44:55.949141Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 347f89a8-9d32-4336-b5c0-0420afb98e7c
+oompah.agent_run_id: 04088bd9-279b-4422-8161-5ed0b98941c2
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 17
@@ -194,5 +194,15 @@ Discovery: The complete M1 implementation is on the current branch (epic-EXOCOMP
 - What is MISSING: a live end-to-end integration test that starts a real Bandit mTLS listener and makes actual HTTPS A2A requests — needed to provide pass/fail evidence for M1-CRIT-3, M1-CRIT-5 (runtime), M1-CRIT-6 (runtime), M1-CRIT-7 (host state invariance)
 - The M1 acceptance test will go in apps/exocomp_node/test/integration/m1_acceptance_test.exs, tagged :m1_acceptance (no systemd needed, runs in standard CI container)
 - Quality gates (make build, test, lint, fmt-check) remain to be run — these constitute M1-CRIT-1 evidence
+---
+author: oompah
+created: 2026-07-24 02:44
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:44
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
