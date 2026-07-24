@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T17:09:07.601207Z'
+updated_at: '2026-07-24T17:32:29.363555Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -113,5 +113,10 @@ author: oompah
 created: 2026-07-24 17:09
 ---
 Discovery: All prerequisites are in place. GoalStore.cancel/2 (EXOCOMP-100) atomically marks goals :canceled. DiagnosticClient.cancel/3 (EXOCOMP-99) sends A2A cancel and normalizes :unsupported_operation/:task_not_cancelable errors. Orchestrator (EXOCOMP-101) has fan-out/lifecycle machinery.\n\nKey design decisions:\n1. Track downstream A2A task IDs by having the worker task send {:node_dispatched, goal_id, node_id, task_id} to the orchestrator after send() succeeds — stored in new downstream_task_ids field.\n2. Add :cancel_failed to NodeOutcome terminal states (issue explicitly requires it for unsupported/failed cancel).\n3. Orchestrator.cancel/2 calls GoalStore.cancel atomically, then kills in-flight workers, attempts A2A cancel for known downstream tasks, records per-node outcomes.\n4. Idempotency: GoalStore.cancel returns :not_cancelable for terminal goals; we return {:ok, goal} in that case.\n5. Race safety: GenServer serializes handle_call({:cancel}) and handle_info({ref, result}) — no concurrent races within the process.
+---
+author: oompah
+created: 2026-07-24 17:32
+---
+Implementation: Three files changed.\n\n1. node_outcome.ex: Added :cancel_failed to @terminal_states and @type state. This is needed to distinguish nodes where A2A cancel was rejected (e.g. unsupported_operation, transport failure) from those that were cleanly canceled.\n\n2. orchestrator.ex: \n- Added downstream_task_ids: %{} field mapping {goal_id, node_id} => A2A task ID. Workers send {:node_dispatched, ...} after successful send() so the orchestrator can cancel downstream tasks later.\n- Added cancel/2 public API: calls GoalStore.cancel/2 atomically (already implemented in EXOCOMP-100), then do_cancel_goal/2.\n- do_cancel_goal: cancels overall timer, kills all in-flight worker tasks via Task.shutdown(:brutal_kill) (which flushes result+DOWN from mailbox), attempts DiagnosticClient.cancel for each node with a known downstream task ID, records per-node :canceled/:cancel_failed outcomes, marks pending nodes :canceled.\n- attempt_a2a_cancel: maps :ok -> :canceled; :task_not_cancelable/:task_not_found -> :canceled (task already terminal); any other error -> :cancel_failed.\n- Idempotency: GoalStore.cancel returns :not_cancelable for terminal goals; cancel/2 returns {:ok, goal} unchanged.\n- Added handle_info({:node_dispatched, ...}) to register downstream task IDs while goal is active.\n- Cleaned up downstream_task_ids in all result/error/timeout handlers and force_complete_goal.\n\n3. orchestrator_test.exs: Updated FakeClient with cancel/3 and get_task blocking support. Added 8 new test cases covering all required scenarios.
 ---
 <!-- COMMENTS:END -->
