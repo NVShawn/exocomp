@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: Open
+status: In Progress
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T15:57:59.338585Z'
-work_branch: null
+updated_at: '2026-07-24T16:39:57.801301Z'
+work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: fdca66ab-8034-4ddb-8506-426c76e5a7ce
+oompah.work_branch: epic-EXOCOMP-3
 ---
 ## Summary
 
@@ -93,3 +95,16 @@ Run \`make test\` and \`make lint\` before closing.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 16:39
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 16:39
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
