@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T02:32:29.598716Z'
+updated_at: '2026-07-24T02:32:39.120301Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -66,5 +66,19 @@ author: oompah
 created: 2026-07-24 02:32
 ---
 Understanding: Duplicate screening initiated for EXOCOMP-15 (DNS discovery and concurrent node polling). Searching all sibling tasks of the EXOCOMP-2 epic (EXOCOMP-14 through EXOCOMP-20) and prior task histories for overlap with: DNS hostname resolution, address change tracking, mTLS identity verification independent of reverse DNS, and concurrent health polling with jitter/backoff.
+---
+author: oompah
+created: 2026-07-24 02:32
+---
+Discovery: No duplicate confirmed. All sibling tasks reviewed with full detail:
+
+- EXOCOMP-14 (Done): Coordinator inventory, registry, audit scaffold — provides ETS registry and OTP supervision foundation; no DNS resolution or polling logic
+- EXOCOMP-16 (Done): Coordinator CA initialization and enrollment tokens — PKI only; EXOCOMP-16's duplicate_detector explicitly named EXOCOMP-15 as a distinct 'DNS discovery and polling' task
+- EXOCOMP-17 (Open): Node enrollment and certificate renewal — node-side key gen and cert installation; no coordinator polling
+- EXOCOMP-18 (Open): Coordinator diagnostic task orchestration and audit — correlation IDs, A2A dispatch, audit events; no DNS or health polling
+- EXOCOMP-19 (Open): Expose coordinator cluster A2A service — Agent Card HTTP endpoints; no DNS or polling
+- EXOCOMP-20 (Open): M2 milestone verification only
+
+EXOCOMP-15 uniquely owns: (1) DNS resolver GenServer resolving configured hostnames, (2) address change adoption on successful re-verification, (3) mTLS identity verification independent of reverse DNS, (4) health poller with 30s interval + jitter + bounded concurrency + per-node timeouts + exponential backoff + failure state machine, (5) tests for DNS changes, multiple addresses, wrong identity, slow/stale/unreachable nodes, concurrent polling, backoff, and recovery. No other task covers these concerns.
 ---
 <!-- COMMENTS:END -->
