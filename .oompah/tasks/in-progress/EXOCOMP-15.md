@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T02:41:08.734456Z'
+updated_at: '2026-07-24T02:42:32.953180Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -207,5 +207,10 @@ author: oompah
 created: 2026-07-24 02:41
 ---
 Understanding: EXOCOMP-15 is a sufficiently broad implementation epic spanning DNS resolution/address adoption, mTLS identity validation, concurrent polling/state/backoff, and cross-cutting focused verification. I will first inventory existing children and the Milestone 2 design/current coordinator interfaces, then create only missing single-session child tasks, order them with explicit dependencies, and return the parent to Backlog for orchestration. No code will be changed in this planning focus.
+---
+author: oompah
+created: 2026-07-24 02:42
+---
+Discovery: EXOCOMP-15 has children: [] in the canonical tracker. The authoritative design is plans/milestone-2-coordinator.md §§ Inventory and Discovery, Node State, Audit, and Test Strategy. EXOCOMP-14 supplies Inventory, Registry, Audit, and Health on origin/EXOCOMP-14; Registry already models addresses, contact timestamps, reachability, Agent Card metadata, failures, and next eligible poll time. EXOCOMP-12 supplies the node mTLS A2A/Agent Card service. The clean decomposition is DNS resolution, mTLS probe/address adoption, scheduling/state transitions, concurrent execution, then multi-node integration verification.
 ---
 <!-- COMMENTS:END -->
