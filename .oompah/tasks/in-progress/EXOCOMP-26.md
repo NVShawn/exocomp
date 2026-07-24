@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:12.273742Z'
-updated_at: '2026-07-24T01:36:58.079142Z'
+updated_at: '2026-07-24T01:40:34.738430Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-07-24 01:36
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-24 01:40
+---
+Understanding (Epic Planner): EXOCOMP-26 implements bounded system-log cleanup on top of prerequisites EXOCOMP-22 (PolicyEngine/Safety types, Done on origin/EXOCOMP-73 and origin/EXOCOMP-74) and EXOCOMP-25 (ActionCatalog/Executor/SudoersPolicy, Done on origin/EXOCOMP-25). Neither prerequisite implements: disk-pressure detection, installed immutable vacuum bounds, source/path restriction, pre/post usage audit, or the eligibility gate. The current branch (epic-EXOCOMP-3) has no vacuum-specific code. I will decompose into three focused child tasks: (A) Disk-pressure evidence collector - deterministic filesystem measurement producing typed Evidence records; (B) Installed vacuum bounds and eligibility gate - immutable config limits with source restriction and cooldown/retry enforcement; (C) Vacuum action execution with pre/post audit - wires eligibility + executor + audit trail, fail-closed. Each task is independently testable in a single session.
 ---
 <!-- COMMENTS:END -->
