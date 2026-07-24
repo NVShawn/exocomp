@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T03:06:00.392151Z'
+updated_at: '2026-07-24T03:06:07.952173Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -236,5 +236,17 @@ Verification: All quality gates pass.
 - Full test suite (mix test): 55+2+45+47 = 149 tests passed; 2 pre-existing LlamaServerTest failures (/usr/bin/kill missing in Alpine container, confirmed pre-existing on base branch before my changes)
 - make lint: mix format --check-formatted passed, MIX_ENV=test mix compile --force --warnings-as-errors passed with no warnings
 Branch EXOCOMP-86 pushed to origin.
+---
+author: oompah
+created: 2026-07-24 03:06
+---
+Completion: Delivered Exocomp.Coordinator.Safety.ApprovalToken — the canonical approval-token payload struct and deterministic serialisation for EXOCOMP-23's Ed25519-signing pipeline.
+
+Files changed:
+- apps/exocomp_coordinator/lib/exocomp/coordinator/safety/approval_token.ex (new)
+- apps/exocomp_coordinator/test/exocomp/coordinator/safety/approval_token_test.exs (new, 44 tests)
+- apps/exocomp_coordinator/mix.exs (added jason dep)
+
+All acceptance criteria met: 11 @enforce_keys fields, deterministic canonical_encode/1 with lexicographic key order, sha256_hex/1, hash_params/1, hash_evidence/1, validate_schema_version/1, all tests pass, lint clean.
 ---
 <!-- COMMENTS:END -->
