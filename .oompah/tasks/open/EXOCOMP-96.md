@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: In Progress
+status: Open
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -10,9 +10,11 @@ blocked_by:
 - EXOCOMP-95
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:frontend
+- needs:feature
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:44:31.009659Z'
+updated_at: '2026-07-24T16:44:52.269983Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -208,5 +210,10 @@ author: oompah
 created: 2026-07-24 16:44
 ---
 Discovery: Repository search confirms this is exclusively backend Elixir work. Relevant code is under apps/exocomp_node/lib/exocomp/node/collectors/{systemd,disk}.ex; no PreconditionChecker or frontend/UI component exists. No files were changed. Git reports the worktree on epic-EXOCOMP-24 tracking origin/main rather than the stated EXOCOMP-96 branch, so the implementation agent should verify branch/worktree routing before committing.
+---
+author: oompah
+created: 2026-07-24 16:44
+---
+Focus handoff: frontend\n\nOutcome: Frontend review is complete; EXOCOMP-96 has no user-facing UI, accessibility, styling, or JavaScript scope, so no frontend changes are appropriate.\n\nEvidence and decisions: The implementation belongs in apps/exocomp_node/lib/exocomp/node/safety/precondition_checker.ex with tests under apps/exocomp_node/test/exocomp/node/safety/. Existing backend collectors are apps/exocomp_node/lib/exocomp/node/collectors/systemd.ex and disk.ex. Search found no existing PreconditionChecker. The worktree currently reports branch epic-EXOCOMP-24, not EXOCOMP-96.\n\nRemaining work/risks: A feature/security agent must implement injectable evidence collection, canonical hash comparison, fail-closed behavior, tests, make test/make lint, commit, push, and close the task. It must first verify the branch mismatch and ensure the coordinator/node evidence schema is byte-identical.\n\nRecommended next focus: feature (security-sensitive backend implementation).
 ---
 <!-- COMMENTS:END -->
