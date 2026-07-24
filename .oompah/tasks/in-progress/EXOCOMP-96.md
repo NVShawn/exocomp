@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:45:26.623469Z'
+updated_at: '2026-07-24T16:50:25.225647Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -239,5 +239,22 @@ author: oompah
 created: 2026-07-24 16:45
 ---
 Understanding: Test Engineer focus. I will explore the existing implementation (if any) of Exocomp.Node.Safety.PreconditionChecker and write comprehensive tests covering: (1) happy path — evidence unchanged → :ok, (2) evidence changed → {:error, :precondition_changed}, (3) collection failure → fail-closed {:error, {:collection_failed, reason}}, (4) injectable mock collectors via Application config, (5) byte-for-byte hash comparison, (6) field-order independence in canonical encoding. Will explore the relevant branches (EXOCOMP-86, EXOCOMP-95) for ApprovalToken struct and hash_evidence/1.
+---
+author: oompah
+created: 2026-07-24 16:50
+---
+Discovery: Key findings from codebase exploration:
+
+1. Exocomp.Core.ApprovalToken (EXOCOMP-95 branch) provides hash_evidence/1 using recursively sorted JSON + SHA-256. This is what both coordinator and node must use.
+
+2. No PreconditionChecker or evidence collector for preconditions exists yet — implementation needed before tests can pass.
+
+3. Canonical evidence map for hashing MUST exclude collected_at (a timestamp that changes each collection would make the hash always differ). It includes only state values: {active_state, sub_state, unit_name} for :restart_service; {available_bytes, total_bytes, path} for :vacuum_logs.
+
+4. Injectable collector pattern mirrors OsCommander from EXOCOMP-25: Application.get_env(:exocomp_node, :precondition_evidence_collector, SystemCollector). Mock module set in tests via Application.put_env.
+
+5. Token evidence_hash field can be atom or string keyed (same dual-key lookup pattern as ApprovalVerifier).
+
+Implementing PreconditionChecker + SystemCollector + tests now.
 ---
 <!-- COMMENTS:END -->
