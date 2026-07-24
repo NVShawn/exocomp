@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-27
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:37:15.129570Z'
+updated_at: '2026-07-24T18:39:27.940971Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -188,5 +188,10 @@ author: oompah
 created: 2026-07-24 18:37
 ---
 Verification: Focused remediation lifecycle suite passes (13 tests, 0 failures); all coordinator tests pass (280 tests, 0 failures); coordinator compiles with warnings-as-errors; repository format check passes. The pinned Make targets were attempted but this managed sandbox cannot start rootless Podman because /run/user/1000/libpod is read-only and user-namespace clone is denied. I ran the equivalent coordinator gates with the available host toolchain (temporarily relaxing only the local version assertion, then restoring it); full umbrella host compilation is additionally blocked by a missing Erlang public_key include. No product source workaround was retained.
+---
+author: oompah
+created: 2026-07-24 18:39
+---
+Completion: Delivered and pushed commit 7813d30 on origin/EXOCOMP-27. The coordinator now exposes a supervised typed remediation.execute A2A lifecycle with fail-closed adapter boundaries, durable audit-before-action, input-required approvals, restricted execution/verification sequencing, redacted bounded model output, correlated transition history, terminal artifacts, cancellation/timeouts, and post-action reconciliation without retry. Focused suite: 13/13 passing; coordinator suite: 280/280 passing; coordinator warnings-as-errors compile and format check pass. Branch is clean and up to date with origin.
 ---
 <!-- COMMENTS:END -->
