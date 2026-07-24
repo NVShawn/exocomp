@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-2
 type: epic
-status: In Review
+status: Merged
 priority: 1
 title: 'M2: Coordinator, discovery, and node enrollment'
 parent: null
@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-24T18:46:59.159960Z'
+updated_at: '2026-07-24T18:47:04.122262Z'
 work_branch: epic-EXOCOMP-2
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/9
@@ -54,3 +54,11 @@ Acceptance Criteria
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 18:47
+---
+YOLO: merged PR #9.
+---
+<!-- COMMENTS:END -->
