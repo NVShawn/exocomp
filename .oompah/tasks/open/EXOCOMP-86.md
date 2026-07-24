@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-86
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Define ApprovalToken struct and deterministic canonical encoding
 parent: EXOCOMP-23
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T02:36:43.435381Z'
+updated_at: '2026-07-24T02:37:16.620426Z'
 work_branch: null
 target_branch: null
 review_url: null
