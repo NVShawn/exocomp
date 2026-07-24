@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:36:25.837821Z'
+updated_at: '2026-07-24T16:36:39.355360Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -264,5 +264,20 @@ author: oompah
 created: 2026-07-24 16:36
 ---
 Completion: Delivered and pushed commit c64f176 on origin/EXOCOMP-95. The node now has a configurable fail-closed Ed25519 approval verifier with signature, eleven-field binding, and strict freshness validation, backed by shared coordinator-compatible canonical hashing/encoding and comprehensive focused tests. Working tree is clean and synchronized with origin. Required Makefile gates were attempted but blocked before execution by the managed host's read-only Podman runtime; this limitation is recorded for review CI.
+---
+author: oompah
+created: 2026-07-24 16:36
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 50
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 7m 33s
+- Log: EXOCOMP-95__20260724T162907Z.jsonl
+---
+author: oompah
+created: 2026-07-24 16:36
+---
+Implemented and pushed node-side Ed25519 approval-token verification with shared canonical encoding, configurable redacted public-key loading, all required binding/freshness checks, and focused tests. Makefile gates were attempted but could not launch due the host's read-only Podman runtime; review CI must execute them.
 ---
 <!-- COMMENTS:END -->
