@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:46:50.910170Z'
+updated_at: '2026-07-24T02:49:07.487895Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -282,5 +282,10 @@ author: oompah
 created: 2026-07-24 02:46
 ---
 Understanding: I am the Maintenance Engineer implementing EXOCOMP-84. The task requires creating Exocomp.Node.Safety.DiskPressureCollector in Elixir with unit tests. Plan: (1) explore current branch state and read Evidence/OsCommander APIs from dependency branches, (2) implement disk_pressure_collector.ex reading config at collection time, (3) write unit tests for all threshold scenarios, (4) run make test && make lint, (5) commit, push, and close.
+---
+author: oompah
+created: 2026-07-24 02:49
+---
+Discovery: Implementation files are present (disk_pressure_collector.ex, disk_pressure_collector_test.exs, mock_commander.ex). Tests run with 3 failures: (1) and (2) are pre-existing LlamaServer crash tests that fail in this container because /usr/bin/kill is not present — unrelated to our work. (3) The critical threshold boundary test fails due to integer truncation in compute_pct/2: trunc(966367641/1073741824*100) = 89 instead of 90, because div(total*90,100) truncates slightly below 90%. Fix: change trunc to round.
 ---
 <!-- COMMENTS:END -->
