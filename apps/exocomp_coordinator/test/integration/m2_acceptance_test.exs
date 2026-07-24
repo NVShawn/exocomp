@@ -31,10 +31,9 @@ defmodule Exocomp.Integration.M2AcceptanceTest do
 
   M2-CRIT-3 and M2-CRIT-4 verify the coordinator-side path: token issuance,
   one-time consumption, replay rejection, expiry, PKI bootstrap, leaf
-  certificate issuance from a CSR, and private-key non-retention. The node-agent
-  enrollment client, atomic credential installer, and renewal scheduler
-  (EXOCOMP-17) are not yet implemented; end-to-end enrollment handshake tests
-  (node calls coordinator enrollment endpoint) cannot run until EXOCOMP-17 lands.
+  certificate issuance from a CSR, and private-key non-retention. EXOCOMP-107
+  supplies the node-agent enrollment client, atomic credential installer, and
+  renewal scheduler with focused tests under `apps/exocomp_node/test`.
 
   ## Running
 

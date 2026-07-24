@@ -27,7 +27,8 @@ defmodule Exocomp.Node.MixProject do
       {:exocomp_core, in_umbrella: true},
       {:jason, "~> 1.4"},
       {:bandit, "~> 1.0"},
-      {:plug, "~> 1.17"}
+      {:plug, "~> 1.17"},
+      {:x509, "~> 0.9.2"}
     ]
   end
 end
