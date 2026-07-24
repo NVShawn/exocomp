@@ -9,6 +9,7 @@ children:
 - EXOCOMP-95
 - EXOCOMP-96
 - EXOCOMP-97
+- EXOCOMP-98
 blocked_by:
 - EXOCOMP-17
 - EXOCOMP-23
@@ -16,7 +17,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-24T03:13:25.038571Z'
+updated_at: '2026-07-24T03:14:05.554729Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
