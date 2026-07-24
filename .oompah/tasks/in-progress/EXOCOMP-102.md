@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T16:57:48.627849Z'
+updated_at: '2026-07-24T17:09:07.601207Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -108,5 +108,10 @@ author: oompah
 created: 2026-07-24 16:57
 ---
 Understanding: Implementing coordinator diagnostic cancellation propagation. Plan: (1) Read existing Orchestrator, GoalStore, DiagnosticClient, NodeOutcome code; (2) Add idempotent cancel/2 API to Orchestrator that atomically marks cancellation, stops undispatched nodes, attempts A2A cancel for active nodes, records per-node cancelled/completed/cancel-failed outcomes, and handles races with completion; (3) Add focused tests covering: cancel before dispatch, cancel during fan-out, unsupported downstream cancel, partial cancel failure, repeated cancel, completion/cancel race. Building on EXOCOMP-99 (DiagnosticClient.cancel), EXOCOMP-100 (GoalStore.cancel), and EXOCOMP-101 (Orchestrator fan-out).
+---
+author: oompah
+created: 2026-07-24 17:09
+---
+Discovery: All prerequisites are in place. GoalStore.cancel/2 (EXOCOMP-100) atomically marks goals :canceled. DiagnosticClient.cancel/3 (EXOCOMP-99) sends A2A cancel and normalizes :unsupported_operation/:task_not_cancelable errors. Orchestrator (EXOCOMP-101) has fan-out/lifecycle machinery.\n\nKey design decisions:\n1. Track downstream A2A task IDs by having the worker task send {:node_dispatched, goal_id, node_id, task_id} to the orchestrator after send() succeeds — stored in new downstream_task_ids field.\n2. Add :cancel_failed to NodeOutcome terminal states (issue explicitly requires it for unsupported/failed cancel).\n3. Orchestrator.cancel/2 calls GoalStore.cancel atomically, then kills in-flight workers, attempts A2A cancel for known downstream tasks, records per-node outcomes.\n4. Idempotency: GoalStore.cancel returns :not_cancelable for terminal goals; we return {:ok, goal} in that case.\n5. Race safety: GenServer serializes handle_call({:cancel}) and handle_info({ref, result}) — no concurrent races within the process.
 ---
 <!-- COMMENTS:END -->
