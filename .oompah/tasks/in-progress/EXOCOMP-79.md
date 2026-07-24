@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:17:41.094112Z'
+updated_at: '2026-07-24T01:17:52.469015Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -200,5 +200,18 @@ author: oompah
 created: 2026-07-24 01:17
 ---
 Verification: Re-read EXOCOMP-79 and parent EXOCOMP-12 in the tracker, confirmed EXOCOMP-12 already owns the four-part decomposition and EXOCOMP-79 has no children, reviewed plans/milestone-1-node-agent.md task-history requirements, inspected the current source tree, and verified git has no local changes. No test run was applicable because this Epic Planner pass made no code changes.
+---
+author: oompah
+created: 2026-07-24 01:17
+---
+Focus handoff: epic_planner
+
+Outcome: EXOCOMP-79 should remain a single implementation task; no children were created. The parent epic EXOCOMP-12 already provides the correct decomposition, and EXOCOMP-79 is the bounded TaskRegistry slice.
+
+Evidence and decisions: EXOCOMP-79 already specifies TaskRegistry configuration, API, lifecycle transition table, worker cancellation, TTL/count eviction, supervision wiring, focused ExUnit coverage, and the mix test apps/exocomp_node quality gate. EXOCOMP-12 lists EXOCOMP-79 alongside separate router, skill-handler, and endpoint-wiring children. plans/milestone-1-node-agent.md confirms the same bounded-history and cancellation boundary.
+
+Remaining work and risks: Implement the GenServer and tests. Before coding, ensure the implementation worktree actually contains the A2A structs from EXOCOMP-48; this planner checkout is epic-EXOCOMP-12 at origin/main, not the stated EXOCOMP-79 branch, and apps/exocomp_core/lib/exocomp/a2a is absent here. Preserve the specified active-task non-eviction invariant and clarify capacity behavior through tests.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
