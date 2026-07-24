@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-24T16:30:50.434463Z'
+updated_at: '2026-07-24T16:32:27.588866Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -117,5 +117,10 @@ author: oompah
 created: 2026-07-24 16:30
 ---
 Understanding: Implementing the coordinator orchestrator for bounded diagnostic fan-out. Plan: (1) verify EXOCOMP-99 DiagnosticClient and EXOCOMP-100 GoalStore are present, (2) read plans/milestone-2-coordinator.md and existing orchestration code, (3) implement orchestrator with bounded concurrency, overall/per-node deadlines, idempotent dispatch, explicit per-node aggregation, and lifecycle persistence through GoalStore, (4) add tests for three-node success, partial failure, unavailable node, timeout, concurrency limits, and late-result handling.
+---
+author: oompah
+created: 2026-07-24 16:32
+---
+Discovery: Merged EXOCOMP-99 (DiagnosticClient + ClientError + Codec + Transport + HTTPTransport + DiagnosticGoal + NodeOutcome) and EXOCOMP-100 (GoalStore with idempotency, eviction, caps, downstream_key/2) into this branch. Key implementation points: (1) Orchestrator must be a GenServer using Task.Supervisor for bounded fan-out; (2) HealthPoller is the structural template for bounded concurrency with per-task isolation; (3) GoalStore.accept/4 → transition(:dispatching) → transition(:running) → per-node put_node_outcome → transition(:completed/:failed) is the lifecycle path; (4) downstream_key/2 gives stable idempotency per (goal_id, node_id) pair; (5) DiagnosticClient.send + get_task are the dispatch primitives; (6) A2A Task terminal states are :completed, :failed, :canceled. Will implement Orchestrator GenServer + focused tests.
 ---
 <!-- COMMENTS:END -->
