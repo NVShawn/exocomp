@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:03:56.800990Z'
+updated_at: '2026-07-24T02:04:08.185013Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -570,5 +570,10 @@ author: oompah
 created: 2026-07-24 02:03
 ---
 Focus: Refactoring Specialist
+---
+author: oompah
+created: 2026-07-24 02:04
+---
+Understanding (Refactoring Specialist): EXOCOMP-81 is feature work that replaces router stubs with new A2A endpoint behavior. The refactor focus forbids behavior changes, so I will verify the current repository/task state and baseline tests, identify exact integration points, make no source changes, and hand off to the feature focus with concrete evidence.
 ---
 <!-- COMMENTS:END -->
