@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-10
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement Linux and systemd diagnostic collectors
 parent: EXOCOMP-1
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-23T21:17:02.437883Z'
+updated_at: '2026-07-24T03:26:22.852423Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
