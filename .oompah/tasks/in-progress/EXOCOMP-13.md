@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:31:53.134952Z'
+updated_at: '2026-07-24T02:32:07.302931Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -139,5 +139,10 @@ author: oompah
 created: 2026-07-24 02:31
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-07-24 02:32
+---
+Understanding: I will verify every M1-CRIT item with a hermetic Linux integration fixture that exercises the built release, test certificates, a fake/pinned llama.cpp boundary, discovery, diagnostics, proposal failure, lifecycle/concurrency, graceful shutdown, and before/after host-state invariance. I will follow existing test patterns and run focused coverage plus make build, test, lint, and fmt-check.
 ---
 <!-- COMMENTS:END -->
