@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-103
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Audit every correlated diagnostic task transition
 parent: EXOCOMP-18
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T15:52:16.661830Z'
-work_branch: null
+updated_at: '2026-07-24T17:34:30.289323Z'
+work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 6b8162d0-8851-419d-b993-dc5be794aa7c
+oompah.work_branch: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -28,3 +30,16 @@ Integrate orchestration with the durable EXOCOMP-14 audit sink. Emit structured 
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 17:34
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 17:34
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
