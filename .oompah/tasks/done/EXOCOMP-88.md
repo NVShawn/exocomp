@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:18:08.330604Z'
+updated_at: '2026-07-24T03:18:20.881585Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: b38c5125-1d98-463c-91df-021324387e5d
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 40
-  total_output_tokens: 8957
+  total_input_tokens: 94
+  total_output_tokens: 33575
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 40
-      output_tokens: 8957
+      input_tokens: 94
+      output_tokens: 33575
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 4031
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:07:57.066106+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 54
+    output_tokens: 24618
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T03:18:18.604004+00:00'
 ---
 ## Summary
 
@@ -266,5 +272,20 @@ author: oompah
 created: 2026-07-24 03:18
 ---
 Implemented Exocomp.Coordinator.Resolver GenServer: injectable dual-stack DNS resolver, deterministic normalization/dedup, candidate_addresses storage in Registry, structured Audit events for success/failure, 11 ExUnit tests with fake resolvers. All tests and lint gates pass.
+---
+author: oompah
+created: 2026-07-24 03:18
+---
+Agent completed successfully in 606s (24672 tokens)
+---
+author: oompah
+created: 2026-07-24 03:18
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 93, Tool calls: 64
+- Tokens: 54 in / 24.6K out [24.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 10m 6s
+- Log: EXOCOMP-88__20260724T030815Z.jsonl
 ---
 <!-- COMMENTS:END -->
