@@ -1,11 +1,12 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: In Progress
+status: Backlog
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
-children: []
+children:
+- EXOCOMP-86
 blocked_by:
 - EXOCOMP-16
 - EXOCOMP-21
@@ -13,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T02:36:04.042967Z'
+updated_at: '2026-07-24T02:36:45.596862Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null

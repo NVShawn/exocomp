@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-3
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: 'M3: Safety validation and controlled remediation'
 parent: null
@@ -19,7 +19,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-07-24T02:32:55.976598Z'
+updated_at: '2026-07-24T02:36:46.247402Z'
 work_branch: null
 target_branch: null
 review_url: null

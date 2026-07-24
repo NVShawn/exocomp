@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-15
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement DNS discovery and concurrent node polling
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T02:36:29.044957Z'
+updated_at: '2026-07-24T02:36:39.539921Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -23,13 +23,13 @@ merged_at: null
 oompah.agent_run_id: 02951b64-03e9-44a6-8cc8-5d318dec46d2
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 424952
-  total_output_tokens: 3708
+  total_input_tokens: 753297
+  total_output_tokens: 5501
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 424952
-      output_tokens: 3708
+      input_tokens: 753297
+      output_tokens: 5501
       cost_usd: 0.0
   runs:
   - profile: default
@@ -44,6 +44,12 @@ oompah.task_costs:
     output_tokens: 3004
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:35:17.033832+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 328345
+    output_tokens: 1793
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:36:36.602541+00:00'
 ---
 ## Summary
 
@@ -167,5 +173,25 @@ Evidence: Repository search found the authoritative scope in plans/milestone-2-c
 Relevant files/decisions: plans/milestone-2-coordinator.md sections Inventory and Discovery / Node State; apps/exocomp_coordinator is the implementation surface supplied by EXOCOMP-14. Preserve hostname as identity context, never depend on reverse DNS, and keep slow/unreachable nodes isolated through bounded concurrent work and per-node timeout.
 
 Remaining work/risks: Implement DNS resolution/address-change validation, independent mTLS identity checks, jittered concurrent Agent Card/health polling, registry states/timestamps, exponential backoff/recovery, and focused coverage for multiple addresses, identity mismatch, slow/stale/unreachable nodes, concurrency, and recovery. Verify the branch contains the EXOCOMP-14 foundation before coding. Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 02:36
+---
+Agent completed successfully in 63s (330138 tokens)
+---
+author: oompah
+created: 2026-07-24 02:36
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 9
+- Tokens: 328.3K in / 1.8K out [330.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 3s
+- Log: EXOCOMP-15__20260724T023535Z.jsonl
+---
+author: oompah
+created: 2026-07-24 02:36
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
