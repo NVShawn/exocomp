@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-12
 - EXOCOMP-14
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T02:35:34.620270Z'
+updated_at: '2026-07-24T02:36:29.044957Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -152,5 +154,18 @@ author: oompah
 created: 2026-07-24 02:35
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 02:36
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed. EXOCOMP-15 uniquely owns DNS discovery and concurrent coordinator polling; implementation must continue under a feature focus.
+
+Evidence: Repository search found the authoritative scope in plans/milestone-2-coordinator.md: configured hostname resolution, no reverse-DNS trust, address adoption only after resolution plus mTLS verification, and 30-second jittered polling with bounded concurrency, timeouts, state transitions, and backoff. The checkout has no .oompah/tasks directory, so candidate details/comments were verified through tracker views. EXOCOMP-14 is complementary foundation only (inventory, ETS registry, audit, health scaffolding), and its completed implementation contains no DNS resolver or polling loop. EXOCOMP-16 is coordinator PKI initialization/enrollment tokens and explicitly records EXOCOMP-15 as separate DNS discovery/polling work. Prior screening also reviewed EXOCOMP-17 through EXOCOMP-20: enrollment/renewal, diagnostic orchestration, cluster A2A service, and milestone verification respectively; none owns this behavior.
+
+Relevant files/decisions: plans/milestone-2-coordinator.md sections Inventory and Discovery / Node State; apps/exocomp_coordinator is the implementation surface supplied by EXOCOMP-14. Preserve hostname as identity context, never depend on reverse DNS, and keep slow/unreachable nodes isolated through bounded concurrent work and per-node timeout.
+
+Remaining work/risks: Implement DNS resolution/address-change validation, independent mTLS identity checks, jittered concurrent Agent Card/health polling, registry states/timestamps, exponential backoff/recovery, and focused coverage for multiple addresses, identity mismatch, slow/stale/unreachable nodes, concurrency, and recovery. Verify the branch contains the EXOCOMP-14 foundation before coding. Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->

@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:33:59.601690Z'
+updated_at: '2026-07-24T02:36:22.126466Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -172,5 +172,17 @@ author: oompah
 created: 2026-07-24 02:33
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-24 02:36
+---
+Understanding: EXOCOMP-84 is a concrete, leaf-level implementation task — not an epic requiring decomposition. It requires implementing a single Elixir module (DiskPressureCollector) with unit tests. As Epic Planner, my role is to confirm scope and facilitate the right specialist.
+
+Explored the key dependency branches:
+- EXOCOMP-73/EXOCOMP-74: Evidence struct (evidence.ex) — SHA-256 integrity_hash over canonical serialisation, all fields required, string→string values map.
+- EXOCOMP-25: OsCommander behaviour (os_commander.ex) + SystemCommander — injectable, no shell, exact argv list, timeout enforcement.
+- epic-EXOCOMP-3: M3 working branch — basic scaffolding, does not yet have safety/ directory or os_commander.ex merged in.
+
+The task is self-contained and completable in a single feature-agent session. No child tasks are needed.
 ---
 <!-- COMMENTS:END -->
