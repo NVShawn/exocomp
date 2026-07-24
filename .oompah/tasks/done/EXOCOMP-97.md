@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-97
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement durable replay ledger with write-ahead semantics, concurrent serialization,
   and restart reconciliation
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:24:34.322156Z'
+updated_at: '2026-07-24T16:25:28.583068Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -286,5 +286,10 @@ author: oompah
 created: 2026-07-24 16:24
 ---
 Verification: Focused ReplayLedger tests pass (10/10). The full make test command, executed with the repository's exact pinned builder image after the local docker CLI was blocked by sandbox permissions on /run/user/1000/libpod, passed: bench 55, core 68, coordinator 1, node 220 with 10 excluded; both releases assembled and smoke-tested. The exact make lint command also passed formatting and warnings-as-errors compilation. Direct make test/make lint invocation itself cannot enter the container due that host runtime-directory permission, not a code failure.
+---
+author: oompah
+created: 2026-07-24 16:25
+---
+Completion: Delivered and pushed commit 882e6d3 on origin/EXOCOMP-97. ReplayLedger now provides durable synced claims/completions, restart reconciliation, duplicate serialization and result waiting, fail-closed DETS handling, application supervision, production/non-production path configuration, and 10 focused tests. Full suite/release smoke gate and lint equivalent both passed in the pinned builder image. The branch is up to date with origin; only pre-existing unrelated EXOCOMP-95 approval-token files remain untracked in the shared worktree.
 ---
 <!-- COMMENTS:END -->
