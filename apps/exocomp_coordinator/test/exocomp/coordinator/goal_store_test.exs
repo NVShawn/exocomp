@@ -495,6 +495,7 @@ defmodule Exocomp.Coordinator.GoalStoreTest do
     test "completing a goal frees an active slot" do
       store = start_store(max_active: 1, max_history: 10)
       g1 = accept!(store, "slot-1")
+
       assert {:error, :at_capacity} =
                GoalStore.accept("slot-2", "exocomp.cluster.diagnose", %{}, store)
 

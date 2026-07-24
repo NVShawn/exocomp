@@ -13,7 +13,11 @@ defmodule Exocomp.Coordinator.Application do
       {Exocomp.Coordinator.Resolver, Application.get_env(:exocomp_coordinator, :resolver, [])},
       {Task.Supervisor, name: Exocomp.Coordinator.PollTaskSupervisor},
       {Exocomp.Coordinator.HealthPoller,
-       Application.get_env(:exocomp_coordinator, :health_poller, [])}
+       Application.get_env(:exocomp_coordinator, :health_poller, [])},
+      {Exocomp.Coordinator.GoalStore, Application.get_env(:exocomp_coordinator, :goal_store, [])},
+      {Task.Supervisor, name: Exocomp.Coordinator.DiagTaskSupervisor},
+      {Exocomp.Coordinator.Orchestrator,
+       Application.get_env(:exocomp_coordinator, :orchestrator, [])}
     ]
 
     Supervisor.start_link(children,
