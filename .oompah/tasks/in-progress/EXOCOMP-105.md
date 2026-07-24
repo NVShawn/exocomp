@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T18:11:09.944268Z'
+updated_at: '2026-07-24T18:12:23.952349Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -118,5 +118,26 @@ author: oompah
 created: 2026-07-24 18:11
 ---
 Understanding: This is the Test Engineer focus for EXOCOMP-105. I need to add a focused multi-node integration suite for the coordinator diagnostic orchestrator. The scope includes: at least 3 deterministic node fixtures, duplicate submissions, healthy+failed/slow nodes with per-node results, timeouts, cancellation propagation, bounded history/task eviction and output, coordinator restart loss/reconstruction with safe resubmission, correlated durable audit redaction, unavailable audit sink behavior, EXOCOMP-19 contract readiness verification, and absence of remediation executor path. I will start by exploring the codebase to understand the existing structure and then write the integration tests.
+---
+author: oompah
+created: 2026-07-24 18:12
+---
+Discovery: The codebase has a well-structured test suite for the coordinator orchestrator. Key existing files:
+
+- orchestrator_test.exs: Covers core fan-out, timeouts, concurrency, cancellation, idempotency
+- orchestrator_audit_test.exs: Covers event ordering, redaction, sink failures, health signal
+- goal_store_test.exs: Covers bounds, eviction, deduplication, output truncation
+- multi_node_discovery_polling_test.exs: Covers Registry+HealthPoller with 3+ node fixtures
+
+Remaining gaps to fill for EXOCOMP-105:
+1. Coordinator restart: GoalStore loses goals (volatile), callers receive :not_found, safe resubmission with same caller_key creates fresh goal and gets new goal_id
+2. Bounded output overflow (output_truncated) verified through orchestrator layer
+3. EXOCOMP-19 contract: orchestrator contract struct (no remediation paths, skills limited to diagnostic, no executor path reachable)
+4. Unavailable audit sink behavior (partially covered, need to verify diagnostic read availability via GoalStore)
+5. Multi-node integration test combining all scenarios end-to-end
+
+I will create a new test file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_orchestration_integration_test.exs
+
+It will cover: restart loss/reconstruction, safe resubmission, bounded history eviction in orchestrator flow, output bounds, EXOCOMP-19 contract verification, no remediation path.
 ---
 <!-- COMMENTS:END -->
