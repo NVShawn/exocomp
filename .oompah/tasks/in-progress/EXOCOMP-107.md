@@ -11,16 +11,15 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:security
-- needs:feature
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:24:56.857395Z'
+updated_at: '2026-07-24T22:25:01.983716Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 841f1307-4e83-4d6d-a3f6-80c18e397c0c
+oompah.agent_run_id: 2424075e-1d8b-48f3-b740-88d39c4e0da6
 oompah.task_costs:
   total_input_tokens: 1393578
   total_output_tokens: 9304
@@ -165,5 +164,15 @@ author: oompah
 created: 2026-07-24 22:24
 ---
 Focus handoff from `security` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 22:25
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 22:25
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
