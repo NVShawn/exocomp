@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
@@ -11,16 +11,15 @@ blocked_by:
 - EXOCOMP-21
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T02:30:55.820225Z'
+updated_at: '2026-07-24T02:31:08.294891Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: a24369b8-5e26-4588-a07e-2d4c1cc12528
+oompah.agent_run_id: 72a088f9-90a9-4536-b1a2-471efc78288e
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 18
@@ -144,5 +143,15 @@ author: oompah
 created: 2026-07-24 02:30
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 02:31
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 02:31
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
