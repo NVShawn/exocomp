@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T17:34:40.398536Z'
+updated_at: '2026-07-24T17:35:43.886673Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -46,5 +46,10 @@ author: oompah
 created: 2026-07-24 17:34
 ---
 Understanding: Screening EXOCOMP-103 for duplication before any implementation. I will search existing tasks and project docs for correlated diagnostic audit/event-sink work, inspect plausible task descriptions and comments in full, then either archive as duplicate or hand off with evidence.
+---
+author: oompah
+created: 2026-07-24 17:35
+---
+Discovery: No confirmed duplicate. Full tracker-state search found the closest tasks are EXOCOMP-14, EXOCOMP-90, EXOCOMP-104, EXOCOMP-105, and parent EXOCOMP-18. EXOCOMP-14 implements the generic durable JSON-lines audit sink, recursive redaction, outage degradation, and retry; it deliberately leaves orchestration-specific events to EXOCOMP-18. EXOCOMP-90 audits poll/registry transitions only. EXOCOMP-104 consumes bounded audit context for restart reconstruction, while EXOCOMP-105 verifies the integrated behavior. EXOCOMP-103 is the intentionally decomposed child uniquely responsible for emitting ordered, correlated events for every diagnostic-orchestrator lifecycle transition.
 ---
 <!-- COMMENTS:END -->
