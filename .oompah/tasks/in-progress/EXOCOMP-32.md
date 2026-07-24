@@ -13,7 +13,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T18:56:05.168769Z'
+updated_at: '2026-07-24T18:56:52.538878Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -66,5 +66,10 @@ author: oompah
 created: 2026-07-24 18:56
 ---
 Understanding: Screening EXOCOMP-32 for duplication before any implementation. I will search existing tasks and design docs for approval-gated active/degraded recovery, inspect the full state/comments of plausible candidates, then archive only if the same underlying work is already tracked; otherwise I will record a duplicate-detector handoff and label the focus complete.
+---
+author: oompah
+created: 2026-07-24 18:56
+---
+Discovery: Duplicate screening found no duplicate. The closest reviewed tasks are EXOCOMP-27 (generic remediation/A2A lifecycle), EXOCOMP-30 (recovery state machine), EXOCOMP-23/24/98 (approval issuance, node verification, replay gate), EXOCOMP-31 (automatic failed-service recovery), and EXOCOMP-33 (fault/idempotency tests). They provide prerequisites or sibling flows, but none owns the service-specific active/degraded path that presents exact impact/evidence, waits for an operator decision, accepts only a currently bound approval, refreshes service evidence immediately before execution, and re-diagnoses/escalates if the service becomes healthy/failed or evidence otherwise changes.
 ---
 <!-- COMMENTS:END -->
