@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T02:33:03.784941Z'
+updated_at: '2026-07-24T02:33:15.368903Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -20,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 304dc270-7184-4769-bff0-6462f5e389b8
 oompah.work_branch: epic-EXOCOMP-2
+oompah.task_costs:
+  total_input_tokens: 36
+  total_output_tokens: 704
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 36
+      output_tokens: 704
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 36
+    output_tokens: 704
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:33:14.132059+00:00'
 ---
 ## Summary
 
@@ -80,5 +96,15 @@ Discovery: No duplicate confirmed. All sibling tasks reviewed with full detail:
 - EXOCOMP-20 (Open): M2 milestone verification only
 
 EXOCOMP-15 uniquely owns: (1) DNS resolver GenServer resolving configured hostnames, (2) address change adoption on successful re-verification, (3) mTLS identity verification independent of reverse DNS, (4) health poller with 30s interval + jitter + bounded concurrency + per-node timeouts + exponential backoff + failure state machine, (5) tests for DNS changes, multiple addresses, wrong identity, slow/stale/unreachable nodes, concurrent polling, backoff, and recovery. No other task covers these concerns.
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 18
+- Tokens: 36 in / 704 out [740 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 44s
+- Log: EXOCOMP-15__20260724T023133Z.jsonl
 ---
 <!-- COMMENTS:END -->
