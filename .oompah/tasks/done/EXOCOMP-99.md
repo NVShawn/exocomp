@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-99
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement coordinator diagnostic A2A client adapter
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-07-24T16:19:06.106921Z'
+updated_at: '2026-07-24T16:19:38.822670Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -207,5 +207,18 @@ author: oompah
 created: 2026-07-24 16:19
 ---
 Implementation: Added the coordinator A2A diagnostic boundary with send/get-task/cancel, strict allowlisting of system/service diagnostics, registry-based verified address plus hostname/certificate identity context, A2A 1.0 headers/version checks, typed response decoding, normalized errors, and an injectable transport. Added an :httpc mTLS transport and deterministic tests for creation, terminal artifacts, timeouts, malformed responses, version errors, cancellation supported/unsupported, and remediation rejection. During final review I corrected the real transport to use the configured hostname for SNI while independently verifying the registry certificate identity, and normalized nested timeout reasons.
+---
+author: oompah
+created: 2026-07-24 16:19
+---
+Implementation: Committed and pushed coordinator-side A2A 1.0 diagnostic client adapter (3 commits on EXOCOMP-99 branch):
+
+1. Core implementation: DiagnosticClient (send/get_task/cancel with version negotiation, per-request timeouts, diagnostic-only guard), ClientError (normalized error struct), Codec (encode_diagnostic/decode_task with artifact parts), Transport behaviour, HTTPTransport (:httpc with mTLS), DiagnosticGoal and NodeOutcome structs. Updated mix.exs with :inets/:ssl/:public_key and jason dep.
+
+2. Unit tests with FakeTransport: 11 tests covering successful task creation (registry identity wired through), terminal artifact results, timeout, malformed JSON/task, cancel supported/unsupported, version negotiation failure, response version mismatch, unknown/unverified nodes. Plus HTTPTransport mTLS credential validation test.
+
+3. Format fix: HTTPTransport verify_fun identity verification (SPIFFE URIs via uri_id, DNS hostnames via dns_id) and broadened timeout_reason? detection formatted per mix format.
+
+All quality gates pass: make lint (format-check + compile --warnings-as-errors), make test (103 coordinator + 425 total, 10 excluded, both releases build and smoke-test).
 ---
 <!-- COMMENTS:END -->
