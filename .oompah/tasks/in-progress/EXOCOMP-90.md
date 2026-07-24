@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T03:33:09.242542Z'
+updated_at: '2026-07-24T03:44:05.111742Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -120,5 +120,10 @@ author: oompah
 created: 2026-07-24 03:33
 ---
 Discovery: Registry already stores the required fields but initializes next_eligible_poll_at to nil and only exposes unrestricted map updates; NodeProber already returns :healthy, :degraded, :timeout, :unreachable, and :identity_mismatch outcomes. The compatible seam is to add ordered poll-attempt and observation APIs to Registry, retain NodeProber address adoption, derive failure reachability from last-success freshness, and emit state-transition audits through the existing recursively redacting Audit service.
+---
+author: oompah
+created: 2026-07-24 03:44
+---
+Implementation: Registry now assigns deterministic jittered initial schedules, exposes ordered due_nodes/begin_poll/record_observation APIs, tracks attempt/success timestamps and failure counts, applies capped exponential backoff, maps failure freshness at 60-second degraded and 5-minute stale thresholds, resets on recovery, and ignores obsolete attempt tokens. State transitions emit minimal redacted audit attributes. NodeProber accepts an optional attempt token so typed outcomes and verified addresses are committed atomically while preserving its legacy direct-call behavior. Added table-driven Registry coverage for scheduling bounds, all states/transitions, timestamps, repeated failures/cap/recovery, stale results, and audit secrecy.
 ---
 <!-- COMMENTS:END -->
