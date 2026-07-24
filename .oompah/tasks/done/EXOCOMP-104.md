@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-104
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Recover coordinator live state after volatile restart
 parent: EXOCOMP-18
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:08:35.930961Z'
+updated_at: '2026-07-24T18:08:49.851540Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -165,5 +165,24 @@ Implementation: Added docs/coordinator-restart-recovery.md with the following se
 Also updated docs/README.md to list the new document.
 
 All 201 tests pass (10 excluded). All defaults and test names verified against source code.
+---
+author: oompah
+created: 2026-07-24 18:08
+---
+Focus handoff: docs
+
+Outcome: Documentation complete. Added docs/coordinator-restart-recovery.md — a comprehensive operator and developer reference for volatile restart behavior, covering the full reconstruction sequence, permanent losses, safe resubmission, operator-visible degraded states, limits, and the audit trail boundary. Updated docs/README.md to include the new document. All 201 tests pass.
+
+Relevant files and decisions:
+- docs/coordinator-restart-recovery.md (new)
+- docs/README.md (updated Contents section)
+- All module docstrings and test names in the document verified against live source files
+- Defaults in limits table verified against @default_* module attributes
+- Config key names verified against GenServer init opts
+
+Remaining work/risks:
+- The feature implementation (EXOCOMP-103 foundations + coordinator reconstruction code) and restart-focused tests described in the issue description are not yet implemented. The docs written here accurately describe the EXISTING partial behavior (Registry reconstruct, HealthPoller orphan recovery) and the MISSING behavior (GoalStore and Orchestrator are volatile with no reconstruction). The test focus should add targeted restart-scenario tests per the issue's acceptance criteria.
+
+Recommended next focus: feature (to implement GoalStore/Orchestrator post-restart query via deterministic keys and node A2A re-query) and test (to add restart-focused test coverage per the issue description).
 ---
 <!-- COMMENTS:END -->
