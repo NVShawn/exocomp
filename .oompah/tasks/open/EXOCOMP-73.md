@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-73
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement PolicyContext and eligibility-filter pipeline
 parent: EXOCOMP-22
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T22:50:44.926199Z'
-updated_at: '2026-07-23T22:51:22.015480Z'
+updated_at: '2026-07-24T00:48:29.098310Z'
 work_branch: null
 target_branch: null
 review_url: null

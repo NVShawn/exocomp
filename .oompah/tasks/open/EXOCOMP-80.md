@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-80
 type: task
-status: Backlog
+status: Open
 priority: null
 title: 'Skill handler implementations: system.diagnose, service.diagnose, remediation.propose'
 parent: EXOCOMP-12
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-23T23:04:55.080769Z'
+updated_at: '2026-07-24T00:48:32.654279Z'
 work_branch: null
 target_branch: null
 review_url: null

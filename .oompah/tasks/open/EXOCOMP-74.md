@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-74
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement PolicyEngine risk-ordered selection and comprehensive policy tests
 parent: EXOCOMP-22
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-23T22:51:18.330783Z'
+updated_at: '2026-07-24T00:48:29.986008Z'
 work_branch: null
 target_branch: null
 review_url: null

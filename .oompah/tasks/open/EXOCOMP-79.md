@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-23T23:04:29.432001Z'
+updated_at: '2026-07-24T00:48:31.786560Z'
 work_branch: null
 target_branch: null
 review_url: null
