@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:32:46.024178Z'
+updated_at: '2026-07-24T01:32:48.472289Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -173,5 +173,10 @@ Acceptance criteria satisfied:
 ✅ Single-use across restarts (consumed state persisted to mode-0600 JSON file)
 ✅ Stored protected (mode-0700 dir, mode-0600 file, atomic rename, fail-closed on corrupt)
 ✅ Secret-free in observable output (format_status/1 redacts digests; audit has only node_id/result/correlation; tokens never logged; error structs never contain token values)
+---
+author: oompah
+created: 2026-07-24 01:32
+---
+Implemented durable node-bound enrollment token service: inventory-bound issuance, 600s default lifetime (shorter configurable), 256-bit entropy opaque tokens, digest-only storage, constant-time consumption, atomic single-use enforcement, durable protected persistence (0700/0600), fail-closed on corrupt storage, pruning, injected seams, full audit/log/crash-report redaction. 61 focused tests pass. make test/lint/fmt-check all green.
 ---
 <!-- COMMENTS:END -->
