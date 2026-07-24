@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-104
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Recover coordinator live state after volatile restart
 parent: EXOCOMP-18
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T15:52:17.552578Z'
-work_branch: null
+updated_at: '2026-07-24T18:01:03.198947Z'
+work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 0de413a2-94de-44dd-8eec-45e1126f65cf
+oompah.work_branch: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -28,3 +30,16 @@ Implement startup reconstruction without a database: reload inventory/registry s
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 18:01
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:01
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

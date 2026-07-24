@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T18:00:43.819112Z'
+updated_at: '2026-07-24T18:00:56.729217Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 828ca41c-01f5-4f7b-bfa8-3d026c8adbbd
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 516517
-  total_output_tokens: 3204
+  total_input_tokens: 516581
+  total_output_tokens: 59969
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 516517
-      output_tokens: 3204
+      input_tokens: 516581
+      output_tokens: 59969
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 3204
     cost_usd: 0.0
     recorded_at: '2026-07-24T17:36:06.236135+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 64
+    output_tokens: 56765
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T18:00:53.927782+00:00'
 ---
 ## Summary
 
@@ -202,5 +208,20 @@ author: oompah
 created: 2026-07-24 18:00
 ---
 Instrumented orchestrator and goal store with structured, correlated audit events for every diagnostic lifecycle transition. All events carry the goal.id as correlation_id, params are recursively redacted, audit failures are non-fatal. 17 new focused tests cover ordering, redaction, write failures, degraded health signaling, recovery, cancellation, timeouts, and eviction.
+---
+author: oompah
+created: 2026-07-24 18:00
+---
+Agent completed successfully in 1478s (56829 tokens)
+---
+author: oompah
+created: 2026-07-24 18:00
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 119, Tool calls: 73
+- Tokens: 64 in / 56.8K out [56.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 24m 38s
+- Log: EXOCOMP-103__20260724T173619Z.jsonl
 ---
 <!-- COMMENTS:END -->
