@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: Open
+status: In Progress
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-95
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:43:16.761332Z'
+updated_at: '2026-07-24T16:43:33.009997Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: fdca66ab-8034-4ddb-8506-426c76e5a7ce
+oompah.agent_run_id: caa3abb1-a75d-43c1-8e05-a89ef19f7127
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 23
@@ -189,5 +188,15 @@ author: oompah
 created: 2026-07-24 16:43
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 16:43
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 16:43
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
