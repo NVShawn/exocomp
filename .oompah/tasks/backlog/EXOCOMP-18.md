@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-18
 type: feature
-status: In Progress
+status: Backlog
 priority: 1
 title: Implement coordinator diagnostic task orchestration and audit
 parent: EXOCOMP-2
@@ -18,9 +18,10 @@ blocked_by:
 - EXOCOMP-15
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:31.642631Z'
-updated_at: '2026-07-24T04:30:48.101183Z'
+updated_at: '2026-07-24T04:31:03.544593Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -175,5 +176,18 @@ author: oompah
 created: 2026-07-24 04:30
 ---
 Verification: Re-read EXOCOMP-18 and confirmed all seven children are attached in Backlog; tracker accepted every dependency edge (101<-99/100, 102<-101, 103<-102, 104<-103, 105<-104). Coverage maps to every stated implementation/testing item and acceptance criterion, including explicit per-node failures, duplicate suppression, bounds/eviction, cancellation, restart-safe resubmission documentation, correlated redacted audit, sink outage, and affected Make gates. No repository files were changed in this planning-only focus, so code quality gates were not applicable.
+---
+author: oompah
+created: 2026-07-24 04:30
+---
+Focus handoff: epic_planner
+
+Completion outcome: EXOCOMP-18 is fully decomposed into EXOCOMP-99 through EXOCOMP-105, with independent client/state foundations and an ordered implementation/integration path. No code was changed.
+
+Evidence and decisions: plans/milestone-2-coordinator.md Coordinator Task Flow, A2A Interface, Audit, and M2-CRIT-5/6 define the split. EXOCOMP-99 and EXOCOMP-100 may run in parallel; dependencies then serialize EXOCOMP-101 -> 102 -> 103 -> 104 -> 105. The final child owns the complete focused matrix and make test/lint/fmt-check gates.
+
+Risks and remaining work: the current epic checkout is behind completed EXOCOMP-14/15 branches and contains only the coordinator supervisor, so child branches must include those foundations before implementation. Preserve the EXOCOMP-19-facing orchestrator API, deterministic restart-safe idempotency, explicit uncertainty after volatile loss, and the audit-outage diagnostic availability policy. Existing untracked coordinator tmp fixtures were observed and left untouched.
+
+Recommended next focus: feature agents should execute ready children EXOCOMP-99 and EXOCOMP-100; keep the parent epic in Backlog until all children complete.
 ---
 <!-- COMMENTS:END -->
