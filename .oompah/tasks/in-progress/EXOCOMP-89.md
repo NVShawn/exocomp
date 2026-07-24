@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:23:16.767848Z'
+updated_at: '2026-07-24T03:31:14.199899Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -123,5 +123,10 @@ author: oompah
 created: 2026-07-24 03:23
 ---
 Discovery: The NodeProber module (EXOCOMP-89's feature) has not yet been implemented. Latest commit is EXOCOMP-88 (DNS Resolver). I will implement both the NodeProber module and its comprehensive test suite. Key files: apps/exocomp_coordinator/lib/exocomp/coordinator/ (Registry, Audit, Inventory.Node), test patterns from resolver_test.exs and audit_test.exs. Design: NodeProber uses injectable probe_fn (like Resolver's resolver_fn) so tests avoid real network. Outcomes: :healthy/:degraded/:timeout/:unreachable/:identity_mismatch. Identity mismatch halts probing immediately. Registry.addresses updated only on success; preserved on all failures.
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Implementation: Added NodeProber module (apps/exocomp_coordinator/lib/exocomp/coordinator/node_prober.ex) and test suite (test/exocomp/coordinator/node_prober_test.exs). Key design decisions: (1) Injectable probe_fn following the Resolver pattern — tests inject a fake transport, production uses real mTLS client. (2) Identity mismatch halts the entire probe immediately and is not retried on other candidates. (3) Registry.addresses updated only when verified_addresses is non-empty; all failures preserve previous value. (4) Health status field determines :healthy vs :degraded outcome. (5) Audit events emitted for all outcomes including error_details for mismatch. (6) Audit/Registry unavailability (process exit) is caught and never propagates to callers.
 ---
 <!-- COMMENTS:END -->
