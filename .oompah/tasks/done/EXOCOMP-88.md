@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:18:05.712989Z'
+updated_at: '2026-07-24T03:18:08.330604Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -261,5 +261,10 @@ author: oompah
 created: 2026-07-24 03:18
 ---
 Completion: Delivered Exocomp.Coordinator.Resolver — a supervised, dependency-injectable DNS resolver GenServer. Reads hostnames from Inventory, resolves IPv4+IPv6 forward-only, normalizes+deduplicates deterministically, stores as candidate_addresses in Registry (never touches Registry.addresses), and emits structured :dns_resolved/:dns_resolution_failed Audit events. 11 focused ExUnit tests with fake resolver fns cover all required scenarios. EXOCOMP-14 foundation cherry-picked onto epic-EXOCOMP-15. Pushed to origin/epic-EXOCOMP-15.
+---
+author: oompah
+created: 2026-07-24 03:18
+---
+Implemented Exocomp.Coordinator.Resolver GenServer: injectable dual-stack DNS resolver, deterministic normalization/dedup, candidate_addresses storage in Registry, structured Audit events for success/failure, 11 ExUnit tests with fake resolvers. All tests and lint gates pass.
 ---
 <!-- COMMENTS:END -->
