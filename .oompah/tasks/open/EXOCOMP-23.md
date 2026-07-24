@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T02:32:49.352611Z'
+updated_at: '2026-07-24T02:33:07.873865Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -163,5 +163,25 @@ author: oompah
 created: 2026-07-24 02:32
 ---
 Discovery: EXOCOMP-23 currently has no children. The design fixes an Ed25519, canonically encoded envelope with version/nonce, task+correlation IDs, node, action+parameter hash, evidence hash, timestamps, and operator; issuance must reject unknown/user-data-deletion actions. The prerequisite PKI branch stores 32-byte Ed25519 keys in EXOCOMP-specific PEM-like files under the online-state path, while coordinator Audit already redacts token/key/digest fields and fails closed. A clean decomposition is: shared deterministic token contract/crypto; coordinator issuance policy/key integration; then local approve/deny command and audit integration.
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Agent completed successfully in 120s
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 18
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 0s
+- Log: EXOCOMP-23__20260724T023108Z.jsonl
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-3`. Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
 ---
 <!-- COMMENTS:END -->

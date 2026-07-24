@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-83
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Make LlamaServer crash tests portable in Alpine builder
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:30:29.171036Z'
+updated_at: '2026-07-24T02:33:09.879540Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -123,5 +123,15 @@ author: oompah
 created: 2026-07-24 02:30
 ---
 Discovery: apps/exocomp_node/test/exocomp/node/llama_server_test.exs:61 hard-codes System.cmd("/usr/bin/kill", ...). The helper is exercised by two behavioral crash tests covering restart/recovery and supervisor isolation. The pinned make test target runs these inside Alpine 3.24.1, where PATH-based BusyBox kill is available but /usr/bin/kill is not.
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 25
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 19s
+- Log: EXOCOMP-83__20260724T022954Z.jsonl
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-84
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement disk-pressure evidence collector
 parent: EXOCOMP-26
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:31:02.853201Z'
+updated_at: '2026-07-24T02:33:12.306233Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 045acadc-6887-448b-bf03-b347ef1b1d12
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 28
-  total_output_tokens: 5234
+  total_input_tokens: 70
+  total_output_tokens: 6053
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 28
-      output_tokens: 5234
+      input_tokens: 70
+      output_tokens: 6053
       cost_usd: 0.0
   runs:
   - profile: default
@@ -35,6 +35,12 @@ oompah.task_costs:
     output_tokens: 5234
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:30:43.299534+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 42
+    output_tokens: 819
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:33:11.054606+00:00'
 ---
 ## Summary
 
@@ -146,5 +152,15 @@ author: oompah
 created: 2026-07-24 02:30
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 20
+- Tokens: 42 in / 819 out [861 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 14s
+- Log: EXOCOMP-84__20260724T023102Z.jsonl
 ---
 <!-- COMMENTS:END -->
