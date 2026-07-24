@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-92
 type: task
-status: Done
+status: Merged
 priority: 1
 title: Add multi-node discovery and polling integration coverage
 parent: EXOCOMP-15
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T04:22:46.456096Z'
+updated_at: '2026-07-24T19:41:04.052741Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
