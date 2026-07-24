@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:50:25.225647Z'
+updated_at: '2026-07-24T16:56:48.232387Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -256,5 +256,25 @@ Discovery: Key findings from codebase exploration:
 5. Token evidence_hash field can be atom or string keyed (same dual-key lookup pattern as ApprovalVerifier).
 
 Implementing PreconditionChecker + SystemCollector + tests now.
+---
+author: oompah
+created: 2026-07-24 16:56
+---
+Implementation: Created two modules in a single file:
+
+1. Exocomp.Node.Safety.PreconditionChecker (apps/exocomp_node/lib/exocomp/node/safety/precondition_checker.ex)
+   - Defines @callback collect/2 behaviour for evidence collectors
+   - verify/3: collect fresh evidence → hash with ApprovalToken.hash_evidence/1 → byte-for-byte compare with token.evidence_hash
+   - Fails closed on collection failure: {:error, {:collection_failed, reason}}
+   - Injectable collector via Application.get_env(:exocomp_node, :precondition_evidence_collector, SystemCollector)
+   - Accepts atom-keyed or string-keyed token maps for evidence_hash
+
+2. Exocomp.Node.Safety.PreconditionChecker.SystemCollector
+   - :restart_service → systemctl show --property=ActiveState,SubState (argv-only, no shell)
+   - :vacuum_logs → df -Pk path (argv-only, no shell)
+   - Canonical evidence maps: string keys, integer bytes, no collected_at timestamp in hash
+   - OS cmd runner injectable via :precondition_cmd_runner Application config
+
+Key design decision: collected_at excluded from hashed evidence map — a changing timestamp would cause permanent hash mismatch between coordinator (approval time) and node (execution time). Only state values are hashed.
 ---
 <!-- COMMENTS:END -->
