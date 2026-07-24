@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T02:31:22.089084Z'
+updated_at: '2026-07-24T02:32:49.352611Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-07-24 02:31
 ---
 Understanding: planning EXOCOMP-23 as an epic for signed, task-bound approval issuance. I will inspect the existing children and Milestone 3 approval design, then create only missing single-session child tasks covering canonical payload/signing, coordinator operator commands and audit/refusal behavior, and focused verification, with dependencies reflecting implementation order. No product code will be changed in this focus.
+---
+author: oompah
+created: 2026-07-24 02:32
+---
+Discovery: EXOCOMP-23 currently has no children. The design fixes an Ed25519, canonically encoded envelope with version/nonce, task+correlation IDs, node, action+parameter hash, evidence hash, timestamps, and operator; issuance must reject unknown/user-data-deletion actions. The prerequisite PKI branch stores 32-byte Ed25519 keys in EXOCOMP-specific PEM-like files under the online-state path, while coordinator Audit already redacts token/key/digest fields and fails closed. A clean decomposition is: shared deterministic token contract/crypto; coordinator issuance policy/key integration; then local approve/deny command and audit integration.
 ---
 <!-- COMMENTS:END -->
