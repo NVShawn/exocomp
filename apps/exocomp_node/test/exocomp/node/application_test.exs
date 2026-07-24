@@ -5,5 +5,6 @@ defmodule Exocomp.Node.ApplicationTest do
     assert Mix.env() == :test
     assert {:ok, _applications} = Application.ensure_all_started(:exocomp_node)
     assert is_pid(Process.whereis(Exocomp.Node.Supervisor))
+    assert is_pid(Process.whereis(Exocomp.Node.TaskRegistry))
   end
 end
