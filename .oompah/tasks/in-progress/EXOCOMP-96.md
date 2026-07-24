@@ -8,10 +8,12 @@ parent: EXOCOMP-24
 children: []
 blocked_by:
 - EXOCOMP-95
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:42:42.686373Z'
+updated_at: '2026-07-24T16:43:02.472545Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -128,5 +130,28 @@ Full task records reviewed:
 Codebase search: no precondition_checker.ex or PreconditionChecker file found anywhere. No node-side evidence collection + hash comparison code exists. The existing collectors in apps/exocomp_node/lib/exocomp/node/collectors/ (systemd.ex, disk.ex) are relevant infrastructure for the implementation.
 
 EXOCOMP-96 scope is unique: collect fresh systemd/disk evidence at execution time, hash with ApprovalToken.hash_evidence/1, compare byte-for-byte with token.evidence_hash, fail closed on collection failure.
+---
+author: oompah
+created: 2026-07-24 16:42
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed. EXOCOMP-96 is the deliberately decomposed precondition re-check child of EXOCOMP-24 and should proceed to implementation.
+
+Evidence and decisions: Searched all git refs and repository docs/plans for PreconditionChecker, precondition_checker, evidence_hash, precondition re-check, and evidence collection language. Full task records reviewed: EXOCOMP-24 (parent epic), EXOCOMP-95 (node verifier — Done), EXOCOMP-97 (replay ledger — Done), EXOCOMP-98 (integration gate — Open, depends on EXOCOMP-96), EXOCOMP-23 (coordinator issuance — Done), EXOCOMP-86 (ApprovalToken struct — Done, origin/EXOCOMP-86). None cover the same ground. No PreconditionChecker implementation exists anywhere in the codebase.
+
+Relevant files for the feature agent:
+- apps/exocomp_node/lib/exocomp/node/collectors/systemd.ex — systemd collector (for :restart_service evidence: active_state, sub_state)
+- apps/exocomp_node/lib/exocomp/node/collectors/disk.ex — disk collector (for :vacuum_logs evidence: available_bytes, total_bytes)
+- origin/EXOCOMP-86 — ApprovalToken struct with hash_evidence/1
+- origin/EXOCOMP-95 — ApprovalVerifier and Exocomp.Core.ApprovalToken shared canonical encoding (commit c64f176)
+- origin/EXOCOMP-97 — ReplayLedger (commit 882e6d3)
+- origin/EXOCOMP-21 — Evidence type definitions
+- origin/EXOCOMP-25 — Injectable OsCommander pattern (reference for injectable evidence collector)
+- plans/milestone-3-safety-validation.md — precondition/evidence design
+
+Remaining work: implement Exocomp.Node.Safety.PreconditionChecker with injectable evidence collectors for :restart_service and :vacuum_logs, verify/3 API, and focused tests per the spec. Prerequisites branches (EXOCOMP-86, EXOCOMP-21, EXOCOMP-25, EXOCOMP-95) must be merged/inspected before implementation. The canonical evidence map field names must match what the coordinator used in hash_evidence/1 — coordinate with origin/EXOCOMP-95's Exocomp.Core.ApprovalToken.
+
+Recommended next focus: feature (security-sensitive).
 ---
 <!-- COMMENTS:END -->
