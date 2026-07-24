@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T18:49:58.938515Z'
+updated_at: '2026-07-24T18:51:42.787383Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -159,5 +159,15 @@ author: oompah
 created: 2026-07-24 18:49
 ---
 Understanding: I will verify M2 with a deterministic disposable coordinator and 3+ local node fixtures, covering inventory/DNS/polling, enrollment and renewal failures, cluster diagnostics including partial failure/cancellation, durable audit and restart reconstruction, and proof that no remediation path runs. I will follow the M1 acceptance-test pattern, record M2-CRIT-1..8 evidence, and run all affected Make targets.
+---
+author: oompah
+created: 2026-07-24 18:51
+---
+Discovery: The checked-out managed worktree is clean at epic-EXOCOMP-2/a8f2e25, but the prerequisite implementation is not actually integrated. Current coordinator code only contains EXOCOMP-19's A2A surface; Inventory/Registry/Resolver/HealthPoller/Orchestrator/Audit/PKI/enrollment modules are absent. Those discovery/orchestration modules exist only on epic-EXOCOMP-18 (e32a175), PKI exists separately on epic-EXOCOMP-16 (9afb6f8) plus EXOCOMP-87 (1f3c323), and EXOCOMP-17's recorded history shows only the CSR-issuer child—no node enrollment client, atomic credential store, enrollment endpoint, renewal endpoint, or renewal scheduler. Therefore a truthful end-to-end M2 acceptance suite cannot yet compile or pass on this branch.
+---
+author: oompah
+created: 2026-07-24 18:51
+---
+Verification: M2 acceptance execution is blocked before test implementation. Repository inspection confirms no apps/exocomp_coordinator test can exercise inventory/DNS/polling/orchestration/audit/PKI on current HEAD because their production modules are absent, and no node enrollment/renewal implementation exists anywhere in EXOCOMP-17's integrated history. Existing M1 and EXOCOMP-19 tests are not substitute evidence for M2-CRIT-1..8. No files were changed and no misleading passing gate result is claimed.
 ---
 <!-- COMMENTS:END -->
