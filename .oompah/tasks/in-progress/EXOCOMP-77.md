@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T01:51:29.080646Z'
+updated_at: '2026-07-24T01:51:43.046035Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -260,5 +260,18 @@ author: oompah
 created: 2026-07-24 01:51
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 01:51
+---
+Understanding: Software Engineer focus for EXOCOMP-77. Taking over from security/chore agents who completed security hardening (69 coordinator tests passing). My scope is the remaining feature integration:
+1. Extend application.ex supervision tree to validate PKI state before starting services
+2. Create Mix task (mix exocomp.coordinator.init) with stable output: offline backup path, root fingerprint, no private key printing, distinct outcomes for new/already/invalid states
+3. Wire EXOCOMP-17 enrollment issue/consume boundary with module contract documentation
+4. Add integration tests: clean init+start, idempotent rerun, missing/corrupt/insecure material failure, token issue/consume, restart replay rejection, audit outage fail-closed, redaction
+5. Assert no root private key retained online
+6. Run fmt-check, build, test, lint
+
+Starting by reading the current application.ex, bootstrap.ex, and enrollment_token.ex to understand the existing API surface.
 ---
 <!-- COMMENTS:END -->
