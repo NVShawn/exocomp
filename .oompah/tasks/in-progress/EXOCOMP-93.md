@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:50:21.235712Z'
-updated_at: '2026-07-24T03:09:11.506174Z'
+updated_at: '2026-07-24T03:10:00.485069Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -163,5 +163,10 @@ author: oompah
 created: 2026-07-24 03:09
 ---
 Implementation: Rebased epic-EXOCOMP-1 onto origin/main through all 10 epic commits. Resolved conflicts by preserving the newer main/rootless-container behavior, retaining the epic's combined listener/LlamaServer/TaskRegistry supervision and dependency lock entries, and keeping EXOCOMP-83's portable System.cmd kill invocation. Rebase completed successfully; no new source commit was added beyond rewritten epic commits.
+---
+author: oompah
+created: 2026-07-24 03:10
+---
+Verification: Rebase topology checks pass: origin/main is an ancestor, HEAD is exactly 10 epic commits ahead, worktree is clean, no conflict markers remain, and the old-tip-to-new-tip delta is only EXOCOMP-83's portable kill-path change. make test could not start because this environment's Docker/Podman wrapper cannot chmod /run/user/1000/libpod on a read-only filesystem. Available non-container gates passed: make test-fixture-service (22 passed), make test-installer (50 passed), and git diff --check on the rebase-introduced delta.
 ---
 <!-- COMMENTS:END -->
