@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:02:52.645770Z'
+updated_at: '2026-07-24T18:03:02.148271Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -113,5 +113,10 @@ author: oompah
 created: 2026-07-24 18:02
 ---
 Focus: Technical Writer
+---
+author: oompah
+created: 2026-07-24 18:03
+---
+Understanding: I am the Technical Writer focus for EXOCOMP-104. My job is to document the volatile restart recovery feature in docs/. Based on previous handoff comments, the feature involves: (1) startup reconstruction without a database by reloading inventory/registry ETS state; (2) re-querying node A2A task state using deterministic idempotency keys; (3) explicitly reporting unavailable volatile coordinator history; (4) safe idempotent resubmission. I will explore the codebase to find what has been implemented, then write docs covering volatile restart behavior, idempotent resubmission, limits, and operator-visible degraded states.
 ---
 <!-- COMMENTS:END -->
