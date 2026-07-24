@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:47:00.264105Z'
+updated_at: '2026-07-24T02:47:10.739696Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -239,5 +239,10 @@ author: oompah
 created: 2026-07-24 02:47
 ---
 Understanding: Continuing existing commit b69685f, I will review its M1 acceptance fixture/evidence and Alpine kill-path fix, run make build/test/lint/fmt-check, clean generated artifacts, push EXOCOMP-13, and close the task.
+---
+author: oompah
+created: 2026-07-24 02:47
+---
+Discovery: HEAD b69685f already contains the focused deliverable: a live Bandit mTLS acceptance suite in apps/exocomp_node/test/integration/m1_acceptance_test.exs covering discovery, diagnostics, proposal failure isolation, lifecycle, concurrency, shutdown, and host-state invariance, plus an Alpine-portable llama-server crash-test kill path. Removed one untracked local container-storage config artifact before verification.
 ---
 <!-- COMMENTS:END -->
