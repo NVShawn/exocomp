@@ -1,7 +1,20 @@
 defmodule Exocomp.Coordinator.Application do
-  @moduledoc false
+  @moduledoc """
+  Starts coordinator services.
+
+  Normal startup launches the full M2 supervision tree: Audit, Registry,
+  Inventory, Resolver, HealthPoller, GoalStore, Orchestrator, and TaskRegistry.
+  PKI validation is gated by the `:require_pki` application config (default
+  true; set to false in test environment).
+
+  Integration tests that exercise PKI and enrollment call
+  `start_supervised_tree/1` directly to start a named, isolated sub-tree with
+  configurable process names and real PKI state.
+  """
 
   use Application
+
+  alias Exocomp.Coordinator.PKI.Bootstrap
 
   @impl true
   def start(_type, _args) do
@@ -25,5 +38,83 @@ defmodule Exocomp.Coordinator.Application do
       strategy: :one_for_one,
       name: Exocomp.Coordinator.Supervisor
     )
+  end
+
+  @doc """
+  Starts a complete coordinator supervision tree with configurable process names.
+
+  Intended for integration testing of PKI and enrollment. Production startup
+  uses the OTP `start/2` callback, which reads configuration from the
+  application environment.
+
+  Required options:
+    - `:online_state` — absolute path to the online PKI directory
+    - `:offline_backup` — absolute path to the offline root backup directory
+    - `:root_key_protection` — `{:passphrase, value}` to unlock the root key
+
+  Optional options:
+    - `:supervisor_name` — registered name for the supervisor process
+    - `:name_prefix` — atom prefix used to derive unique child process names;
+      defaults to `:supervisor_name` when not provided
+    - `:store_path` — enrollment token store directory (default: derived from
+      online_state as a sibling `enrollment-tokens` directory)
+    - `:enrollment_token_opts` — extra keyword options merged into the
+      EnrollmentToken child spec (e.g., `:inventory_fn`, `:now_fn`)
+    - `:audit_opts` — extra keyword options merged into the Audit child spec
+      (e.g., `:sink`)
+    - `:inventory_path` — path to an inventory JSON file to load at startup
+  """
+  @spec start_supervised_tree(keyword()) :: {:ok, pid()} | {:error, term()}
+  def start_supervised_tree(opts) when is_list(opts) do
+    pki_opts = [
+      online_state: Keyword.fetch!(opts, :online_state),
+      offline_backup: Keyword.fetch!(opts, :offline_backup),
+      root_key_protection: Keyword.fetch!(opts, :root_key_protection)
+    ]
+
+    case Bootstrap.initialize(pki_opts) do
+      {:ok, metadata} ->
+        sup_name = Keyword.get(opts, :supervisor_name, __MODULE__)
+        start_named_supervisor(metadata, sup_name, opts)
+
+      {:error, error} ->
+        {:error, error}
+    end
+  end
+
+  defp start_named_supervisor(metadata, sup_name, opts) do
+    prefix = Keyword.get(opts, :name_prefix, sup_name)
+
+    audit_name = :"#{prefix}_audit"
+    registry_name = :"#{prefix}_registry"
+    inventory_name = :"#{prefix}_inventory"
+    pki_state_name = :"#{prefix}_pki_state"
+    enrollment_name = :"#{prefix}_enrollment_token"
+
+    store_path =
+      Keyword.get(
+        opts,
+        :store_path,
+        Path.join(Path.dirname(metadata.online_state), "enrollment-tokens")
+      )
+
+    enrollment_token_opts =
+      [name: enrollment_name, store_path: store_path, audit_server: audit_name]
+      |> Keyword.merge(Keyword.get(opts, :enrollment_token_opts, []))
+
+    audit_opts =
+      [name: audit_name]
+      |> Keyword.merge(Keyword.get(opts, :audit_opts, []))
+
+    children = [
+      {Exocomp.Coordinator.Audit, audit_opts},
+      {Exocomp.Coordinator.PKI.State, [metadata: metadata, name: pki_state_name]},
+      {Exocomp.Coordinator.Registry, [name: registry_name]},
+      {Exocomp.Coordinator.Inventory,
+       [name: inventory_name, inventory_path: Keyword.get(opts, :inventory_path)]},
+      {Exocomp.Coordinator.EnrollmentToken, enrollment_token_opts}
+    ]
+
+    Supervisor.start_link(children, strategy: :one_for_one, name: sup_name)
   end
 end
