@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T18:12:23.952349Z'
+updated_at: '2026-07-24T18:22:10.897894Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -139,5 +139,27 @@ Remaining gaps to fill for EXOCOMP-105:
 I will create a new test file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_orchestration_integration_test.exs
 
 It will cover: restart loss/reconstruction, safe resubmission, bounded history eviction in orchestrator flow, output bounds, EXOCOMP-19 contract verification, no remediation path.
+---
+author: oompah
+created: 2026-07-24 18:22
+---
+Implementation: Created apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_orchestration_integration_test.exs with 22 new integration tests covering the full EXOCOMP-105 scope:
+
+1. Three-fixture deterministic fan-out (alpha/beta/gamma fixtures): explicit per-node success, :unreachable, and :failed outcomes
+2. Duplicate caller_key submissions: idempotency through the full orchestrator pipeline, goal_deduplicated audit event verified
+3. Healthy + failed + slow nodes: per-node explicit result assertions with artifacts
+4. Per-node timeout isolation: slow gamma killed without blocking alpha/beta
+5. Overall goal timeout: all three nodes :unreachable with goal_timeout audit event; cluster_completed follows goal_timeout
+6. Cancellation propagation: in-flight node gets A2A cancel, pending nodes marked :canceled; cancellation_requested precedes node_canceled events
+7. Bounded history/eviction: oldest terminal goal evicted, caller_key freed, resubmission creates fresh goal
+8. Bounded output: output_truncated flag set when max_output_bytes exceeded
+9. Coordinator restart loss: GoalStore volatile; pre-restart goal IDs return :not_found from fresh store
+10. Safe resubmission: same caller_key after restart creates fresh goal with new ID and different downstream keys
+11. Correlated audit redaction: api_key/token/nested.password redacted in goal_accepted and node_dispatching events; correlation_id consistent
+12. Unavailable audit sink: goal completes normally, GoalStore.get available, Audit.status healthy:false, GenServer alive, eviction runs despite sink failure
+13. EXOCOMP-19 contract: Orchestrator.run/5, GoalStore.get, Orchestrator.cancel contract-complete; :not_found for stale IDs; :at_capacity signal; complete node_outcomes map
+14. No remediation executor path: DiagnosticGoal and NodeOutcome terminal states contain no executor outcomes; GoalStore.transition rejects :remediating/:executing; orchestrator completes via FakeClient only
+
+All 22 new tests pass. make fmt-check, make lint, and make test all pass.
 ---
 <!-- COMMENTS:END -->
