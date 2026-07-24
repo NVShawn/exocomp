@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T18:57:29.736773Z'
+updated_at: '2026-07-24T18:57:40.988266Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -133,5 +133,10 @@ author: oompah
 created: 2026-07-24 18:57
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-07-24 18:57
+---
+Understanding: I am the Frontend Developer focus for EXOCOMP-32. This task implements approval-required active and degraded recovery. My role is to handle any user-facing UI components needed: displaying exact impact/evidence when a service is active/degraded, showing the approval prompt with correct context, and surfacing denial/timeout/expiry results in the UI. I will first explore the codebase to understand what UI exists (LiveView templates, Phoenix components, JS hooks) and what new UI is needed to support the approval flow.
 ---
 <!-- COMMENTS:END -->
