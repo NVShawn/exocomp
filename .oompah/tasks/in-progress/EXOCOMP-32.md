@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T18:59:40.132040Z'
+updated_at: '2026-07-24T19:00:12.573586Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -159,5 +159,29 @@ What is NOT yet implemented (needs a feature/backend agent):
 4. Evidence refresh immediately before executing a restart
 5. Invalidating approval when service state changes (healthy/failed transitions)
 6. Focused approval-flow tests: approve, deny, expiry, timeout, wrong approver/token, changed evidence, cancellation, duplicate approval
+---
+author: oompah
+created: 2026-07-24 19:00
+---
+Focus handoff: frontend
+
+Outcome: No frontend/UI work exists or is needed. This is a pure Elixir A2A backend project with no browser-facing components.
+
+Relevant files, evidence, decisions:
+- Searched entire workspace for *.html*, *.heex, *.css, *.js, *.ts, *.jsx, *.tsx, *live*.ex — found zero results.
+- The only Plug usage is JSON HTTP endpoints for A2A protocol (not browser-facing).
+- plans/milestone-4-service-recovery.md describes the full backend design with state machine, approval bindings, evidence freshness, audit trail.
+- The StateMachine (EXOCOMP-30) is complete and includes :awaiting_approval state.
+- The A2A TaskState has :input_required which should be used when service is active/degraded.
+
+Remaining work:
+1. Implement exocomp.service.recover skill that uses StateMachine to gate recovery on approval
+2. When StateMachine enters :awaiting_approval, transition the A2A task to :input_required with impact/evidence in the status message
+3. Implement approval binding: accept {:valid_approval, map()} with nonce, task_id, action_id, optional expires_at
+4. Refresh evidence immediately before executing restart; if state changed → {:deny_or_expire_or_changed, reason}
+5. Handle deny/timeout/expiry with auditable terminal escalation
+6. Tests: approve, deny, expiry, timeout, wrong approver/token, changed evidence, healthy/failed transition, cancellation, duplicate approval
+
+Recommended next focus: feature
 ---
 <!-- COMMENTS:END -->
