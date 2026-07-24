@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-107
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement node-agent enrollment client, credential installer, and renewal scheduler
   (EXOCOMP-17 gap)
@@ -11,7 +11,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T19:29:40.430811Z'
+updated_at: '2026-07-24T22:20:12.066331Z'
 work_branch: null
 target_branch: null
 review_url: null
