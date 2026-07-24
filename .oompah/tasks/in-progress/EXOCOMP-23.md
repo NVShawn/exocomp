@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
@@ -13,13 +13,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T02:33:35.907390Z'
+updated_at: '2026-07-24T02:33:52.647537Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 72a088f9-90a9-4536-b1a2-471efc78288e
+oompah.agent_run_id: 536d6cf6-48ac-4c06-9d3a-270046c16775
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 18
@@ -183,5 +183,15 @@ author: oompah
 created: 2026-07-24 02:33
 ---
 Agent completed without landing — no commits found on origin for branch `epic-EXOCOMP-3`. Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:33
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
