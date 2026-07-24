@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:28:57.050787Z'
+updated_at: '2026-07-24T20:15:58.923634Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
