@@ -21,7 +21,8 @@ defmodule Exocomp.Node.Application do
       # Per-target execution serializer — ensures at most one action runs
       # against a given service at any time.
       {ExecutorLock, name: ExecutorLock},
-      Exocomp.Node.TaskRegistry
+      Exocomp.Node.TaskRegistry,
+      Exocomp.Node.Safety.ReplayLedger
     ] ++ llama_server_children() ++ listener_children()
   end
 
