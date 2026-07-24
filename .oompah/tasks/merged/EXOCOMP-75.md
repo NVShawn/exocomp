@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-75
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement secure coordinator PKI bootstrap and state validation
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T01:05:10.215091Z'
+updated_at: '2026-07-24T19:46:33.374161Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
