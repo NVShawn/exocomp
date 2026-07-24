@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T18:10:59.872906Z'
+updated_at: '2026-07-24T18:11:09.944268Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -113,5 +113,10 @@ author: oompah
 created: 2026-07-24 18:10
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-07-24 18:11
+---
+Understanding: This is the Test Engineer focus for EXOCOMP-105. I need to add a focused multi-node integration suite for the coordinator diagnostic orchestrator. The scope includes: at least 3 deterministic node fixtures, duplicate submissions, healthy+failed/slow nodes with per-node results, timeouts, cancellation propagation, bounded history/task eviction and output, coordinator restart loss/reconstruction with safe resubmission, correlated durable audit redaction, unavailable audit sink behavior, EXOCOMP-19 contract readiness verification, and absence of remediation executor path. I will start by exploring the codebase to understand the existing structure and then write the integration tests.
 ---
 <!-- COMMENTS:END -->
