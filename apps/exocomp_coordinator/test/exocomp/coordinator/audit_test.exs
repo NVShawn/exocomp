@@ -78,6 +78,56 @@ defmodule Exocomp.Coordinator.AuditTest do
              %{"authorization" => "[REDACTED]", "safe" => 1}
   end
 
+  test "redact covers passphrase and digest fields" do
+    # These keys must never appear in audit output — verify the sensitive-key
+    # list covers them so any future audit event that accidentally includes
+    # them is scrubbed before reaching the sink.
+    assert Audit.redact(%{"passphrase" => "secret phrase"}) ==
+             %{"passphrase" => "[REDACTED]"}
+
+    assert Audit.redact(%{"digest" => "raw-digest-bytes"}) ==
+             %{"digest" => "[REDACTED]"}
+
+    assert Audit.redact(%{"stored_digest" => "raw-digest-bytes"}) ==
+             %{"stored_digest" => "[REDACTED]"}
+
+    assert Audit.redact(%{"pin" => "1234"}) == %{"pin" => "[REDACTED]"}
+
+    # Non-sensitive keys must pass through unmodified.
+    assert Audit.redact(%{"root_fingerprint" => "AA:BB"}) == %{"root_fingerprint" => "AA:BB"}
+    assert Audit.redact(%{"node_id" => "node-a"}) == %{"node_id" => "node-a"}
+  end
+
+  @tag :tmp_dir
+  test "audit log file has mode 0600 after initialization", %{tmp_dir: tmp_dir} do
+    path = Path.join(tmp_dir, "audit.jsonl")
+    _server = start_audit({JSONLines, path: path})
+    assert {:ok, %{mode: mode}} = File.stat(path)
+    assert Bitwise.band(mode, 0o777) == 0o600
+  end
+
+  @tag :tmp_dir
+  test "rotated audit log file has mode 0600", %{tmp_dir: tmp_dir} do
+    path = Path.join(tmp_dir, "rotate_perm.jsonl")
+    # max_bytes: 250 matches the existing rotation test. Each event is ~177
+    # bytes at a 40-char value, so the second write pushes past the limit.
+    server = start_audit({JSONLines, path: path, max_bytes: 250})
+
+    # First write — fills most of the 250-byte budget.
+    Audit.emit(:first, %{value: String.duplicate("x", 40)}, server: server)
+    # Second write — cumulative size exceeds 250, triggering rotation.
+    Audit.emit(:second, %{value: String.duplicate("y", 40)}, server: server)
+
+    rotated = path <> ".1"
+    assert File.exists?(rotated), "expected rotated file to exist at #{rotated}"
+    assert {:ok, %{mode: rot_mode}} = File.stat(rotated)
+    assert Bitwise.band(rot_mode, 0o777) == 0o600
+
+    # The active file after rotation must also be 0600.
+    assert {:ok, %{mode: active_mode}} = File.stat(path)
+    assert Bitwise.band(active_mode, 0o777) == 0o600
+  end
+
   defp start_audit(sink) do
     name = :"audit_test_#{System.unique_integer([:positive])}"
     start_supervised!({Audit, name: name, sink: sink})

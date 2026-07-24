@@ -12,9 +12,15 @@ defmodule Exocomp.Coordinator.Audit.JSONLines do
     path = Keyword.fetch!(opts, :path)
     max_bytes = Keyword.get(opts, :max_bytes, @default_max_bytes)
 
+    # Audit logs contain node IDs, enrollment patterns, and error codes that
+    # should be owner-readable only. Set mode 0600 on every file we open or
+    # create. A chmod failure is treated as a sink-init failure so the
+    # coordinator can signal audit degradation rather than write to an
+    # insecure file.
     with :ok <- validate_max_bytes(max_bytes),
          :ok <- File.mkdir_p(Path.dirname(path)),
          {:ok, io} <- File.open(path, [:append, :binary]),
+         :ok <- File.chmod(path, 0o600),
          {:ok, stat} <- File.stat(path) do
       {:ok, %{path: path, io: io, bytes: stat.size, max_bytes: max_bytes}}
     end
@@ -60,7 +66,16 @@ defmodule Exocomp.Coordinator.Audit.JSONLines do
     with :ok <- remove_if_present(rotated_path),
          :ok <- File.rename(state.path, rotated_path),
          {:ok, io} <- File.open(state.path, [:write, :binary]) do
-      {:ok, %{state | io: io, bytes: 0}}
+      # Apply the same 0600 restriction to the freshly-created rotation file.
+      # Close the new handle on failure to avoid leaking a file descriptor.
+      case File.chmod(state.path, 0o600) do
+        :ok ->
+          {:ok, %{state | io: io, bytes: 0}}
+
+        error ->
+          File.close(io)
+          error
+      end
     end
   end
 

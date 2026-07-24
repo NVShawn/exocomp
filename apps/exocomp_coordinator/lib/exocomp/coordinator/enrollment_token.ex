@@ -307,7 +307,8 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
   defp parse_token(@token_prefix <> rest) do
     case String.split(rest, ".", parts: 2) do
       [key_b64, secret_b64] ->
-        with {:ok, _key} <- Base.url_decode64(key_b64, padding: false),
+        with {:ok, key_bytes} <- Base.url_decode64(key_b64, padding: false),
+             true <- byte_size(key_bytes) == @key_bytes,
              {:ok, secret_bytes} <- Base.url_decode64(secret_b64, padding: false),
              true <- byte_size(secret_bytes) == @secret_bytes do
           {:ok, key_b64, secret_bytes}
@@ -433,9 +434,20 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
   end
 
   defp ensure_store_dir(path) do
-    case File.stat(path) do
-      {:ok, %{type: :directory}} ->
-        :ok
+    # Use lstat so a symlink at `path` is never mistaken for the directory
+    # itself. A symlink would show type :symlink, not :directory, and fail the
+    # pattern match below — preventing an attacker who can create a symlink
+    # from redirecting token storage to a world-readable location.
+    case File.lstat(path) do
+      {:ok, %{type: :directory, mode: mode}} ->
+        # Reject an existing directory whose permissions have been widened.
+        # An unprotected store directory exposes token digests to other local
+        # users; fail closed rather than silently writing to an insecure path.
+        if Bitwise.band(mode, 0o777) == 0o700 do
+          :ok
+        else
+          {:error, :insecure_store_directory}
+        end
 
       {:ok, _} ->
         {:error, :not_a_directory}

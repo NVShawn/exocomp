@@ -13,7 +13,11 @@ defmodule Exocomp.Coordinator.Audit do
   alias Exocomp.Coordinator.Error
 
   @redacted "[REDACTED]"
-  @sensitive_keys ~w(api_key authorization cookie credential credentials password passwd private_key secret token)
+  # Keys whose values must never appear in audit output. The check applies to
+  # exact matches and suffix matches (e.g. "stored_digest" matches "digest").
+  # Include every term that could carry key material, passphrases, or digests
+  # that identify a specific secret value.
+  @sensitive_keys ~w(api_key authorization cookie credential credentials digest passphrase password passwd pin private_key secret token)
 
   @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts) do

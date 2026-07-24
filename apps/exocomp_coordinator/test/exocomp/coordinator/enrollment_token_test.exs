@@ -698,4 +698,78 @@ defmodule Exocomp.Coordinator.EnrollmentTokenTest do
     refute Map.has_key?(status, :records)
     refute Map.has_key?(status, :digest)
   end
+
+  # ---------------------------------------------------------------------------
+  # Token format — key component length validation (defense-in-depth)
+  # ---------------------------------------------------------------------------
+
+  test "token with a truncated key component is rejected" do
+    server = start_server!(inventory_fn: inventory_ok())
+
+    # Build a token-shaped string whose key portion is only 8 bytes (too short).
+    short_key = Base.url_encode64(:crypto.strong_rand_bytes(8), padding: false)
+    valid_secret = Base.url_encode64(:crypto.strong_rand_bytes(32), padding: false)
+    crafted = "tok_" <> short_key <> "." <> valid_secret
+
+    assert {:error, %Error{code: :invalid_token_format}} =
+             EnrollmentToken.consume(crafted, @node_id, server: server)
+  end
+
+  test "token with an extended key component is rejected" do
+    server = start_server!(inventory_fn: inventory_ok())
+
+    # Build a token with a 32-byte key (expected is 16 bytes).
+    long_key = Base.url_encode64(:crypto.strong_rand_bytes(32), padding: false)
+    valid_secret = Base.url_encode64(:crypto.strong_rand_bytes(32), padding: false)
+    crafted = "tok_" <> long_key <> "." <> valid_secret
+
+    assert {:error, %Error{code: :invalid_token_format}} =
+             EnrollmentToken.consume(crafted, @node_id, server: server)
+  end
+
+  test "token with a truncated secret component is rejected" do
+    server = start_server!(inventory_fn: inventory_ok())
+
+    valid_key = Base.url_encode64(:crypto.strong_rand_bytes(16), padding: false)
+    short_secret = Base.url_encode64(:crypto.strong_rand_bytes(16), padding: false)
+    crafted = "tok_" <> valid_key <> "." <> short_secret
+
+    assert {:error, %Error{code: :invalid_token_format}} =
+             EnrollmentToken.consume(crafted, @node_id, server: server)
+  end
+
+  # ---------------------------------------------------------------------------
+  # Store directory permission enforcement
+  # ---------------------------------------------------------------------------
+
+  @tag :tmp_dir
+  test "service fails to issue when store directory has insecure permissions", %{
+    tmp_dir: tmp_dir
+  } do
+    # Pre-create the store directory with world-readable permissions.
+    # The service must refuse to use it for write operations.
+    store_path = Path.join(tmp_dir, "tokens")
+    File.mkdir_p!(store_path)
+    File.chmod!(store_path, 0o755)
+
+    server = start_server!(inventory_fn: inventory_ok(), store_path: store_path)
+
+    # Issuance must fail because persist() will refuse the insecure directory.
+    assert {:error, %Error{code: :token_storage_error}} =
+             EnrollmentToken.issue(@node_id, server: server)
+  end
+
+  @tag :tmp_dir
+  test "service remains live after a storage rejection on insecure directory", %{
+    tmp_dir: tmp_dir
+  } do
+    # Confirm the GenServer keeps running even though storage is rejected.
+    store_path = Path.join(tmp_dir, "tokens")
+    File.mkdir_p!(store_path)
+    File.chmod!(store_path, 0o755)
+
+    server = start_server!(inventory_fn: inventory_ok(), store_path: store_path)
+    assert {:error, %Error{}} = EnrollmentToken.issue(@node_id, server: server)
+    assert Process.alive?(server)
+  end
 end
