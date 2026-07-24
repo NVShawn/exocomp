@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-2
 type: epic
-status: Open
+status: In Progress
 priority: 1
 title: 'M2: Coordinator, discovery, and node enrollment'
 parent: null
@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-24T01:21:27.472506Z'
+updated_at: '2026-07-24T01:24:26.069551Z'
 work_branch: null
 target_branch: null
 review_url: null
