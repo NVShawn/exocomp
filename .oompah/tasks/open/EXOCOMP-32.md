@@ -16,7 +16,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:00:35.794152Z'
+updated_at: '2026-07-24T19:01:08.989602Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -25,13 +25,13 @@ merged_at: null
 oompah.agent_run_id: 4a96994b-4adb-4ed5-98f1-2b3e765c8918
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 458535
-  total_output_tokens: 2251
+  total_input_tokens: 458571
+  total_output_tokens: 8780
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 458535
-      output_tokens: 2251
+      input_tokens: 458571
+      output_tokens: 8780
       cost_usd: 0.0
   runs:
   - profile: default
@@ -40,6 +40,12 @@ oompah.task_costs:
     output_tokens: 2251
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:57:14.993723+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 36
+    output_tokens: 6529
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T19:01:02.802293+00:00'
 ---
 ## Summary
 
@@ -185,5 +191,25 @@ Remaining work:
 6. Tests: approve, deny, expiry, timeout, wrong approver/token, changed evidence, healthy/failed transition, cancellation, duplicate approval
 
 Recommended next focus: feature
+---
+author: oompah
+created: 2026-07-24 19:01
+---
+Agent completed successfully in 214s (6565 tokens)
+---
+author: oompah
+created: 2026-07-24 19:01
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 65, Tool calls: 55
+- Tokens: 36 in / 6.5K out [6.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 34s
+- Log: EXOCOMP-32__20260724T185729Z.jsonl
+---
+author: oompah
+created: 2026-07-24 19:01
+---
+Focus handoff from `frontend` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
