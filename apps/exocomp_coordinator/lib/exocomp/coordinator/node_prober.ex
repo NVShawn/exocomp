@@ -280,7 +280,7 @@ defmodule Exocomp.Coordinator.NodeProber do
   # Private — Registry update
   # ---------------------------------------------------------------------------
 
-  defp update_registry(node_id, %{outcome: outcome, verified_addresses: addrs}, opts)
+  defp update_registry(node_id, %{outcome: outcome, verified_addresses: addrs} = result, opts)
        when outcome in [:healthy, :degraded] and addrs != [] do
     registry = Keyword.get(opts, :registry_server, Registry)
 
@@ -289,7 +289,7 @@ defmodule Exocomp.Coordinator.NodeProber do
         Registry.record_observation(
           node_id,
           token,
-          %{outcome: outcome, verified_addresses: addrs},
+          result,
           registry
         )
 

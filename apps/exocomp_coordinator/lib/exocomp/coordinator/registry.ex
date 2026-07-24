@@ -89,6 +89,16 @@ defmodule Exocomp.Coordinator.Registry do
   end
 
   @doc """
+  Converts polls orphaned by a poller restart into typed failures.
+
+  Late worker results retain their old attempt tokens and are ignored.
+  """
+  @spec recover_in_flight(outcome(), GenServer.server()) :: non_neg_integer()
+  def recover_in_flight(outcome \\ :timeout, server \\ __MODULE__) do
+    GenServer.call(server, {:recover_in_flight, outcome})
+  end
+
+  @doc """
   Stores DNS-resolved address candidates for a node.
 
   Candidates are kept separate from `addresses`, which are only set after
@@ -226,6 +236,24 @@ defmodule Exocomp.Coordinator.Registry do
     end
   end
 
+  def handle_call({:recover_in_flight, outcome}, _from, state)
+      when outcome in @failure_outcomes do
+    current = now(state)
+
+    recovered =
+      state.table
+      |> :ets.tab2list()
+      |> Enum.map(&elem(&1, 1))
+      |> Enum.filter(&(not is_nil(&1.active_poll_token)))
+      |> Enum.map(fn entry ->
+        updated = failed_observation(entry, outcome, current, state)
+        store_and_audit(entry, updated, outcome, state)
+        entry.id
+      end)
+
+    {:reply, length(recovered), state}
+  end
+
   def handle_call({:put_candidates, node_id, candidates}, _from, state) do
     case lookup(state.table, node_id) do
       {:ok, entry} ->
@@ -281,6 +309,8 @@ defmodule Exocomp.Coordinator.Registry do
     |> Map.put(:next_eligible_poll_at, schedule(current, state.poll_interval_ms, state))
     |> Map.put(:active_poll_token, nil)
     |> maybe_adopt_addresses(result)
+    |> maybe_adopt_agent_card(result)
+    |> maybe_adopt_health(result)
   end
 
   defp failed_observation(entry, _outcome, current, state) do
@@ -340,6 +370,29 @@ defmodule Exocomp.Coordinator.Registry do
   end
 
   defp maybe_adopt_addresses(entry, _result), do: entry
+
+  defp maybe_adopt_agent_card(entry, %{agent_card: card}) when is_map(card) do
+    entry
+    |> Map.put(:agent_card_version, field(card, "version") || field(card, "protocolVersion"))
+    |> Map.put(:supported_skills, field(card, "skills") || [])
+  end
+
+  defp maybe_adopt_agent_card(entry, _result), do: entry
+
+  defp maybe_adopt_health(entry, %{health: health}) when is_map(health) do
+    Map.put(entry, :diagnostic_summary, field(health, "summary") || field(health, "reason"))
+  end
+
+  defp maybe_adopt_health(entry, _result), do: entry
+
+  defp field(map, "version"), do: Map.get(map, "version") || Map.get(map, :version)
+
+  defp field(map, "protocolVersion"),
+    do: Map.get(map, "protocolVersion") || Map.get(map, :protocolVersion)
+
+  defp field(map, "skills"), do: Map.get(map, "skills") || Map.get(map, :skills)
+  defp field(map, "summary"), do: Map.get(map, "summary") || Map.get(map, :summary)
+  defp field(map, "reason"), do: Map.get(map, "reason") || Map.get(map, :reason)
 
   defp store_and_audit(previous, updated, outcome, state) do
     :ets.insert(state.table, {updated.id, updated})

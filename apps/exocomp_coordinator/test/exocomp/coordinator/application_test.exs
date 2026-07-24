@@ -5,5 +5,7 @@ defmodule Exocomp.Coordinator.ApplicationTest do
     assert Mix.env() == :test
     assert {:ok, _applications} = Application.ensure_all_started(:exocomp_coordinator)
     assert is_pid(Process.whereis(Exocomp.Coordinator.Supervisor))
+    assert is_pid(Process.whereis(Exocomp.Coordinator.PollTaskSupervisor))
+    assert is_pid(Process.whereis(Exocomp.Coordinator.HealthPoller))
   end
 end

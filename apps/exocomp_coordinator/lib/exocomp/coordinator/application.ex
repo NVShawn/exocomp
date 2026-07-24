@@ -7,10 +7,13 @@ defmodule Exocomp.Coordinator.Application do
   def start(_type, _args) do
     children = [
       {Exocomp.Coordinator.Audit, Application.get_env(:exocomp_coordinator, :audit, [])},
-      Exocomp.Coordinator.Registry,
+      {Exocomp.Coordinator.Registry, Application.get_env(:exocomp_coordinator, :registry, [])},
       {Exocomp.Coordinator.Inventory,
        inventory_path: Application.get_env(:exocomp_coordinator, :inventory_path)},
-      {Exocomp.Coordinator.Resolver, Application.get_env(:exocomp_coordinator, :resolver, [])}
+      {Exocomp.Coordinator.Resolver, Application.get_env(:exocomp_coordinator, :resolver, [])},
+      {Task.Supervisor, name: Exocomp.Coordinator.PollTaskSupervisor},
+      {Exocomp.Coordinator.HealthPoller,
+       Application.get_env(:exocomp_coordinator, :health_poller, [])}
     ]
 
     Supervisor.start_link(children,
