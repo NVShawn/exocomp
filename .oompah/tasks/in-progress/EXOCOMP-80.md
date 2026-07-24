@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:51:31.770948Z'
+updated_at: '2026-07-24T01:52:37.946271Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -279,5 +279,10 @@ author: oompah
 created: 2026-07-24 01:51
 ---
 Implementation: Created 5 new modules and 4 test files under apps/exocomp_node: (1) Behaviour — @callback execute/2 contract; (2) SystemDiagnose — concurrent Task.async for CPU/Memory/Disk/Uptime with try/rescue wrapping inside tasks (to prevent EXIT signal propagation on partial failure), uses Task.yield_many for timeout handling; (3) ServiceDiagnose — validates service list against allowed_services config, rejects empty/disallowed with {:error, :invalid_params}; (4) RemediationPropose — delegates to configurable ProposalClient, propagates {:error, reason} unchanged; (5) Dispatcher — routes skill_id to correct handler via static map. Also merged prerequisite branches EXOCOMP-78, EXOCOMP-79, EXOCOMP-10. Key design decision: wrap collector functions in try/rescue inside each Task.async to capture exceptions as {:error, reason} values instead of crash signals, enabling proper partial-failure semantics without trapping exits in the caller.
+---
+author: oompah
+created: 2026-07-24 01:52
+---
+Verification: make test passes 171/173 tests (10 excluded for integration/systemd). The 2 failures are pre-existing LlamaServer OS-process tests from EXOCOMP-64 that require a real llama-server binary not present in CI. All 22 new skill handler tests pass: 5 SystemDiagnose tests (success, partial-failure, timeout, artifactId, DataPart structure), 7 ServiceDiagnose tests (success, empty list, disallowed service, mixed, missing key, artifactId, multiple-services), 6 RemediationPropose tests (success, timeout propagation, inference_unavailable, schema_error, artifactId, DataPart), 4 Dispatcher tests (3 known skill routes + unknown skill). Branch pushed to origin/epic-EXOCOMP-12.
 ---
 <!-- COMMENTS:END -->
