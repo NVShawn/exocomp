@@ -13,14 +13,30 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:07:59.136561Z'
+updated_at: '2026-07-24T01:08:27.572755Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 08cd3096-9e89-4241-9d8f-54dadfb534d5
+oompah.agent_run_id: 1ce4bb7b-ddd1-44d2-bbe0-3ca2a648eaa7
 oompah.work_branch: epic-EXOCOMP-2
+oompah.task_costs:
+  total_input_tokens: 159879
+  total_output_tokens: 1884
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 159879
+      output_tokens: 1884
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 159879
+    output_tokens: 1884
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T01:08:15.626836+00:00'
 ---
 ## Summary
 
@@ -68,5 +84,35 @@ Relevant files/design: plans/milestone-2-coordinator.md; apps/exocomp_coordinato
 Remaining work/risks: Implement the explicit issue/consume service, durable digest-only protected store, atomic concurrency/restart replay prevention, fail-closed corruption/availability behavior, pruning, injected seams, audit/redaction, and required focused/full quality gates. Preserve existing untracked files and ensure the implementation branch includes completed EXOCOMP-14 and EXOCOMP-75 work.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 01:08
+---
+Agent completed successfully in 95s (161763 tokens)
+---
+author: oompah
+created: 2026-07-24 01:08
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 13
+- Tokens: 159.9K in / 1.9K out [161.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 35s
+- Log: EXOCOMP-76__20260724T010656Z.jsonl
+---
+author: oompah
+created: 2026-07-24 01:08
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 01:08
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 01:08
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
