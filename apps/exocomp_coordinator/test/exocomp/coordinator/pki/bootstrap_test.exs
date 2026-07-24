@@ -99,7 +99,13 @@ defmodule Exocomp.Coordinator.PKI.BootstrapTest do
     before = tree_snapshot(options)
     assert {:ok, second} = Bootstrap.initialize(options)
 
-    assert first == second
+    # disposition correctly differs (first: :initialized, second: :already_initialized)
+    # but all public material (paths, fingerprint) must be stable across calls.
+    assert first.online_state == second.online_state
+    assert first.offline_backup == second.offline_backup
+    assert first.root_fingerprint == second.root_fingerprint
+    assert first.disposition == :initialized
+    assert second.disposition == :already_initialized
     assert tree_snapshot(options) == before
   end
 

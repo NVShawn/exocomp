@@ -22,6 +22,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
   @backup_files %{"root_ca.pem" => 0o644, "root_ca_key.pem" => 0o600, @manifest => 0o600}
 
   @type metadata :: %{
+          disposition: :initialized | :already_initialized,
           online_state: String.t(),
           offline_backup: String.t(),
           root_fingerprint: String.t()
@@ -32,8 +33,8 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     with {:ok, online, backup, passphrase} <- validate_options(options),
          {:ok, disposition} <- disposition(online, backup) do
       case disposition do
-        :new -> create(online, backup, passphrase)
-        :existing -> validate_existing(online, backup, passphrase)
+        :new -> create(online, backup, passphrase, :initialized)
+        :existing -> validate_existing(online, backup, passphrase, :already_initialized)
       end
     end
   rescue
@@ -119,7 +120,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     end
   end
 
-  defp create(online, backup, passphrase) do
+  defp create(online, backup, passphrase, disposition) do
     online_stage = stage_path(online)
     backup_stage = stage_path(backup)
 
@@ -131,7 +132,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
            {:ok, material} <- generate_material(passphrase),
            :ok <- write_new_state(online_stage, backup_stage, online, backup, material),
            :ok <- install_staged(online_stage, backup_stage, online, backup) do
-        metadata(online, backup, material.fingerprint)
+        metadata(online, backup, material.fingerprint, disposition)
       end
     after
       File.rm_rf(online_stage)
@@ -276,7 +277,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     end
   end
 
-  defp validate_existing(online, backup, passphrase) do
+  defp validate_existing(online, backup, passphrase, disposition) do
     with :ok <- validate_tree(online, @online_files),
          :ok <- validate_tree(backup, @backup_files),
          {:ok, online_manifest} <- read_manifest(online),
@@ -288,7 +289,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
          :ok <- validate_approval_key(online),
          fingerprint = fingerprint(certificates.root),
          :ok <- validate_fingerprint(online_manifest, fingerprint) do
-      metadata(online, backup, fingerprint)
+      metadata(online, backup, fingerprint, disposition)
     end
   end
 
@@ -578,8 +579,14 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     end
   end
 
-  defp metadata(online, backup, fingerprint) do
-    {:ok, %{online_state: online, offline_backup: backup, root_fingerprint: fingerprint}}
+  defp metadata(online, backup, fingerprint, disposition) do
+    {:ok,
+     %{
+       disposition: disposition,
+       online_state: online,
+       offline_backup: backup,
+       root_fingerprint: fingerprint
+     }}
   end
 
   defp invalid_state(message), do: {:error, Error.new(:invalid_pki_state, message)}

@@ -4,19 +4,21 @@ defmodule Exocomp.Coordinator.Health do
   """
 
   alias Exocomp.Coordinator.{Audit, Inventory, Registry}
+  alias Exocomp.Coordinator.PKI.State, as: PKIState
 
   @spec check() :: map()
   def check do
     inventory = safe_call(Inventory, &Inventory.status/0)
     audit = safe_call(Audit, &Audit.status/0)
+    pki = safe_call(PKIState, &PKIState.status/0)
     registry = safe_call(Registry, fn -> %{node_count: length(Registry.all())} end)
 
     status =
-      if healthy?(inventory) and healthy?(registry) and healthy_audit?(audit),
+      if healthy?(inventory) and healthy?(registry) and healthy?(pki) and healthy_audit?(audit),
         do: :healthy,
         else: :degraded
 
-    %{status: status, inventory: inventory, registry: registry, audit: audit}
+    %{status: status, inventory: inventory, registry: registry, audit: audit, pki: pki}
   end
 
   defp safe_call(process, function) do

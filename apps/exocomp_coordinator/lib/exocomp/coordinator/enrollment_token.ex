@@ -37,6 +37,14 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
   crash reports. Audit events emit only safe node ID, result, and correlation
   metadata through the EXOCOMP-14 audit abstraction.
 
+  ## EXOCOMP-17 enrollment boundary
+
+  Node enrollment calls `issue/2` followed by `consume/3` through this
+  supervised service. Issuance returns the only plaintext copy of a token;
+  consumption durably burns it before returning. Both state changes require a
+  successful audit write. This boundary deliberately does not accept CSRs,
+  issue certificates, or implement any node-side enrollment behavior.
+
   ## Injected seams (for deterministic tests)
 
   - `:now_fn` — nullary function returning current Unix seconds (integer).
@@ -60,6 +68,7 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
           | {:rand_fn, (pos_integer() -> binary())}
           | {:store_path, Path.t() | nil}
           | {:inventory_fn, (String.t() -> :ok | {:error, Error.t()})}
+          | {:audit_server, GenServer.server()}
           | {:max_lifetime, pos_integer()}
 
   @spec start_link([option()]) :: GenServer.on_start()
@@ -126,6 +135,7 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
         now_fn: Keyword.get(opts, :now_fn, &default_now/0),
         rand_fn: Keyword.get(opts, :rand_fn, &:crypto.strong_rand_bytes/1),
         inventory_fn: Keyword.get(opts, :inventory_fn, &default_inventory_check/1),
+        audit_server: Keyword.get(opts, :audit_server, Audit),
         max_lifetime: max_lifetime
       }
 
@@ -142,6 +152,7 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
   def handle_call({:issue, node_id}, _from, state) do
     case do_issue(node_id, state) do
       {:ok, token, new_state} -> {:reply, {:ok, token}, new_state}
+      {:error, error, new_state} -> {:reply, {:error, error}, new_state}
       {:error, error} -> {:reply, {:error, error}, state}
     end
   end
@@ -149,6 +160,7 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
   def handle_call({:consume, token, claimed_node_id}, _from, state) do
     case do_consume(token, claimed_node_id, state) do
       {:ok, new_state} -> {:reply, :ok, new_state}
+      {:error, error, new_state} -> {:reply, {:error, error}, new_state}
       {:error, error} -> {:reply, {:error, error}, state}
     end
   end
@@ -195,6 +207,7 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
 
   defp do_issue(node_id, state) do
     correlation_id = Audit.correlation_id()
+    audit = state.audit_server
 
     case state.inventory_fn.(node_id) do
       :ok ->
@@ -206,19 +219,22 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
 
         case persist(new_state) do
           :ok ->
-            Audit.emit(
-              :enrollment_token_issued,
-              %{node_id: node_id},
-              correlation_id: correlation_id
-            )
-
-            {:ok, token, new_state}
+            case Audit.emit(
+                   :enrollment_token_issued,
+                   %{node_id: node_id},
+                   correlation_id: correlation_id,
+                   server: audit
+                 ) do
+              :ok -> {:ok, token, new_state}
+              {:error, error} -> {:error, error, new_state}
+            end
 
           {:error, error} ->
             Audit.emit(
               :enrollment_token_issue_failed,
               %{node_id: node_id, result: :storage_error},
-              correlation_id: correlation_id
+              correlation_id: correlation_id,
+              server: audit
             )
 
             {:error, error}
@@ -228,7 +244,8 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
         Audit.emit(
           :enrollment_token_issue_failed,
           %{node_id: node_id, result: error.code},
-          correlation_id: correlation_id
+          correlation_id: correlation_id,
+          server: audit
         )
 
         {:error, error}
@@ -237,23 +254,27 @@ defmodule Exocomp.Coordinator.EnrollmentToken do
 
   defp do_consume(token, claimed_node_id, state) do
     correlation_id = Audit.correlation_id()
+    audit = state.audit_server
     now = state.now_fn.()
 
     case validate_and_consume(token, claimed_node_id, now, state) do
       {:ok, new_state} ->
-        Audit.emit(
-          :enrollment_token_consumed,
-          %{node_id: claimed_node_id, result: :ok},
-          correlation_id: correlation_id
-        )
-
-        {:ok, new_state}
+        case Audit.emit(
+               :enrollment_token_consumed,
+               %{node_id: claimed_node_id, result: :ok},
+               correlation_id: correlation_id,
+               server: audit
+             ) do
+          :ok -> {:ok, new_state}
+          {:error, error} -> {:error, error, new_state}
+        end
 
       {:error, error} ->
         Audit.emit(
           :enrollment_token_consume_failed,
           %{node_id: claimed_node_id, result: error.code},
-          correlation_id: correlation_id
+          correlation_id: correlation_id,
+          server: audit
         )
 
         {:error, error}
