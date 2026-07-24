@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-24T01:31:37.326863Z'
+updated_at: '2026-07-24T01:31:47.312773Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
