@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-20
 type: chore
-status: Done
+status: Merged
 priority: 1
 title: Verify the M2 coordinator milestone
 parent: EXOCOMP-2
@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T19:29:48.300872Z'
+updated_at: '2026-07-24T20:30:59.760538Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
