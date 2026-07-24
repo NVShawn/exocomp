@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: Done
+status: Merged
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:28:25.731482Z'
+updated_at: '2026-07-24T19:56:18.946248Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
