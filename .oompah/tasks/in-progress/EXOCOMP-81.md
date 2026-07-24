@@ -9,9 +9,11 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:56:43.014505Z'
+updated_at: '2026-07-24T01:57:05.301927Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -472,6 +474,19 @@ Comments:
     - Log: EXOCOMP-12__20260723T225822Z.jsonl shows the complete child graph: EXOCOMP-78 router/auth, EXOCOMP-79 TaskRegistry, EXOCOMP-80 skill Dispatcher/handlers, and EXOCOMP-81 wiring. The first three are Done. plans/milestone-1-node-agent.md:128-161 defines exactly the four operational endpoints and bounded lifecycle behavior. apps/exocomp_node/lib/exocomp/node/a2a_router.ex contains the corresponding stubs. Creating grandchildren would duplicate the established decomposition. Because EXOCOMP-81 is a task rather than the epic, it was not moved to Backlog; it should return to Open for feature dispatch.
 
 Remaining work and risks: Implement strict Message decoding and skill/params extraction against actual A2A structs; encode Task/artifact/error shapes with application/a2a+json; wire submit/get/list/cancel; run Dispatcher asynchronously with per-skill timeout and safe terminal transitions; preserve mTLS, version, and body-limit middleware; add all specified endpoint and lifecycle tests. Key risks are races between immediate 202 responses and fast workers, cancellation/worker registration semantics, Plug parsing of , and matching existing Dispatcher/TaskRegistry return shapes.
+
+Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 01:56
+---
+Focus handoff: epic_planner (corrected; prior handoff text was altered by shell interpolation)
+
+Outcome: EXOCOMP-81 requires no further decomposition. It is already the cohesive endpoint-integration child of EXOCOMP-12 and is sized for one feature-agent session; no child tasks or code changes were created.
+
+Evidence and decisions: The EXOCOMP-12 task view shows the complete child graph: EXOCOMP-78 router/auth, EXOCOMP-79 TaskRegistry, EXOCOMP-80 skill Dispatcher/handlers, and EXOCOMP-81 wiring. The first three are Done. The A2A section of plans/milestone-1-node-agent.md defines the four operational endpoints and bounded lifecycle behavior. apps/exocomp_node/lib/exocomp/node/a2a_router.ex contains the corresponding stubs. Creating grandchildren would duplicate the established decomposition. Because EXOCOMP-81 is a task rather than the epic, it was not moved to Backlog; it should return to Open for feature dispatch.
+
+Remaining work and risks: Implement strict Message decoding and skill/params extraction against actual A2A structs; encode Task, artifact, and error shapes with application/a2a+json; wire submit/get/list/cancel; run Dispatcher asynchronously with per-skill timeout and safe terminal transitions; preserve mTLS, version, and body-limit middleware; add all specified endpoint and lifecycle tests. Key risks are races between immediate 202 responses and fast workers, cancellation/worker registration semantics, Plug parsing of the task-cancel path, and matching existing Dispatcher/TaskRegistry return shapes.
 
 Recommended next focus: feature.
 ---
