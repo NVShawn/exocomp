@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:35:49.892128Z'
+updated_at: '2026-07-24T16:36:04.665365Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -254,5 +254,10 @@ author: oompah
 created: 2026-07-24 16:35
 ---
 Implementation: Added Exocomp.Core.ApprovalToken with the coordinator-compatible deterministic eleven-field canonical JSON contract and SHA-256 parameter/evidence helpers. Added Exocomp.Node.Safety.ApprovalVerifier with documented nested wire format, raw/base64url signature support, lazy configurable 32-byte public-key loading with redacted fail-closed errors, Ed25519 verification, all required execution bindings, and strict issued/expires checks. Added focused core and node tests covering valid tokens, bad signatures/keys, missing/malformed key files, each payload field, freshness, and node/action/parameter mismatches.
+---
+author: oompah
+created: 2026-07-24 16:36
+---
+Verification: Static review and git diff --cached --check passed. make fmt, make test, and make lint were each attempted, but none could start the pinned builder because this managed host's Podman runtime under /run/user/1000/libpod is read-only; a filesystem-sandbox fallback was blocked by disabled user namespaces. The focused tests are included but could not be executed in this session. No code/test failure was observed; this is an infrastructure limitation that review CI must validate.
 ---
 <!-- COMMENTS:END -->
