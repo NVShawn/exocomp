@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T03:51:08.972873Z'
+updated_at: '2026-07-24T03:51:23.136794Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -42,5 +42,10 @@ author: oompah
 created: 2026-07-24 03:51
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 03:51
+---
+Understanding: I am the Duplicate Investigator for EXOCOMP-91 ('Run bounded concurrent node polls with per-node isolation'). My role is to check whether this issue is a duplicate of any existing task before any implementation begins. I will search the task tracker and docs for similar topics: health polling, concurrent polls, DNS probes, per-node isolation, bounded concurrency, Registry nodes, supervisor trees.
 ---
 <!-- COMMENTS:END -->
