@@ -21,7 +21,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:31.642631Z'
-updated_at: '2026-07-24T04:31:14.240640Z'
+updated_at: '2026-07-24T15:52:21.002397Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -199,5 +199,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 2m 57s
 - Log: EXOCOMP-18__20260724T042817Z.jsonl
+---
+author: oompah
+created: 2026-07-24 15:52
+---
+YOLO decomposition follow-up: promoted generated children EXOCOMP-99 through EXOCOMP-105 from Backlog to Open after the planner completed decomposition. Dependencies remain the execution gate, so only EXOCOMP-99 and EXOCOMP-100 are now eligible to start.
 ---
 <!-- COMMENTS:END -->
