@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:28:54.743960Z'
+updated_at: '2026-07-24T18:29:45.107372Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -143,5 +143,10 @@ author: oompah
 created: 2026-07-24 18:28
 ---
 Discovery: After rebase to origin/main, the codebase has a fully-implemented node A2A service to use as a pattern. Key files: apps/exocomp_node/lib/exocomp/node/a2a_router.ex (Plug.Router with mTLS + version gating), apps/exocomp_node/lib/exocomp/node/a2a/codec.ex (encode/decode), apps/exocomp_node/lib/exocomp/node/task_registry.ex (GenServer bounded history), apps/exocomp_node/lib/exocomp/node/handlers/agent_card_handler.ex. The coordinator app (apps/exocomp_coordinator) has only application.ex and one test. The coordinator mix.exs is missing bandit, plug, and jason — the same HTTP deps the node uses, which are already in mix.lock. Maintenance work: add those deps to coordinator mix.exs. Feature work (for next agent): implement coordinator A2A router, agent card, task registry, codec, config/listener — following node patterns but exposing exocomp.cluster.health and exocomp.cluster.diagnose, and delegating to EXOCOMP-18 orchestration.
+---
+author: oompah
+created: 2026-07-24 18:29
+---
+Implementation: Added bandit, plug, and jason deps to apps/exocomp_coordinator/mix.exs and expanded extra_applications to include inets, crypto, public_key, ssl. These are required for the A2A HTTP service implementation and were already pinned in mix.lock. Committed and pushed to epic-EXOCOMP-2. The coordinator tmp/ directory (apps/exocomp_coordinator/tmp/) contains ExUnit artifacts from prior test runs (Exocomp.Coordinator.AuditTest and Exocomp.Coordinator.InventoryTest tmp dirs) suggesting those modules were implemented and tested in a parallel environment. They are preserved as untracked; the feature agent should evaluate whether to commit or .gitignore them.
 ---
 <!-- COMMENTS:END -->
