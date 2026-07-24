@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T00:48:31.786560Z'
-work_branch: null
+updated_at: '2026-07-24T00:50:49.962330Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: c4729221-d0aa-4aee-ab64-cadf80319398
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -95,3 +97,21 @@ mix test apps/exocomp_node (focused)
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 00:50
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 00:50
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 00:50
+---
+Understanding: Screening EXOCOMP-79 for duplication before any implementation. I will search task records and project docs for existing TaskRegistry/A2A lifecycle work, inspect plausible task descriptions and comments in full, then archive only if the same underlying work is already covered; otherwise I will hand off to implementation focus.
+---
+<!-- COMMENTS:END -->

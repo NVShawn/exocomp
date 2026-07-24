@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-16
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement coordinator CA initialization and enrollment tokens
 parent: EXOCOMP-2
@@ -17,7 +17,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-23T23:02:37.220553Z'
+updated_at: '2026-07-24T00:50:42.785181Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-75
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement secure coordinator PKI bootstrap and state validation
 parent: EXOCOMP-16
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T00:48:19.399857Z'
-work_branch: null
+updated_at: '2026-07-24T00:50:53.020162Z'
+work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 3705bb5c-b21b-4bb0-bb3b-28a64db6b480
+oompah.work_branch: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -28,3 +30,31 @@ Implement the cryptographic and storage foundation described in plans/milestone-
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 00:49
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 00:50
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 00:50
+---
+Understanding: I am investigating EXOCOMP-75 as a Duplicate Investigator. The issue requests implementing secure coordinator PKI bootstrap and state validation — including root CA generation, intermediate CA, leaf identity, approval-signing key (Ed25519), atomic persistence with restrictive permissions, idempotent re-initialization with chain validation, and focused tests. Before any implementation, I need to search for existing tasks covering the same ground.
+---
+author: oompah
+created: 2026-07-24 00:50
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 00:50
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
