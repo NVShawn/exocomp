@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-94
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 0
 title: Rebase epic-EXOCOMP-1 onto main
 parent: EXOCOMP-1
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T03:06:49.728224Z'
-updated_at: '2026-07-24T03:06:49.728224Z'
-work_branch: null
+updated_at: '2026-07-24T03:11:11.210207Z'
+work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 95909299-d5ff-4f35-b976-127b4f2cd110
+oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
 
@@ -29,3 +31,16 @@ This task was auto-filed because epic EXOCOMP-1 was detected as stale. Do NOT cr
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 03:11
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 03:11
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
