@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:01:55.809043Z'
+updated_at: '2026-07-24T02:02:10.804026Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -324,5 +324,10 @@ author: oompah
 created: 2026-07-24 02:01
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 02:02
+---
+Understanding: Continuing the partially implemented feature work already present in the worktree. I will preserve and review those changes, complete validated-PKI supervision, the explicit safe Mix initialization task, supervised enrollment boundary documentation/tests, run fmt-check/build/test/lint, then commit, push, and close the task.
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:01:45.723459Z'
+updated_at: '2026-07-24T02:02:12.051525Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -539,5 +539,10 @@ author: oompah
 created: 2026-07-24 02:01
 ---
 Focus: Refactoring Specialist
+---
+author: oompah
+created: 2026-07-24 02:02
+---
+Understanding: Assigned as Refactoring Specialist to EXOCOMP-81. Previous specialist agents were terminated before completing. This task is feature work (wiring A2A endpoints to TaskRegistry and skill dispatch), not refactoring. I will explore the current codebase thoroughly to establish what code exists and what needs to be built, then hand off with precise implementation details to the feature agent so work can finally proceed.
 ---
 <!-- COMMENTS:END -->
