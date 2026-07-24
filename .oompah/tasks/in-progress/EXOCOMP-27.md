@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:27:00.611820Z'
+updated_at: '2026-07-24T18:35:56.780529Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -173,5 +173,15 @@ author: oompah
 created: 2026-07-24 18:27
 ---
 Understanding: Implement the coordinator-side remediation integration that accepts only typed proposals, refreshes and validates evidence, applies policy and approval gates, enforces durable intent audit before any mutation, executes through the restricted node interface, verifies outcomes, and records redacted/correlated A2A history and terminal artifacts. I will first map the existing M2 A2A and M3 safety components, then add focused lifecycle/adversarial tests and run affected Make targets.
+---
+author: oompah
+created: 2026-07-24 18:35
+---
+Discovery: The prerequisite branches were not present in this stale epic worktree, so I integrated the completed M2 coordinator audit/orchestration and M3 policy, approval-gate/executor, and vacuum-evidence branches first. The clean integration boundary is coordinator-side: a public typed remediation skill/lifecycle calls a trusted adapter for proposal validation, fresh evidence, deterministic policy, restricted execution, and verification; the adapter does not expose command/executable/path primitives. Existing Coordinator.Audit provides durable redacted correlated events, and A2A Task supports input_required/history/artifacts.
+---
+author: oompah
+created: 2026-07-24 18:35
+---
+Implementation: Added RemediationLifecycle plus a narrow RemediationAdapter behavior and fail-closed default. The lifecycle creates correlated A2A tasks, records every state transition in history, validates proposals, refreshes evidence, applies allow/deny/input-required approval decisions, requires durable remediation_intent_accepted audit before invoking mutation, verifies after execution, emits terminal artifacts, handles approval deny/timeout/cancel, records post-action audit reconciliation without retry, and redacts/bounds raw model output. Added the supervised typed remediation.execute skill without exposing executors.
 ---
 <!-- COMMENTS:END -->
