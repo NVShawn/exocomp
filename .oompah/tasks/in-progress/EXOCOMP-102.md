@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-102
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Propagate coordinator diagnostic cancellation
 parent: EXOCOMP-18
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T16:57:27.589730Z'
+updated_at: '2026-07-24T16:57:48.627849Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: a52c0abc-e8bc-4e8c-a4b4-e5349baafd1e
+oompah.agent_run_id: 886e94ea-b999-4505-a0eb-4e3a63e0f022
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 508441
@@ -93,5 +93,20 @@ author: oompah
 created: 2026-07-24 16:57
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 16:57
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 16:57
+---
+Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 16:57
+---
+Understanding: Implementing coordinator diagnostic cancellation propagation. Plan: (1) Read existing Orchestrator, GoalStore, DiagnosticClient, NodeOutcome code; (2) Add idempotent cancel/2 API to Orchestrator that atomically marks cancellation, stops undispatched nodes, attempts A2A cancel for active nodes, records per-node cancelled/completed/cancel-failed outcomes, and handles races with completion; (3) Add focused tests covering: cancel before dispatch, cancel during fan-out, unsupported downstream cancel, partial cancel failure, repeated cancel, completion/cancel race. Building on EXOCOMP-99 (DiagnosticClient.cancel), EXOCOMP-100 (GoalStore.cancel), and EXOCOMP-101 (Orchestrator fan-out).
 ---
 <!-- COMMENTS:END -->
