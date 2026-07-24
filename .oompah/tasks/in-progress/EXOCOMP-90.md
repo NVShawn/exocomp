@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T03:32:28.333447Z'
+updated_at: '2026-07-24T03:33:09.242542Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -115,5 +115,10 @@ author: oompah
 created: 2026-07-24 03:32
 ---
 Understanding: I will extend the coordinator Registry with deterministic 30-second jittered scheduling, bounded exponential backoff, explicit freshness/state mapping, ordered observation tokens that reject late callbacks, and redacted transition audit events. I will align with the existing NodeProber outcome and Audit contracts, add table-driven tests covering schedules, all states, timestamps, failure/recovery behavior, caps, and stale results, then run the focused coordinator and repository Make gates.
+---
+author: oompah
+created: 2026-07-24 03:33
+---
+Discovery: Registry already stores the required fields but initializes next_eligible_poll_at to nil and only exposes unrestricted map updates; NodeProber already returns :healthy, :degraded, :timeout, :unreachable, and :identity_mismatch outcomes. The compatible seam is to add ordered poll-attempt and observation APIs to Registry, retain NodeProber address adoption, derive failure reachability from last-success freshness, and emit state-transition audits through the existing recursively redacting Audit service.
 ---
 <!-- COMMENTS:END -->
