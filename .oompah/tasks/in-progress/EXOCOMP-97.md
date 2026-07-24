@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-97
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement durable replay ledger with write-ahead semantics, concurrent serialization,
   and restart reconciliation
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:03:57.180842Z'
+updated_at: '2026-07-24T16:09:59.219762Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 0bcef203-6f27-4999-a40a-06d4a8e72099
+oompah.agent_run_id: 0be09be3-b070-4554-892f-bfd118bb93d3
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 593203
@@ -220,5 +220,15 @@ author: oompah
 created: 2026-07-24 16:03
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 16:09
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 16:09
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
