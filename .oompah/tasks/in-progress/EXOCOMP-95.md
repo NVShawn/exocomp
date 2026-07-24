@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:29:20.496660Z'
+updated_at: '2026-07-24T16:29:54.809332Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -244,5 +244,10 @@ author: oompah
 created: 2026-07-24 16:29
 ---
 Understanding: Resuming the existing node-side approval verifier implementation. I will audit the current diff for contract/security correctness, run the Makefile test and lint gates, fix any failures, then commit, push, and close EXOCOMP-95.
+---
+author: oompah
+created: 2026-07-24 16:29
+---
+Discovery: The prior run left four focused files untracked: shared Exocomp.Core.ApprovalToken canonical/hash helpers, node ApprovalVerifier, and tests for both. The shared encoder matches origin/EXOCOMP-86's fixed eleven-field lexicographic signing contract while avoiding a coordinator dependency. The verifier uses a configurable raw 32-byte key file, redacted fail-closed key errors, Ed25519 verification, execution bindings, and strict freshness checks. I also corrected the worktree attachment from epic-EXOCOMP-24 to the existing EXOCOMP-95 branch before committing.
 ---
 <!-- COMMENTS:END -->
