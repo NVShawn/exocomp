@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-12
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Expose diagnostic-only node A2A service
 parent: EXOCOMP-1
@@ -19,7 +19,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-24T01:00:32.898506Z'
+updated_at: '2026-07-24T01:00:42.053530Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
