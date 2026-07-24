@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-98
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Integrate approval gate and implement comprehensive focused replay test suite
 parent: EXOCOMP-24
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:14:05.495739Z'
-updated_at: '2026-07-24T17:40:18.580199Z'
+updated_at: '2026-07-24T17:40:30.828419Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -240,5 +240,17 @@ All 15 required scenarios covered:
 13. sync fails after :pending write — error, nonce stays :pending, no execution
 14. Tampered signature (integration keys) — {:error, {:token_invalid, :invalid_signature}}
 15. Public key missing (real verifier) — {:error, {:token_invalid, :public_key_unavailable}}
+---
+author: oompah
+created: 2026-07-24 17:40
+---
+Completion: Exocomp.Node.Safety.ApprovalGate implemented and tested.
+
+Delivered:
+- apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex — 324-line gate module wiring ApprovalVerifier, PreconditionChecker, ReplayLedger, and Executor with full at-most-once semantics, structured audit logging (safe nonce truncation, no raw token/signature/key material), and injectable deps via keyword opts
+- apps/exocomp_node/test/exocomp/node/safety/approval_gate_test.exs — 850-line, 26-test suite covering all 15 required scenarios from the Milestone 3 test strategy, mixing unit-style isolation tests (stub modules) with integration tests (real Ed25519 keys, real DETS-backed ReplayLedger, MockCommander for OS commands)
+- apps/exocomp_node/.gitignore — excludes tmp/ test artifact directory
+
+All 6 prerequisite branches (EXOCOMP-21, 25, 86, 95, 96, 97) merged; two application.ex conflicts resolved. Branch pushed to origin/EXOCOMP-98.
 ---
 <!-- COMMENTS:END -->
