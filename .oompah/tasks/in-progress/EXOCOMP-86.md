@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T02:40:00.700737Z'
+updated_at: '2026-07-24T02:40:09.834767Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -99,5 +99,18 @@ author: oompah
 created: 2026-07-24 02:40
 ---
 Discovery: Duplicate screening found no duplicate. Tracker-state search for approval-token, canonical encoding, parameter/evidence hashes, sorted JSON, and SHA-256 map serialization matched only EXOCOMP-86 and its decomposed parent EXOCOMP-23. Full records show EXOCOMP-24 is node-side verification/replay prevention, EXOCOMP-76 is opaque enrollment-token issuance/consumption, EXOCOMP-73 is policy eligibility filtering, and EXOCOMP-84 only computes disk-pressure Evidence integrity data. Git history contains no ApprovalToken module or implementation.
+---
+author: oompah
+created: 2026-07-24 02:40
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed; EXOCOMP-86 is the unique payload-contract/serialization child of EXOCOMP-23 and should proceed to implementation.
+
+Evidence: Searched the tracker state branch and repository docs/plans for approval-token, canonical encoding, parameter_hash, evidence_hash, sorted JSON, and deterministic SHA-256 serialization. Reviewed full task records/comments for EXOCOMP-23, EXOCOMP-24, EXOCOMP-73, and EXOCOMP-76, plus EXOCOMP-84's complete nearby scope. EXOCOMP-23 is the intentionally decomposed parent; EXOCOMP-24 is the node-side verifier/replay owner; EXOCOMP-76 is a distinct opaque enrollment-token protocol; EXOCOMP-73/84 concern policy filtering and disk evidence. Git history has no ApprovalToken implementation. Relevant design is plans/milestone-3-safety-validation.md, Approval Tokens section.
+
+Remaining work/risks: Implement the 11-field enforced struct, schema-version validation, deterministic canonical_encode/1, sha256_hex/1, deterministic parameter/evidence hashing, and focused tests. Confirm the installed Jason version supports sorted-key encoding; if not, construct the canonical object/order explicitly. Run coordinator-focused tests plus make test and make lint, then commit/push/close.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
