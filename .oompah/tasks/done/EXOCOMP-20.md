@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T19:28:21.639243Z'
+updated_at: '2026-07-24T19:28:24.162033Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -262,5 +262,10 @@ M2-CRIT-7 ✓ Codec rejects exocomp.remediation.propose; GoalStore.transition re
 M2-CRIT-8 ✓ all quality gates pass
 
 EXOCOMP-17 gap documented: node-agent enrollment client and renewal scheduler not implemented; M2-CRIT-3/4 verify coordinator-side only.
+---
+author: oompah
+created: 2026-07-24 19:28
+---
+M2 coordinator milestone verified: 18 acceptance tests covering M2-CRIT-1 through M2-CRIT-8 added to apps/exocomp_coordinator/test/integration/m2_acceptance_test.exs. All 201 tests pass; make lint, make fmt-check, make build all clean. Branch epic-EXOCOMP-2 pushed.
 ---
 <!-- COMMENTS:END -->
