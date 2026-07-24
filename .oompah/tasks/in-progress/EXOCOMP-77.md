@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T00:48:21.548831Z'
+updated_at: '2026-07-24T01:33:04.787389Z'
 work_branch: null
 target_branch: null
 review_url: null

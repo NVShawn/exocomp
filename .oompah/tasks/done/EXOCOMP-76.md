@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:32:48.472289Z'
+updated_at: '2026-07-24T01:33:02.037189Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 1ce4bb7b-ddd1-44d2-bbe0-3ca2a648eaa7
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 159879
-  total_output_tokens: 1884
+  total_input_tokens: 159939
+  total_output_tokens: 76081
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 159879
-      output_tokens: 1884
+      input_tokens: 159939
+      output_tokens: 76081
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 1884
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:08:15.626836+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 60
+    output_tokens: 74197
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T01:32:59.577474+00:00'
 ---
 ## Summary
 
@@ -178,5 +184,20 @@ author: oompah
 created: 2026-07-24 01:32
 ---
 Implemented durable node-bound enrollment token service: inventory-bound issuance, 600s default lifetime (shorter configurable), 256-bit entropy opaque tokens, digest-only storage, constant-time consumption, atomic single-use enforcement, durable protected persistence (0700/0600), fail-closed on corrupt storage, pruning, injected seams, full audit/log/crash-report redaction. 61 focused tests pass. make test/lint/fmt-check all green.
+---
+author: oompah
+created: 2026-07-24 01:33
+---
+Agent completed successfully in 1473s (74257 tokens)
+---
+author: oompah
+created: 2026-07-24 01:33
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 135, Tool calls: 78
+- Tokens: 60 in / 74.2K out [74.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 24m 33s
+- Log: EXOCOMP-76__20260724T010827Z.jsonl
 ---
 <!-- COMMENTS:END -->

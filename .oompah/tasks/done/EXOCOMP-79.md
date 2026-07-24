@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:32:21.186446Z'
+updated_at: '2026-07-24T01:33:06.028489Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -254,5 +254,10 @@ author: oompah
 created: 2026-07-24 01:32
 ---
 Verification: Focused TaskRegistry + Application tests pass: 14 tests, 0 failures. mix format --check-formatted passes. MIX_ENV=test mix compile --force --warnings-as-errors passes for all umbrella apps. The broader exocomp_node suite compiled and ran 62 tests; 60 passed and the only 2 failures are existing LlamaServer tests requiring /usr/bin/kill, which is absent from the pinned Alpine builder image and unrelated to this change. git diff --check is clean.
+---
+author: oompah
+created: 2026-07-24 01:33
+---
+Completion: Delivered and pushed commit f0891d4 on origin/EXOCOMP-79 (with prerequisite A2A type merge e709b31). The supervised bounded TaskRegistry now covers submission, lookup/listing, lifecycle transitions, cancellation signaling, concurrency enforcement, and TTL/count eviction with focused tests. Focused tests: 14 passed; formatting and warnings-as-errors compilation passed. Branch is clean and up to date with origin.
 ---
 <!-- COMMENTS:END -->
