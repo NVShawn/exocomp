@@ -8,16 +8,34 @@ title: Implement node-agent enrollment client, credential installer, and renewal
 parent: null
 children: []
 blocked_by: []
-labels: []
+labels:
+- needs:feature
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:21:40.886407Z'
+updated_at: '2026-07-24T22:22:13.903201Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
 oompah.agent_run_id: 271b568f-6901-4d23-8cd8-8aca084211c3
+oompah.task_costs:
+  total_input_tokens: 799526
+  total_output_tokens: 3354
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 799526
+      output_tokens: 3354
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 799526
+    output_tokens: 3354
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T22:22:04.561964+00:00'
 ---
 ## Summary
 
@@ -50,5 +68,40 @@ author: oompah
 created: 2026-07-24 22:21
 ---
 Discovery: Duplicate screening found no confirmed duplicate. The closest task is EXOCOMP-17, whose stated umbrella scope included node enrollment/renewal, but its full history shows the planner only created/delivered EXOCOMP-87 (coordinator-only CSR validation/leaf issuance) before EXOCOMP-17 was marked Merged. EXOCOMP-20 subsequently verified and documented the exact gap and created EXOCOMP-107 as corrective follow-up. Full histories reviewed for EXOCOMP-17, EXOCOMP-20, EXOCOMP-76, EXOCOMP-77, and EXOCOMP-87: EXOCOMP-76/77 supply coordinator token/PKI boundaries and explicitly exclude node-side enrollment; EXOCOMP-87 contains no HTTP/network/node client code. Tracker-state and source searches found no separate enrollment client, atomic credential installer, or renewal scheduler. Therefore archiving EXOCOMP-107 as duplicate-of:EXOCOMP-17 would leave known missing implementation unowned.
+---
+author: oompah
+created: 2026-07-24 22:21
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed. EXOCOMP-107 is a necessary gap-remediation task and should proceed to feature implementation.
+
+Evidence and decisions: Searched the git-backed tracker branch oompah/state/proj-c260b117 plus plans/docs for enrollment, renewal, CSR, node-agent, credential installation, and scheduler terms. Full tracker histories reviewed: EXOCOMP-17 (intended umbrella but prematurely merged after delivering only child EXOCOMP-87), EXOCOMP-20 (acceptance work that explicitly found and filed this gap), EXOCOMP-76 (coordinator durable token service), EXOCOMP-77 (coordinator PKI/token integration expressly excluding node-side enrollment), and EXOCOMP-87 (pure coordinator CSR/leaf issuer with no HTTP/network code). Current source search under apps/exocomp_node and apps/exocomp_coordinator finds no enrollment client, credential installer, or renewal scheduler. The referenced M2 acceptance file is absent from this branch because EXOCOMP-107 currently tracks origin/main, but EXOCOMP-20's tracker history records that file and its gap note on the integrated epic branch.
+
+Relevant files/areas: plans/milestone-2-coordinator.md; apps/exocomp_node/lib/exocomp/node/ identity/config/application code; coordinator EnrollmentToken and PKI.Issuer contracts from EXOCOMP-76/87; apps/exocomp_coordinator/test/integration/m2_acceptance_test.exs once prerequisite M2 commits are integrated.
+
+Remaining work/risks: Feature implementation must first ensure this branch contains the merged coordinator token/PKI/issuer work, then add the node-local key/CSR enrollment client, crash-safe atomic chain+key installation preserving old valid credentials, expiry-driven authenticated renewal scheduling, coordinator enrollment/renewal HTTP boundaries if still absent, and focused/end-to-end tests. Preserve private-key locality, strict permissions, pinned-root bootstrap, replay rejection, and old-credential fallback on every failure.
+
+Recommended next focus: feature. No repository files were changed; git status is clean.
+---
+author: oompah
+created: 2026-07-24 22:22
+---
+Agent completed successfully in 104s (802880 tokens)
+---
+author: oompah
+created: 2026-07-24 22:22
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 17
+- Tokens: 799.5K in / 3.4K out [802.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 44s
+- Log: EXOCOMP-107__20260724T222022Z.jsonl
+---
+author: oompah
+created: 2026-07-24 22:22
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
