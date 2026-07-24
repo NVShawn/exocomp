@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T03:53:33.167248Z'
+updated_at: '2026-07-24T03:55:00.401545Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -139,5 +139,10 @@ author: oompah
 created: 2026-07-24 03:53
 ---
 Understanding: implement a coordinator-owned GenServer poll scheduler backed by isolated Task workers. It will claim due Registry nodes through begin_poll, cap concurrent jobs, deduplicate node IDs in flight, enforce per-worker deadlines, translate success/failure/timeout into typed record_observation calls, and refill capacity without waiting for slow peers. I will preserve injectable clock/resolver/probe/timing options, wire TaskSupervisor + poller into the application tree, add focused deterministic tests, then run Make quality gates and push/close the task.
+---
+author: oompah
+created: 2026-07-24 03:55
+---
+Discovery: the supplied worktree was on epic-EXOCOMP-15 and lacked EXOCOMP-90; I created the requested EXOCOMP-91 branch from the completed local EXOCOMP-90 ref. The scheduling API provides atomic begin_poll tokens and stale-result rejection, but active tokens otherwise survive forever after a poller crash. NodeProber already returns typed maps and can record by token. Implementation will therefore use token claims plus a Registry recovery API, isolated TaskSupervisor jobs, poller-owned timeout/crash completion, and immediate capacity refill.
 ---
 <!-- COMMENTS:END -->
