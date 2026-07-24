@@ -10,10 +10,9 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:epic_planner
-- needs:feature
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:36:51.302680Z'
+updated_at: '2026-07-24T01:36:55.510803Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -255,5 +254,15 @@ author: oompah
 created: 2026-07-24 01:36
 ---
 Focus handoff from `epic_planner` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 01:36
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 01:36
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
