@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-83
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Make LlamaServer crash tests portable in Alpine builder
 parent: null
@@ -10,12 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:28:13.849698Z'
+updated_at: '2026-07-24T02:28:30.931947Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 45c72423-1de0-4805-a64e-304814c1e5dc
 ---
 ## Summary
 
@@ -29,3 +30,16 @@ make test fails in apps/exocomp_node/test/exocomp/node/llama_server_test.exs bec
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 02:28
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:28:13.157174Z'
+updated_at: '2026-07-24T02:28:25.731482Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ merged_at: null
 oompah.agent_run_id: 88b77f25-6138-4b3d-ab2a-d59a830ec285
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 271404
-  total_output_tokens: 32740
+  total_input_tokens: 271465
+  total_output_tokens: 98195
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 271404
-      output_tokens: 32740
+      input_tokens: 271465
+      output_tokens: 98195
       cost_usd: 0.0
   runs:
   - profile: default
@@ -51,6 +51,12 @@ oompah.task_costs:
     output_tokens: 1161
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:58:51.161941+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 61
+    output_tokens: 65455
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:28:23.263853+00:00'
 ---
 ## Summary
 
@@ -460,5 +466,20 @@ author: oompah
 created: 2026-07-24 02:28
 ---
 Integrated PKI initialization and enrollment operations into coordinator. Validated PKI startup, Mix init task, supervised enrollment boundary, and 101/101 coordinator tests passing.
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Agent completed successfully in 1472s (65516 tokens)
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 121, Tool calls: 71
+- Tokens: 61 in / 65.5K out [65.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 24m 32s
+- Log: EXOCOMP-77__20260724T020353Z.jsonl
 ---
 <!-- COMMENTS:END -->

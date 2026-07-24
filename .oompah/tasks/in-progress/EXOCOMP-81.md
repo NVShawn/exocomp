@@ -13,7 +13,7 @@ labels:
 - focus-complete:refactor
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:15:21.116349Z'
+updated_at: '2026-07-24T02:28:35.786855Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -634,5 +634,20 @@ author: oompah
 created: 2026-07-24 02:15
 ---
 Discovery: Full codebase scan complete. Key findings: (1) a2a_router.ex has 4 stub handlers; (2) TaskRegistry exposes submit/get/list/transition/cancel/register_worker with server-as-3rd-arg pattern; (3) Skills.Dispatcher.dispatch/3 takes skill_id, params, context; (4) A2A structs: Message, Task, TaskStatus, Artifact, DataPart, TextPart all exist; (5) Error structs: TaskNotFoundError (-32001), TaskNotCancelableError (-32002), InternalError (-32603), InvalidParamsError (-32602) all exist; (6) JSONBodyParser needs to rescue Plug.Parsers.ParseError for the invalid-JSON test; (7) Router uses copy_opts_to_assign: :router_opts so opts are available as conn.assigns.router_opts. Plan: create Codec module, modify JSONBodyParser, rewrite router handlers, add async worker, update tests.
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Implementation: Implemented all A2A endpoint wiring in apps/exocomp_node.
+
+**New files:**
+- apps/exocomp_node/lib/exocomp/node/a2a/codec.ex — Codec module with decode_message/1, extract_skill/1, encode_task/1
+
+**Modified files:**
+- apps/exocomp_node/lib/exocomp/node/a2a_router.ex — replaced 4 stub handlers with real logic; added run_skill_async/5 with timeout and cancellation safety; accepts :registry and :dispatcher opts
+- apps/exocomp_node/lib/exocomp/node/plug/json_body_parser.ex — rescue Plug.Parsers.ParseError → 400 InvalidRequestError
+- apps/exocomp_node/test/exocomp/node/a2a_router_test.exs — 13 new tests (plus 6 preserved)
+
+Key decisions: TaskRegistry and Dispatcher passed as opts for test isolation; async worker uses Task.start with inner Task.yield for timeout; cancellation races handled by checking transition return value.
 ---
 <!-- COMMENTS:END -->

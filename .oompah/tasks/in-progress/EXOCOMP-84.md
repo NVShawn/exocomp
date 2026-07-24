@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-84
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement disk-pressure evidence collector
 parent: EXOCOMP-26
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:28:14.629055Z'
-work_branch: null
+updated_at: '2026-07-24T02:28:34.480897Z'
+work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 6e14d85a-803e-4071-acbd-61e5488860d8
+oompah.work_branch: epic-EXOCOMP-3
 ---
 ## Summary
 
@@ -65,3 +67,16 @@ Run make test and make lint before closing the task.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 02:28
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
