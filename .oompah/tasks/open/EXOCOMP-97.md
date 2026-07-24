@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-97
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement durable replay ledger with write-ahead semantics, concurrent serialization,
   and restart reconciliation
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:10:12.329506Z'
+updated_at: '2026-07-24T16:11:26.920658Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null

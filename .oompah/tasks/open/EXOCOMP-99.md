@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-99
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement coordinator diagnostic A2A client adapter
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-07-24T16:11:14.013010Z'
+updated_at: '2026-07-24T16:11:28.095462Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
