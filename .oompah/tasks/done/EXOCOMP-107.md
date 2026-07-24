@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T23:07:59.617792Z'
+updated_at: '2026-07-24T23:08:12.824355Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -240,5 +240,20 @@ author: oompah
 created: 2026-07-24 23:07
 ---
 Completion: Delivered and pushed commit ed8b906 on origin/EXOCOMP-107. The node now has a local-key enrollment client with constrained CSR and pinned HTTPS transport, a validated generation-based atomic credential installer that preserves prior credentials, and an expiry-driven single-flight renewal scheduler with jittered exponential retry. Added 11 focused tests and updated the M2 acceptance gap note. Branch is clean and exactly synchronized with origin/EXOCOMP-107. Canonical Makefile gates remain environment-blocked before execution by the managed Podman /run/user/1000/libpod read-only error; local format/static checks pass.
+---
+author: oompah
+created: 2026-07-24 23:08
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 78
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 37s
+- Log: EXOCOMP-107__20260724T225736Z.jsonl
+---
+author: oompah
+created: 2026-07-24 23:08
+---
+Implemented and pushed node enrollment client, atomic credential generation installer, and expiry-driven renewal scheduler with focused security and failure-path tests (ed8b906).
 ---
 <!-- COMMENTS:END -->
