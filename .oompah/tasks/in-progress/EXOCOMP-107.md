@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:58:38.701159Z'
+updated_at: '2026-07-24T23:06:22.424291Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -225,5 +225,10 @@ author: oompah
 created: 2026-07-24 22:58
 ---
 Discovery: The worktree is clean except for commit 021ed42, which merged the coordinator PKI/token prerequisite. The node app still has only Config/Identity/Listener and no enrollment, installation, or renewal code. Existing coordinator PKI.Issuer expects a locally generated P-256 CSR with SAN, digitalSignature, clientAuth, and serverAuth extensions and returns leaf+intermediate PEM. I will add a direct x509 dependency, an injectable HTTPS enrollment client, a generation-based atomic installer, and a GenServer renewal scheduler with deterministic timing seams.
+---
+author: oompah
+created: 2026-07-24 23:06
+---
+Implementation: Added Exocomp.Node.EnrollmentClient, CredentialInstaller, and RenewalScheduler plus direct x509 dependency and focused tests. Enrollment generates a constrained P-256 key/CSR locally, submits only node ID+CSR with a bearer token through an injectable HTTPS transport, verifies pinned CA/hostname with redirects disabled, bounds responses, and rejects a mismatched leaf key. Installation validates key/SAN/chain, writes 0600 material in 0700 versioned generations, fsyncs files, and atomically swaps a current symlink while preserving the old generation. Renewal derives timing from leaf expiry, permits one in-flight renewal, reloads expiry after success, and uses bounded full-jitter exponential retry without replacing credentials on failure.
 ---
 <!-- COMMENTS:END -->
