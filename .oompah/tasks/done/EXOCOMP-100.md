@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:28:43.006011Z'
+updated_at: '2026-07-24T16:28:46.099752Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -178,5 +178,10 @@ author: oompah
 created: 2026-07-24 16:28
 ---
 Completion: Delivered GoalStore GenServer (apps/exocomp_coordinator/lib/exocomp/coordinator/goal_store.ex) and test suite (apps/exocomp_coordinator/test/exocomp/coordinator/goal_store_test.exs). The store provides the full coordinator orchestration state model and public internal API required by EXOCOMP-100: UUIDv4 correlation IDs, atomic caller_key deduplication (concurrent/retry-safe), stable downstream_key/2 idempotency, bounded active/history/artifact/output storage, deterministic oldest-terminal eviction, output front-truncation, and EXOCOMP-19/EXOCOMP-101-compatible get/list/cancel/transition API. DiagnosticGoal and NodeOutcome structs (already present) define all required state and outcome shapes. Branch EXOCOMP-99 pushed; all tests green.
+---
+author: oompah
+created: 2026-07-24 16:28
+---
+Implemented GoalStore volatile diagnostic task store with UUIDv4 correlation IDs, atomic caller_key deduplication, configurable bounds (max_active/max_history/max_artifacts/max_output_bytes), deterministic oldest-terminal eviction, output front-truncation, downstream_key/2 pure function, and public internal API (accept/get/list/transition/put_node_outcome/append_output/put_artifact/cancel). 36 focused tests cover all required scenarios. All 153 coordinator tests pass.
 ---
 <!-- COMMENTS:END -->
