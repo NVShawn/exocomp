@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-20
 type: chore
-status: In Progress
+status: Done
 priority: 1
 title: Verify the M2 coordinator milestone
 parent: EXOCOMP-2
@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T18:59:47.904610Z'
+updated_at: '2026-07-24T19:28:21.639243Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -240,5 +240,27 @@ author: oompah
 created: 2026-07-24 18:59
 ---
 Discovery: Successfully merged epic-EXOCOMP-18 (discovery, polling, orchestration, audit, diagnostics) into epic-EXOCOMP-2. Only 3 files had conflicts (mix.exs, application.ex, a2a/codec.ex) — all resolved cleanly. Build now succeeds with the full coordinator stack: Inventory, Registry, Resolver, HealthPoller, GoalStore, Orchestrator, Audit, DiagnosticClient, and NodeProber. Running test suite now. Still need to merge epic-EXOCOMP-16/EXOCOMP-87 (PKI + enrollment tokens) for M2-CRIT-3 and M2-CRIT-4.
+---
+author: oompah
+created: 2026-07-24 19:28
+---
+Verification: All 18 M2 acceptance tests pass (201 total in suite, 0 failures). Quality gates:
+- make test: 201 passed, 10 excluded (0 failures)
+- make lint: FORMAT OK, compile --warnings-as-errors clean
+- make build: exocomp_node and exocomp_coordinator releases assembled successfully
+- make fmt-check: FORMAT OK
+
+Evidence file: apps/exocomp_coordinator/test/integration/m2_acceptance_test.exs (committed as 5b1515c)
+
+M2-CRIT-1 ✓ inventory rebuilt with 3+ nodes; duplicate node IDs and identities rejected
+M2-CRIT-2 ✓ all three nodes polled concurrently; slow gamma does not block alpha/beta
+M2-CRIT-3 ✓ token issued once, consumed once; replay → token_already_consumed; wrong node → token_node_mismatch; durably survives service restart
+M2-CRIT-4 ✓ leaf cert issued from CSR; online PKI state contains no node-specific key material
+M2-CRIT-5 ✓ cluster diagnose dispatched to 3 nodes; all three outcomes explicit; no silent omission
+M2-CRIT-6 ✓ GoalStore volatile (goal lost after restart); same caller_key creates fresh goal; JSON-lines audit survives restart
+M2-CRIT-7 ✓ Codec rejects exocomp.remediation.propose; GoalStore.transition rejects :remediation; no NodeOutcome reaches remediation state
+M2-CRIT-8 ✓ all quality gates pass
+
+EXOCOMP-17 gap documented: node-agent enrollment client and renewal scheduler not implemented; M2-CRIT-3/4 verify coordinator-side only.
 ---
 <!-- COMMENTS:END -->
