@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T03:51:23.136794Z'
+updated_at: '2026-07-24T03:52:34.446768Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,5 +47,20 @@ author: oompah
 created: 2026-07-24 03:51
 ---
 Understanding: I am the Duplicate Investigator for EXOCOMP-91 ('Run bounded concurrent node polls with per-node isolation'). My role is to check whether this issue is a duplicate of any existing task before any implementation begins. I will search the task tracker and docs for similar topics: health polling, concurrent polls, DNS probes, per-node isolation, bounded concurrency, Registry nodes, supervisor trees.
+---
+author: oompah
+created: 2026-07-24 03:52
+---
+Discovery: Duplicate screening found NO confirmed duplicate. EXOCOMP-91 is a unique, well-scoped child task of EXOCOMP-15 ('Implement DNS discovery and concurrent node polling'), explicitly created as part of a five-way decomposition:
+
+- EXOCOMP-88: DNS hostname resolution into candidates (Done)
+- EXOCOMP-89: mTLS identity verification and address adoption (Done)
+- EXOCOMP-90: Poll scheduling, backoff, and registry state transitions (Done)
+- EXOCOMP-91: Bounded concurrent poll execution with per-node isolation (In Progress — this task)
+- EXOCOMP-92: Multi-node integration coverage (Open, depends on EXOCOMP-91)
+
+All prior duplicate screening agents for EXOCOMP-88, EXOCOMP-89, and EXOCOMP-90 explicitly confirmed that EXOCOMP-91 uniquely owns concurrent worker supervision, TaskSupervisor/bounded pool management, in-flight deduplication, per-node timeouts, and isolation of slow/crashed nodes. EXOCOMP-90 (Done) established the scheduling and state-transition API that EXOCOMP-91 will consume. No other task in EXOCOMP-14 through EXOCOMP-20 nor any sibling covers this scope.
+
+Evidence reviewed: EXOCOMP-15, EXOCOMP-88, EXOCOMP-89, EXOCOMP-90, EXOCOMP-92 via oompah task view; plans/milestone-2-coordinator.md 'Node State' section (30-second jittered polling with bounded concurrency, per-node timeouts, failure states, backoff) and existing coordinator codebase (no concurrent poll supervisor exists yet).
 ---
 <!-- COMMENTS:END -->
