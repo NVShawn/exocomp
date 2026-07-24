@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-105
 type: task
-status: In Progress
+status: Done
 priority: 1
 title: Verify coordinator diagnostic orchestration end to end
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T18:22:44.686105Z'
+updated_at: '2026-07-24T18:23:01.523079Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -180,5 +180,30 @@ Pre-existing formatting-only changes auto-applied by make fmt to:
 - apps/exocomp_coordinator/test/exocomp/coordinator/orchestrator_audit_test.exs
 
 No logic changes to existing production or test code. All changes committed and pushed to origin/epic-EXOCOMP-18.
+---
+author: oompah
+created: 2026-07-24 18:22
+---
+Completion: EXOCOMP-105 integration test suite delivered.
+
+Delivered file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_orchestration_integration_test.exs
+
+22 tests covering all required scenarios:
+- 3 deterministic node fixtures (fixture-alpha/beta/gamma)
+- Duplicate submissions idempotency end-to-end
+- Healthy + failed + slow nodes with explicit per-node outcomes
+- Per-node timeout isolation without blocking peers
+- Overall goal timeout with goal_timeout audit event
+- Cancellation propagation (in-flight A2A cancel + pending :canceled)
+- Bounded history eviction with caller_key cleanup and safe resubmission
+- Output front-truncation with output_truncated flag
+- Coordinator restart loss (GoalStore volatile; :not_found after restart)
+- Safe resubmission with same caller_key creates fresh goal and new downstream keys
+- Correlated audit redaction (api_key/token/nested secrets; all events carry goal_id)
+- Unavailable audit sink: diagnostics complete, GoalStore reads available, health :degraded
+- EXOCOMP-19 contract: Orchestrator.run/cancel/GoalStore.get; :not_found; :at_capacity; complete node_outcomes
+- No remediation executor path: DiagnosticGoal/NodeOutcome state machines; GoalStore.transition rejects :remediating
+
+All gates pass: make test, make lint, make fmt-check.
 ---
 <!-- COMMENTS:END -->
