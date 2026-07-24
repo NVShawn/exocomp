@@ -8,10 +8,11 @@ parent: EXOCOMP-22
 children: []
 blocked_by:
 - EXOCOMP-73
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:10:32.354751Z'
+updated_at: '2026-07-24T01:13:02.834212Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -107,5 +108,37 @@ author: oompah
 created: 2026-07-24 01:10
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 01:13
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed. EXOCOMP-74 is a unique second-stage policy engine implementation task with no coverage overlap in the existing task graph.
+
+Evidence reviewed:
+- EXOCOMP-73 (Done): First-stage filter pipeline (PolicyContext + eligibility checks). Distinct scope — returns FilterResult; does NOT implement evaluate/4 or risk-ordered selection.
+- EXOCOMP-22 (Open): Parent epic that decomposed into exactly EXOCOMP-73 and EXOCOMP-74 — not an implementation task.
+- EXOCOMP-21 (Done): Safety types only (ActionDefinition, Evidence, Proposal, RiskRank, ValidatorResult) — prerequisite types, no policy logic.
+- EXOCOMP-25 (Done): Unprivileged systemd executor and sudoers policy — executor layer, not policy selection.
+- EXOCOMP-23/24 (Open): Approval issuance and replay prevention — distinct approval/crypto scope.
+- No other task defines PolicyEngine.evaluate/4 or risk-ordered candidate selection anywhere in the task graph or codebase.
+
+Key findings for the feature agent:
+1. EXOCOMP-73 code lives on local branch 'EXOCOMP-73' and 'remotes/origin/EXOCOMP-73'. The current working branch (epic-EXOCOMP-22) does NOT yet include the EXOCOMP-73 code — the feature agent must merge/cherry-pick EXOCOMP-73 before extending PolicyEngine.
+2. PolicyEngine.evaluate/4 does not yet exist — must be added to apps/exocomp_node/lib/exocomp/node/safety/policy_engine.ex.
+3. The test file apps/exocomp_node/test/exocomp/node/safety/policy_engine_test.exs does not exist — must be created with all 12 specified test scenarios.
+4. Existing filter tests are in policy_engine_filter_test.exs (separate file, 828 lines) — don't disturb these.
+5. Two pre-existing LlamaServer process tests fail in the test suite (unrelated to this task).
+6. Run 'make test' and 'make lint' before closing.
+
+Remaining work/risks:
+- Extend PolicyEngine with evaluate/4: call filter/4, sort eligible by RiskRank.compare/2 with alphabetical tiebreaker, map to ValidatorResult, include auditable reason with full ordered candidate list.
+- Fail-closed on nil/unexpected inputs and on any exception during filter/selection.
+- Write 12 comprehensive tests (table tests 1-10, property test 11, fail-closed test 12).
+- evidence_refs field: IDs of Evidence structs whose collector satisfied a required_evidence entry for the selected action.
+- Merge EXOCOMP-73 code first (or ensure working branch has those files).
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
