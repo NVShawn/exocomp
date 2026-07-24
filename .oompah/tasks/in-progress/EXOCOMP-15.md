@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-15
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement DNS discovery and concurrent node polling
 parent: EXOCOMP-2
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T03:51:17.443155Z'
+updated_at: '2026-07-24T03:53:11.824670Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
