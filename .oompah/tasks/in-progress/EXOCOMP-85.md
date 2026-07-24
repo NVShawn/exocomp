@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-07-24T03:08:02.717677Z'
+updated_at: '2026-07-24T03:13:35.949140Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -181,5 +181,22 @@ author: oompah
 created: 2026-07-24 03:08
 ---
 Discovery: Prerequisites identified. EXOCOMP-84 (DiskPressureCollector + Evidence on branch EXOCOMP-84), EXOCOMP-73 (DataClassification on origin/EXOCOMP-73), and EXOCOMP-25 (ActionCatalog on origin/EXOCOMP-25) are all separate unmerged branches. Plan: cherry-pick EXOCOMP-84 commit, bring in safety/data_classification.ex from EXOCOMP-73, then implement VacuumBounds + VacuumState on top. The two Evidence.ex files on EXOCOMP-84 and EXOCOMP-73 are identical so merge will be clean.
+---
+author: oompah
+created: 2026-07-24 03:13
+---
+Implementation: Created the following files on epic-EXOCOMP-26:
+
+1. apps/exocomp_node/lib/exocomp/node/vacuum_state.ex — GenServer tracking per-mount last_executed_at and consecutive_failure_count. Supports start_link(name: nil) for test isolation. Provides get_state/2, record_success/2, record_failure/2, reset/2.
+
+2. apps/exocomp_node/lib/exocomp/node/vacuum_bounds.ex — VacuumBounds module with validate_source/1 (system journal allowlist: /var/log/journal, /run/log/journal) and check_eligible/1 (reads all limits from Application config, never from callers). Returns {:ok, :eligible, bounds_map} or {:error, reason}.
+
+3. apps/exocomp_node/lib/exocomp/node/safety/data_classification.ex — Brought in from origin/EXOCOMP-73 (DataClassification).
+
+4. apps/exocomp_node/lib/exocomp/node/application.ex — Added VacuumState to application supervisor.
+
+5. apps/exocomp_node/test/exocomp/node/vacuum_bounds_test.exs — 30 focused tests covering all 10 required scenarios from the task spec.
+
+Also cherry-picked EXOCOMP-84 commit (DiskPressureCollector + Evidence + MockCommander) as prerequisite. Tests: 103 passed, 10 excluded. Lint: clean.
 ---
 <!-- COMMENTS:END -->
