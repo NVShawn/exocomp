@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T03:47:58.073530Z'
+updated_at: '2026-07-24T03:48:11.178503Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -135,5 +135,20 @@ author: oompah
 created: 2026-07-24 03:47
 ---
 Completion: Delivered deterministic coordinator poll scheduling and Registry state transitions in commit cfec4d2 on pushed branch EXOCOMP-90. Includes 30s bounded jitter, 60s/5m freshness thresholds, capped 15m exponential backoff, ordered stale-result rejection, recovery reset, transition audit events, NodeProber token integration, and comprehensive table-driven tests. Final focused tests, make lint, full make test, release assembly, and release smoke checks all pass.
+---
+author: oompah
+created: 2026-07-24 03:48
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 90
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 16m 13s
+- Log: EXOCOMP-90__20260724T033157Z.jsonl
+---
+author: oompah
+created: 2026-07-24 03:48
+---
+Implemented deterministic poll scheduling, bounded jitter/backoff, freshness-based Registry transitions, stale-result protection, redacted audits, NodeProber token integration, and comprehensive passing tests.
 ---
 <!-- COMMENTS:END -->
