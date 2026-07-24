@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:23:29.182394Z'
+updated_at: '2026-07-24T22:23:53.765776Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -122,5 +122,15 @@ author: oompah
 created: 2026-07-24 22:23
 ---
 Discovery: The current branch is origin/main and contains none of the prerequisite coordinator enrollment/PKI modules; those exist only on origin/epic-EXOCOMP-2. That integrated branch exposes EnrollmentToken and PKI.Issuer as internal services but has no HTTP enrollment or renewal route, so a node client currently has no callable boundary. Existing apps/exocomp_node/lib/exocomp/node/identity.ex validates key mode, leaf-to-root path, and DNS SAN, but does not prove the private key matches the leaf certificate, rejects neither symlinks/non-regular key files nor ownership surprises, and reads only one leaf certificate (not a returned intermediate chain). These are security-critical requirements for the new installer rather than evidence that the requested components already exist.
+---
+author: oompah
+created: 2026-07-24 22:23
+---
+Implementation: Security phase made no repository changes because the enrollment client, installer, scheduler, and server HTTP boundary do not exist on this branch. Defined the required secure design for the feature handoff: local-only key generation; pinned-root plus hostname verification; no redirects or token logging; bounded request/response parsing; coordinator-side token/node/CSR binding; renewal identity derived from mTLS; staged full-chain and leaf/key validation; same-filesystem generation activation with strict ownership/modes and crash-safe rollback; and expiry-based jittered/backoff scheduling that fails closed.
+---
+author: oompah
+created: 2026-07-24 22:23
+---
+Verification: Static review covered plans/milestone-2-coordinator.md, node Config/Application/Identity and tests, and the coordinator EnrollmentToken/PKI.Issuer/M2 acceptance sources on origin/epic-EXOCOMP-2. git grep confirms no enrollment/renewal network boundary exists. make test could not start because the managed environment's Podman configuration path /run/user/1000/libpod is read-only; no test executed. The worktree remains unchanged.
 ---
 <!-- COMMENTS:END -->
