@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T01:42:05.324432Z'
+updated_at: '2026-07-24T01:47:13.370701Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -134,5 +134,25 @@ FINDING 3 (Medium): json_lines.ex creates audit log files with default OS permis
 FINDING 4 (Medium): ensure_store_dir in enrollment_token.ex uses File.stat (follows symlinks) instead of File.lstat, and does not verify permissions on already-existing directories — a directory that was previously world-readable would not be flagged.
 
 FINDING 5 (Critical - for feature agent): application.ex starts EnrollmentToken without validating PKI state. No operator Mix task exists for PKI initialization. No integration tests cover clean init + startup, idempotent rerun, PKI failure modes, audit fail-closed, or redaction. These are the core deliverables of EXOCOMP-77.
+---
+author: oompah
+created: 2026-07-24 01:47
+---
+Implementation: Applied four security fixes to EXOCOMP-75/76 deliverables.
+
+1. enrollment_token.ex — parse_token now validates both key component (16 bytes) AND secret component (32 bytes). Previously only the secret was validated, allowing non-canonical key component lengths.
+
+2. enrollment_token.ex — ensure_store_dir now uses File.lstat (rejects symlinks) and explicitly checks that existing directories have exactly 0o700 permissions. An inherited world-readable token store directory is now a hard error rather than a silent write path.
+
+3. audit/json_lines.ex — audit log files are now set to mode 0600 immediately after creation in both init/1 and rotate/1. The rotate path closes the new file handle on chmod failure to avoid fd leakage.
+
+4. audit.ex — added 'passphrase', 'digest', and 'pin' to @sensitive_keys redaction list; 'root_fingerprint' is explicitly verified to NOT be redacted (it is a public value distributed out-of-band to nodes).
+
+Added 8 new tests: wrong key-length token rejection, extended key-length token rejection, truncated secret rejection, insecure-directory startup behavior (two tests), audit log 0600 on init, audit log 0600 after rotation, redaction of new sensitive-key terms.
+---
+author: oompah
+created: 2026-07-24 01:47
+---
+Verification: make fmt-check PASSED, make lint PASSED (no warnings), make test: 69/69 coordinator tests pass (up from 61). The 2 pre-existing LlamaServer test failures in exocomp_node are unrelated to this work (require /usr/bin/kill on a process that doesn't exist in the CI environment).
 ---
 <!-- COMMENTS:END -->
