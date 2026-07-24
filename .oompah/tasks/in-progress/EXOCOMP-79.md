@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -10,16 +10,15 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:epic_planner
-- needs:feature
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:18:14.917890Z'
+updated_at: '2026-07-24T01:21:29.437735Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 740ab4f6-c6b9-4f44-ba1f-13339901ecb7
+oompah.agent_run_id: fe3340fc-eea9-47a4-9d1b-4c32ac6cc5af
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 491106
@@ -225,5 +224,15 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 50s
 - Log: EXOCOMP-79__20260724T011625Z.jsonl
+---
+author: oompah
+created: 2026-07-24 01:21
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 01:21
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
