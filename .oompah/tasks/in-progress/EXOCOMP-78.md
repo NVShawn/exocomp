@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T01:13:29.739927Z'
+updated_at: '2026-07-24T01:13:37.364798Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -222,5 +222,10 @@ author: oompah
 created: 2026-07-24 01:13
 ---
 Discovery: The dispatched worktree was on epic-EXOCOMP-12 and lacked prerequisites. Created EXOCOMP-78 locally, merged epic-EXOCOMP-8 and EXOCOMP-60, preserved newer Makefile container behavior, and composed Listener with the existing LlamaServer supervision child.
+---
+author: oompah
+created: 2026-07-24 01:13
+---
+Implementation: Added A2ARouter, AgentCardHandler, and bounded JSON parser; enforced certificate auth then A2A-Version 1.0; added all scaffold/unsupported/not-found routes; wired Listener with configured node_id; added Jason to exocomp_core and six router tests.
 ---
 <!-- COMMENTS:END -->
