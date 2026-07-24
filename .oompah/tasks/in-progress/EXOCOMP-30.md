@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:31:19.970693Z'
+updated_at: '2026-07-24T18:40:20.047118Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -173,5 +173,30 @@ Key design decisions:
 
 Files: apps/exocomp_core/lib/exocomp/recovery/{evidence,audit_event,state_machine}.ex
 Tests: apps/exocomp_core/test/exocomp/recovery/state_machine_test.exs
+---
+author: oompah
+created: 2026-07-24 18:40
+---
+Implementation: Created the Elixir umbrella project and implemented the service-recovery state machine.
+
+New files:
+- apps/exocomp_core/lib/exocomp/recovery/evidence.ex — versioned evidence struct with freshness check (age <= max_evidence_age_seconds)
+- apps/exocomp_core/lib/exocomp/recovery/audit_event.ex — durable audit event struct (one per accepted transition)
+- apps/exocomp_core/lib/exocomp/recovery/state_machine.ex — the state machine (pure functional)
+- apps/exocomp_core/test/exocomp/recovery/state_machine_test.exs — 85 exhaustive tests
+- apps/exocomp_core/mix.exs — umbrella app config
+- mix.exs — umbrella root
+- Makefile — working fmt/fmt-check/build/test/lint/clean targets
+
+Design decisions:
+- Pure functional: no GenServer; callers own persistence and I/O
+- Closed transition matrix: 15 transition rules + universal cancel; all other combos return {:error, {:illegal_transition, state, event_tag}}
+- Evidence freshness checked at every evidence-carrying transition via collected_at age
+- Approval token expiry checked via expires_at field
+- execution_attempted boolean as defense-in-depth guard against re-entry to :executing
+- restore/5 reconstructs machine from transition log for node-restart recovery
+- Durable audit event produced per transition; caller must persist BEFORE external action
+
+All 4 Make targets pass: fmt-check, build, test, lint
 ---
 <!-- COMMENTS:END -->
