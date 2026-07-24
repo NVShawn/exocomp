@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-95
 type: task
-status: In Progress
+status: Done
 priority: null
 title: Implement node-side approval token verifier (signature, bindings, freshness)
 parent: EXOCOMP-24
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:36:04.665365Z'
+updated_at: '2026-07-24T16:36:25.837821Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -259,5 +259,10 @@ author: oompah
 created: 2026-07-24 16:36
 ---
 Verification: Static review and git diff --cached --check passed. make fmt, make test, and make lint were each attempted, but none could start the pinned builder because this managed host's Podman runtime under /run/user/1000/libpod is read-only; a filesystem-sandbox fallback was blocked by disabled user namespaces. The focused tests are included but could not be executed in this session. No code/test failure was observed; this is an infrastructure limitation that review CI must validate.
+---
+author: oompah
+created: 2026-07-24 16:36
+---
+Completion: Delivered and pushed commit c64f176 on origin/EXOCOMP-95. The node now has a configurable fail-closed Ed25519 approval verifier with signature, eleven-field binding, and strict freshness validation, backed by shared coordinator-compatible canonical hashing/encoding and comprehensive focused tests. Working tree is clean and synchronized with origin. Required Makefile gates were attempted but blocked before execution by the managed host's read-only Podman runtime; this limitation is recorded for review CI.
 ---
 <!-- COMMENTS:END -->
