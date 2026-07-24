@@ -58,10 +58,14 @@ defmodule Exocomp.Node.LlamaServerTest do
 
   # Kill the OS process behind an Erlang Port (simulates a crash of the
   # llama-server process without closing the port from outside its owner).
+  #
+  # Uses :os.cmd/1 with the shell built-in `kill` so this works on both
+  # Alpine (BusyBox) and glibc-based distros where `/usr/bin/kill` may not
+  # exist.
   defp kill_port_os_process(port) do
     case Port.info(port, :os_pid) do
       {:os_pid, os_pid} ->
-        System.cmd("/usr/bin/kill", ["-TERM", Integer.to_string(os_pid)])
+        :os.cmd(~c"kill -TERM #{os_pid}")
         :ok
 
       _other ->
