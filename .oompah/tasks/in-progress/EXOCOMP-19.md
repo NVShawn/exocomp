@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-19
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
@@ -12,16 +12,15 @@ blocked_by:
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:chore
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:30:34.717494Z'
+updated_at: '2026-07-24T18:30:51.525530Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 2cba563c-1f5e-4ab9-8244-614994f682fe
+oompah.agent_run_id: 91f071f1-a18c-4c21-80e3-cecb9cd15695
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 396055
@@ -198,5 +197,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 43s
 - Log: EXOCOMP-19__20260724T182552Z.jsonl
+---
+author: oompah
+created: 2026-07-24 18:30
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 18:30
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
