@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-17
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement node enrollment and certificate renewal
 parent: EXOCOMP-2
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-24T02:31:11.004895Z'
+updated_at: '2026-07-24T02:31:25.317509Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,6 +21,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: d18cdf21-49b1-4ff7-85a6-3fee6d98c002
 oompah.work_branch: epic-EXOCOMP-2
+oompah.task_costs:
+  total_input_tokens: 1113189
+  total_output_tokens: 4146
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 1113189
+      output_tokens: 4146
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 1113189
+    output_tokens: 4146
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:31:21.041936+00:00'
 ---
 ## Summary
 
@@ -87,5 +103,25 @@ Relevant areas: plans/milestone-2-coordinator.md; apps/exocomp_node/lib/exocomp/
 Remaining work/risks: implement the actual enrollment and renewal protocol on both endpoint boundary and node client as required, while preserving local-only private keys and old valid credentials on every failure; add focused coverage for wrong root, token mismatch/replay/expiry, CSR/key/chain failures, interrupted atomic install, permissions, valid renewal, expired/revoked identity, and coordinator denial. Verify the epic branch contains the completed EXOCOMP-16 children before coding. No code or repository files were changed during screening.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 02:31
+---
+Agent completed successfully in 150s (1117335 tokens)
+---
+author: oompah
+created: 2026-07-24 02:31
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 21
+- Tokens: 1.1M in / 4.1K out [1.1M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 30s
+- Log: EXOCOMP-17__20260724T022858Z.jsonl
+---
+author: oompah
+created: 2026-07-24 02:31
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->

@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T02:31:08.294891Z'
+updated_at: '2026-07-24T02:31:22.089084Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-07-24 02:31
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-24 02:31
+---
+Understanding: planning EXOCOMP-23 as an epic for signed, task-bound approval issuance. I will inspect the existing children and Milestone 3 approval design, then create only missing single-session child tasks covering canonical payload/signing, coordinator operator commands and audit/refusal behavior, and focused verification, with dependencies reflecting implementation order. No product code will be changed in this focus.
 ---
 <!-- COMMENTS:END -->
