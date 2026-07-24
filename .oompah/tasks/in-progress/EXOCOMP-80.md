@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:40:45.770456Z'
+updated_at: '2026-07-24T01:51:31.770948Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -274,5 +274,10 @@ author: oompah
 created: 2026-07-24 01:40
 ---
 Discovery: Merged prerequisite branches EXOCOMP-78 (A2A router + A2A types + mTLS listener), EXOCOMP-79 (TaskRegistry), and EXOCOMP-10 (collectors: CPU/Memory/Disk/Uptime/Systemd) into epic-EXOCOMP-12. All prerequisites now available. Key findings: (1) DataPart has no mimeType field — uses metadata map instead; (2) Collectors use dependency-injection via keyword opts (e.g. :cmd_runner for Systemd, file paths for others), making them testable without mocking; (3) ProposalClient.propose/1 returns {:error, :inference_unavailable} when LlamaServer not ready; (4) No Mox library present — will use Application.put_env + lightweight module stubs for tests. Now implementing the 5 skill modules and 11 tests.
+---
+author: oompah
+created: 2026-07-24 01:51
+---
+Implementation: Created 5 new modules and 4 test files under apps/exocomp_node: (1) Behaviour — @callback execute/2 contract; (2) SystemDiagnose — concurrent Task.async for CPU/Memory/Disk/Uptime with try/rescue wrapping inside tasks (to prevent EXIT signal propagation on partial failure), uses Task.yield_many for timeout handling; (3) ServiceDiagnose — validates service list against allowed_services config, rejects empty/disallowed with {:error, :invalid_params}; (4) RemediationPropose — delegates to configurable ProposalClient, propagates {:error, reason} unchanged; (5) Dispatcher — routes skill_id to correct handler via static map. Also merged prerequisite branches EXOCOMP-78, EXOCOMP-79, EXOCOMP-10. Key design decision: wrap collector functions in try/rescue inside each Task.async to capture exceptions as {:error, reason} values instead of crash signals, enabling proper partial-failure semantics without trapping exits in the caller.
 ---
 <!-- COMMENTS:END -->
