@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:45:48.985280Z'
+updated_at: '2026-07-24T18:46:29.689498Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -300,5 +300,10 @@ author: oompah
 created: 2026-07-24 18:45
 ---
 Understanding: Resuming the completed EXOCOMP-30 implementation after closure was refused. I will review the committed state machine against the Milestone 4 plan, rerun all affected Makefile quality gates, verify the pushed branch, open the required PR from epic-EXOCOMP-4 to main, then close the task.
+---
+author: oompah
+created: 2026-07-24 18:46
+---
+Discovery: The committed implementation is present at a21fb61 on clean, pushed branch epic-EXOCOMP-4. StateMachine defines the closed recovery graph and guards; Evidence enforces freshness; AuditEvent carries correlated transition identity; 85 focused tests cover legal/illegal events, deadlines, cancellation, duplicates, restoration, cooldown, and escalation. No PR exists for the branch, which is the sole remaining closure blocker.
 ---
 <!-- COMMENTS:END -->
