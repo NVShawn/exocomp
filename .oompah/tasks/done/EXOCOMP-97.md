@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:25:28.583068Z'
+updated_at: '2026-07-24T16:25:43.071908Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -291,5 +291,20 @@ author: oompah
 created: 2026-07-24 16:25
 ---
 Completion: Delivered and pushed commit 882e6d3 on origin/EXOCOMP-97. ReplayLedger now provides durable synced claims/completions, restart reconciliation, duplicate serialization and result waiting, fail-closed DETS handling, application supervision, production/non-production path configuration, and 10 focused tests. Full suite/release smoke gate and lint equivalent both passed in the pinned builder image. The branch is up to date with origin; only pre-existing unrelated EXOCOMP-95 approval-token files remain untracked in the shared worktree.
+---
+author: oompah
+created: 2026-07-24 16:25
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 40
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 24s
+- Log: EXOCOMP-97__20260724T161521Z.jsonl
+---
+author: oompah
+created: 2026-07-24 16:25
+---
+Implemented and pushed a supervised DETS replay ledger with write-ahead durability, crash reconciliation, concurrent duplicate handling, fail-closed storage behavior, and comprehensive passing tests.
 ---
 <!-- COMMENTS:END -->
