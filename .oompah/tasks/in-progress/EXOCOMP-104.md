@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-104
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Recover coordinator live state after volatile restart
 parent: EXOCOMP-18
@@ -12,13 +12,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:02:40.605378Z'
+updated_at: '2026-07-24T18:02:52.645770Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 0de413a2-94de-44dd-8eec-45e1126f65cf
+oompah.agent_run_id: 7fb6ade8-6dba-41ba-abb8-254d0f72c405
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 514862
@@ -103,5 +103,15 @@ author: oompah
 created: 2026-07-24 18:02
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 18:02
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:02
+---
+Focus: Technical Writer
 ---
 <!-- COMMENTS:END -->
