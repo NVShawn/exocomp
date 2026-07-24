@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-24T16:29:54.809332Z'
+updated_at: '2026-07-24T16:35:49.892128Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -249,5 +249,10 @@ author: oompah
 created: 2026-07-24 16:29
 ---
 Discovery: The prior run left four focused files untracked: shared Exocomp.Core.ApprovalToken canonical/hash helpers, node ApprovalVerifier, and tests for both. The shared encoder matches origin/EXOCOMP-86's fixed eleven-field lexicographic signing contract while avoiding a coordinator dependency. The verifier uses a configurable raw 32-byte key file, redacted fail-closed key errors, Ed25519 verification, execution bindings, and strict freshness checks. I also corrected the worktree attachment from epic-EXOCOMP-24 to the existing EXOCOMP-95 branch before committing.
+---
+author: oompah
+created: 2026-07-24 16:35
+---
+Implementation: Added Exocomp.Core.ApprovalToken with the coordinator-compatible deterministic eleven-field canonical JSON contract and SHA-256 parameter/evidence helpers. Added Exocomp.Node.Safety.ApprovalVerifier with documented nested wire format, raw/base64url signature support, lazy configurable 32-byte public-key loading with redacted fail-closed errors, Ed25519 verification, all required execution bindings, and strict issued/expires checks. Added focused core and node tests covering valid tokens, bad signatures/keys, missing/malformed key files, each payload field, freshness, and node/action/parameter mismatches.
 ---
 <!-- COMMENTS:END -->
