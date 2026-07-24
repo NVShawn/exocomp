@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -9,9 +9,11 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:frontend
+- needs:feature
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T03:07:23.539352Z'
+updated_at: '2026-07-24T03:07:48.539921Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -161,5 +163,43 @@ Key findings:
 - The EXOCOMP-14 branch has all the scaffolding modules needed as dependencies for the Resolver
 - plans/milestone-2-coordinator.md confirms: DNS supplies addresses, coordinator does not trust reverse DNS, address changes are candidates until mTLS verification (EXOCOMP-89)
 - No UI, no frontend, no web layer — handing off to feature agent immediately.
+---
+author: oompah
+created: 2026-07-24 03:07
+---
+Focus handoff: frontend
+
+**Outcome:** No frontend work exists or is needed for this task. EXOCOMP-88 is a pure Elixir/OTP backend feature — a supervised GenServer (Exocomp.Coordinator.Resolver) for DNS hostname resolution. The Frontend Developer focus has nothing to contribute here and is handing off immediately.
+
+**Evidence:**
+- No HTML/CSS/JS/JSX/TSX files exist anywhere in this repository
+- All code is Elixir (mix.exs, .ex/.exs files in apps/)
+- plans/milestone-2-coordinator.md describes a fully backend DNS resolution pipeline with OTP supervisors, ETS, GenServers
+
+**Relevant files for the feature agent:**
+- plans/milestone-2-coordinator.md — §Inventory and Discovery defines the resolution contract
+- EXOCOMP-14 branch (commit 7ab7dc6) — has Inventory, Registry, Audit, Health modules (NOT yet on this branch)
+- apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex — stub supervisor on current branch; full supervisor is on EXOCOMP-14
+- apps/exocomp_coordinator/ — target location for Resolver implementation
+
+**Remaining work (for feature agent):**
+1. Merge/cherry-pick EXOCOMP-14 (commit 7ab7dc6) onto this branch to get Inventory/Registry/Audit foundation
+2. Implement Exocomp.Coordinator.Resolver GenServer:
+   - Read hostnames from Exocomp.Coordinator.Inventory
+   - Resolve IPv4+IPv6 with forward DNS only (no reverse DNS), using injectable resolver (e.g. :inet.getaddrs/2 wrapped behind a behaviour for testability)
+   - Normalize and deduplicate results deterministically (sort by address string)
+   - Store resolved addresses as CANDIDATES only — do NOT write to Registry.addresses (that is EXOCOMP-89's job)
+   - Report structured audit/health events on success AND failure
+   - Refresh on inventory changes
+3. Handle error cases: NXDOMAIN, empty result, timeout, generic error
+4. Write ExUnit tests using deterministic resolver fakes (no real DNS)
+5. Run make quality gates
+
+**Risks:**
+- The EXOCOMP-14 branch diverges significantly from current HEAD — diff shows many files removed; careful merge strategy needed
+- :inet.getaddrs/2 returns different tuple formats for inet vs inet6 — need both address families
+- Candidates must be stored separately from Registry.addresses (the Registry may need a candidates field added)
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->
