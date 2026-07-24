@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:14:05.495739Z'
-updated_at: '2026-07-24T17:31:36.666895Z'
+updated_at: '2026-07-24T17:40:18.580199Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -214,5 +214,31 @@ author: oompah
 created: 2026-07-24 17:31
 ---
 Implementation: Created ApprovalGate module at apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex and comprehensive test suite at apps/exocomp_node/test/exocomp/node/safety/approval_gate_test.exs. Gate implements 6-step sequence (verify → precondition → claim → execute → record → return) with opts-based injection (verifier, checker, executor, ledger). All four dependencies injectable via keyword opts for isolation testing. Test covers all 15 required scenarios: 1-4 as integration tests with real Ed25519 keys, real ReplayLedger, and MockCommander; 5-13 as isolation tests with stub modules; 14-15 as integration tests with real verifier. Running make test now.
+---
+author: oompah
+created: 2026-07-24 17:40
+---
+Verification: All quality gates pass.
+
+make test: 591/592 tests pass. 1 pre-existing failure (PrivilegeTest check_not_root — fails because tests run as root in Docker; unrelated to this change, confirmed pre-existing on main). All 26 ApprovalGate tests green.
+
+make lint: passes (mix format + --warnings-as-errors clean).
+
+All 15 required scenarios covered:
+1. First use (integration) — executes, ledger records :complete
+2. Concurrent duplicate (integration) — deterministic sender/receiver sync, one executes, other gets same result
+3. Sequential replay (integration) — {:error, {:already_executed, result}}
+4. Replay after restart (integration) — pending nonce NOT re-executed after ledger stop/start
+5. Wrong node_id — {:error, {:token_invalid, {:binding_mismatch, :node_id, ...}}}
+6. Wrong task_id — {:error, {:token_invalid, {:binding_mismatch, :task_id, ...}}}
+7. Wrong action_id — {:error, {:token_invalid, {:binding_mismatch, :action_id, ...}}}
+8. Wrong parameters — parameter_hash mismatch
+9. Stale evidence hash (isolation + integration) — {:error, {:precondition_changed, ...}}
+10. Expired token (isolation + integration) — {:error, {:token_invalid, :expired}}
+11. Changed precondition — {:error, {:precondition_changed, ...}}
+12. DETS sync failure on claim — {:error, :replay_state_unavailable}, no execution
+13. sync fails after :pending write — error, nonce stays :pending, no execution
+14. Tampered signature (integration keys) — {:error, {:token_invalid, :invalid_signature}}
+15. Public key missing (real verifier) — {:error, {:token_invalid, :public_key_unavailable}}
 ---
 <!-- COMMENTS:END -->
