@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T19:28:42.313974Z'
+updated_at: '2026-07-24T19:29:32.860195Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -288,5 +288,27 @@ Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 36m 6s
 - Log: EXOCOMP-20__20260724T185235Z.jsonl
+---
+author: oompah
+created: 2026-07-24 19:29
+---
+Verification: All 18 M2 acceptance tests pass (18/18) and all quality gates are green.
+
+**Test results (18/18 M2 acceptance tests passed):**
+- M2-CRIT-1 (inventory/registry): tests 1a, 1b, 1c → PASS — 3-node inventory rebuilt atomically; duplicate IDs and identities rejected
+- M2-CRIT-2 (concurrent polling): tests 2a, 2b, 2c → PASS — three nodes polled concurrently; slow gamma does not block alpha/beta
+- M2-CRIT-3 (enrollment tokens): tests 3a, 3b, 3c → PASS — token issued once; replay returns token_already_consumed; wrong node returns token_node_mismatch; consumed state survives restart
+- M2-CRIT-4 (PKI leaf cert): test 4a → PASS — Issuer.issue_leaf returns chain PEM; online dir contains no node-key material
+- M2-CRIT-5 (cluster diagnose): tests 5a, 5b → PASS — alpha :succeeded with artifact; beta :unreachable; gamma :failed/:unreachable; all 3 nodes have explicit outcomes
+- M2-CRIT-6 (restart): tests 6a, 6b, 6c → PASS — GoalStore is volatile (pre-restart goal :not_found); same caller_key creates fresh goal; JSON-lines audit file survives restart
+- M2-CRIT-7 (no remediation): tests 7a, 7b, 7c → PASS — Codec rejects exocomp.remediation.propose; GoalStore.transition rejects :remediation; no NodeOutcome in any remediation state
+- M2-CRIT-8 (quality gates): make test (743 passed, 0 failed), make lint (clean), make fmt-check (clean), make build (releases built) → all PASS
+
+**Implementation on branch epic-EXOCOMP-2 (3 commits by this epic):**
+- EXOCOMP-20: merge epic-EXOCOMP-18 orchestration modules (Audit, Registry, Inventory, Resolver, HealthPoller, GoalStore, Orchestrator)
+- EXOCOMP-20: integrate PKI and enrollment modules from EXOCOMP-87/epic-EXOCOMP-16 (EnrollmentToken, PKI.Bootstrap, PKI.Issuer)
+- EXOCOMP-20: Add M2 coordinator milestone acceptance test suite (18 tests, m2_acceptance_test.exs)
+
+**Gap documented in test file:** M2-CRIT-3/4 node-side enrollment (EXOCOMP-17 gap) — coordinator-side token issuance and PKI are complete; the node-agent enrollment client, atomic credential installer, and renewal scheduler were not delivered by EXOCOMP-17. End-to-end enrollment handshake cannot run until EXOCOMP-17's node-side is implemented. This is documented in the m2_acceptance_test.exs moduledoc and a follow-up task will be created.
 ---
 <!-- COMMENTS:END -->
