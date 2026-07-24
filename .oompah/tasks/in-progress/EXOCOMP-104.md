@@ -10,9 +10,10 @@ blocked_by:
 - EXOCOMP-103
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:docs
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:04:53.480981Z'
+updated_at: '2026-07-24T18:08:35.930961Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -144,5 +145,25 @@ Discovery: Read all relevant coordinator source files. Key findings:
 - Registry node states reset to `:unknown` after restart and transition to accurate states as polls complete.
 
 Will now write docs/coordinator-restart-recovery.md covering all of the above.
+---
+author: oompah
+created: 2026-07-24 18:08
+---
+Implementation: Added docs/coordinator-restart-recovery.md with the following sections:
+
+1. **What restarts?** — clarifies OTP process restarts vs. full coordinator restart
+2. **What is reconstructed** — Inventory (reads file on init), Registry (seeds from inventory via :reconstruct message), HealthPoller (kills orphans, recovers in-flight tokens, resumes polling), DNS Resolver, Audit
+3. **What is permanently lost** — GoalStore goals, Orchestrator in-flight state, caller-key deduplication index
+4. **Restart sequence** — Mermaid diagram showing the supervisor start order and reconstruction flow
+5. **Explicit unavailable responses** — table of {:error, :not_found} and other explicit responses with recommended caller actions
+6. **Safe idempotent resubmission** — how to use caller_key, warning not to reuse goal_id, note that node-side duplicate work is possible for pre-restart dispatches
+7. **Operator-visible degraded states** — Health.check/0 output structure, common causes table, audit event types emitted around restart
+8. **Limits table** — all configurable bounds with correct config keys verified against source
+9. **Audit trail is and is not** — explicit statement that it is a compliance record, not a recovery database
+10. **Testing** — pointers to specific test names (verified against test files)
+
+Also updated docs/README.md to list the new document.
+
+All 201 tests pass (10 excluded). All defaults and test names verified against source code.
 ---
 <!-- COMMENTS:END -->
