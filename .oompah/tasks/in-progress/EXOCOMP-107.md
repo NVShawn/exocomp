@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:25:11.039162Z'
+updated_at: '2026-07-24T22:29:25.123764Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -179,5 +179,10 @@ author: oompah
 created: 2026-07-24 22:25
 ---
 Understanding: Implementing the three missing node-agent components from the EXOCOMP-17 gap: (1) Enrollment client that calls coordinator enrollment endpoint with node ID and CSR, (2) Atomic credential installer that safely writes chain PEM + private key, (3) Renewal scheduler that monitors cert expiry and triggers renewal. Plan: First explore the codebase to understand existing node/coordinator code, then implement the three components with full test coverage following security requirements from previous security review (pinned root, no token logging, atomic staged writes with rollback, mTLS renewal, jittered backoff scheduler).
+---
+author: oompah
+created: 2026-07-24 22:29
+---
+Discovery: Current branch (EXOCOMP-107) is at origin/main which has coordinator A2A service but NOT the PKI/enrollment modules (those are on origin/epic-EXOCOMP-2). A no-conflict merge of epic-EXOCOMP-2 brings in: EnrollmentToken, PKI.Issuer, PKI.Bootstrap, Audit, Error, Inventory, and full test suite. On the node side, the existing code has: Config, Identity (validates key perms/chain/SAN), Listener, Application, ProposalClient. Missing: (1) Coordinator HTTP enrollment endpoint (coordinator has EnrollmentToken+PKI.Issuer as internal GenServers but no HTTP route), (2) Node enrollment client (generate EC key + CSR, POST to coordinator), (3) Atomic credential installer (staged-rename write with mode 0600 key), (4) Renewal scheduler (expiry monitoring with jittered backoff). Also need to extend node Config with enrollment fields (coordinator_url, enrollment_token path). Plan: merge epic-EXOCOMP-2, add coordinator enrollment HTTP handler, implement 3 node-side modules, write tests.
 ---
 <!-- COMMENTS:END -->
