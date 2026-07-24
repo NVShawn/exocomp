@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T17:41:52.496030Z'
+updated_at: '2026-07-24T17:59:09.672459Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -125,5 +125,18 @@ Plan:
 3. All events carry the goal.id as correlation_id. Recursive redaction is handled automatically by Audit.emit/3 (already calls redact/1 on all attributes including params). Audit failures are non-fatal for orchestration (catch :exit, handle {:error, _} as no-op).
 4. The Health module already reports degraded via Audit.status().healthy == false — no code change needed there.
 5. Add a focused test module with a CollectorSink and tests for: event ordering/correlation, redaction, sink write failures, degraded signaling, and recovery.
+---
+author: oompah
+created: 2026-07-24 17:59
+---
+Discovery: Confirmed implementation approach from reading the codebase.
+
+Key findings:
+1. apps/exocomp_coordinator/lib/exocomp/coordinator/audit.ex - already provides emit/3, recursive redaction (redact/1), and health signaling (healthy: false on sink failure). The Audit GenServer retries sink init on next emit after failure.
+2. apps/exocomp_coordinator/lib/exocomp/coordinator/registry.ex - reference pattern: injects audit_server in opts, calls Audit.emit with catch :exit to handle non-running server.
+3. apps/exocomp_coordinator/lib/exocomp/coordinator/health.ex - already checks Audit.status().healthy and reports :degraded when it's false. No changes needed here.
+4. nil values in event attributes get serialized as empty string ("") because nil is an atom and json_safe/1 calls to_string(nil). Must not include nil-valued attributes; omit them instead.
+
+The orchestrator (orchestrator.ex) and goal store (goal_store.ex) had no audit integration. Both needed injectable audit: keyword option and emit_audit/4 helpers.
 ---
 <!-- COMMENTS:END -->
