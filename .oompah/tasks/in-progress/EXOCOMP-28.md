@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-28
 type: chore
-status: Open
+status: In Progress
 priority: 1
 title: Verify M3 safety and remediation controls
 parent: EXOCOMP-3
@@ -14,13 +14,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:30:27.357851Z'
+updated_at: '2026-07-24T19:30:37.480184Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: af8b338f-98db-45df-b855-ec6ac3391cfa
+oompah.agent_run_id: 21cc06ac-6de2-466e-9bbf-86abb87b11ef
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 556290
@@ -122,5 +122,15 @@ author: oompah
 created: 2026-07-24 19:30
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 19:30
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 19:30
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
