@@ -118,7 +118,7 @@ defmodule Exocomp.Node.Listener do
     ip = parse_ip(config.listen.host)
 
     Bandit.start_link(
-      plug: Exocomp.Node.Plug.Stub,
+      plug: {Exocomp.Node.A2ARouter, node_id: config.node_id},
       scheme: :https,
       port: config.listen.port,
       ip: ip,
