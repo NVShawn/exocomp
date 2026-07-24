@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-32
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement approval-required active and degraded recovery
 parent: EXOCOMP-4
@@ -15,7 +15,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:17:58.160892Z'
+updated_at: '2026-07-24T19:18:43.952391Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -240,5 +240,10 @@ author: oompah
 created: 2026-07-24 19:17
 ---
 Verification: Focused approval-flow suite passes (14 tests, 0 failures). Full host umbrella suite passes: bench 55, core 152, node 740, coordinator 280 = 1,227 tests, 0 failures, 10 excluded integration/systemd tests. Host format check and forced test compilation with warnings-as-errors pass. make fmt-check/test/lint were each invoked but cannot start their pinned container in this managed sandbox because rootless Podman cannot chmod /run/user/1000/libpod (read-only); equivalent host gates used Elixir 1.18/OTP 27 with the matching Erlang development header. git diff --check passes.
+---
+author: oompah
+created: 2026-07-24 19:18
+---
+Completion: Delivered and pushed commit 0466ba8 on origin/epic-EXOCOMP-4. Active/degraded recovery now exposes an exact-evidence input_required approval task, accepts only the correctly bound operator token through the existing fail-closed ApprovalGate, refreshes preconditions immediately before execution, persists execution intent before restart, prevents replay, verifies health, and terminally audits denial/timeout/expiry/state changes/cancellation. Focused 14/14 tests and the full 1,227-test host suite pass; forced warnings-as-errors compile and format check pass. The pinned Make wrappers remain unavailable only because this sandbox's rootless Podman runtime directory is read-only. Worktree is clean and up to date with origin.
 ---
 <!-- COMMENTS:END -->
