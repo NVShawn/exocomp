@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T19:28:24.162033Z'
+updated_at: '2026-07-24T19:28:42.313974Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: 17ce3690-d796-40cf-a60e-fe094336c7d7
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 20
-  total_output_tokens: 4628
+  total_input_tokens: 160
+  total_output_tokens: 93612
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 20
-      output_tokens: 4628
+      input_tokens: 160
+      output_tokens: 93612
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 4628
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:49:33.675676+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 140
+    output_tokens: 88984
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T19:28:39.929032+00:00'
 ---
 ## Summary
 
@@ -267,5 +273,20 @@ author: oompah
 created: 2026-07-24 19:28
 ---
 M2 coordinator milestone verified: 18 acceptance tests covering M2-CRIT-1 through M2-CRIT-8 added to apps/exocomp_coordinator/test/integration/m2_acceptance_test.exs. All 201 tests pass; make lint, make fmt-check, make build all clean. Branch epic-EXOCOMP-2 pushed.
+---
+author: oompah
+created: 2026-07-24 19:28
+---
+Agent completed successfully in 2166s (89124 tokens)
+---
+author: oompah
+created: 2026-07-24 19:28
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
+- Turns: 275, Tool calls: 360
+- Tokens: 140 in / 89.0K out [89.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 36m 6s
+- Log: EXOCOMP-20__20260724T185235Z.jsonl
 ---
 <!-- COMMENTS:END -->
