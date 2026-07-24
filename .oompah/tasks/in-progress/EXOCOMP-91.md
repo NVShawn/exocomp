@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-89
 - EXOCOMP-90
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T03:52:34.446768Z'
+updated_at: '2026-07-24T03:52:54.059469Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -62,5 +64,30 @@ Discovery: Duplicate screening found NO confirmed duplicate. EXOCOMP-91 is a uni
 All prior duplicate screening agents for EXOCOMP-88, EXOCOMP-89, and EXOCOMP-90 explicitly confirmed that EXOCOMP-91 uniquely owns concurrent worker supervision, TaskSupervisor/bounded pool management, in-flight deduplication, per-node timeouts, and isolation of slow/crashed nodes. EXOCOMP-90 (Done) established the scheduling and state-transition API that EXOCOMP-91 will consume. No other task in EXOCOMP-14 through EXOCOMP-20 nor any sibling covers this scope.
 
 Evidence reviewed: EXOCOMP-15, EXOCOMP-88, EXOCOMP-89, EXOCOMP-90, EXOCOMP-92 via oompah task view; plans/milestone-2-coordinator.md 'Node State' section (30-second jittered polling with bounded concurrency, per-node timeouts, failure states, backoff) and existing coordinator codebase (no concurrent poll supervisor exists yet).
+---
+author: oompah
+created: 2026-07-24 03:52
+---
+Focus handoff: duplicate_detector
+
+1. **Outcome:** No duplicate confirmed. EXOCOMP-91 is the unique concurrent-poll-supervisor child of EXOCOMP-15 and should proceed to implementation.
+
+2. **Evidence and decisions:**
+   - EXOCOMP-88 (Done): DNS resolver producing candidate_addresses in Registry — contributes to probe pipeline, no concurrency logic
+   - EXOCOMP-89 (Done): NodeProber with injectable probe_fn returning typed outcomes (:healthy/:degraded/:timeout/:unreachable/:identity_mismatch), updating Registry.addresses only after verification
+   - EXOCOMP-90 (Done): Registry APIs: begin_poll/record_observation with ordered attempt tokens, due_nodes selection by next_eligible_poll_at, jitter/backoff, freshness-based state transitions, redacted audit events
+   - EXOCOMP-92 (Open): Multi-node integration suite — depends on EXOCOMP-91 landing first
+   - plans/milestone-2-coordinator.md Node State section specifies bounded concurrency, per-node timeouts, no cross-node blocking; Test Strategy requires ≥3 concurrent polls and slow/unreachable node isolation tests
+   - apps/exocomp_coordinator/lib/ — no poll supervisor or concurrent worker exists yet
+
+3. **Remaining work and risks:**
+   - Implement `Exocomp.Coordinator.PollSupervisor` (or HealthPoller) that selects due nodes from Registry, spawns isolated per-node Task workers bounded by a configurable concurrency limit (min 3), enforces per-node timeouts, prevents duplicate in-flight polls for the same node, feeds typed NodeProber outcomes into Registry (via EXOCOMP-90 APIs: begin_poll/record_observation), and cleans up timed-out/crashed workers
+   - Make all adapters injectable: interval, jitter, concurrency, timeouts, clock, resolver, and probe functions — to enable deterministic tests without sleeps
+   - Cover: concurrency bound, ≥3 overlapping polls, slow/unreachable node isolation, timeout cleanup, duplicate-work prevention, scheduling recovery after restart
+   - Wire the supervisor into the application supervisor tree
+   - Run affected Make targets (make test, make lint)
+   - Risk: EXOCOMP-90's Registry now has begin_poll/due_nodes APIs — the feature agent must use these (not direct ETS writes) to coordinate in-flight tracking
+
+4. **Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->
