@@ -12,12 +12,13 @@ children:
 - EXOCOMP-32
 - EXOCOMP-33
 - EXOCOMP-34
+- EXOCOMP-106
 blocked_by: []
 labels:
-- epic:stale
+- epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-07-24T18:47:10.790010Z'
+updated_at: '2026-07-24T18:47:25.624618Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
