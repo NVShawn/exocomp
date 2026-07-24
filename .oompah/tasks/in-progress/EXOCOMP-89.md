@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:20:09.165480Z'
+updated_at: '2026-07-24T03:23:16.767848Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -118,5 +118,10 @@ author: oompah
 created: 2026-07-24 03:20
 ---
 Understanding: I am the Test Engineer for EXOCOMP-89. My role is to write focused tests for the authenticated node probe boundary: mTLS identity verification, safe address adoption, typed probe outcomes, and audit event emission. I will first explore the codebase to understand what implementation exists (from any prior feature agents), find existing test patterns, then write comprehensive tests covering: correct/wrong TLS identity, multiple resolved addresses, changed-address adoption and failed-change preservation, malformed/failed Agent Card or health responses, and all typed outcomes (healthy, degraded, timeout, unreachable, identity_mismatch). I will run the affected Make targets to verify tests pass before closing.
+---
+author: oompah
+created: 2026-07-24 03:23
+---
+Discovery: The NodeProber module (EXOCOMP-89's feature) has not yet been implemented. Latest commit is EXOCOMP-88 (DNS Resolver). I will implement both the NodeProber module and its comprehensive test suite. Key files: apps/exocomp_coordinator/lib/exocomp/coordinator/ (Registry, Audit, Inventory.Node), test patterns from resolver_test.exs and audit_test.exs. Design: NodeProber uses injectable probe_fn (like Resolver's resolver_fn) so tests avoid real network. Outcomes: :healthy/:degraded/:timeout/:unreachable/:identity_mismatch. Identity mismatch halts probing immediately. Registry.addresses updated only on success; preserved on all failures.
 ---
 <!-- COMMENTS:END -->
