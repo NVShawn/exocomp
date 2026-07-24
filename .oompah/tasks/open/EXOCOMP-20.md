@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-20
 type: chore
-status: In Progress
+status: Open
 priority: 1
 title: Verify the M2 coordinator milestone
 parent: EXOCOMP-2
@@ -14,9 +14,11 @@ blocked_by:
 - EXOCOMP-19
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:test
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T18:51:42.787383Z'
+updated_at: '2026-07-24T18:51:55.659452Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -169,5 +171,10 @@ author: oompah
 created: 2026-07-24 18:51
 ---
 Verification: M2 acceptance execution is blocked before test implementation. Repository inspection confirms no apps/exocomp_coordinator test can exercise inventory/DNS/polling/orchestration/audit/PKI on current HEAD because their production modules are absent, and no node enrollment/renewal implementation exists anywhere in EXOCOMP-17's integrated history. Existing M1 and EXOCOMP-19 tests are not substitute evidence for M2-CRIT-1..8. No files were changed and no misleading passing gate result is claimed.
+---
+author: oompah
+created: 2026-07-24 18:51
+---
+Focus handoff: test\n\nOutcome: Test design is blocked by missing prerequisite implementation/integration; no acceptance test was added because it would necessarily fail to compile or falsely mock away the milestone behavior.\n\nEvidence: Current HEAD epic-EXOCOMP-2/a8f2e25 lacks Inventory, Registry, Resolver, HealthPoller, Orchestrator, Audit, PKI, and enrollment/renewal modules. Discovery/orchestration live on epic-EXOCOMP-18/e32a175; PKI lives on epic-EXOCOMP-16/9afb6f8 and EXOCOMP-87/1f3c323. EXOCOMP-17 has no delivered node enrollment/renewal client, endpoints, atomic installer, or scheduler despite being marked Done. git status is clean.\n\nRemaining work/risks: A feature agent must integrate the completed M2 branches, resolve their application/codec conflicts with EXOCOMP-19, finish EXOCOMP-17's missing coordinator and node protocol, and run focused implementation tests. Then return to test focus to add the disposable 3+ node suite covering M2-CRIT-1..8, including replay, wrong root, slow/unreachable nodes, cancellation, durable restart audit, and remediation exclusion.\n\nRecommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
