@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-32
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement approval-required active and degraded recovery
 parent: EXOCOMP-4
@@ -13,9 +13,10 @@ blocked_by:
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:frontend
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:00:20.627948Z'
+updated_at: '2026-07-24T19:00:35.794152Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
