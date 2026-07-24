@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-102
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Propagate coordinator diagnostic cancellation
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T04:30:16.948155Z'
+updated_at: '2026-07-24T15:52:15.752832Z'
 work_branch: null
 target_branch: null
 review_url: null

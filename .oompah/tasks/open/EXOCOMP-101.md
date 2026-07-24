@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-101
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Orchestrate bounded diagnostic fan-out and partial results
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-24T04:30:13.140932Z'
+updated_at: '2026-07-24T15:52:14.851971Z'
 work_branch: null
 target_branch: null
 review_url: null

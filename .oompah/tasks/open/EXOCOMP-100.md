@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T04:29:30.794767Z'
+updated_at: '2026-07-24T15:52:13.926016Z'
 work_branch: null
 target_branch: null
 review_url: null

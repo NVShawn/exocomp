@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-99
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement coordinator diagnostic A2A client adapter
 parent: EXOCOMP-18
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-07-24T04:29:25.236002Z'
+updated_at: '2026-07-24T15:52:12.880576Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-105
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Verify coordinator diagnostic orchestration end to end
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T04:30:28.318630Z'
+updated_at: '2026-07-24T15:52:18.454343Z'
 work_branch: null
 target_branch: null
 review_url: null
