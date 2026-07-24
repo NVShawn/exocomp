@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-24
 type: feature
-status: In Progress
+status: Backlog
 priority: 1
 title: Verify approvals and prevent replay on nodes
 parent: EXOCOMP-3
@@ -15,9 +15,10 @@ blocked_by:
 - EXOCOMP-23
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-24T03:14:05.554729Z'
+updated_at: '2026-07-24T03:14:42.008515Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -161,5 +162,33 @@ Prerequisite branches with relevant code:
 - EXOCOMP-25: Exocomp.Node.{Executor, ExecutorLock, ActionCatalog} (restricted executor)
 
 Plan: decompose into 4 single-session child tasks in implementation order.
+---
+author: oompah
+created: 2026-07-24 03:14
+---
+Focus handoff: epic_planner
+
+Outcome: EXOCOMP-24 decomposed into 4 single-session child tasks covering the complete implementation scope.
+
+Child tasks created:
+- EXOCOMP-95: Node-side approval token verifier (Ed25519 signature, all 11 bindings, freshness, coordinator public key provisioning). No upstream code dependencies beyond EXOCOMP-86 (ApprovalToken struct).
+- EXOCOMP-96: Precondition re-checker (re-collect fresh evidence, hash with hash_evidence/1, compare with token evidence_hash). Depends on EXOCOMP-95.
+- EXOCOMP-97: Durable replay ledger (DETS write-ahead, :pending/:complete records, concurrent serialization via GenServer, startup reconciliation of crashed :pending records, fail-closed on corrupt/unavailable DETS). No upstream code dependencies — standalone.
+- EXOCOMP-98: Integration approval gate + comprehensive 15-scenario focused test suite. Depends on EXOCOMP-95, EXOCOMP-96, and EXOCOMP-97.
+
+Dependencies set:
+- EXOCOMP-96 depends-on EXOCOMP-95
+- EXOCOMP-98 depends-on EXOCOMP-95, EXOCOMP-96, EXOCOMP-97
+
+EXOCOMP-97 (ReplayLedger) can start immediately in parallel with EXOCOMP-95 (Verifier). EXOCOMP-96 (PreconditionChecker) can start after EXOCOMP-95. EXOCOMP-98 (Integration gate + tests) must wait for all three.
+
+Relevant branches for feature agents:
+- origin/EXOCOMP-86 — ApprovalToken struct (canonical_encode, hash_evidence, hash_params, sha256_hex)
+- origin/EXOCOMP-21 — Safety types (Evidence, ActionDefinition, etc.)
+- origin/EXOCOMP-25 — Executor, ExecutorLock, ActionCatalog, OsCommander
+
+Key design decision flagged for EXOCOMP-95: how the node receives the coordinator's Ed25519 approval public key (enrollment-distributed vs. operator-deployed config file). Implementer should document the decision.
+
+Recommended next focus: feature (implement EXOCOMP-95 and EXOCOMP-97 in parallel).
 ---
 <!-- COMMENTS:END -->
