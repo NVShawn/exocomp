@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:34:10.709149Z'
+updated_at: '2026-07-24T02:34:25.203839Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-07-24 02:34
 ---
 Understanding: Picking up the interrupted test-focused run. I will inspect any partial worktree changes, replace the hard-coded /usr/bin/kill with a PATH-resolved portable TERM mechanism, prove the existing crash tests exercise the regression, run focused and full Make test gates in the pinned Alpine builder, then commit, push, and close the task.
+---
+author: oompah
+created: 2026-07-24 02:34
+---
+Discovery: The worktree is clean and no partial fix was left behind. apps/exocomp_node/test/exocomp/node/llama_server_test.exs:64 invokes System.cmd("/usr/bin/kill", ...); the helper is behaviorally exercised by the restart/recovery and supervisor-isolation crash tests. make test is the project-defined Alpine builder gate, and Alpine exposes BusyBox kill through PATH rather than /usr/bin/kill.
 ---
 <!-- COMMENTS:END -->
