@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-89
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Verify node mTLS identity and safely adopt resolved addresses
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:31:23.367470Z'
+updated_at: '2026-07-24T03:31:35.052954Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -133,5 +133,10 @@ author: oompah
 created: 2026-07-24 03:31
 ---
 Verification: make test passes cleanly — 59 coordinator tests pass (32 new NodeProber tests + 27 pre-existing), make lint passes with no new warnings. All 32 NodeProber test cases pass covering: correct/wrong identity, multiple addresses, changed-address adoption, failed-change preservation (no candidates, timeout, unreachable, mismatch), degraded health, malformed responses, all typed outcomes, audit events for every outcome type, Registry isolation between nodes, and probe_result struct completeness.
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Completion: EXOCOMP-89 delivered. NodeProber module implements the authenticated node probe boundary per milestone-2-coordinator.md spec: explicit-IP TLS connections (injectable), hostname-as-SNI identity context, no reverse-DNS trust, typed outcomes (:healthy/:degraded/:timeout/:unreachable/:identity_mismatch), Registry.addresses adopted only after full verification, prior addresses preserved on all failure paths, redacted audit events via Audit.emit/3. 32 focused ExUnit tests cover all required scenarios. make test and make lint both pass. Pushed to epic-EXOCOMP-15.
 ---
 <!-- COMMENTS:END -->
