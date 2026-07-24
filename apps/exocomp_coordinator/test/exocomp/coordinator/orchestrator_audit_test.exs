@@ -65,6 +65,7 @@ defmodule Exocomp.Coordinator.OrchestratorAuditTest do
       case response do
         {:block, blocker} ->
           send(blocker, {:blocking_send, self()})
+
           receive do
             {:proceed, result} -> result
             :proceed -> {:error, make_error(:transport, :unreachable, node_id)}
@@ -89,6 +90,7 @@ defmodule Exocomp.Coordinator.OrchestratorAuditTest do
       case response do
         {:block, _} ->
           if owner, do: send(owner, {:blocking_get_task, node_id, self()})
+
           receive do
             {:proceed, result} -> result
             :proceed -> {:error, make_error(:transport, :unreachable, node_id)}
@@ -152,7 +154,11 @@ defmodule Exocomp.Coordinator.OrchestratorAuditTest do
     # A failing sink: init succeeds but every write fails.
     # We use a collector agent to track init state.
     agent = start_supervised!({Agent, fn -> [] end}, id: unique_name(:fail_agent))
-    start_supervised!({Audit, name: name, sink: {CollectorSink, agent: agent, failing: true}}, id: name)
+
+    start_supervised!({Audit, name: name, sink: {CollectorSink, agent: agent, failing: true}},
+      id: name
+    )
+
     name
   end
 
@@ -163,7 +169,10 @@ defmodule Exocomp.Coordinator.OrchestratorAuditTest do
   defp make_task(id, state, artifacts \\ []) do
     %A2ATask{
       id: id,
-      status: %TaskStatus{state: String.to_existing_atom(state), timestamp: "2026-07-24T00:00:00Z"},
+      status: %TaskStatus{
+        state: String.to_existing_atom(state),
+        timestamp: "2026-07-24T00:00:00Z"
+      },
       artifacts: artifacts
     }
   end
@@ -496,7 +505,12 @@ defmodule Exocomp.Coordinator.OrchestratorAuditTest do
     orchestrator = start_orchestrator(goal_store, task_sup, audit)
 
     assert {:ok, %DiagnosticGoal{id: goal_id}} =
-             run(orchestrator, "key-sink-fail-multi", ["node-1", "node-2", "node-3"], client_agent)
+             run(
+               orchestrator,
+               "key-sink-fail-multi",
+               ["node-1", "node-2", "node-3"],
+               client_agent
+             )
 
     eventually(fn -> goal_completed?(goal_store, goal_id) end)
 
@@ -550,6 +564,7 @@ defmodule Exocomp.Coordinator.OrchestratorAuditTest do
 
     # Phase 1: Start with a failing sink — every write fails.
     audit_name = unique_name(:audit_recovery)
+
     start_supervised!(
       {Audit, name: audit_name, sink: {CollectorSink, agent: collector, failing: true}},
       id: audit_name

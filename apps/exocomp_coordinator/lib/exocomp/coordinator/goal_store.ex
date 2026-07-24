@@ -422,11 +422,16 @@ defmodule Exocomp.Coordinator.GoalStore do
       to_evict = Enum.take(terminal_by_age, to_evict_count)
 
       Enum.reduce(to_evict, state, fn {id, {goal, _ts}}, acc ->
-        emit_audit(acc, :goal_evicted, %{
-          goal_id: id,
-          caller_key: goal.caller_key,
-          final_state: goal.state
-        }, id)
+        emit_audit(
+          acc,
+          :goal_evicted,
+          %{
+            goal_id: id,
+            caller_key: goal.caller_key,
+            final_state: goal.state
+          },
+          id
+        )
 
         %{
           acc
