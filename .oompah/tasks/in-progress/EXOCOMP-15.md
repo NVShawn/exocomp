@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-15
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement DNS discovery and concurrent node polling
 parent: EXOCOMP-2
@@ -11,16 +11,15 @@ blocked_by:
 - EXOCOMP-14
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T02:36:39.539921Z'
+updated_at: '2026-07-24T02:40:51.424812Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 02951b64-03e9-44a6-8cc8-5d318dec46d2
+oompah.agent_run_id: 16f41088-7488-4fad-9ba8-b29ab784d7f5
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 753297
@@ -193,5 +192,15 @@ author: oompah
 created: 2026-07-24 02:36
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 02:40
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 02:40
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->

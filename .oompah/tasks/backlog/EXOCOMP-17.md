@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-24T02:40:29.510375Z'
+updated_at: '2026-07-24T02:40:43.623399Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 02447343-8f9b-4cfc-a23d-cc12a8f9c0fd
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 1113189
-  total_output_tokens: 4146
+  total_input_tokens: 1113276
+  total_output_tokens: 7854
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1113189
-      output_tokens: 4146
+      input_tokens: 1113276
+      output_tokens: 7854
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 4146
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:31:21.041936+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 87
+    output_tokens: 3708
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:40:39.959916+00:00'
 ---
 ## Summary
 
@@ -138,5 +144,15 @@ author: oompah
 created: 2026-07-24 02:39
 ---
 Understanding: Epic planner focus. EXOCOMP-17 is the node-side enrollment and renewal epic. EXOCOMP-16 (coordinator PKI + enrollment tokens) is Done, delivering: (a) EXOCOMP-75 — separated root/intermediate/coordinator CA and Ed25519 approval key with strict file modes; (b) EXOCOMP-76 — durable inventory-bound single-use 600s enrollment tokens with EnrollmentToken.issue/2 and EnrollmentToken.consume/3; (c) EXOCOMP-77 — coordinator supervision, validated-PKI startup, Mix init task, and integration tests. The node currently has no enrollment code. Both the coordinator (needs enrollment/renewal HTTP endpoints and CSR issuance) and the node (needs key gen, CSR, pinned-HTTPS client, atomic credential install, and renewal scheduler) require new code. I will decompose EXOCOMP-17 into 6 session-sized children covering: (1) coordinator CSR validation + leaf cert issuance library, (2) coordinator HTTPS enrollment endpoint, (3) coordinator mTLS renewal endpoint, (4) node private key management and atomic credential store, (5) node enrollment client with pinned root fingerprint, (6) node renewal scheduler and focused test suite.
+---
+author: oompah
+created: 2026-07-24 02:40
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 69
+- Tokens: 87 in / 3.7K out [3.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 5m 16s
+- Log: EXOCOMP-17__20260724T023527Z.jsonl
 ---
 <!-- COMMENTS:END -->

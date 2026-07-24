@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-83
 type: task
-status: In Review
+status: Merged
 priority: null
 title: Make LlamaServer crash tests portable in Alpine builder
 parent: null
@@ -11,11 +11,11 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:40:34.597944Z'
-work_branch: null
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-24T02:40:54.066904Z'
+work_branch: EXOCOMP-83
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/7
+review_number: '7'
 merged_at: null
 oompah.agent_run_id: bcc9304b-2907-48d3-aa3c-8f807ce7072f
 oompah.task_costs:
@@ -34,6 +34,10 @@ oompah.task_costs:
     output_tokens: 2433
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:29:43.452878+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/7
+oompah.review_number: '7'
+oompah.work_branch: EXOCOMP-83
+oompah.target_branch: main
 ---
 ## Summary
 

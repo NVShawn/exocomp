@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T02:40:30.155451Z'
+updated_at: '2026-07-24T02:40:45.090205Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-07-24 02:40
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 02:40
+---
+Understanding: Implementing the ApprovalToken struct and deterministic canonical encoding for EXOCOMP-86. Plan: (1) Explore existing coordinator app structure and Jason version; (2) Create approval_token.ex with 11-field @enforce_keys struct, canonical_encode/1, sha256_hex/1, hash_params/1, hash_evidence/1, validate_schema_version/1; (3) Write tests covering determinism, field-sensitivity, map-order independence, schema validation, and enforce_keys; (4) Run make test and make lint.
 ---
 <!-- COMMENTS:END -->
