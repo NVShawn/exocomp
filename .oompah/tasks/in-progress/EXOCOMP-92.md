@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T04:03:05.603306Z'
+updated_at: '2026-07-24T04:03:14.937311Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -116,5 +116,10 @@ author: oompah
 created: 2026-07-24 04:03
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-07-24 04:03
+---
+Understanding: I am the Test Engineer for EXOCOMP-92. My task is to write the cross-component integration suite for multi-node discovery and polling. Based on the duplicate_detector handoff, I need to: (1) build controllable TLS node fixtures with a deterministic DNS/resolver seam, (2) test at least 3 nodes across healthy, degraded/slow, stale, unreachable, and wrong-identity scenarios, (3) assert Registry reachability, addresses, Agent Card metadata, failure counters, timestamps, backoff, audit events, (4) avoid wall-clock sleeps. I will first explore the codebase to understand the existing architecture before writing tests.
 ---
 <!-- COMMENTS:END -->
