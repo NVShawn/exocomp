@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T02:33:52.647537Z'
+updated_at: '2026-07-24T02:36:04.042967Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -193,5 +193,10 @@ author: oompah
 created: 2026-07-24 02:33
 ---
 Focus: Epic Planner
+---
+author: oompah
+created: 2026-07-24 02:36
+---
+Understanding: EXOCOMP-23 is an epic covering coordinator-side signed approval token issuance. The feature agent will need to: (1) define the canonical ApprovalToken payload struct and deterministic encoding, (2) implement Ed25519 signing using the 32-byte raw key from PKI (EXOCOMP-75 format: custom PEM header over base64-encoded key, loaded with :crypto.sign(:eddsa, :none, msg, [priv, :ed25519])), (3) enforce issuance policy (forbid user-data deletion and unknown actions), (4) provide operator approve/deny commands and audit logging. Prerequisites: EXOCOMP-21 safety types branch and epic-EXOCOMP-16 PKI branch must be merged onto the feature branch before Tasks 2/3. Planning 3 sequential child tasks covering payload encoding, signing+policy, and operator commands+audit.
 ---
 <!-- COMMENTS:END -->
