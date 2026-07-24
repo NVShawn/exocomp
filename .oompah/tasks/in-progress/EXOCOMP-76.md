@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:11:54.412344Z'
+updated_at: '2026-07-24T01:31:17.122369Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -124,5 +124,24 @@ author: oompah
 created: 2026-07-24 01:11
 ---
 Discovery: EXOCOMP-14 (inventory/registry/audit) and EXOCOMP-75 (PKI bootstrap) are both Done and merged. I've fast-forwarded EXOCOMP-76 branch to include both via EXOCOMP-75 merge. Current coordinator has: Inventory GenServer, ETS Registry, Audit GenServer with redaction, Health, Error struct, and PKI Bootstrap module. Enrollment token service is completely absent. Will implement EnrollmentToken GenServer with: inventory-bound issuance (rejects unknown node IDs), 600s default lifetime (shorter overrides allowed), high-entropy opaque tokens (48 random bytes split into 16-byte ID + 32-byte secret), single-use (digest-only storage), durable protected storage (JSON file at 0o600 in 0o700 dir), atomic constant-time consumption, fail-closed on corrupt storage, pruning after expiry, injected time/rand/store seams, and full audit/log redaction of all secret material.
+---
+author: oompah
+created: 2026-07-24 01:31
+---
+Implementation: Added Exocomp.Coordinator.EnrollmentToken GenServer with full durable node-bound enrollment token service. Key design decisions:
+
+TOKEN FORMAT: 'tok_{key_b64url}.{secret_b64url}' where key=16 random bytes (lookup index), secret=32 random bytes (the actual credential). Only SHA-256(secret) is stored as a binary digest.
+
+ISSUANCE: Validates node ID against inventory_fn seam (defaults to live Inventory.current()), rejects missing nodes, generates token using rand_fn seam, writes to store atomically via staged-rename, emits audit event with only node_id. Fails closed if storage fails.
+
+CONSUMPTION: All validation occurs atomically in one GenServer call (preventing concurrent double-consumption). Validates format, looks up by key_b64, constant-time compares SHA-256(presented_secret) vs stored_digest using :crypto.hash_equals/2, checks node_id match, expiry (strict < not <=), consumed_at == nil. Persists consumed state before returning :ok - fails closed if storage fails.
+
+PERSISTENCE: mode-0700 directory, mode-0600 file at {store_path}/enrollment_tokens.json. JSON format with 'tok_' prefix never stored. Staged atomic rename. Fail-closed on corrupt file (stops init). Missing file treated as first start. Expires-at pruning on startup and via prune/1.
+
+REDACTION: format_status/1 replaces all digest values with '[REDACTED]'. rand_fn/now_fn/inventory_fn stripped from crash reports. Audit events include only node_id/result/correlation. Tokens never logged.
+
+SEAMS: now_fn, rand_fn, store_path, inventory_fn, max_lifetime all injectable.
+
+TESTS: 61 tests covering all required scenarios: membership checks, default (600s) and shorter lifetimes, expiry boundary, node mismatch, sequential/concurrent replay, restart persistence, corrupt storage (3 variants), pruning, file/dir permissions, log/audit/error/format_status redaction.
 ---
 <!-- COMMENTS:END -->
