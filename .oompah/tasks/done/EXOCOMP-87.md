@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T03:05:26.289437Z'
+updated_at: '2026-07-24T03:05:39.527990Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -203,5 +203,20 @@ author: oompah
 created: 2026-07-24 03:05
 ---
 Completion: delivered and pushed commit 1f3c323 on origin/EXOCOMP-87. The coordinator now validates node CSR cryptography/identity/extensions/self-signatures, safely loads and verifies the online intermediate, rejects intermediate-key reuse, and emits leaf+intermediate chains with exact short-lived validity. All required Makefile quality gates and 15 issuer tests pass; worktree is clean and up to date.
+---
+author: oompah
+created: 2026-07-24 03:05
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 10
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 12m 55s
+- Log: EXOCOMP-87__20260724T025247Z.jsonl
+---
+author: oompah
+created: 2026-07-24 03:05
+---
+Implemented strict coordinator CSR validation and secure intermediate-signed node leaf certificate issuance with full focused coverage; fmt-check, lint, test, release smoke checks passed; commit 1f3c323 pushed.
 ---
 <!-- COMMENTS:END -->
