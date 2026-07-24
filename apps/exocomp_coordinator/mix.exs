@@ -24,7 +24,8 @@ defmodule Exocomp.Coordinator.MixProject do
 
   defp deps do
     [
-      {:exocomp_core, in_umbrella: true}
+      {:exocomp_core, in_umbrella: true},
+      {:jason, "~> 1.4"}
     ]
   end
 end
