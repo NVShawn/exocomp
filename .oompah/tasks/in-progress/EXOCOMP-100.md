@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:04:19.838030Z'
+updated_at: '2026-07-24T16:07:59.615952Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-07-24 16:04
 ---
 Focus: Feature Developer
+---
+author: oompah
+created: 2026-07-24 16:07
+---
+Understanding: Implementing coordinator-side volatile diagnostic goal store (GoalStore) in apps/exocomp_coordinator/. Key design: (1) DiagnosticGoal struct with UUIDv4 correlation ID, caller idempotency key, goal states (:accepted/:dispatching/:running/:completed/:failed/:canceled), per-node outcomes, bounded artifacts and output; (2) NodeOutcome struct for per-node results (:pending/:running/:succeeded/:failed/:unreachable/:canceled); (3) GoalStore GenServer with atomic accept/dedup by caller_key, configurable max_active/max_history/max_artifacts/max_output_bytes, oldest-terminal TTL+count eviction, and downstream_key/2 pure function; (4) focused tests for duplicate submissions, concurrent races, bounds, eviction, output truncation, and lookup/list semantics. Following patterns from apps/exocomp_node/lib/exocomp/node/task_registry.ex.
 ---
 <!-- COMMENTS:END -->
