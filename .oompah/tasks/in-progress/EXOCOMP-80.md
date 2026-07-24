@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:37:05.525901Z'
+updated_at: '2026-07-24T01:40:45.770456Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -269,5 +269,10 @@ author: oompah
 created: 2026-07-24 01:37
 ---
 Understanding (feature): Implementing five Elixir modules for the skill handler layer: Behaviour (callback), SystemDiagnose (concurrent CPU/Memory/Disk/Uptime via Task.async), ServiceDiagnose (Systemd.collect with param validation), RemediationPropose (ProposalClient + LlamaServer readiness), and Dispatcher (skill_id routing). Will also write 11 ExUnit tests using Application.put_env or Mox for mocking. Starting by reading existing prerequisites (collectors, ProposalClient, A2A structs) to match patterns.
+---
+author: oompah
+created: 2026-07-24 01:40
+---
+Discovery: Merged prerequisite branches EXOCOMP-78 (A2A router + A2A types + mTLS listener), EXOCOMP-79 (TaskRegistry), and EXOCOMP-10 (collectors: CPU/Memory/Disk/Uptime/Systemd) into epic-EXOCOMP-12. All prerequisites now available. Key findings: (1) DataPart has no mimeType field — uses metadata map instead; (2) Collectors use dependency-injection via keyword opts (e.g. :cmd_runner for Systemd, file paths for others), making them testable without mocking; (3) ProposalClient.propose/1 returns {:error, :inference_unavailable} when LlamaServer not ready; (4) No Mox library present — will use Application.put_env + lightweight module stubs for tests. Now implementing the 5 skill modules and 11 tests.
 ---
 <!-- COMMENTS:END -->
