@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-80
 type: task
-status: Done
+status: Merged
 priority: null
 title: 'Skill handler implementations: system.diagnose, service.diagnose, remediation.propose'
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:53:09.104800Z'
+updated_at: '2026-07-24T03:56:17.492697Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
