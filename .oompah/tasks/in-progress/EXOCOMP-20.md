@@ -12,10 +12,12 @@ blocked_by:
 - EXOCOMP-17
 - EXOCOMP-18
 - EXOCOMP-19
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T18:49:02.168160Z'
+updated_at: '2026-07-24T18:49:24.493006Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -74,5 +76,38 @@ author: oompah
 created: 2026-07-24 18:49
 ---
 Discovery: No duplicate confirmed. Searched plans/, docs/, README.md, WORKFLOW.md for M2, milestone, coordinator, verify keywords; reviewed all EXOCOMP-2 epic children in full (EXOCOMP-14 Done, EXOCOMP-15 Done, EXOCOMP-16 Done, EXOCOMP-17 Done, EXOCOMP-18 Done, EXOCOMP-19 Done). Closest structural analogue is EXOCOMP-13 ('Verify the M1 node-agent milestone') — same milestone-verification pattern but covers M1/node-agent, not M2/coordinator. EXOCOMP-20 uniquely owns end-to-end M2 acceptance evidence (M2-CRIT-1 through M2-CRIT-8): disposable coordinator fixture, 3+ node fixtures, inventory/DNS/polling/enrollment/renewal/diagnostics/partial-failure/cancellation/audit/restart scenarios, and all quality gates. No implementation task (EXOCOMP-14–19) provides this cross-cutting acceptance evidence.
+---
+author: oompah
+created: 2026-07-24 18:49
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-20 is unique — no other task in the EXOCOMP graph exercises the end-to-end M2 coordinator acceptance criteria.
+
+**Evidence reviewed (all candidates read in full):**
+- EXOCOMP-13 (Merged): Verifies M1 node-agent milestone only; same verification pattern but different scope (node, not coordinator). Its acceptance evidence covers M1-CRIT-1..7 only.
+- EXOCOMP-14 (Done): Coordinator inventory, registry, audit scaffold — unit-level foundation only; no multi-node integration fixture or M2-CRIT evidence.
+- EXOCOMP-15 (Done): DNS discovery and concurrent node polling — covers M2-CRIT-2 implementation, but does not record pass/fail evidence for all 8 M2 criteria.
+- EXOCOMP-16 (Done): Coordinator CA initialization and enrollment tokens — PKI-only scope.
+- EXOCOMP-17 (Done): Node enrollment and certificate renewal — enrollment protocol implementation; no holistic M2 acceptance fixture.
+- EXOCOMP-18 (Done): Coordinator diagnostic orchestration and audit — implementation + unit/integration coverage; no multi-node disposable fixture recording criterion evidence.
+- EXOCOMP-19 (Done): Coordinator cluster A2A service — implementation + 83 focused tests; no cross-cutting M2 criterion evidence.
+- No mention of another M2 verification or acceptance task found in plans/, docs/, or task graph.
+
+**Relevant files/decisions:**
+- plans/milestone-2-coordinator.md lines 182-195 — M2-CRIT-1 through M2-CRIT-8 acceptance criteria
+- apps/exocomp_coordinator/ — all M2 implementation on branch epic-EXOCOMP-2
+- apps/exocomp_node/ — node fixtures for multi-node testing
+- Makefile — quality gate targets (make test, make lint, make fmt-check, make build)
+- EXOCOMP-13 history (especially apps/exocomp_node/test/integration/m1_acceptance_test.exs) — direct pattern to follow for M2 acceptance test structure
+
+**Remaining work/risks:**
+1. Build a disposable coordinator fixture plus at least 3 node fixtures using test certs
+2. Exercise and record evidence for M2-CRIT-1 (inventory), M2-CRIT-2 (concurrent polling), M2-CRIT-3 (enrollment), M2-CRIT-4 (renewal), M2-CRIT-5 (A2A cluster diagnosis), M2-CRIT-6 (restart reconstruction), M2-CRIT-7 (no remediation path), M2-CRIT-8 (all quality gates)
+3. Include token replay, wrong-root, slow node, unreachable node, and restart scenarios
+4. Run make test, make lint, make fmt-check, make build
+5. All blockers (EXOCOMP-13, 15, 17, 18, 19) are now Done — prerequisite code is available on epic-EXOCOMP-2
+
+**Recommended next focus:** test
 ---
 <!-- COMMENTS:END -->
