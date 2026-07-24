@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T16:15:31.848468Z'
+updated_at: '2026-07-24T16:18:39.882342Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-07-24 16:15
 ---
 Understanding: Implementing coordinator-side volatile diagnostic goal store. Plan: (1) Explore codebase structure, existing patterns from node task_registry.ex, and plans/milestone-2-coordinator.md; (2) Implement GoalStore GenServer in apps/exocomp_coordinator/ with DiagnosticGoal/NodeOutcome structs, UUIDv4 correlation IDs, caller-key deduplication, configurable bounds, deterministic oldest-terminal eviction, output/artifact truncation; (3) Implement public internal API for EXOCOMP-19 consumers; (4) Write focused tests for all requirements; (5) Verify with mix test.
+---
+author: oompah
+created: 2026-07-24 16:18
+---
+Discovery: DiagnosticGoal and NodeOutcome structs already exist in apps/exocomp_coordinator/lib/exocomp/coordinator/. The node-side TaskRegistry (apps/exocomp_node/lib/exocomp/node/task_registry.ex) provides the eviction/GenServer patterns to follow. Need to implement GoalStore GenServer with: atomic dedup by caller_key, UUIDv4 correlation IDs, configurable max_active/max_history/max_artifacts/max_output_bytes bounds, oldest-terminal eviction, front-truncated output, per-node outcome management, downstream_key/2 pure function, and comprehensive tests.
 ---
 <!-- COMMENTS:END -->
