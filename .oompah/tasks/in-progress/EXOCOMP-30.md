@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:26:10.278938Z'
+updated_at: '2026-07-24T18:28:49.429274Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -136,5 +136,23 @@ author: oompah
 created: 2026-07-24 18:26
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 18:28
+---
+Understanding: Implementing the service-recovery state machine for Milestone 4.
+
+The state machine has 10 states: observing, diagnosing, proposed, validating, awaiting_approval, executing, verifying, cooling_down, completed, escalated.
+
+Key requirements:
+- Closed legal event matrix; illegal/stale transitions rejected
+- One correlated durable audit event per accepted transition
+- Fresh evidence requirements (evidence age checked before transitions)
+- One execution attempt per recovery episode (no autonomous retry loops)
+- Cancellation and deadline support from any non-terminal state
+- Restart restoration via persisted audit events
+- Exhaustive state-transition tests covering all legal/illegal/stale/duplicate/timeout/cancellation/cooldown/escalation paths
+
+Plan: Create an Elixir umbrella project under apps/exocomp_core with Recovery.StateMachine (pure functional), Recovery.Audit (audit event types/writing), and Recovery.Evidence (freshness). Update Makefile targets for fmt/fmt-check/build/test/lint. Write exhaustive ExUnit tests in apps/exocomp_core/test/.
 ---
 <!-- COMMENTS:END -->

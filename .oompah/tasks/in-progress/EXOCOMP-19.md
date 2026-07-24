@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:28:34.796200Z'
+updated_at: '2026-07-24T18:28:54.743960Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-07-24 18:28
 ---
 Understanding: Dispatched as Maintenance Engineer. The task is EXOCOMP-19: expose coordinator cluster A2A service. After a git pull --rebase to sync 29 commits from origin/main, the code base now has a fully-implemented node A2A service (apps/exocomp_node) with: A2ARouter (Plug.Router), NodeTaskRegistry, A2A.Codec, AgentCardHandler, and Skills.Dispatcher — all with tests. The coordinator app (apps/exocomp_coordinator) has only an empty application.ex and one test. This is fundamentally a feature implementation task, not a maintenance task. My maintenance role will: (1) update the coordinator mix.exs to add the same dependencies the node uses (bandit, plug, jason), ensuring the feature agent can implement against the right deps, then (2) hand off to a feature agent with full context.
+---
+author: oompah
+created: 2026-07-24 18:28
+---
+Discovery: After rebase to origin/main, the codebase has a fully-implemented node A2A service to use as a pattern. Key files: apps/exocomp_node/lib/exocomp/node/a2a_router.ex (Plug.Router with mTLS + version gating), apps/exocomp_node/lib/exocomp/node/a2a/codec.ex (encode/decode), apps/exocomp_node/lib/exocomp/node/task_registry.ex (GenServer bounded history), apps/exocomp_node/lib/exocomp/node/handlers/agent_card_handler.ex. The coordinator app (apps/exocomp_coordinator) has only application.ex and one test. The coordinator mix.exs is missing bandit, plug, and jason — the same HTTP deps the node uses, which are already in mix.lock. Maintenance work: add those deps to coordinator mix.exs. Feature work (for next agent): implement coordinator A2A router, agent card, task registry, codec, config/listener — following node patterns but exposing exocomp.cluster.health and exocomp.cluster.diagnose, and delegating to EXOCOMP-18 orchestration.
 ---
 <!-- COMMENTS:END -->
