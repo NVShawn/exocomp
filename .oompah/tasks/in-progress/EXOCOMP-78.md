@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T00:52:27.886385Z'
+updated_at: '2026-07-24T00:54:21.901784Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -128,5 +128,42 @@ author: oompah
 created: 2026-07-24 00:52
 ---
 Understanding: Investigating EXOCOMP-78 (A2A router scaffold, Agent Card endpoint, mTLS enforcement) for duplicates. Will search task tracker for existing tasks covering Plug/Bandit HTTP router, A2A routing, mTLS enforcement, and Agent Card endpoint. Task is a child of EXOCOMP-12.
+---
+author: oompah
+created: 2026-07-24 00:54
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-78 is a unique child task with no overlap with any existing task.
+
+**Evidence reviewed:**
+- EXOCOMP-12 (parent epic, Open): 'Expose diagnostic-only node A2A service' — EXOCOMP-78 was explicitly created as child task A by the EXOCOMP-12 Epic Planner covering (A) router scaffold + Agent Card + mTLS enforcement. The parent's prior duplicate investigator already scanned EXOCOMP-1 through EXOCOMP-47 and found no competing implementation.
+- EXOCOMP-60 (Done): Implements `Exocomp.Node.Listener` (GenServer owning Bandit mTLS server) + `Exocomp.Node.Plug.Stub` — this is the prerequisite foundation. EXOCOMP-78 REPLACES the Plug.Stub with a real router; complementary, not duplicate.
+- EXOCOMP-79 (Open): Bounded task registry GenServer — different scope; used by EXOCOMP-81 which depends on EXOCOMP-78.
+- EXOCOMP-80 (Open): Skill handler implementations — different scope; invoked by EXOCOMP-81.
+- EXOCOMP-81 (Open): Wire A2A message endpoints to TaskRegistry and skill dispatch — explicitly lists EXOCOMP-78 as its prerequisite; different and dependent scope.
+- EXOCOMP-63 (Done): ProposalClient inference HTTP client — completely different scope.
+- EXOCOMP-70, 71, 72 (Done/Merged): systemd fixture tasks — entirely unrelated.
+- EXOCOMP-75 (In Progress): Coordinator PKI bootstrap — entirely unrelated.
+- No A2ARouter, agent_card, AgentCardHandler, or /.well-known/agent.json files exist anywhere in the codebase (confirmed via find + grep search).
+- No git commits on any branch reference A2ARouter or Agent Card.
+
+**Relevant files for feature agent:**
+- apps/exocomp_node/lib/exocomp/node/listener.ex — currently uses Plug.Stub; must be updated to use A2ARouter
+- apps/exocomp_node/lib/exocomp/node/plug/stub.ex — from EXOCOMP-60 branch; will be superseded by real router
+- apps/exocomp_node/lib/exocomp/node/application.ex — supervision tree
+- apps/exocomp_core/lib/exocomp/a2a/ — A2A types (AgentCard, Task, Message, etc.) from epic-EXOCOMP-8
+- Prerequisite branches: origin/epic-EXOCOMP-8, EXOCOMP-60 (or origin/epic-EXOCOMP-9), epic-EXOCOMP-11 or EXOCOMP-63
+
+**Remaining work:**
+1. Merge prerequisite branches (epic-EXOCOMP-8, EXOCOMP-60, EXOCOMP-63) into EXOCOMP-78 working branch
+2. Add Bandit, Plug, Jason deps to mix.exs (some already added in EXOCOMP-60)
+3. Create Exocomp.Node.A2ARouter (Plug.Router with mTLS auth plug, A2A version check, body size limit, all routes)
+4. Create Exocomp.Node.Handlers.AgentCardHandler (returns Agent Card JSON with 3 skills, no streaming)
+5. Update Exocomp.Node.Listener to use A2ARouter instead of Plug.Stub
+6. Write all 6 required unit tests (agent card, no cert → 401, missing header → 400, body > 1MB → 413, /message/stream → UnsupportedOperationError, unknown route → 404)
+7. Run make test, make lint, make fmt-check
+
+**Recommended next focus:** feature (Elixir/Plug/Bandit implementation)
 ---
 <!-- COMMENTS:END -->
