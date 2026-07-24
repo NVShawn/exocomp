@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-78
 type: task
-status: Open
+status: In Progress
 priority: null
 title: A2A router scaffold, Agent Card endpoint, and mTLS enforcement
 parent: EXOCOMP-12
@@ -10,13 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T00:50:45.253273Z'
+updated_at: '2026-07-24T00:52:16.807141Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 3c617d51-f610-4109-b481-6b1a968f291c
+oompah.agent_run_id: ea0c7eba-61c3-4f91-a4b6-1add55645821
 oompah.work_branch: epic-EXOCOMP-1
 ---
 ## Summary
@@ -111,6 +111,16 @@ Agent dispatched (profile: default)
 ---
 author: oompah
 created: 2026-07-24 00:50
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 00:52
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 00:52
 ---
 Focus: Duplicate Investigator
 ---

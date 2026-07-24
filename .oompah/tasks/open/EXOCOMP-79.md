@@ -1,16 +1,18 @@
 ---
 id: EXOCOMP-79
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T00:51:42.186046Z'
+updated_at: '2026-07-24T00:52:07.736426Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -18,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: c4729221-d0aa-4aee-ab64-cadf80319398
 oompah.work_branch: epic-EXOCOMP-1
+oompah.task_costs:
+  total_input_tokens: 491106
+  total_output_tokens: 2870
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 491106
+      output_tokens: 2870
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 491106
+    output_tokens: 2870
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T00:52:04.639873+00:00'
 ---
 ## Summary
 
@@ -118,5 +136,40 @@ author: oompah
 created: 2026-07-24 00:51
 ---
 Discovery: No duplicate found. The closest reviewed tasks are EXOCOMP-12 (parent epic that intentionally decomposes bounded task history into EXOCOMP-79), EXOCOMP-81 (endpoint wiring that explicitly depends on EXOCOMP-79), EXOCOMP-48 (A2A Task/TaskStatus/TaskState type definitions only), and EXOCOMP-13 (milestone integration verification only). Repository search found the bounded registry requirement only in plans/milestone-1-node-agent.md and found no existing TaskRegistry implementation or matching commit. These scopes are complementary, not duplicate.
+---
+author: oompah
+created: 2026-07-24 00:51
+---
+Focus handoff: duplicate_detector
+
+Outcome: Duplicate screening found no confirmed duplicate; EXOCOMP-79 is the unique implementation task for the bounded in-memory node TaskRegistry.
+
+Evidence: Searched .oompah/tasks (not materialized in this worktree), docs, plans, README, WORKFLOW, repository source, and git history for TaskRegistry, bounded task lifecycle, concurrency, TTL, and eviction terms. Reviewed full tracker records for EXOCOMP-12, EXOCOMP-81, EXOCOMP-13, EXOCOMP-8, and EXOCOMP-48. EXOCOMP-12 is the parent epic; EXOCOMP-81 consumes this registry; EXOCOMP-48 supplies protocol structs; EXOCOMP-13 only verifies the milestone. No TaskRegistry implementation or prior matching commit exists.
+
+Relevant files: plans/milestone-1-node-agent.md; apps/exocomp_node/lib/exocomp/node/ (new task_registry.ex); apps/exocomp_core/lib/exocomp/a2a/{task,task_state,task_status}.ex; Exocomp.Node.Application supervision tree.
+
+Remaining work/risks: Implement the GenServer, lifecycle rules, worker cancellation, concurrency bounds, TTL/count eviction, supervision wiring, and focused ExUnit coverage. Confirm the existing A2A struct field conventions before construction/update. No code was changed during duplicate screening.
+
+Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 00:52
+---
+Agent completed successfully in 89s (493976 tokens)
+---
+author: oompah
+created: 2026-07-24 00:52
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 15
+- Tokens: 491.1K in / 2.9K out [494.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 29s
+- Log: EXOCOMP-79__20260724T005038Z.jsonl
+---
+author: oompah
+created: 2026-07-24 00:52
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
