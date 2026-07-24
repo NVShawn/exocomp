@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:35:56.780529Z'
+updated_at: '2026-07-24T18:37:15.129570Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -183,5 +183,10 @@ author: oompah
 created: 2026-07-24 18:35
 ---
 Implementation: Added RemediationLifecycle plus a narrow RemediationAdapter behavior and fail-closed default. The lifecycle creates correlated A2A tasks, records every state transition in history, validates proposals, refreshes evidence, applies allow/deny/input-required approval decisions, requires durable remediation_intent_accepted audit before invoking mutation, verifies after execution, emits terminal artifacts, handles approval deny/timeout/cancel, records post-action audit reconciliation without retry, and redacts/bounds raw model output. Added the supervised typed remediation.execute skill without exposing executors.
+---
+author: oompah
+created: 2026-07-24 18:37
+---
+Verification: Focused remediation lifecycle suite passes (13 tests, 0 failures); all coordinator tests pass (280 tests, 0 failures); coordinator compiles with warnings-as-errors; repository format check passes. The pinned Make targets were attempted but this managed sandbox cannot start rootless Podman because /run/user/1000/libpod is read-only and user-namespace clone is denied. I ran the equivalent coordinator gates with the available host toolchain (temporarily relaxing only the local version assertion, then restoring it); full umbrella host compilation is additionally blocked by a missing Erlang public_key include. No product source workaround was retained.
 ---
 <!-- COMMENTS:END -->
