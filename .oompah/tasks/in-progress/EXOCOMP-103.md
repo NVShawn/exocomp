@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T17:59:25.642278Z'
+updated_at: '2026-07-24T17:59:37.162771Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -173,5 +173,15 @@ Changes:
 3. apps/exocomp_coordinator/test/exocomp/coordinator/orchestrator_audit_test.exs (new file)
    - CollectorSink: test sink that stores events in an Agent for inspection
    - 17 tests covering: event ordering/correlation, downstream_task_id tracking, deduplication events, recursive redaction of params (api_key/password/nested), sink write failures (diagnostics remain available), Audit.status reports healthy:false, audit server stays alive through repeated failures, recovery after sink availability returns, cancellation events ordering (request before per-node outcomes), pending node cancel events (no downstream_task_id), per-node timeout events, overall goal timeout events, transport unreachable events, protocol error failed events, GoalStore eviction events, empty node list events.
+---
+author: oompah
+created: 2026-07-24 17:59
+---
+Verification: All 197 coordinator tests pass (including 17 new tests in orchestrator_audit_test.exs). Pre-existing flaky test in multi_node_discovery_polling_test.exs sometimes fails due to timing but is unrelated to this change. No test failures from my changes. Confirmed:
+- Events emitted in correct order with matching correlation IDs
+- Recursive redaction works for nested sensitive keys
+- Audit sink write failures are non-fatal (goals complete normally)
+- Audit.status reports healthy:false when sink fails (feeds Health.check degraded signal)
+- GoalStore eviction events emitted correctly
 ---
 <!-- COMMENTS:END -->
