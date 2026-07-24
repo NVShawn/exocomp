@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:33:55.891924Z'
+updated_at: '2026-07-24T02:38:49.918025Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -184,5 +184,15 @@ author: oompah
 created: 2026-07-24 02:33
 ---
 Understanding: As Maintenance Engineer, I'm taking over from the Test Engineer focus. The previous agent found that the complete M1 node-agent implementation exists on the finished EXOCOMP-12 branch but isn't merged to main yet. My job is to: (1) explore the current branch state, (2) build the integration fixture for M1 acceptance criteria, (3) run all quality gates, and (4) close the task. Starting with exploration now.
+---
+author: oompah
+created: 2026-07-24 02:38
+---
+Discovery: The complete M1 implementation is on the current branch (epic-EXOCOMP-1 → EXOCOMP-13). Key findings:
+
+- Unit tests cover M1-CRIT-4 (collectors), M1-CRIT-5 (llama.cpp failure isolation), M1-CRIT-6 (identity/listener validation)
+- What is MISSING: a live end-to-end integration test that starts a real Bandit mTLS listener and makes actual HTTPS A2A requests — needed to provide pass/fail evidence for M1-CRIT-3, M1-CRIT-5 (runtime), M1-CRIT-6 (runtime), M1-CRIT-7 (host state invariance)
+- The M1 acceptance test will go in apps/exocomp_node/test/integration/m1_acceptance_test.exs, tagged :m1_acceptance (no systemd needed, runs in standard CI container)
+- Quality gates (make build, test, lint, fmt-check) remain to be run — these constitute M1-CRIT-1 evidence
 ---
 <!-- COMMENTS:END -->
