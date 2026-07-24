@@ -7,10 +7,11 @@ title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T15:56:25.897231Z'
+updated_at: '2026-07-24T15:56:43.304852Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -50,5 +51,20 @@ author: oompah
 created: 2026-07-24 15:56
 ---
 Discovery: duplicate screening found no confirmed duplicate. Closest match EXOCOMP-79 is the already-merged node-side A2A TaskRegistry (generic submitted/working lifecycle, worker cancellation, TTL/count eviction); EXOCOMP-100 is coordinator-side goal acceptance with caller deduplication, stable downstream idempotency keys, correlation IDs, per-node outcome shapes, artifact/output truncation, and EXOCOMP-19-facing lookup/list semantics. EXOCOMP-18 is its intentional parent decomposition; EXOCOMP-101 consumes this store for fan-out; EXOCOMP-19 is the external HTTP/A2A surface; EXOCOMP-99 is the downstream client adapter. These scopes are complementary, not duplicates.
+---
+author: oompah
+created: 2026-07-24 15:56
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed; EXOCOMP-100 remains a distinct implementation task. No repository files were changed.
+
+Evidence: The requested rg scan found no materialized .oompah/tasks directory on this checkout/default branch, but repository plans identify the coordinator contract in plans/milestone-2-coordinator.md: volatile/reconstructible state, correlation/idempotency, bounded history, and get/list/cancel support. Full tracker records reviewed: EXOCOMP-18 (parent epic intentionally created EXOCOMP-100 as the state/idempotency foundation), EXOCOMP-79 and EXOCOMP-12 (merged node-side task registry/service), EXOCOMP-99 (diagnostic client adapter), EXOCOMP-101 (fan-out consumer), and EXOCOMP-19 (external coordinator A2A handlers). EXOCOMP-79 is the closest reusable precedent, but it does not cover caller submission keys, concurrent duplicate races, stable per-node downstream idempotency, coordinator per-node outcomes, or artifact/output truncation.
+
+Relevant files/decisions: plans/milestone-2-coordinator.md; apps/exocomp_coordinator/ is the implementation surface; apps/exocomp_core/lib/exocomp/a2a/ supplies shared task shapes when prerequisite branches are present. Preserve a public internal API suitable for EXOCOMP-19 and state updates suitable for EXOCOMP-101. The current checkout reports branch epic-EXOCOMP-18 despite the dispatch text naming epic-EXOCOMP-2, so the next agent should verify prerequisite branch content before editing.
+
+Remaining work/risks: implement atomic acceptance/deduplication, UUIDv4 correlation IDs, caller-key derivation/retention, stable downstream keys, bounded active/history/artifact/output storage, deterministic oldest-terminal eviction, state/outcome types, and focused concurrency/bounds/truncation/lookup/list tests. Reuse node registry concepts only where semantics match; do not alias coordinator goals to node tasks.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
