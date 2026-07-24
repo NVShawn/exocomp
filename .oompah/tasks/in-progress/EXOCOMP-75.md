@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T00:50:53.020162Z'
+updated_at: '2026-07-24T00:51:02.578205Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -56,5 +56,10 @@ author: oompah
 created: 2026-07-24 00:50
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 00:51
+---
+Understanding: I am the Duplicate Investigator for EXOCOMP-75. The issue requests implementing secure coordinator PKI bootstrap and state validation — root CA generation, intermediate CA, coordinator leaf identity, Ed25519 approval-signing key, atomic persistence with restrictive permissions, idempotent re-initialization with chain validation, and focused tests. I will search for existing tasks covering this same ground before any implementation.
 ---
 <!-- COMMENTS:END -->
