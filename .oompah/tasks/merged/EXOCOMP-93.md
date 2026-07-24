@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-93
 type: task
-status: Done
+status: Merged
 priority: 0
 title: Rebase epic-EXOCOMP-1 onto main
 parent: EXOCOMP-1
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:50:21.235712Z'
-updated_at: '2026-07-24T03:11:07.056252Z'
+updated_at: '2026-07-24T03:15:01.449040Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null

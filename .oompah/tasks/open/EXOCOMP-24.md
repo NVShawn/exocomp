@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-24
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Verify approvals and prevent replay on nodes
 parent: EXOCOMP-3
@@ -18,7 +18,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-24T03:14:42.008515Z'
+updated_at: '2026-07-24T03:14:56.315879Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -27,13 +27,13 @@ merged_at: null
 oompah.agent_run_id: 7b9bf218-0597-426e-82dd-2ab6481022fd
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 639250
-  total_output_tokens: 3096
+  total_input_tokens: 639279
+  total_output_tokens: 20412
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 639250
-      output_tokens: 3096
+      input_tokens: 639279
+      output_tokens: 20412
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 3096
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:08:20.848444+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 29
+    output_tokens: 17316
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T03:14:51.663123+00:00'
 ---
 ## Summary
 
@@ -190,5 +196,25 @@ Relevant branches for feature agents:
 Key design decision flagged for EXOCOMP-95: how the node receives the coordinator's Ed25519 approval public key (enrollment-distributed vs. operator-deployed config file). Implementer should document the decision.
 
 Recommended next focus: feature (implement EXOCOMP-95 and EXOCOMP-97 in parallel).
+---
+author: oompah
+created: 2026-07-24 03:14
+---
+Agent completed successfully in 380s (17345 tokens)
+---
+author: oompah
+created: 2026-07-24 03:14
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 60, Tool calls: 46
+- Tokens: 29 in / 17.3K out [17.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 20s
+- Log: EXOCOMP-24__20260724T030836Z.jsonl
+---
+author: oompah
+created: 2026-07-24 03:14
+---
+Focus handoff from `epic_planner` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
