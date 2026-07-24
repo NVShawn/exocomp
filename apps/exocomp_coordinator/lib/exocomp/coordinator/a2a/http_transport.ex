@@ -38,15 +38,38 @@ defmodule Exocomp.Coordinator.A2A.HTTPTransport do
   end
 
   defp ssl_options(request) do
-    identity = to_charlist(request.certificate_identity)
+    identity = request.certificate_identity
 
     request.tls
     |> Keyword.take([:cacertfile, :certfile, :keyfile, :password, :versions, :ciphers])
     |> Keyword.merge(
       verify: :verify_peer,
-      server_name_indication: identity,
-      customize_hostname_check: [match_fun: :public_key.pkix_verify_hostname_match_fun(:https)]
+      server_name_indication: to_charlist(request.hostname),
+      verify_fun: {&verify_peer/3, identity}
     )
+  end
+
+  defp verify_peer(_certificate, {:bad_cert, reason}, _identity), do: {:fail, reason}
+  defp verify_peer(_certificate, {:extension, _extension}, identity), do: {:unknown, identity}
+  defp verify_peer(_certificate, :valid, identity), do: {:valid, identity}
+
+  defp verify_peer(certificate, :valid_peer, identity) do
+    reference =
+      if String.contains?(identity, "://") do
+        {:uri_id, to_charlist(identity)}
+      else
+        {:dns_id, to_charlist(identity)}
+      end
+
+    if :public_key.pkix_verify_hostname(
+         certificate,
+         [reference],
+         match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
+       ) do
+      {:valid, identity}
+    else
+      {:fail, :identity_mismatch}
+    end
   end
 
   defp http_request(:get, url, headers, _body), do: {to_charlist(url), headers}
@@ -63,10 +86,14 @@ defmodule Exocomp.Coordinator.A2A.HTTPTransport do
     {:ok, status, normalized_headers, body}
   end
 
-  defp normalize_response({:error, reason}) when reason in [:timeout, :connect_timeout],
-    do: {:error, :timeout}
+  defp normalize_response({:error, reason}) do
+    if timeout_reason?(reason), do: {:error, :timeout}, else: {:error, reason}
+  end
 
-  defp normalize_response({:error, reason}), do: {:error, reason}
+  defp timeout_reason?(reason) when reason in [:timeout, :connect_timeout, :etimedout], do: true
+  defp timeout_reason?(reason) when is_tuple(reason), do: reason |> Tuple.to_list() |> Enum.any?(&timeout_reason?/1)
+  defp timeout_reason?(reason) when is_list(reason), do: Enum.any?(reason, &timeout_reason?/1)
+  defp timeout_reason?(_reason), do: false
 
   defp url(address, port, path) do
     host = if String.contains?(address, ":"), do: "[#{address}]", else: address
