@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-24T22:22:36.228104Z'
+updated_at: '2026-07-24T22:23:29.182394Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -117,5 +117,10 @@ author: oompah
 created: 2026-07-24 22:22
 ---
 Understanding: Security review will map the node enrollment, credential installation, and renewal trust boundaries against OWASP-style risks: bootstrap authentication/token replay, TLS server verification, CSR/node-ID binding, malicious or malformed certificate responses, private-key exposure, filesystem races/symlink attacks, crash consistency, renewal authentication, retry amplification, and secret logging. I will inspect the current branch and relevant plans/contracts, record actionable security acceptance criteria, and hand off to feature implementation because the node-side components are currently absent.
+---
+author: oompah
+created: 2026-07-24 22:23
+---
+Discovery: The current branch is origin/main and contains none of the prerequisite coordinator enrollment/PKI modules; those exist only on origin/epic-EXOCOMP-2. That integrated branch exposes EnrollmentToken and PKI.Issuer as internal services but has no HTTP enrollment or renewal route, so a node client currently has no callable boundary. Existing apps/exocomp_node/lib/exocomp/node/identity.ex validates key mode, leaf-to-root path, and DNS SAN, but does not prove the private key matches the leaf certificate, rejects neither symlinks/non-regular key files nor ownership surprises, and reads only one leaf certificate (not a returned intermediate chain). These are security-critical requirements for the new installer rather than evidence that the requested components already exist.
 ---
 <!-- COMMENTS:END -->
