@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-102
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Propagate coordinator diagnostic cancellation
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T17:32:51.717031Z'
+updated_at: '2026-07-24T17:33:16.917006Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
