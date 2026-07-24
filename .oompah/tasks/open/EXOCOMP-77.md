@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -11,9 +11,11 @@ blocked_by:
 - EXOCOMP-76
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:security
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T01:47:13.370701Z'
+updated_at: '2026-07-24T01:47:35.517553Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -154,5 +156,30 @@ author: oompah
 created: 2026-07-24 01:47
 ---
 Verification: make fmt-check PASSED, make lint PASSED (no warnings), make test: 69/69 coordinator tests pass (up from 61). The 2 pre-existing LlamaServer test failures in exocomp_node are unrelated to this work (require /usr/bin/kill on a process that doesn't exist in the CI environment).
+---
+author: oompah
+created: 2026-07-24 01:47
+---
+Focus handoff: security
+
+Outcome: Security audit of EXOCOMP-75/76 deliverables is complete. Four vulnerabilities were identified and fixed; all changes are committed, pushed, and covered by 8 new tests (69/69 coordinator tests pass).
+
+Relevant files modified:
+- apps/exocomp_coordinator/lib/exocomp/coordinator/enrollment_token.ex (parse_token key-length check, lstat + permission check in ensure_store_dir)
+- apps/exocomp_coordinator/lib/exocomp/coordinator/audit/json_lines.ex (0600 file permissions on init and rotate)
+- apps/exocomp_coordinator/lib/exocomp/coordinator/audit.ex (passphrase/digest/pin added to @sensitive_keys)
+- apps/exocomp_coordinator/test/exocomp/coordinator/enrollment_token_test.exs (8 new security tests)
+- apps/exocomp_coordinator/test/exocomp/coordinator/audit_test.exs (permission and redaction tests)
+
+Remaining work (for the feature agent):
+1. Extend application.ex supervision tree to validate PKI state via Bootstrap.initialize before starting EnrollmentToken — services must not start from unvalidated state.
+2. Create a Mix task (e.g., mix exocomp.coordinator.init) with the stable output and exit-code requirements from the task description (offline backup path, root fingerprint, no private-key printing, distinct initialized/already-initialized/invalid-state outcomes).
+3. Wire the EXOCOMP-17 enrollment issue/consume boundary and document it in module contracts.
+4. Add integration tests: clean init + startup, idempotent rerun, missing/corrupt/insecure material startup failure, token issue/consume through supervised service, restart replay rejection, audit outage fail-closed, log/output redaction.
+5. Assert no root private key is retained online at test time.
+
+Risks: EXOCOMP-77 depends on EXOCOMP-75 and EXOCOMP-76 being merged. The EXOCOMP-75/76 implementations are present in this worktree and fully tested; the dependency is structural/tracking only.
+
+Recommended next focus: feature
 ---
 <!-- COMMENTS:END -->
