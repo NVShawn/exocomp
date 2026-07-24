@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-30
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:41:58.049340Z'
+updated_at: '2026-07-24T18:42:11.747416Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -223,5 +223,24 @@ Test suite covers:
 - Evidence tracking in machine struct
 - Pure-functional guarantee
 - Post-terminal event rejection
+---
+author: oompah
+created: 2026-07-24 18:42
+---
+Completion: Service-recovery state machine implemented, tested, and pushed to epic-EXOCOMP-4 branch.
+
+Delivered:
+- Exocomp.Recovery.StateMachine — pure functional state machine with 10 states (+ cancelled), closed event matrix, one audit event per transition, evidence freshness, approval expiry, one-attempt guard, cancellation, deadlines, restart restoration
+- Exocomp.Recovery.Evidence — versioned evidence struct with freshness check
+- Exocomp.Recovery.AuditEvent — durable audit event struct
+
+Acceptance criteria:
+✓ Illegal or stale transitions fail without action
+✓ Each transition has one correlated audit event
+✓ Only validated paths can reach execution (validating via failed_and_allowed, or awaiting_approval via valid_approval)
+✓ A failed verification cannot autonomously loop to execution (verifying → cooling_down → escalated is terminal)
+✓ Focused state-machine tests pass (85 tests, 0 failures)
+
+Quality gate: make fmt-check, make build, make test, make lint all pass.
 ---
 <!-- COMMENTS:END -->
