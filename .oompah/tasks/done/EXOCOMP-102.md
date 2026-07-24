@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T17:33:19.785205Z'
+updated_at: '2026-07-24T17:33:43.264210Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 886e94ea-b999-4505-a0eb-4e3a63e0f022
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 508441
-  total_output_tokens: 3890
+  total_input_tokens: 508474
+  total_output_tokens: 66864
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 508441
-      output_tokens: 3890
+      input_tokens: 508474
+      output_tokens: 66864
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 3890
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:57:24.503536+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 33
+    output_tokens: 62974
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T17:33:40.568730+00:00'
 ---
 ## Summary
 
@@ -133,5 +139,20 @@ author: oompah
 created: 2026-07-24 17:33
 ---
 Implemented Orchestrator.cancel/2: atomically marks coordinator goal :canceled, kills in-flight workers, attempts downstream A2A cancel per node, records :canceled/:cancel_failed per-node outcomes, handles idempotency and races. Added :cancel_failed to NodeOutcome states. 8 new focused tests cover all scenarios. 201 tests pass.
+---
+author: oompah
+created: 2026-07-24 17:33
+---
+Agent completed successfully in 2165s (63007 tokens)
+---
+author: oompah
+created: 2026-07-24 17:33
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 61, Tool calls: 42
+- Tokens: 33 in / 63.0K out [63.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 36m 5s
+- Log: EXOCOMP-102__20260724T165737Z.jsonl
 ---
 <!-- COMMENTS:END -->
