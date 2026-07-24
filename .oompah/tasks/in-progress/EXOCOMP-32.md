@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T18:57:10.624264Z'
+updated_at: '2026-07-24T18:57:17.322583Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -22,6 +22,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 5e30ed94-6ac7-4a07-9603-4659224ba31b
 oompah.work_branch: epic-EXOCOMP-4
+oompah.task_costs:
+  total_input_tokens: 458535
+  total_output_tokens: 2251
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 458535
+      output_tokens: 2251
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 458535
+    output_tokens: 2251
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T18:57:14.993723+00:00'
 ---
 ## Summary
 
@@ -87,5 +103,20 @@ Relevant files/specification: plans/milestone-4-service-recovery.md (Recovery St
 Remaining work/risks: Integrate the completed prerequisite branches into epic-EXOCOMP-4 as needed; show exact disruption impact and evidence in input-required state; distinguish approve, deny, expiry, timeout, cancel, wrong approver/token, and duplicate decisions; refresh evidence before execution; invalidate approval and re-diagnose/escalate when evidence or service state changes, including healthy/failed transitions; prove zero restart on all non-valid paths. Preserve EXOCOMP-30's one-attempt/audit invariants and use EXOCOMP-98 rather than duplicating token validation.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 18:57
+---
+Agent completed successfully in 85s (460786 tokens)
+---
+author: oompah
+created: 2026-07-24 18:57
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 12
+- Tokens: 458.5K in / 2.3K out [460.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 25s
+- Log: EXOCOMP-32__20260724T185553Z.jsonl
 ---
 <!-- COMMENTS:END -->
