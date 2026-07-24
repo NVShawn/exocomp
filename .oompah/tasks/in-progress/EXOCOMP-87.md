@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T03:03:47.734427Z'
+updated_at: '2026-07-24T03:04:42.623371Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -193,5 +193,10 @@ author: oompah
 created: 2026-07-24 03:03
 ---
 Implementation: added PKI.Issuer with strict PEM/PKCS#10 parsing, P-256+/RSA-3072+ strength checks, exact DNS SAN and CA/KU/EKU policies, self-signature verification, OTP-compatible extensionRequest decoding, redacted intermediate loading, dedicated-key enforcement, and intermediate-signed leaf chains with exact configurable validity. Added 15 focused real-bootstrap tests covering all requested success and rejection cases.
+---
+author: oompah
+created: 2026-07-24 03:04
+---
+Verification: targeted issuer suite passes 15/15. Required quality gates all pass via their Makefile targets using a local Elixir 1.20.2/OTP 27 runner because sandboxed Podman cannot create namespaces: make fmt-check passed; make lint passed with warnings-as-errors; make test passed (bench 55, core 2, node 49 with 10 excluded, coordinator 116) plus both release smoke checks.
 ---
 <!-- COMMENTS:END -->
