@@ -13,7 +13,7 @@ labels:
 - focus-complete:refactor
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:28:54.618982Z'
+updated_at: '2026-07-24T02:29:05.740126Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 3939ec24-0c0a-40ff-8d2c-24bbf348f10c
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 336710
-  total_output_tokens: 5367
+  total_input_tokens: 336807
+  total_output_tokens: 8664
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 336710
-      output_tokens: 5367
+      input_tokens: 336807
+      output_tokens: 8664
       cost_usd: 0.0
   runs:
   - profile: default
@@ -49,6 +49,12 @@ oompah.task_costs:
     output_tokens: 1579
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:03:15.583607+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 97
+    output_tokens: 3297
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:29:04.149328+00:00'
 ---
 ## Summary
 
@@ -669,5 +675,20 @@ Delivered:
 - Async run_skill_async/5 — working transition, worker registration, dispatch with yield/timeout, terminal transition with cancellation-race safety
 - JSONBodyParser extended to rescue Plug.Parsers.ParseError → 400
 - Full test coverage: 19 tests for all specified scenarios
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Implemented A2A endpoint wiring: POST /message:send, GET /tasks/:id, GET /tasks, POST /tasks/:id:cancel connected to TaskRegistry and Dispatcher. Added Codec module, async skill execution with timeout, and 19 tests covering all specified scenarios.
+---
+author: oompah
+created: 2026-07-24 02:29
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 64
+- Tokens: 97 in / 3.3K out [3.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 20m 17s
+- Log: EXOCOMP-81__20260724T020850Z.jsonl
 ---
 <!-- COMMENTS:END -->
