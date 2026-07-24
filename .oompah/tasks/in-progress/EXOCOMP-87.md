@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-87
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement coordinator CSR validation and node leaf cert issuance
 parent: EXOCOMP-17
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T02:49:35.539138Z'
-work_branch: null
+updated_at: '2026-07-24T02:50:21.969331Z'
+work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 44263622-12fd-467a-a817-685a75488f04
+oompah.work_branch: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -93,3 +95,16 @@ Run make fmt-check, make lint, make test before closing.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 02:50
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:50
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
