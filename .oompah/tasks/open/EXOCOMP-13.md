@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-13
 type: chore
-status: In Progress
+status: Open
 priority: 1
 title: Verify the M1 node-agent milestone
 parent: EXOCOMP-1
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:32:07.302931Z'
+updated_at: '2026-07-24T02:33:01.113487Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -144,5 +144,10 @@ author: oompah
 created: 2026-07-24 02:32
 ---
 Understanding: I will verify every M1-CRIT item with a hermetic Linux integration fixture that exercises the built release, test certificates, a fake/pinned llama.cpp boundary, discovery, diagnostics, proposal failure, lifecycle/concurrency, graceful shutdown, and before/after host-state invariance. I will follow existing test patterns and run focused coverage plus make build, test, lint, and fmt-check.
+---
+author: oompah
+created: 2026-07-24 02:32
+---
+Discovery: the current epic worktree was stale; after fast-forwarding to origin/main, the complete M1 node-agent implementation is present on the finished blocker branch origin/epic-EXOCOMP-12 (A2A protocol/router, mTLS identity/listener, collectors, task registry, skill handlers, and tests) but is not yet merged to main. The verification must integrate that prerequisite branch before adding release-level acceptance coverage. Existing integration/fixture_test.exs tests a separate systemd fixture and does not verify M1.
 ---
 <!-- COMMENTS:END -->
