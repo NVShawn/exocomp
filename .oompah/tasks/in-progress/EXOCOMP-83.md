@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:34:41.792221Z'
+updated_at: '2026-07-24T02:37:44.106424Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-07-24 02:34
 ---
 Implementation: Updated kill_port_os_process/1 to call System.cmd("kill", ...) instead of the non-portable absolute /usr/bin/kill path. This preserves explicit TERM semantics and lets Erlang resolve the executable from PATH, where Alpine’s BusyBox kill is available. The two existing behavioral crash tests remain the regression coverage and exercise the helper end to end.
+---
+author: oompah
+created: 2026-07-24 02:37
+---
+Verification: In the pinned Alpine 3.24.1 builder, the focused LlamaServer suite passes 8/8 with the fix. Negative regression proof: temporarily restoring /usr/bin/kill makes exactly the two crash tests fail with Erlang :enoent/invalid port name; restoring PATH-based kill makes them pass. Full make test also passes: bench 55, core 2, coordinator 1, node 49 (10 integration/systemd excluded), followed by successful node/coordinator release assembly and smoke startup.
 ---
 <!-- COMMENTS:END -->
