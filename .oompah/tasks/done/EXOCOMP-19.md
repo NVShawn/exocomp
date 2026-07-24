@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-19
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:45:08.064089Z'
+updated_at: '2026-07-24T18:45:21.317292Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -227,5 +227,10 @@ author: oompah
 created: 2026-07-24 18:45
 ---
 Verification: All quality gates pass. Test results: bench 55/55, exocomp_core 66/66, exocomp_coordinator 83/83, exocomp_node 201/201 (10 excluded = integration/systemd tests requiring privileged container). Lint (mix format --check-formatted + mix compile --warnings-as-errors) passes clean. Tests cover: mTLS auth, version negotiation, cluster skills (health/diagnose), selection authorization (authorized/unauthorized/partial node IDs), task lifecycle (submit/get/list/cancel), concurrent callers (5 simultaneous), partial results, unsupported capabilities (streaming/resubscribe), no-remediation boundary, bounded history, config loading, codec encode/decode.
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Completion: Coordinator cluster A2A service fully implemented and tested. Delivered: (1) A2A 1.0 compliant service with mTLS auth, version negotiation, cluster Agent Card; (2) exocomp.cluster.health and exocomp.cluster.diagnose skills - no remediation execution; (3) Inventory selection authorization (unauthorized node IDs rejected with -32602); (4) Bounded task history with async execution, partial results via Orchestrator.Stub (EXOCOMP-18 integration point); (5) Cancellation propagation to workers; (6) 83 focused tests passing all acceptance criteria. Branch epic-EXOCOMP-2, commit a8f2e25.
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-30
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
@@ -13,13 +13,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:42:28.470552Z'
+updated_at: '2026-07-24T18:45:20.687416Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 1abd3c15-68a9-4065-b1aa-72252bd0272d
+oompah.agent_run_id: cec7eb02-03e8-40ef-9eac-6f4fcee6c7c4
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 315770
@@ -285,5 +285,15 @@ Required: open a PR before closing.
   gh pr create --base main --head epic-EXOCOMP-4 --title "EXOCOMP-30: Implement the service-recovery state machine" --body "..."
 
 Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:45
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
