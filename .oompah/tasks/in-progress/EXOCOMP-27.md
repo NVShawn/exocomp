@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-27
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
@@ -15,13 +15,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:26:36.921518Z'
+updated_at: '2026-07-24T18:26:46.766490Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 203eb2b3-bf49-4a2a-8f20-eed106761f31
+oompah.agent_run_id: 0bd07bc1-c000-4244-90c9-5047137b4b45
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 17
@@ -158,5 +158,15 @@ author: oompah
 created: 2026-07-24 18:26
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 18:26
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 18:26
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
