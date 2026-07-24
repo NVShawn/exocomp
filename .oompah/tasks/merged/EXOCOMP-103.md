@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-103
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Audit every correlated diagnostic task transition
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T18:00:56.729217Z'
+updated_at: '2026-07-24T20:21:15.790107Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
