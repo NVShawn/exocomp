@@ -12,6 +12,7 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 
 - [Development](development.md)
 - [Testing the Systemd Fixture](testing-systemd-fixture.md)
+- [Coordinator Restart Recovery](coordinator-restart-recovery.md)
 
 ## Keeping Docs In Sync
 
