@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T15:56:53.007629Z'
+updated_at: '2026-07-24T15:56:58.217981Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -19,6 +19,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 516222c7-5b1a-47ff-9bcf-7ce2cbbe3630
 oompah.work_branch: epic-EXOCOMP-2
+oompah.task_costs:
+  total_input_tokens: 606360
+  total_output_tokens: 3429
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 606360
+      output_tokens: 3429
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 606360
+    output_tokens: 3429
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T15:56:50.871923+00:00'
 ---
 ## Summary
 
@@ -71,5 +87,20 @@ author: oompah
 created: 2026-07-24 15:56
 ---
 Agent completed successfully in 111s (609789 tokens)
+---
+author: oompah
+created: 2026-07-24 15:56
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 31
+- Tokens: 606.4K in / 3.4K out [609.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 51s
+- Log: EXOCOMP-100__20260724T155504Z.jsonl
+---
+author: oompah
+created: 2026-07-24 15:56
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
