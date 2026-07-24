@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-24T16:53:01.055010Z'
+updated_at: '2026-07-24T16:53:53.412677Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -127,5 +127,10 @@ author: oompah
 created: 2026-07-24 16:53
 ---
 Implementation: Added Exocomp.Coordinator.Orchestrator GenServer in apps/exocomp_coordinator/lib/exocomp/coordinator/orchestrator.ex. Key design decisions: (1) GoalStore.accept/4 used for idempotent goal creation; per-call client_opts merged with state client_opts so test adapters work; (2) Bounded concurrency via task_ref→meta map; take_pending implements round-robin fair scheduling across goals while filling available slots from same goal if needed; (3) Each node task runs as async_nolink Task.Supervisor task with FakeClient.send + poll_until_terminal loop; (4) Per-node deadline via Process.send_after(:node_timeout, ref) — kills task and marks :unreachable; (5) Overall goal deadline via Process.send_after(:goal_timeout, goal_id) — kills all in-flight tasks, marks in-flight and pending nodes :unreachable, transitions goal to :completed; (6) Lifecycle: accepted→dispatching (synchronous in run), dispatching→running (on first dispatch, synchronous), running→completed (when remaining==0); (7) NodeOutcome set to :running synchronously before Task starts; (8) Late results silently ignored (task removed from state.tasks before result arrives); (9) Application.ex updated with GoalStore, DiagTaskSupervisor, Orchestrator. Added 18 tests covering all required scenarios.
+---
+author: oompah
+created: 2026-07-24 16:53
+---
+Verification: Full test suite run: 201 passed, 10 excluded (systemd/integration tests requiring real system). Zero failures. Coordinator-specific run: 171 passed. lint (mix credo) passes. fmt (mix format) passes. Tests cover all required scenarios: three-node success, partial node failure, unavailable node (:unreachable), configuration error (:failed), per-node timeout, overall goal timeout, pending-node timeout, concurrency limits (2 concurrent, queue of 3), concurrency spanning multiple goals, late-result discarding, idempotent caller_key, empty node list, GoalStore at capacity, polling loop, node lifecycle (pending→running→succeeded), multi-goal isolation, artifact recording, downstream_key determinism.
 ---
 <!-- COMMENTS:END -->
