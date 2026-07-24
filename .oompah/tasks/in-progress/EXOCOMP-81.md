@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:04:08.185013Z'
+updated_at: '2026-07-24T02:04:29.405797Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -575,5 +575,10 @@ author: oompah
 created: 2026-07-24 02:04
 ---
 Understanding (Refactoring Specialist): EXOCOMP-81 is feature work that replaces router stubs with new A2A endpoint behavior. The refactor focus forbids behavior changes, so I will verify the current repository/task state and baseline tests, identify exact integration points, make no source changes, and hand off to the feature focus with concrete evidence.
+---
+author: oompah
+created: 2026-07-24 02:04
+---
+Discovery (Refactoring Specialist): The clean checkout is currently epic-EXOCOMP-12, not EXOCOMP-81. apps/exocomp_node/lib/exocomp/node/a2a_router.ex still has stub responses for send/get/list/cancel. TaskRegistry already exposes submit/get/list/transition/cancel/register_worker, and Skills.Dispatcher exposes dispatch/3 with defaults. Existing router tests cover scaffold/auth/version/body limits only. Therefore the required work is additive feature behavior plus new tests; no behavior-preserving refactor is available or appropriate.
 ---
 <!-- COMMENTS:END -->
