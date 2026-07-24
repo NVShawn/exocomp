@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-102
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Propagate coordinator diagnostic cancellation
 parent: EXOCOMP-18
@@ -11,12 +11,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T15:52:15.752832Z'
-work_branch: null
+updated_at: '2026-07-24T16:55:31.996765Z'
+work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: a52c0abc-e8bc-4e8c-a4b4-e5349baafd1e
+oompah.work_branch: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -28,3 +30,16 @@ Implement cancellation for accepted and running cluster diagnostic tasks. Atomic
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 16:55
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 16:55
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
