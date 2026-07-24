@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:58:48.028792Z'
+updated_at: '2026-07-24T02:00:29.379485Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
