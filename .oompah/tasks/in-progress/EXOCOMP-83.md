@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:34:25.203839Z'
+updated_at: '2026-07-24T02:34:41.792221Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-07-24 02:34
 ---
 Discovery: The worktree is clean and no partial fix was left behind. apps/exocomp_node/test/exocomp/node/llama_server_test.exs:64 invokes System.cmd("/usr/bin/kill", ...); the helper is behaviorally exercised by the restart/recovery and supervisor-isolation crash tests. make test is the project-defined Alpine builder gate, and Alpine exposes BusyBox kill through PATH rather than /usr/bin/kill.
+---
+author: oompah
+created: 2026-07-24 02:34
+---
+Implementation: Updated kill_port_os_process/1 to call System.cmd("kill", ...) instead of the non-portable absolute /usr/bin/kill path. This preserves explicit TERM semantics and lets Erlang resolve the executable from PATH, where Alpine’s BusyBox kill is available. The two existing behavioral crash tests remain the regression coverage and exercise the helper end to end.
 ---
 <!-- COMMENTS:END -->
