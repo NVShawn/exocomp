@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-86
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Define ApprovalToken struct and deterministic canonical encoding
 parent: EXOCOMP-23
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T02:45:13.303477Z'
+updated_at: '2026-07-24T02:45:57.948513Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null

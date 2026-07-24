@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-85
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement installed vacuum bounds and eligibility gate
 parent: EXOCOMP-26
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-07-24T02:45:15.949044Z'
+updated_at: '2026-07-24T02:45:57.306808Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -101,5 +101,10 @@ author: oompah
 created: 2026-07-24 02:45
 ---
 Understanding: duplicate-screening only. I will compare the immutable vacuum-bounds/eligibility-gate scope against existing milestone-3 tasks and their full descriptions/comments. I will not modify code during this focus; if no confirmed duplicate exists, I will document the closest tasks and hand off to implementation.
+---
+author: oompah
+created: 2026-07-24 02:45
+---
+Discovery: no duplicate confirmed. Reviewed EXOCOMP-3, EXOCOMP-26, EXOCOMP-84, EXOCOMP-22, and EXOCOMP-25 in full, including comments. EXOCOMP-26 is the intentional parent scope; its planner explicitly decomposed EXOCOMP-85 as the unique immutable vacuum-bounds/cooldown/retry eligibility child. EXOCOMP-84 only produces disk-pressure evidence, EXOCOMP-22 provides generic policy filtering, and EXOCOMP-25 provides ActionCatalog/executor infrastructure. Repository search found vacuum requirements only in plans/milestone-3-safety-validation.md and no separate implementation task covering EXOCOMP-85.
 ---
 <!-- COMMENTS:END -->
