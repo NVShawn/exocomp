@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T17:59:37.162771Z'
+updated_at: '2026-07-24T18:00:33.506811Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -183,5 +183,19 @@ Verification: All 197 coordinator tests pass (including 17 new tests in orchestr
 - Audit sink write failures are non-fatal (goals complete normally)
 - Audit.status reports healthy:false when sink fails (feeds Health.check degraded signal)
 - GoalStore eviction events emitted correctly
+---
+author: oompah
+created: 2026-07-24 18:00
+---
+Completion: EXOCOMP-103 delivered.
+
+Commit 20dfb88 on epic-EXOCOMP-18 adds structured audit event emission for every diagnostic orchestrator lifecycle transition, satisfying the Milestone 2 audit policy.
+
+What was delivered:
+- orchestrator.ex: injectable audit server, emit_audit/4 helper (catch :exit for non-running server), events for goal_accepted/deduplicated, goal_dispatching, node_dispatching, node_dispatched, node_result, node_failed, node_unreachable, node_timeout, goal_timeout, cancellation_requested, node_canceled (with downstream_task_id when available), cluster_completed. All events carry the goal.id as correlation_id. All params/attributes pass through Audit.emit's recursive redaction.
+- goal_store.ex: injectable audit server, goal_evicted events from run_eviction/2.
+- orchestrator_audit_test.exs (new, 17 tests): event ordering/correlation, downstream_task_id tracking, deduplication events, recursive redaction (nested api_key/password), sink write failures (non-fatal, diagnostics available), Audit.status/1 reports healthy:false, server survives repeated failures, sink recovery, cancellation event ordering, per-node cancel events, timeouts, transport errors, protocol errors, GoalStore eviction, empty node lists.
+
+All 197 coordinator tests pass. Audit failures are non-fatal — Health.check/0 already maps Audit.status().healthy == false to :degraded, preserving diagnostic read availability during audit outages.
 ---
 <!-- COMMENTS:END -->
