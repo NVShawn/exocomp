@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-104
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Recover coordinator live state after volatile restart
 parent: EXOCOMP-18
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:09:04.211700Z'
+updated_at: '2026-07-24T20:25:56.747060Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
