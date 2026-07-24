@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:47:12.308509Z'
+updated_at: '2026-07-24T18:47:29.563956Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -320,5 +320,20 @@ author: oompah
 created: 2026-07-24 18:47
 ---
 Completion: Delivered the Milestone 4 service-recovery state machine with its evidence and audit types and 85 focused tests. All affected Make gates pass, branch epic-EXOCOMP-4 is clean and up to date with origin, and review is open as PR #10: https://github.com/NVShawn/exocomp/pull/10
+---
+author: oompah
+created: 2026-07-24 18:47
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 30
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 8s
+- Log: EXOCOMP-30__20260724T184523Z.jsonl
+---
+author: oompah
+created: 2026-07-24 18:47
+---
+Implemented and verified the service-recovery state machine; 85 focused tests pass and PR #10 is open.
 ---
 <!-- COMMENTS:END -->
