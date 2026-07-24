@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T18:57:40.988266Z'
+updated_at: '2026-07-24T18:59:40.132040Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -138,5 +138,26 @@ author: oompah
 created: 2026-07-24 18:57
 ---
 Understanding: I am the Frontend Developer focus for EXOCOMP-32. This task implements approval-required active and degraded recovery. My role is to handle any user-facing UI components needed: displaying exact impact/evidence when a service is active/degraded, showing the approval prompt with correct context, and surfacing denial/timeout/expiry results in the UI. I will first explore the codebase to understand what UI exists (LiveView templates, Phoenix components, JS hooks) and what new UI is needed to support the approval flow.
+---
+author: oompah
+created: 2026-07-24 18:59
+---
+Discovery: Examined the full codebase. This project is a pure Elixir A2A (Agent-to-Agent) backend — no HTML, CSS, JavaScript, LiveView, or any browser-facing UI exists anywhere. The codebase consists of Elixir OTP applications (exocomp_core, exocomp_coordinator, exocomp_node) with JSON/HTTP Plug endpoints for A2A protocol communication. There is no frontend work to perform for this task.
+
+Key files found:
+- apps/exocomp_core/lib/exocomp/recovery/state_machine.ex — full StateMachine already implemented (EXOCOMP-30), including :awaiting_approval state
+- apps/exocomp_core/lib/exocomp/recovery/evidence.ex — Evidence freshness checking
+- apps/exocomp_core/lib/exocomp/a2a/task_state.ex — includes :input_required state
+- apps/exocomp_node/lib/exocomp/node/skills/ — ServiceDiagnose, RemediationPropose, SystemDiagnose skills
+- apps/exocomp_node/lib/exocomp/node/task_registry.ex — GenServer task registry
+- apps/exocomp_node/lib/exocomp/node/a2a/codec.ex — A2A message codec
+
+What is NOT yet implemented (needs a feature/backend agent):
+1. A service recovery skill (e.g., exocomp.service.recover) that integrates the StateMachine
+2. Logic to detect active/degraded service and move the A2A task to :input_required
+3. Approval gate: binding approval to task+evidence, validation, expiry, replay protection
+4. Evidence refresh immediately before executing a restart
+5. Invalidating approval when service state changes (healthy/failed transitions)
+6. Focused approval-flow tests: approve, deny, expiry, timeout, wrong approver/token, changed evidence, cancellation, duplicate approval
 ---
 <!-- COMMENTS:END -->
