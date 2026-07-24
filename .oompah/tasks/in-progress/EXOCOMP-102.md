@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T17:32:29.363555Z'
+updated_at: '2026-07-24T17:32:39.141998Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -118,5 +118,10 @@ author: oompah
 created: 2026-07-24 17:32
 ---
 Implementation: Three files changed.\n\n1. node_outcome.ex: Added :cancel_failed to @terminal_states and @type state. This is needed to distinguish nodes where A2A cancel was rejected (e.g. unsupported_operation, transport failure) from those that were cleanly canceled.\n\n2. orchestrator.ex: \n- Added downstream_task_ids: %{} field mapping {goal_id, node_id} => A2A task ID. Workers send {:node_dispatched, ...} after successful send() so the orchestrator can cancel downstream tasks later.\n- Added cancel/2 public API: calls GoalStore.cancel/2 atomically (already implemented in EXOCOMP-100), then do_cancel_goal/2.\n- do_cancel_goal: cancels overall timer, kills all in-flight worker tasks via Task.shutdown(:brutal_kill) (which flushes result+DOWN from mailbox), attempts DiagnosticClient.cancel for each node with a known downstream task ID, records per-node :canceled/:cancel_failed outcomes, marks pending nodes :canceled.\n- attempt_a2a_cancel: maps :ok -> :canceled; :task_not_cancelable/:task_not_found -> :canceled (task already terminal); any other error -> :cancel_failed.\n- Idempotency: GoalStore.cancel returns :not_cancelable for terminal goals; cancel/2 returns {:ok, goal} unchanged.\n- Added handle_info({:node_dispatched, ...}) to register downstream task IDs while goal is active.\n- Cleaned up downstream_task_ids in all result/error/timeout handlers and force_complete_goal.\n\n3. orchestrator_test.exs: Updated FakeClient with cancel/3 and get_task blocking support. Added 8 new test cases covering all required scenarios.
+---
+author: oompah
+created: 2026-07-24 17:32
+---
+Verification: make test ran the full suite (201 passed, 10 excluded, 0 failures). All 8 new cancellation tests pass:\n- cancel before dispatch (pending nodes :canceled)\n- cancel during fan-out (A2A cancel attempted, :canceled)\n- unsupported downstream (:cancel_failed)\n- partial cancellation failure (mixed :canceled/:cancel_failed)\n- repeated cancel (idempotent)\n- completion/cancel race (completed goal returned as-is)\n- unknown goal_id (:not_found)\n- in_flight_count drains to zero after cancel\n\nExisting 15 orchestrator tests continue to pass unchanged. All code pushed to branch epic-EXOCOMP-18.
 ---
 <!-- COMMENTS:END -->
