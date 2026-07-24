@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-89
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Verify node mTLS identity and safely adopt resolved addresses
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:31:53.249792Z'
+updated_at: '2026-07-24T19:30:54.449726Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
