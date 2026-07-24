@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:40:09.667474Z'
+updated_at: '2026-07-24T16:42:42.686373Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -111,5 +111,22 @@ author: oompah
 created: 2026-07-24 16:40
 ---
 Understanding: As Duplicate Investigator, I am screening EXOCOMP-96 ('Implement precondition re-check: verify current evidence matches token evidence_hash') for duplicates before any implementation proceeds. This task involves implementing Exocomp.Node.Safety.PreconditionChecker on the node side to collect fresh evidence, hash it using ApprovalToken.hash_evidence/1, and compare with token.evidence_hash. I will search for any existing tasks covering the same ground — node-side precondition checking, evidence hash verification, or PreconditionChecker — before concluding.
+---
+author: oompah
+created: 2026-07-24 16:42
+---
+Discovery: Duplicate screening found no duplicate. EXOCOMP-96 is the intentionally decomposed precondition-checker child of EXOCOMP-24 (the node approval verification epic).
+
+Full task records reviewed:
+- EXOCOMP-24: the parent epic that explicitly created EXOCOMP-96 as the evidence re-check child
+- EXOCOMP-95 (Done): node-side Ed25519 signature + all-binding + freshness verification — complementary, not overlapping (stores evidence_hash from token for PreconditionChecker to use later)
+- EXOCOMP-97 (Done): durable DETS replay ledger — different scope (nonce at-most-once, not evidence re-check)
+- EXOCOMP-98 (Open): integration gate that depends on EXOCOMP-96 as a prerequisite
+- EXOCOMP-23 (Done): coordinator-side approval token issuance — different side of the system
+- EXOCOMP-86 (Done, origin/EXOCOMP-86): ApprovalToken struct + hash_evidence/1 on coordinator side — prerequisite, not duplicate
+
+Codebase search: no precondition_checker.ex or PreconditionChecker file found anywhere. No node-side evidence collection + hash comparison code exists. The existing collectors in apps/exocomp_node/lib/exocomp/node/collectors/ (systemd.ex, disk.ex) are relevant infrastructure for the implementation.
+
+EXOCOMP-96 scope is unique: collect fresh systemd/disk evidence at execution time, hash with ApprovalToken.hash_evidence/1, compare byte-for-byte with token.evidence_hash, fail closed on collection failure.
 ---
 <!-- COMMENTS:END -->
