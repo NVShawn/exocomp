@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:14:05.495739Z'
-updated_at: '2026-07-24T17:18:44.295923Z'
+updated_at: '2026-07-24T17:31:36.666895Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -209,5 +209,10 @@ author: oompah
 created: 2026-07-24 17:18
 ---
 Discovery: Prerequisite branches (EXOCOMP-21, 25, 86, 95, 96, 97) all merged onto EXOCOMP-98 branch (resolved two application.ex conflicts). Key findings: (1) ApprovalVerifier.verify/2 returns {:ok, original_token} or {:error, error}; (2) PreconditionChecker.verify/3 takes payload (with evidence_hash), action_id, target; (3) ReplayLedger.claim/3 accepts server as 3rd arg, returns {:ok, :proceed} / {:error, :already_executed, result} / {:error, :incomplete_pending} / {:error, storage_error}; (4) Executor.execute/4 uses opts[:lock_server] and opts[:os_commander]; (5) all four deps are injectable via Application env OR function closures. Pattern: verifier/checker/executor injected via module opts on gate.execute/3, ledger injected as server PID. Using MockCommander agent + isolated ExecutorLock for integration tests.
+---
+author: oompah
+created: 2026-07-24 17:31
+---
+Implementation: Created ApprovalGate module at apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex and comprehensive test suite at apps/exocomp_node/test/exocomp/node/safety/approval_gate_test.exs. Gate implements 6-step sequence (verify → precondition → claim → execute → record → return) with opts-based injection (verifier, checker, executor, ledger). All four dependencies injectable via keyword opts for isolation testing. Test covers all 15 required scenarios: 1-4 as integration tests with real Ed25519 keys, real ReplayLedger, and MockCommander; 5-13 as isolation tests with stub modules; 14-15 as integration tests with real verifier. Running make test now.
 ---
 <!-- COMMENTS:END -->
