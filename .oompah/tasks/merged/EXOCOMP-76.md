@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-76
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement durable node-bound enrollment token service
 parent: EXOCOMP-16
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T01:33:02.037189Z'
+updated_at: '2026-07-24T19:51:03.408732Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
