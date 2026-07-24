@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:28:10.683805Z'
+updated_at: '2026-07-24T02:28:13.157174Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -455,5 +455,10 @@ Delivered:
 - 32 new integration tests covering all required EXOCOMP-77 scenarios
 - All four make targets pass: fmt-check, build, test, lint
 - No root private key retained online (verified by test); all private paths/modes asserted
+---
+author: oompah
+created: 2026-07-24 02:28
+---
+Integrated PKI initialization and enrollment operations into coordinator. Validated PKI startup, Mix init task, supervised enrollment boundary, and 101/101 coordinator tests passing.
 ---
 <!-- COMMENTS:END -->

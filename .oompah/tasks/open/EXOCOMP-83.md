@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-83
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Make LlamaServer crash tests portable in Alpine builder
 parent: null
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T01:03:42.852933Z'
+updated_at: '2026-07-24T02:28:13.849698Z'
 work_branch: null
 target_branch: null
 review_url: null

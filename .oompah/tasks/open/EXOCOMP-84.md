@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-84
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement disk-pressure evidence collector
 parent: EXOCOMP-26
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T01:40:57.548405Z'
+updated_at: '2026-07-24T02:28:14.629055Z'
 work_branch: null
 target_branch: null
 review_url: null

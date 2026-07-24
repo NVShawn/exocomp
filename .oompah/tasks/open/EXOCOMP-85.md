@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-85
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Implement installed vacuum bounds and eligibility gate
 parent: EXOCOMP-26
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-07-24T01:41:20.826005Z'
+updated_at: '2026-07-24T02:28:15.395058Z'
 work_branch: null
 target_branch: null
 review_url: null
