@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-24T18:52:43.317050Z'
+updated_at: '2026-07-24T18:55:02.829181Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-07-24 18:52
 ---
 Implementation: Rebased both epic-only commits onto origin/main. EXOCOMP-29 replayed cleanly. EXOCOMP-30 conflicted only with newer umbrella scaffold/build files; I retained main's pinned containerized Make targets, Elixir 1.20.2/release configuration, and Exocomp.Core application setup, while preserving the recovery state-machine modules/tests. I also dropped obsolete generated hello-world scaffold files from the replayed commit. The branch is now exactly 2 commits ahead and 0 behind origin/main.
+---
+author: oompah
+created: 2026-07-24 18:55
+---
+Verification: Rebase integrity checks pass: branch is 2 ahead/0 behind origin/main, git diff --check passes, all 131 Elixir source files pass a parser/formatter-equivalence check, and the isolated recovery suite passes 84 tests with 0 failures. The full 'make test && make lint && make fmt-check' gate was attempted but could not start because docker delegates to rootless Podman and /run/user/1000/libpod is read-only; an isolated /tmp Podman store was also blocked by the host user's exhausted disk quota. No test failure occurred—the container runtime failed before compilation.
 ---
 <!-- COMMENTS:END -->
