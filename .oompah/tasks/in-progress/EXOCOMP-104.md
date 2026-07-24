@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-07-24T18:01:16.526489Z'
+updated_at: '2026-07-24T18:02:12.675689Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -46,5 +46,10 @@ author: oompah
 created: 2026-07-24 18:01
 ---
 Understanding: screening this restart-recovery feature against existing coordinator recovery/idempotency tasks. I will search task records and project docs, inspect full candidate histories, and either archive only on a confirmed scope match or hand off with evidence; no implementation will be performed in this focus.
+---
+author: oompah
+created: 2026-07-24 18:02
+---
+Discovery: duplicate screening found no confirmed duplicate. EXOCOMP-18 explicitly decomposes restart reconstruction into EXOCOMP-104 after EXOCOMP-103 and before EXOCOMP-105. Closest reviewed tasks are complementary: EXOCOMP-14 rebuilds inventory/Registry only; EXOCOMP-100 provides volatile coordinator goal state and deterministic downstream keys but not post-restart recovery; EXOCOMP-79 is the node-side bounded task registry; EXOCOMP-90 owns poll scheduling/state transitions; EXOCOMP-103 emits durable lifecycle audit context; EXOCOMP-105 owns final integrated verification. The milestone plan separately requires reloading inventory, probing/re-querying nodes, explicitly reporting unavailable volatile tasks, and safe idempotent resubmission.
 ---
 <!-- COMMENTS:END -->
