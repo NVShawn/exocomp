@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -9,16 +9,15 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T00:52:07.736426Z'
+updated_at: '2026-07-24T01:16:25.649121Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: c4729221-d0aa-4aee-ab64-cadf80319398
+oompah.agent_run_id: 740ab4f6-c6b9-4f44-ba1f-13339901ecb7
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
   total_input_tokens: 491106
@@ -171,5 +170,15 @@ author: oompah
 created: 2026-07-24 00:52
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 01:16
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 01:16
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
