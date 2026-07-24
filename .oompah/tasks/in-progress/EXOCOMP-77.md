@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:03:53.676199Z'
+updated_at: '2026-07-24T02:09:20.253804Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -359,5 +359,37 @@ author: oompah
 created: 2026-07-24 02:03
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 02:09
+---
+Understanding: Software Engineer focus (deep). Reading codebase state:
+
+application.ex - already integrates PKI validation: validate_pki() calls Bootstrap.initialize with env config, then starts supervisor. PKI required in non-test env.
+
+Mix.Tasks.Exocomp.Coordinator.Init - already implemented: accepts --online-state/--offline-root-backup flags, reads passphrase from env, prints outcome/offline_backup/root_fingerprint, raises on error.
+
+enrollment_token.ex - already documents EXOCOMP-17 boundary in @moduledoc.
+
+bootstrap_test.exs - unit tests PKI operations (21 tests).
+enrollment_token_test.exs - unit tests token service (35 tests).
+audit_test.exs - tests file permissions and redaction (13 tests).
+
+What is MISSING and needs implementing:
+1. Integration test: clean PKI init -> supervised tree starts (application_test.exs only has 1 trivial test, no PKI-on tests)
+2. Integration test: idempotent rerun (already_initialized -> supervised tree starts again)
+3. Integration test: PKI startup failure modes (missing/corrupt/insecure)
+4. Integration test: token issue/consume through supervised tree with real PKI state
+5. Integration test: restart replay rejection (persistent store survives supervisor restart)
+6. Integration test: audit outage fail-closed
+7. Integration test: log/output redaction (no private keys in logs)
+8. Integration test: assert no root private key retained online
+9. Mix task integration tests (output format, new/already-initialized/error outcomes)
+
+Plan:
+- Add start_supervised_tree/1 to Application module as test entry point (unique child names)
+- Create integration_test.exs with all required integration scenarios  
+- Create mix_task_test.exs for Mix task output verification
+- Run fmt-check, build, test, lint and close.
 ---
 <!-- COMMENTS:END -->
