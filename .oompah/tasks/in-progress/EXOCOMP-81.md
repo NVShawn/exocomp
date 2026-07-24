@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:56:16.471479Z'
+updated_at: '2026-07-24T01:56:43.014505Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -202,5 +202,277 @@ author: oompah
 created: 2026-07-24 01:56
 ---
 Implementation (planning phase): No code or tracker children were created. The existing EXOCOMP-12 decomposition already assigns this cohesive endpoint-wiring slice uniquely to EXOCOMP-81, so the actionable plan remains: add A2A codec/validation, replace four router stubs with TaskRegistry-backed handlers, implement timeout-bounded async Dispatcher execution and transitions, and cover request/error/lifecycle behavior in focused node tests.
+---
+author: oompah
+created: 2026-07-24 01:56
+---
+Verification (planning phase): Confirmed via Task EXOCOMP-12 - Expose diagnostic-only node A2A service
+==================================================
+Status: Open
+Priority: 1
+Project: exocomp
+Labels: focus-complete:duplicate_detector
+
+Description:
+Plan: [Milestone 1 design](https://github.com/NVShawn/exocomp/blob/main/plans/milestone-1-node-agent.md)
+
+Goal
+Expose diagnostic-only node A2A service.
+
+Implementation
+Publish the node Agent Card and diagnostic skills exocomp.system.diagnose, exocomp.service.diagnose, and exocomp.remediation.propose over mTLS; implement send, task get/list/cancel, bounded in-memory task history, body/time limits, and standards-defined unsupported responses; advertise no state-changing capability.
+
+Testing
+Add A2A contract tests, mTLS authentication tests, concurrent task tests, cancellation, eviction, request limit, collector failure, inference failure, and unsupported-operation cases.
+
+Acceptance Criteria
+- [ ] Authenticated clients receive schema-valid diagnostic artifacts.
+- [ ] Unauthenticated clients are rejected before request handling.
+- [ ] Task history and concurrency are bounded.
+- [ ] The Agent Card exposes no execution skill.
+- [ ] All service and protocol tests pass.
+
+Quality Gate
+Run the focused tests and all repository Make targets affected by this change.
+
+Children:
+  - EXOCOMP-78: A2A router scaffold, Agent Card endpoint, and mTLS enforcement [Done]
+  - EXOCOMP-79: Bounded in-memory task registry GenServer [Done]
+  - EXOCOMP-80: Skill handler implementations: system.diagnose, service.diagnose, remediation.propose [Done]
+  - EXOCOMP-81: Wire A2A message endpoints to TaskRegistry and skill dispatch [In Progress]
+
+Comments:
+  #1 - oompah - 2026-07-23 22:49
+    Agent dispatched (profile: default)
+  #2 - oompah - 2026-07-23 22:49
+    Focus: Duplicate Investigator
+  #3 - oompah - 2026-07-23 22:51
+    Focus handoff: duplicate_detector
+    
+    **Outcome:** No duplicate confirmed. EXOCOMP-12 is a unique task with no overlap in the existing task graph.
+    
+    **Evidence reviewed:**
+    - Reviewed all 7 M1 sibling tasks (EXOCOMP-7 through EXOCOMP-13) and their child tasks (EXOCOMP-48, EXOCOMP-49, EXOCOMP-51, EXOCOMP-57 through EXOCOMP-64)
+    - EXOCOMP-7 (Done): Elixir umbrella scaffold only — no A2A HTTP routing or service endpoints
+    - EXOCOMP-8 (Done): A2A 1.0 shared protocol TYPE definitions only (codecs, structs, fixtures) — not the HTTP service layer
+    - EXOCOMP-9 (Done): Node config, identity, mTLS listener STARTUP — provides the TLS listener foundation but not the A2A request handlers, task registry, or skill routing
+    - EXOCOMP-10 (Done): Linux/systemd diagnostic COLLECTORS — data collection modules invoked BY skills, not the A2A service itself
+    - EXOCOMP-11 (Done): llama.cpp supervision and proposal VALIDATION — inference layer invoked BY exocomp.remediation.propose, not the A2A service
+    - EXOCOMP-13 (Open): M1 integration/verification — testing, not implementation
+    - EXOCOMP-19 (Open): Coordinator cluster A2A service (Milestone 2) — covers the COORDINATOR agent, not the node agent
+    - The EXOCOMP-7 duplicate investigator conducted a comprehensive 47-task scan (EXOCOMP-1 through EXOCOMP-47) and found no overlap with the node A2A service implementation scope
+    - Prior duplicate investigators for EXOCOMP-8, 9, 10, 11 each explicitly identified EXOCOMP-12 as a distinct task covering the HTTP service layer
+    
+    **EXOCOMP-12 scope is uniquely:** Plug/Bandit HTTP router for Agent Card endpoint + A2A send/task-get/list/cancel handlers; in-memory bounded task registry; skill dispatch to collector and inference layers; request body and time limits; UnsupportedOperation responses; mTLS client authentication enforcement; Agent Card JSON with skills (exocomp.system.diagnose, exocomp.service.diagnose, exocomp.remediation.propose) and no execution capabilities.
+    
+    **Relevant files for implementation agent:**
+    - apps/exocomp_node/ — where the A2A service router and task registry belong
+    - apps/exocomp_core/lib/exocomp/a2a/ — A2A type structs from EXOCOMP-8 (AgentCard, Task, Message, etc.)
+    - apps/exocomp_node/lib/exocomp/node/listeners/ — mTLS Bandit listener from EXOCOMP-9
+    - apps/exocomp_node/lib/exocomp/node/collectors/ — collectors from EXOCOMP-10
+    - apps/exocomp_node/lib/exocomp/node/proposal_client.ex — ProposalClient from EXOCOMP-11
+    - plans/milestone-1-node-agent.md — A2A Interface section (endpoints, skills, limits), Test Strategy, Acceptance Criteria
+    
+    **Remaining work:**
+    1. Implement Agent Card JSON handler (GET /.well-known/agent-card.json) with skills and no streaming/push
+    2. Implement Plug router for all A2A endpoints
+    3. Implement in-memory task registry GenServer with bounded history (age+count eviction), state machine transitions, cancellation
+    4. Implement skill handlers dispatching to collectors and ProposalClient
+    5. Enforce mTLS auth before request decoding, body size limits, timeouts
+    6. Return UnsupportedOperationError for streaming/push requests
+    7. Add A2A contract tests, mTLS auth tests, concurrent task tests, cancellation, eviction, request limit, collector failure, inference failure, unsupported-operation cases
+    8. Run make test, make lint, make fmt-check
+    
+    **Recommended next focus:** feature — this is a substantial Elixir/Plug implementation task covering the HTTP service layer, task registry, and comprehensive test suite
+  #4 - oompah - 2026-07-23 22:51
+    Agent completed successfully in 137s (5595 tokens)
+  #5 - oompah - 2026-07-23 22:51
+    Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+    - Turns: 42, Tool calls: 30
+    - Tokens: 23 in / 5.6K out [5.6K total]
+    - Cost: $0.0000
+    - Exit: normal, Duration: 2m 17s
+    - Log: EXOCOMP-12__20260723T224921Z.jsonl
+  #6 - oompah - 2026-07-23 22:51
+    Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+  #7 - oompah - 2026-07-23 22:51
+    Agent dispatched (profile: standard)
+  #8 - oompah - 2026-07-23 22:51
+    Focus: Epic Planner
+  #9 - oompah - 2026-07-23 22:58
+    Agent completed successfully in 378s (839755 tokens)
+  #10 - oompah - 2026-07-23 22:58
+    Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+    - Turns: 1, Tool calls: 15
+    - Tokens: 832.8K in / 6.9K out [839.8K total]
+    - Cost: $0.0000
+    - Exit: normal, Duration: 6m 18s
+    - Log: EXOCOMP-12__20260723T225149Z.jsonl
+  #11 - oompah - 2026-07-23 22:58
+    Agent completed without closing this issue (378s (839755 tokens)). Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+  #12 - oompah - 2026-07-23 22:58
+    Agent dispatched (profile: deep)
+  #13 - oompah - 2026-07-23 22:58
+    Focus: Epic Planner
+  #14 - oompah - 2026-07-23 23:03
+    **Understanding (Epic Planner):** EXOCOMP-12 is the node A2A service epic. Based on codebase exploration:
+    
+    **Prerequisite code in branches (not yet in main):**
+    - `origin/epic-EXOCOMP-8`: A2A type structs (AgentCard, Task, Message, errors, etc.) in apps/exocomp_core/lib/exocomp/a2a/
+    - `EXOCOMP-10` / `EXOCOMP-60`: Diagnostic collectors (CPU, Disk, Memory, Systemd, Uptime) in apps/exocomp_node/lib/exocomp/node/collectors/
+    - `EXOCOMP-60`: mTLS Listener GenServer + Config + Identity + Plug.Stub in apps/exocomp_node/lib/exocomp/node/
+    - `epic-EXOCOMP-11` / `EXOCOMP-63`: LlamaServer + ProposalClient + ProposalSchema in apps/exocomp_node/lib/exocomp/node/
+    
+    **Core implementation gap (EXOCOMP-12 scope):**
+    The mTLS Listener currently uses Exocomp.Node.Plug.Stub. EXOCOMP-12 must replace it with a real A2A Plug router covering Agent Card, message send, task get/list/cancel, with bounded task registry and skill dispatch.
+    
+    **Decomposition plan:** 5 child tasks covering (A) router scaffold + Agent Card + mTLS enforcement, (B) bounded task registry, (C) skill handlers, (D) endpoint wiring, (E) test suite + quality gate.
+  #15 - oompah - 2026-07-23 23:05
+    Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+    - Turns: 0, Tool calls: 77
+    - Tokens: 113 in / 3.9K out [4.0K total]
+    - Cost: $0.0000
+    - Exit: terminated, Duration: 7m 26s
+    - Log: EXOCOMP-12__20260723T225822Z.jsonl that EXOCOMP-81 is the final implementation child alongside three completed prerequisites, and inspected the milestone A2A contract plus current router stubs. ## epic-EXOCOMP-12...origin/epic-EXOCOMP-12 is clean and up to date on epic-EXOCOMP-12; no code quality gate was applicable because this phase made no repository changes.
+---
+author: oompah
+created: 2026-07-24 01:56
+---
+Focus handoff: epic_planner
+
+Outcome: EXOCOMP-81 requires no further decomposition. It is already the cohesive endpoint-integration child of EXOCOMP-12 and is appropriately sized for one feature-agent session; no child tasks or code changes were created.
+
+Evidence and decisions: Task EXOCOMP-12 - Expose diagnostic-only node A2A service
+==================================================
+Status: Open
+Priority: 1
+Project: exocomp
+Labels: focus-complete:duplicate_detector
+
+Description:
+Plan: [Milestone 1 design](https://github.com/NVShawn/exocomp/blob/main/plans/milestone-1-node-agent.md)
+
+Goal
+Expose diagnostic-only node A2A service.
+
+Implementation
+Publish the node Agent Card and diagnostic skills exocomp.system.diagnose, exocomp.service.diagnose, and exocomp.remediation.propose over mTLS; implement send, task get/list/cancel, bounded in-memory task history, body/time limits, and standards-defined unsupported responses; advertise no state-changing capability.
+
+Testing
+Add A2A contract tests, mTLS authentication tests, concurrent task tests, cancellation, eviction, request limit, collector failure, inference failure, and unsupported-operation cases.
+
+Acceptance Criteria
+- [ ] Authenticated clients receive schema-valid diagnostic artifacts.
+- [ ] Unauthenticated clients are rejected before request handling.
+- [ ] Task history and concurrency are bounded.
+- [ ] The Agent Card exposes no execution skill.
+- [ ] All service and protocol tests pass.
+
+Quality Gate
+Run the focused tests and all repository Make targets affected by this change.
+
+Children:
+  - EXOCOMP-78: A2A router scaffold, Agent Card endpoint, and mTLS enforcement [Done]
+  - EXOCOMP-79: Bounded in-memory task registry GenServer [Done]
+  - EXOCOMP-80: Skill handler implementations: system.diagnose, service.diagnose, remediation.propose [Done]
+  - EXOCOMP-81: Wire A2A message endpoints to TaskRegistry and skill dispatch [In Progress]
+
+Comments:
+  #1 - oompah - 2026-07-23 22:49
+    Agent dispatched (profile: default)
+  #2 - oompah - 2026-07-23 22:49
+    Focus: Duplicate Investigator
+  #3 - oompah - 2026-07-23 22:51
+    Focus handoff: duplicate_detector
+    
+    **Outcome:** No duplicate confirmed. EXOCOMP-12 is a unique task with no overlap in the existing task graph.
+    
+    **Evidence reviewed:**
+    - Reviewed all 7 M1 sibling tasks (EXOCOMP-7 through EXOCOMP-13) and their child tasks (EXOCOMP-48, EXOCOMP-49, EXOCOMP-51, EXOCOMP-57 through EXOCOMP-64)
+    - EXOCOMP-7 (Done): Elixir umbrella scaffold only — no A2A HTTP routing or service endpoints
+    - EXOCOMP-8 (Done): A2A 1.0 shared protocol TYPE definitions only (codecs, structs, fixtures) — not the HTTP service layer
+    - EXOCOMP-9 (Done): Node config, identity, mTLS listener STARTUP — provides the TLS listener foundation but not the A2A request handlers, task registry, or skill routing
+    - EXOCOMP-10 (Done): Linux/systemd diagnostic COLLECTORS — data collection modules invoked BY skills, not the A2A service itself
+    - EXOCOMP-11 (Done): llama.cpp supervision and proposal VALIDATION — inference layer invoked BY exocomp.remediation.propose, not the A2A service
+    - EXOCOMP-13 (Open): M1 integration/verification — testing, not implementation
+    - EXOCOMP-19 (Open): Coordinator cluster A2A service (Milestone 2) — covers the COORDINATOR agent, not the node agent
+    - The EXOCOMP-7 duplicate investigator conducted a comprehensive 47-task scan (EXOCOMP-1 through EXOCOMP-47) and found no overlap with the node A2A service implementation scope
+    - Prior duplicate investigators for EXOCOMP-8, 9, 10, 11 each explicitly identified EXOCOMP-12 as a distinct task covering the HTTP service layer
+    
+    **EXOCOMP-12 scope is uniquely:** Plug/Bandit HTTP router for Agent Card endpoint + A2A send/task-get/list/cancel handlers; in-memory bounded task registry; skill dispatch to collector and inference layers; request body and time limits; UnsupportedOperation responses; mTLS client authentication enforcement; Agent Card JSON with skills (exocomp.system.diagnose, exocomp.service.diagnose, exocomp.remediation.propose) and no execution capabilities.
+    
+    **Relevant files for implementation agent:**
+    - apps/exocomp_node/ — where the A2A service router and task registry belong
+    - apps/exocomp_core/lib/exocomp/a2a/ — A2A type structs from EXOCOMP-8 (AgentCard, Task, Message, etc.)
+    - apps/exocomp_node/lib/exocomp/node/listeners/ — mTLS Bandit listener from EXOCOMP-9
+    - apps/exocomp_node/lib/exocomp/node/collectors/ — collectors from EXOCOMP-10
+    - apps/exocomp_node/lib/exocomp/node/proposal_client.ex — ProposalClient from EXOCOMP-11
+    - plans/milestone-1-node-agent.md — A2A Interface section (endpoints, skills, limits), Test Strategy, Acceptance Criteria
+    
+    **Remaining work:**
+    1. Implement Agent Card JSON handler (GET /.well-known/agent-card.json) with skills and no streaming/push
+    2. Implement Plug router for all A2A endpoints
+    3. Implement in-memory task registry GenServer with bounded history (age+count eviction), state machine transitions, cancellation
+    4. Implement skill handlers dispatching to collectors and ProposalClient
+    5. Enforce mTLS auth before request decoding, body size limits, timeouts
+    6. Return UnsupportedOperationError for streaming/push requests
+    7. Add A2A contract tests, mTLS auth tests, concurrent task tests, cancellation, eviction, request limit, collector failure, inference failure, unsupported-operation cases
+    8. Run make test, make lint, make fmt-check
+    
+    **Recommended next focus:** feature — this is a substantial Elixir/Plug implementation task covering the HTTP service layer, task registry, and comprehensive test suite
+  #4 - oompah - 2026-07-23 22:51
+    Agent completed successfully in 137s (5595 tokens)
+  #5 - oompah - 2026-07-23 22:51
+    Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+    - Turns: 42, Tool calls: 30
+    - Tokens: 23 in / 5.6K out [5.6K total]
+    - Cost: $0.0000
+    - Exit: normal, Duration: 2m 17s
+    - Log: EXOCOMP-12__20260723T224921Z.jsonl
+  #6 - oompah - 2026-07-23 22:51
+    Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+  #7 - oompah - 2026-07-23 22:51
+    Agent dispatched (profile: standard)
+  #8 - oompah - 2026-07-23 22:51
+    Focus: Epic Planner
+  #9 - oompah - 2026-07-23 22:58
+    Agent completed successfully in 378s (839755 tokens)
+  #10 - oompah - 2026-07-23 22:58
+    Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+    - Turns: 1, Tool calls: 15
+    - Tokens: 832.8K in / 6.9K out [839.8K total]
+    - Cost: $0.0000
+    - Exit: normal, Duration: 6m 18s
+    - Log: EXOCOMP-12__20260723T225149Z.jsonl
+  #11 - oompah - 2026-07-23 22:58
+    Agent completed without closing this issue (378s (839755 tokens)). Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+  #12 - oompah - 2026-07-23 22:58
+    Agent dispatched (profile: deep)
+  #13 - oompah - 2026-07-23 22:58
+    Focus: Epic Planner
+  #14 - oompah - 2026-07-23 23:03
+    **Understanding (Epic Planner):** EXOCOMP-12 is the node A2A service epic. Based on codebase exploration:
+    
+    **Prerequisite code in branches (not yet in main):**
+    - `origin/epic-EXOCOMP-8`: A2A type structs (AgentCard, Task, Message, errors, etc.) in apps/exocomp_core/lib/exocomp/a2a/
+    - `EXOCOMP-10` / `EXOCOMP-60`: Diagnostic collectors (CPU, Disk, Memory, Systemd, Uptime) in apps/exocomp_node/lib/exocomp/node/collectors/
+    - `EXOCOMP-60`: mTLS Listener GenServer + Config + Identity + Plug.Stub in apps/exocomp_node/lib/exocomp/node/
+    - `epic-EXOCOMP-11` / `EXOCOMP-63`: LlamaServer + ProposalClient + ProposalSchema in apps/exocomp_node/lib/exocomp/node/
+    
+    **Core implementation gap (EXOCOMP-12 scope):**
+    The mTLS Listener currently uses Exocomp.Node.Plug.Stub. EXOCOMP-12 must replace it with a real A2A Plug router covering Agent Card, message send, task get/list/cancel, with bounded task registry and skill dispatch.
+    
+    **Decomposition plan:** 5 child tasks covering (A) router scaffold + Agent Card + mTLS enforcement, (B) bounded task registry, (C) skill handlers, (D) endpoint wiring, (E) test suite + quality gate.
+  #15 - oompah - 2026-07-23 23:05
+    Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+    - Turns: 0, Tool calls: 77
+    - Tokens: 113 in / 3.9K out [4.0K total]
+    - Cost: $0.0000
+    - Exit: terminated, Duration: 7m 26s
+    - Log: EXOCOMP-12__20260723T225822Z.jsonl shows the complete child graph: EXOCOMP-78 router/auth, EXOCOMP-79 TaskRegistry, EXOCOMP-80 skill Dispatcher/handlers, and EXOCOMP-81 wiring. The first three are Done. plans/milestone-1-node-agent.md:128-161 defines exactly the four operational endpoints and bounded lifecycle behavior. apps/exocomp_node/lib/exocomp/node/a2a_router.ex contains the corresponding stubs. Creating grandchildren would duplicate the established decomposition. Because EXOCOMP-81 is a task rather than the epic, it was not moved to Backlog; it should return to Open for feature dispatch.
+
+Remaining work and risks: Implement strict Message decoding and skill/params extraction against actual A2A structs; encode Task/artifact/error shapes with application/a2a+json; wire submit/get/list/cancel; run Dispatcher asynchronously with per-skill timeout and safe terminal transitions; preserve mTLS, version, and body-limit middleware; add all specified endpoint and lifecycle tests. Key risks are races between immediate 202 responses and fast workers, cancellation/worker registration semantics, Plug parsing of , and matching existing Dispatcher/TaskRegistry return shapes.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
