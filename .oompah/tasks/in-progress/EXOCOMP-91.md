@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T03:53:13.683525Z'
+updated_at: '2026-07-24T03:53:33.167248Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -134,5 +134,10 @@ author: oompah
 created: 2026-07-24 03:53
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 03:53
+---
+Understanding: implement a coordinator-owned GenServer poll scheduler backed by isolated Task workers. It will claim due Registry nodes through begin_poll, cap concurrent jobs, deduplicate node IDs in flight, enforce per-worker deadlines, translate success/failure/timeout into typed record_observation calls, and refill capacity without waiting for slow peers. I will preserve injectable clock/resolver/probe/timing options, wire TaskSupervisor + poller into the application tree, add focused deterministic tests, then run Make quality gates and push/close the task.
 ---
 <!-- COMMENTS:END -->
