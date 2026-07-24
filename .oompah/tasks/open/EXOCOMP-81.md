@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -10,9 +10,11 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:epic_planner
+- focus-complete:refactor
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T02:04:29.405797Z'
+updated_at: '2026-07-24T02:04:59.426069Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -580,5 +582,28 @@ author: oompah
 created: 2026-07-24 02:04
 ---
 Discovery (Refactoring Specialist): The clean checkout is currently epic-EXOCOMP-12, not EXOCOMP-81. apps/exocomp_node/lib/exocomp/node/a2a_router.ex still has stub responses for send/get/list/cancel. TaskRegistry already exposes submit/get/list/transition/cancel/register_worker, and Skills.Dispatcher exposes dispatch/3 with defaults. Existing router tests cover scaffold/auth/version/body limits only. Therefore the required work is additive feature behavior plus new tests; no behavior-preserving refactor is available or appropriate.
+---
+author: oompah
+created: 2026-07-24 02:04
+---
+Implementation (Refactoring Specialist): No source, test, documentation, or tracker-child changes were made. Implementing the requested codec, endpoint handlers, async dispatch, and lifecycle tests would change behavior and violate this focus's refactoring-only constraint.
+---
+author: oompah
+created: 2026-07-24 02:04
+---
+Verification (Refactoring Specialist): git status is clean. The requested command 'mix test apps/exocomp_node' could not start because mix is unavailable on the host. The project-defined 'make test' target also could not start its container because Podman attempted chmod under read-only /run/user/1000/libpod. No tests failed in project code; the gate was blocked by the execution environment before compilation.
+---
+author: oompah
+created: 2026-07-24 02:04
+---
+Focus handoff: refactor
+
+Outcome: No refactoring was performed because EXOCOMP-81 requires new behavior, not behavior-preserving structural cleanup.
+
+Evidence and decisions: apps/exocomp_node/lib/exocomp/node/a2a_router.ex contains placeholder send/get/list/cancel handlers. apps/exocomp_node/lib/exocomp/node/task_registry.ex already provides submit/get/list/transition/cancel/register_worker. apps/exocomp_node/lib/exocomp/node/skills/dispatcher.ex provides dispatch/3 with defaults. apps/exocomp_node/test/exocomp/node/a2a_router_test.exs covers only the scaffold/auth/version/body-limit/unsupported routes. The checkout is clean but is epic-EXOCOMP-12 rather than the task branch named in the prompt.
+
+Remaining work and risks: A feature agent must implement strict Message decoding and task/error encoding, wire all four routes, add timeout-bounded async dispatch with worker registration and cancellation-safe terminal transitions, and add the specified endpoint/lifecycle tests. It must account for the immediate submitted-to-working race and the Plug cancel path. Test execution here is environment-blocked: host mix is absent and make test cannot initialize Podman due read-only /run/user/1000/libpod.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
