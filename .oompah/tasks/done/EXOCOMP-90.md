@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T03:46:25.302503Z'
+updated_at: '2026-07-24T03:47:58.073530Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -130,5 +130,10 @@ author: oompah
 created: 2026-07-24 03:46
 ---
 Verification: Focused Registry+NodeProber tests pass (45/45). make lint passes formatting and forced warnings-as-errors compilation across all umbrella apps. make test passes: bench 55, core 2, coordinator 70, node 49 with 10 integration exclusions; both test releases assembled and smoke-started successfully. One initial full-suite run exposed an unrelated existing ProposalClient teardown race, and the immediate rerun plus final post-change full run both passed.
+---
+author: oompah
+created: 2026-07-24 03:47
+---
+Completion: Delivered deterministic coordinator poll scheduling and Registry state transitions in commit cfec4d2 on pushed branch EXOCOMP-90. Includes 30s bounded jitter, 60s/5m freshness thresholds, capped 15m exponential backoff, ordered stale-result rejection, recovery reset, transition audit events, NodeProber token integration, and comprehensive table-driven tests. Final focused tests, make lint, full make test, release assembly, and release smoke checks all pass.
 ---
 <!-- COMMENTS:END -->
