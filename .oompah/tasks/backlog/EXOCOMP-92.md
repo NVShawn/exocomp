@@ -6,11 +6,15 @@ priority: 1
 title: Add multi-node discovery and polling integration coverage
 parent: EXOCOMP-15
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-88
+- EXOCOMP-89
+- EXOCOMP-90
+- EXOCOMP-91
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T02:43:19.301040Z'
+updated_at: '2026-07-24T02:43:53.595269Z'
 work_branch: null
 target_branch: null
 review_url: null

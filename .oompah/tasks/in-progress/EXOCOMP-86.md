@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T02:40:45.090205Z'
+updated_at: '2026-07-24T02:43:38.618781Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -164,5 +164,10 @@ author: oompah
 created: 2026-07-24 02:40
 ---
 Understanding: Implementing the ApprovalToken struct and deterministic canonical encoding for EXOCOMP-86. Plan: (1) Explore existing coordinator app structure and Jason version; (2) Create approval_token.ex with 11-field @enforce_keys struct, canonical_encode/1, sha256_hex/1, hash_params/1, hash_evidence/1, validate_schema_version/1; (3) Write tests covering determinism, field-sensitivity, map-order independence, schema validation, and enforce_keys; (4) Run make test and make lint.
+---
+author: oompah
+created: 2026-07-24 02:43
+---
+Discovery: Explored codebase structure. Key findings: (1) coordinator app at apps/exocomp_coordinator has no Jason dependency — must add {:jason, "~> 1.4"} to mix.exs; (2) Jason 1.4.5 is in mix.lock (from bench app); (3) No existing ApprovalToken or safety/ directory — greenfield implementation; (4) ProposalSchema in exocomp_node provides a pattern for @schema_version, @enforce_keys, and validate functions; (5) Jason 1.4.x does NOT have sort_keys: true encoder option — will use manual sorted key-value pair construction for deterministic JSON output. Implementation ready to proceed.
 ---
 <!-- COMMENTS:END -->

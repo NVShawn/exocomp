@@ -6,11 +6,12 @@ priority: 1
 title: Verify node mTLS identity and safely adopt resolved addresses
 parent: EXOCOMP-15
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-88
 labels: []
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T02:42:56.090929Z'
+updated_at: '2026-07-24T02:43:26.875901Z'
 work_branch: null
 target_branch: null
 review_url: null
