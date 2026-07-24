@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T01:35:02.370925Z'
+updated_at: '2026-07-24T01:42:05.324432Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -119,5 +119,20 @@ author: oompah
 created: 2026-07-24 01:35
 ---
 Understanding: Security Auditor focus for EXOCOMP-77. I will conduct a thorough security review of the PKI initialization and enrollment operations integration. Key security concerns to audit: (1) secret/key material exposure in logs or output, (2) file permission enforcement for private keys, (3) replay attack prevention in enrollment tokens, (4) audit-log fail-closed behavior, (5) root CA key absence verification online, (6) input validation for enrollment tokens, (7) OWASP Top 10 in coordinator paths, (8) supervision tree startup validation. I will explore the codebase to understand what EXOCOMP-75/76 delivered, then review for vulnerabilities before handing off to the feature agent.
+---
+author: oompah
+created: 2026-07-24 01:42
+---
+Discovery: Security audit of EXOCOMP-75 (PKI Bootstrap) and EXOCOMP-76 (EnrollmentToken) deliverables complete. The implemented modules have strong security foundations: constant-time digest comparison, sha-256-only storage, ECDSA P-384/P-256 + Ed25519, staged atomic writes, strict file mode enforcement (0700 dir / 0600 files), passphrase-wrapped root key, and lstat-based symlink resistance. Four security gaps require fixes before feature integration:
+
+FINDING 1 (Low): parse_token in enrollment_token.ex validates secret_bytes length (32) but not key_bytes length (16) — inconsistent validation, allows malformed token key components to reach the map lookup.
+
+FINDING 2 (Low): audit.ex @sensitive_keys list is missing 'passphrase' and 'digest' — any future audit event with these fields would not be redacted.
+
+FINDING 3 (Medium): json_lines.ex creates audit log files with default OS permissions (0644) — audit events include node IDs and enrollment patterns that should be owner-readable only (0600). The rotate path has the same issue.
+
+FINDING 4 (Medium): ensure_store_dir in enrollment_token.ex uses File.stat (follows symlinks) instead of File.lstat, and does not verify permissions on already-existing directories — a directory that was previously world-readable would not be flagged.
+
+FINDING 5 (Critical - for feature agent): application.ex starts EnrollmentToken without validating PKI state. No operator Mix task exists for PKI initialization. No integration tests cover clean init + startup, idempotent rerun, PKI failure modes, audit fail-closed, or redaction. These are the core deliverables of EXOCOMP-77.
 ---
 <!-- COMMENTS:END -->
