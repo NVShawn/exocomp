@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T00:52:47.935161Z'
+updated_at: '2026-07-24T00:52:56.784299Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-07-24 00:52
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 00:52
+---
+Understanding: Implement coordinator-local secure PKI bootstrap with explicit online/offline destinations and non-logging root protection input; generate separated root/intermediate/leaf and Ed25519 approval keys, persist atomically with strict modes, validate existing state without rotation, fail closed on invalid state, and cover all security/idempotency cases with focused tests before running Make quality gates.
 ---
 <!-- COMMENTS:END -->
