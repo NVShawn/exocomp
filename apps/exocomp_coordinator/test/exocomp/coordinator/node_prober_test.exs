@@ -611,6 +611,46 @@ defmodule Exocomp.Coordinator.NodeProberTest do
     assert {:ok, %{addresses: ["10.0.10.1"]}} = Registry.get("node-ac")
   end
 
+  test "attempt token atomically records a successful probe observation" do
+    entry = setup_node_with_candidates("node-token-success", ["192.0.2.20"])
+    :ok = make_poll_eligible(entry.id)
+    assert {:ok, token} = Registry.begin_poll(entry.id)
+
+    assert %{outcome: :healthy} =
+             NodeProber.probe(entry,
+               probe_fn: healthy_probe_fn(),
+               attempt_token: token
+             )
+
+    assert {:ok,
+            %{
+              reachability: :healthy,
+              addresses: ["192.0.2.20"],
+              last_attempted_contact: %DateTime{},
+              last_successful_contact: %DateTime{},
+              consecutive_failures: 0
+            }} = Registry.get(entry.id)
+  end
+
+  test "attempt token records a failed probe and schedules backoff" do
+    entry = setup_node_with_candidates("node-token-failure", ["192.0.2.21"])
+    :ok = make_poll_eligible(entry.id)
+    assert {:ok, token} = Registry.begin_poll(entry.id)
+
+    assert %{outcome: :timeout} =
+             NodeProber.probe(entry,
+               probe_fn: error_probe_fn(:timeout),
+               attempt_token: token
+             )
+
+    assert {:ok,
+            %{
+              reachability: :unreachable,
+              consecutive_failures: 1,
+              next_eligible_poll_at: %DateTime{}
+            }} = Registry.get(entry.id)
+  end
+
   # ---------------------------------------------------------------------------
   # Result structure completeness
   # ---------------------------------------------------------------------------
@@ -656,5 +696,9 @@ defmodule Exocomp.Coordinator.NodeProberTest do
     assert result.verified_addresses == []
     assert result.agent_card == nil
     assert result.health == nil
+  end
+
+  defp make_poll_eligible(node_id) do
+    Registry.update(node_id, %{next_eligible_poll_at: DateTime.add(DateTime.utc_now(), -1)})
   end
 end

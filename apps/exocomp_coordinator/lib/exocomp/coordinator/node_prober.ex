@@ -55,6 +55,9 @@ defmodule Exocomp.Coordinator.NodeProber do
       `Exocomp.Coordinator.Audit`).
     * `:registry_server` — Registry GenServer name/pid (default
       `Exocomp.Coordinator.Registry`).
+    * `:attempt_token` — token returned by `Registry.begin_poll/2`. When set,
+      the typed outcome and verified addresses are recorded atomically and a
+      late result is ignored by the registry.
   """
 
   alias Exocomp.Coordinator.{Audit, Registry}
@@ -281,17 +284,32 @@ defmodule Exocomp.Coordinator.NodeProber do
        when outcome in [:healthy, :degraded] and addrs != [] do
     registry = Keyword.get(opts, :registry_server, Registry)
 
-    changes = %{
-      addresses: addrs,
-      reachability: outcome
-    }
+    case Keyword.fetch(opts, :attempt_token) do
+      {:ok, token} ->
+        Registry.record_observation(
+          node_id,
+          token,
+          %{outcome: outcome, verified_addresses: addrs},
+          registry
+        )
 
-    Registry.update(node_id, changes, registry)
+      :error ->
+        Registry.update(node_id, %{addresses: addrs, reachability: outcome}, registry)
+    end
   catch
     :exit, _ -> :ok
   end
 
-  defp update_registry(_node_id, _outcome_map, _opts), do: :ok
+  defp update_registry(node_id, outcome_map, opts) do
+    with {:ok, token} <- Keyword.fetch(opts, :attempt_token) do
+      registry = Keyword.get(opts, :registry_server, Registry)
+      Registry.record_observation(node_id, token, outcome_map, registry)
+    else
+      :error -> :ok
+    end
+  catch
+    :exit, _ -> :ok
+  end
 
   # ---------------------------------------------------------------------------
   # Private — audit
