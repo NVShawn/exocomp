@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: Open
+status: In Progress
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:44:52.269983Z'
+updated_at: '2026-07-24T16:45:08.328233Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -215,5 +215,15 @@ author: oompah
 created: 2026-07-24 16:44
 ---
 Focus handoff: frontend\n\nOutcome: Frontend review is complete; EXOCOMP-96 has no user-facing UI, accessibility, styling, or JavaScript scope, so no frontend changes are appropriate.\n\nEvidence and decisions: The implementation belongs in apps/exocomp_node/lib/exocomp/node/safety/precondition_checker.ex with tests under apps/exocomp_node/test/exocomp/node/safety/. Existing backend collectors are apps/exocomp_node/lib/exocomp/node/collectors/systemd.ex and disk.ex. Search found no existing PreconditionChecker. The worktree currently reports branch epic-EXOCOMP-24, not EXOCOMP-96.\n\nRemaining work/risks: A feature/security agent must implement injectable evidence collection, canonical hash comparison, fail-closed behavior, tests, make test/make lint, commit, push, and close the task. It must first verify the branch mismatch and ensure the coordinator/node evidence schema is byte-identical.\n\nRecommended next focus: feature (security-sensitive backend implementation).
+---
+author: oompah
+created: 2026-07-24 16:45
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 8
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 32s
+- Log: EXOCOMP-96__20260724T164346Z.jsonl
 ---
 <!-- COMMENTS:END -->
