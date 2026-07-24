@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:38:43.001516Z'
+updated_at: '2026-07-24T02:38:59.401579Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -168,5 +168,20 @@ author: oompah
 created: 2026-07-24 02:38
 ---
 Completion: Delivered and pushed commit 8c067f2 on origin/EXOCOMP-83. LlamaServer crash tests now resolve kill through PATH for BusyBox/Alpine portability while retaining TERM behavior. Focused regression proof and the full make test/release smoke gate pass; the branch is clean and up to date with origin. No follow-up work identified.
+---
+author: oompah
+created: 2026-07-24 02:38
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 41
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 5m 4s
+- Log: EXOCOMP-83__20260724T023356Z.jsonl
+---
+author: oompah
+created: 2026-07-24 02:38
+---
+Made the LlamaServer crash-test helper Alpine-portable by resolving kill through PATH; proved the old path fails both crash tests, passed the fixed focused suite and full make test/release smoke gate, and pushed commit 8c067f2.
 ---
 <!-- COMMENTS:END -->
