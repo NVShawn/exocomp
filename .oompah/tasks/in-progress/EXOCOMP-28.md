@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:33:27.642079Z'
+updated_at: '2026-07-24T19:49:09.189874Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ Discovery: The codebase has extensive unit/focused tests covering all M3-CRIT cr
 - M3-CRIT-8 (audit trail): approval_gate_test.exs (audit log properties section)
 
 Gap: No m3_acceptance_test.exs that records per-criterion evidence. Pattern from m1_acceptance_test.exs is clear — I will create it with [PASS/FAIL evidence for M3-CRIT-X] markers and run the Make gates.
+---
+author: oompah
+created: 2026-07-24 19:49
+---
+Implementation: Created apps/exocomp_node/test/integration/m3_acceptance_test.exs (53174 bytes) — comprehensive M3 acceptance suite with 8 describe blocks mapping to M3-CRIT-1 through M3-CRIT-8. Each test carries # [PASS/FAIL evidence for M3-CRIT-X] markers following the M1 pattern. Tests cover all required adversarial cases: injection, stale evidence, schema mismatches, policy ordering determinism, user-data deletion blocked at type AND policy level, VacuumBounds eligibility/source rejection, service approval/automatic behavior, token tampering/replay/expiry/binding mismatch, privilege separation, argv enforcement, and audit trail coverage. Running make test revealed 3 failures to fix: (1) VacuumBounds.user_data_path?/1 missing exact match for /home and /root bare paths, (2) M3-CRIT-7a test flunks in rootless Podman where UID=0 inside container, (3) pre-existing PrivilegeTest check_not_root/0 has same rootless issue. Applying targeted fixes to all three now.
 ---
 <!-- COMMENTS:END -->
