@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T18:23:01.523079Z'
+updated_at: '2026-07-24T18:23:04.098114Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -205,5 +205,10 @@ Delivered file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_orc
 - No remediation executor path: DiagnosticGoal/NodeOutcome state machines; GoalStore.transition rejects :remediating
 
 All gates pass: make test, make lint, make fmt-check.
+---
+author: oompah
+created: 2026-07-24 18:23
+---
+Added 22-test focused multi-node integration suite in multi_node_orchestration_integration_test.exs covering all EXOCOMP-105 acceptance criteria: three deterministic node fixtures, duplicate submissions, healthy/failed/slow nodes with explicit per-node outcomes, timeouts, cancellation propagation, bounded history/task eviction and output, coordinator restart loss/reconstruction with safe resubmission, correlated durable audit redaction, unavailable audit sink behavior, EXOCOMP-19 contract readiness, and no remediation executor path. All make test, make lint, and make fmt-check gates pass.
 ---
 <!-- COMMENTS:END -->
