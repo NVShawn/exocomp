@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T19:29:45.722798Z'
+updated_at: '2026-07-24T19:29:48.300872Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -310,5 +310,10 @@ Verification: All 18 M2 acceptance tests pass (18/18) and all quality gates are 
 - EXOCOMP-20: Add M2 coordinator milestone acceptance test suite (18 tests, m2_acceptance_test.exs)
 
 **Gap documented in test file:** M2-CRIT-3/4 node-side enrollment (EXOCOMP-17 gap) — coordinator-side token issuance and PKI are complete; the node-agent enrollment client, atomic credential installer, and renewal scheduler were not delivered by EXOCOMP-17. End-to-end enrollment handshake cannot run until EXOCOMP-17's node-side is implemented. This is documented in the m2_acceptance_test.exs moduledoc and a follow-up task will be created.
+---
+author: oompah
+created: 2026-07-24 19:29
+---
+All 18 M2 acceptance tests pass (M2-CRIT-1 through M2-CRIT-8). Quality gates: make test (743 passed, 0 failed), make lint, make fmt-check, make build all pass. Three integration commits on epic-EXOCOMP-2 merged orchestration modules (epic-EXOCOMP-18), PKI/enrollment modules (EXOCOMP-87), and added the 751-line acceptance test suite. EXOCOMP-107 filed for missing node-side enrollment client/installer/renewal (EXOCOMP-17 gap).
 ---
 <!-- COMMENTS:END -->
