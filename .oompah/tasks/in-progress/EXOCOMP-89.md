@@ -8,10 +8,11 @@ parent: EXOCOMP-15
 children: []
 blocked_by:
 - EXOCOMP-88
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:19:32.601326Z'
+updated_at: '2026-07-24T03:19:47.706372Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -51,5 +52,20 @@ author: oompah
 created: 2026-07-24 03:19
 ---
 Discovery: Duplicate screening found no confirmed duplicate. Full tracker records reviewed: EXOCOMP-15 is the parent epic and explicitly decomposes authenticated probing into EXOCOMP-89; EXOCOMP-88 only resolves and stores DNS candidates without adopting Registry.addresses; EXOCOMP-90 owns scheduling/backoff/state transitions; EXOCOMP-91 owns bounded concurrent execution; EXOCOMP-92 owns cross-component integration verification. EXOCOMP-12 provides the node-side mTLS A2A/Agent Card service, while EXOCOMP-14 provides Inventory/Registry/Audit infrastructure. The milestone-2 plan specifically requires hostname identity context, no reverse-DNS trust, and address adoption only after DNS plus mTLS verification, which is uniquely EXOCOMP-89's implementation boundary.
+---
+author: oompah
+created: 2026-07-24 03:19
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed. EXOCOMP-89 is the distinct authenticated probe/address-adoption child of EXOCOMP-15 and should proceed to implementation.
+
+Evidence and decisions: The required repository search found the governing contract in plans/milestone-2-coordinator.md lines 69-71: retain hostname identity context, never trust reverse DNS, and adopt address changes only after DNS resolution plus mTLS verification. The checkout has no .oompah/tasks directory, so full descriptions/comments were validated through tracker views. EXOCOMP-88 produces normalized candidate_addresses only; EXOCOMP-89 must authenticate and adopt them. EXOCOMP-12 supplies the node Agent Card/mTLS endpoint and EXOCOMP-14 supplies Registry/Audit. EXOCOMP-90, 91, and 92 separately own scheduling/state transitions, concurrency/isolation, and integration coverage.
+
+Relevant files: plans/milestone-2-coordinator.md; apps/exocomp_coordinator/lib/exocomp/coordinator/ (Resolver, Registry, Audit, supervision); node-side A2A/TLS implementation from EXOCOMP-12.
+
+Remaining work and risks: Implement explicit-IP TLS connections while preserving configured hostname for SNI/identity, validate trust chain and configured certificate_identity without reverse DNS, validate Agent Card and health payloads under per-request timeout across multiple candidates, expose typed outcomes, emit redacted audit events, and update Registry.addresses only after complete success while preserving prior verified addresses on every failure. Add focused TLS/payload/address-change tests and run affected Make targets. Identity mismatch must never be bypassed by trying another candidate as though it were merely unreachable.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
