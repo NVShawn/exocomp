@@ -15,7 +15,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-24T19:18:43.952391Z'
+updated_at: '2026-07-24T19:18:59.103877Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -245,5 +245,20 @@ author: oompah
 created: 2026-07-24 19:18
 ---
 Completion: Delivered and pushed commit 0466ba8 on origin/epic-EXOCOMP-4. Active/degraded recovery now exposes an exact-evidence input_required approval task, accepts only the correctly bound operator token through the existing fail-closed ApprovalGate, refreshes preconditions immediately before execution, persists execution intent before restart, prevents replay, verifies health, and terminally audits denial/timeout/expiry/state changes/cancellation. Focused 14/14 tests and the full 1,227-test host suite pass; forced warnings-as-errors compile and format check pass. The pinned Make wrappers remain unavailable only because this sandbox's rootless Podman runtime directory is read-only. Worktree is clean and up to date with origin.
+---
+author: oompah
+created: 2026-07-24 19:18
+---
+Implemented approval-required active/degraded service recovery with exact A2A impact/evidence, bound ApprovalGate execution, fresh precondition checks, audit-before-action, safe terminal outcomes, replay protection, and focused coverage.
+---
+author: oompah
+created: 2026-07-24 19:18
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 132
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 39s
+- Log: EXOCOMP-32__20260724T190140Z.jsonl
 ---
 <!-- COMMENTS:END -->
