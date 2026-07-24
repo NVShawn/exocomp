@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T18:22:10.897894Z'
+updated_at: '2026-07-24T18:22:44.686105Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -161,5 +161,24 @@ Implementation: Created apps/exocomp_coordinator/test/exocomp/coordinator/multi_
 14. No remediation executor path: DiagnosticGoal and NodeOutcome terminal states contain no executor outcomes; GoalStore.transition rejects :remediating/:executing; orchestrator completes via FakeClient only
 
 All 22 new tests pass. make fmt-check, make lint, and make test all pass.
+---
+author: oompah
+created: 2026-07-24 18:22
+---
+Verification: All Makefile quality gates pass.
+
+make test: 4 result sets all pass (55+66+223 coordinator tests + 201 bench/smoke), exit_code 0
+make lint: passes (fmt-check + compile --warnings-as-errors), exit_code 0
+make fmt-check: passes, exit_code 0
+
+New test file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_orchestration_integration_test.exs
+22 new integration tests added to coordinator app (up from prior count).
+
+Pre-existing formatting-only changes auto-applied by make fmt to:
+- apps/exocomp_coordinator/lib/exocomp/coordinator/goal_store.ex (emit_audit call reformatted)
+- apps/exocomp_coordinator/lib/exocomp/coordinator/orchestrator.ex
+- apps/exocomp_coordinator/test/exocomp/coordinator/orchestrator_audit_test.exs
+
+No logic changes to existing production or test code. All changes committed and pushed to origin/epic-EXOCOMP-18.
 ---
 <!-- COMMENTS:END -->
