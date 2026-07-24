@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T02:09:20.253804Z'
+updated_at: '2026-07-24T02:27:41.510392Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -391,5 +391,40 @@ Plan:
 - Create integration_test.exs with all required integration scenarios  
 - Create mix_task_test.exs for Mix task output verification
 - Run fmt-check, build, test, lint and close.
+---
+author: oompah
+created: 2026-07-24 02:27
+---
+Implementation: Completed all EXOCOMP-77 feature integration.
+
+Changes delivered:
+
+1. application.ex — validate_pki() integrates Bootstrap.initialize before starting supervisor; runtime services start only from validated protected PKI state. Added start_supervised_tree/1 as an isolated test entry point that starts a full coordinator tree with unique per-child process names.
+
+2. enrollment_token.ex — Added :audit_server option (defaults to Exocomp.Coordinator.Audit) so audit emit calls are routable to a specific server. Updated all Audit.emit calls to use state.audit_server. Required for fail-closed integration tests.
+
+3. mix/tasks/exocomp.coordinator.init.ex — New Mix task: mix exocomp.coordinator.init --online-state PATH --offline-root-backup PATH. Outputs PKI_INITIALIZED or PKI_ALREADY_INITIALIZED, shows offline_root_backup and root_fingerprint, never prints private keys or protection inputs, raises Mix.Error on invalid state.
+
+4. pki/state.ex — GenServer that publishes validated PKI metadata (paths + fingerprint) after successful Bootstrap.initialize; retains no key material.
+
+5. bootstrap.ex + bootstrap_test.exs — Added disposition field (:initialized / :already_initialized) to metadata; fixed bootstrap test to compare stable fields separately from disposition.
+
+6. health.ex — Exposes PKI.State health in coordinator health check without secrets.
+
+7. config.exs — Added :require_pki (false in test, true otherwise), EXOCOMP_PKI_ONLINE_STATE, EXOCOMP_PKI_OFFLINE_ROOT_BACKUP, EXOCOMP_ENROLLMENT_TOKEN_STORE env var bindings.
+
+8. integration_test.exs (new) — 32 integration tests:
+   - Clean PKI init → supervised tree starts + PKI.State accessible
+   - Already-initialized state → tree starts again, fingerprint stable
+   - Missing/corrupt/insecure PKI material → startup fails before starting services
+   - Token issue/consume through supervised EnrollmentToken service
+   - Restart replay rejection (consumed token rejected after supervisor kill+restart)
+   - Token issued before restart consumable after restart
+   - Audit outage fail-closed (issuance AND consumption fail with :audit_unavailable)
+   - Log/output redaction (passphrase, PRIVATE KEY never in Logger output)
+   - No root private key in online state dir (root_ca_key.pem absent)
+   - Online/offline dir permissions 0700; private files 0600
+
+9. mix_task_test.exs (new) — Mix task tests: output format, new vs already-initialized, fingerprint stability, passphrase/private-key redaction, missing-arg and missing-passphrase error cases.
 ---
 <!-- COMMENTS:END -->
