@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-24T02:47:03.143812Z'
+updated_at: '2026-07-24T03:05:53.635614Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -215,5 +215,17 @@ author: oompah
 created: 2026-07-24 02:47
 ---
 Understanding: This is continuation attempt #1. Previous agents confirmed no duplicate exists and discovered: (1) coordinator app lacks Jason dependency — need to add {:jason, "~> 1.4"}; (2) Jason 1.4.x lacks sort_keys option — must use manually sorted key-value construction; (3) No ApprovalToken or safety/ directory exists — greenfield. Plan: Create approval_token.ex with 11-field @enforce_keys struct, canonical_encode/1, sha256_hex/1, hash_params/1, hash_evidence/1, validate_schema_version/1; write full test suite; add Jason dep; run make test + make lint; commit and close.
+---
+author: oompah
+created: 2026-07-24 03:05
+---
+Implementation: Created apps/exocomp_coordinator/lib/exocomp/coordinator/safety/approval_token.ex with:
+- 11-field struct with @enforce_keys on all fields and @schema_version "1"
+- canonical_encode/1: builds deterministic UTF-8 JSON by iterating a manually ordered {key, value} pair list in lexicographic key order and concatenating per-pair Jason encodings — avoids Jason 1.4.x's missing sort_keys option and Elixir map ordering non-determinism
+- sha256_hex/1: lowercase hex SHA-256 via :crypto.hash/2 + Base.encode16
+- hash_params/1 / hash_evidence/1: sorted-JSON SHA-256 of string-keyed maps; nested maps also recursively sorted
+- validate_schema_version/1: returns {:ok, token} or {:error, :unknown_schema_version}
+Also added {:jason, "~> 1.4"} to coordinator mix.exs (already present from previous agent run).
+Test file: apps/exocomp_coordinator/test/exocomp/coordinator/safety/approval_token_test.exs with 44 tests covering all required scenarios.
 ---
 <!-- COMMENTS:END -->

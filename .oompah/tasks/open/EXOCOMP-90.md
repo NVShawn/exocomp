@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T02:54:11.973463Z'
+updated_at: '2026-07-24T03:05:52.958068Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -19,6 +19,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: c958afc9-f12d-4a01-8f3d-b9c5ce7f61f2
 oompah.work_branch: epic-EXOCOMP-2
+oompah.task_costs:
+  total_input_tokens: 560598
+  total_output_tokens: 2923
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 560598
+      output_tokens: 2923
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 560598
+    output_tokens: 2923
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T03:05:49.867930+00:00'
 ---
 ## Summary
 
@@ -64,5 +80,25 @@ Evidence: Repository search covered poll/scheduling/backoff/registry-state/times
 Relevant files/decisions: plans/milestone-2-coordinator.md sections Node State, Audit, and Test Strategy; implementation should extend Exocomp.Coordinator.Registry and reuse Exocomp.Coordinator.Audit from EXOCOMP-14. Keep scheduling deterministic through injected clock/randomness and reject late observations with an ordering token or attempt timestamp.
 
 Remaining work/risks: Implement and test scheduling, bounded jitter/backoff, freshness thresholds, all state/timestamp transitions, recovery, stale-result rejection, and redacted audit emissions. Coordinate the public outcome contract with EXOCOMP-89 and the due-node/concurrency consumer with EXOCOMP-91. Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 03:05
+---
+Agent completed successfully in 792s (563521 tokens)
+---
+author: oompah
+created: 2026-07-24 03:05
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 17
+- Tokens: 560.6K in / 2.9K out [563.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 13m 12s
+- Log: EXOCOMP-90__20260724T025242Z.jsonl
+---
+author: oompah
+created: 2026-07-24 03:05
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
