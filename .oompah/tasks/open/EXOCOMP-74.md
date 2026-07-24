@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-74
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Implement PolicyEngine risk-ordered selection and comprehensive policy tests
 parent: EXOCOMP-22
@@ -10,9 +10,11 @@ blocked_by:
 - EXOCOMP-73
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:test
+- needs:feature
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:17:29.939970Z'
+updated_at: '2026-07-24T01:18:09.902461Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -206,5 +208,18 @@ author: oompah
 created: 2026-07-24 01:17
 ---
 Verification (test focus): git diff --cached --check passes. The new suite is intentionally red against EXOCOMP-73 because PolicyEngine.evaluate/4 does not exist yet, demonstrating it covers the missing behavior. make fmt/test could not execute in this managed environment: the Docker-compatible Podman wrapper fails before container startup with a read-only /run/user/1000/libpod runtime lock/config error; no local mix executable is installed. Feature agent must run make fmt, focused tests, make test, and make lint after implementation.
+---
+author: oompah
+created: 2026-07-24 01:18
+---
+Focus handoff: test
+
+Outcome: Test focus complete. Added and pushed commit e742b5b on origin/EXOCOMP-74 with comprehensive PolicyEngine.evaluate/4 contract coverage (14 tests covering all 12 requested scenarios plus single-Evidence normalization and broader invalid-input fail-closed cases).
+
+Relevant files/evidence: apps/exocomp_node/test/exocomp/node/safety/policy_engine_test.exs; branch was created from EXOCOMP-73 commit 66b5f15 because dispatch initially checked out epic-EXOCOMP-22. git diff --cached --check passed before commit; final git status is clean and up to date. EXOCOMP-73 filter/4 only evaluates proposal.action_id, so evaluate/4 must evaluate catalog alternatives per candidate before sorting. Audit tests require candidate IDs/ranks in ordered reason text and rejection reasons for filtered candidates.
+
+Remaining work/risks: Implement evaluate/4 and likely per-candidate filtering orchestration; scope staleness checks to evidence collectors required by each candidate so an unrelated stale record does not reject the safe candidate; normalize Evidence.t() to a list; catch exceptions as exact reason 'internal policy error'. Container-backed make fmt/test/lint cannot run in this sandbox because Podman cannot write /run/user/1000/libpod and no host mix exists, so rerun all gates in a functioning environment.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: In Progress
+status: Open
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -9,9 +9,11 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:epic_planner
+- needs:feature
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:17:52.469015Z'
+updated_at: '2026-07-24T01:18:14.917890Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -213,5 +215,15 @@ Evidence and decisions: EXOCOMP-79 already specifies TaskRegistry configuration,
 Remaining work and risks: Implement the GenServer and tests. Before coding, ensure the implementation worktree actually contains the A2A structs from EXOCOMP-48; this planner checkout is epic-EXOCOMP-12 at origin/main, not the stated EXOCOMP-79 branch, and apps/exocomp_core/lib/exocomp/a2a is absent here. Preserve the specified active-task non-eviction invariant and clarify capacity behavior through tests.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-24 01:18
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 17
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 50s
+- Log: EXOCOMP-79__20260724T011625Z.jsonl
 ---
 <!-- COMMENTS:END -->
