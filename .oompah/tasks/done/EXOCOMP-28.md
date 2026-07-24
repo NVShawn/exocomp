@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:56:43.529054Z'
+updated_at: '2026-07-24T22:09:55.803471Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -67,7 +67,6 @@ Acceptance Criteria
 
 Quality Gate
 Run the focused tests and all repository Make targets affected by this change.
-
 ## Acceptance Criteria
 
 - [ ] Define acceptance criteria.
