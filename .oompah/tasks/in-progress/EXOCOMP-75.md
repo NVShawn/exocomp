@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T01:02:38.478119Z'
+updated_at: '2026-07-24T01:04:32.469679Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -164,5 +164,10 @@ author: oompah
 created: 2026-07-24 01:02
 ---
 Implementation: Added Exocomp.Coordinator.PKI.Bootstrap and x509/public_key dependencies. The API requires absolute separate destinations plus {:passphrase, value}; creates P-384 root/intermediate CAs, P-256 30-day coordinator TLS identity, and separate raw Ed25519 approval key; writes versioned path/role manifests through protected sibling staging directories and atomic renames. Repeat calls validate exact trees/modes, manifests, encrypted backup root key, key/cert matches, CA/key usages, RFC 5280 path/signatures/validity, approval signing capability, and fingerprint. Invalid state returns redacted structured errors without rotation.
+---
+author: oompah
+created: 2026-07-24 01:04
+---
+Verification: focused PKI suite passes 10/10; full coordinator suite passes 25/25; make lint, make fmt-check, and make build (including both production releases) pass. make test reaches 129 passing tests overall but fails 2 pre-existing node LlamaServer crash tests because they hard-code /usr/bin/kill, absent in the pinned Alpine builder; filed EXOCOMP-83 for that unrelated portability defect. No PKI/coordinator failures.
 ---
 <!-- COMMENTS:END -->
