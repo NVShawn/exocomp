@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-24T16:19:17.892845Z'
+updated_at: '2026-07-24T16:24:34.322156Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -281,5 +281,10 @@ author: oompah
 created: 2026-07-24 16:19
 ---
 Implementation: Added ReplayLedger as a DETS-backed GenServer with synced write-ahead claims, durable completion results, duplicate serialization, timed waiter notification, startup pending-to-crashed_incomplete reconciliation with warnings, and fail-closed storage error handling. Added it to Exocomp.Node.Application, configured a production /var/lib path plus non-production temp path, and added focused coverage for all requested scenarios. Unrelated approval-token files remain untouched/untracked.
+---
+author: oompah
+created: 2026-07-24 16:24
+---
+Verification: Focused ReplayLedger tests pass (10/10). The full make test command, executed with the repository's exact pinned builder image after the local docker CLI was blocked by sandbox permissions on /run/user/1000/libpod, passed: bench 55, core 68, coordinator 1, node 220 with 10 excluded; both releases assembled and smoke-tested. The exact make lint command also passed formatting and warnings-as-errors compilation. Direct make test/make lint invocation itself cannot enter the container due that host runtime-directory permission, not a code failure.
 ---
 <!-- COMMENTS:END -->
