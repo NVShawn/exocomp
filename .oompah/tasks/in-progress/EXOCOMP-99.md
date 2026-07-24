@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-07-24T16:17:43.703578Z'
+updated_at: '2026-07-24T16:19:06.106921Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -202,5 +202,10 @@ author: oompah
 created: 2026-07-24 16:17
 ---
 Verification: make test passes — 103 coordinator tests (including new DiagnosticClientTest and HTTPTransportTest), 66 core tests, 55 bench tests, 201 node tests, 10 excluded. Both releases build and smoke-test clean. Format check also clean.
+---
+author: oompah
+created: 2026-07-24 16:19
+---
+Implementation: Added the coordinator A2A diagnostic boundary with send/get-task/cancel, strict allowlisting of system/service diagnostics, registry-based verified address plus hostname/certificate identity context, A2A 1.0 headers/version checks, typed response decoding, normalized errors, and an injectable transport. Added an :httpc mTLS transport and deterministic tests for creation, terminal artifacts, timeouts, malformed responses, version errors, cancellation supported/unsupported, and remediation rejection. During final review I corrected the real transport to use the configured hostname for SNI while independently verifying the registry certificate identity, and normalized nested timeout reasons.
 ---
 <!-- COMMENTS:END -->
