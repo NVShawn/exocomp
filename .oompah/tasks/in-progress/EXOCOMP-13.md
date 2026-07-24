@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:48:09.611741Z'
+updated_at: '2026-07-24T02:48:34.329787Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -254,5 +254,15 @@ author: oompah
 created: 2026-07-24 02:48
 ---
 Implementation: Integrated commit b69685f into the active worktree. It adds apps/exocomp_node/test/integration/m1_acceptance_test.exs (live Bandit mTLS fixture covering Agent Card discovery, diagnostic tasks, proposal failure isolation, lifecycle, cancellation, concurrency, unauthenticated rejection, shutdown, and before/after host-state snapshots) and makes llama-server crash simulation portable on Alpine. The test module records the evidence mapping for M1-CRIT-1 through M1-CRIT-7.
+---
+author: oompah
+created: 2026-07-24 02:48
+---
+Implementation: Commit b69685f adds the hermetic live-mTLS M1 acceptance fixture with explicit M1-CRIT-1..7 evidence and exercises Agent Card discovery, diagnostics, failed inference safety, task list/lifecycle/cancellation/concurrency, protocol limits, graceful shutdown, and before/after host snapshots. It also makes the llama crash tests Alpine-portable; current main independently contains the same portability correction.
+---
+author: oompah
+created: 2026-07-24 02:48
+---
+Completion: Delivered and pushed b69685f to origin/EXOCOMP-13. M1 now has live release-level acceptance coverage with recorded evidence for M1-CRIT-1 through M1-CRIT-7, including bundled-release smoke startup, authenticated A2A discovery/diagnostics, collector coverage, llama.cpp failure containment, fail-closed mTLS, lifecycle/concurrency/shutdown, and host-state invariance. Remote HEAD matches the clean local worktree.
 ---
 <!-- COMMENTS:END -->
