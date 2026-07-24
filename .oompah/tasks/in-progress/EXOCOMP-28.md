@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:30:49.295738Z'
+updated_at: '2026-07-24T19:33:27.642079Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -137,5 +137,21 @@ author: oompah
 created: 2026-07-24 19:30
 ---
 Understanding: As Maintenance Engineer, my role is to run the M3 safety and remediation verification suite and record pass/fail evidence for every M3-CRIT-* criterion. The duplicate_detector confirmed this is the unique broad M3 acceptance-verification task. I will: (1) explore the codebase to find existing M3 tests and the milestone-3-safety-validation plan, (2) run all focused tests and Make gates, (3) record evidence per criterion, and (4) hand off to a test specialist if new test scaffolding is needed. Starting now.
+---
+author: oompah
+created: 2026-07-24 19:33
+---
+Discovery: The codebase has extensive unit/focused tests covering all M3-CRIT criteria but no cross-cutting m3_acceptance_test.exs. Key findings:
+
+- M3-CRIT-1 (schema/evidence validation): proposal_schema_test.exs, action_definition_test.exs, evidence_test.exs
+- M3-CRIT-2 (policy ordering/determinism): policy_engine_test.exs, risk_rank_test.exs, policy_engine_filter_test.exs  
+- M3-CRIT-3 (user/unknown data protection): data_classification_test.exs, policy_engine_test.exs
+- M3-CRIT-4 (bounded system cleanup): vacuum_bounds_test.exs, disk_pressure_collector_test.exs
+- M3-CRIT-5 (failed vs active service auth): policy_engine_test.exs, approval_gate_test.exs
+- M3-CRIT-6 (approval tampering/replay): approval_gate_test.exs (15 scenarios from EXOCOMP-98)
+- M3-CRIT-7 (privilege separation): privilege_test.exs, sudoers_policy_test.exs, executor_test.exs
+- M3-CRIT-8 (audit trail): approval_gate_test.exs (audit log properties section)
+
+Gap: No m3_acceptance_test.exs that records per-criterion evidence. Pattern from m1_acceptance_test.exs is clear — I will create it with [PASS/FAIL evidence for M3-CRIT-X] markers and run the Make gates.
 ---
 <!-- COMMENTS:END -->
