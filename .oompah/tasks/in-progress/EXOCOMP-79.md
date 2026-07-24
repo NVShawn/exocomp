@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:21:41.696407Z'
+updated_at: '2026-07-24T01:25:23.740779Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -239,5 +239,10 @@ author: oompah
 created: 2026-07-24 01:21
 ---
 Understanding: Implement Exocomp.Node.TaskRegistry as a supervised GenServer using the existing A2A structs, with lifecycle validation, worker cancellation, working-task capacity enforcement, TTL/count eviction that preserves active tasks, and focused ExUnit coverage. I will inspect current conventions and Make targets, implement narrowly, run the focused quality gate, then commit and push the EXOCOMP-79 branch.
+---
+author: oompah
+created: 2026-07-24 01:25
+---
+Discovery: The intended checkout branch was absent and current main did not contain EXOCOMP-48's required A2A types. I created EXOCOMP-79 from current main and merged the completed origin/epic-EXOCOMP-8 type-layer prerequisite, resolving the Makefile conflict in favor of main's newer rootless-engine handling. Existing structs represent lifecycle via Task.status (%TaskStatus{state, message, timestamp}), input via Task.history, and metadata is suitable for skill_id. Count eviction must target max_tasks - 1 before insertion; when all retained tasks are active, submission must return :at_capacity to preserve the hard bound and active-task non-eviction invariant.
 ---
 <!-- COMMENTS:END -->
