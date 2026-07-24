@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T03:55:00.401545Z'
+updated_at: '2026-07-24T04:00:04.946626Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -144,5 +144,15 @@ author: oompah
 created: 2026-07-24 03:55
 ---
 Discovery: the supplied worktree was on epic-EXOCOMP-15 and lacked EXOCOMP-90; I created the requested EXOCOMP-91 branch from the completed local EXOCOMP-90 ref. The scheduling API provides atomic begin_poll tokens and stale-result rejection, but active tokens otherwise survive forever after a poller crash. NodeProber already returns typed maps and can record by token. Implementation will therefore use token claims plus a Registry recovery API, isolated TaskSupervisor jobs, poller-owned timeout/crash completion, and immediate capacity refill.
+---
+author: oompah
+created: 2026-07-24 04:00
+---
+Verification: local pinned Elixir/OTP toolchain passed mix format --check-formatted, MIX_ENV=test compile --force --warnings-as-errors, and the full umbrella suite (bench 55, core 2, coordinator 75, node 49; 181 passed, 10 excluded). Focused coordinator suite passed 51 tests. Release assembly succeeded for both releases; local smoke script could not execute its copied erlexec. Required make test/make lint were also attempted but cannot start because this managed environment exposes /run/user/1000/libpod read-only; both stop in Podman before project commands run. git diff --check passes.
+---
+author: oompah
+created: 2026-07-24 04:00
+---
+Implementation: added HealthPoller with bounded TaskSupervisor workers, Registry token claims/in-flight deduplication, per-node kill timers, immediate capacity refill, isolated resolver/probe adapters, and crash/timeout outcome recording. Poller startup kills orphan workers and Registry.recover_in_flight clears stale claims. Registry now atomically stores verified addresses, Agent Card protocol version/skills, health diagnostics, and timestamps. Wired configurable Registry/HealthPoller plus PollTaskSupervisor into the application tree and added focused coverage.
 ---
 <!-- COMMENTS:END -->
