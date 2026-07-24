@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-30
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:46:46.592416Z'
+updated_at: '2026-07-24T18:47:12.308509Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -315,5 +315,10 @@ author: oompah
 created: 2026-07-24 18:46
 ---
 Verification: make fmt-check, make build, make test, and make lint all pass. Test result: 1 doctest and 85 tests, 0 failures.
+---
+author: oompah
+created: 2026-07-24 18:47
+---
+Completion: Delivered the Milestone 4 service-recovery state machine with its evidence and audit types and 85 focused tests. All affected Make gates pass, branch epic-EXOCOMP-4 is clean and up to date with origin, and review is open as PR #10: https://github.com/NVShawn/exocomp/pull/10
 ---
 <!-- COMMENTS:END -->

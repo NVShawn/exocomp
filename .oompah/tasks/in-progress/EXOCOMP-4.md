@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-4
 type: epic
-status: In Review
+status: In Progress
 priority: 1
 title: 'M4: Minimal-impact systemd service recovery'
 parent: null
@@ -17,14 +17,16 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-07-24T18:47:06.290717Z'
-work_branch: null
-target_branch: null
+updated_at: '2026-07-24T18:47:10.790010Z'
+work_branch: epic-EXOCOMP-4
+target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
 review_number: '10'
 merged_at: null
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/10
 oompah.review_number: '10'
+oompah.work_branch: epic-EXOCOMP-4
+oompah.target_branch: main
 ---
 ## Summary
 
