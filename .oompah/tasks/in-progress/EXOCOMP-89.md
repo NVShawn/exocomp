@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T03:31:14.199899Z'
+updated_at: '2026-07-24T03:31:23.367470Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -128,5 +128,10 @@ author: oompah
 created: 2026-07-24 03:31
 ---
 Implementation: Added NodeProber module (apps/exocomp_coordinator/lib/exocomp/coordinator/node_prober.ex) and test suite (test/exocomp/coordinator/node_prober_test.exs). Key design decisions: (1) Injectable probe_fn following the Resolver pattern — tests inject a fake transport, production uses real mTLS client. (2) Identity mismatch halts the entire probe immediately and is not retried on other candidates. (3) Registry.addresses updated only when verified_addresses is non-empty; all failures preserve previous value. (4) Health status field determines :healthy vs :degraded outcome. (5) Audit events emitted for all outcomes including error_details for mismatch. (6) Audit/Registry unavailability (process exit) is caught and never propagates to callers.
+---
+author: oompah
+created: 2026-07-24 03:31
+---
+Verification: make test passes cleanly — 59 coordinator tests pass (32 new NodeProber tests + 27 pre-existing), make lint passes with no new warnings. All 32 NodeProber test cases pass covering: correct/wrong identity, multiple addresses, changed-address adoption, failed-change preservation (no candidates, timeout, unreachable, mismatch), degraded health, malformed responses, all typed outcomes, audit events for every outcome type, Registry isolation between nodes, and probe_result struct completeness.
 ---
 <!-- COMMENTS:END -->
