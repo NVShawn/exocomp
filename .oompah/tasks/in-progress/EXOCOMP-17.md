@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-17
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement node enrollment and certificate renewal
 parent: EXOCOMP-2
@@ -10,16 +10,15 @@ blocked_by:
 - EXOCOMP-16
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-24T02:31:25.317509Z'
+updated_at: '2026-07-24T02:35:27.540157Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: d18cdf21-49b1-4ff7-85a6-3fee6d98c002
+oompah.agent_run_id: 02447343-8f9b-4cfc-a23d-cc12a8f9c0fd
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 1113189
@@ -123,5 +122,15 @@ author: oompah
 created: 2026-07-24 02:31
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 02:35
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-24 02:35
+---
+Focus: Epic Planner
 ---
 <!-- COMMENTS:END -->
