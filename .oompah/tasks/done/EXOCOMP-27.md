@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:39:27.940971Z'
+updated_at: '2026-07-24T18:39:41.397592Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -193,5 +193,20 @@ author: oompah
 created: 2026-07-24 18:39
 ---
 Completion: Delivered and pushed commit 7813d30 on origin/EXOCOMP-27. The coordinator now exposes a supervised typed remediation.execute A2A lifecycle with fail-closed adapter boundaries, durable audit-before-action, input-required approvals, restricted execution/verification sequencing, redacted bounded model output, correlated transition history, terminal artifacts, cancellation/timeouts, and post-action reconciliation without retry. Focused suite: 13/13 passing; coordinator suite: 280/280 passing; coordinator warnings-as-errors compile and format check pass. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-07-24 18:39
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 102
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 12m 54s
+- Log: EXOCOMP-27__20260724T182646Z.jsonl
+---
+author: oompah
+created: 2026-07-24 18:39
+---
+Integrated the typed remediation lifecycle with correlated A2A history/artifacts and durable audit-before-action; added approval, failure, cancellation, redaction, bypass, and reconciliation coverage; pushed commit 7813d30 to origin/EXOCOMP-27.
 ---
 <!-- COMMENTS:END -->
