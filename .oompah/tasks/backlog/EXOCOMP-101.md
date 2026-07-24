@@ -6,11 +6,13 @@ priority: 1
 title: Orchestrate bounded diagnostic fan-out and partial results
 parent: EXOCOMP-18
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-99
+- EXOCOMP-100
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-24T04:29:36.504474Z'
+updated_at: '2026-07-24T04:30:13.140932Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,11 +6,12 @@ priority: 1
 title: Verify coordinator diagnostic orchestration end to end
 parent: EXOCOMP-18
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-104
 labels: []
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T04:30:05.161380Z'
+updated_at: '2026-07-24T04:30:28.318630Z'
 work_branch: null
 target_branch: null
 review_url: null

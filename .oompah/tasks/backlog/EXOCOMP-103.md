@@ -6,11 +6,12 @@ priority: 1
 title: Audit every correlated diagnostic task transition
 parent: EXOCOMP-18
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-102
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T04:29:52.079956Z'
+updated_at: '2026-07-24T04:30:19.584094Z'
 work_branch: null
 target_branch: null
 review_url: null

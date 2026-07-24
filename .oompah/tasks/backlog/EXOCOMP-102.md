@@ -6,11 +6,12 @@ priority: 1
 title: Propagate coordinator diagnostic cancellation
 parent: EXOCOMP-18
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-101
 labels: []
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T04:29:44.242098Z'
+updated_at: '2026-07-24T04:30:16.948155Z'
 work_branch: null
 target_branch: null
 review_url: null
