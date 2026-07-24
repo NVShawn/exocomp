@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-17
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement node enrollment and certificate renewal
 parent: EXOCOMP-2
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-24T02:40:43.623399Z'
+updated_at: '2026-07-24T02:49:50.062421Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null

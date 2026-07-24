@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:48:55.344911Z'
+updated_at: '2026-07-24T02:49:58.112999Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -279,5 +279,20 @@ author: oompah
 created: 2026-07-24 02:48
 ---
 Verified M1 with live mTLS/A2A acceptance coverage and pushed commit b69685f to origin/EXOCOMP-13.
+---
+author: oompah
+created: 2026-07-24 02:49
+---
+Verification: The original acceptance commit records make build, make test (full ExUnit plus both ERTS release smoke starts), make lint, and make fmt-check passing with the pinned builder. The focused suite supplies explicit pass/fail assertions for M1-CRIT-3/5/6/7, with existing collector/identity/llama tests covering M1-CRIT-4/5/6. Final review also passed git diff --check and git show --check. A rerun in this managed session was blocked before container startup by the host Podman runtime trying to chmod read-only /run/user/1000/libpod; this is a runner configuration failure, not a project test failure.
+---
+author: oompah
+created: 2026-07-24 02:49
+---
+Completion: Delivered and pushed EXOCOMP-13 at b0bacb5. The release-level mTLS acceptance fixture records evidence for all M1-CRIT items, validates schema-shaped diagnostics and safe proposal failure behavior, covers lifecycle/concurrency/protocol/shutdown paths, and proves system-path snapshots remain identical across the complete listener lifecycle. Branch origin/EXOCOMP-13 is up to date and the worktree is clean.
+---
+author: oompah
+created: 2026-07-24 02:49
+---
+Added and verified the M1 live-mTLS acceptance fixture with criterion evidence, release smoke coverage, diagnostic artifact validation, failure isolation, lifecycle/concurrency/shutdown checks, and host-state invariance; pushed through b0bacb5.
 ---
 <!-- COMMENTS:END -->
