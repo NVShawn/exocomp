@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-24T02:45:10.557368Z'
+updated_at: '2026-07-24T02:45:32.951445Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -209,5 +209,10 @@ author: oompah
 created: 2026-07-24 02:45
 ---
 Understanding: Continuing the M1 verification chore from the prior handoff. I will inspect the existing branch work, finish focused release-level acceptance coverage and criterion evidence, run the focused suite plus make build/test/lint/fmt-check, verify host-state invariance, then commit, push, and close the task.
+---
+author: oompah
+created: 2026-07-24 02:45
+---
+Discovery: The active worktree is on epic-EXOCOMP-1, while a local EXOCOMP-13 branch already contains commit b69685f with the M1 acceptance integration test, criterion evidence, and an Alpine-portable llama-server kill-path fix. I am reviewing and validating that focused commit, then will integrate it into the active branch without switching worktrees.
 ---
 <!-- COMMENTS:END -->
