@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T17:33:16.917006Z'
+updated_at: '2026-07-24T17:33:19.785205Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -128,5 +128,10 @@ author: oompah
 created: 2026-07-24 17:32
 ---
 Completion: Delivered Orchestrator.cancel/2 for coordinator diagnostic cancellation propagation. Changes: (1) NodeOutcome gains :cancel_failed terminal state for nodes where downstream A2A cancel was rejected; (2) Orchestrator tracks downstream A2A task IDs via {:node_dispatched, ...} worker notifications; (3) cancel/2 atomically marks goal :canceled in GoalStore, kills in-flight workers, attempts DiagnosticClient.cancel per node, records explicit per-node outcomes, cancels timers, and handles idempotent repeated calls; (4) 8 focused tests cover all required scenarios. All 201 tests pass.
+---
+author: oompah
+created: 2026-07-24 17:33
+---
+Implemented Orchestrator.cancel/2: atomically marks coordinator goal :canceled, kills in-flight workers, attempts downstream A2A cancel per node, records :canceled/:cancel_failed per-node outcomes, handles idempotency and races. Added :cancel_failed to NodeOutcome states. 8 new focused tests cover all scenarios. 201 tests pass.
 ---
 <!-- COMMENTS:END -->
