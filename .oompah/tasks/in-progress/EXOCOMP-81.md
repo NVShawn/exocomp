@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T01:55:22.310837Z'
+updated_at: '2026-07-24T01:56:08.849021Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -192,5 +192,10 @@ author: oompah
 created: 2026-07-24 01:55
 ---
 Understanding: In the epic-planner phase I will inspect EXOCOMP-81 and any existing child graph, evaluate whether its endpoint/codec/async/test scope should be decomposed into single-session children, avoid implementation, and leave the tracker ready for the feature phase.
+---
+author: oompah
+created: 2026-07-24 01:56
+---
+Discovery: EXOCOMP-81 is not an epic; EXOCOMP-12 is the parent epic and already has a complete four-child decomposition (EXOCOMP-78 router/auth, EXOCOMP-79 registry, EXOCOMP-80 skills, EXOCOMP-81 endpoint integration). The parent view lists no missing implementation child, and EXOCOMP-81's router/codec/async/tests form one cohesive, single-session integration change. Creating grandchildren would duplicate coordination and introduce artificial dependencies. Relevant specification is plans/milestone-1-node-agent.md:128-161; current stubs are in apps/exocomp_node/lib/exocomp/node/a2a_router.ex.
 ---
 <!-- COMMENTS:END -->
