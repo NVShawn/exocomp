@@ -17,7 +17,9 @@ defmodule Exocomp.Coordinator.Application do
       {Exocomp.Coordinator.GoalStore, Application.get_env(:exocomp_coordinator, :goal_store, [])},
       {Task.Supervisor, name: Exocomp.Coordinator.DiagTaskSupervisor},
       {Exocomp.Coordinator.Orchestrator,
-       Application.get_env(:exocomp_coordinator, :orchestrator, [])}
+       Application.get_env(:exocomp_coordinator, :orchestrator, [])},
+      {Exocomp.Coordinator.RemediationLifecycle,
+       Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}
     ]
 
     Supervisor.start_link(children,
