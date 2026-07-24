@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-85
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement installed vacuum bounds and eligibility gate
 parent: EXOCOMP-26
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-07-24T02:46:16.735349Z'
+updated_at: '2026-07-24T02:52:57.284407Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 8dd966a3-572d-4628-ab92-b085a11a3c23
+oompah.agent_run_id: 828f5ba0-d752-4bc9-8c3d-5934b4fe049d
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 560071
@@ -161,5 +161,15 @@ author: oompah
 created: 2026-07-24 02:46
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

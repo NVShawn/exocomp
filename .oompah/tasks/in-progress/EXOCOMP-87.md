@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-87
 type: task
-status: Open
+status: In Progress
 priority: null
 title: Implement coordinator CSR validation and node leaf cert issuance
 parent: EXOCOMP-17
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T02:52:17.993930Z'
+updated_at: '2026-07-24T02:52:57.952689Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 44263622-12fd-467a-a817-685a75488f04
+oompah.agent_run_id: 023e0cae-5a3b-4c66-8222-06770eba856f
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 576596
@@ -168,5 +168,20 @@ author: oompah
 created: 2026-07-24 02:52
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Understanding: implement the pure coordinator PKI issuer library with strict CSR parsing, key/extension/SAN/signature validation and intermediate-signed short-lived leaf chains; add focused real-PKI tests, run fmt-check/lint/test, then commit, push, and close the task.
 ---
 <!-- COMMENTS:END -->

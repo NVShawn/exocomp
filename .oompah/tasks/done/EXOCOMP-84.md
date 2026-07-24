@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:52:28.959135Z'
+updated_at: '2026-07-24T02:52:43.497663Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 8d664cde-203c-478b-b656-709ca5deb9b4
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 89
-  total_output_tokens: 15127
+  total_input_tokens: 122
+  total_output_tokens: 29898
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 89
-      output_tokens: 15127
+      input_tokens: 122
+      output_tokens: 29898
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 9074
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:36:56.236337+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 33
+    output_tokens: 14771
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:52:40.751112+00:00'
 ---
 ## Summary
 
@@ -302,5 +308,25 @@ author: oompah
 created: 2026-07-24 02:52
 ---
 Completion: EXOCOMP-84 is done. Delivered on branch EXOCOMP-84 (pushed to origin): (1) Exocomp.Node.Safety.DiskPressureCollector — runs df -B1 via OsCommander, builds a SHA-256-integrity-hashed Evidence struct, evaluates :below_threshold/:warning/:critical from Application config thresholds. compute_pct uses round/1 (not trunc) for correct boundary behaviour. (2) 21 unit tests via MockCommander covering all spec requirements. (3) Evidence schema (evidence.ex) and OsCommander behaviour (os_commander.ex) from dependency branches included. make test: 69/71 (pre-existing LlamaServer failures unrelated). make lint: clean.
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Implemented DiskPressureCollector with 21 unit tests. Fixed integer-truncation bug in compute_pct (trunc→round). All lint and relevant tests pass. Branch EXOCOMP-84 pushed to origin.
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Agent completed successfully in 363s (14804 tokens)
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 55, Tool calls: 37
+- Tokens: 33 in / 14.8K out [14.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 3s
+- Log: EXOCOMP-84__20260724T024640Z.jsonl
 ---
 <!-- COMMENTS:END -->

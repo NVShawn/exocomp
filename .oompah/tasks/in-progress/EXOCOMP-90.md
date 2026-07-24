@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T02:49:32.151299Z'
-work_branch: null
+updated_at: '2026-07-24T02:52:59.227575Z'
+work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: c958afc9-f12d-4a01-8f3d-b9c5ce7f61f2
+oompah.work_branch: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -27,3 +29,21 @@ Implement deterministic scheduling and node-state transition logic for the coord
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-24 02:52
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Understanding: This run is limited to duplicate screening. I will search task history and design/docs for coordinator polling, scheduling, backoff, registry transitions, stale callbacks, and audit events; read plausible task candidates in full; then archive only if the same deliverable is already covered, otherwise hand off with evidence to an implementation focus.
+---
+<!-- COMMENTS:END -->

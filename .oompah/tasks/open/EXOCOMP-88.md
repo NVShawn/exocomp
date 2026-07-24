@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T02:52:13.275775Z'
+updated_at: '2026-07-24T02:52:36.464086Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -19,6 +19,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 5d37f51f-8fa6-47c7-8729-7d8dfdd624aa
 oompah.work_branch: epic-EXOCOMP-2
+oompah.task_costs:
+  total_input_tokens: 22
+  total_output_tokens: 4926
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 22
+      output_tokens: 4926
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 22
+    output_tokens: 4926
+    cost_usd: 0.0
+    recorded_at: '2026-07-24T02:52:32.459298+00:00'
 ---
 ## Summary
 
@@ -98,5 +114,25 @@ Focus handoff: duplicate_detector
 - Elixir's `:inet.getaddrs` returns both A and AAAA records when passed `:inet6` — need both families
 
 **Recommended next focus:** feature
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Agent completed successfully in 167s (4948 tokens)
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 39, Tool calls: 27
+- Tokens: 22 in / 4.9K out [4.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 47s
+- Log: EXOCOMP-88__20260724T024949Z.jsonl
+---
+author: oompah
+created: 2026-07-24 02:52
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
