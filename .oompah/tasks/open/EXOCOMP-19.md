@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-19
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
@@ -15,7 +15,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T18:30:13.808726Z'
+updated_at: '2026-07-24T18:30:23.893986Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
