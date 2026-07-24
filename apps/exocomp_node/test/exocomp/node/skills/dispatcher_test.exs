@@ -32,6 +32,7 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
 
   defp install_service_fakes do
     Application.put_env(:exocomp_node, :allowed_services, ["sshd.service"])
+
     Application.put_env(:exocomp_node, :service_diagnose_systemd_collector, fn services ->
       fake_observation({:systemd, services})
     end)
@@ -44,13 +45,14 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
 
   defp install_remediation_fake do
     Application.put_env(:exocomp_node, :remediation_propose_client, fn _ctx ->
-      {:ok, %{
-        "schema_version" => "1",
-        "proposal_id" => "restart_service",
-        "rationale" => "Test",
-        "affected_resource" => "nginx.service",
-        "confidence" => 0.9
-      }}
+      {:ok,
+       %{
+         "schema_version" => "1",
+         "proposal_id" => "restart_service",
+         "rationale" => "Test",
+         "affected_resource" => "nginx.service",
+         "confidence" => 0.9
+       }}
     end)
 
     on_exit(fn -> Application.delete_env(:exocomp_node, :remediation_propose_client) end)
