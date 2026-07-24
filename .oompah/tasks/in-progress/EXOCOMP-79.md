@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T01:21:29.437735Z'
+updated_at: '2026-07-24T01:21:41.696407Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -234,5 +234,10 @@ author: oompah
 created: 2026-07-24 01:21
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-24 01:21
+---
+Understanding: Implement Exocomp.Node.TaskRegistry as a supervised GenServer using the existing A2A structs, with lifecycle validation, worker cancellation, working-task capacity enforcement, TTL/count eviction that preserves active tasks, and focused ExUnit coverage. I will inspect current conventions and Make targets, implement narrowly, run the focused quality gate, then commit and push the EXOCOMP-79 branch.
 ---
 <!-- COMMENTS:END -->
