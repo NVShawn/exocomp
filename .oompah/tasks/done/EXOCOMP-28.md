@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T19:56:26.950332Z'
+updated_at: '2026-07-24T19:56:32.926751Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -189,5 +189,10 @@ Acceptance criteria status:
   [PASS] All quality gates pass — 761/761 ExUnit tests, releases smoke-passed.
 
 Branch: EXOCOMP-28, commit 27f5c5e
+---
+author: oompah
+created: 2026-07-24 19:56
+---
+Created m3_acceptance_test.exs with per-criterion pass/fail evidence for M3-CRIT-1 through M3-CRIT-8 (44 tests, 1493 lines). Fixed VacuumBounds bare /home /root detection. Fixed PrivilegeTest rootless-Podman compatibility. All 761 tests pass; make test exits 0.
 ---
 <!-- COMMENTS:END -->
