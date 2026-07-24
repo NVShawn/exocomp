@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T17:59:09.672459Z'
+updated_at: '2026-07-24T17:59:25.642278Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -138,5 +138,40 @@ Key findings:
 4. nil values in event attributes get serialized as empty string ("") because nil is an atom and json_safe/1 calls to_string(nil). Must not include nil-valued attributes; omit them instead.
 
 The orchestrator (orchestrator.ex) and goal store (goal_store.ex) had no audit integration. Both needed injectable audit: keyword option and emit_audit/4 helpers.
+---
+author: oompah
+created: 2026-07-24 17:59
+---
+Implementation: Added structured audit event emission to Orchestrator and GoalStore.
+
+Changes:
+1. apps/exocomp_coordinator/lib/exocomp/coordinator/orchestrator.ex
+   - Added audit: field to struct (injectable, default Audit)
+   - Added emit_audit/4 private helper with catch :exit for non-running server
+   - Emits events at every lifecycle transition:
+     * goal_accepted (new goal, includes params — recursively redacted by Audit.emit)
+     * goal_deduplicated (repeated caller_key, live or terminal)
+     * goal_dispatching (fan-out begins)
+     * node_dispatching (node task starting, includes params — recursively redacted)
+     * node_dispatched (downstream A2A task ID registered, with downstream_task_id)
+     * node_result (node succeeded, with downstream_task_id)
+     * node_failed (protocol/config/crash errors)
+     * node_unreachable (transport error or overall timeout)
+     * node_timeout (per-node deadline expired)
+     * goal_timeout (overall deadline expired)
+     * cancellation_requested (cancel called)
+     * node_canceled (per-node cancel outcome, with downstream_task_id when dispatched)
+     * cluster_completed (all nodes done, including after timeouts)
+   - All events carry goal.id as correlation_id
+   - Audit failures are non-fatal: catch :exit and ignore {:error, _} return
+
+2. apps/exocomp_coordinator/lib/exocomp/coordinator/goal_store.ex
+   - Added audit: field to struct (injectable, default Audit)
+   - Added emit_audit/4 private helper
+   - Emits goal_evicted event for each goal removed by eviction, with goal_id as correlation_id
+
+3. apps/exocomp_coordinator/test/exocomp/coordinator/orchestrator_audit_test.exs (new file)
+   - CollectorSink: test sink that stores events in an Agent for inspection
+   - 17 tests covering: event ordering/correlation, downstream_task_id tracking, deduplication events, recursive redaction of params (api_key/password/nested), sink write failures (diagnostics remain available), Audit.status reports healthy:false, audit server stays alive through repeated failures, recovery after sink availability returns, cancellation events ordering (request before per-node outcomes), pending node cancel events (no downstream_task_id), per-node timeout events, overall goal timeout events, transport unreachable events, protocol error failed events, GoalStore eviction events, empty node list events.
 ---
 <!-- COMMENTS:END -->
