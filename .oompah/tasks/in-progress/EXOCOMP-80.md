@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T01:33:28.819315Z'
+updated_at: '2026-07-24T01:34:52.374619Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -115,5 +115,45 @@ author: oompah
 created: 2026-07-24 01:33
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-24 01:34
+---
+Focus handoff: duplicate_detector
+
+**Outcome:** No duplicate confirmed. EXOCOMP-80 is the unique child task C of EXOCOMP-12 for implementing skill handler modules.
+
+**Evidence reviewed:**
+- EXOCOMP-10 (Done): implements diagnostic collectors (CPU/Memory/Disk/Uptime/Systemd) — prerequisites called BY the skill handlers, not the handlers themselves
+- EXOCOMP-11 and children EXOCOMP-61/62/63/64 (Done): implements LlamaServer supervision, ProposalClient, and ProposalSchema — also prerequisites, not skill handlers
+- EXOCOMP-78 (Done): implements the A2A HTTP router scaffold, Agent Card, and mTLS enforcement — the layer above, not skill handlers
+- EXOCOMP-79 (Done): implements the bounded in-memory TaskRegistry GenServer — task lifecycle tracking, not skill handlers
+- EXOCOMP-81 (Open): wires A2A endpoints to TaskRegistry + skill dispatch — explicitly lists EXOCOMP-80 as a prerequisite; depends on, not duplicates, this task
+- EXOCOMP-12 (parent epic): confirms EXOCOMP-80 is child C in the planned decomposition
+
+**Repository search:** Zero files matching Skills, SystemDiagnose, ServiceDiagnose, RemediationPropose, or Dispatcher exist in apps/. No prior commits implement the skill handler layer.
+
+**Relevant files for implementation agent:**
+- apps/exocomp_node/lib/exocomp/node/collectors/ — CPU, Memory, Disk, Uptime, Systemd (from EXOCOMP-10)
+- apps/exocomp_node/lib/exocomp/node/proposal_client.ex — ProposalClient (from EXOCOMP-63)
+- apps/exocomp_node/lib/exocomp/node/llama_server.ex — LlamaServer readiness check (from EXOCOMP-62)
+- apps/exocomp_core/lib/exocomp/a2a/ — A2A Artifact and DataPart structs (from epic-EXOCOMP-8)
+- apps/exocomp_node/lib/exocomp/node/application.ex — supervision tree (no changes needed but worth checking)
+
+**Remaining work:**
+1. Create Exocomp.Node.Skills.Behaviour (@callback execute/2)
+2. Create Exocomp.Node.Skills.SystemDiagnose (concurrent Task.async CPU/Memory/Disk/Uptime, partial failures, 10s timeout)
+3. Create Exocomp.Node.Skills.ServiceDiagnose (Systemd.collect, param validation, allowed_services config)
+4. Create Exocomp.Node.Skills.RemediationPropose (ProposalClient.propose, :inference_unavailable handling)
+5. Create Exocomp.Node.Skills.Dispatcher (route skill_id to handler module)
+6. Write 11 focused ExUnit tests (use Mox or Application.put_env for mocking)
+7. Run: mix test apps/exocomp_node
+
+**Risks:**
+- Prerequisites (EXOCOMP-78/79) are on separate branches; implementation worktree may need to merge them
+- The current epic-EXOCOMP-1 branch must contain the A2A type layer from epic-EXOCOMP-8 and collector modules from EXOCOMP-10; verify before implementing
+- LlamaServer readiness check API must be confirmed from the actual llama_server.ex implementation
+
+**Recommended next focus:** feature
 ---
 <!-- COMMENTS:END -->
