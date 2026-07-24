@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:50:21.235712Z'
-updated_at: '2026-07-24T03:06:57.598004Z'
+updated_at: '2026-07-24T03:09:11.506174Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-07-24 03:06
 ---
 Discovery: The interrupted run left a clean worktree with no rebase in progress. After fetching/pruning, epic-EXOCOMP-1 and origin/epic-EXOCOMP-1 both point to b0bacb5; the branch is 15 commits ahead and 2 commits behind origin/main. The configured upstream is incorrectly origin/EXOCOMP-13, so verification and push will explicitly target origin/epic-EXOCOMP-1.
+---
+author: oompah
+created: 2026-07-24 03:09
+---
+Implementation: Rebased epic-EXOCOMP-1 onto origin/main through all 10 epic commits. Resolved conflicts by preserving the newer main/rootless-container behavior, retaining the epic's combined listener/LlamaServer/TaskRegistry supervision and dependency lock entries, and keeping EXOCOMP-83's portable System.cmd kill invocation. Rebase completed successfully; no new source commit was added beyond rewritten epic commits.
 ---
 <!-- COMMENTS:END -->
