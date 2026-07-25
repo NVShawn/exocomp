@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-98
 type: task
-status: Done
+status: Merged
 priority: null
 title: Integrate approval gate and implement comprehensive focused replay test suite
 parent: EXOCOMP-24
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:14:05.495739Z'
-updated_at: '2026-07-24T17:40:42.668960Z'
+updated_at: '2026-07-25T02:18:14.980716Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
