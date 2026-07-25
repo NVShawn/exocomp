@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-46
 type: chore
-status: Merged
+status: Needs Human
 priority: 2
 title: Document and test upgrade, rollback, backup, and removal
 parent: EXOCOMP-6
@@ -9,10 +9,11 @@ children: []
 blocked_by:
 - EXOCOMP-34
 - EXOCOMP-43
+- EXOCOMP-115
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:05.467498Z'
-updated_at: '2026-07-23T23:45:29.251700Z'
+updated_at: '2026-07-25T18:32:05.637157Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -48,3 +49,16 @@ Run the focused release/documentation tests and all repository Make targets affe
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-25 18:32
+---
+Action required: use recovery task EXOCOMP-115 to implement and verify this task's previously undelivered scope on main. Do not mark this task Merged again until EXOCOMP-115 lands and the original acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:32
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-46 (Document and test upgrade, rollback, backup, and removal), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
+---
+<!-- COMMENTS:END -->

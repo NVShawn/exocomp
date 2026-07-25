@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-25T18:31:58.440759Z'
+updated_at: '2026-07-25T18:32:01.652339Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -224,5 +224,10 @@ author: oompah
 created: 2026-07-25 18:30
 ---
 Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-53 (Implement pinned amd64 and arm64 host profiles), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
+---
+author: oompah
+created: 2026-07-25 18:32
+---
+The parent epic EXOCOMP-35 merged from epic-EXOCOMP-5, but this task was Needs Human with work branch epic-EXOCOMP-5. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->

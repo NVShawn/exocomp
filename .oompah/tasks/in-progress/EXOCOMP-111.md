@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:31:45.386803Z'
+updated_at: '2026-07-25T18:32:02.552450Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -119,5 +119,10 @@ author: oompah
 created: 2026-07-25 18:31
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-25 18:32
+---
+Understanding: Recover the completed EXOCOMP-49 codec/version work and EXOCOMP-51 fixtures/protocol tests onto the current EXOCOMP-111 branch, preserving current main router/type behavior. I will identify the exact source commits, integrate them in order with semantic conflict resolution, run Makefile-provided focused and full quality gates, verify the recovered inventory, then commit and push.
 ---
 <!-- COMMENTS:END -->
