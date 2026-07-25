@@ -7,10 +7,12 @@ title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:chore
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T18:55:22.424666Z'
+updated_at: '2026-07-25T18:55:50.835407Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -60,5 +62,50 @@ Tasks reviewed as candidates:
 - EXOCOMP-114/115/116 (Open): Siblings — M6 governance, undelivered work, and verification (all different scopes).
 
 EXOCOMP-113 is the sole recovery vehicle for the EXOCOMP-28 and EXOCOMP-33 deliverables. No other task covers integrating these onto epic-EXOCOMP-110.
+---
+author: oompah
+created: 2026-07-25 18:55
+---
+Focus handoff: duplicate_detector
+
+1. OUTCOME: No duplicate confirmed. EXOCOMP-113 is the unique recovery task for EXOCOMP-28 (M3 acceptance test suite) and EXOCOMP-33 (M4 fault-injection suite + security fixes) onto epic-EXOCOMP-110.
+
+2. RELEVANT FILES, COMMANDS, AND EVIDENCE:
+
+Source commits available as local branches:
+
+EXOCOMP-28 — branch EXOCOMP-28, deliverable commit 27f5c5e:
+  Files to recover (3 total):
+  - apps/exocomp_node/test/integration/m3_acceptance_test.exs (1493 lines, 44 tests, 8 describe blocks M3-CRIT-1 through M3-CRIT-8)
+  - apps/exocomp_node/lib/exocomp/node/vacuum_bounds.ex (user_data_path?/1 now matches bare /home and /root)
+  - apps/exocomp_node/test/exocomp/node/privilege_test.exs (rootless-Podman UID branching fix)
+
+EXOCOMP-33 — branch EXOCOMP-33, deliverable commit 47fbb61:
+  Files to recover (5 total):
+  - apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs (1080 lines, 29 tests, 12 fault scenarios)
+  - apps/exocomp_core/lib/exocomp/recovery/state_machine.ex (restore/5 injection defenses — validates known states and from-state match)
+  - apps/exocomp_core/test/exocomp/recovery/state_machine_test.exs (3 new security tests)
+  - apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex (nil fallback for unconfigured node_id, not empty string)
+  - apps/exocomp_node/test/exocomp/node/safety/approval_gate_test.exs (1 new security test for nil fallback)
+
+Current recovery branch state:
+  - epic-EXOCOMP-110 HEAD is c958c8f (after EXOCOMP-111 and EXOCOMP-112 recoveries)
+  - EXOCOMP-33's parent (261a547 = EXOCOMP-32) IS already in the recovery branch log — cherry-pick should apply cleanly
+  - EXOCOMP-28's parent is epic-EXOCOMP-3 (different ancestry) — cherry-pick the single deliverable commit 27f5c5e; the 3 touched files are likely absent on the recovery branch so conflicts should be minimal
+
+Recovery commands to attempt:
+  git cherry-pick 47fbb61  # EXOCOMP-33 (parent already in branch)
+  git cherry-pick 27f5c5e  # EXOCOMP-28 (standalone M3 test commit)
+
+3. REMAINING WORK AND RISKS:
+  - Cherry-pick both commits, resolve any semantic conflicts
+  - vacuum_bounds.ex exists in main (EXOCOMP-85 introduced it) — check if fix is already present
+  - privilege_test.exs exists in main — check if rootless fix was already applied
+  - state_machine.ex exists in main (EXOCOMP-30 introduced it) — the restore/5 security patch may conflict if main modified it
+  - approval_gate.ex exists in main (EXOCOMP-98 introduced it) — the nil-fallback fix may conflict
+  - After integration: run make test (or scoped mix test for affected apps), verify all 8 M3 acceptance tests and 29 fault-injection tests pass
+  - Risk: existing tests in state_machine_test.exs and approval_gate_test.exs may conflict with new security tests if the test count has changed
+
+4. RECOMMENDED NEXT FOCUS: chore (git cherry-pick recovery, conflict resolution, quality gate verification)
 ---
 <!-- COMMENTS:END -->
