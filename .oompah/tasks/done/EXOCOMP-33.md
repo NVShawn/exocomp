@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-33
 type: chore
-status: Merged
+status: Done
 priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:30:51.887262Z'
+updated_at: '2026-07-25T02:31:06.727575Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -466,5 +466,10 @@ author: oompah
 created: 2026-07-25 02:30
 ---
 Verification: All 29 new fault-injection tests pass in the Docker CI environment (elixir:1.20.2-erlang-28.5.0.3). Full test suite result: 771/772 passed (pre-existing root-user failure in privilege_test.exs unrelated to this change; was 770/771 before this commit). No regressions introduced. The fault injection test file at apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs exercises all five acceptance criteria: (1) no scenario causes more than one execution per execution ID (duplicate, concurrent, replay, coordinator-restart, node-restart tests); (2) post-action partitions reconcile without blind retry (pending nonce blocks retry; authoritative result returned on reconciliation); (3) pre-action audit failure prevents execution (audit_fun failure on valid_approval blocks executor); (4) flapping/repeated failure escalates after one attempt (execution_attempted guard, cooling_down→escalated terminal path); (5) all fault tests pass.
+---
+author: oompah
+created: 2026-07-25 02:31
+---
+Completion: EXOCOMP-33 fault-injection test suite delivered. Committed to branch EXOCOMP-33 and pushed to origin. Changes: (1) apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs — 29 new tests covering 12 fault scenarios (pre/post-action partitions, coordinator restart, node restart during action, duplicate/concurrent execution IDs, replay, audit-sink failure, restart failure, health failure, flapping, cooldown reconciliation, cross-cutting exactly-once invariant); (2) apps/exocomp_core/lib/exocomp/recovery/state_machine.ex — restore/5 defends against tampered persistence logs (invalid state names, from-state mismatches); (3) apps/exocomp_core/test/exocomp/recovery/state_machine_test.exs — tests for the restore/5 injection defenses; (4) apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex — nil fallback for unconfigured node_id prevents empty-string token bypass; (5) apps/exocomp_node/test/exocomp/node/safety/approval_gate_test.exs — test for the nil-fallback security fix. Note: the automatic failed-service recovery module (EXOCOMP-31 scope) remains unimplemented; the fault tests exercise all production primitives that exist (StateMachine, ReplayLedger, ApprovalRequired, ApprovalGate). If the automatic recovery module is eventually implemented, a follow-up test run in that module's context would be needed.
 ---
 <!-- COMMENTS:END -->
