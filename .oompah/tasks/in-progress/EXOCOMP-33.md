@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:17:21.346791Z'
+updated_at: '2026-07-25T02:17:32.007567Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -155,5 +155,18 @@ author: oompah
 created: 2026-07-25 02:17
 ---
 Discovery: the required executable recovery contract is absent from the merged code. origin/main (725120a) and this worktree contain only Recovery.StateMachine and Node.Recovery.ApprovalRequired; there is no automatic failed-service recovery module, durable recovery execution record keyed by execution ID, or reconciliation API. EXOCOMP-31 is marked Merged, but its own final handoff explicitly says automatic recovery was not implemented. Consequently post-action partition/coordinator restart/node restart tests cannot assert task/audit reconciliation, and writing a test-only orchestration model would not test production behavior. The existing ReplayLedger covers nonce consumption and crash fail-closed behavior, but cannot reconstruct the recovery task/audit terminal state required by EXOCOMP-33.
+---
+author: oompah
+created: 2026-07-25 02:17
+---
+Focus handoff: test
+
+Outcome: Completed test-scope discovery and determined the requested fault suite is blocked by a missing production recovery execution/reconciliation contract; no code was changed and no synthetic tests were added.
+
+Evidence and decisions: origin/main at 725120a and the checked-out head expose apps/exocomp_core/lib/exocomp/recovery/state_machine.ex, apps/exocomp_node/lib/exocomp/node/recovery/approval_required.ex, and Safety.ReplayLedger, but no automatic failed-service recovery implementation, durable execution record keyed by execution ID, or reconciliation entry point. git ls-tree and repository-wide module/execution_id searches confirm the absence. EXOCOMP-31 is marked Merged, yet its comments #22-23 explicitly say automatic recovery remains unimplemented. ApprovalRequired can gate a pre-action audit and ReplayLedger can consume a nonce, but neither can reconcile task/audit state after a post-action partition or process restart as EXOCOMP-33 requires.
+
+Remaining work/risks: A feature specialist must implement the EXOCOMP-31 automatic path and a durable execution/reconciliation contract (including authoritative post-action outcome recovery) before fault tests can meaningfully cover pre/post partitions, coordinator/node restarts, duplicate/concurrent execution IDs, restart/health failure, flapping, and cooldown. The current worktree is also still on epic-EXOCOMP-4 rather than the prompt-stated EXOCOMP-33 branch.
+
+Recommended next focus: feature. After that contract lands, return to test focus to build the deterministic fault matrix and run Make gates.
 ---
 <!-- COMMENTS:END -->
