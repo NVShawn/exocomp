@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-115
 type: feature
-status: Done
+status: In Progress
 priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
@@ -15,22 +15,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:58:11.804271Z'
+updated_at: '2026-07-25T20:58:35.287703Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 1a69c61f-1124-4088-9327-3894ac7b971a
+oompah.agent_run_id: ecd63651-81c6-4372-9491-c3640e109d26
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
-  total_input_tokens: 187
-  total_output_tokens: 11528
+  total_input_tokens: 262
+  total_output_tokens: 25364
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 187
-      output_tokens: 11528
+      input_tokens: 262
+      output_tokens: 25364
       cost_usd: 0.0
   runs:
   - profile: default
@@ -51,6 +51,12 @@ oompah.task_costs:
     output_tokens: 2921
     cost_usd: 0.0
     recorded_at: '2026-07-25T20:27:27.386094+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 75
+    output_tokens: 13836
+    cost_usd: 0.0
+    recorded_at: '2026-07-25T20:58:26.515973+00:00'
 ---
 ## Summary
 
@@ -366,5 +372,55 @@ author: oompah
 created: 2026-07-25 20:58
 ---
 Delivered all five scopes falsely marked Merged. EXOCOMP-31: FailedService automatic recovery with exactly-once durable execution, 8 M4-CRIT acceptance tests, 12 fault-injection scenarios. EXOCOMP-45: installation/PKI/policy operator guides. EXOCOMP-46: lifecycle docs + 63 installer lifecycle tests covering upgrade, health-gated rollback, backup/restore, and removal. EXOCOMP-47: clean-host qualification doc with M6-CRIT evidence matrix. EXOCOMP-66: deterministic secret-free OTP archives, build-identity.json manifests, COOKIE-free packaging, and Bandit compile-time input normalization. All Make gates pass: fmt-check, lint, test (748 tests, 0 failures), test-installer (63 tests), test-release-packaging (12 tests), release-check.
+---
+author: oompah
+created: 2026-07-25 20:58
+---
+Agent completed successfully in 857s (13911 tokens)
+---
+author: oompah
+created: 2026-07-25 20:58
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 140, Tool calls: 101
+- Tokens: 75 in / 13.8K out [13.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 14m 17s
+- Log: EXOCOMP-115__20260725T204411Z.jsonl
+---
+author: oompah
+created: 2026-07-25 20:58
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-110` has 10 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 10
+    301d87e EXOCOMP-115: add Bandit release-input normalization for full determinism
+    516faf8 EXOCOMP-115: recover missing release and recovery delivery
+    50cd48c EXOCOMP-114: recover M6 release governance tooling
+    cad1c28 EXOCOMP-113: recover M3 acceptance and M4 fault-injection suites from EXOCOMP-28 and EXOCOMP-33
+    c958c8f EXOCOMP-56: implement Linux host sampler
+    b65ad23 EXOCOMP-53: implement Bench.HostProfile with amd64/arm64 pinned profiles
+    2da861a EXOCOMP-111: reconcile recovered A2A dependencies
+    d115dd2 EXOCOMP-51: pin A2A 1.0 fixture files and add protocol test suite
+    62717d7 EXOCOMP-49: bootstrap Hex in container before mix commands
+    d22dff8 EXOCOMP-49: implement A2A JSON codecs and version handling
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-110 --title "EXOCOMP-115: Implement exocomp work falsely marked Merged without delivery" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-25 20:58
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 20:58
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
