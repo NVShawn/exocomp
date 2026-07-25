@@ -6,11 +6,13 @@ priority: 1
 title: Verify recovered exocomp delivery is complete on main
 parent: EXOCOMP-110
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-111
+- EXOCOMP-112
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:27.708830Z'
-updated_at: '2026-07-25T17:58:27.708830Z'
+updated_at: '2026-07-25T17:58:40.290889Z'
 work_branch: null
 target_branch: null
 review_url: null

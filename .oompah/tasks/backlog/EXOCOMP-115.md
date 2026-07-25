@@ -6,11 +6,15 @@ priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-111
+- EXOCOMP-112
+- EXOCOMP-113
+- EXOCOMP-114
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T17:58:24.080768Z'
+updated_at: '2026-07-25T17:58:38.182160Z'
 work_branch: null
 target_branch: null
 review_url: null
