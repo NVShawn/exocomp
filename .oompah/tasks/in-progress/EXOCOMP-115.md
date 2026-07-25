@@ -11,10 +11,12 @@ blocked_by:
 - EXOCOMP-112
 - EXOCOMP-113
 - EXOCOMP-114
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:11:39.116111Z'
+updated_at: '2026-07-25T20:12:14.797830Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -72,5 +74,33 @@ Source tasks (EXOCOMP-31, 45, 46, 47, 66): All in 'Needs Human' status with expl
 Key distinction: EXOCOMP-111–114 recover *stranded commits* (work was written but never landed); EXOCOMP-115 must *implement from scratch* the work that was never written for these five tasks.
 
 EXOCOMP-115 is not a duplicate. Proceeding to focus handoff.
+---
+author: oompah
+created: 2026-07-25 20:12
+---
+Focus handoff: duplicate_detector
+
+1. **Outcome:** No duplicate confirmed. EXOCOMP-115 is a unique task that owns implementation of five scopes that were never written and never delivered, despite being falsely marked Merged in their parent epics.
+
+2. **Relevant files, commands, and evidence:**
+   - Source tasks and their specifications:
+     - EXOCOMP-31: Automatic recovery of an already-failed service (plans/milestone-4-service-recovery.md). Status: Needs Human.
+     - EXOCOMP-45: Installation, PKI, policy, and operations guides (plans/milestone-6-release.md). Status: Needs Human.
+     - EXOCOMP-46: Upgrade/rollback/backup/removal docs and tests (plans/milestone-6-release.md). Status: Needs Human.
+     - EXOCOMP-47: M6 clean-host release qualification (plans/milestone-6-release.md). Status: Needs Human. Previous duplicate screening completed (focus-complete:duplicate_detector label on EXOCOMP-47); unique scope confirmed.
+     - EXOCOMP-66: Deterministic OTP archives and identity manifests. Status: Needs Human. EXOCOMP-114 comment #16 explicitly delegates deterministic COOKIE/archive work here.
+   - Working branch: epic-EXOCOMP-110 (shared recovery branch with EXOCOMP-111-114 already landed)
+   - Verification environment: Podman service at unix:///run/user/1000/podman/podman.sock; CONTAINERS_STORAGE_CONF=<tmp-config>, XDG_RUNTIME_DIR=/home/shedwards/.oompah/tmp/EXOCOMP-115-runtime, DOCKER_HOST=, CONTAINER_ENGINE='podman --remote --url unix:///run/user/1000/podman/podman.sock', _CONTAINER_USER_FLAG=--userns=keep-id for make test. 1,564 tests currently pass (per EXOCOMP-114 verification).
+   - EXOCOMP-114 note: releases/COOKIE determinism check currently fails because EXOCOMP-66 deterministic archive work was explicitly delegated to EXOCOMP-115.
+
+3. **Remaining work and risks:**
+   - EXOCOMP-31: Implement automatic failed-service recovery path in Elixir. The state machine/policy/audit/executor infrastructure exists from earlier work. Need: failed-service allow-list check, one restart per episode, systemd+health stability verification, terminal artifacts, cooldown on failure. Cover all 8 acceptance tests from the task description.
+   - EXOCOMP-45: Write installation/PKI/policy/operations guides in docs/. Cover: supported hosts, online/offline install, coordinator init, offline-root, fingerprint distribution, enrollment, renewal/revocation/rotation, inventory, diagnostics, model sizing, service allow-lists, sudoers, approvals, data classification, bounded cleanup, audit retention. Run markdown/link checks.
+   - EXOCOMP-46: Document and test upgrade/rollback/backup/removal. Cover: side-by-side upgrade, validation, health-gated switch, automatic rollback, compatibility limits, PKI/state backup/restore, troubleshooting, safe removal. 8 lifecycle tests.
+   - EXOCOMP-47: M6 clean-host qualification scripts/docs. Smoke-test on amd64 (arm64 requires binfmt/QEMU which is not available). Document signed evidence collection procedure.
+   - EXOCOMP-66: Deterministic OTP release archives (normalized ordering/ownership/timestamps/modes using tag epoch) and machine-readable manifests per archive (product/version/arch, commit, builder digest, dependency lock identity, exact build command, file inventory, SHA-256). This resolves the releases/COOKIE nondeterminism that currently blocks EXOCOMP-114's reproducibility check.
+   - Risk: EXOCOMP-31 may need access to existing service-recovery state machine modules; check what is already on the branch before writing new code.
+
+4. **Recommended next focus:** feature (all five scopes require new code and/or documentation implementation).
 ---
 <!-- COMMENTS:END -->
