@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:33:44.174279Z'
+updated_at: '2026-07-25T19:38:45.614187Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -135,5 +135,10 @@ author: oompah
 created: 2026-07-25 19:33
 ---
 Implementation: Recovered and reconciled all five stranded deliverable sets. Added Apache-2.0 governance files, dependency/notice inventory and SPDX enforcement; pinned amd64/arm64 Debian builders with clean release drivers; ELF runtime dependency baselines/reports; reproducibility and clean-container qualification; and offline bundle assembly with SPDX SBOM, SLSA provenance, minisign signing, strict verification, and tamper tests. Integration fixes preserve hardened install/uninstall assets, bootstrap Hex/dependencies in clean builders, support remote container-engine arguments, isolate generated dep-report fixtures, and make existing process-crash tests portable to the pinned Debian slim image.
+---
+author: oompah
+created: 2026-07-25 19:38
+---
+Integration check: scripts/build-releases.sh currently passes both ${container_user_flag} and a later hardcoded --user at lines 61 and 97. Remove the two hardcoded --user arguments so _CONTAINER_USER_FLAG=--userns=keep-id is the sole ownership mode; add/adjust the structural regression assertion to reject a duplicate hardcoded flag. The current real-build failure then appears to be in dependency inspection; please preserve this ownership fix while addressing it.
 ---
 <!-- COMMENTS:END -->
