@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T20:05:32.267718Z'
+updated_at: '2026-07-25T20:05:45.626075Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -200,5 +200,20 @@ author: oompah
 created: 2026-07-25 20:05
 ---
 Completion: recovered EXOCOMP-41/44/65/67/68 deliverables onto the shared EXOCOMP-110 branch in commit 50cd48c. Delivered Apache-2.0 governance/compliance gates; immutable amd64/arm64 builders and clean targets; runtime dependency reports/baseline; deterministic release qualification; offline bundle assembly with SPDX SBOM, SLSA provenance, minisign signing/strict verification; docs, fixtures, and regression tests. Preserved the mainline hardened installer, completed all locally executable gates, removed temporary Podman configuration, and pushed the branch.
+---
+author: oompah
+created: 2026-07-25 20:05
+---
+Run #2 [attempt=2, profile=quick, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 35
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 26s
+- Log: EXOCOMP-114__20260725T200221Z.jsonl
+---
+author: oompah
+created: 2026-07-25 20:05
+---
+Recovered and verified M6 governance, pinned release builders, runtime dependency inspection, reproducibility qualification, and signed offline bundle tooling on the shared recovery branch.
 ---
 <!-- COMMENTS:END -->
