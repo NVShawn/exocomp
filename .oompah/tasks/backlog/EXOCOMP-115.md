@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:27:34.601302Z'
+updated_at: '2026-07-25T20:28:09.849587Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -303,5 +303,10 @@ Run #1 [attempt=1, profile=default, role=— -> Claude/unknown]
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1s
+---
+author: oompah
+created: 2026-07-25 20:28
+---
+Manual implementation takeover: the agent was stopped after attempting to embed a predictable deterministic cookie, which violates the security constraint. I am retaining the generated code/tests for review, removing any shipped cookie material, and will only return the task to Done after the complete relevant Make gates pass and the commit is integrated on epic-EXOCOMP-110.
 ---
 <!-- COMMENTS:END -->
