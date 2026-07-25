@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-27
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-24T18:39:41.397592Z'
+updated_at: '2026-07-25T02:19:52.677681Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
