@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-73
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement PolicyContext and eligibility-filter pipeline
 parent: EXOCOMP-22
@@ -13,7 +13,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T22:50:44.926199Z'
-updated_at: '2026-07-24T01:10:23.757114Z'
+updated_at: '2026-07-25T02:14:44.967643Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
