@@ -16,7 +16,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:20:22.381150Z'
+updated_at: '2026-07-25T02:21:24.706648Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -324,5 +324,10 @@ author: oompah
 created: 2026-07-25 02:20
 ---
 Understanding: Security audit of the recovery execution boundary. I will review StateMachine, ApprovalRequired, ReplayLedger, ExecutorLock, PreconditionChecker, RestrictedExecutor, and the Milestone 4 contract for replay/race, authorization, command injection, audit integrity, fail-open behavior, denial-of-service/restart loops, and sensitive-data exposure. Because the production automatic recovery/reconciliation path is absent, I will document actionable security constraints for feature focus rather than add synthetic tests.
+---
+author: oompah
+created: 2026-07-25 02:21
+---
+Discovery: Security review confirms the production automatic recovery/execution-ID reconciliation boundary is absent, so the acceptance criteria cannot currently be enforced end to end. Existing defenses are useful but narrower: Executor uses catalog/allow-list validation and argv execution (no shell); ApprovalVerifier binds signed node/task/correlation/action/parameters and expiry; ApprovalGate + ReplayLedger consume approval nonces before execution; audit failure in ApprovalRequired blocks the action. Remaining attack surfaces for the feature contract: (1) race/replay across duplicate tasks and process restart because ExecutorLock is volatile and ReplayLedger is approval-nonce scoped, (2) integrity/tampering because StateMachine.restore checks only sequence after sorting and does not validate from/to legality or episode identity, (3) ambiguous post-action failure must never trigger blind retry, (4) audit/log injection because correlation/target/nonce fragments are interpolated without control-character sanitization, (5) resource exhaustion from unbounded execution IDs/nonces, DETS records, waiter fan-out, result/meta sizes, and restart events, and (6) broken-access-control risk unless durable records bind execution ID to node, task, action, target, parameters/evidence, and authorization context. No credentials or private key material are embedded or logged in the reviewed path.
 ---
 <!-- COMMENTS:END -->
