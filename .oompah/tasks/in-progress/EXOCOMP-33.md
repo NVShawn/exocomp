@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-31
 - EXOCOMP-32
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:test
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:15:36.811423Z'
+updated_at: '2026-07-25T02:15:54.117371Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -78,5 +80,25 @@ Closest reviewed tasks and evidence:
 - EXOCOMP-32: Implements approval-required active/degraded recovery with 14 focused approval-flow tests, but does not cover network partitions, coordinator/node restart, duplicate/concurrent tasks, replay, audit-sink failure, flapping, or cooldown reconciliation. Its discovery comment likewise names 'EXOCOMP-33 (fault/idempotency tests)' as the distinct owner.
 
 None of these tasks implement the EXOCOMP-33 scope: fault-injection at the execution boundary (pre/post partition, coordinator restart, node restart during action, duplicate/concurrent task IDs, replay, audit-sink failure, restart failure, health failure, flapping, cooldown reconciliation) with assertions on exactly-one execution, durable execution record, task state, audit state, reconciliation result, and absence of restart loops. EXOCOMP-33 is a unique, original task and should proceed to implementation.
+---
+author: oompah
+created: 2026-07-25 02:15
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed; EXOCOMP-33 is the distinct Milestone 4 fault-injection/idempotency test task and should proceed to implementation.
+
+Evidence and decisions: Reviewed the full tracker records for EXOCOMP-4 (epic), EXOCOMP-30 (state machine), EXOCOMP-31 (automatic failed-service recovery), EXOCOMP-32 (approval-required active/degraded recovery), and plans/milestone-4-service-recovery.md. All three sibling tasks explicitly name EXOCOMP-33 as the separate owner of fault-injection and idempotency testing. No existing task covers network partitions before/after execution, coordinator restart, node restart during action, duplicate/concurrent task IDs, replay, audit-sink failures, restart failure, health failure, flapping, or cooldown reconciliation — with assertions on exactly-once execution, durable execution record, task state, audit state, reconciliation outcome, and absence of restart loops.
+
+Relevant files:
+- plans/milestone-4-service-recovery.md (Test Strategy, Failure Behavior, Concurrency and Idempotency, Acceptance Criteria M4-CRIT-4/5/6)
+- apps/exocomp_core/lib/exocomp/recovery/state_machine.ex (Recovery.StateMachine — one-attempt guard, durable audit events)
+- apps/exocomp_node/lib/exocomp/node/safety/ (ReplayLedger, ExecutorLock, ApprovalGate, PreconditionChecker, RestrictedExecutor)
+- apps/exocomp_node/lib/exocomp/node/recovery/ (ApprovalRequired from EXOCOMP-32 — for reuse as a reference pattern)
+- docs/testing-systemd-fixture.md if it exists (integration testing fixture controls for flapping/failed/degraded modes)
+
+Remaining work and risks: Implement fault-injection test coverage for all 10 failure scenarios; assert action count, durable execution record, task state, audit state, reconciliation result, and absence of restart loops for each. EXOCOMP-31 (automatic recovery) is already Merged; tests in this task can exercise that path with injected faults. Verify environment-blocked Make gate status (Podman read-only noted by prior agents).
+
+Recommended next focus: test.
 ---
 <!-- COMMENTS:END -->
