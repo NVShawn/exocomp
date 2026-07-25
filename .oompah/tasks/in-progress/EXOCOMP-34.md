@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-34
 type: chore
-status: Open
+status: In Progress
 priority: 1
 title: Verify the M4 minimal-impact recovery milestone
 parent: EXOCOMP-4
@@ -12,12 +12,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:49.457512Z'
-updated_at: '2026-07-23T19:17:21.048197Z'
-work_branch: null
+updated_at: '2026-07-25T02:24:49.086403Z'
+work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: ee29a420-044e-4927-9066-1293784b6ab4
+oompah.work_branch: epic-EXOCOMP-4
 ---
 ## Summary
 
@@ -48,3 +50,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-25 02:24
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 02:24
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
