@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T19:03:15.509772Z'
+updated_at: '2026-07-25T19:04:22.352615Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -167,5 +167,10 @@ author: oompah
 created: 2026-07-25 19:03
 ---
 Verification environment hint: the completed EXOCOMP-112 recovery proved the pinned Make gates work through the already-running Podman service. Create an empty ignored/temporary storage config, then run with CONTAINERS_STORAGE_CONF=<that-file>, XDG_RUNTIME_DIR=/home/shedwards/.oompah/tmp/<task>-runtime, DOCKER_HOST=, and CONTAINER_ENGINE='podman --remote --url unix:///run/user/1000/podman/podman.sock'. For make test, also pass _CONTAINER_USER_FLAG=--userns=keep-id. Remove the temporary config/runtime before committing. This passed fmt-check, lint, all 1,487 tests, both release builds, and smoke tests on EXOCOMP-112.
+---
+author: oompah
+created: 2026-07-25 19:04
+---
+Implementation: Applied both recovery payloads cleanly and formatted the affected Elixir files. Added the M3 CRIT-1..8 acceptance suite and 12-scenario recovery fault-injection suite; hardened StateMachine.restore/5 against unknown target states and from-state mismatches; made ApprovalGate's missing node_id fail closed with nil; retained the /home and /root vacuum-boundary fix and rootless-container privilege test behavior. No unrelated source changes were kept.
 ---
 <!-- COMMENTS:END -->
