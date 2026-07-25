@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:20:30.700451Z'
+updated_at: '2026-07-25T20:20:38.758753Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -263,5 +263,10 @@ EXOCOMP-46: test/installer/test_installer.py covers clean-install/upgrade/uninst
 EXOCOMP-47: Need docs/clean-host-qualification.md summarizing the qualification procedure with M6-CRIT evidence.
 
 Implementing now.
+---
+author: oompah
+created: 2026-07-25 20:20
+---
+Discovery: The recovered tip contains prerequisites but not the five requested deliveries. EXOCOMP-31 has a complete recovery StateMachine and sibling ApprovalRequired flow, but no automatic failed-service orchestrator. EXOCOMP-46's installer switches current before any health gate and has no rollback/backup lifecycle. EXOCOMP-66 builds raw release trees only; releases/COOKIE is random, no archives/manifests are emitted. EXOCOMP-45 guides and EXOCOMP-47 signed M6 qualification procedure are absent. I will add a data-oriented FailedService flow with focused/M4 tests; health-gated installer rollback and protected-state backup/restore tests; deterministic secret-free archive packaging with install-time random RELEASE_COOKIE; operator lifecycle docs; and explicit qualification evidence that does not claim live arm64 on this amd64 host.
 ---
 <!-- COMMENTS:END -->
