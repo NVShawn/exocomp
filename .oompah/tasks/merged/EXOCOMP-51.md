@@ -8,10 +8,11 @@ parent: EXOCOMP-8
 children: []
 blocked_by:
 - EXOCOMP-49
+- EXOCOMP-111
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-24T04:03:19.364977Z'
+updated_at: '2026-07-25T18:30:06.992515Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -211,5 +212,10 @@ Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 9m 12s
 - Log: EXOCOMP-51__20260723T214128Z.jsonl
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Action required: use recovery task EXOCOMP-111 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-111 lands and its acceptance criteria are confirmed against main.
 ---
 <!-- COMMENTS:END -->
