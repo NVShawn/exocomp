@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:24:43.946799Z'
+updated_at: '2026-07-25T02:25:53.930174Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -436,5 +436,25 @@ Run #2 [attempt=2, profile=quick, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 48s
 - Log: EXOCOMP-33__20260725T022257Z.jsonl
+---
+author: oompah
+created: 2026-07-25 02:25
+---
+Discovery: Security audit of the existing recovery code surface (StateMachine, ApprovalGate, ApprovalVerifier, ReplayLedger, PreconditionChecker, ApprovalRequired) identified two exploitable defense gaps and several medium-risk concerns.
+
+HIGH — Empty node_id fallback in ApprovalGate.build_verifier_context:
+  apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex uses Application.get_env(:exocomp_node, :node_id, "") — the empty-string default means any coordinator-signed token with node_id: "" passes the binding check on any misconfigured node. This bypasses the node-identity enforcement that is supposed to be a hard boundary.
+
+HIGH — StateMachine.restore/5 accepts unknown target states and mismatched from-state:
+  Transition records passed to restore/5 are not validated for: (a) whether tr.to is a valid state name, and (b) whether tr.from matches the machine's current state. An adversary with write access to the persistence layer can craft a transition log that places the machine in arbitrary states with execution_attempted: false, potentially bypassing the one-attempt guard.
+
+MEDIUM — parse_datetime silently converts invalid expires_at to nil in approval_meta:
+  If expires_at in a token is an invalid string, it becomes nil and the state machine's check_approval_freshness skips the expiry check. The verifier catches this first in normal flow, but the silent nil conversion reduces defense-in-depth.
+
+LOW — No max concurrent waiters limit in ReplayLedger: the waiters map can grow unboundedly under adversarial load.
+
+Relevant files: approval_gate.ex (build_verifier_context), state_machine.ex (restore/5), approval_required.ex (approval_meta/parse_datetime).
+
+The missing automatic recovery module (EXOCOMP-31) is confirmed absent; security requirements for that feature are documented in the handoff comment.
 ---
 <!-- COMMENTS:END -->
