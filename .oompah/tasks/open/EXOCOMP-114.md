@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:58:51.290837Z'
+updated_at: '2026-07-25T19:59:32.555850Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -150,5 +150,10 @@ author: oompah
 created: 2026-07-25 19:53
 ---
 Scope note after corrected snapshots: normalized manifests now differ only at releases/COOKIE for both products; the Bandit BEAM hashes in current snap1/snap2 are identical. EXOCOMP-66 deterministic archive packaging is explicitly assigned to downstream recovery EXOCOMP-115, which depends on this task. Do not weaken/normalize COOKIE out of the qualification check or ship a fixed production cookie here; retain the honest failing check and hand the secure deterministic-cookie/install-time generation decision to EXOCOMP-115.
+---
+author: oompah
+created: 2026-07-25 19:59
+---
+Correction required before completion: the current path-independent digest fixture/output says it ignores different runtime cookies, and the live matrix now passes by normalizing releases/COOKIE out. Revert that semantic normalization. EXOCOMP-66, recovered by downstream EXOCOMP-115, owns deterministic archive/runtime-cookie behavior. EXOCOMP-114 must keep releases/COOKIE in the content comparison so the live double-build honestly reports the remaining nondeterminism; document that expected downstream blocker and complete this task based on the other passing M6 gates. Do not ship a fixed cookie and do not weaken the reproducibility check by excluding it.
 ---
 <!-- COMMENTS:END -->
