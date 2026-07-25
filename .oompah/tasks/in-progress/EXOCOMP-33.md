@@ -15,7 +15,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:18:23.740789Z'
+updated_at: '2026-07-25T02:19:09.623120Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -229,5 +229,15 @@ author: oompah
 created: 2026-07-25 02:18
 ---
 Understanding: Picking up from the test handoff. I will verify the current branch and recovery implementation, then determine whether the missing durable execution/reconciliation contract can be supplied as a minimal in-scope prerequisite. If it requires substantive feature work, I will record the evidence and hand off to feature focus rather than add synthetic tests that do not exercise production behavior.
+---
+author: oompah
+created: 2026-07-25 02:19
+---
+Discovery: Verified against both the checked-out head and origin/main. Production recovery consists only of Recovery.{AuditEvent,Evidence,StateMachine} and Node.Recovery.ApprovalRequired; repository-wide searches find no execution-ID keyed durable record or execute/reconcile API. The Milestone 4 plan explicitly requires that store before systemd execution and reconciliation after node/coordinator restart. EXOCOMP-31 is marked Merged, but its final merge-conflict handoff states the automatic recovery feature was not implemented. This is substantive feature work, not a small maintenance prerequisite.
+---
+author: oompah
+created: 2026-07-25 02:19
+---
+Implementation: No code was changed. Adding a test-only recovery orchestrator would falsely satisfy the task without exercising production behavior, while implementing the missing automatic recovery and durable reconciliation subsystem would exceed the maintenance focus. The issue is being routed to feature focus for that prerequisite production contract.
 ---
 <!-- COMMENTS:END -->
