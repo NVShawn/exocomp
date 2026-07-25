@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-34
 type: chore
-status: In Progress
+status: Merged
 priority: 1
 title: Verify the M4 minimal-impact recovery milestone
 parent: EXOCOMP-4
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:49.457512Z'
-updated_at: '2026-07-25T02:24:49.086403Z'
+updated_at: '2026-07-25T02:25:04.349741Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -61,5 +61,10 @@ author: oompah
 created: 2026-07-25 02:24
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-25 02:25
+---
+Understanding: This run is limited to duplicate screening. I will search the native task corpus and M4 recovery plan for prior tasks covering the same release-like milestone verification, inspect full descriptions/comments for plausible matches, then either archive EXOCOMP-34 as a confirmed duplicate or leave a duplicate-detector handoff for implementation.
 ---
 <!-- COMMENTS:END -->
