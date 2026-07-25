@@ -14,7 +14,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:02:55.767476Z'
+updated_at: '2026-07-25T02:03:49.174258Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -68,5 +68,10 @@ author: oompah
 created: 2026-07-25 02:02
 ---
 Understanding: duplicate-detector screening only. I will search existing tasks and Milestone 4 design material for service-recovery/restart work, inspect the full descriptions and comments of plausible matches, and either archive EXOCOMP-31 as a confirmed duplicate or hand it off for implementation if no duplicate is established. No code changes will be made in this focus.
+---
+author: oompah
+created: 2026-07-25 02:03
+---
+Discovery: Duplicate screening found no confirmed duplicate. The closest reviewed tasks are EXOCOMP-30 (generic M4 recovery state machine and invariants), EXOCOMP-32 (approval-required active/degraded service flow), EXOCOMP-27 (generic remediation/A2A lifecycle), and EXOCOMP-33 (fault/idempotency test coverage). Their full descriptions and comments establish prerequisite or sibling boundaries: none implements the automatic orchestration for a currently inactive/failed allow-listed service, including fresh evidence, deterministic allow decision, audit-before-restart, exact execution, systemd plus application-health stability verification, terminal artifact, and one-attempt cooldown.
 ---
 <!-- COMMENTS:END -->
