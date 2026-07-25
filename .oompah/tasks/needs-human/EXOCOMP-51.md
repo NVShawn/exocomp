@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-51
 type: task
-status: Merged
+status: Needs Human
 priority: null
 title: Pin A2A 1.0 fixture files and add comprehensive protocol test suite
 parent: EXOCOMP-8
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-25T18:30:06.992515Z'
+updated_at: '2026-07-25T18:30:10.141077Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -217,5 +217,10 @@ author: oompah
 created: 2026-07-25 18:30
 ---
 Action required: use recovery task EXOCOMP-111 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-111 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-51 (Pin A2A 1.0 fixture files and add comprehensive protocol test suite), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
