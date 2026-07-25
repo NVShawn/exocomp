@@ -13,17 +13,16 @@ blocked_by:
 - EXOCOMP-30
 labels:
 - focus-complete:duplicate_detector
-- needs:feature
 - merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:05:19.174572Z'
+updated_at: '2026-07-25T02:06:09.469008Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: d5de278d-fa9c-4090-a05a-25b973eacf34
+oompah.agent_run_id: 9e2cfa48-3bca-44db-8fbb-5a0ce1de57bd
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 577810
@@ -130,5 +129,15 @@ author: oompah
 created: 2026-07-25 02:05
 ---
 YOLO: Merge conflict detected on MR #10. Rebase onto main and resolve conflicts.
+---
+author: oompah
+created: 2026-07-25 02:05
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-25 02:05
+---
+Focus: Merge Conflict Resolver
 ---
 <!-- COMMENTS:END -->

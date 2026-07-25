@@ -9,9 +9,10 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-25T02:05:02.898439Z'
+updated_at: '2026-07-25T02:06:02.113941Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -173,5 +174,10 @@ author: oompah
 created: 2026-07-24 18:55
 ---
 Rebased epic-EXOCOMP-4 onto origin/main, resolved scaffold conflicts, verified recovery tests and formatting, and force-pushed with lease.
+---
+author: oompah
+created: 2026-07-25 02:06
+---
+YOLO: Merge conflict detected on MR #10. Rebase onto main and resolve conflicts.
 ---
 <!-- COMMENTS:END -->

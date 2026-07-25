@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-109
 type: task
-status: In Progress
+status: Archived
 priority: 0
 title: Rebase epic-EXOCOMP-4 onto main
 parent: EXOCOMP-4
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T02:02:40.844323Z'
-updated_at: '2026-07-25T02:05:26.984024Z'
+updated_at: '2026-07-25T02:06:09.991159Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -47,5 +47,10 @@ author: oompah
 created: 2026-07-25 02:05
 ---
 Understanding: This run is limited to duplicate screening. I will search prior task records for the same epic-EXOCOMP-4 stale-branch/rebase request, inspect full histories of candidates, and either archive EXOCOMP-109 as a duplicate or hand it off for implementation without modifying the branch.
+---
+author: oompah
+created: 2026-07-25 02:06
+---
+Discovery / completion: Confirmed duplicate of EXOCOMP-106. EXOCOMP-106 has the identical title, target branch epic-EXOCOMP-4, and requested rebase/force-push operation; its full history records the previous rebase and it currently remains active in Needs Rebase. The parent EXOCOMP-4 lists both EXOCOMP-106 and EXOCOMP-109 as rebase children, confirming the newer task duplicates the existing owner. Repository/task-state searches also found analogous rebase tasks for other epic branches, but none supersedes this exact match. No git or repository changes were made.
 ---
 <!-- COMMENTS:END -->
