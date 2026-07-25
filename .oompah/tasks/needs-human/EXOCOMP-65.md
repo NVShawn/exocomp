@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-65
 type: feature
-status: Merged
+status: Needs Human
 priority: 2
 title: Pin multi-architecture OTP release builders
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-25T18:31:11.997653Z'
+updated_at: '2026-07-25T18:31:15.738622Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -272,5 +272,10 @@ author: oompah
 created: 2026-07-25 18:31
 ---
 Action required: use recovery task EXOCOMP-114 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-114 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-65 (Pin multi-architecture OTP release builders), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
