@@ -16,7 +16,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:17:27.148611Z'
+updated_at: '2026-07-25T20:17:31.475766Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -220,5 +220,15 @@ author: oompah
 created: 2026-07-25 20:17
 ---
 Focus handoff from `` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
