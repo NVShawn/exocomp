@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-113
 type: chore
-status: Done
+status: In Progress
 priority: 1
 title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
@@ -11,22 +11,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T19:13:58.362405Z'
+updated_at: '2026-07-25T19:14:19.826097Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: a64d5ef8-1714-4837-b4aa-154fc930caa4
+oompah.agent_run_id: b57d8882-424c-4441-b71b-c8fc5a7a5ac4
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
-  total_input_tokens: 17
-  total_output_tokens: 6545
+  total_input_tokens: 55
+  total_output_tokens: 17593
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 17
-      output_tokens: 6545
+      input_tokens: 55
+      output_tokens: 17593
       cost_usd: 0.0
   runs:
   - profile: default
@@ -35,6 +35,12 @@ oompah.task_costs:
     output_tokens: 6545
     cost_usd: 0.0
     recorded_at: '2026-07-25T18:56:01.009826+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 38
+    output_tokens: 11048
+    cost_usd: 0.0
+    recorded_at: '2026-07-25T19:14:08.244302+00:00'
 ---
 ## Summary
 
@@ -217,5 +223,52 @@ author: oompah
 created: 2026-07-25 19:13
 ---
 Recovered M3 acceptance suite (44 tests) and M4 fault-injection suite (29 tests) from EXOCOMP-28/EXOCOMP-33 onto epic-EXOCOMP-110. Added StateMachine injection defenses and ApprovalGate nil-fallback fix. All 1564 tests pass.
+---
+author: oompah
+created: 2026-07-25 19:14
+---
+Agent completed successfully in 362s (11086 tokens)
+---
+author: oompah
+created: 2026-07-25 19:14
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 60, Tool calls: 35
+- Tokens: 38 in / 11.0K out [11.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 2s
+- Log: EXOCOMP-113__20260725T190808Z.jsonl
+---
+author: oompah
+created: 2026-07-25 19:14
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-110` has 7 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 7
+    cad1c28 EXOCOMP-113: recover M3 acceptance and M4 fault-injection suites from EXOCOMP-28 and EXOCOMP-33
+    c958c8f EXOCOMP-56: implement Linux host sampler
+    b65ad23 EXOCOMP-53: implement Bench.HostProfile with amd64/arm64 pinned profiles
+    2da861a EXOCOMP-111: reconcile recovered A2A dependencies
+    d115dd2 EXOCOMP-51: pin A2A 1.0 fixture files and add protocol test suite
+    62717d7 EXOCOMP-49: bootstrap Hex in container before mix commands
+    d22dff8 EXOCOMP-49: implement A2A JSON codecs and version handling
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-110 --title "EXOCOMP-113: Recover omitted M3 and M4 acceptance and fault-injection work" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-25 19:14
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 19:14
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
