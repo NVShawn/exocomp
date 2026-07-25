@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-114
 type: chore
-status: Open
+status: In Progress
 priority: 1
 title: Recover omitted M6 governance, builder, qualification, and bundle work
 parent: EXOCOMP-110
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:59:32.555850Z'
+updated_at: '2026-07-25T20:02:21.356206Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: ea20c8d0-ca00-4855-a99d-5d992440d907
+oompah.agent_run_id: ffb7dd90-911c-486e-a46f-bf3b5fadb841
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
   total_input_tokens: 16
@@ -155,5 +155,25 @@ author: oompah
 created: 2026-07-25 19:59
 ---
 Correction required before completion: the current path-independent digest fixture/output says it ignores different runtime cookies, and the live matrix now passes by normalizing releases/COOKIE out. Revert that semantic normalization. EXOCOMP-66, recovered by downstream EXOCOMP-115, owns deterministic archive/runtime-cookie behavior. EXOCOMP-114 must keep releases/COOKIE in the content comparison so the live double-build honestly reports the remaining nondeterminism; document that expected downstream blocker and complete this task based on the other passing M6 gates. Do not ship a fixed cookie and do not weaken the reproducibility check by excluding it.
+---
+author: oompah
+created: 2026-07-25 20:02
+---
+Run #1 [attempt=1, profile=quick, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 169
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 41m 51s
+- Log: EXOCOMP-114__20260725T192015Z.jsonl
+---
+author: oompah
+created: 2026-07-25 20:02
+---
+Agent dispatched (profile: quick)
+---
+author: oompah
+created: 2026-07-25 20:02
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
