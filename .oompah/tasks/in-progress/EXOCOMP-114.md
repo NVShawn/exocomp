@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:46:40.044075Z'
+updated_at: '2026-07-25T19:53:59.009792Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -145,5 +145,10 @@ author: oompah
 created: 2026-07-25 19:46
 ---
 Live-matrix audit: snapshot directories are not removed before cp, so reruns create nested amd64-snapN/amd64 trees (present now). Also the aggregate digest hashes raw sha256sum lines containing different snap1/snap2 absolute paths, so equal content will compare unequal. Make snapshots idempotent (remove the exact snap dirs before copying) and compute manifests as relative-path + content-hash from each snapshot root. Add an offline fixture/regression that equal trees compare equal and a one-byte change fails.
+---
+author: oompah
+created: 2026-07-25 19:53
+---
+Scope note after corrected snapshots: normalized manifests now differ only at releases/COOKIE for both products; the Bandit BEAM hashes in current snap1/snap2 are identical. EXOCOMP-66 deterministic archive packaging is explicitly assigned to downstream recovery EXOCOMP-115, which depends on this task. Do not weaken/normalize COOKIE out of the qualification check or ship a fixed production cookie here; retain the honest failing check and hand the secure deterministic-cookie/install-time generation decision to EXOCOMP-115.
 ---
 <!-- COMMENTS:END -->
