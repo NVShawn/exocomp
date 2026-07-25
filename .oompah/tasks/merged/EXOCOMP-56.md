@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: Needs Human
+status: Merged
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-25T21:11:01.147413Z'
+updated_at: '2026-07-25T21:11:03.825337Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
