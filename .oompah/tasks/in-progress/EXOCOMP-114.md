@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T20:03:17.506370Z'
+updated_at: '2026-07-25T20:04:22.926605Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -185,5 +185,10 @@ author: oompah
 created: 2026-07-25 20:03
 ---
 Discovery: The recovered work is already committed locally as 8486243 on the shared epic-EXOCOMP-110 branch. Snapshot replacement is idempotent and manifests use relative paths, and build-releases.sh now has only the configurable ownership flag. One correction remains: scripts/test-release-matrix.sh and docs/release-qualification.md still exclude releases/COOKIE and the offline fixture incorrectly treats differing cookies as reproducible. I will include COOKIE in the digest, make equal trees use identical cookies, assert a cookie byte change is detected, and add a structural check preventing hardcoded duplicate --user flags.
+---
+author: oompah
+created: 2026-07-25 20:04
+---
+Implementation: Corrected the qualification semantics: content manifests now hash every regular file, including releases/COOKIE; the offline regression proves equal trees at different roots match and a one-byte COOKIE change fails. Updated release qualification docs to record the expected EXOCOMP-115/EXOCOMP-66 blocker without weakening the check or fixing a production cookie. Added a builder structural regression that rejects any hardcoded --user argument in addition to _CONTAINER_USER_FLAG. Focused gates pass: test-builders (including 11 offline matrix checks), test-compliance (9 tests), and test-bundle (69 tests).
 ---
 <!-- COMMENTS:END -->
