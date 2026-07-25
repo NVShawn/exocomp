@@ -497,7 +497,8 @@ verify_manifest_fields() {
   arch="$3"
 
   for field in product version architecture source_commit source_tag builder_digest \
-    elixir_version otp_version erts_version dependency_lock_sha256 build_command; do
+    elixir_version otp_version erts_version dependency_lock_sha256 \
+    release_input_normalizer_sha256 build_command; do
     value="$(grep -o "\"${field}\": *\"[^\"]*\"" "${manifest}" 2>/dev/null | head -1 || true)"
     if [ -n "${value}" ]; then
       pass "manifest field '${field}' present in ${product}/${arch}: ${value}"

@@ -95,6 +95,9 @@ def identity(args: argparse.Namespace, release_dir: Path, entries: list[Path]) -
         "otp_version": args.otp_version,
         "erts_version": erts_dirs[0].removeprefix("erts-"),
         "dependency_lock_sha256": sha256_file(args.dependency_lock),
+        "release_input_normalizer_sha256": sha256_file(
+            args.release_input_normalizer
+        ),
         "build_command": args.build_command,
         "cookie_policy": {
             "embedded": False,
@@ -189,6 +192,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--elixir-version", required=True)
     parser.add_argument("--otp-version", required=True)
     parser.add_argument("--dependency-lock", type=Path, required=True)
+    parser.add_argument("--release-input-normalizer", type=Path, required=True)
     parser.add_argument("--build-command", required=True)
     return parser.parse_args()
 

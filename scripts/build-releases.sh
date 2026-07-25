@@ -72,6 +72,7 @@ run_container_engine run \
   sh -c 'mix local.hex --force --quiet &&
     scripts/verify-toolchain.sh &&
     mix deps.get &&
+    scripts/prepare-release-deps.sh &&
     rm -rf "${MIX_BUILD_PATH}" &&
     mix compile --warnings-as-errors &&
     mix release exocomp_node --overwrite &&

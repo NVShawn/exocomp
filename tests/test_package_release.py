@@ -16,6 +16,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PACKAGER = REPO_ROOT / "scripts" / "package_release.py"
+NORMALIZER = REPO_ROOT / "scripts" / "prepare-release-deps.sh"
 
 
 class PackageReleaseTest(unittest.TestCase):
@@ -67,6 +68,8 @@ class PackageReleaseTest(unittest.TestCase):
                 "28.5.0.3",
                 "--dependency-lock",
                 str(self.lock),
+                "--release-input-normalizer",
+                str(NORMALIZER),
                 "--build-command",
                 f"make build-{arch}",
             ],
@@ -122,6 +125,9 @@ class PackageReleaseTest(unittest.TestCase):
         self.assertEqual(manifest["identity"]["erts_version"], "28.5.0")
         self.assertEqual(manifest["identity"]["architecture"], "amd64")
         self.assertEqual(manifest["identity"]["build_command"], "make build-amd64")
+        self.assertEqual(
+            len(manifest["identity"]["release_input_normalizer_sha256"]), 64
+        )
         paths = {item["path"] for item in manifest["file_inventory"]}
         self.assertIn("bin/exocomp_node", paths)
         self.assertIn("erts-28.5.0", paths)

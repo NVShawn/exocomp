@@ -47,6 +47,7 @@ for product in exocomp_node exocomp_coordinator; do
     --elixir-version "${ELIXIR_VERSION}" \
     --otp-version "${OTP_VERSION}" \
     --dependency-lock "${repo_root}/mix.lock" \
+    --release-input-normalizer "${repo_root}/scripts/prepare-release-deps.sh" \
     --build-command "${build_command}"
 done
 

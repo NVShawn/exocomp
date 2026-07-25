@@ -129,6 +129,7 @@ test-release-matrix: ## Run OTP release qualification matrix (requires Docker an
 
 test-release-packaging: ## Test deterministic archives, secret omission, manifests, and operator commands.
 	$(PYTHON) -m unittest discover -s tests -p 'test_package_release.py' -v
+	$(PYTHON) -m unittest discover -s tests -p 'test_release_input_normalizer.py' -v
 	$(PYTHON) -m unittest discover -s tests -p 'test_operator_docs.py' -v
 
 lint: test-builders ## Run static analysis / linters.

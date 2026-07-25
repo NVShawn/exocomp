@@ -186,6 +186,13 @@ Mix's build-time `releases/COOKIE` before publication, and creates archives
 with sorted entries plus normalized ownership, modes, and source-tag
 timestamps. Equivalent builds must produce byte-identical archives.
 
+The locked Bandit 1.12.1 source derives a compile-time validation list from
+large-map iteration, whose order varies with the VM hash seed.
+`scripts/prepare-release-deps.sh` fail-closes on any different lock or source
+shape and sorts that allow-list before release compilation. The build identity
+records `release_input_normalizer_sha256` so this semantics-preserving input
+normalization is part of the reproducibility record.
+
 No fixed production secret replaces the removed cookie. The installer creates
 a cryptographically random, mode-`0600` `RELEASE_COOKIE` environment file for
 each installation and preserves it across upgrades. Clean-container

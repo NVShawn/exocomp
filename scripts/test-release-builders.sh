@@ -85,6 +85,8 @@ grep -Fq "package-releases.sh" scripts/build-releases.sh ||
   fail "scripts/package-releases.sh is missing or not executable"
 [ -x "scripts/package_release.py" ] ||
   fail "scripts/package_release.py is missing or not executable"
+[ -x "scripts/prepare-release-deps.sh" ] ||
+  fail "scripts/prepare-release-deps.sh is missing or not executable"
 
 if grep -Eq -- '(^|[[:space:]])(-i|-it|--interactive)([[:space:]]|$)' \
   scripts/build-releases.sh scripts/check-builder-capability.sh; then
@@ -176,6 +178,8 @@ grep -q "wrong.arch\|wrong arch\|format error\|Exec format" "docs/release-qualif
 
 python3 -m unittest discover -s tests -p 'test_package_release.py' -v ||
   fail "deterministic release packaging tests failed"
+python3 -m unittest discover -s tests -p 'test_release_input_normalizer.py' -v ||
+  fail "release dependency normalization tests failed"
 python3 -m unittest discover -s tests -p 'test_operator_docs.py' -v ||
   fail "operator documentation command tests failed"
 
