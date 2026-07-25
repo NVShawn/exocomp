@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: Done
+status: Merged
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-24T16:57:24.171155Z'
+updated_at: '2026-07-25T02:18:08.292939Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
