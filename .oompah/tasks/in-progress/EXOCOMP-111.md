@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:33:45.028776Z'
+updated_at: '2026-07-25T18:41:52.687786Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -134,5 +134,10 @@ author: oompah
 created: 2026-07-25 18:33
 ---
 Implementation: Applied the three recovery commits in dependency order. Dependency conflicts kept main's newer Jason 1.4.5 lock and existing inline dependency declaration; the Makefile conflict was resolved by combining noninteractive Hex bootstrap with main's required deps.get and current rootless-container/MIX_HOME handling. EXOCOMP-51 applied cleanly, adding all 10 fixtures and four focused protocol suites while updating content-type parameter parsing.
+---
+author: oompah
+created: 2026-07-25 18:41
+---
+Verification: PASS with disposable exact Elixir 1.20.2 toolchain: 37/37 focused codec/version/fixture/invalid-payload/media-type tests; 189/189 full exocomp_core tests; mix format --check-formatted; exocomp_core force compile with --warnings-as-errors; git diff --check; no conflict markers. Inventory confirms codec.ex, version.ex, 10 JSON fixtures, and 4 added protocol suites. make test/lint/fmt-check were each attempted but cannot launch because this session's Podman runtime at /run/user/1000/libpod is read-only; this is an environment startup failure before project code executes.
 ---
 <!-- COMMENTS:END -->
