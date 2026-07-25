@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:23:37.437445Z'
+updated_at: '2026-07-25T19:33:44.174279Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -130,5 +130,10 @@ author: oompah
 created: 2026-07-25 19:23
 ---
 Discovery: All omitted deliverables were found in commits 886a6ab (governance/compliance), b225eb5 (offline bundles/SBOM/provenance/signing), facdca1 (pinned builders), 6252ba0 (runtime dependency inspection), and ef77ff3 (multi-arch qualification/reproducibility). The builder/dependency/qualification commits are sequential; conflicts were confined to Makefile plus governance index docs. I combined their targets with the current Hex bootstrap, rootless/userns handling, installer targets, and current recovery branch rather than replacing hardened main behavior.
+---
+author: oompah
+created: 2026-07-25 19:33
+---
+Implementation: Recovered and reconciled all five stranded deliverable sets. Added Apache-2.0 governance files, dependency/notice inventory and SPDX enforcement; pinned amd64/arm64 Debian builders with clean release drivers; ELF runtime dependency baselines/reports; reproducibility and clean-container qualification; and offline bundle assembly with SPDX SBOM, SLSA provenance, minisign signing, strict verification, and tamper tests. Integration fixes preserve hardened install/uninstall assets, bootstrap Hex/dependencies in clean builders, support remote container-engine arguments, isolate generated dep-report fixtures, and make existing process-crash tests portable to the pinned Debian slim image.
 ---
 <!-- COMMENTS:END -->
