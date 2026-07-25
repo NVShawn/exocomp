@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-49
 type: task
-status: Needs Human
+status: Merged
 priority: null
 title: Implement A2A 1.0 JSON codecs, error mapping, and version handling
 parent: EXOCOMP-8
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-25T20:09:11.807853Z'
+updated_at: '2026-07-25T21:10:43.768961Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -280,5 +280,10 @@ author: oompah
 created: 2026-07-25 20:09
 ---
 The parent epic EXOCOMP-8 merged from epic-EXOCOMP-1, but this task was Needs Human with work branch epic-EXOCOMP-1. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-25 21:10
+---
+Recovered delivery verified on origin/main at merge commit 2085e44152f03ffd41f35cbfeee89a0da53b8bce (PR #14). Evidence: A2A codecs/version handling and Hex bootstrap commits d22dff88087c613e1cdb98fbfc317a1379505eea and 62717d7d8840965685424391573a5ab10435ad55 are direct ancestors of main. The full recovery quality gates passed.
 ---
 <!-- COMMENTS:END -->
