@@ -15,13 +15,13 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:18:07.670117Z'
+updated_at: '2026-07-25T02:18:12.658853Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 372b6943-d9c9-461a-8397-a2b6b989d3b0
+oompah.agent_run_id: fff8dcaa-4cd6-4f28-b1d5-245546e8a339
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 17
@@ -209,5 +209,15 @@ author: oompah
 created: 2026-07-25 02:18
 ---
 Focus handoff from `` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-25 02:18
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 02:18
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
