@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-114
 type: chore
-status: In Progress
+status: Open
 priority: 1
 title: Recover omitted M6 governance, builder, qualification, and bundle work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:53:59.009792Z'
+updated_at: '2026-07-25T19:58:51.290837Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null

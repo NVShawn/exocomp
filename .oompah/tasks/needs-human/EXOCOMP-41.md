@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-25T18:31:00.524373Z'
+updated_at: '2026-07-25T19:58:59.369371Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -233,5 +233,10 @@ author: oompah
 created: 2026-07-25 18:31
 ---
 Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-41 (Add licensing and open-source governance files), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
+---
+author: oompah
+created: 2026-07-25 19:58
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Needs Human with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->
