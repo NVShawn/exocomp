@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-107
 type: task
-status: In Review
+status: Merged
 priority: null
 title: Implement node-agent enrollment client, credential installer, and renewal scheduler
   (EXOCOMP-17 gap)
@@ -13,11 +13,11 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-25T02:01:58.274723Z'
-work_branch: null
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-25T02:02:07.222052Z'
+work_branch: EXOCOMP-107
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/11
+review_number: '11'
 merged_at: null
 oompah.agent_run_id: b8cf9847-e28b-4cdf-84a1-ede0133d231d
 oompah.task_costs:
@@ -48,6 +48,10 @@ oompah.task_costs:
     output_tokens: 98162
     cost_usd: 0.0
     recorded_at: '2026-07-24T22:57:19.121742+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/11
+oompah.review_number: '11'
+oompah.work_branch: EXOCOMP-107
+oompah.target_branch: main
 ---
 ## Summary
 
