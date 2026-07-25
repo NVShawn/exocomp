@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-24T03:06:24.954881Z'
+updated_at: '2026-07-25T02:14:53.479770Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
