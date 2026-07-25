@@ -16,7 +16,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:20:11.949563Z'
+updated_at: '2026-07-25T02:20:22.381150Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -319,5 +319,10 @@ author: oompah
 created: 2026-07-25 02:20
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-07-25 02:20
+---
+Understanding: Security audit of the recovery execution boundary. I will review StateMachine, ApprovalRequired, ReplayLedger, ExecutorLock, PreconditionChecker, RestrictedExecutor, and the Milestone 4 contract for replay/race, authorization, command injection, audit integrity, fail-open behavior, denial-of-service/restart loops, and sensitive-data exposure. Because the production automatic recovery/reconciliation path is absent, I will document actionable security constraints for feature focus rather than add synthetic tests.
 ---
 <!-- COMMENTS:END -->
