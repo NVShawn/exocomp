@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-115
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
@@ -13,24 +13,25 @@ blocked_by:
 - EXOCOMP-114
 labels:
 - focus-complete:duplicate_detector
+- 'focus-complete:'
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:16:59.896514Z'
+updated_at: '2026-07-25T20:17:27.148611Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: bd604beb-43ad-42b0-b835-f81518db0056
+oompah.agent_run_id: 4acf6547-0a8c-43d2-bb3a-012e6ff2f132
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
-  total_input_tokens: 23
-  total_output_tokens: 5329
+  total_input_tokens: 104
+  total_output_tokens: 8607
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 23
-      output_tokens: 5329
+      input_tokens: 104
+      output_tokens: 8607
       cost_usd: 0.0
   runs:
   - profile: default
@@ -39,6 +40,12 @@ oompah.task_costs:
     output_tokens: 5329
     cost_usd: 0.0
     recorded_at: '2026-07-25T20:12:23.039310+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 81
+    output_tokens: 3278
+    cost_usd: 0.0
+    recorded_at: '2026-07-25T20:17:09.910017+00:00'
 ---
 ## Summary
 
@@ -174,5 +181,44 @@ EXOCOMP-46 (lifecycle + tests): installer tests already cover clean install/upgr
 EXOCOMP-47 (clean-host qualification): test-release-matrix.sh and test-clean-container.sh already exist and handle the offline/live matrix. The scripts/Containerfile.clean-target covers the clean-target image. Missing: a clean-host qualification summary doc with M6-CRIT evidence collection procedure. The test-release-matrix.sh already verifies build-identity.json if present. Will add the qualification docs.
 
 Implementing in order: 31, 66, 45, 46, 47.
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
+- Turns: 0, Tool calls: 57
+- Tokens: 81 in / 3.3K out [3.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 39s
+- Log: EXOCOMP-115__20260725T201233Z.jsonl
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Agent completed successfully in 1s
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Run #1 [attempt=1, profile=default, role=— -> Claude/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1s
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Focus handoff from `` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
