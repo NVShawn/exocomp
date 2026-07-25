@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-106
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 0
 title: Rebase epic-EXOCOMP-4 onto main
 parent: EXOCOMP-4
@@ -12,13 +12,13 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-25T02:06:02.113941Z'
+updated_at: '2026-07-25T02:06:56.328997Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: a0806754-048f-46c1-a6d5-c794e69f1066
+oompah.agent_run_id: f9325837-8688-4eba-99c0-b8ad6b9bf1d1
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 22
@@ -179,5 +179,15 @@ author: oompah
 created: 2026-07-25 02:06
 ---
 YOLO: Merge conflict detected on MR #10. Rebase onto main and resolve conflicts.
+---
+author: oompah
+created: 2026-07-25 02:06
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-25 02:06
+---
+Focus: Merge Conflict Resolver
 ---
 <!-- COMMENTS:END -->

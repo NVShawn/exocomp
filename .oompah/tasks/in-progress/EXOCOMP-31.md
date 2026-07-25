@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-31
 type: feature
-status: Needs Rebase
+status: In Progress
 priority: 0
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
@@ -16,7 +16,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:06:16.331538Z'
+updated_at: '2026-07-25T02:07:02.217086Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -144,5 +144,20 @@ author: oompah
 created: 2026-07-25 02:06
 ---
 Understanding: merge-conflict resolution only. I will fetch and rebase the existing EXOCOMP-31 commits onto origin/main, inspect both sides of every conflict to preserve branch intent and upstream changes, run the applicable Makefile quality gate, force-push with lease, and verify the rebased review diff. I will not add feature work or unrelated fixes.
+---
+author: oompah
+created: 2026-07-25 02:06
+---
+Run #YOLO-reopen [attempt=YOLO-reopen, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 4
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 49s
+- Log: EXOCOMP-31__20260725T020600Z.jsonl
+---
+author: oompah
+created: 2026-07-25 02:06
+---
+Discovery: MR #10's actual source ref is the checked-out epic-EXOCOMP-4 branch (refs/pull/10/head exactly matches HEAD); no EXOCOMP-31 branch exists locally or remotely. The required rebase onto origin/main is underway. The first conflict is apps/exocomp_coordinator/mix.exs: the replayed approval-token commit adds Jason while upstream main already contains Jason plus Bandit/Plug/X509, so resolution must retain the upstream superset and the branch's Jason requirement.
 ---
 <!-- COMMENTS:END -->
