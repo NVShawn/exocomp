@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-111
 type: chore
-status: Backlog
+status: In Progress
 priority: 1
 title: Recover omitted M1 A2A codec and fixture work
 parent: EXOCOMP-110
@@ -10,12 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T17:58:20.183018Z'
+updated_at: '2026-07-25T18:29:49.391521Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: fac8f99a-ec50-4b6d-9e92-61899b5ae564
 ---
 ## Summary
 

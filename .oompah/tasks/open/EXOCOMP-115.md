@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-115
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
@@ -14,7 +14,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T17:58:38.182160Z'
+updated_at: '2026-07-25T18:29:47.348948Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-114
 type: chore
-status: Backlog
+status: Open
 priority: 1
 title: Recover omitted M6 governance, builder, qualification, and bundle work
 parent: EXOCOMP-110
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T17:58:22.988216Z'
+updated_at: '2026-07-25T18:29:46.285488Z'
 work_branch: null
 target_branch: null
 review_url: null
