@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:31:09.102955Z'
+updated_at: '2026-07-25T02:31:25.295491Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -476,5 +476,27 @@ author: oompah
 created: 2026-07-25 02:31
 ---
 Delivered 29-test fault-injection suite (fault_injection_test.exs) covering 12 boundary scenarios: pre/post partitions, coordinator and node restart, duplicate/concurrent IDs, replay, audit-sink failure, restart/health failure, flapping, and cooldown reconciliation. Also included uncommitted defense-in-depth improvements: StateMachine.restore/5 injection defenses and ApprovalGate nil-fallback security fix. All 29 new tests pass; pre-existing privilege_test root-user failure is unrelated. Note: tests for the automatic failed-service recovery path (EXOCOMP-31 scope) will need coverage once that module is implemented.
+---
+author: oompah
+created: 2026-07-25 02:31
+---
+Implementation: Applied two security fixes to existing recovery code.
+
+Fix 1 — Empty node_id fallback in ApprovalGate (HIGH):
+  apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex: Changed Application.get_env(:exocomp_node, :node_id, "") to Application.get_env(:exocomp_node, :node_id) (nil fallback). A nil context node_id cannot match any token's non-nil node_id, closing the gap where a coordinator-signed token with node_id: "" would pass binding verification on any misconfigured node. Added test 'scenario 5c: unconfigured node_id falls back to nil, not empty string' to approval_gate_test.exs.
+
+Fix 2 — restore/5 state injection defense (MEDIUM):
+  apps/exocomp_core/lib/exocomp/recovery/state_machine.ex: Added @valid_states module attribute and two new cond clauses to restore/5: (a) reject transitions whose tr.to is not a known state, returning {:error, {:invalid_state, tr.to}}; (b) reject transitions whose tr.from does not match the machine's current state, returning {:error, {:from_mismatch, expected, got}}. These prevent an adversary with write access to the persistence layer from injecting fabricated states or impossible state jumps into the restoration log. Added 3 tests in the 'restore/5' describe block covering invalid target state, from-state mismatch, and a gap-free injected jump that reaches :executing while still correctly setting execution_attempted: true.
+
+Files changed: approval_gate.ex, state_machine.ex, approval_gate_test.exs, state_machine_test.exs.
+---
+author: oompah
+created: 2026-07-25 02:31
+---
+Verification: All targeted tests pass.
+- state_machine_test.exs: 87 passed (84 pre-existing + 3 new security tests)
+- approval_gate_test.exs: 27 passed (26 pre-existing + 1 new security test)
+- approval_required_test.exs: 14 passed (unchanged)
+- Full suite: 771/772 passed; the single failure (privilege_test.exs:check_not_root) is a pre-existing environment issue (test expects non-root EUID; Docker container runs as root). This failure predates this PR and is unrelated to the security changes.
 ---
 <!-- COMMENTS:END -->
