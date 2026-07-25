@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-108
 type: task
-status: In Progress
+status: Done
 priority: 0
 title: Rebase epic-EXOCOMP-3 onto main
 parent: EXOCOMP-3
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T02:02:35.321765Z'
-updated_at: '2026-07-25T02:07:52.517934Z'
+updated_at: '2026-07-25T02:10:14.188731Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -153,5 +153,19 @@ Current state:
 - Potential conflicts in: apps/exocomp_coordinator/ (approval_token), apps/exocomp_node/mix.exs, config/config.exs, mix.lock
 
 Starting rebase now.
+---
+author: oompah
+created: 2026-07-25 02:10
+---
+Rebase complete and force-pushed.
+
+Summary:
+- Rebased epic-EXOCOMP-3 (12 epic commits) onto origin/main (which had 9 new commits from EXOCOMP-107 PKI/enrollment and EXOCOMP-20 M2 acceptance tests)
+- Resolved 4 conflict sets:
+  1. apps/exocomp_coordinator/mix.exs — kept all deps (bandit, plug, x509 from main + jason from epic)
+  2. apps/exocomp_node/lib/exocomp/node/application.ex (3x) — accumulated children incrementally: ExecutorLock (EXOCOMP-25) + ReplayLedger (EXOCOMP-97) + VacuumState (EXOCOMP-85) into the main-branch supervisor structure
+  3. config/config.exs — merged coordinator PKI config (main) + replay_ledger_path config (EXOCOMP-97)
+- Force-pushed: origin/epic-EXOCOMP-3 updated from 27f5c5e to 1d4c65e
+- Branch is now ahead of origin/main by 12 commits with clean working tree
 ---
 <!-- COMMENTS:END -->
