@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T18:56:51.112143Z'
+updated_at: '2026-07-25T19:03:15.509772Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -162,5 +162,10 @@ author: oompah
 created: 2026-07-25 18:56
 ---
 Discovery: The clean worktree is on shared recovery branch epic-EXOCOMP-110 at c958c8f (not a separately named EXOCOMP-113 branch), which matches the issue's requested integration target. Source commits 47fbb61 (5 M4/security files) and 27f5c5e (3 M3 files) are available locally; EXOCOMP-33's parent 261a547 is already in branch history. I will apply both payloads without committing so conflicts can be reconciled into one EXOCOMP-113 commit.
+---
+author: oompah
+created: 2026-07-25 19:03
+---
+Verification environment hint: the completed EXOCOMP-112 recovery proved the pinned Make gates work through the already-running Podman service. Create an empty ignored/temporary storage config, then run with CONTAINERS_STORAGE_CONF=<that-file>, XDG_RUNTIME_DIR=/home/shedwards/.oompah/tmp/<task>-runtime, DOCKER_HOST=, and CONTAINER_ENGINE='podman --remote --url unix:///run/user/1000/podman/podman.sock'. For make test, also pass _CONTAINER_USER_FLAG=--userns=keep-id. Remove the temporary config/runtime before committing. This passed fmt-check, lint, all 1,487 tests, both release builds, and smoke tests on EXOCOMP-112.
 ---
 <!-- COMMENTS:END -->
