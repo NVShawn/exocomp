@@ -6,12 +6,13 @@ priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-112
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-23T23:18:13.060061Z'
+updated_at: '2026-07-25T18:30:12.782844Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
