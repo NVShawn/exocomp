@@ -6,13 +6,14 @@ priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-112
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-23T23:23:35.749744Z'
+updated_at: '2026-07-25T18:30:21.234669Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
