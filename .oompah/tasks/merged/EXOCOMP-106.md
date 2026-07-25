@@ -12,7 +12,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-25T02:14:08.993468Z'
+updated_at: '2026-07-25T02:15:04.612888Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -214,5 +214,10 @@ Run #YOLO-reopen [attempt=YOLO-reopen, profile=standard, role=standard -> Codex/
 - Cost: $0.0000
 - Exit: terminated, Duration: 7m 14s
 - Log: EXOCOMP-106__20260725T020656Z.jsonl
+---
+author: oompah
+created: 2026-07-25 02:15
+---
+Verification: Rebase integrity passes: delivered tip 261a547 has 4 epic-only commits on target 7295c33, no conflict markers, no unintended deletions, git diff --check passes, and every changed .ex/.exs file passes mix format --check-formatted. The full Makefile test/lint/fmt gates were attempted but Docker failed before compilation because rootless Podman cannot chmod the read-only /run/user/1000/libpod; local compile/tests are unavailable because the host has Elixir 1.18.3 while the project requires 1.20.2. The repository-wide local formatter additionally identifies one unchanged origin/main file (PKI bootstrap) as pre-existing unformatted code. PR #10 merged the verified tip as origin/main commit 725120a.
 ---
 <!-- COMMENTS:END -->
