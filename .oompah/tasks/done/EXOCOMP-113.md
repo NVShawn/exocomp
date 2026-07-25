@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T19:13:52.533511Z'
+updated_at: '2026-07-25T19:13:58.362405Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -212,5 +212,10 @@ author: oompah
 created: 2026-07-25 19:13
 ---
 Completion: Committed and pushed cad1c28 to epic-EXOCOMP-110. Recovered 8 files from EXOCOMP-28 and EXOCOMP-33: M3 acceptance suite (44 tests, M3-CRIT-1..8), M4 fault-injection suite (29 tests, 12 fault scenarios), StateMachine.restore/5 injection defenses (+3 security tests), ApprovalGate nil-fallback fix (+1 security test), vacuum_bounds bare /home+/root fix, and rootless-Podman privilege test fix. All 1564 tests pass with make test; 73/73 recovered scenario tests pass in focused run. Quality gates: fmt-check, lint, releases, smoke tests all green.
+---
+author: oompah
+created: 2026-07-25 19:13
+---
+Recovered M3 acceptance suite (44 tests) and M4 fault-injection suite (29 tests) from EXOCOMP-28/EXOCOMP-33 onto epic-EXOCOMP-110. Added StateMachine injection defenses and ApprovalGate nil-fallback fix. All 1564 tests pass.
 ---
 <!-- COMMENTS:END -->
