@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T02:02:35.321765Z'
-updated_at: '2026-07-25T02:10:14.188731Z'
+updated_at: '2026-07-25T02:10:19.307322Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -167,5 +167,10 @@ Summary:
   3. config/config.exs — merged coordinator PKI config (main) + replay_ledger_path config (EXOCOMP-97)
 - Force-pushed: origin/epic-EXOCOMP-3 updated from 27f5c5e to 1d4c65e
 - Branch is now ahead of origin/main by 12 commits with clean working tree
+---
+author: oompah
+created: 2026-07-25 02:10
+---
+Rebased epic-EXOCOMP-3 onto origin/main, resolved 4 conflict sets (coordinator mix.exs deps, application.ex supervisor children x3, config.exs), and force-pushed. Branch is now cleanly ahead of main by 12 commits.
 ---
 <!-- COMMENTS:END -->
