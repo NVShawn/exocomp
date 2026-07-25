@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-116
 type: chore
-status: Done
+status: Merged
 priority: 1
 title: Verify recovered exocomp delivery is complete on main
 parent: EXOCOMP-110
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:27.708830Z'
-updated_at: '2026-07-25T21:09:36.403053Z'
+updated_at: '2026-07-25T21:09:39.006562Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
