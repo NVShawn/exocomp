@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-31
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
@@ -14,7 +14,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:03:49.174258Z'
+updated_at: '2026-07-25T02:03:58.388856Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
