@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:58:09.397292Z'
+updated_at: '2026-07-25T20:58:11.804271Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -361,5 +361,10 @@ All five scopes delivered:
 - EXOCOMP-46: lifecycle.md + 63-test installer suite (upgrade, rollback, backup, removal)
 - EXOCOMP-47: clean-host-qualification.md with M6-CRIT evidence matrix
 - EXOCOMP-66: deterministic secret-free OTP archives, build-identity.json manifests, COOKIE-free packaging, Bandit normalization
+---
+author: oompah
+created: 2026-07-25 20:58
+---
+Delivered all five scopes falsely marked Merged. EXOCOMP-31: FailedService automatic recovery with exactly-once durable execution, 8 M4-CRIT acceptance tests, 12 fault-injection scenarios. EXOCOMP-45: installation/PKI/policy operator guides. EXOCOMP-46: lifecycle docs + 63 installer lifecycle tests covering upgrade, health-gated rollback, backup/restore, and removal. EXOCOMP-47: clean-host qualification doc with M6-CRIT evidence matrix. EXOCOMP-66: deterministic secret-free OTP archives, build-identity.json manifests, COOKIE-free packaging, and Bandit compile-time input normalization. All Make gates pass: fmt-check, lint, test (748 tests, 0 failures), test-installer (63 tests), test-release-packaging (12 tests), release-check.
 ---
 <!-- COMMENTS:END -->
