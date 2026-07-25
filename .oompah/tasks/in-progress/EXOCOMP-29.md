@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-29
 type: feature
-status: Needs Rebase
+status: In Progress
 priority: 0
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
@@ -18,13 +18,13 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-25T02:07:31.099909Z'
+updated_at: '2026-07-25T02:09:43.696142Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
 review_number: '10'
 merged_at: null
-oompah.agent_run_id: 6c1977cf-187d-494f-8b57-90ad0e3fd69e
+oompah.agent_run_id: 95d43ddc-f7ac-432e-b4aa-7f8f53d6620f
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 2022366
@@ -365,5 +365,10 @@ created: 2026-07-25 02:05
 **Evidence:** Recent comment indicates the conflict or rebase has been resolved; safe to reopen.
 
 *This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
+---
+author: oompah
+created: 2026-07-25 02:09
+---
+Agent dispatched (profile: standard)
 ---
 <!-- COMMENTS:END -->
