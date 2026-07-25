@@ -8,10 +8,11 @@ parent: EXOCOMP-42
 children: []
 blocked_by:
 - EXOCOMP-65
+- EXOCOMP-115
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-07-23T23:34:57.765387Z'
+updated_at: '2026-07-25T18:32:16.310112Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
