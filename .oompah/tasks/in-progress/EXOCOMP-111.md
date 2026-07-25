@@ -12,7 +12,7 @@ labels:
 - needs:chore
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:31:18.165747Z'
+updated_at: '2026-07-25T18:31:29.928535Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -20,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: fac8f99a-ec50-4b6d-9e92-61899b5ae564
 oompah.work_branch: epic-EXOCOMP-110
+oompah.task_costs:
+  total_input_tokens: 11
+  total_output_tokens: 3503
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 11
+      output_tokens: 3503
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 11
+    output_tokens: 3503
+    cost_usd: 0.0
+    recorded_at: '2026-07-25T18:31:26.141248+00:00'
 ---
 ## Summary
 
@@ -74,5 +90,20 @@ Remaining work: Cherry-pick or merge EXOCOMP-49 and EXOCOMP-51 commits onto epic
 Risks: The A2A router/type changes already on main may conflict with codec.ex field mappings — semantic conflict resolution required. Hex bootstrap in Makefile may conflict if Makefile was modified on main.
 
 Recommended next focus: chore (git recovery, conflict resolution, quality gate verification).
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Agent completed successfully in 97s (3514 tokens)
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 22, Tool calls: 15
+- Tokens: 11 in / 3.5K out [3.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 37s
+- Log: EXOCOMP-111__20260725T183001Z.jsonl
 ---
 <!-- COMMENTS:END -->

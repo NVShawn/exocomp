@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-25T18:31:26.231455Z'
+updated_at: '2026-07-25T18:31:30.588383Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -274,5 +274,10 @@ author: oompah
 created: 2026-07-25 18:31
 ---
 Action required: use recovery task EXOCOMP-114 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-114 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-67 (Inspect and document OTP release runtime dependencies), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
