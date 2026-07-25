@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:12:33.300392Z'
+updated_at: '2026-07-25T20:12:44.263907Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -147,5 +147,10 @@ author: oompah
 created: 2026-07-25 20:12
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-25 20:12
+---
+Understanding: I am a Software Engineer agent taking over from the duplicate_detector. My task is to implement five scopes that were falsely marked Merged without delivery: EXOCOMP-31 (automatic failed-service recovery), EXOCOMP-45 (operator/PKI/policy guides), EXOCOMP-46 (upgrade/rollback/backup/removal lifecycle + tests), EXOCOMP-47 (clean-host release qualification), and EXOCOMP-66 (deterministic OTP archives + build identity manifests). I will first explore the codebase to understand existing patterns, then implement each scope in order, run the relevant make gates, and close the task.
 ---
 <!-- COMMENTS:END -->
