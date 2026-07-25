@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-115
 type: feature
-status: Backlog
+status: In Progress
 priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:28:09.849587Z'
+updated_at: '2026-07-25T20:40:26.670370Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -308,5 +308,10 @@ author: oompah
 created: 2026-07-25 20:28
 ---
 Manual implementation takeover: the agent was stopped after attempting to embed a predictable deterministic cookie, which violates the security constraint. I am retaining the generated code/tests for review, removing any shipped cookie material, and will only return the task to Done after the complete relevant Make gates pass and the commit is integrated on epic-EXOCOMP-110.
+---
+author: oompah
+created: 2026-07-25 20:40
+---
+Manual recovery implementation is active on epic-EXOCOMP-110. The unsafe deterministic-cookie attempt has been removed. Current review is tightening durable exactly-once recovery, atomic upgrade switching, secret-free deterministic archive qualification, and then running focused/full Make gates before the task can be Done.
 ---
 <!-- COMMENTS:END -->
