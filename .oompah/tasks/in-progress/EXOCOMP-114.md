@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T20:02:34.394395Z'
+updated_at: '2026-07-25T20:03:17.506370Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -180,5 +180,10 @@ author: oompah
 created: 2026-07-25 20:02
 ---
 Understanding: Resuming the interrupted M6 recovery integration. I will audit the uncommitted work, ensure the release-matrix snapshot comparison is idempotent and path-independent without excluding releases/COOKIE, preserve the hardened installer and container ownership fixes, run the applicable Make release/compliance gates, then commit, push, and close EXOCOMP-114 with the known EXOCOMP-115 cookie determinism dependency documented.
+---
+author: oompah
+created: 2026-07-25 20:03
+---
+Discovery: The recovered work is already committed locally as 8486243 on the shared epic-EXOCOMP-110 branch. Snapshot replacement is idempotent and manifests use relative paths, and build-releases.sh now has only the configurable ownership flag. One correction remains: scripts/test-release-matrix.sh and docs/release-qualification.md still exclude releases/COOKIE and the offline fixture incorrectly treats differing cookies as reproducible. I will include COOKIE in the digest, make equal trees use identical cookies, assert a cookie byte change is detected, and add a structural check preventing hardcoded duplicate --user flags.
 ---
 <!-- COMMENTS:END -->
