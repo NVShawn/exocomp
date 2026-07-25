@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-45
 type: chore
-status: Merged
+status: Needs Human
 priority: 2
 title: Write installation, PKI, policy, and operations guides
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:04.573016Z'
-updated_at: '2026-07-25T18:31:52.351067Z'
+updated_at: '2026-07-25T18:31:55.854749Z'
 work_branch: null
 target_branch: null
 review_url: null
