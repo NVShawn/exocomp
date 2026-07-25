@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T18:56:27.299360Z'
+updated_at: '2026-07-25T18:56:51.112143Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -157,5 +157,10 @@ author: oompah
 created: 2026-07-25 18:56
 ---
 Understanding: Recover EXOCOMP-28 commit 27f5c5e and EXOCOMP-33 commit 47fbb61 onto the current EXOCOMP-113 branch, reconcile their M3 acceptance/fault-injection tests and state-restore/approval-gate fixes with later main changes, then run focused and full Make quality gates before committing, pushing, and closing the task.
+---
+author: oompah
+created: 2026-07-25 18:56
+---
+Discovery: The clean worktree is on shared recovery branch epic-EXOCOMP-110 at c958c8f (not a separately named EXOCOMP-113 branch), which matches the issue's requested integration target. Source commits 47fbb61 (5 M4/security files) and 27f5c5e (3 M3 files) are available locally; EXOCOMP-33's parent 261a547 is already in branch history. I will apply both payloads without committing so conflicts can be reconciled into one EXOCOMP-113 commit.
 ---
 <!-- COMMENTS:END -->
