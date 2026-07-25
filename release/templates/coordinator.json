@@ -1,6 +1,17 @@
 {
   "_version": "1",
-  "_comment": "Exocomp coordinator configuration. See docs/coordinator-installation.md for field descriptions.",
+  "_comment": "Exocomp coordinator configuration. See docs/installation.md for field descriptions.",
+  "version": 1,
+  "coordinator_id": "exocomp-coordinator",
+  "tls": {
+    "ca_cert":   "@INSTALL_DIR@/config/pki/ca.crt",
+    "coord_cert": "@INSTALL_DIR@/config/pki/coordinator.crt",
+    "coord_key":  "@INSTALL_DIR@/config/pki/coordinator.key"
+  },
+  "listen": {
+    "host": "0.0.0.0",
+    "port": 4443
+  },
 
   "coordinator": {
     "bind": "0.0.0.0:4443",

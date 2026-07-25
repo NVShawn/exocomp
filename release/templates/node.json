@@ -1,6 +1,17 @@
 {
   "_version": "1",
-  "_comment": "Exocomp node configuration. See docs/node-installation.md for field descriptions.",
+  "_comment": "Exocomp node configuration. See docs/installation.md for field descriptions.",
+  "version": 1,
+  "node_id": "",
+  "tls": {
+    "ca_cert":   "@INSTALL_DIR@/config/pki/ca.crt",
+    "node_cert": "@INSTALL_DIR@/config/pki/node.crt",
+    "node_key":  "@INSTALL_DIR@/config/pki/node.key"
+  },
+  "listen": {
+    "host": "0.0.0.0",
+    "port": 4433
+  },
 
   "coordinator": {
     "host": "coordinator.example.internal",

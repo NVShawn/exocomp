@@ -79,6 +79,12 @@ grep -Fq "replay_ledger_path" scripts/smoke-releases.sh ||
   fail "production smoke test does not isolate replay ledger state"
 grep -Fq "inspect-release-deps.sh" scripts/build-releases.sh ||
   fail "build script does not invoke dependency inspection"
+grep -Fq "package-releases.sh" scripts/build-releases.sh ||
+  fail "build script does not package deterministic release archives"
+[ -x "scripts/package-releases.sh" ] ||
+  fail "scripts/package-releases.sh is missing or not executable"
+[ -x "scripts/package_release.py" ] ||
+  fail "scripts/package_release.py is missing or not executable"
 
 if grep -Eq -- '(^|[[:space:]])(-i|-it|--interactive)([[:space:]]|$)' \
   scripts/build-releases.sh scripts/check-builder-capability.sh; then
@@ -167,5 +173,10 @@ grep -q "wrong.arch\|wrong arch\|format error\|Exec format" "docs/release-qualif
 # Run the full offline qualification matrix checks (uses fake fixtures, no Docker).
 ./scripts/test-release-matrix.sh --offline ||
   fail "offline release qualification matrix checks failed"
+
+python3 -m unittest discover -s tests -p 'test_package_release.py' -v ||
+  fail "deterministic release packaging tests failed"
+python3 -m unittest discover -s tests -p 'test_operator_docs.py' -v ||
+  fail "operator documentation command tests failed"
 
 echo "release builder definitions are pinned and valid"

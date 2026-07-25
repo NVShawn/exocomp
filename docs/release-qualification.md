@@ -10,8 +10,8 @@ build output, and clean-host startup verification.
 The qualification matrix tests:
 
 1. **Double-build reproducibility** — each product is built twice from
-   identical source; the complete release directory content digests must
-   match, including the generated runtime cookie.
+   identical source; complete release-directory digests and normalized archive
+   bytes must match.
 2. **Manifest field consistency** — declared reproducible fields in
    `build-identity.json` (source commit, Elixir version, OTP version, ERTS
    version) must be identical across builds.
@@ -180,19 +180,18 @@ without requiring Docker or real builds.
 
 ## Reproducibility
 
-Reproducibility is tested at the level of release directory content: all
-regular files are hashed with SHA-256 and the set of hashes must be identical
-between two builds from the same source. The build enables Erlang's
-`deterministic` compiler option. No release file is excluded:
-`releases/COOKIE` is included because a published artifact must be compared in
-full and qualification must not hide changes to secret-bearing content.
+Reproducibility is tested at both release-directory and published-archive
+levels. The build enables Erlang's `deterministic` compiler option, removes
+Mix's build-time `releases/COOKIE` before publication, and creates archives
+with sorted entries plus normalized ownership, modes, and source-tag
+timestamps. Equivalent builds must produce byte-identical archives.
 
-Mix currently generates `releases/COOKIE` afresh for every assembly, so the
-live double-build check is expected to report that remaining nondeterminism.
-EXOCOMP-115's recovery of EXOCOMP-66 owns the secure deterministic archive or
-install-time cookie-generation design. Until that work lands, the matrix
-preserves the failing evidence instead of ignoring the cookie or shipping a
-fixed production secret.
+No fixed production secret replaces the removed cookie. The installer creates
+a cryptographically random, mode-`0600` `RELEASE_COOKIE` environment file for
+each installation and preserves it across upgrades. Clean-container
+qualification supplies an explicit non-production cookie only for that
+isolated test process. Complete artifact bytes are still compared; no
+secret-bearing file is hidden by the digest algorithm.
 
 If a `build-identity.json` manifest is present in the release (produced by
 the deterministic archive packaging step), the following declared-reproducible

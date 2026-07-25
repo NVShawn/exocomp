@@ -44,7 +44,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	$(DEV_BUILDER_IMAGE)
 
 .PHONY: help init init-amd64 init-arm64 fmt fmt-check build build-amd64 \
-	build-arm64 test test-builders test-deps test-release-matrix \
+	build-arm64 test test-builders test-deps test-release-matrix test-release-packaging \
 	test-compliance \
 	inspect-deps-amd64 inspect-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
@@ -126,6 +126,10 @@ test-release-matrix: ## Run OTP release qualification matrix (requires Docker an
 	./scripts/test-release-matrix.sh \
 		$(if $(ARCH),--arch $(ARCH)) \
 		$(if $(filter 1,$(SKIP_BUILD)),--skip-build)
+
+test-release-packaging: ## Test deterministic archives, secret omission, manifests, and operator commands.
+	$(PYTHON) -m unittest discover -s tests -p 'test_package_release.py' -v
+	$(PYTHON) -m unittest discover -s tests -p 'test_operator_docs.py' -v
 
 lint: test-builders ## Run static analysis / linters.
 	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && mix deps.get && \

@@ -227,6 +227,20 @@ run_offline_checks() {
 
   # Run offline fixture tests: content digests must not depend on root paths.
   run_content_digest_fixture_test
+
+  if [ -x "${script_dir}/package-releases.sh" ] &&
+     [ -x "${script_dir}/package_release.py" ]; then
+    pass "deterministic release packagers exist and are executable"
+  else
+    fail_test "deterministic release packaging scripts are missing or not executable"
+  fi
+
+  if grep -q "releases/COOKIE" "${script_dir}/package_release.py" &&
+     grep -q "embedded.*False" "${script_dir}/package_release.py"; then
+    pass "packager excludes reusable release cookies"
+  else
+    fail_test "packager must explicitly omit releases/COOKIE and declare it non-embedded"
+  fi
 }
 
 # ---------------------------------------------------------------------------
@@ -382,6 +396,15 @@ run_double_build_test() {
   if [ "${skip_build}" = "0" ]; then
     echo "Build 1/2 for ${product} (${arch})..."
     "${script_dir}/build-releases.sh" "${arch}"
+    product_slug="$(echo "${product}" | tr '_' '-')"
+    archive1="$(find "${repo_root}/dist/releases" -maxdepth 1 \
+      -name "${product_slug}-*-linux-${arch}.tar.gz" -print | LC_ALL=C sort | tail -1)"
+    if [ -z "${archive1}" ]; then
+      fail_test "build did not emit a versioned archive for ${product}/${arch}"
+      return
+    fi
+    archive_snapshot1="${build_root}/${arch}-${product}-archive-snap1.tar.gz"
+    cp "${archive1}" "${archive_snapshot1}"
 
     echo "Snapshotting build 1..."
     # shellcheck disable=SC2086
@@ -397,6 +420,10 @@ run_double_build_test() {
 
     echo "Build 2/2 for ${product} (${arch})..."
     "${script_dir}/build-releases.sh" "${arch}"
+    archive2="$(find "${repo_root}/dist/releases" -maxdepth 1 \
+      -name "${product_slug}-*-linux-${arch}.tar.gz" -print | LC_ALL=C sort | tail -1)"
+    archive_snapshot2="${build_root}/${arch}-${product}-archive-snap2.tar.gz"
+    cp "${archive2}" "${archive_snapshot2}"
 
     echo "Snapshotting build 2..."
     # shellcheck disable=SC2086
@@ -421,6 +448,14 @@ run_double_build_test() {
   if [ ! -d "${build1_dir}" ] || [ ! -d "${build2_dir}" ]; then
     fail_test "expected two build snapshots at ${build1_dir} and ${build2_dir}"
     return
+  fi
+
+  if [ "${skip_build}" = "0" ]; then
+    if cmp -s "${archive_snapshot1}" "${archive_snapshot2}"; then
+      pass "packaged archives are byte-identical for ${product} / ${arch}"
+    else
+      fail_test "packaged archives differ for equivalent ${product} / ${arch} builds"
+    fi
   fi
 
   # Compute content digests using paths relative to each snapshot root.
@@ -461,7 +496,8 @@ verify_manifest_fields() {
   product="$2"
   arch="$3"
 
-  for field in source_commit elixir_version otp_version erts_version; do
+  for field in product version architecture source_commit source_tag builder_digest \
+    elixir_version otp_version erts_version dependency_lock_sha256 build_command; do
     value="$(grep -o "\"${field}\": *\"[^\"]*\"" "${manifest}" 2>/dev/null | head -1 || true)"
     if [ -n "${value}" ]; then
       pass "manifest field '${field}' present in ${product}/${arch}: ${value}"

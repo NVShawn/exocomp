@@ -353,6 +353,7 @@ run_container_engine run \
   --init \
   --platform "${target_platform}" \
   --pull never \
+  --env "RELEASE_COOKIE=qualification-only-nonproduction-cookie" \
   --volume "${abs_release_dir}:/release:ro" \
   "${qualified_target_image}" \
   sh -c "${eval_script}"

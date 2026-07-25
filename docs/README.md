@@ -11,6 +11,11 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 ## Contents
 
 - [Development](development.md)
+- [Installation and first host](installation.md)
+- [PKI operations](pki-operations.md)
+- [Policy and operations](policy-operations.md)
+- [Upgrade, backup, rollback, and removal](lifecycle.md)
+- [Clean-host release qualification](clean-host-qualification.md)
 - [Testing the Systemd Fixture](testing-systemd-fixture.md)
 - [Coordinator Restart Recovery](coordinator-restart-recovery.md)
 - [Changelog policy](changelog-policy.md)

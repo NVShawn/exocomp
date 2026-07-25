@@ -93,3 +93,7 @@ done
 
 echo ""
 echo "All runtime dependency checks passed for ${target_platform}."
+
+echo ""
+echo "Packaging deterministic, secret-free release archives"
+"${script_dir}/package-releases.sh" "${architecture}"
