@@ -10,13 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:29:49.391521Z'
-work_branch: null
+updated_at: '2026-07-25T18:29:53.860058Z'
+work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
 oompah.agent_run_id: fac8f99a-ec50-4b6d-9e92-61899b5ae564
+oompah.work_branch: epic-EXOCOMP-110
 ---
 ## Summary
 
@@ -28,3 +29,11 @@ Recover the stranded EXOCOMP-49 and EXOCOMP-51 commits onto the EXOCOMP-110 shar
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-25 18:29
+---
+Agent dispatched (profile: default)
+---
+<!-- COMMENTS:END -->
