@@ -18,7 +18,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-25T20:27:43.922699Z'
+updated_at: '2026-07-25T20:29:02.415075Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
