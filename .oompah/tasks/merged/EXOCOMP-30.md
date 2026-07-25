@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-30
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-24T18:47:29.563956Z'
+updated_at: '2026-07-25T02:13:28.264002Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
