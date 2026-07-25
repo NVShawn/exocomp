@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-25T18:30:21.234669Z'
+updated_at: '2026-07-25T18:30:23.746497Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -428,5 +428,10 @@ Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 7m 30s
 - Log: EXOCOMP-56__20260723T223308Z.jsonl
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Action required: use recovery task EXOCOMP-112 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-112 lands and its acceptance criteria are confirmed against main.
 ---
 <!-- COMMENTS:END -->
