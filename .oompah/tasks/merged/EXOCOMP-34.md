@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:49.457512Z'
-updated_at: '2026-07-25T02:25:16.152071Z'
+updated_at: '2026-07-25T02:26:01.474119Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -76,5 +76,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 29s
 - Log: EXOCOMP-34__20260725T022449Z.jsonl
+---
+author: oompah
+created: 2026-07-25 02:26
+---
+Discovery: Duplicate screening found no confirmed duplicate. I searched the git-backed tracker state and plans/docs for M4, minimal-impact recovery, failed-service recovery, approval gates, M4-CRIT, and recovery qualification, then reviewed full tracker records for EXOCOMP-4, EXOCOMP-28, EXOCOMP-31, EXOCOMP-32, EXOCOMP-33, EXOCOMP-39, and EXOCOMP-47. EXOCOMP-31/32 are implementation flows, EXOCOMP-33 is fault/idempotency coverage, EXOCOMP-39 is M5 soak/load testing, and EXOCOMP-47 is downstream M6 clean-host release qualification. Parent EXOCOMP-4 intentionally retains EXOCOMP-34 as its distinct end-to-end M4 acceptance-evidence child; EXOCOMP-28 is only the analogous M3 verifier.
 ---
 <!-- COMMENTS:END -->
