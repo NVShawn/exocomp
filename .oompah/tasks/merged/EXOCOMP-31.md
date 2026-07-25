@@ -17,7 +17,7 @@ labels:
 - focus-complete:merge_conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:14:25.989356Z'
+updated_at: '2026-07-25T02:14:34.422260Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -211,5 +211,10 @@ author: oompah
 created: 2026-07-25 02:14
 ---
 Focus handoff: merge_conflict\n\nOutcome: Rebased MR #10's actual source branch epic-EXOCOMP-4 onto current main, resolved all conflicts while retaining both sides, force-pushed with lease, verified refs/pull/10/head, and confirmed GitHub merged the review as 725120a.\n\nEvidence and decisions: conflict resolutions covered apps/exocomp_coordinator/mix.exs, both OTP Application supervision trees, and config/config.exs. The final merged parent 261a547 retains remediation lifecycle/state-machine/approval-required work; git diff --check, conflict-marker scan, remote SHA verification, and Elixir syntax parsing passed. Make quality gates could not start due the managed Podman runtime path being read-only; local Mix was rejected because host Elixir 1.18.3 does not meet the exact 1.20.2 project requirement.\n\nRemaining work and risks: EXOCOMP-31 automatic recovery itself is not implemented by this merge-conflict focus. A feature agent must implement the already-failed allow-listed service path and focused tests described in the task. Full tests should run in the supported builder/CI environment.\n\nRecommended next focus: feature.
+---
+author: oompah
+created: 2026-07-25 02:14
+---
+Completion (merge-conflict focus): review branch force-pushed, final review SHA verified, PR #10 merged into main, and focus-complete:merge_conflict recorded. EXOCOMP-31 remains for the feature implementation handoff; no out-of-scope feature changes were made in this session.
 ---
 <!-- COMMENTS:END -->
