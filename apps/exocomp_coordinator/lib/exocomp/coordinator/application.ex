@@ -31,7 +31,9 @@ defmodule Exocomp.Coordinator.Application do
       {Task.Supervisor, name: Exocomp.Coordinator.DiagTaskSupervisor},
       {Exocomp.Coordinator.Orchestrator,
        Application.get_env(:exocomp_coordinator, :orchestrator, [])},
-      Exocomp.Coordinator.TaskRegistry
+      Exocomp.Coordinator.TaskRegistry,
+      {Exocomp.Coordinator.RemediationLifecycle,
+       Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}
     ]
 
     Supervisor.start_link(children,

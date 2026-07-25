@@ -216,7 +216,8 @@ defmodule Exocomp.Node.Safety.PolicyEngine do
          :ok <- step_data_classification(definition),
          :ok <- step_missing_evidence(definition, scoped_evidence),
          :ok <- step_stale_evidence(definition, scoped_evidence, context.now),
-         :ok <- step_cooldown(action_id, target_id, definition.cooldown_secs, context, definition),
+         :ok <-
+           step_cooldown(action_id, target_id, definition.cooldown_secs, context, definition),
          :ok <-
            step_retry_exhausted(
              action_id,
