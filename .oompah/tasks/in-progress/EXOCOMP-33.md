@@ -16,7 +16,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:21:50.262472Z'
+updated_at: '2026-07-25T02:21:57.697703Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -350,5 +350,10 @@ docker run --rm --init --user "$(id -u):$(id -g)" --env ELIXIR_VERSION=1.20.2 --
 	MIX_ENV=test mix release exocomp_coordinator --overwrite && \
 	scripts/smoke-releases.sh test'
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/epic-EXOCOMP-4' was attempted but could not start because Podman cannot chmod  on the read-only filesystem; no test failures were observed because the suite never launched. No code changed in this focus.
+---
+author: oompah
+created: 2026-07-25 02:21
+---
+Verification correction: Completed static OWASP-oriented review of Recovery.StateMachine/AuditEvent, Node.Recovery.ApprovalRequired, Safety.ApprovalVerifier/ApprovalGate/ReplayLedger/PreconditionChecker, Executor, and ExecutorLock against the Milestone 4 failure model. Checked access control, cryptographic binding and replay, injection, data and audit integrity, logging and data exposure, race conditions, and denial of service. The Make test target was attempted but could not start because Podman cannot change permissions on /run/user/1000/libpod in the read-only environment; the suite never launched. No code changed in this focus.
 ---
 <!-- COMMENTS:END -->
