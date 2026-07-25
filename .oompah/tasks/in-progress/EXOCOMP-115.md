@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:44:24.831389Z'
+updated_at: '2026-07-25T20:47:26.967558Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -328,5 +328,10 @@ author: oompah
 created: 2026-07-25 20:44
 ---
 Understanding: Software Engineer agent taking over from the prior run. I will implement five scopes falsely marked Merged: EXOCOMP-31 (automatic failed-service recovery), EXOCOMP-45 (operator/PKI/policy guides), EXOCOMP-46 (upgrade/rollback/backup/removal lifecycle+tests), EXOCOMP-47 (clean-host qualification), EXOCOMP-66 (deterministic OTP archives+build-identity manifests, no predictable COOKIE). Starting with codebase exploration to find existing patterns, then implementing each scope in order.
+---
+author: oompah
+created: 2026-07-25 20:47
+---
+Discovery: All five scopes are already implemented in commit 516faf8 ('EXOCOMP-115: recover missing release and recovery delivery'). The prior manual implementation (per comments at 20:28 and 20:40) completed the work. All files present: EXOCOMP-31 (failed_service.ex + failed_service_test.exs + fault_injection_test.exs + m4_acceptance_test.exs), EXOCOMP-66 (package_release.py + package-releases.sh + test_package_release.py), EXOCOMP-45 (installation.md + pki-operations.md + policy-operations.md), EXOCOMP-46 (lifecycle.md + installer tests), EXOCOMP-47 (clean-host-qualification.md). Repository is clean (no uncommitted changes). Running test gates now to verify pass before closing.
 ---
 <!-- COMMENTS:END -->
