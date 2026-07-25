@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-113
 type: chore
-status: In Progress
+status: Done
 priority: 1
 title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T19:13:15.053331Z'
+updated_at: '2026-07-25T19:13:52.533511Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -207,5 +207,10 @@ author: oompah
 created: 2026-07-25 19:13
 ---
 Verification: Full make test suite passed via Podman remote socket. Results: 78 (bench) + 192 (exocomp_core) + 478 (exocomp_coordinator) + 816 (exocomp_node) = 1564 passed, 10 excluded. The first run had a parallel-compiler race with stale _build artifacts (pre-existing behavior); second run was clean. Focused run of m3_acceptance_test.exs + fault_injection_test.exs: 73 passed. fmt-check and lint both green. Releases built and smoke tests passed.
+---
+author: oompah
+created: 2026-07-25 19:13
+---
+Completion: Committed and pushed cad1c28 to epic-EXOCOMP-110. Recovered 8 files from EXOCOMP-28 and EXOCOMP-33: M3 acceptance suite (44 tests, M3-CRIT-1..8), M4 fault-injection suite (29 tests, 12 fault scenarios), StateMachine.restore/5 injection defenses (+3 security tests), ApprovalGate nil-fallback fix (+1 security test), vacuum_bounds bare /home+/root fix, and rootless-Podman privilege test fix. All 1564 tests pass with make test; 73/73 recovered scenario tests pass in focused run. Quality gates: fmt-check, lint, releases, smoke tests all green.
 ---
 <!-- COMMENTS:END -->
