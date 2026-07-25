@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-111
 type: chore
-status: In Progress
+status: Done
 priority: 1
 title: Recover omitted M1 A2A codec and fixture work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:41:52.687786Z'
+updated_at: '2026-07-25T18:42:30.817378Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -139,5 +139,10 @@ author: oompah
 created: 2026-07-25 18:41
 ---
 Verification: PASS with disposable exact Elixir 1.20.2 toolchain: 37/37 focused codec/version/fixture/invalid-payload/media-type tests; 189/189 full exocomp_core tests; mix format --check-formatted; exocomp_core force compile with --warnings-as-errors; git diff --check; no conflict markers. Inventory confirms codec.ex, version.ex, 10 JSON fixtures, and 4 added protocol suites. make test/lint/fmt-check were each attempted but cannot launch because this session's Podman runtime at /run/user/1000/libpod is read-only; this is an environment startup failure before project code executes.
+---
+author: oompah
+created: 2026-07-25 18:42
+---
+Completion: Recovered EXOCOMP-49 and EXOCOMP-51 onto epic-EXOCOMP-110 in commits d22dff8, 62717d7, d115dd2, with semantic reconciliation 2da861a. Delivered codec/version handling, Hex bootstrap integrated with current Make behavior, six codec/version test modules total, 10 pinned fixtures, and four fixture/protocol suites while preserving current router/types and Jason 1.4.5. Verified focused 37 tests, full exocomp_core 189 tests, formatting, warnings-as-errors compile, inventory, and conflict cleanliness. Pushed epic-EXOCOMP-110; local HEAD exactly matches origin at 2da861a and worktree is clean.
 ---
 <!-- COMMENTS:END -->
