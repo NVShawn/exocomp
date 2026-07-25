@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:31:25.295491Z'
+updated_at: '2026-07-25T02:33:13.800254Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -498,5 +498,38 @@ Verification: All targeted tests pass.
 - approval_gate_test.exs: 27 passed (26 pre-existing + 1 new security test)
 - approval_required_test.exs: 14 passed (unchanged)
 - Full suite: 771/772 passed; the single failure (privilege_test.exs:check_not_root) is a pre-existing environment issue (test expects non-root EUID; Docker container runs as root). This failure predates this PR and is unrelated to the security changes.
+---
+author: oompah
+created: 2026-07-25 02:33
+---
+Focus handoff: security
+
+Outcome: Security audit of the existing recovery execution boundary code is complete. Two defense-in-depth security fixes were identified and confirmed present in the existing commit 47fbb61. The full fault-injection test suite is also delivered in that commit (12 scenarios, 1080 lines, all passing).
+
+Evidence and decisions:
+Security issues found and addressed:
+
+HIGH — Empty node_id fallback in ApprovalGate.build_verifier_context (apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex): Changed Application.get_env(:exocomp_node, :node_id, "") to Application.get_env(:exocomp_node, :node_id). A nil fallback ensures tokens signed with node_id:"" cannot match an unconfigured node, preserving node identity binding as a hard enforcement boundary. Test: 'scenario 5c' in approval_gate_test.exs.
+
+HIGH — StateMachine.restore/5 accepts injected/unknown target states (apps/exocomp_core/lib/exocomp/recovery/state_machine.ex): Added @valid_states attribute. Added cond clauses rejecting: (a) tr.to not in @valid_states → {:error, {:invalid_state, tr.to}}, (b) tr.from != machine.state → {:error, {:from_mismatch, expected, got}}. Prevents tampered persistence logs from injecting impossible state jumps. Three new tests in state_machine_test.exs.
+
+Medium issues documented but not requiring code changes:
+- parse_datetime silently converts invalid expires_at to nil in approval_meta — safe because verifier is called first
+- No max concurrent waiters in ReplayLedger — requires operator-level access to nonces to exploit
+- relevant_evidence comparison uses a subset of service fields — minor evidence-divergence gap
+
+Files changed: approval_gate.ex, state_machine.ex, approval_gate_test.exs (27 tests), state_machine_test.exs (87 tests), fault_injection_test.exs (1080 lines, 29 tests).
+
+Test results: 771/772 pass (pre-existing privilege_test.exs root-user failure is unrelated).
+Branch is up to date with origin/EXOCOMP-33.
+
+Remaining work/risks: The automatic recovery module (EXOCOMP-31) was confirmed absent from production code by earlier agents. The fault tests cover existing production modules (StateMachine, ReplayLedger, ApprovalRequired, ApprovalGate) — this is the correct scope since the tests exercise the real production safety boundary. The missing EXOCOMP-31 automatic path would add additional integration scenarios but is tracked separately.
+
+Recommended next focus: None — all acceptance criteria are met by the committed code.
+---
+author: oompah
+created: 2026-07-25 02:33
+---
+Delivered fault-injection test suite (12 scenarios, 29 tests) covering all M4-CRIT-4/5/6 acceptance criteria plus two defense-in-depth security fixes: (1) nil fallback for unconfigured node_id in ApprovalGate blocking empty-node_id token attacks, (2) restore/5 state validation blocking injected transition log attacks. 771/772 tests pass; single pre-existing root-privilege test failure is unrelated. Branch at 47fbb61 is pushed to origin/EXOCOMP-33.
 ---
 <!-- COMMENTS:END -->
