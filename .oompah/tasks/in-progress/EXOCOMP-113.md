@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-113
 type: chore
-status: Open
+status: In Progress
 priority: 1
 title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T19:07:51.831197Z'
+updated_at: '2026-07-25T19:08:24.758921Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: a8cb5c65-95b6-47d5-aa6a-b42863cffdf0
+oompah.agent_run_id: a64d5ef8-1714-4837-b4aa-154fc930caa4
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
   total_input_tokens: 17
@@ -177,5 +177,30 @@ author: oompah
 created: 2026-07-25 19:07
 ---
 Operator handoff: the recovery implementation is staged with no conflicts and 189 focused tests pass. Stop exploring alternate OTP/proot runtimes. Finish verification using the Podman remote-socket command in comment #12 (empty temporary storage config, remote URL, and --userns=keep-id), then commit the staged eight-file recovery, push epic-EXOCOMP-110, and mark Done.
+---
+author: oompah
+created: 2026-07-25 19:08
+---
+Run #1 [attempt=1, profile=quick, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 70
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 11m 52s
+- Log: EXOCOMP-113__20260725T185612Z.jsonl
+---
+author: oompah
+created: 2026-07-25 19:08
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 19:08
+---
+Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-25 19:08
+---
+Understanding: Previous agent (profile: quick) staged all 8 recovery files but was terminated before committing/pushing. The staged changes include all M3 and M4 deliverables. I am picking up where they left off: run the full Make quality gates via Podman remote socket, commit the staged 8-file payload, push the epic-EXOCOMP-110 branch, and close the task.
 ---
 <!-- COMMENTS:END -->
