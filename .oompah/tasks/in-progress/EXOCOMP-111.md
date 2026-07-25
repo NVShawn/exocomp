@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:32:02.552450Z'
+updated_at: '2026-07-25T18:32:36.255537Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -124,5 +124,10 @@ author: oompah
 created: 2026-07-25 18:32
 ---
 Understanding: Recover the completed EXOCOMP-49 codec/version work and EXOCOMP-51 fixtures/protocol tests onto the current EXOCOMP-111 branch, preserving current main router/type behavior. I will identify the exact source commits, integrate them in order with semantic conflict resolution, run Makefile-provided focused and full quality gates, verify the recovered inventory, then commit and push.
+---
+author: oompah
+created: 2026-07-25 18:32
+---
+Discovery: EXOCOMP-51 is directly based on EXOCOMP-49. The recoverable sequence is 8860f6b (codec/version/Jason/tests), d4a6f54 (Makefile noninteractive Hex bootstrap), then f1f5c2f (10 JSON fixtures, 4 protocol suites, parameter-aware content type). I will omit the older EXOCOMP-48 ancestor because current main already contains the evolved A2A type/router work; only these three source commits belong to this recovery.
 ---
 <!-- COMMENTS:END -->
