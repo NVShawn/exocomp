@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-33
 type: chore
-status: Needs Human
+status: Merged
 priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T21:10:13.426654Z'
+updated_at: '2026-07-25T21:10:15.972177Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
