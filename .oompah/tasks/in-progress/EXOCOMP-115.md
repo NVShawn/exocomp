@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:44:11.009933Z'
+updated_at: '2026-07-25T20:44:24.831389Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -323,5 +323,10 @@ author: oompah
 created: 2026-07-25 20:44
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-25 20:44
+---
+Understanding: Software Engineer agent taking over from the prior run. I will implement five scopes falsely marked Merged: EXOCOMP-31 (automatic failed-service recovery), EXOCOMP-45 (operator/PKI/policy guides), EXOCOMP-46 (upgrade/rollback/backup/removal lifecycle+tests), EXOCOMP-47 (clean-host qualification), EXOCOMP-66 (deterministic OTP archives+build-identity manifests, no predictable COOKIE). Starting with codebase exploration to find existing patterns, then implementing each scope in order.
 ---
 <!-- COMMENTS:END -->
