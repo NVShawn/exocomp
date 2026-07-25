@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:15:24.979968Z'
+updated_at: '2026-07-25T02:15:36.811423Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -66,5 +66,17 @@ author: oompah
 created: 2026-07-25 02:15
 ---
 Understanding: Duplicate-detector screening only. I will search existing tasks and the Milestone 4 design plan for fault-injection/idempotency testing work, inspect the full descriptions and comments of plausible matches, and either archive EXOCOMP-33 as a confirmed duplicate or hand it off for implementation if no duplicate is established. No code changes will be made in this focus.
+---
+author: oompah
+created: 2026-07-25 02:15
+---
+Discovery: Duplicate screening found no confirmed duplicate. Searched all tasks and plans for fault-injection, idempotency, failure-mode, flapping, cooldown, and recovery-test keywords. Read the full records for EXOCOMP-30 (state machine), EXOCOMP-31 (automatic failed-service recovery), EXOCOMP-32 (approval-required active/degraded recovery), EXOCOMP-4 (epic), and plans/milestone-4-service-recovery.md.
+
+Closest reviewed tasks and evidence:
+- EXOCOMP-30: Implements the state machine transitions and one-attempt guard, but does not add fault-injection tests. Its discovery comment explicitly notes 'EXOCOMP-33 fault-tests execution boundaries' as a sibling boundary.
+- EXOCOMP-31: Implements the automatic recovery path for a failed service, but no fault-injection or partition-scenario tests. Its discovery comment states 'EXOCOMP-33 (broader failure/idempotency testing)' as a separate owner.
+- EXOCOMP-32: Implements approval-required active/degraded recovery with 14 focused approval-flow tests, but does not cover network partitions, coordinator/node restart, duplicate/concurrent tasks, replay, audit-sink failure, flapping, or cooldown reconciliation. Its discovery comment likewise names 'EXOCOMP-33 (fault/idempotency tests)' as the distinct owner.
+
+None of these tasks implement the EXOCOMP-33 scope: fault-injection at the execution boundary (pre/post partition, coordinator restart, node restart during action, duplicate/concurrent task IDs, replay, audit-sink failure, restart failure, health failure, flapping, cooldown reconciliation) with assertions on exactly-one execution, durable execution record, task state, audit state, reconciliation result, and absence of restart loops. EXOCOMP-33 is a unique, original task and should proceed to implementation.
 ---
 <!-- COMMENTS:END -->
