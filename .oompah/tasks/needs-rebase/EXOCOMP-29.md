@@ -2,7 +2,7 @@
 id: EXOCOMP-29
 type: feature
 status: Needs Rebase
-priority: 1
+priority: 0
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
 children:
@@ -14,9 +14,10 @@ blocked_by:
 - EXOCOMP-7
 labels:
 - focus-complete:duplicate_detector
+- merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-25T02:06:15.691327Z'
+updated_at: '2026-07-25T02:07:15.313973Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10

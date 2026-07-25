@@ -12,7 +12,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-25T02:06:56.328997Z'
+updated_at: '2026-07-25T02:07:09.985274Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -189,5 +189,10 @@ author: oompah
 created: 2026-07-25 02:06
 ---
 Focus: Merge Conflict Resolver
+---
+author: oompah
+created: 2026-07-25 02:07
+---
+Understanding: Re-check the current epic-EXOCOMP-4 branch after the newly reported MR #10 conflict, fetch origin, rebase every epic commit onto origin/main without dropping or squashing work, resolve conflicts by preserving both mainline and epic intent, run the Makefile quality gates, force-push with --force-with-lease, verify the remote review diff, and close the task.
 ---
 <!-- COMMENTS:END -->
