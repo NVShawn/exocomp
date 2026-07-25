@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-68
 type: task
-status: Merged
+status: Needs Human
 priority: 2
 title: Qualify multi-architecture OTP releases and reproducibility
 parent: EXOCOMP-42
@@ -9,11 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-66
 - EXOCOMP-67
+- EXOCOMP-114
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-23T23:37:43.659602Z'
+updated_at: '2026-07-25T18:31:37.136622Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -280,5 +281,15 @@ Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 14m 51s
 - Log: EXOCOMP-68__20260723T215924Z.jsonl
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Action required: use recovery task EXOCOMP-114 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-114 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-68 (Qualify multi-architecture OTP releases and reproducibility), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
