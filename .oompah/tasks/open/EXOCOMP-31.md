@@ -14,7 +14,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:03:58.388856Z'
+updated_at: '2026-07-25T02:04:02.673287Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -73,5 +73,18 @@ author: oompah
 created: 2026-07-25 02:03
 ---
 Discovery: Duplicate screening found no confirmed duplicate. The closest reviewed tasks are EXOCOMP-30 (generic M4 recovery state machine and invariants), EXOCOMP-32 (approval-required active/degraded service flow), EXOCOMP-27 (generic remediation/A2A lifecycle), and EXOCOMP-33 (fault/idempotency test coverage). Their full descriptions and comments establish prerequisite or sibling boundaries: none implements the automatic orchestration for a currently inactive/failed allow-listed service, including fresh evidence, deterministic allow decision, audit-before-restart, exact execution, systemd plus application-health stability verification, terminal artifact, and one-attempt cooldown.
+---
+author: oompah
+created: 2026-07-25 02:04
+---
+Focus handoff: duplicate_detector
+
+Outcome: No duplicate confirmed; EXOCOMP-31 is the distinct Milestone 4 automatic recovery flow for an already-failed service and should proceed to implementation.
+
+Evidence and decisions: The checkout has no .oompah/tasks directory, so I searched plans/docs locally and searched tracker Markdown on origin/oompah/state/proj-c260b117. I then read the full tracker records for EXOCOMP-30, EXOCOMP-32, EXOCOMP-27, EXOCOMP-33, and parent EXOCOMP-4. EXOCOMP-30 provides the pure recovery state machine; EXOCOMP-27 provides generic proposal/policy/audit lifecycle infrastructure; EXOCOMP-32 implements only approval-required active/degraded recovery and explicitly escalates without action when evidence becomes failed; EXOCOMP-33 owns broader failure/idempotency testing; EXOCOMP-4 intentionally lists EXOCOMP-31 as a separate child. Relevant specification and fixture expectations are in plans/milestone-4-service-recovery.md and docs/testing-systemd-fixture.md.
+
+Remaining work and risks: Implement the service-specific automatic path for currently inactive/failed allow-listed evidence, reuse the existing state machine/policy/executor/audit boundaries, refresh evidence immediately before the one permitted restart, require both systemd and application-health stability, emit complete terminal audit/artifacts, and enter cooldown/escalation on every failure without retry. Cover happy path, self-recovery/state drift before execution, command failure, unhealthy/timeout verification, audit failure, and stable completion.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
