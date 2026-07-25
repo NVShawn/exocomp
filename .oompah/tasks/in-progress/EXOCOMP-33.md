@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:16:12.822398Z'
+updated_at: '2026-07-25T02:16:22.512453Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -145,5 +145,10 @@ author: oompah
 created: 2026-07-25 02:16
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-07-25 02:16
+---
+Understanding: I will add deterministic, service-free fault-injection coverage around recovery execution boundaries, covering partitions, restarts, duplicate/concurrent delivery, replay, audit/restart/health failures, flapping, and cooldown reconciliation. Each scenario will assert exactly-once action count plus durable execution, task, audit, reconciliation, and no-loop outcomes, following existing test patterns and Makefile quality gates.
 ---
 <!-- COMMENTS:END -->
