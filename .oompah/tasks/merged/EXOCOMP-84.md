@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-84
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement disk-pressure evidence collector
 parent: EXOCOMP-26
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-24T02:52:43.497663Z'
+updated_at: '2026-07-25T02:19:46.870305Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null

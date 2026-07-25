@@ -13,15 +13,16 @@ labels:
 - focus-complete:duplicate_detector
 - focus-complete:test
 - 'focus-complete:'
+- focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:19:14.630905Z'
+updated_at: '2026-07-25T02:19:46.035754Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: fff8dcaa-4cd6-4f28-b1d5-245546e8a339
+oompah.agent_run_id: 9e7e1eba-cf38-49c5-b7df-de6c1972ce4f
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 17
@@ -244,5 +245,38 @@ author: oompah
 created: 2026-07-25 02:19
 ---
 Verification: Read origin/main's recovery file tree, searched all core/node/coordinator production modules for execution_id and execute/reconcile entry points, and compared the result with plans/milestone-4-service-recovery.md Concurrency/Idempotency and Failure Behavior requirements. The required production seams are absent. No test or Make gate was run because this focus made no code changes.
+---
+author: oompah
+created: 2026-07-25 02:19
+---
+Focus handoff: chore
+
+Outcome: Confirmed EXOCOMP-33 cannot be implemented as legitimate fault-injection coverage until the missing production automatic-recovery execution/reconciliation contract exists; no code changes were made.
+
+Evidence and decisions: apps/exocomp_core/lib/exocomp/recovery contains only audit_event.ex, evidence.ex, and state_machine.ex; apps/exocomp_node/lib/exocomp/node/recovery contains only approval_required.ex. origin/main has the same surface. No production execution_id keyed durable record or reconciliation API exists. plans/milestone-4-service-recovery.md requires committing consumed execution state before systemd invocation and reconciling service/audit state after process restart. EXOCOMP-31's final handoff explicitly says its automatic recovery feature was not implemented despite the task being marked Merged. A synthetic test-only model was rejected because it would not test production behavior.
+
+Remaining work/risks: Feature focus must implement the automatic failed-service path plus durable execution record and reconciliation entry point. Then test focus can add the full partition/restart/duplicate/replay/audit/restart/health/flapping/cooldown matrix and run Make gates. The supplied workspace is also on epic-EXOCOMP-4, not the claimed EXOCOMP-33 branch.
+
+Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-25 02:19
+---
+Agent dispatched (profile: quick)
+---
+author: oompah
+created: 2026-07-25 02:19
+---
+Focus: Security Auditor
+---
+author: oompah
+created: 2026-07-25 02:19
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 42
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 34s
+- Log: EXOCOMP-33__20260725T021812Z.jsonl
 ---
 <!-- COMMENTS:END -->
