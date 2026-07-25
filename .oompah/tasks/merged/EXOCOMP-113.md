@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-113
 type: chore
-status: Done
+status: Merged
 priority: 1
 title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T19:15:59.950944Z'
+updated_at: '2026-07-25T21:09:05.973162Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
