@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T18:30:42.391800Z'
+updated_at: '2026-07-25T18:30:44.774478Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -537,5 +537,10 @@ author: oompah
 created: 2026-07-25 18:30
 ---
 Action required: use recovery task EXOCOMP-113 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-113 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-33 (Test recovery idempotency and failure modes), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
