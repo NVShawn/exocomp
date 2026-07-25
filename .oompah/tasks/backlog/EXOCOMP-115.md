@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-115
 type: feature
-status: Open
+status: Backlog
 priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
@@ -15,22 +15,22 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:27:17.373795Z'
+updated_at: '2026-07-25T20:27:34.601302Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 4acf6547-0a8c-43d2-bb3a-012e6ff2f132
+oompah.agent_run_id: 3a7e5cb9-079f-4af8-ba42-7d48f90f3990
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
-  total_input_tokens: 104
-  total_output_tokens: 8607
+  total_input_tokens: 187
+  total_output_tokens: 11528
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 104
-      output_tokens: 8607
+      input_tokens: 187
+      output_tokens: 11528
       cost_usd: 0.0
   runs:
   - profile: default
@@ -45,6 +45,12 @@ oompah.task_costs:
     output_tokens: 3278
     cost_usd: 0.0
     recorded_at: '2026-07-25T20:17:09.910017+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 83
+    output_tokens: 2921
+    cost_usd: 0.0
+    recorded_at: '2026-07-25T20:27:27.386094+00:00'
 ---
 ## Summary
 
@@ -268,5 +274,34 @@ author: oompah
 created: 2026-07-25 20:20
 ---
 Discovery: The recovered tip contains prerequisites but not the five requested deliveries. EXOCOMP-31 has a complete recovery StateMachine and sibling ApprovalRequired flow, but no automatic failed-service orchestrator. EXOCOMP-46's installer switches current before any health gate and has no rollback/backup lifecycle. EXOCOMP-66 builds raw release trees only; releases/COOKIE is random, no archives/manifests are emitted. EXOCOMP-45 guides and EXOCOMP-47 signed M6 qualification procedure are absent. I will add a data-oriented FailedService flow with focused/M4 tests; health-gated installer rollback and protected-state backup/restore tests; deterministic secret-free archive packaging with install-time random RELEASE_COOKIE; operator lifecycle docs; and explicit qualification evidence that does not claim live arm64 on this amd64 host.
+---
+author: oompah
+created: 2026-07-25 20:27
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 118
+- Tokens: 83 in / 2.9K out [3.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 0s
+- Log: EXOCOMP-115__20260725T201731Z.jsonl
+---
+author: oompah
+created: 2026-07-25 20:27
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 20:27
+---
+Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-25 20:27
+---
+Run #1 [attempt=1, profile=default, role=— -> Claude/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1s
 ---
 <!-- COMMENTS:END -->
