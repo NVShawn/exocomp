@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-33
 type: chore
-status: In Progress
+status: Merged
 priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
@@ -17,13 +17,13 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:22:42.146227Z'
+updated_at: '2026-07-25T02:22:54.215462Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: b7cad5d2-7739-4b18-8fd4-bb91b268f0b6
+oompah.agent_run_id: 1572d72a-c08b-48ac-a8d4-34834ff22fa1
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 20
