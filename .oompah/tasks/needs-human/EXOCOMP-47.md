@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-25T18:32:11.497232Z'
+updated_at: '2026-07-25T18:32:13.890892Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -133,5 +133,10 @@ author: oompah
 created: 2026-07-25 18:32
 ---
 Action required: use recovery task EXOCOMP-115 to implement and verify this task's previously undelivered scope on main. Do not mark this task Merged again until EXOCOMP-115 lands and the original acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:32
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-47 (Qualify the M6 open-source release on clean hosts), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
