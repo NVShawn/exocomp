@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-108
 type: task
-status: Open
+status: In Progress
 priority: 0
 title: Rebase epic-EXOCOMP-3 onto main
 parent: EXOCOMP-3
@@ -10,13 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T02:02:35.321765Z'
-updated_at: '2026-07-25T02:03:55.191438Z'
+updated_at: '2026-07-25T02:04:06.328821Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 7363708f-4609-423e-8ac0-51e295fc787b
+oompah.agent_run_id: 761e2402-043a-4b98-93bc-e055111e943d
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
   total_input_tokens: 13
@@ -89,5 +89,15 @@ author: oompah
 created: 2026-07-25 02:03
 ---
 Focus handoff required before leaving `duplicate_detector`. Add a comment headed `Focus handoff: duplicate_detector` with outcome, evidence, remaining work, and next focus.
+---
+author: oompah
+created: 2026-07-25 02:04
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 02:04
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->

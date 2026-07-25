@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-3
 type: epic
-status: Open
+status: In Progress
 priority: 1
 title: 'M3: Safety validation and controlled remediation'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-07-25T02:03:45.154103Z'
+updated_at: '2026-07-25T02:04:07.234761Z'
 work_branch: epic-EXOCOMP-3
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/12
