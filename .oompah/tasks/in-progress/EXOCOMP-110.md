@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-110
 type: epic
-status: Open
+status: In Progress
 priority: 1
 title: Recover completed work omitted from merged epics
 parent: null
@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:52:37.335927Z'
-updated_at: '2026-07-25T18:53:44.313307Z'
+updated_at: '2026-07-25T18:56:10.767936Z'
 work_branch: null
 target_branch: null
 review_url: null
