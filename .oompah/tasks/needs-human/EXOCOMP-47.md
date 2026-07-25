@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: Merged
+status: Needs Human
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-25T18:32:09.116915Z'
+updated_at: '2026-07-25T18:32:11.497232Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
