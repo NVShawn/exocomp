@@ -14,9 +14,11 @@ labels:
 - focus-complete:test
 - 'focus-complete:'
 - focus-complete:chore
+- focus-complete:security
+- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:21:57.697703Z'
+updated_at: '2026-07-25T02:22:16.035845Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -355,5 +357,18 @@ author: oompah
 created: 2026-07-25 02:21
 ---
 Verification correction: Completed static OWASP-oriented review of Recovery.StateMachine/AuditEvent, Node.Recovery.ApprovalRequired, Safety.ApprovalVerifier/ApprovalGate/ReplayLedger/PreconditionChecker, Executor, and ExecutorLock against the Milestone 4 failure model. Checked access control, cryptographic binding and replay, injection, data and audit integrity, logging and data exposure, race conditions, and denial of service. The Make test target was attempted but could not start because Podman cannot change permissions on /run/user/1000/libpod in the read-only environment; the suite never launched. No code changed in this focus.
+---
+author: oompah
+created: 2026-07-25 02:22
+---
+Focus handoff: security
+
+Outcome: Security audit is complete. Existing primitives are fail-closed at their individual boundaries, but EXOCOMP-33 remains blocked by the absent production automatic-recovery execution and reconciliation contract. No code changed.
+
+Evidence and decisions: Reviewed apps/exocomp_core/lib/exocomp/recovery/state_machine.ex and audit_event.ex; apps/exocomp_node/lib/exocomp/node/recovery/approval_required.ex; safety/approval_verifier.ex, approval_gate.ex, replay_ledger.ex, and precondition_checker.ex; node/executor.ex and executor_lock.ex; and plans/milestone-4-service-recovery.md. Executor prevents shell injection through cataloged argv and allow-list validation. Approval tokens are signature-, context-, parameter-, time-, and nonce-bound, and pre-action audit or replay-storage failure blocks execution. No secrets or credentials are hard-coded or intentionally logged.
+
+Remaining work and risks: Feature focus must supply a durable, atomic, bounded execution-ID claim keyed and bound to node/task/correlation/action/target/parameters/evidence; fsync before action; immutable audit-before-action; consumed ambiguous state after post-action failure; restart reconciliation without retry; one-attempt/cooldown enforcement; strict record and StateMachine restore integrity validation; log control-character sanitization; and resource limits/retention. Test focus must then cover partitions, restarts, duplicate/concurrent/replay, audit/restart/health failures, flapping/cooldown, tampered records, log injection, and resource exhaustion, asserting exactly one action and terminal reconciliation. Make test is environment-blocked by Podman permissions on read-only /run/user/1000/libpod.
+
+Recommended next focus: feature, followed by test.
 ---
 <!-- COMMENTS:END -->
