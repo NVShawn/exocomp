@@ -16,7 +16,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:17:31.475766Z'
+updated_at: '2026-07-25T20:17:45.230699Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -230,5 +230,22 @@ author: oompah
 created: 2026-07-25 20:17
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Understanding: Continuing the Software Engineer implementation from the prior handoff. I will inspect the branch for partial edits, recover the exact acceptance criteria for EXOCOMP-31/45/46/47/66, implement only missing code/docs/tests, verify with the relevant Makefile targets using the proven Podman environment, then commit, push, and close EXOCOMP-115.
+---
+author: oompah
+created: 2026-07-25 20:17
+---
+Understanding: I am a Software Engineer agent implementing five scopes falsely marked Merged without delivery. Plan:
+1. EXOCOMP-31: Implement automatic failed-service recovery (FailedService module, state machine path, 8 acceptance tests)
+2. EXOCOMP-66: Deterministic OTP archives + build-identity.json + COOKIE security fix
+3. EXOCOMP-45: Write installation/PKI/policy/operations guides in docs/
+4. EXOCOMP-46: Lifecycle tests (upgrade-rollback, backup-restore) + docs/upgrade-rollback.md
+5. EXOCOMP-47: Clean-host qualification summary doc
+
+Starting with codebase exploration to map existing infrastructure.
 ---
 <!-- COMMENTS:END -->
