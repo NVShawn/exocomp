@@ -14,7 +14,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:10:15.955724Z'
+updated_at: '2026-07-25T20:10:28.620687Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -49,5 +49,10 @@ author: oompah
 created: 2026-07-25 20:10
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-25 20:10
+---
+Understanding: EXOCOMP-115 is an umbrella recovery task requesting implementation of five scopes previously marked Merged without actual delivery: EXOCOMP-31 (automatic already-failed service recovery), EXOCOMP-45 (operator/PKI/policy guides), EXOCOMP-46 (upgrade/rollback/backup/removal lifecycle and tests), EXOCOMP-47 (clean-host release qualification), and EXOCOMP-66 (deterministic node/coordinator archives and build identity manifests). My role is Duplicate Investigator: I will search for any existing task that already covers this same recovery scope before considering implementation.
 ---
 <!-- COMMENTS:END -->
