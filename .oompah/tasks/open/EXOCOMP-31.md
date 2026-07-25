@@ -16,7 +16,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:04:16.832286Z'
+updated_at: '2026-07-25T02:04:26.593685Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -24,6 +24,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: d5de278d-fa9c-4090-a05a-25b973eacf34
 oompah.work_branch: epic-EXOCOMP-4
+oompah.task_costs:
+  total_input_tokens: 577810
+  total_output_tokens: 3291
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 577810
+      output_tokens: 3291
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 577810
+    output_tokens: 3291
+    cost_usd: 0.0
+    recorded_at: '2026-07-25T02:04:23.281584+00:00'
 ---
 ## Summary
 
@@ -88,5 +104,25 @@ Evidence and decisions: The checkout has no .oompah/tasks directory, so I search
 Remaining work and risks: Implement the service-specific automatic path for currently inactive/failed allow-listed evidence, reuse the existing state machine/policy/executor/audit boundaries, refresh evidence immediately before the one permitted restart, require both systemd and application-health stability, emit complete terminal audit/artifacts, and enter cooldown/escalation on every failure without retry. Cover happy path, self-recovery/state drift before execution, command failure, unhealthy/timeout verification, audit failure, and stable completion.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-25 02:04
+---
+Agent completed successfully in 113s (581101 tokens)
+---
+author: oompah
+created: 2026-07-25 02:04
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 17
+- Tokens: 577.8K in / 3.3K out [581.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 53s
+- Log: EXOCOMP-31__20260725T020234Z.jsonl
+---
+author: oompah
+created: 2026-07-25 02:04
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
