@@ -9,10 +9,11 @@ children: []
 blocked_by:
 - EXOCOMP-17
 - EXOCOMP-28
+- EXOCOMP-115
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:04.573016Z'
-updated_at: '2026-07-23T23:45:26.725067Z'
+updated_at: '2026-07-25T18:31:52.351067Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -47,3 +48,11 @@ Run the focused release/documentation tests and all repository Make targets affe
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-25 18:31
+---
+Action required: use recovery task EXOCOMP-115 to implement and verify this task's previously undelivered scope on main. Do not mark this task Merged again until EXOCOMP-115 lands and the original acceptance criteria are confirmed against main.
+---
+<!-- COMMENTS:END -->
