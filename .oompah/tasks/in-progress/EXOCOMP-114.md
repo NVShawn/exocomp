@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T20:04:22.926605Z'
+updated_at: '2026-07-25T20:04:31.219440Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -190,5 +190,10 @@ author: oompah
 created: 2026-07-25 20:04
 ---
 Implementation: Corrected the qualification semantics: content manifests now hash every regular file, including releases/COOKIE; the offline regression proves equal trees at different roots match and a one-byte COOKIE change fails. Updated release qualification docs to record the expected EXOCOMP-115/EXOCOMP-66 blocker without weakening the check or fixing a production cookie. Added a builder structural regression that rejects any hardcoded --user argument in addition to _CONTAINER_USER_FLAG. Focused gates pass: test-builders (including 11 offline matrix checks), test-compliance (9 tests), and test-bundle (69 tests).
+---
+author: oompah
+created: 2026-07-25 20:04
+---
+Verification: PASS — fmt-check, lint, clean make test (1,564 tests: 78 bench + 192 core + 478 coordinator + 816 node, 10 excluded; both release smokes), test-installer (50), test-bundle (69), release-check/compliance (9), test-builders/runtime deps (9 + 11 offline qualification), real build-amd64, and full amd64 release matrix (17 checks: reproducibility, dependency reports, clean startup, negative diagnostics). build-arm64 was attempted but this amd64 Podman host lacks binfmt/QEMU and the capability gate correctly stops with Exec format error; the pinned arm64 image was resolved/pulled and offline arm64 fixture coverage passes.
 ---
 <!-- COMMENTS:END -->
