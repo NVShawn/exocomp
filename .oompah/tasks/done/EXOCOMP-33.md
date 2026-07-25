@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:31:06.727575Z'
+updated_at: '2026-07-25T02:31:09.102955Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -471,5 +471,10 @@ author: oompah
 created: 2026-07-25 02:31
 ---
 Completion: EXOCOMP-33 fault-injection test suite delivered. Committed to branch EXOCOMP-33 and pushed to origin. Changes: (1) apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs — 29 new tests covering 12 fault scenarios (pre/post-action partitions, coordinator restart, node restart during action, duplicate/concurrent execution IDs, replay, audit-sink failure, restart failure, health failure, flapping, cooldown reconciliation, cross-cutting exactly-once invariant); (2) apps/exocomp_core/lib/exocomp/recovery/state_machine.ex — restore/5 defends against tampered persistence logs (invalid state names, from-state mismatches); (3) apps/exocomp_core/test/exocomp/recovery/state_machine_test.exs — tests for the restore/5 injection defenses; (4) apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex — nil fallback for unconfigured node_id prevents empty-string token bypass; (5) apps/exocomp_node/test/exocomp/node/safety/approval_gate_test.exs — test for the nil-fallback security fix. Note: the automatic failed-service recovery module (EXOCOMP-31 scope) remains unimplemented; the fault tests exercise all production primitives that exist (StateMachine, ReplayLedger, ApprovalRequired, ApprovalGate). If the automatic recovery module is eventually implemented, a follow-up test run in that module's context would be needed.
+---
+author: oompah
+created: 2026-07-25 02:31
+---
+Delivered 29-test fault-injection suite (fault_injection_test.exs) covering 12 boundary scenarios: pre/post partitions, coordinator and node restart, duplicate/concurrent IDs, replay, audit-sink failure, restart/health failure, flapping, and cooldown reconciliation. Also included uncommitted defense-in-depth improvements: StateMachine.restore/5 injection defenses and ApprovalGate nil-fallback security fix. All 29 new tests pass; pre-existing privilege_test root-user failure is unrelated. Note: tests for the automatic failed-service recovery path (EXOCOMP-31 scope) will need coverage once that module is implemented.
 ---
 <!-- COMMENTS:END -->
