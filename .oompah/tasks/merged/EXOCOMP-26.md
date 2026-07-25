@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-26
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement bounded system-log cleanup action
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:12.273742Z'
-updated_at: '2026-07-24T03:14:45.124680Z'
+updated_at: '2026-07-25T02:16:27.564957Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
