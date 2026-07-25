@@ -9,6 +9,7 @@ children: []
 blocked_by:
 - EXOCOMP-31
 - EXOCOMP-32
+- EXOCOMP-113
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:test
@@ -17,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:35:09.701011Z'
+updated_at: '2026-07-25T18:30:37.376949Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
