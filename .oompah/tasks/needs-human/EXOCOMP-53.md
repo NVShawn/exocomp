@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: Merged
+status: Needs Human
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-25T18:30:15.376561Z'
+updated_at: '2026-07-25T18:30:18.758751Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -219,5 +219,10 @@ author: oompah
 created: 2026-07-25 18:30
 ---
 Action required: use recovery task EXOCOMP-112 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-112 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-53 (Implement pinned amd64 and arm64 host profiles), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
