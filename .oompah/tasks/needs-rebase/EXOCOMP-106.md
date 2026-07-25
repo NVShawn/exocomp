@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-106
 type: task
-status: In Review
+status: Needs Rebase
 priority: 0
 title: Rebase epic-EXOCOMP-4 onto main
 parent: EXOCOMP-4
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-25T02:04:18.597787Z'
+updated_at: '2026-07-25T02:05:02.898439Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
