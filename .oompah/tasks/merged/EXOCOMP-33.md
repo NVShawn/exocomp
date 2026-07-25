@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:22:57.384156Z'
+updated_at: '2026-07-25T02:23:07.432823Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -415,5 +415,10 @@ author: oompah
 created: 2026-07-25 02:22
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-25 02:23
+---
+Understanding: Software Engineer focus. Prior agents have done extensive investigation. The key finding from the security auditor is that all 12 fault scenarios CAN be tested against the existing production primitives (Recovery.StateMachine, Safety.ReplayLedger, Node.Recovery.ApprovalRequired) — the unit tests simply lack an explicit fault-injection suite. I will explore the codebase, understand the existing test patterns, implement the fault-injection test file at apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs, and close the task.
 ---
 <!-- COMMENTS:END -->
