@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:32:36.255537Z'
+updated_at: '2026-07-25T18:33:45.028776Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -129,5 +129,10 @@ author: oompah
 created: 2026-07-25 18:32
 ---
 Discovery: EXOCOMP-51 is directly based on EXOCOMP-49. The recoverable sequence is 8860f6b (codec/version/Jason/tests), d4a6f54 (Makefile noninteractive Hex bootstrap), then f1f5c2f (10 JSON fixtures, 4 protocol suites, parameter-aware content type). I will omit the older EXOCOMP-48 ancestor because current main already contains the evolved A2A type/router work; only these three source commits belong to this recovery.
+---
+author: oompah
+created: 2026-07-25 18:33
+---
+Implementation: Applied the three recovery commits in dependency order. Dependency conflicts kept main's newer Jason 1.4.5 lock and existing inline dependency declaration; the Makefile conflict was resolved by combining noninteractive Hex bootstrap with main's required deps.get and current rootless-container/MIX_HOME handling. EXOCOMP-51 applied cleanly, adding all 10 fixtures and four focused protocol suites while updating content-type parameter parsing.
 ---
 <!-- COMMENTS:END -->

@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T18:30:44.774478Z'
+updated_at: '2026-07-25T18:33:55.433875Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -542,5 +542,10 @@ author: oompah
 created: 2026-07-25 18:30
 ---
 Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-33 (Test recovery idempotency and failure modes), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
+---
+author: oompah
+created: 2026-07-25 18:33
+---
+The parent epic EXOCOMP-4 merged from epic-EXOCOMP-4, but this task was Needs Human with work branch epic-EXOCOMP-4. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->
