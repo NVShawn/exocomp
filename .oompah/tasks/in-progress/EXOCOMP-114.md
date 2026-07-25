@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T20:02:21.356206Z'
+updated_at: '2026-07-25T20:02:34.394395Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -175,5 +175,10 @@ author: oompah
 created: 2026-07-25 20:02
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-07-25 20:02
+---
+Understanding: Resuming the interrupted M6 recovery integration. I will audit the uncommitted work, ensure the release-matrix snapshot comparison is idempotent and path-independent without excluding releases/COOKIE, preserve the hardened installer and container ownership fixes, run the applicable Make release/compliance gates, then commit, push, and close EXOCOMP-114 with the known EXOCOMP-115 cookie determinism dependency documented.
 ---
 <!-- COMMENTS:END -->
