@@ -16,7 +16,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:06:09.469008Z'
+updated_at: '2026-07-25T02:06:16.331538Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -139,5 +139,10 @@ author: oompah
 created: 2026-07-25 02:05
 ---
 Focus: Merge Conflict Resolver
+---
+author: oompah
+created: 2026-07-25 02:06
+---
+Understanding: merge-conflict resolution only. I will fetch and rebase the existing EXOCOMP-31 commits onto origin/main, inspect both sides of every conflict to preserve branch intent and upstream changes, run the applicable Makefile quality gate, force-push with lease, and verify the rebased review diff. I will not add feature work or unrelated fixes.
 ---
 <!-- COMMENTS:END -->
