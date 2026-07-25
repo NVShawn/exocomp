@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:38:45.614187Z'
+updated_at: '2026-07-25T19:46:40.044075Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -140,5 +140,10 @@ author: oompah
 created: 2026-07-25 19:38
 ---
 Integration check: scripts/build-releases.sh currently passes both ${container_user_flag} and a later hardcoded --user at lines 61 and 97. Remove the two hardcoded --user arguments so _CONTAINER_USER_FLAG=--userns=keep-id is the sole ownership mode; add/adjust the structural regression assertion to reject a duplicate hardcoded flag. The current real-build failure then appears to be in dependency inspection; please preserve this ownership fix while addressing it.
+---
+author: oompah
+created: 2026-07-25 19:46
+---
+Live-matrix audit: snapshot directories are not removed before cp, so reruns create nested amd64-snapN/amd64 trees (present now). Also the aggregate digest hashes raw sha256sum lines containing different snap1/snap2 absolute paths, so equal content will compare unequal. Make snapshots idempotent (remove the exact snap dirs before copying) and compute manifests as relative-path + content-hash from each snapshot root. Add an offline fixture/regression that equal trees compare equal and a one-byte change fails.
 ---
 <!-- COMMENTS:END -->
