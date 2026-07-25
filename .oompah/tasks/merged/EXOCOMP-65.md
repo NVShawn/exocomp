@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-65
 type: feature
-status: Needs Human
+status: Merged
 priority: 2
 title: Pin multi-architecture OTP release builders
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-25T20:04:00.284410Z'
+updated_at: '2026-07-25T21:11:09.711161Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -377,5 +377,10 @@ author: oompah
 created: 2026-07-25 20:04
 ---
 The parent epic EXOCOMP-42 merged from epic-EXOCOMP-6, but this task was Needs Human with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-25 21:11
+---
+Recovered delivery verified on origin/main at merge commit 2085e44152f03ffd41f35cbfeee89a0da53b8bce (PR #14). Evidence: pinned multi-architecture builders and capability checks are integrated by 50cd48c23a0fdc0810441c8c16357f77a112cfdd. The full recovery quality gates passed.
 ---
 <!-- COMMENTS:END -->
