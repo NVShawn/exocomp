@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-113
 type: chore
-status: In Progress
+status: Open
 priority: 1
 title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T19:04:22.352615Z'
+updated_at: '2026-07-25T19:07:51.831197Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -172,5 +172,10 @@ author: oompah
 created: 2026-07-25 19:04
 ---
 Implementation: Applied both recovery payloads cleanly and formatted the affected Elixir files. Added the M3 CRIT-1..8 acceptance suite and 12-scenario recovery fault-injection suite; hardened StateMachine.restore/5 against unknown target states and from-state mismatches; made ApprovalGate's missing node_id fail closed with nil; retained the /home and /root vacuum-boundary fix and rootless-container privilege test behavior. No unrelated source changes were kept.
+---
+author: oompah
+created: 2026-07-25 19:07
+---
+Operator handoff: the recovery implementation is staged with no conflicts and 189 focused tests pass. Stop exploring alternate OTP/proot runtimes. Finish verification using the Podman remote-socket command in comment #12 (empty temporary storage config, remote URL, and --userns=keep-id), then commit the staged eight-file recovery, push epic-EXOCOMP-110, and mark Done.
 ---
 <!-- COMMENTS:END -->
