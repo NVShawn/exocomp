@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-31
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
@@ -14,12 +14,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-23T19:17:18.898736Z'
-work_branch: null
+updated_at: '2026-07-25T02:02:34.713423Z'
+work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: d5de278d-fa9c-4090-a05a-25b973eacf34
+oompah.work_branch: epic-EXOCOMP-4
 ---
 ## Summary
 
@@ -50,3 +52,16 @@ Run the focused tests and all repository Make targets affected by this change.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-25 02:02
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 02:02
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

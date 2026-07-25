@@ -14,17 +14,22 @@ children:
 - EXOCOMP-26
 - EXOCOMP-27
 - EXOCOMP-28
+- EXOCOMP-108
 blocked_by: []
 labels:
-- epic:stale
+- epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-07-25T02:02:20.532137Z'
-work_branch: null
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-25T02:02:36.672861Z'
+work_branch: epic-EXOCOMP-3
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/12
+review_number: '12'
 merged_at: null
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/12
+oompah.review_number: '12'
+oompah.work_branch: epic-EXOCOMP-3
+oompah.target_branch: main
 ---
 ## Summary
 
