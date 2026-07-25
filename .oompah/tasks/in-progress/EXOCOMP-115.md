@@ -13,10 +13,9 @@ blocked_by:
 - EXOCOMP-114
 labels:
 - focus-complete:duplicate_detector
-- 'focus-complete:'
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:17:45.230699Z'
+updated_at: '2026-07-25T20:18:12.440280Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
