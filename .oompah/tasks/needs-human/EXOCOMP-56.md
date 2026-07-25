@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: Merged
+status: Needs Human
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-25T18:30:23.746497Z'
+updated_at: '2026-07-25T18:30:26.919413Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -433,5 +433,10 @@ author: oompah
 created: 2026-07-25 18:30
 ---
 Action required: use recovery task EXOCOMP-112 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-112 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-56 (Implement host sampler with per-process/cgroup attribution), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
