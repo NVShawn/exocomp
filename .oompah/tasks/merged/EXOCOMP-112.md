@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-112
 type: chore
-status: Done
+status: Merged
 priority: 1
 title: Recover omitted M5 benchmark host-profile and sampler work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-07-25T18:52:08.081963Z'
+updated_at: '2026-07-25T21:09:03.504104Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
