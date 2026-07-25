@@ -18,7 +18,7 @@ labels:
 - focus-complete:merge_conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T21:10:10.095759Z'
+updated_at: '2026-07-25T21:10:12.656281Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -352,5 +352,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered delivery verified on origin/main at merge commit 2085e44152f03ffd41f35cbfeee89a0da53b8bce (PR #14). Evidence: durable exactly-once failed-service recovery and focused/M4 tests are integrated by 516faf81e5f506f9cc7d1ac24a98499e73dbfea0. The full recovery quality gates passed.
+---
+author: oompah
+created: 2026-07-25 21:10
+---
+Recovered deliverable verified on origin/main via PR #14 (2085e44).
 ---
 <!-- COMMENTS:END -->
