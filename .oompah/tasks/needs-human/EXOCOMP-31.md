@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-31
 type: feature
-status: Merged
+status: Needs Human
 priority: 0
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
@@ -18,7 +18,7 @@ labels:
 - focus-complete:merge_conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T18:31:41.641321Z'
+updated_at: '2026-07-25T18:31:46.767005Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -222,5 +222,10 @@ author: oompah
 created: 2026-07-25 18:31
 ---
 Action required: use recovery task EXOCOMP-115 to implement and verify this task's previously undelivered scope on main. Do not mark this task Merged again until EXOCOMP-115 lands and the original acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-31 (Implement automatic recovery of an already-failed service), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->

@@ -9,10 +9,9 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
-- needs:chore
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:31:42.332010Z'
+updated_at: '2026-07-25T18:31:45.386803Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -115,5 +114,10 @@ author: oompah
 created: 2026-07-25 18:31
 ---
 Agent dispatched (profile: quick)
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
