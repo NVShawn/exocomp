@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.FilePart do
   @moduledoc """
   A message part carrying a file (by reference or by value).

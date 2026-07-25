@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.ApprovalVerifier do
   @moduledoc """
   Verifies signed approval tokens before node-side execution.

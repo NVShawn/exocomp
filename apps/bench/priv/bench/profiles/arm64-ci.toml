@@ -1,0 +1,16 @@
+# Pinned arm64 CI reference host profile.
+#
+# Represents the GitHub Actions ubuntu-22.04-arm runner (aarch64 / Neoverse-N1).
+# All benchmark results produced on this environment are tagged with this
+# profile so that cross-run comparisons remain valid only between identical
+# profiles.
+
+architecture = "arm64"
+cpu_model = "Neoverse-N1"
+cpu_count = 2
+ram_bytes = 7516192768
+kernel_version = "6.5.0-1018-aws"
+linux_distribution = "Ubuntu 22.04.5 LTS"
+libc_version = "2.35"
+governor = "performance"
+container_or_vm = "vm"

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 # install.sh — Idempotent installer for the exocomp-fixture systemd service.
 #
 # Usage (must be run as root or via sudo):

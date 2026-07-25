@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.Workload.LlamaInferenceTest do
   @moduledoc """
   Focused ExUnit tests for `Bench.Workload.LlamaInference`.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.DiagnosticGoal do
   @moduledoc """
   A coordinator-side diagnostic goal, tracking the full lifecycle of a

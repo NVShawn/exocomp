@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.Report.Summary do
   @moduledoc """
   Summary report builder and regression gate evaluator.

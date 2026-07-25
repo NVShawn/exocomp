@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.VacuumBounds do
   @moduledoc """
   Installed immutable vacuum bounds and the eligibility gate.
@@ -236,12 +238,14 @@ defmodule Exocomp.Node.VacuumBounds do
   # True if the path is a user-owned or temporary directory.
   #
   # Matches:
+  #   - /home (exact — the user home root itself)
   #   - /tmp (exact)
+  #   - /root (exact — the root user's home directory)
   #   - /home/<anything>
   #   - /tmp/<anything>
   #   - /root/<anything>
   defp user_data_path?(path) do
-    path == "/tmp" or
+    path in ["/tmp", "/home", "/root"] or
       Enum.any?(@user_data_dir_prefixes, &String.starts_with?(path, &1))
   end
 end

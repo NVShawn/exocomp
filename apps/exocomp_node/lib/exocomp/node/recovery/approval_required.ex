@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Recovery.ApprovalRequired do
   @moduledoc """
   Approval-required recovery for an active or degraded systemd service.

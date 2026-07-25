@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.JSONParseError do
   @moduledoc """
   A2A 1.0 / JSON-RPC 2.0 parse error: invalid JSON was received.

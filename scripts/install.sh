@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 # install.sh — Hardened exocomp node/coordinator installer.
 #
 # Run from inside an extracted exocomp release bundle as root:
@@ -27,6 +29,11 @@
 #                        (default: ${EXOCOMP_ROOT}/etc/sudoers.d)
 #   EXOCOMP_SKIP_SYSTEMD Set to "1" to skip all systemctl calls
 #   EXOCOMP_SKIP_VISUDO  Set to "1" to skip visudo validation
+#   EXOCOMP_HEALTHCHECK_COMMAND
+#                        Optional operator health command. It must exit zero
+#                        only when application health is ready.
+#   EXOCOMP_CONFIG_VALIDATOR_COMMAND
+#                        Optional config validator used by qualification tests.
 
 set -euo pipefail
 
@@ -44,6 +51,10 @@ DRY_RUN=0
 EXOCOMP_ROOT="${EXOCOMP_ROOT:-}"
 EXOCOMP_SKIP_SYSTEMD="${EXOCOMP_SKIP_SYSTEMD:-0}"
 EXOCOMP_SKIP_VISUDO="${EXOCOMP_SKIP_VISUDO:-0}"
+EXOCOMP_HEALTHCHECK_COMMAND="${EXOCOMP_HEALTHCHECK_COMMAND:-}"
+EXOCOMP_CONFIG_VALIDATOR_COMMAND="${EXOCOMP_CONFIG_VALIDATOR_COMMAND:-}"
+EXOCOMP_HEALTHCHECK_ATTEMPTS="${EXOCOMP_HEALTHCHECK_ATTEMPTS:-10}"
+EXOCOMP_HEALTHCHECK_INTERVAL="${EXOCOMP_HEALTHCHECK_INTERVAL:-2}"
 # When EXOCOMP_ROOT is non-empty we are in a test/sandbox environment; skip
 # operations that require real root: useradd, chown.
 EXOCOMP_SKIP_USERADD="${EXOCOMP_SKIP_USERADD:-${EXOCOMP_ROOT:+1}}"
@@ -78,6 +89,8 @@ done
 EXOCOMP_SYSTEMD_DIR="${EXOCOMP_SYSTEMD_DIR:-${EXOCOMP_ROOT}/etc/systemd/system}"
 EXOCOMP_SUDOERS_DIR="${EXOCOMP_SUDOERS_DIR:-${EXOCOMP_ROOT}/etc/sudoers.d}"
 INSTALL_BASE="${EXOCOMP_ROOT}/opt/exocomp"
+PREVIOUS_TARGET=""
+UPGRADE_SWITCHED=0
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -208,12 +221,14 @@ preflight() {
             die "cannot determine version from archive name; pass --version VERSION"
         fi
     fi
-    # Validate version: semver-like (digits + dots + optional prerelease)
-    if ! echo "${VERSION}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+'; then
+    # Validate the complete value before using it as a directory name.
+    if ! echo "${VERSION}" |
+        grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'; then
         die "invalid version '${VERSION}'; expected semver (e.g. 1.2.3)"
     fi
     log "  version:   ${VERSION}"
     log "  component: ${COMPONENT}"
+    check_peer_compatibility
 
     # 1d. Validate host architecture
     local arch
@@ -260,6 +275,30 @@ preflight() {
     fi
 
     log "  preflight passed"
+}
+
+check_peer_compatibility() {
+    local peer
+    if [[ "${COMPONENT}" == "node" ]]; then
+        peer="coordinator"
+    else
+        peer="node"
+    fi
+
+    local peer_current="${INSTALL_BASE}/${peer}/current"
+    if [[ ! -L "${peer_current}" ]]; then
+        return
+    fi
+
+    local peer_version
+    peer_version="$(basename "$(readlink "${peer_current}")")"
+    local requested_major="${VERSION%%.*}"
+    local peer_major="${peer_version%%.*}"
+
+    if [[ "${requested_major}" != "${peer_major}" ]]; then
+        die "incompatible ${COMPONENT} ${VERSION}: installed ${peer} ${peer_version} uses a different major protocol version"
+    fi
+    log "  peer:      ${peer} ${peer_version} (compatible major version)"
 }
 
 verify_checksums() {
@@ -376,10 +415,16 @@ install_release() {
     local install_dir="${INSTALL_BASE}/${COMPONENT}"
     local versioned_dir="${install_dir}/releases/${VERSION}"
     local current_link="${install_dir}/current"
+    local staging_dir="${install_dir}/releases/.staging-${VERSION}.$$"
 
     if [[ "${DRY_RUN}" -eq 1 ]]; then
         log "  [dry-run] would extract ${BUNDLE} to ${versioned_dir}"
         return
+    fi
+
+    if [[ -L "${current_link}" ]]; then
+        PREVIOUS_TARGET="$(readlink "${current_link}")"
+        log "  previous current target: ${PREVIOUS_TARGET}"
     fi
 
     # Check for existing version (idempotent: overwrite if same version)
@@ -390,10 +435,16 @@ install_release() {
         rm -rf "${versioned_dir}"
     fi
 
-    # Extract release archive
+    # Extract into a private staging path, then rename only after tar succeeds.
+    # An interrupted or malformed extraction can never become current.
     log "  extracting ${BUNDLE}"
-    mkdir -p "${versioned_dir}"
-    tar -xzf "${BUNDLE}" -C "${versioned_dir}" --strip-components=1
+    rm -rf "${staging_dir}"
+    mkdir -p "${staging_dir}"
+    if ! tar -xzf "${BUNDLE}" -C "${staging_dir}" --strip-components=1; then
+        rm -rf "${staging_dir}"
+        die "release extraction failed; current version was not changed"
+    fi
+    mv -f "${staging_dir}" "${versioned_dir}"
 
     # Set ownership: root owns the release; service account has read access
     do_chown -R root:root "${versioned_dir}"
@@ -407,22 +458,7 @@ install_release() {
         chmod -R a+rX "${versioned_dir}/bin"
     fi
 
-    # Atomic version link.
-    # Use a temp symlink + rename to avoid exposing an absent `current` link
-    # during the switchover.  `mv -f` on a path where a *file* already exists
-    # replaces it; however when `current` is a symlink that itself points to a
-    # *directory*, some `mv` implementations traverse the symlink and treat the
-    # parent dir as the destination.  To avoid that, remove any existing
-    # `current` file/symlink before the rename.
-    log "  creating atomic current link -> releases/${VERSION}"
-    local tmp_link
-    tmp_link="${current_link}.new.$$"
-    ln -sf "releases/${VERSION}" "${tmp_link}"
-    # Remove old link/file, then rename atomically (best-effort on Linux)
-    rm -f "${current_link}"
-    mv -f "${tmp_link}" "${current_link}"
-
-    log "  release ${VERSION} installed"
+    log "  release ${VERSION} staged"
 }
 
 # ── Phase 4: CONFIGURATION TEMPLATE ──────────────────────────────────────────
@@ -448,10 +484,114 @@ install_config() {
         log "  config exists; preserving (not overwriting): ${config_file}"
     else
         log "  installing config template: ${config_file}"
-        cp "${template_src}" "${config_file}"
+        sed -e "s|@INSTALL_DIR@|${install_dir}|g" "${template_src}" > "${config_file}"
         do_chown "exocomp-${COMPONENT}:exocomp-${COMPONENT}" "${config_file}"
         do_chmod 640 "${config_file}"
     fi
+}
+
+install_release_cookie() {
+    log "==> RELEASE COOKIE"
+
+    local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local cookie_file="${install_dir}/config/release-cookie.env"
+
+    if [[ "${DRY_RUN}" -eq 1 ]]; then
+        log "  [dry-run] would provision protected RELEASE_COOKIE environment"
+        return
+    fi
+
+    if [[ -f "${cookie_file}" ]]; then
+        log "  release cookie exists; preserving across upgrade"
+        return
+    fi
+
+    local cookie
+    if command -v openssl >/dev/null 2>&1; then
+        cookie="$(openssl rand -hex 32)"
+    else
+        cookie="$(od -An -N32 -tx1 /dev/urandom | tr -d ' \n')"
+    fi
+
+    if ! echo "${cookie}" | grep -Eq '^[0-9a-f]{64}$'; then
+        die "failed to generate cryptographically random release cookie"
+    fi
+
+    printf 'RELEASE_COOKIE=%s\n' "${cookie}" > "${cookie_file}"
+    do_chmod 600 "${cookie_file}"
+    do_chown "exocomp-${COMPONENT}:exocomp-${COMPONENT}" "${cookie_file}"
+    log "  protected release cookie provisioned"
+}
+
+validate_config() {
+    log "==> CONFIG VALIDATION"
+
+    if [[ "${DRY_RUN}" -eq 1 ]]; then
+        log "  [dry-run] would validate configuration with staged release"
+        return
+    fi
+
+    local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local config_file="${install_dir}/config/${COMPONENT}.json"
+    local release_bin="${install_dir}/releases/${VERSION}/bin/exocomp_${COMPONENT}"
+
+    if [[ -n "${EXOCOMP_CONFIG_VALIDATOR_COMMAND}" ]]; then
+        if EXOCOMP_CONFIG_FILE="${config_file}" bash -c "${EXOCOMP_CONFIG_VALIDATOR_COMMAND}"; then
+            log "  operator config validator passed"
+            return
+        fi
+        die "configuration validation failed; current version was not changed"
+    fi
+
+    if [[ ! -x "${release_bin}" ]]; then
+        die "staged release entrypoint is missing: ${release_bin}"
+    fi
+
+    local config_module
+    if [[ "${COMPONENT}" == "node" ]]; then
+        config_module="Exocomp.Node.Config"
+    else
+        config_module="Exocomp.Coordinator.Config"
+    fi
+
+    if EXOCOMP_VALIDATE_CONFIG="${config_file}" \
+       RELEASE_COOKIE="install-validation-only-cookie" \
+       "${release_bin}" eval "
+         path = System.fetch_env!(\"EXOCOMP_VALIDATE_CONFIG\")
+         case ${config_module}.load(path) do
+           {:ok, _config} -> System.halt(0)
+           {:error, _reason} -> System.halt(1)
+         end
+       "; then
+        log "  staged release accepted configuration"
+    else
+        die "configuration validation failed; current version was not changed"
+    fi
+}
+
+switch_current() {
+    log "==> CURRENT VERSION SWITCH"
+
+    local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local current_link="${install_dir}/current"
+
+    if [[ "${DRY_RUN}" -eq 1 ]]; then
+        log "  [dry-run] would switch current -> releases/${VERSION}"
+        return
+    fi
+
+    if [[ "${NO_START}" -eq 1 && -n "${PREVIOUS_TARGET}" ]]; then
+        log "  --no-start stages upgrades without changing current"
+        return
+    fi
+
+    local tmp_link="${current_link}.new.$$"
+    ln -sf "releases/${VERSION}" "${tmp_link}"
+    # GNU mv's no-target-directory replacement is one rename(2), so readers
+    # see either the old or new symlink and never a missing current path.
+    mv -Tf "${tmp_link}" "${current_link}"
+    UPGRADE_SWITCHED=1
+    log "  current -> releases/${VERSION}"
 }
 
 # ── Phase 5: SUDOERS POLICY ───────────────────────────────────────────────────
@@ -542,37 +682,131 @@ activate_service() {
 
     local unit_name="exocomp-${COMPONENT}"
 
-    if [[ "${EXOCOMP_SKIP_SYSTEMD}" == "1" ]]; then
-        log "  [skip-systemd] skipping daemon-reload and service start"
-        return
-    fi
-
     if [[ "${DRY_RUN}" -eq 1 ]]; then
         log "  [dry-run] would enable and start ${unit_name}.service"
         return
     fi
-
-    log "  systemctl daemon-reload"
-    systemctl daemon-reload
-
-    log "  systemctl enable ${unit_name}"
-    systemctl enable "${unit_name}"
 
     if [[ "${NO_START}" -eq 1 ]]; then
         log "  --no-start set; skipping service start"
         return
     fi
 
-    if systemctl is-active --quiet "${unit_name}" 2>/dev/null; then
-        log "  systemctl restart ${unit_name}  (already running)"
-        systemctl restart "${unit_name}"
+    if [[ "${EXOCOMP_SKIP_SYSTEMD}" == "1" ]]; then
+        log "  [skip-systemd] skipping daemon-reload and service start"
     else
-        log "  systemctl start ${unit_name}"
-        systemctl start "${unit_name}"
+        log "  systemctl daemon-reload"
+        systemctl daemon-reload
+
+        log "  systemctl enable ${unit_name}"
+        systemctl enable "${unit_name}"
+
+        if systemctl is-active --quiet "${unit_name}" 2>/dev/null; then
+            log "  systemctl restart ${unit_name}  (already running)"
+            systemctl restart "${unit_name}"
+        else
+            log "  systemctl start ${unit_name}"
+            systemctl start "${unit_name}"
+        fi
     fi
 
-    log "  service active"
-    systemctl status "${unit_name}" --no-pager --lines=5 || true
+    if verify_health_gate; then
+        log "  service passed systemd and application health gate"
+        if [[ "${EXOCOMP_SKIP_SYSTEMD}" != "1" ]]; then
+            systemctl status "${unit_name}" --no-pager --lines=5 || true
+        fi
+    else
+        rollback_upgrade
+        die "new release failed health gate; prior current version restored"
+    fi
+}
+
+verify_health_gate() {
+    local unit_name="exocomp-${COMPONENT}"
+    local attempt=1
+
+    while [[ "${attempt}" -le "${EXOCOMP_HEALTHCHECK_ATTEMPTS}" ]]; do
+        local systemd_ok=1
+        if [[ "${EXOCOMP_SKIP_SYSTEMD}" != "1" ]] && \
+           ! systemctl is-active --quiet "${unit_name}" 2>/dev/null; then
+            systemd_ok=0
+        fi
+
+        if [[ "${systemd_ok}" -eq 1 ]] && application_healthcheck; then
+            return 0
+        fi
+
+        if [[ "${attempt}" -lt "${EXOCOMP_HEALTHCHECK_ATTEMPTS}" ]]; then
+            sleep "${EXOCOMP_HEALTHCHECK_INTERVAL}"
+        fi
+        attempt=$((attempt + 1))
+    done
+
+    return 1
+}
+
+application_healthcheck() {
+    if [[ -n "${EXOCOMP_HEALTHCHECK_COMMAND}" ]]; then
+        EXOCOMP_CURRENT="${INSTALL_BASE}/${COMPONENT}/current" \
+            bash -c "${EXOCOMP_HEALTHCHECK_COMMAND}"
+        return
+    fi
+
+    # Sandbox tests do not start a service. They may supply the explicit
+    # health command above when exercising rollback behavior.
+    if [[ "${EXOCOMP_SKIP_SYSTEMD}" == "1" ]]; then
+        return 0
+    fi
+
+    local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local cookie_file="${install_dir}/config/release-cookie.env"
+    local release_bin="${install_dir}/current/bin/exocomp_${COMPONENT}"
+
+    # shellcheck disable=SC1090
+    . "${cookie_file}"
+    export RELEASE_COOKIE
+    if [[ "${COMPONENT}" == "node" ]]; then
+        "${release_bin}" rpc '
+          case Process.whereis(Exocomp.Node.Listener) do
+            pid when is_pid(pid) ->
+              if Process.alive?(pid), do: System.halt(0), else: System.halt(1)
+            _other ->
+              System.halt(1)
+          end
+        '
+    else
+        "${release_bin}" rpc '
+          case Exocomp.Coordinator.Health.check() do
+            %{status: :healthy} -> System.halt(0)
+            _other -> System.halt(1)
+          end
+        '
+    fi
+}
+
+rollback_upgrade() {
+    local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local current_link="${install_dir}/current"
+    local unit_name="exocomp-${COMPONENT}"
+
+    if [[ "${UPGRADE_SWITCHED}" -ne 1 ]]; then
+        return
+    fi
+
+    if [[ -n "${PREVIOUS_TARGET}" ]]; then
+        local tmp_link="${current_link}.rollback.$$"
+        ln -sf "${PREVIOUS_TARGET}" "${tmp_link}"
+        mv -Tf "${tmp_link}" "${current_link}"
+        log "  rollback restored current -> ${PREVIOUS_TARGET}"
+
+        if [[ "${EXOCOMP_SKIP_SYSTEMD}" != "1" ]]; then
+            systemctl daemon-reload
+            systemctl restart "${unit_name}"
+        fi
+    else
+        rm -f "${current_link}"
+        log "  failed first install left no current version"
+    fi
 }
 
 # ── Phase 8: WRITE MANIFEST ───────────────────────────────────────────────────
@@ -638,6 +872,9 @@ main() {
     setup_users_and_dirs
     install_release
     install_config
+    install_release_cookie
+    validate_config
+    switch_current
     install_sudoers
     install_systemd_unit
     activate_service

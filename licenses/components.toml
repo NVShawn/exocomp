@@ -1,0 +1,240 @@
+schema_version = 1
+
+[policy]
+project_license = "Apache-2.0"
+compatible_licenses = [
+  "0BSD",
+  "Apache-2.0",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "ISC",
+  "MIT",
+  "Unicode-3.0",
+  "Zlib",
+]
+required_components = [
+  "exocomp",
+  "erlang-otp",
+  "elixir",
+  "llama-cpp",
+  "qwen2.5-1.5b-instruct-q4-k-m",
+]
+
+[[components]]
+id = "exocomp"
+name = "Exocomp"
+version = "source"
+scope = "project"
+distribution = "source-and-binary"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/NVShawn/exocomp"
+license_url = "https://github.com/NVShawn/exocomp/blob/main/LICENSE"
+notice_file = "NOTICE"
+notice_heading = "Exocomp"
+
+[[components]]
+id = "erlang-otp"
+name = "Erlang/OTP"
+version = "28.x; exact patch pinned by each release manifest"
+scope = "runtime"
+distribution = "planned-offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/erlang/otp"
+license_url = "https://github.com/erlang/otp/blob/master/LICENSE.txt"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Erlang/OTP"
+
+[[components]]
+id = "elixir"
+name = "Elixir"
+version = "1.20.x; exact patch pinned by each builder image"
+scope = "build"
+distribution = "build-only"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/elixir-lang/elixir"
+license_url = "https://github.com/elixir-lang/elixir/blob/main/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Elixir"
+
+[[components]]
+id = "llama-cpp"
+name = "llama.cpp"
+version = "exact commit pinned by each release manifest"
+scope = "runtime"
+distribution = "planned-offline-bundle"
+license = "MIT"
+redistribution = "permitted"
+source_url = "https://github.com/ggml-org/llama.cpp"
+license_url = "https://github.com/ggml-org/llama.cpp/blob/master/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### llama.cpp"
+
+[[components]]
+id = "qwen2.5-1.5b-instruct-q4-k-m"
+name = "Qwen2.5 1.5B Instruct Q4_K_M GGUF"
+version = "repository revision and artifact SHA-256 pinned by each release"
+scope = "model"
+distribution = "planned-offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+license_url = "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/blob/main/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Qwen2.5 1.5B Instruct Q4_K_M GGUF"
+
+[[components]]
+id = "hex-bandit"
+package = "bandit"
+name = "Bandit"
+version = "1.12.1"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "MIT"
+redistribution = "permitted"
+source_url = "https://github.com/mtrudel/bandit"
+license_url = "https://github.com/mtrudel/bandit/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Bandit"
+
+[[components]]
+id = "hex-hpax"
+package = "hpax"
+name = "HPAX"
+version = "1.0.4"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/elixir-mint/hpax"
+license_url = "https://github.com/elixir-mint/hpax/blob/HEAD/LICENSE.txt"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### HPAX"
+
+[[components]]
+id = "hex-jason"
+package = "jason"
+name = "Jason"
+version = "1.4.5"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/michalmuskala/jason"
+license_url = "https://github.com/michalmuskala/jason/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Jason"
+
+[[components]]
+id = "hex-mime"
+package = "mime"
+name = "MIME"
+version = "2.0.7"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/elixir-plug/mime"
+license_url = "https://github.com/elixir-plug/mime/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### MIME"
+
+[[components]]
+id = "hex-nimble-options"
+package = "nimble_options"
+name = "NimbleOptions"
+version = "1.1.1"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/dashbitco/nimble_options"
+license_url = "https://github.com/dashbitco/nimble_options/blob/HEAD/LICENSE.md"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### NimbleOptions"
+
+[[components]]
+id = "hex-plug"
+package = "plug"
+name = "Plug"
+version = "1.20.3"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/elixir-plug/plug"
+license_url = "https://github.com/elixir-plug/plug/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Plug"
+
+[[components]]
+id = "hex-plug-crypto"
+package = "plug_crypto"
+name = "Plug Crypto"
+version = "2.2.0"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/elixir-plug/plug_crypto"
+license_url = "https://github.com/elixir-plug/plug_crypto/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Plug Crypto"
+
+[[components]]
+id = "hex-telemetry"
+package = "telemetry"
+name = "Telemetry"
+version = "1.4.2"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "Apache-2.0"
+redistribution = "permitted"
+source_url = "https://github.com/beam-telemetry/telemetry"
+license_url = "https://github.com/beam-telemetry/telemetry/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Telemetry"
+
+[[components]]
+id = "hex-thousand-island"
+package = "thousand_island"
+name = "Thousand Island"
+version = "1.5.0"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "MIT"
+redistribution = "permitted"
+source_url = "https://github.com/mtrudel/thousand_island"
+license_url = "https://github.com/mtrudel/thousand_island/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### Thousand Island"
+
+[[components]]
+id = "hex-websock"
+package = "websock"
+name = "WebSock"
+version = "0.5.3"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "MIT"
+redistribution = "permitted"
+source_url = "https://github.com/phoenixframework/websock"
+license_url = "https://github.com/phoenixframework/websock/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### WebSock"
+
+[[components]]
+id = "hex-x509"
+package = "x509"
+name = "X509"
+version = "0.9.2"
+scope = "runtime"
+distribution = "offline-bundle"
+license = "BSD-3-Clause"
+redistribution = "permitted"
+source_url = "https://github.com/voltone/x509"
+license_url = "https://github.com/voltone/x509/blob/HEAD/LICENSE"
+notice_file = "THIRD_PARTY_NOTICES.md"
+notice_heading = "### X509"

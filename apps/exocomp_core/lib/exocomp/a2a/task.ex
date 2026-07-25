@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.Task do
   @moduledoc """
   An A2A 1.0 task representing a unit of work delegated to an agent.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.SudoersPolicyTest do
   @moduledoc """
   Tests for `Exocomp.Node.SudoersPolicy`.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.ApprovalGateTest do
   @moduledoc """
   Comprehensive focused test suite for `Exocomp.Node.Safety.ApprovalGate`.
@@ -589,6 +591,36 @@ defmodule Exocomp.Node.Safety.ApprovalGateTest do
 
       assert {:error, {:token_invalid, :expired}} =
                ApprovalGate.execute(token, base_context(), integration_opts([], ctx))
+    end
+
+    # Security: empty-node_id token must not match an unconfigured node.
+    # Previously build_verifier_context fell back to "" for an unconfigured node_id,
+    # which meant a token signed with node_id: "" would pass the binding check on
+    # any such node. The fix uses nil as the fallback so the binding always fails.
+    test "scenario 5c: unconfigured node_id falls back to nil, not empty string", ctx do
+      %{private_key: pk, evidence_hash: eh} = ctx
+
+      # A coordinator-signed token with node_id: "" — the "attack token".
+      attack_payload = good_payload(eh, %{node_id: ""})
+      attack_token = signed_token(attack_payload, pk)
+
+      # Present the attack token with a context that has no node_id key.
+      context_without_node = Map.delete(base_context(), :node_id)
+
+      # Also remove node_id from the application environment so the fallback is used.
+      prev = Application.get_env(:exocomp_node, :node_id)
+      Application.delete_env(:exocomp_node, :node_id)
+
+      on_exit(fn ->
+        if prev,
+          do: Application.put_env(:exocomp_node, :node_id, prev),
+          else: Application.delete_env(:exocomp_node, :node_id)
+      end)
+
+      # The nil fallback means context node_id = nil; token node_id = "".
+      # nil != "" → binding_mismatch → token rejected.
+      assert {:error, {:token_invalid, _reason}} =
+               ApprovalGate.execute(attack_token, context_without_node, integration_opts([], ctx))
     end
   end
 

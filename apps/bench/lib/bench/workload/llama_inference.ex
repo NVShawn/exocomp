@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.Workload.LlamaInference do
   @moduledoc """
   Benchmark workload: llama.cpp inference and restart behavior.

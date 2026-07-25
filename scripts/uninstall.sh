@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 # uninstall.sh — Hardened exocomp node/coordinator uninstaller.
 #
 # The uninstaller removes only exocomp-owned system resources recorded in

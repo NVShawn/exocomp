@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 """
 Tests for the exocomp hardened installer and uninstaller.
 
@@ -28,6 +30,7 @@ inside a privileged container.
 """
 
 import json
+import hashlib
 import os
 import re
 import shutil
@@ -45,6 +48,7 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 INSTALL_SH = REPO_ROOT / "scripts" / "install.sh"
 UNINSTALL_SH = REPO_ROOT / "scripts" / "uninstall.sh"
+STATE_BACKUP_SH = REPO_ROOT / "scripts" / "state-backup.sh"
 RELEASE_DIR = REPO_ROOT / "release"
 
 
@@ -371,6 +375,40 @@ class TestCleanInstall:
         )
         assert log_dir.is_dir()
 
+    def test_release_cookie_is_random_protected_and_not_in_release_payload(self):
+        cookie_file = (
+            self.root / "opt" / "exocomp" / self.component
+            / "config" / "release-cookie.env"
+        )
+        content = cookie_file.read_text().strip()
+        assert re.fullmatch(r"RELEASE_COOKIE=[0-9a-f]{64}", content)
+        assert cookie_file.stat().st_mode & 0o777 == 0o600
+
+        versioned = (
+            self.root / "opt" / "exocomp" / self.component
+            / "releases" / self.version
+        )
+        for path in versioned.rglob("*"):
+            if path.is_file():
+                assert content.encode() not in path.read_bytes()
+
+        second_base = self.tmp / "second-instance"
+        second_info = _make_bundle_tree(
+            second_base / "bundle", self.component, self.version
+        )
+        second_env = _make_env(second_base)
+        _run_install(
+            second_info,
+            self.component,
+            self.version,
+            env=second_env,
+        )
+        second_cookie = (
+            second_base / "root" / "opt" / "exocomp" / self.component
+            / "config" / "release-cookie.env"
+        ).read_text().strip()
+        assert second_cookie != content
+
 
 class TestRepeatInstall:
     """Test 2: idempotent install — repeat install updates release, preserves config."""
@@ -662,6 +700,13 @@ class TestUpgradePreparation:
             "current symlink should point to new version after upgrade"
         )
 
+        installer = info2["install_sh"].read_text()
+        switch_function = installer.split("switch_current() {", 1)[1].split(
+            "# ── Phase 5", 1
+        )[0]
+        assert 'mv -Tf "${tmp_link}" "${current_link}"' in switch_function
+        assert 'rm -f "${current_link}"' not in switch_function
+
     def test_config_preserved_across_upgrade(self):
         info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
         info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
@@ -682,6 +727,170 @@ class TestUpgradePreparation:
         assert data_after.get("_operator_note") == "preserved", (
             "config must be preserved across upgrade"
         )
+
+    def test_release_cookie_is_preserved_across_upgrade(self):
+        info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
+        info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
+        _run_install(info1, self.component, self.v1, env=self.env)
+        cookie = (
+            self.root / "opt" / "exocomp" / self.component
+            / "config" / "release-cookie.env"
+        )
+        original = cookie.read_text()
+
+        _run_install(info2, self.component, self.v2, env=self.env)
+        assert cookie.read_text() == original
+
+    def test_failed_health_gate_rolls_back_to_prior_healthy_version(self):
+        info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
+        info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
+        _run_install(info1, self.component, self.v1, env=self.env)
+
+        health_command = (
+            f'test "$(readlink "$EXOCOMP_CURRENT")" = "releases/{self.v1}"'
+        )
+        failing_env = {
+            **self.env,
+            "EXOCOMP_HEALTHCHECK_COMMAND": health_command,
+            "EXOCOMP_HEALTHCHECK_ATTEMPTS": "1",
+            "EXOCOMP_HEALTHCHECK_INTERVAL": "0",
+        }
+        _run_install(
+            info2,
+            self.component,
+            self.v2,
+            env=failing_env,
+            expect_exit=1,
+        )
+
+        current = self.root / "opt" / "exocomp" / self.component / "current"
+        assert os.readlink(current) == f"releases/{self.v1}"
+        assert (current / "bin" / f"exocomp_{self.component}").exists()
+
+    def test_invalid_existing_config_blocks_switch(self):
+        info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
+        info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
+        _run_install(info1, self.component, self.v1, env=self.env)
+
+        config = (
+            self.root / "opt" / "exocomp" / self.component
+            / "config" / f"{self.component}.json"
+        )
+        config.write_text("{not-json")
+        validator_env = {
+            **self.env,
+            "EXOCOMP_CONFIG_VALIDATOR_COMMAND": (
+                'python3 -m json.tool "$EXOCOMP_CONFIG_FILE" >/dev/null'
+            ),
+        }
+
+        _run_install(
+            info2,
+            self.component,
+            self.v2,
+            env=validator_env,
+            expect_exit=1,
+        )
+        current = self.root / "opt" / "exocomp" / self.component / "current"
+        assert os.readlink(current) == f"releases/{self.v1}"
+
+    def test_interrupted_extraction_never_changes_current(self):
+        info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
+        info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
+        _run_install(info1, self.component, self.v1, env=self.env)
+
+        info2["bundle_path"].write_bytes(b"truncated archive")
+        digest = hashlib.sha256(info2["bundle_path"].read_bytes()).hexdigest()
+        info2["checksums_path"].write_text(
+            f"{digest}  {info2['bundle_path'].name}\n"
+        )
+        _run_install(
+            info2,
+            self.component,
+            self.v2,
+            env=self.env,
+            expect_exit=1,
+        )
+
+        current = self.root / "opt" / "exocomp" / self.component / "current"
+        assert os.readlink(current) == f"releases/{self.v1}"
+        versioned = current.parent / "releases" / self.v2
+        assert not versioned.exists()
+
+
+class TestVersionCompatibility:
+    def test_different_major_node_and_coordinator_versions_are_rejected(self, tmp_path):
+        env = _make_env(tmp_path)
+        coordinator = _make_bundle_tree(tmp_path / "coord", "coordinator", "1.5.0")
+        node = _make_bundle_tree(tmp_path / "node", "node", "2.0.0")
+
+        _run_install(coordinator, "coordinator", "1.5.0", env=env)
+        result = _run_install(node, "node", "2.0.0", env=env, expect_exit=1)
+
+        assert "incompatible" in result.stderr.lower()
+        node_dir = tmp_path / "root" / "opt" / "exocomp" / "node"
+        assert not node_dir.exists()
+
+
+class TestProtectedStateBackupRestore:
+    def test_backup_restore_recovers_config_pki_audit_and_execution_state(self, tmp_path):
+        component = "coordinator"
+        version = "1.0.0"
+        env = _make_env(tmp_path)
+        info = _make_bundle_tree(tmp_path / "bundle-tree", component, version)
+        _run_install(info, component, version, env=env)
+
+        root = tmp_path / "root"
+        install_dir = root / "opt" / "exocomp" / component
+        state_dir = root / "var" / "lib" / f"exocomp-{component}"
+        pki = install_dir / "config" / "pki" / "identity.pem"
+        audit = install_dir / "log" / "audit.jsonl"
+        execution = state_dir / "consumed-executions.dets"
+        pki.write_text("private identity")
+        audit.write_text('{"event":"completed"}\n')
+        execution.write_text("durable replay state")
+
+        archive = tmp_path / "backup" / "coordinator-state.tar.gz"
+        subprocess.run(
+            [
+                "bash",
+                str(STATE_BACKUP_SH),
+                "create",
+                "--component",
+                component,
+                "--output",
+                str(archive),
+            ],
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert archive.stat().st_mode & 0o777 == 0o600
+        assert archive.with_suffix(archive.suffix + ".sha256").exists()
+
+        shutil.rmtree(install_dir / "config")
+        shutil.rmtree(install_dir / "log")
+        shutil.rmtree(state_dir)
+        subprocess.run(
+            [
+                "bash",
+                str(STATE_BACKUP_SH),
+                "restore",
+                "--component",
+                component,
+                "--archive",
+                str(archive),
+            ],
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        assert pki.read_text() == "private identity"
+        assert audit.read_text() == '{"event":"completed"}\n'
+        assert execution.read_text() == "durable replay state"
 
 
 class TestDefaultUninstall:
@@ -954,6 +1163,29 @@ class TestMissingComponentFlag:
         assert "component" in result.stderr.lower()
 
 
+class TestVersionValidation:
+    @pytest.mark.parametrize(
+        "version",
+        ["1.2.3/../../escape", "1.2", "1.2.3;touch-pwned", "v1.2.3"],
+    )
+    def test_unsafe_or_non_semver_version_is_rejected_before_mutation(
+        self, tmp_path, version
+    ):
+        component = "node"
+        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        env = _make_env(tmp_path)
+
+        _run_install(
+            info,
+            component,
+            version,
+            env=env,
+            expect_exit=1,
+        )
+
+        assert not (tmp_path / "root" / "opt" / "exocomp").exists()
+
+
 class TestUnitHardeningDirectives:
     """Verify all required hardening directives are present in both unit files."""
 
@@ -1000,13 +1232,51 @@ class TestUnitHardeningDirectives:
         content = unit_path.read_text()
         assert "SystemCallFilter=" in content, "unit must have SystemCallFilter"
 
+    @pytest.mark.parametrize(
+        "component,environment",
+        [
+            ("node", "EXOCOMP_CONFIG_FILE"),
+            ("coordinator", "EXOCOMP_COORDINATOR_CONFIG_FILE"),
+        ],
+    )
+    def test_unit_passes_config_path_expected_by_runtime(self, component, environment):
+        unit_path = RELEASE_DIR / component / f"exocomp-{component}.service"
+        content = unit_path.read_text()
+        assert f"Environment={environment}=" in content
+
 
 class TestConfigTemplates:
     """Verify configuration templates are valid JSON with expected top-level keys."""
 
     @pytest.mark.parametrize("component,expected_keys", [
-        ("node", {"_version", "coordinator", "node", "actions", "diagnostics"}),
-        ("coordinator", {"_version", "coordinator", "pki", "approvals", "diagnostics"}),
+        (
+            "node",
+            {
+                "_version",
+                "version",
+                "node_id",
+                "tls",
+                "listen",
+                "coordinator",
+                "node",
+                "actions",
+                "diagnostics",
+            },
+        ),
+        (
+            "coordinator",
+            {
+                "_version",
+                "version",
+                "coordinator_id",
+                "tls",
+                "listen",
+                "coordinator",
+                "pki",
+                "approvals",
+                "diagnostics",
+            },
+        ),
     ])
     def test_template_is_valid_json(self, component, expected_keys):
         tmpl = RELEASE_DIR / "templates" / f"{component}.json"

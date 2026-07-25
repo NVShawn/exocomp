@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.Skills.Behaviour do
   @moduledoc """
   Callback contract for all coordinator skill handler modules.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.VacuumBoundsTest do
   @moduledoc """
   Focused tests for `Exocomp.Node.VacuumBounds`.

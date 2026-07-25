@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 # scripts/gen-test-certs.sh
 #
 # Generate TLS test fixture certificates for apps/exocomp_node test suite.

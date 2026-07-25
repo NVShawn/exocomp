@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.CredentialInstaller do
   @moduledoc """
   Validates and installs a node certificate chain and private key as one

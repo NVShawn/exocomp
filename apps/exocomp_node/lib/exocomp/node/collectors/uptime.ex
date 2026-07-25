@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Collectors.Uptime do
   @moduledoc """
   Collector for system uptime from `/proc/uptime`.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 Code.require_file("support/fake_llama_server.ex", __DIR__)
 Code.require_file("support/mock_commander.ex", __DIR__)
 

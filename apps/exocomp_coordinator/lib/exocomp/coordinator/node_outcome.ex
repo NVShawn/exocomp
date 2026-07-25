@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.NodeOutcome do
   @moduledoc """
   Per-node outcome record within a coordinator diagnostic goal.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.DiskPressureCollector do
   @moduledoc """
   Deterministic disk-pressure evidence collector.

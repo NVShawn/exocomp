@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.HealthPoller do
   @moduledoc """
   Runs due node health polls concurrently with per-node isolation.

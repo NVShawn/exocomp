@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.A2A.HTTPTransport do
   @moduledoc """
   `:httpc` implementation of the diagnostic A2A transport boundary.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.Run do
   @moduledoc """
   Metadata and raw observations belonging to one benchmark run.
@@ -19,7 +21,7 @@ defmodule Bench.Run do
   @required_fields @metadata_fields
   @json_metadata_fields Enum.map(@metadata_fields, &Atom.to_string/1)
   @json_run_fields @json_metadata_fields ++ ["samples"]
-  @sample_fields ~w(timestamp source metric_name value unit)
+  @sample_fields ~w(timestamp source metric_name value unit tags)
 
   @enforce_keys @required_fields
   defstruct @required_fields ++ [samples: []]

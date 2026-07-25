@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.TaskRegistry do
   @moduledoc """
   Bounded, in-memory storage for the lifecycle of coordinator A2A tasks.

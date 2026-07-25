@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Recovery.StateMachine do
   @moduledoc """
   Service-recovery state machine for Milestone 4 (EXOCOMP-30).
@@ -64,6 +66,21 @@ defmodule Exocomp.Recovery.StateMachine do
           | :cancelled
 
   @terminal_states [:completed, :escalated, :cancelled]
+
+  # All known valid states — used by restore/5 to reject injected garbage states.
+  @valid_states [
+    :observing,
+    :diagnosing,
+    :proposed,
+    :validating,
+    :awaiting_approval,
+    :executing,
+    :verifying,
+    :cooling_down,
+    :completed,
+    :escalated,
+    :cancelled
+  ]
 
   @type event ::
           {:unhealthy_observation, Evidence.t()}
@@ -177,18 +194,33 @@ defmodule Exocomp.Recovery.StateMachine do
       fn tr, {:ok, machine} ->
         expected_seq = machine.sequence + 1
 
-        if tr.sequence != expected_seq do
-          {:halt, {:error, {:sequence_gap, expected_seq, tr.sequence}}}
-        else
-          restored = %{
-            machine
-            | state: tr.to,
-              sequence: tr.sequence,
-              execution_attempted: machine.execution_attempted || tr.to == :executing,
-              transitions: machine.transitions ++ [tr]
-          }
+        cond do
+          tr.sequence != expected_seq ->
+            {:halt, {:error, {:sequence_gap, expected_seq, tr.sequence}}}
 
-          {:cont, {:ok, restored}}
+          # Defense-in-depth: reject unknown state names so that an injected
+          # transition record with a fabricated target state (e.g. from a tampered
+          # persistence log) is caught rather than silently stored in the struct.
+          tr.to not in @valid_states ->
+            {:halt, {:error, {:invalid_state, tr.to}}}
+
+          # Defense-in-depth: each transition's from-state must match the machine's
+          # current state. This ensures the restored transition chain is internally
+          # consistent and prevents an injected record from creating an impossible
+          # state jump (e.g. :observing → :verifying in a single transition).
+          tr.from != machine.state ->
+            {:halt, {:error, {:from_mismatch, machine.state, tr.from}}}
+
+          true ->
+            restored = %{
+              machine
+              | state: tr.to,
+                sequence: tr.sequence,
+                execution_attempted: machine.execution_attempted || tr.to == :executing,
+                transitions: machine.transitions ++ [tr]
+            }
+
+            {:cont, {:ok, restored}}
         end
       end
     )

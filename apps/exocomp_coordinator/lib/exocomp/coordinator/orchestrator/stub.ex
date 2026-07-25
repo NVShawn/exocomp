@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.Orchestrator.Stub do
   @moduledoc """
   Stub orchestrator used when the real EXOCOMP-18 orchestration layer is not

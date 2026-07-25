@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.EnrollmentClient do
   @moduledoc """
   Creates a node key and CSR locally, submits the CSR to the coordinator, and

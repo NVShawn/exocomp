@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.Artifact do
   @moduledoc """
   A named output artifact produced by an A2A 1.0 task.

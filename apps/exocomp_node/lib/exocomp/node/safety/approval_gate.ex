@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.ApprovalGate do
   @moduledoc """
   Unified approval gate for node-side execution of coordinator-approved actions.
@@ -286,9 +288,13 @@ defmodule Exocomp.Node.Safety.ApprovalGate do
   end
 
   defp build_verifier_context(context) do
+    # Use nil (not "") as the default so that a token signed with node_id: ""
+    # cannot match an unconfigured node. An nil node_id will always fail the
+    # token-binding check (nil != any_non_nil_value), which is the correct
+    # fail-closed behaviour.
     node_id =
       map_get(context, :node_id) ||
-        Application.get_env(:exocomp_node, :node_id, "")
+        Application.get_env(:exocomp_node, :node_id)
 
     %{
       node_id: node_id,

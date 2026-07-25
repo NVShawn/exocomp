@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.RiskRank do
   @moduledoc """
   Risk rank for action definitions, used by the policy engine for selection ordering.

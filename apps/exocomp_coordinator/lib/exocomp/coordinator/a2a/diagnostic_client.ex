@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.A2A.DiagnosticClient do
   @moduledoc """
   Coordinator-side A2A 1.0 boundary for node diagnostic tasks.

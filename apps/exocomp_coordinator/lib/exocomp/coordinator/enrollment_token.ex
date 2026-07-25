@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.EnrollmentToken do
   # Module attributes used in @moduledoc must be defined before @moduledoc.
   @default_lifetime 600

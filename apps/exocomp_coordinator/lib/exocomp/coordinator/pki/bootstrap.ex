@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.PKI.Bootstrap do
   @moduledoc """
   Creates and validates the coordinator's separated online and offline PKI state.

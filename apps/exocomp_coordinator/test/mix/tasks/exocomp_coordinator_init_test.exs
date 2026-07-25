@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Mix.Tasks.Exocomp.Coordinator.InitTest do
   @moduledoc """
   Integration tests for the `mix exocomp.coordinator.init` Mix task.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.SudoersPolicy do
   @moduledoc """
   Generates exact, minimal sudoers entries for the installed action catalog.

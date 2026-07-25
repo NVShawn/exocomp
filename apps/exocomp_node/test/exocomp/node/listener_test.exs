@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.ListenerTest do
   # async: false because tests bind TCP ports.
   use ExUnit.Case, async: false

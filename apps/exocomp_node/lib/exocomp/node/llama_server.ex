@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.LlamaServer do
   @moduledoc """
   Owns and monitors one loopback-only `llama-server` OS process.

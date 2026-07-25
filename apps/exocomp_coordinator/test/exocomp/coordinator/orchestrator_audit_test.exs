@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.OrchestratorAuditTest do
   @moduledoc """
   Focused tests for EXOCOMP-103: correlated diagnostic task transition audit.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.DataPart do
   @moduledoc """
   A message part carrying structured data as a JSON-compatible map.

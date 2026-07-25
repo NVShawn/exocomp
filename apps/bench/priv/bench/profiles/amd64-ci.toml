@@ -1,0 +1,16 @@
+# Pinned amd64 CI reference host profile.
+#
+# Represents the GitHub Actions standard ubuntu-22.04 runner (x86_64).
+# All benchmark results produced on this environment are tagged with this
+# profile so that cross-run comparisons remain valid only between identical
+# profiles.
+
+architecture = "amd64"
+cpu_model = "Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz"
+cpu_count = 2
+ram_bytes = 7516192768
+kernel_version = "6.5.0-1022-azure"
+linux_distribution = "Ubuntu 22.04.5 LTS"
+libc_version = "2.35"
+governor = "performance"
+container_or_vm = "vm"

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.LlamaServerTest do
   use ExUnit.Case, async: false
 
@@ -61,7 +63,9 @@ defmodule Exocomp.Node.LlamaServerTest do
   defp kill_port_os_process(port) do
     case Port.info(port, :os_pid) do
       {:os_pid, os_pid} ->
-        System.cmd("kill", ["-TERM", Integer.to_string(os_pid)])
+        # Debian slim builders do not include /usr/bin/kill. Invoke the POSIX
+        # shell builtin so crash-isolation coverage also runs in release images.
+        _output = :os.cmd(~c"kill -TERM #{os_pid}")
         :ok
 
       _other ->
