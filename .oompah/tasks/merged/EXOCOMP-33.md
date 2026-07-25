@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:30:19.908313Z'
+updated_at: '2026-07-25T02:30:51.887262Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -461,5 +461,10 @@ author: oompah
 created: 2026-07-25 02:30
 ---
 Implementation: Created apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs with 29 fault-injection tests covering all 12 scenarios from the acceptance criteria. Also included in the commit are four defense-in-depth improvements found uncommitted on the branch: (1) StateMachine.restore/5 now validates that target states are known (rejects injected garbage state names) and that each from-state matches the current machine state; (2) ApprovalGate now uses nil (not empty string) as the fallback for an unconfigured node_id, preventing a token signed with node_id='' from matching an unconfigured node. Tests cover: pre-action partition, post-action partition, coordinator restart (restore), node restart during action (crash reconciliation), duplicate sequential execution ID, concurrent execution ID race, replay nonce reuse, audit sink failure pre-action, restart failure (executor error), health failure (verify fails), flapping/repeated failure, cooldown reconciliation after restart, and cross-cutting exactly-once invariant.
+---
+author: oompah
+created: 2026-07-25 02:30
+---
+Verification: All 29 new fault-injection tests pass in the Docker CI environment (elixir:1.20.2-erlang-28.5.0.3). Full test suite result: 771/772 passed (pre-existing root-user failure in privilege_test.exs unrelated to this change; was 770/771 before this commit). No regressions introduced. The fault injection test file at apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs exercises all five acceptance criteria: (1) no scenario causes more than one execution per execution ID (duplicate, concurrent, replay, coordinator-restart, node-restart tests); (2) post-action partitions reconcile without blind retry (pending nonce blocks retry; authoritative result returned on reconciliation); (3) pre-action audit failure prevents execution (audit_fun failure on valid_approval blocks executor); (4) flapping/repeated failure escalates after one attempt (execution_attempted guard, cooling_down→escalated terminal path); (5) all fault tests pass.
 ---
 <!-- COMMENTS:END -->
