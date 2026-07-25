@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-25
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement unprivileged systemd executor and exact sudoers policy
 parent: EXOCOMP-3
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-23T22:47:29.866627Z'
+updated_at: '2026-07-25T02:16:25.112433Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
