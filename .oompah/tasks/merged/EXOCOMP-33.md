@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T18:30:37.376949Z'
+updated_at: '2026-07-25T18:30:39.766334Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -532,5 +532,10 @@ author: oompah
 created: 2026-07-25 02:33
 ---
 Delivered fault-injection test suite (12 scenarios, 29 tests) covering all M4-CRIT-4/5/6 acceptance criteria plus two defense-in-depth security fixes: (1) nil fallback for unconfigured node_id in ApprovalGate blocking empty-node_id token attacks, (2) restore/5 state validation blocking injected transition log attacks. 771/772 tests pass; single pre-existing root-privilege test failure is unrelated. Branch at 47fbb61 is pushed to origin/EXOCOMP-33.
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Action required: use recovery task EXOCOMP-113 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-113 lands and its acceptance criteria are confirmed against main.
 ---
 <!-- COMMENTS:END -->
