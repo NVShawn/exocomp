@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-115
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
@@ -14,12 +14,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T19:03:17.214459Z'
-work_branch: null
+updated_at: '2026-07-25T20:10:15.955724Z'
+work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 2456d083-5dda-40f6-b2b0-eab84c413b5e
+oompah.work_branch: epic-EXOCOMP-110
 ---
 ## Summary
 
@@ -37,5 +39,15 @@ author: oompah
 created: 2026-07-25 19:03
 ---
 Verification environment hint: the completed EXOCOMP-112 recovery proved the pinned Make gates work through the already-running Podman service. Create an empty ignored/temporary storage config, then run with CONTAINERS_STORAGE_CONF=<that-file>, XDG_RUNTIME_DIR=/home/shedwards/.oompah/tmp/<task>-runtime, DOCKER_HOST=, and CONTAINER_ENGINE='podman --remote --url unix:///run/user/1000/podman/podman.sock'. For make test, also pass _CONTAINER_USER_FLAG=--userns=keep-id. Remove the temporary config/runtime before committing. This passed fmt-check, lint, all 1,487 tests, both release builds, and smoke tests on EXOCOMP-112.
+---
+author: oompah
+created: 2026-07-25 20:10
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 20:10
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
