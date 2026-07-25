@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-115
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Implement exocomp work falsely marked Merged without delivery
 parent: EXOCOMP-110
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T21:00:30.086871Z'
+updated_at: '2026-07-25T21:09:11.284141Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
