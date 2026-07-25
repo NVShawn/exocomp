@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-44
 type: chore
-status: Merged
+status: Needs Human
 priority: 2
 title: Assemble signed offline bundles, SBOMs, and provenance
 parent: EXOCOMP-6
@@ -9,11 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-40
 - EXOCOMP-42
+- EXOCOMP-114
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-23T23:44:46.631358Z'
+updated_at: '2026-07-25T18:31:03.287787Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -198,5 +199,10 @@ Run #1 [attempt=1, profile=quick, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 11m 47s
 - Log: EXOCOMP-44__20260723T233300Z.jsonl
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Action required: use recovery task EXOCOMP-114 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-114 lands and its acceptance criteria are confirmed against main.
 ---
 <!-- COMMENTS:END -->

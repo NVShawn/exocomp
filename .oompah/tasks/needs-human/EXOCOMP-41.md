@@ -1,17 +1,18 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: Merged
+status: Needs Human
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-114
 labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-23T23:31:20.635735Z'
+updated_at: '2026-07-25T18:31:00.524373Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -222,5 +223,15 @@ author: oompah
 created: 2026-07-23 19:40
 ---
 Added Apache-2.0 licensing, complete open-source governance and release documentation, compatible runtime and model notices, and failure-tested compliance automation; all affected Make quality gates pass in pushed commit 886a6ab.
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Action required: use recovery task EXOCOMP-114 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-114 lands and its acceptance criteria are confirmed against main.
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-41 (Add licensing and open-source governance files), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
