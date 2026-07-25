@@ -15,9 +15,10 @@ blocked_by:
 labels:
 - focus-complete:duplicate_detector
 - merge-conflict
+- epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-25T02:07:15.313973Z'
+updated_at: '2026-07-25T02:07:17.760501Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
