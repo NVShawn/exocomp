@@ -14,7 +14,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:02:34.713423Z'
+updated_at: '2026-07-25T02:02:55.767476Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -63,5 +63,10 @@ author: oompah
 created: 2026-07-25 02:02
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-25 02:02
+---
+Understanding: duplicate-detector screening only. I will search existing tasks and Milestone 4 design material for service-recovery/restart work, inspect the full descriptions and comments of plausible matches, and either archive EXOCOMP-31 as a confirmed duplicate or hand it off for implementation if no duplicate is established. No code changes will be made in this focus.
 ---
 <!-- COMMENTS:END -->
