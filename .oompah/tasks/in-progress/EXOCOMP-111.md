@@ -12,7 +12,7 @@ labels:
 - needs:chore
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:31:39.156531Z'
+updated_at: '2026-07-25T18:31:42.332010Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -110,5 +110,10 @@ author: oompah
 created: 2026-07-25 18:31
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Agent dispatched (profile: quick)
 ---
 <!-- COMMENTS:END -->

@@ -18,7 +18,7 @@ labels:
 - focus-complete:merge_conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T18:31:38.530242Z'
+updated_at: '2026-07-25T18:31:41.641321Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -217,5 +217,10 @@ author: oompah
 created: 2026-07-25 02:14
 ---
 Completion (merge-conflict focus): review branch force-pushed, final review SHA verified, PR #10 merged into main, and focus-complete:merge_conflict recorded. EXOCOMP-31 remains for the feature implementation handoff; no out-of-scope feature changes were made in this session.
+---
+author: oompah
+created: 2026-07-25 18:31
+---
+Action required: use recovery task EXOCOMP-115 to implement and verify this task's previously undelivered scope on main. Do not mark this task Merged again until EXOCOMP-115 lands and the original acceptance criteria are confirmed against main.
 ---
 <!-- COMMENTS:END -->
