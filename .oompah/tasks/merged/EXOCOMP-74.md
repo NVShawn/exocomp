@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-74
 type: task
-status: Done
+status: Merged
 priority: null
 title: Implement PolicyEngine risk-ordered selection and comprehensive policy tests
 parent: EXOCOMP-22
@@ -13,7 +13,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-24T01:34:11.019955Z'
+updated_at: '2026-07-25T02:14:47.366136Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
