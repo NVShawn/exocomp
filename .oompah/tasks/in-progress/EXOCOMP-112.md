@@ -7,10 +7,12 @@ title: Recover omitted M5 benchmark host-profile and sampler work
 parent: EXOCOMP-110
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:chore
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-07-25T18:44:37.929565Z'
+updated_at: '2026-07-25T18:44:57.682751Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -67,5 +69,29 @@ Key facts for implementation agent:
 - EXOCOMP-56 delivered: apps/bench/lib/bench/host_sampler.ex (329-line GenServer for /proc + cgroup v2), updated apps/bench/lib/bench/sample.ex (nil value + tags field), apps/bench/test/bench/host_sampler_test.exs (183-line, 4 tests).
 - EXOCOMP-56 is based on EXOCOMP-53 which is based on EXOCOMP-54 (the raw sample model). Recovery order: cherry-pick EXOCOMP-53 commit first, then EXOCOMP-56 commit.
 - Run make test, make lint, make fmt-check in apps/bench after integration.
+---
+author: oompah
+created: 2026-07-25 18:44
+---
+Focus handoff: duplicate_detector
+
+1. **Outcome:** No duplicate confirmed. EXOCOMP-112 is unique — no other task covers the recovery of EXOCOMP-53 (Bench.HostProfile) and EXOCOMP-56 (Bench.HostSampler) onto epic-EXOCOMP-110.
+
+2. **Evidence and key findings:**
+   - Searched .oompah/tasks (not present on disk), docs, plans, README.md, WORKFLOW.md — no task files found on disk; used oompah task view directly.
+   - Reviewed EXOCOMP-53 (Needs Human, branch EXOCOMP-53, commit 2fb102d): Bench.HostProfile with detect/0, load/1, compatible?/2, inline flat-TOML parser, two reference profiles (amd64-ci.toml, arm64-ci.toml), 19 passing tests.
+   - Reviewed EXOCOMP-56 (Needs Human, branch EXOCOMP-56, commit 9634b10): Bench.HostSampler GenServer reading /proc + cgroup v2 per-process metrics, updated Bench.Sample with nil support + tags field, 4 tests.
+   - Reviewed EXOCOMP-110 (parent epic) and EXOCOMP-111 (Done, sibling): EXOCOMP-111 covered EXOCOMP-49/51 (M1 A2A codec/fixture) — completely different scope.
+   - EXOCOMP-113/114/115/116 are siblings covering M3/M4/M6 and verification — none overlaps with M5 benchmark host-profile/sampler.
+
+3. **Remaining work:**
+   - Cherry-pick EXOCOMP-53 (commit 2fb102d, branch EXOCOMP-53) onto epic-EXOCOMP-110
+   - Cherry-pick EXOCOMP-56 (commit 9634b10, branch EXOCOMP-56) on top
+   - Resolve any semantic conflicts (Bench.Sample struct may have evolved on main between these branches)
+   - Run make test, make lint, make fmt-check (all scoped to apps/bench)
+   - Verify apps/bench/lib/bench/host_profile.ex, host_sampler.ex, sample.ex, priv/bench/profiles/*, tests all present and passing
+   - Push epic-EXOCOMP-110 and close EXOCOMP-112
+
+4. **Recommended next focus:** chore
 ---
 <!-- COMMENTS:END -->
