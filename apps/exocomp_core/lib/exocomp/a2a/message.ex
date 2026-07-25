@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.Message do
   @moduledoc """
   A single message exchanged between a user and an agent in A2A 1.0.

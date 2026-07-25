@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.AgentSkill do
   @moduledoc """
   Describes a single skill that an A2A 1.0 agent can perform.

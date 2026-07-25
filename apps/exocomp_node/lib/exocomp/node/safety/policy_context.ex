@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.PolicyContext do
   @moduledoc """
   Runtime context supplied to the policy engine's eligibility filter.

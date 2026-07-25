@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.ActionCatalog do
   @moduledoc """
   Fixed, typed action catalog for the exocomp node executor.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.Inventory.Node do
   @moduledoc """
   A validated coordinator inventory entry.

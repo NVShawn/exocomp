@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.Skills.ClusterDiagnose do
   @moduledoc """
   Skill handler for `exocomp.cluster.diagnose`.

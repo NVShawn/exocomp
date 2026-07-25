@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.Config do
   @moduledoc """
   Loads, validates, and exposes Exocomp coordinator configuration from a

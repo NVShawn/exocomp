@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 Code.require_file("support/fake_llama_server.ex", __DIR__)
 
 # :httpc (used by Bench.Workload.LlamaInference) references :public_key in its

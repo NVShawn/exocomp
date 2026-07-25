@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.MultiNodeOrchestrationIntegrationTest do
   @moduledoc """
   Focused end-to-end integration suite for EXOCOMP-105.

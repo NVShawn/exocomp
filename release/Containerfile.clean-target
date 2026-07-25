@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
+#
+# Add the declared OpenSSL runtime dependency to a minimal Debian target
+# without carrying Erlang, Elixir, or compiler tooling into the final image.
+ARG BUILDER_IMAGE
+ARG TARGET_IMAGE
+ARG LIB_ARCH
+
+FROM ${BUILDER_IMAGE} AS builder
+FROM ${TARGET_IMAGE}
+
+ARG LIB_ARCH
+COPY --from=builder /usr/lib/${LIB_ARCH}/libcrypto.so.3 /usr/lib/${LIB_ARCH}/libcrypto.so.3

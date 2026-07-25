@@ -13,6 +13,11 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 - [Development](development.md)
 - [Testing the Systemd Fixture](testing-systemd-fixture.md)
 - [Coordinator Restart Recovery](coordinator-restart-recovery.md)
+- [Changelog policy](changelog-policy.md)
+- [Maintainer release checklist](maintainer-release-checklist.md)
+- [Release-notes template](release-notes-template.md)
+- [Release qualification](release-qualification.md)
+- [Runtime dependencies](runtime-dependencies.md)
 
 ## Keeping Docs In Sync
 

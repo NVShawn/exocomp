@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Identity do
   @moduledoc """
   Validates the node's TLS identity before the listener starts.

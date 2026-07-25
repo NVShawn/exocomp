@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.Resolver do
   @moduledoc """
   Supervised DNS resolver that converts inventory hostnames into normalized

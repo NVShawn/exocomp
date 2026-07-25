@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.PKI.State do
   @moduledoc """
   Publishes the coordinator's validated, non-secret PKI runtime metadata.

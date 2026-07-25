@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.PreconditionChecker do
   @moduledoc """
   Re-evaluates system state at execution time and verifies it matches the

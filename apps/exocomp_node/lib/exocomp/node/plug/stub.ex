@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Plug.Stub do
   @moduledoc """
   Minimal Plug that returns `200 OK` for every request.

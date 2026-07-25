@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.IntegrationTest do
   @moduledoc """
   Integration tests for EXOCOMP-77: coordinator PKI initialization and

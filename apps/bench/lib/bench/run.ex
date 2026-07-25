@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.Run do
   @moduledoc """
   Metadata and raw observations belonging to one benchmark run.

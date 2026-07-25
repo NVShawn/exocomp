@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.Sampler.Behaviour do
   @moduledoc """
   Behaviour that all `Bench.Sampler` implementations must satisfy.

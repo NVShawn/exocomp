@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Integration.FixtureTest do
   @moduledoc """
   ExUnit integration tests for the exocomp-fixture systemd service.

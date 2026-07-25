@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.PolicyEngine do
   @moduledoc """
   Policy engine: eligibility filter pipeline and risk-ordered candidate selection.

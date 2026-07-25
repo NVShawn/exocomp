@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.FileContent do
   @moduledoc """
   Represents the content of a file transferred in an A2A 1.0 message.

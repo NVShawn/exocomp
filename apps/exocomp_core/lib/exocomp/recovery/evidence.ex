@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Recovery.Evidence do
   @moduledoc """
   Versioned, target-bound evidence collected by deterministic code.

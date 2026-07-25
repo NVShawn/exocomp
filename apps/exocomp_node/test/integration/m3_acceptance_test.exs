@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Integration.M3AcceptanceTest do
   @moduledoc """
   M3 milestone acceptance tests.

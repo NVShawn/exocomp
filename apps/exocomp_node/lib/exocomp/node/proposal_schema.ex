@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.ProposalSchema do
   @moduledoc """
   Versioned schema for structured proposals produced by the Qwen2.5 inference

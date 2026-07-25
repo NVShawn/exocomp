@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.A2ARouter do
   @moduledoc """
   HTTP entry point for the coordinator's A2A 1.0 cluster service.

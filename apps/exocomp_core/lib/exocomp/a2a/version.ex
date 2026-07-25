@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.A2A.Version do
   @moduledoc """
   Validates A2A protocol versions and HTTP media types.

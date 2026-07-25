@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.BeamSampler do
   @moduledoc """
   Periodically collects runtime metrics from the local BEAM.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.Test.FakeLlamaServer do
   @moduledoc """
   Minimal in-process fake llama-server for `Bench.Workload.LlamaInference` tests.

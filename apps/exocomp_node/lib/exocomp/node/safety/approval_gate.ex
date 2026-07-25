@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.ApprovalGate do
   @moduledoc """
   Unified approval gate for node-side execution of coordinator-approved actions.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.Evidence do
   @moduledoc """
   Deterministic evidence collected before a safety action is evaluated.

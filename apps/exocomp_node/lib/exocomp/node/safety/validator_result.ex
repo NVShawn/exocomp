@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Safety.ValidatorResult do
   @moduledoc """
   The outcome of running the policy engine against a proposal and its evidence.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.PKI.Issuer do
   @moduledoc """
   Validates node certificate signing requests and issues node leaf certificates.

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.Skills.Dispatcher do
   @moduledoc """
   Routes a coordinator A2A skill_id to the appropriate skill handler module.

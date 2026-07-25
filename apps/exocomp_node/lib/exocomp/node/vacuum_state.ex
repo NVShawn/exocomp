@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.VacuumState do
   @moduledoc """
   GenServer that tracks per-mount-point vacuum execution state.

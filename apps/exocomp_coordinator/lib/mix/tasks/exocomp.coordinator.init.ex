@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Mix.Tasks.Exocomp.Coordinator.Init do
   @shortdoc "Initialize or validate coordinator PKI state"
 

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Bench.HostProfile do
   @moduledoc """
   Static reference host profiles for amd64 and arm64, plus runtime host

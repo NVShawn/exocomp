@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 # install.sh — Hardened exocomp node/coordinator installer.
 #
 # Run from inside an extracted exocomp release bundle as root:

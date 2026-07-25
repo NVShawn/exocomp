@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Recovery.StateMachine do
   @moduledoc """
   Service-recovery state machine for Milestone 4 (EXOCOMP-30).

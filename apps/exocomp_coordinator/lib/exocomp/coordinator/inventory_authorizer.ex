@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.InventoryAuthorizer do
   @moduledoc """
   Validates node selections in incoming A2A requests against the coordinator's

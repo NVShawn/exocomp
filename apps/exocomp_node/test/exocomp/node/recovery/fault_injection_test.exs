@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Recovery.FaultInjectionTest do
   @moduledoc """
   Fault-injection coverage for recovery execution boundary scenarios (EXOCOMP-33).

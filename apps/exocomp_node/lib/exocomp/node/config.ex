@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Config do
   @moduledoc """
   Loads, validates, and exposes Exocomp node configuration from a versioned
