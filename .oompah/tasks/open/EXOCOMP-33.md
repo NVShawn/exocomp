@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-33
 type: chore
-status: In Progress
+status: Open
 priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
@@ -18,7 +18,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:22:16.035845Z'
+updated_at: '2026-07-25T02:22:23.460741Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
