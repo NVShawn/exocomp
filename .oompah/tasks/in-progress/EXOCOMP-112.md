@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-07-25T18:45:42.856562Z'
+updated_at: '2026-07-25T18:46:15.547657Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-07-25 18:45
 ---
 Discovery: Current clean worktree is the shared epic-EXOCOMP-110 branch at 2da861a (the EXOCOMP-111 recovery), matching the requested recovery target. Source commits are available as 2fb102d (HostProfile, pinned amd64/arm64 profiles, 19 tests) and 9634b10 (HostSampler, Sample/Run integration, 4 sampler tests plus Sample coverage). apps/bench has no local help target, so I am inspecting the root Makefile and current Sample/Run model before cherry-picking.
+---
+author: oompah
+created: 2026-07-25 18:46
+---
+Implementation: Cherry-picked 2fb102d then 9634b10 cleanly onto the shared recovery branch, producing b65ad23 and c958c8f. Added Bench.HostProfile, pinned amd64/arm64 TOML profiles, Bench.HostSampler with /proc and cgroup-v2 attribution, and focused tests. Bench.Sample now supports nil values plus missing/unavailable/warming_up tags, and Bench.Run includes tags in JSONL records; existing Config/raw-sample/telemetry work was preserved because the touched Sample/Run files matched the sampler commit's parent exactly.
 ---
 <!-- COMMENTS:END -->
