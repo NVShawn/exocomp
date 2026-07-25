@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:18:12.440280Z'
+updated_at: '2026-07-25T20:20:30.700451Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -246,5 +246,22 @@ Understanding: I am a Software Engineer agent implementing five scopes falsely m
 5. EXOCOMP-47: Clean-host qualification summary doc
 
 Starting with codebase exploration to map existing infrastructure.
+---
+author: oompah
+created: 2026-07-25 20:20
+---
+Discovery: Completed codebase exploration. Key findings:
+
+EXOCOMP-31: StateMachine + Evidence + AuditEvent exist. ApprovalRequired implements the active/degraded path. Need to create FailedService module for the automatic path (observing→...→executing→verifying→completed/escalated), plus m4_acceptance_test.exs with 8 tests covering M4-CRIT-1 through M4-CRIT-8.
+
+EXOCOMP-66: build-releases.sh sets ERL_COMPILER_OPTIONS=deterministic but COOKIE is still random per-build (not set in mix.exs). Fix: remove COOKIE from releases() config (don't embed any cookie), add build-identity.json generation in build-releases.sh, add regression tests proving byte-identical artifacts and no predictable cookie.
+
+EXOCOMP-45: docs/ has release-qualification.md, development.md, etc. but lacks installation.md, pki-operations.md, policy-operations.md.
+
+EXOCOMP-46: test/installer/test_installer.py covers clean-install/upgrade/uninstall. Need rollback test class + docs/upgrade-rollback.md.
+
+EXOCOMP-47: Need docs/clean-host-qualification.md summarizing the qualification procedure with M6-CRIT evidence.
+
+Implementing now.
 ---
 <!-- COMMENTS:END -->
