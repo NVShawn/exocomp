@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-07-25T18:46:15.547657Z'
+updated_at: '2026-07-25T18:51:20.694182Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-07-25 18:46
 ---
 Implementation: Cherry-picked 2fb102d then 9634b10 cleanly onto the shared recovery branch, producing b65ad23 and c958c8f. Added Bench.HostProfile, pinned amd64/arm64 TOML profiles, Bench.HostSampler with /proc and cgroup-v2 attribution, and focused tests. Bench.Sample now supports nil values plus missing/unavailable/warming_up tags, and Bench.Run includes tags in JSONL records; existing Config/raw-sample/telemetry work was preserved because the touched Sample/Run files matched the sampler commit's parent exactly.
+---
+author: oompah
+created: 2026-07-25 18:51
+---
+Verification: PASS. make fmt-check passed; make lint passed with warnings-as-errors; make test passed under the pinned Elixir 1.20.2/OTP 28.5 builder using Podman keep-id. Results: bench 78 passed (including HostProfile, HostSampler, Sample/Run coverage), exocomp_core 189 passed, exocomp_coordinator 478 passed, exocomp_node 742 passed with 10 excluded; both test releases assembled and smoke-started successfully. An initial root-container run correctly failed only the node non-root guard; rerunning with keep-id resolved the environment issue without code changes.
 ---
 <!-- COMMENTS:END -->
