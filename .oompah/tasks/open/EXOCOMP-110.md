@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-110
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: Recover completed work omitted from merged epics
 parent: null
@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:52:37.335927Z'
-updated_at: '2026-07-25T20:03:41.835513Z'
+updated_at: '2026-07-25T20:08:41.691882Z'
 work_branch: epic-EXOCOMP-110
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/13
