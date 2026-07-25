@@ -16,7 +16,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:07:51.696133Z'
+updated_at: '2026-07-25T02:08:32.284196Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -174,5 +174,10 @@ author: oompah
 created: 2026-07-25 02:07
 ---
 Understanding: Merge conflict resolver focus. The rebase of epic-EXOCOMP-4 onto origin/main is already in progress (8 of 16 commits done). One remaining conflict in apps/exocomp_node/lib/exocomp/node/application.ex: HEAD (EXOCOMP-25 executor commit) added {ExecutorLock, name: ExecutorLock} to the supervisor children, while the incoming EXOCOMP-97 commit (durable replay ledger) added Exocomp.Node.Safety.ReplayLedger. Resolution: include both in the children list, then continue the rebase through remaining commits.
+---
+author: oompah
+created: 2026-07-25 02:08
+---
+Implementation: completed the rebase onto origin/main without dropping or squashing branch commits. Resolved conflicts in coordinator mix dependencies, node Application supervision, config/config.exs, and coordinator Application supervision by preserving both sides: upstream networking/PKI/task services remain, while branch Jason usage, ExecutorLock, ReplayLedger, VacuumState, replay-ledger config, and RemediationLifecycle are retained.
 ---
 <!-- COMMENTS:END -->
