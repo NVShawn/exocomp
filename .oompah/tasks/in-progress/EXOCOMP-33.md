@@ -16,7 +16,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:21:42.139100Z'
+updated_at: '2026-07-25T02:21:50.262472Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -334,5 +334,21 @@ author: oompah
 created: 2026-07-25 02:21
 ---
 Implementation: No code changed in security focus because the missing automatic recovery subsystem is the production security boundary that must be implemented before legitimate fault tests exist. Security requirements handed to feature focus: atomically claim a bounded execution ID in durable storage and fsync it before action; bind the record to node/task/correlation/action/target/parameter and evidence hashes; preserve the consumed/ambiguous state across restart; reconcile OS state plus append-only audit without re-execution; fail closed on pre-action audit/storage/authorization failure; enforce one attempt plus cooldown; reuse ActionCatalog/allow-list/direct argv and signed approval bindings; strictly validate restored transition identity/from/to/event/sequence; sanitize control characters and bound logged fields; cap identifier, record, result, waiter, and retention sizes; never log tokens, signatures, keys, raw command output, or sensitive evidence. Fault tests should include tampered records and log-injection/resource-exhaustion inputs in addition to the requested matrix.
+---
+author: oompah
+created: 2026-07-25 02:21
+---
+Discovery: Confirmed the findings of prior agents. The codebase (on epic-EXOCOMP-4) contains three production modules that implement the execution-boundary primitives needed for fault testing: (1) Recovery.StateMachine with execution_attempted guard, restore/5 for restart reconciliation, and deadline enforcement; (2) Safety.ReplayLedger with write-ahead nonce durability, crash reconciliation (pending→crashed_incomplete), and concurrent claim serialization; (3) Node.Recovery.ApprovalRequired tying StateMachine + ApprovalGate + ReplayLedger for the approval path. No automatic failed-service recovery module exists (EXOCOMP-31 scope). However, all 12 fault scenarios in the acceptance criteria CAN be tested against the existing production primitives — the unit tests simply lack an explicit, named fault injection suite. I will now create one in apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs targeting the 5 acceptance criteria: no-double-execution, post-action partition reconciliation, pre-action audit blocking, flapping escalation, and all tests passing.
+---
+author: oompah
+created: 2026-07-25 02:21
+---
+Verification: Completed static OWASP-oriented review of Recovery.StateMachine/AuditEvent, Node.Recovery.ApprovalRequired, Safety.ApprovalVerifier/ApprovalGate/ReplayLedger/PreconditionChecker, Executor, and ExecutorLock against the Milestone 4 failure model. Checked access control, cryptographic binding/replay, injection, data/audit integrity, logging/data exposure, race conditions, and denial of service. make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/epic-EXOCOMP-4'
+docker run --rm --init --user "$(id -u):$(id -g)" --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/epic-EXOCOMP-4:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-alpine-3.24.1@sha256:53d8a7a0caf2c4979041a8efe29a42567fe67dc0d6d982c9df00d67e7b37caa6 sh -c 'MIX_ENV=test mix deps.get && \
+	MIX_ENV=test mix test && \
+	MIX_ENV=test mix release exocomp_node --overwrite && \
+	MIX_ENV=test mix release exocomp_coordinator --overwrite && \
+	scripts/smoke-releases.sh test'
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/epic-EXOCOMP-4' was attempted but could not start because Podman cannot chmod  on the read-only filesystem; no test failures were observed because the suite never launched. No code changed in this focus.
 ---
 <!-- COMMENTS:END -->
