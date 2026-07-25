@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-46
 type: chore
-status: Needs Human
+status: Merged
 priority: 2
 title: Document and test upgrade, rollback, backup, and removal
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:05.467498Z'
-updated_at: '2026-07-25T20:09:07.682088Z'
+updated_at: '2026-07-25T21:10:39.209773Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -65,5 +65,10 @@ author: oompah
 created: 2026-07-25 20:09
 ---
 The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Needs Human with work branch unset. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-25 21:10
+---
+Recovered delivery verified on origin/main at merge commit 2085e44152f03ffd41f35cbfeee89a0da53b8bce (PR #14). Evidence: health-gated upgrade/rollback, backup/restore, removal lifecycle, docs, and 63 installer tests are integrated by 516faf81e5f506f9cc7d1ac24a98499e73dbfea0. The full recovery quality gates passed.
 ---
 <!-- COMMENTS:END -->
