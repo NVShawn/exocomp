@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:12:52.647304Z'
+updated_at: '2026-07-25T20:16:13.670461Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -157,5 +157,22 @@ author: oompah
 created: 2026-07-25 20:12
 ---
 Security constraint for EXOCOMP-66: resolve releases/COOKIE nondeterminism without deriving or shipping a predictable/fixed production cookie. Prefer omitting secret-bearing COOKIE content from published deterministic artifacts and generating/provisioning a cryptographically random cookie at install/first-start (or requiring RELEASE_COOKIE) while keeping the complete-content qualification honest. Add regressions proving two packaged artifacts are byte-identical, no reusable secret is embedded, and installed instances receive usable non-predictable cookie material. Also keep live arm64 qualification explicitly unverified on this amd64 host; do not report offline structural coverage as a live arm64 pass.
+---
+author: oompah
+created: 2026-07-25 20:16
+---
+Discovery: Mapped all five scopes to implementation targets.
+
+EXOCOMP-31 (auto recovery): The StateMachine already supports the {:failed_and_allowed, ev} transition path, and ApprovalRequired covers active/degraded. Missing: FailedService module that drives the automatic failed-service path (observing→diagnosing→proposed→validating→executing→verifying→completed/escalated), plus 8 acceptance tests and an m4_acceptance_test integration suite.
+
+EXOCOMP-66 (deterministic archives): build-releases.sh sets ERL_COMPILER_OPTIONS=deterministic but does NOT (a) produce build-identity.json or (b) fix releases/COOKIE nondeterminism. Plan: add :cookie derived from sha256(release_name+version) to mix.exs releases(), and generate build-identity.json in the release directory after build.
+
+EXOCOMP-45 (operator/PKI/policy guides): docs/ has release-qualification.md, development.md etc. but lacks: installation.md, pki-operations.md, policy-operations.md. Need to create all three.
+
+EXOCOMP-46 (lifecycle + tests): installer tests already cover clean install/upgrade/uninstall. Need additional lifecycle tests (upgrade-rollback, backup-restore, interrupted upgrade) and docs/upgrade-rollback.md.
+
+EXOCOMP-47 (clean-host qualification): test-release-matrix.sh and test-clean-container.sh already exist and handle the offline/live matrix. The scripts/Containerfile.clean-target covers the clean-target image. Missing: a clean-host qualification summary doc with M6-CRIT evidence collection procedure. The test-release-matrix.sh already verifies build-identity.json if present. Will add the qualification docs.
+
+Implementing in order: 31, 66, 45, 46, 47.
 ---
 <!-- COMMENTS:END -->
