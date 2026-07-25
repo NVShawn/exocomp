@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-07-25T18:51:55.038131Z'
+updated_at: '2026-07-25T18:52:08.081963Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -163,5 +163,20 @@ author: oompah
 created: 2026-07-25 18:51
 ---
 Completion: Recovered and pushed EXOCOMP-53/56 onto epic-EXOCOMP-110 as b65ad23 and c958c8f. Delivered pinned amd64/arm64 host profiles, Linux /proc sampler with node/coordinator/llama attribution and cgroup-v2 network accounting, nullable/tagged raw samples, JSONL tag preservation, and focused tests. fmt-check, lint, full tests, release assembly, and smoke checks all pass. Branch is clean and up to date with origin/epic-EXOCOMP-110.
+---
+author: oompah
+created: 2026-07-25 18:52
+---
+Run #1 [attempt=1, profile=quick, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 59
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 6m 54s
+- Log: EXOCOMP-112__20260725T184515Z.jsonl
+---
+author: oompah
+created: 2026-07-25 18:52
+---
+Recovered EXOCOMP-53 and EXOCOMP-56 host-profile/sampler work onto epic-EXOCOMP-110; all quality gates and release smoke checks pass, and commits are pushed.
 ---
 <!-- COMMENTS:END -->
