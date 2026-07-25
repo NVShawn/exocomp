@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T18:38:57.080564Z'
+updated_at: '2026-07-25T18:43:57.676599Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -550,6 +550,11 @@ The parent epic EXOCOMP-4 merged from epic-EXOCOMP-4, but this task was Needs Hu
 ---
 author: oompah
 created: 2026-07-25 18:38
+---
+The parent epic EXOCOMP-4 merged from epic-EXOCOMP-4, but this task was Needs Human with work branch epic-EXOCOMP-4. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-25 18:43
 ---
 The parent epic EXOCOMP-4 merged from epic-EXOCOMP-4, but this task was Needs Human with work branch epic-EXOCOMP-4. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
