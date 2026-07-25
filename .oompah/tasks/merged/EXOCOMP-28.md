@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-28
 type: chore
-status: Done
+status: Merged
 priority: 1
 title: Verify M3 safety and remediation controls
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-24T22:09:55.803471Z'
+updated_at: '2026-07-25T02:22:44.819210Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null

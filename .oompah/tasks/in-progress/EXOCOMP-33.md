@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-33
 type: chore
-status: Open
+status: In Progress
 priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
@@ -15,16 +15,15 @@ labels:
 - 'focus-complete:'
 - focus-complete:chore
 - focus-complete:security
-- needs:feature
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T02:22:23.460741Z'
+updated_at: '2026-07-25T02:22:42.146227Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 409ba1c4-3b5f-4060-9fde-1da271561518
+oompah.agent_run_id: b7cad5d2-7739-4b18-8fd4-bb91b268f0b6
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
   total_input_tokens: 20
@@ -370,5 +369,41 @@ Evidence and decisions: Reviewed apps/exocomp_core/lib/exocomp/recovery/state_ma
 Remaining work and risks: Feature focus must supply a durable, atomic, bounded execution-ID claim keyed and bound to node/task/correlation/action/target/parameters/evidence; fsync before action; immutable audit-before-action; consumed ambiguous state after post-action failure; restart reconciliation without retry; one-attempt/cooldown enforcement; strict record and StateMachine restore integrity validation; log control-character sanitization; and resource limits/retention. Test focus must then cover partitions, restarts, duplicate/concurrent/replay, audit/restart/health failures, flapping/cooldown, tampered records, log injection, and resource exhaustion, asserting exactly one action and terminal reconciliation. Make test is environment-blocked by Podman permissions on read-only /run/user/1000/libpod.
 
 Recommended next focus: feature, followed by test.
+---
+author: oompah
+created: 2026-07-25 02:22
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Codex/default]
+- Turns: 0, Tool calls: 46
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 23s
+- Log: EXOCOMP-33__20260725T022012Z.jsonl
+---
+author: oompah
+created: 2026-07-25 02:22
+---
+Agent dispatched (profile: quick)
+---
+author: oompah
+created: 2026-07-25 02:22
+---
+Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-25 02:22
+---
+Agent failed: RuntimeError: Codex exec exited with code 1: Error: No such file or directory (os error 2)
+. Retrying in 10s (attempt #1)
+---
+author: oompah
+created: 2026-07-25 02:22
+---
+Run #1 [attempt=1, profile=quick, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 2s
+- Log: EXOCOMP-33__20260725T022240Z.jsonl
 ---
 <!-- COMMENTS:END -->
