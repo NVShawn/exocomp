@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-21
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Define action, evidence, risk, and data-classification types
 parent: EXOCOMP-3
@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-23T22:13:10.484942Z'
+updated_at: '2026-07-25T02:11:27.958006Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
