@@ -16,7 +16,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:08:32.284196Z'
+updated_at: '2026-07-25T02:12:56.190256Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -179,5 +179,10 @@ author: oompah
 created: 2026-07-25 02:08
 ---
 Implementation: completed the rebase onto origin/main without dropping or squashing branch commits. Resolved conflicts in coordinator mix dependencies, node Application supervision, config/config.exs, and coordinator Application supervision by preserving both sides: upstream networking/PKI/task services remain, while branch Jason usage, ExecutorLock, ReplayLedger, VacuumState, replay-ledger config, and RemediationLifecycle are retained.
+---
+author: oompah
+created: 2026-07-25 02:12
+---
+Verification (pre-push): rebase completed; git diff --check passes and no conflict markers remain. The prescribed make fmt-check/test gates could not execute because Podman cannot write its fixed /run/user/1000/libpod runtime path in this managed session. Local fallback is also unavailable: host Elixir is 1.18.3 while the project requires 1.20.2, and the user temp-storage quota prevents unpacking the official temporary 1.20.2 toolchain. No test failure was observed; execution was blocked by tooling before tests ran.
 ---
 <!-- COMMENTS:END -->
