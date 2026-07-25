@@ -15,13 +15,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:40:26.670370Z'
+updated_at: '2026-07-25T20:44:11.009933Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 3a7e5cb9-079f-4af8-ba42-7d48f90f3990
+oompah.agent_run_id: 1a69c61f-1124-4088-9327-3894ac7b971a
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
   total_input_tokens: 187
@@ -313,5 +313,15 @@ author: oompah
 created: 2026-07-25 20:40
 ---
 Manual recovery implementation is active on epic-EXOCOMP-110. The unsafe deterministic-cookie attempt has been removed. Current review is tightening durable exactly-once recovery, atomic upgrade switching, secret-free deterministic archive qualification, and then running focused/full Make gates before the task can be Done.
+---
+author: oompah
+created: 2026-07-25 20:44
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-25 20:44
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
