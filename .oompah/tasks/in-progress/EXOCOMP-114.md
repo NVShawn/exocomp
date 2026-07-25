@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T19:20:33.773931Z'
+updated_at: '2026-07-25T19:23:37.437445Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -125,5 +125,10 @@ author: oompah
 created: 2026-07-25 19:20
 ---
 Understanding: I will compare EXOCOMP-41, EXOCOMP-44, EXOCOMP-65, EXOCOMP-67, and EXOCOMP-68 artifacts against the current recovery branch, integrate only missing governance/compliance, pinned multi-architecture build, runtime dependency, reproducibility qualification, and signed offline bundle work while preserving the current hardened installer, then run the relevant Make release/compliance gates through the documented Podman service before committing and pushing.
+---
+author: oompah
+created: 2026-07-25 19:23
+---
+Discovery: All omitted deliverables were found in commits 886a6ab (governance/compliance), b225eb5 (offline bundles/SBOM/provenance/signing), facdca1 (pinned builders), 6252ba0 (runtime dependency inspection), and ef77ff3 (multi-arch qualification/reproducibility). The builder/dependency/qualification commits are sequential; conflicts were confined to Makefile plus governance index docs. I combined their targets with the current Hex bootstrap, rootless/userns handling, installer targets, and current recovery branch rather than replacing hardened main behavior.
 ---
 <!-- COMMENTS:END -->
