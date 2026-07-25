@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:57:17.092344Z'
+updated_at: '2026-07-25T20:58:01.909747Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -338,5 +338,28 @@ author: oompah
 created: 2026-07-25 20:57
 ---
 Implementation: Found uncommitted changes on the working tree that extend EXOCOMP-66 (deterministic archives). The changes add scripts/prepare-release-deps.sh to normalize Bandit 1.12.1's compile-time large-map key ordering (which varies with VM hash seed and breaks determinism even with ERL_COMPILER_OPTIONS=deterministic), update package_release.py to record release_input_normalizer_sha256 in build-identity.json, and add tests/test_release_input_normalizer.py with 3 fail-closed tests. All 3 new tests pass. Committing these changes now.
+---
+author: oompah
+created: 2026-07-25 20:58
+---
+Verification: All relevant Make gates pass on epic-EXOCOMP-110.
+
+fmt-check: PASS
+lint: PASS  
+test (ExUnit): 78+192+478 = 748 tests passed, 0 failures (includes failed_service_test.exs, fault_injection_test.exs, m4_acceptance_test.exs, state_machine_test.exs)
+test-installer: 63 passed, 0 failures (lifecycle, backup/restore, rollback, uninstall)
+test-release-packaging: 5+4+3 = 12 tests passed (deterministic archives, operator docs, input normalizer)
+release-check: PASS (compliance checks)
+
+Two commits delivered:
+- 516faf8: Core implementation (FailedService, docs, lifecycle tests, package_release.py)
+- 301d87e: Bandit release-input normalization for full determinism (prepare-release-deps.sh)
+
+All five scopes delivered:
+- EXOCOMP-31: FailedService orchestrator with exactly-once durable recovery, 8 M4-CRIT acceptance tests, 12 fault-injection scenarios
+- EXOCOMP-45: installation.md, pki-operations.md, policy-operations.md (operator/PKI/policy guides)
+- EXOCOMP-46: lifecycle.md + 63-test installer suite (upgrade, rollback, backup, removal)
+- EXOCOMP-47: clean-host-qualification.md with M6-CRIT evidence matrix
+- EXOCOMP-66: deterministic secret-free OTP archives, build-identity.json manifests, COOKIE-free packaging, Bandit normalization
 ---
 <!-- COMMENTS:END -->
