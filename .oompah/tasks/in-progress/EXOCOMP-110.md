@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-110
 type: epic
-status: In Review
+status: In Progress
 priority: 1
 title: Recover completed work omitted from merged epics
 parent: null
@@ -16,14 +16,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:52:37.335927Z'
-updated_at: '2026-07-25T20:59:57.673350Z'
+updated_at: '2026-07-25T21:00:01.715083Z'
 work_branch: epic-EXOCOMP-110
 target_branch: main
-review_url: https://github.com/NVShawn/exocomp/pull/13
-review_number: '13'
+review_url: https://github.com/NVShawn/exocomp/pull/14
+review_number: '14'
 merged_at: null
-oompah.review_url: https://github.com/NVShawn/exocomp/pull/13
-oompah.review_number: '13'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/14
+oompah.review_number: '14'
 oompah.work_branch: epic-EXOCOMP-110
 oompah.target_branch: main
 ---
