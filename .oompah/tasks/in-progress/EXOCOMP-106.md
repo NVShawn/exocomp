@@ -12,7 +12,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-25T02:07:09.985274Z'
+updated_at: '2026-07-25T02:09:16.048518Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -194,5 +194,10 @@ author: oompah
 created: 2026-07-25 02:07
 ---
 Understanding: Re-check the current epic-EXOCOMP-4 branch after the newly reported MR #10 conflict, fetch origin, rebase every epic commit onto origin/main without dropping or squashing work, resolve conflicts by preserving both mainline and epic intent, run the Makefile quality gates, force-push with --force-with-lease, verify the remote review diff, and close the task.
+---
+author: oompah
+created: 2026-07-25 02:09
+---
+Discovery: The shared worktree contained a just-completed rebase, but range-diff and review-diff auditing found invalid conflict resolutions: the result would delete 2,842 lines of current main coordinator/A2A/task-registry code and omitted Exocomp.Node.VacuumState from the supervision tree. The pre-rebase remote epic tip is clean and recoverable; I am restoring that exact tip and rerunning the required rebase, preserving mainline services plus all epic services at each conflict.
 ---
 <!-- COMMENTS:END -->
