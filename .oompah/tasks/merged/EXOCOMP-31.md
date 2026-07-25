@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-31
 type: feature
-status: In Progress
+status: Merged
 priority: 0
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
@@ -16,7 +16,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:12:56.190256Z'
+updated_at: '2026-07-25T02:13:23.616924Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
