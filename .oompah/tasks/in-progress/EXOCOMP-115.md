@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:24.080768Z'
-updated_at: '2026-07-25T20:47:26.967558Z'
+updated_at: '2026-07-25T20:57:17.092344Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -333,5 +333,10 @@ author: oompah
 created: 2026-07-25 20:47
 ---
 Discovery: All five scopes are already implemented in commit 516faf8 ('EXOCOMP-115: recover missing release and recovery delivery'). The prior manual implementation (per comments at 20:28 and 20:40) completed the work. All files present: EXOCOMP-31 (failed_service.ex + failed_service_test.exs + fault_injection_test.exs + m4_acceptance_test.exs), EXOCOMP-66 (package_release.py + package-releases.sh + test_package_release.py), EXOCOMP-45 (installation.md + pki-operations.md + policy-operations.md), EXOCOMP-46 (lifecycle.md + installer tests), EXOCOMP-47 (clean-host-qualification.md). Repository is clean (no uncommitted changes). Running test gates now to verify pass before closing.
+---
+author: oompah
+created: 2026-07-25 20:57
+---
+Implementation: Found uncommitted changes on the working tree that extend EXOCOMP-66 (deterministic archives). The changes add scripts/prepare-release-deps.sh to normalize Bandit 1.12.1's compile-time large-map key ordering (which varies with VM hash seed and breaks determinism even with ERL_COMPILER_OPTIONS=deterministic), update package_release.py to record release_input_normalizer_sha256 in build-identity.json, and add tests/test_release_input_normalizer.py with 3 fail-closed tests. All 3 new tests pass. Committing these changes now.
 ---
 <!-- COMMENTS:END -->
