@@ -1,8 +1,8 @@
 ---
 id: EXOCOMP-31
 type: feature
-status: Open
-priority: 1
+status: Needs Rebase
+priority: 0
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
 children: []
@@ -14,9 +14,10 @@ blocked_by:
 labels:
 - focus-complete:duplicate_detector
 - needs:feature
+- merge-conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T02:04:26.593685Z'
+updated_at: '2026-07-25T02:05:19.174572Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -124,5 +125,10 @@ author: oompah
 created: 2026-07-25 02:04
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-25 02:05
+---
+YOLO: Merge conflict detected on MR #10. Rebase onto main and resolve conflicts.
 ---
 <!-- COMMENTS:END -->

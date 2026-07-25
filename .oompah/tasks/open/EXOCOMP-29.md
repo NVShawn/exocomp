@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-29
 type: feature
-status: Needs Rebase
+status: Open
 priority: 1
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-25T02:05:04.462732Z'
+updated_at: '2026-07-25T02:05:24.107172Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -351,5 +351,17 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 47s
 - Log: EXOCOMP-29__20260723T210418Z.jsonl
+---
+author: oompah
+created: 2026-07-25 02:05
+---
+[watchdog:stalled_task] Stalled-task watchdog audit (run #1)
+
+**State audited:** `Needs Rebase`
+**Classification:** `actionable`
+**Action:** `reopen`
+**Evidence:** Recent comment indicates the conflict or rebase has been resolved; safe to reopen.
+
+*This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
 ---
 <!-- COMMENTS:END -->
