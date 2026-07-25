@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: Needs Human
+status: Merged
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-25T20:03:53.302834Z'
+updated_at: '2026-07-25T21:10:55.838448Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -349,5 +349,10 @@ author: oompah
 created: 2026-07-25 20:03
 ---
 The parent epic EXOCOMP-35 merged from epic-EXOCOMP-5, but this task was Needs Human with work branch epic-EXOCOMP-5. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-25 21:10
+---
+Recovered delivery verified on origin/main at merge commit 2085e44152f03ffd41f35cbfeee89a0da53b8bce (PR #14). Evidence: host profiles commit b65ad23aee606def48fc186560081c0f43f2b8de is a direct ancestor of main. The full recovery quality gates passed.
 ---
 <!-- COMMENTS:END -->

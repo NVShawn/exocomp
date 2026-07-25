@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:27.708830Z'
-updated_at: '2026-07-25T21:09:41.682875Z'
+updated_at: '2026-07-25T21:10:53.150061Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -219,5 +219,10 @@ author: oompah
 created: 2026-07-25 21:09
 ---
 Verified recovery delivery on origin/main via merged PR #14 (2085e44).
+---
+author: oompah
+created: 2026-07-25 21:10
+---
+Discovery: Refreshed all remotes and audited the recovered source deliveries from EXOCOMP-28/33/41/44/49/51/53/56/65/67/68 (including epic-EXOCOMP-8/35/42 ancestry) against both origin/epic-EXOCOMP-110 and origin/main. Across 12 source delivery commits and 101 changed-path references, both destinations have zero missing/reversed paths; exact patch identity is retained for EXOCOMP-53 and EXOCOMP-56, while the other deliveries are present through documented semantic reconciliations/squashes. The epic and main trees are byte-identical, all 10 recovery commits are ancestors of main, and the 10 A2A fixtures are present. PR #14 was merged externally during this run at 2026-07-25T21:08:46Z as merge commit 2085e44; remaining work is the complete post-merge Make gate verification.
 ---
 <!-- COMMENTS:END -->
