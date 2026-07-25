@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: Needs Human
+status: Merged
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-25T21:11:17.758479Z'
+updated_at: '2026-07-25T21:11:20.360786Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
