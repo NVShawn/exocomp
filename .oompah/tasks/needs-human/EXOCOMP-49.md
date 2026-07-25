@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-49
 type: task
-status: Merged
+status: Needs Human
 priority: null
 title: Implement A2A 1.0 JSON codecs, error mapping, and version handling
 parent: EXOCOMP-8
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-25T18:29:59.030429Z'
+updated_at: '2026-07-25T18:30:02.695033Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
