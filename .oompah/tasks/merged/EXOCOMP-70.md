@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-70
 type: task
-status: Done
+status: Merged
 priority: null
 title: Create systemd unit file and fixture installer/cleanup scripts
 parent: EXOCOMP-29
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-23T21:32:58.914170Z'
+updated_at: '2026-07-25T02:14:50.384033Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
