@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-25T18:30:29.397910Z'
+updated_at: '2026-07-25T18:30:31.770340Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -215,5 +215,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 26m 4s
 - Log: EXOCOMP-28__20260724T193037Z.jsonl
+---
+author: oompah
+created: 2026-07-25 18:30
+---
+Action required: use recovery task EXOCOMP-113 to integrate and verify this task's omitted deliverables on main. Do not mark this task Merged again until EXOCOMP-113 lands and its acceptance criteria are confirmed against main.
 ---
 <!-- COMMENTS:END -->
