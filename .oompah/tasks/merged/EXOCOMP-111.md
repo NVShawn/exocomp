@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-111
 type: chore
-status: Done
+status: Merged
 priority: 1
 title: Recover omitted M1 A2A codec and fixture work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T18:42:44.126910Z'
+updated_at: '2026-07-25T21:09:00.856321Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
