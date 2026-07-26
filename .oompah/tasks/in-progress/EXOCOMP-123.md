@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T17:12:03.868471Z'
+updated_at: '2026-07-26T17:12:26.553831Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -656,5 +656,10 @@ author: oompah
 created: 2026-07-26 17:12
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 17:12
+---
+Understanding (continuation attempt #10): Resuming the exact signed v0.1.0-rc.15 qualification at 151ce8560dab898c789335660e4fe375a79269eb. I will reconcile both dedicated guest jobs and fresh evidence roots, finish every missing repository/build/offline/live/M5/lifecycle gate without reusing rejected candidates, assemble and verify a signed evidence index, commit and push it, then close only if all M6-CRIT requirements pass.
 ---
 <!-- COMMENTS:END -->
