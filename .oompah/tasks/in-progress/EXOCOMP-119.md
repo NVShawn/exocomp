@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:39:35.323091Z'
+updated_at: '2026-07-26T04:48:13.924982Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -237,5 +237,10 @@ author: oompah
 created: 2026-07-26 04:39
 ---
 Understanding: I am the Software Engineer focus for EXOCOMP-119. The previous focus handoffs confirm the gap: apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex starts only the general M2 supervision tree with no Listener, PKI.State, or EnrollmentToken; health.ex only checks Inventory/Registry/Audit; enrollment/renewal endpoints are absent from the production A2A router. My plan: (1) read all relevant source files to understand current module APIs; (2) wire PKI.State, EnrollmentToken, Listener, and enrollment/renewal handlers into Application.start/2 production tree; (3) update Health.check/0 to require all live components; (4) add release-mode integration tests; (5) run make test and available gates; (6) commit and push.
+---
+author: oompah
+created: 2026-07-26 04:48
+---
+Discovery: Confirmed the exact gaps from prior handoffs. Application.start/2 starts only the M2 tree (no PKI.State, EnrollmentToken, Listener). Health.check/0 checks only Inventory/Registry/Audit. A2ARouter globally requires mTLS (no enrollment route). EnrollmentClient expects POST /v1/enroll with Bearer token (not mTLS). Plan: (1) Add Bootstrap.load_online_state/1 for production restarts without offline root; (2) Update Application.start/2 to start PKI.State, EnrollmentToken, Listener when require_pki:true; (3) Update Health.check/0 to require all components; (4) Add CoordinatorRouter that routes /v1/enroll to EnrollmentHandler and /v1/renew to RenewalHandler, falls through to A2ARouter; (5) Modify Listener to use CoordinatorRouter and fail_if_no_peer_cert:false; (6) Add release-mode integration tests.
 ---
 <!-- COMMENTS:END -->
