@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T05:24:36.472672Z'
+updated_at: '2026-07-26T05:29:08.732455Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -63,5 +63,10 @@ author: oompah
 created: 2026-07-26 05:24
 ---
 Discovery: GitHub reports no Actions runs for this branch/repository; the checked-in rc.2 qualification log is the authoritative failure record. It shows HostSamplerTest blocked on assert_receive "ready" for 5,000 ms and HealthPollerTest used bare assert_receive (100 ms) for node-2 after node-1's resolver crashed. Current production code already removes crashed tasks and dispatches the next due node; only the tests impose brittle wall-clock assumptions. Both focused tests pass on amd64 with the pinned Elixir 1.20.2/OTP 28 runtime, confirming the emulation-specific scheduler-latency diagnosis.
+---
+author: oompah
+created: 2026-07-26 05:29
+---
+Implementation: Updated only the two affected test modules. Bench.HostSamplerTest now uses line-framed port output, a monotonic 30s bounded wait, and eventual sampling of real CPU/RSS state instead of 5s receives plus sleep(200); it includes 5.1s delayed-readiness and never-ready timeout regressions. HealthPollerTest now deterministically holds resolver and probe workers for 150ms (> the former 100ms receive), crashes each, checks in-flight ownership, and verifies concurrency=1 advances node-1 -> node-2 -> node-3; its state helper now uses a 10s monotonic deadline. Production code/timeouts are unchanged.
 ---
 <!-- COMMENTS:END -->
