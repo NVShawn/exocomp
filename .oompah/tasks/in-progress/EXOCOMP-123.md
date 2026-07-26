@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T11:23:06.453872Z'
+updated_at: '2026-07-26T11:37:18.799126Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -362,5 +362,10 @@ author: oompah
 created: 2026-07-26 11:23
 ---
 Discovery: rc.8 pretag amd64 passed strict no-network verification/install, production PKI init, enrollment/renewal, restart durability, audit fail-closed behavior, and live failed-service recovery through shipped sudo. The required live multi-node diagnostic then exposed a distinct release blocker: the coordinator's production A2A client has no :a2a_tls runtime configuration, Bootstrap emits only coordinator.pem (leaf) plus intermediate_ca.pem, and the node rejects the outbound coordinator client certificate with TLS unknown_ca because no coordinator chain file is presented. rc.8 remains unsigned/rejected preflight source; no result will be reused for acceptance.
+---
+author: oompah
+created: 2026-07-26 11:37
+---
+Implementation: rc.9 fixes production coordinator-to-node A2A mTLS by emitting and validating a leaf-plus-intermediate coordinator chain, wiring it into the systemd/runtime outbound client, and covering bootstrap corruption plus installer/runtime structure. Added invariant rc.9 M5 ceilings and committed qualification helpers that exercise exact-tag offline install/PKI/enrollment, signed approval and replay denial, multi-node diagnostics, automatic recovery, bounded cleanup/unsafe denials, lifecycle rollback/backup/uninstall, and protected-state preservation. Focused gates pass: test-builders and all 76 installer tests; the clean amd64 full rerun passes 845 tests (10 excluded).
 ---
 <!-- COMMENTS:END -->
