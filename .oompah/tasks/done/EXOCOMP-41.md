@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-26T04:26:02.797730Z'
+updated_at: '2026-07-26T04:26:05.515933Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -268,5 +268,10 @@ author: oompah
 created: 2026-07-26 04:26
 ---
 Resolved without human action. The full EXOCOMP-41 deliverable was recovered and verified on main by 50cd48c in PR #14 (merge 2085e44). The stale original branch EXOCOMP-41 had no PR and only kept the landing-evidence detector seeing superseded commit 886a6ab, so the remote branch was removed. That commit remains recoverable by SHA. Current qualification follow-up remains EXOCOMP-120.
+---
+author: oompah
+created: 2026-07-26 04:26
+---
+Recovered governance delivery verified on main via PR #14; removed stale superseded branch that caused false landing-evidence escalation.
 ---
 <!-- COMMENTS:END -->
