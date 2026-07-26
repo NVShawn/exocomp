@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T07:59:20.358578Z'
+updated_at: '2026-07-26T07:59:43.795742Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -165,5 +165,10 @@ author: oompah
 created: 2026-07-26 07:59
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-26 07:59
+---
+Understanding: DevOps qualification pass for a fresh post-remediation M6 candidate. I will identify and pin the exact source/tag, inspect the established rc.2 evidence contract, build/rebuild amd64 and arm64 artifacts where supported, run all repository and release Make gates plus shipped-artifact/live checks available in clean guests, and record only newly verified evidence. I will not reuse rc.2 results; unavailable signing or guest infrastructure will be documented and routed as remaining work rather than represented as passing.
 ---
 <!-- COMMENTS:END -->
