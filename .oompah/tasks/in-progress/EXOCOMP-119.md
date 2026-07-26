@@ -7,10 +7,12 @@ title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:10:25.088026Z'
+updated_at: '2026-07-26T04:10:51.024576Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -69,5 +71,20 @@ author: oompah
 created: 2026-07-26 04:10
 ---
 Verification: Duplicate screen completed read-only. Repository/task-history searches and full candidate task views show no task that owns production wiring plus installed-artifact enrollment/renewal recovery. Source inspection confirms the reported gap in Application.start/2 and Health.check/0. No files were changed and no tests were run because this focus forbids implementation. The worktree already contains unrelated modifications in config/config.exs, both systemd units, and scripts/install.sh; they were preserved untouched.
+---
+author: oompah
+created: 2026-07-26 04:10
+---
+Focus handoff: duplicate_detector
+
+Outcome: Duplicate screening found no duplicate; EXOCOMP-119 should proceed to implementation.
+
+Evidence/decisions: Reviewed full histories for EXOCOMP-17/19/20/60/77/107/117/123 and searched plans/docs/source for coordinator PKI, listener, enrollment, renewal, replay, health, and release qualification. The closest completed work is split across EXOCOMP-77 (validated PKI and durable token domain services), EXOCOMP-19 (coordinator listener/A2A surface), and EXOCOMP-107 (node enrollment client, credential installer, renewal scheduler). None wires those pieces into the shipped production services or proves an installed-artifact end-to-end flow. apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex starts only the general M2 tree in start/2; PKI.State and EnrollmentToken occur only in start_supervised_tree/1, documented as integration-test-oriented, and Listener is absent. apps/exocomp_coordinator/lib/exocomp/coordinator/health.ex checks only Inventory, Registry, and Audit. apps/exocomp_coordinator/test/integration/m2_acceptance_test.exs calls domain services directly. docs/release-evidence/v0.1.0-rc.2/README.md records this exact production failure.
+
+Relevant files: coordinator application/listener/health/config and enrollment router/API; config/config.exs; release coordinator/node systemd units; scripts/install.sh; release templates; docs/pki-operations.md, docs/installation.md, docs/clean-host-qualification.md; installer/bundle/live integration tests. Preserve the existing unrelated dirty changes in config/config.exs, release/coordinator/exocomp-coordinator.service, release/node/exocomp-node.service, and scripts/install.sh.
+
+Remaining work/risks: Compose validated PKI, token, issuer, authenticated enrollment/renewal endpoints, and listener under production supervision; wire node enrollment/renewal into installed runtime; require audit and all mandatory components in health; align installer ownership/paths; add release-mode replay/identity/root/audit/restart durability coverage; run the required Make and clean-host gates. The main risk is correctly composing prior modules without weakening fail-closed behavior or exposing tokens/passphrases.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
