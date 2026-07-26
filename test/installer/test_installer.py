@@ -916,6 +916,115 @@ class TestUpgradePreparation:
         assert os.readlink(current) == f"releases/{self.v1}"
         assert (current / "bin" / f"exocomp_{self.component}").exists()
 
+    def test_rollback_stops_failed_release_then_waits_for_prior_health(self):
+        release_log = self.tmp / "release.log"
+        release_script = """#!/bin/sh
+printf '%s:%s\\n' '@VERSION@' "$*" >> "$EXOCOMP_FAKE_RELEASE_LOG"
+exit 0
+"""
+        info1 = _make_bundle_tree(
+            self.tmp / "b1",
+            self.component,
+            self.v1,
+            contents={
+                "bin/exocomp_node": release_script.replace(
+                    "@VERSION@", self.v1
+                )
+            },
+        )
+        info2 = _make_bundle_tree(
+            self.tmp / "b2",
+            self.component,
+            self.v2,
+            contents={
+                "bin/exocomp_node": release_script.replace(
+                    "@VERSION@", self.v2
+                )
+            },
+        )
+
+        fake_bin = self.tmp / "fake-bin"
+        fake_bin.mkdir()
+        systemctl = fake_bin / "systemctl"
+        systemctl.write_text(
+            """#!/bin/sh
+set -eu
+command=$1
+unit=${2:-}
+if [ "$command" = "is-active" ]; then
+    unit=${3:-}
+fi
+printf '%s %s\\n' "$command" "$unit" >> "$EXOCOMP_FAKE_SYSTEMD_LOG"
+case "$command" in
+    start|restart)
+        touch "$EXOCOMP_FAKE_SYSTEMD_STATE/$unit"
+        ;;
+    stop)
+        rm -f "$EXOCOMP_FAKE_SYSTEMD_STATE/$unit"
+        ;;
+    is-active)
+        test -f "$EXOCOMP_FAKE_SYSTEMD_STATE/$unit"
+        ;;
+    daemon-reload|enable|reset-failed|status)
+        ;;
+    *)
+        echo "unexpected systemctl command: $command" >&2
+        exit 2
+        ;;
+esac
+"""
+        )
+        systemctl.chmod(0o755)
+
+        systemd_state = self.tmp / "systemd-state"
+        systemd_state.mkdir()
+        systemd_log = self.tmp / "systemd.log"
+        live_env = {
+            **self.env,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "EXOCOMP_SKIP_SYSTEMD": "0",
+            "EXOCOMP_FAKE_SYSTEMD_STATE": str(systemd_state),
+            "EXOCOMP_FAKE_SYSTEMD_LOG": str(systemd_log),
+            "EXOCOMP_FAKE_RELEASE_LOG": str(release_log),
+            "EXOCOMP_HEALTHCHECK_ATTEMPTS": "2",
+            "EXOCOMP_HEALTHCHECK_INTERVAL": "0",
+        }
+        _run_install(info1, self.component, self.v1, env=live_env)
+        first_systemd_call_count = len(systemd_log.read_text().splitlines())
+
+        failing_env = {
+            **live_env,
+            "EXOCOMP_HEALTHCHECK_COMMAND": "/bin/false",
+        }
+        result = _run_install(
+            info2,
+            self.component,
+            self.v2,
+            env=failing_env,
+            expect_exit=1,
+        )
+
+        current = self.root / "opt" / "exocomp" / self.component / "current"
+        assert os.readlink(current) == f"releases/{self.v1}"
+        rollback_calls = systemd_log.read_text().splitlines()[
+            first_systemd_call_count:
+        ]
+        stop_index = rollback_calls.index("stop exocomp-node")
+        reset_index = rollback_calls.index("reset-failed exocomp-node")
+        start_index = rollback_calls.index("start exocomp-node")
+        assert stop_index < reset_index < start_index
+        assert rollback_calls[-1] == "is-active exocomp-node"
+        release_calls = [
+            line
+            for line in release_log.read_text().splitlines()
+            if line.startswith((f"{self.v1}:", f"{self.v2}:"))
+        ]
+        assert release_calls[-1].startswith(f"{self.v1}:rpc ")
+        assert (
+            "prior release passed systemd and application health gate"
+            in result.stdout
+        )
+
     def test_invalid_existing_config_blocks_switch(self):
         info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
         info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)

@@ -843,6 +843,19 @@ rollback_upgrade() {
         return
     fi
 
+    # Stop the failed release while current still points to its own control
+    # script. Switching the link first makes systemd run the prior release's
+    # ExecStop against the failed node, which can block until TimeoutStopSec.
+    if [[ "${EXOCOMP_SKIP_SYSTEMD}" != "1" ]]; then
+        log "  stopping failed ${unit_name} before rollback"
+        if ! systemctl stop "${unit_name}"; then
+            warn "systemctl stop reported failure during rollback"
+        fi
+        if systemctl is-active --quiet "${unit_name}" 2>/dev/null; then
+            die "automatic rollback could not stop failed ${unit_name}"
+        fi
+    fi
+
     if [[ -n "${PREVIOUS_TARGET}" ]]; then
         local tmp_link="${current_link}.rollback.$$"
         ln -sf "${PREVIOUS_TARGET}" "${tmp_link}"
@@ -851,7 +864,18 @@ rollback_upgrade() {
 
         if [[ "${EXOCOMP_SKIP_SYSTEMD}" != "1" ]]; then
             systemctl daemon-reload
-            systemctl restart "${unit_name}"
+            systemctl reset-failed "${unit_name}"
+            systemctl start "${unit_name}"
+
+            # A deliberately failing operator health command may have
+            # triggered this rollback. Validate the restored release with the
+            # built-in application probe so the installer cannot return while
+            # the prior release is merely starting.
+            if EXOCOMP_HEALTHCHECK_COMMAND="" verify_health_gate; then
+                log "  prior release passed systemd and application health gate"
+            else
+                die "prior release failed health gate after automatic rollback"
+            fi
         fi
     else
         rm -f "${current_link}"

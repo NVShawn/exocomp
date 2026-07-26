@@ -4,7 +4,9 @@ The installer keeps releases side by side. It validates the new archive,
 architecture, peer major-version compatibility, existing configuration, and
 staged entrypoint before changing `current`. It then starts the candidate and
 requires both systemd-active state and application health. Failure atomically
-restores the prior link and restarts the prior version.
+stops the rejected release, restores the prior link, clears systemd's failure
+limit, and starts the prior version. The installer does not return until the
+restored release passes both systemd and built-in application health checks.
 
 The first release has no irreversible schema migration. Coordinator and node
 major versions must match; minor versions may roll independently. Do not
@@ -35,7 +37,10 @@ activated it.
 
 If extraction is interrupted, no partial directory becomes current. If config
 validation or health fails, the command exits nonzero and restores the prior
-healthy version. Preserve the staged candidate and logs for diagnosis.
+healthy version. An `EXOCOMP_HEALTHCHECK_COMMAND` override may reject the
+candidate, but automatic rollback always checks the restored release with the
+shipped component-specific application probe. Preserve the staged candidate
+and logs for diagnosis.
 
 ## Manual rollback
 
