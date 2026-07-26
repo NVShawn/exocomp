@@ -920,6 +920,17 @@ class TestUpgradePreparation:
         release_log = self.tmp / "release.log"
         release_script = """#!/bin/sh
 printf '%s:%s\\n' '@VERSION@' "$*" >> "$EXOCOMP_FAKE_RELEASE_LOG"
+if [ -f "${EXOCOMP_FAKE_PRIOR_FAILURES:-}" ]; then
+    remaining=$(cat "$EXOCOMP_FAKE_PRIOR_FAILURES")
+    if [ "$remaining" -gt 0 ]; then
+        printf '%s\\n' "$((remaining - 1))" > "$EXOCOMP_FAKE_PRIOR_FAILURES"
+        exit 1
+    fi
+fi
+exit 0
+"""
+        candidate_release_script = """#!/bin/sh
+printf '%s:%s\\n' '@VERSION@' "$*" >> "$EXOCOMP_FAKE_RELEASE_LOG"
 exit 0
 """
         info1 = _make_bundle_tree(
@@ -937,7 +948,7 @@ exit 0
             self.component,
             self.v2,
             contents={
-                "bin/exocomp_node": release_script.replace(
+                "bin/exocomp_node": candidate_release_script.replace(
                     "@VERSION@", self.v2
                 )
             },
@@ -979,6 +990,7 @@ esac
         systemd_state = self.tmp / "systemd-state"
         systemd_state.mkdir()
         systemd_log = self.tmp / "systemd.log"
+        prior_failures = self.tmp / "prior-health-failures"
         live_env = {
             **self.env,
             "PATH": f"{fake_bin}:{os.environ['PATH']}",
@@ -986,11 +998,15 @@ esac
             "EXOCOMP_FAKE_SYSTEMD_STATE": str(systemd_state),
             "EXOCOMP_FAKE_SYSTEMD_LOG": str(systemd_log),
             "EXOCOMP_FAKE_RELEASE_LOG": str(release_log),
-            "EXOCOMP_HEALTHCHECK_ATTEMPTS": "2",
+            "EXOCOMP_FAKE_PRIOR_FAILURES": str(prior_failures),
+            "EXOCOMP_HEALTHCHECK_ATTEMPTS": "1",
             "EXOCOMP_HEALTHCHECK_INTERVAL": "0",
+            "EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS": "3",
+            "EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL": "0",
         }
         _run_install(info1, self.component, self.v1, env=live_env)
         first_systemd_call_count = len(systemd_log.read_text().splitlines())
+        prior_failures.write_text("2\n")
 
         failing_env = {
             **live_env,
@@ -1020,6 +1036,10 @@ esac
             if line.startswith((f"{self.v1}:", f"{self.v2}:"))
         ]
         assert release_calls[-1].startswith(f"{self.v1}:rpc ")
+        assert len(
+            [call for call in release_calls if call.startswith(f"{self.v1}:rpc ")]
+        ) == 4
+        assert prior_failures.read_text() == "0\n"
         assert (
             "prior release passed systemd and application health gate"
             in result.stdout

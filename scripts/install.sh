@@ -32,6 +32,10 @@
 #   EXOCOMP_HEALTHCHECK_COMMAND
 #                        Optional operator health command. It must exit zero
 #                        only when application health is ready.
+#   EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS
+#                        Restored-release probe attempts (default: 10).
+#   EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL
+#                        Seconds between restored-release probes (default: 2).
 #   EXOCOMP_CONFIG_VALIDATOR_COMMAND
 #                        Optional config validator used by qualification tests.
 
@@ -55,6 +59,8 @@ EXOCOMP_HEALTHCHECK_COMMAND="${EXOCOMP_HEALTHCHECK_COMMAND:-}"
 EXOCOMP_CONFIG_VALIDATOR_COMMAND="${EXOCOMP_CONFIG_VALIDATOR_COMMAND:-}"
 EXOCOMP_HEALTHCHECK_ATTEMPTS="${EXOCOMP_HEALTHCHECK_ATTEMPTS:-10}"
 EXOCOMP_HEALTHCHECK_INTERVAL="${EXOCOMP_HEALTHCHECK_INTERVAL:-2}"
+EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS="${EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS:-10}"
+EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL="${EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL:-2}"
 # When EXOCOMP_ROOT is non-empty we are in a test/sandbox environment; skip
 # operations that require real root: useradd, chown.
 EXOCOMP_SKIP_USERADD="${EXOCOMP_SKIP_USERADD:-${EXOCOMP_ROOT:+1}}"
@@ -871,7 +877,10 @@ rollback_upgrade() {
             # triggered this rollback. Validate the restored release with the
             # built-in application probe so the installer cannot return while
             # the prior release is merely starting.
-            if EXOCOMP_HEALTHCHECK_COMMAND="" verify_health_gate; then
+            if EXOCOMP_HEALTHCHECK_COMMAND="" \
+                EXOCOMP_HEALTHCHECK_ATTEMPTS="${EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS}" \
+                EXOCOMP_HEALTHCHECK_INTERVAL="${EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL}" \
+                verify_health_gate; then
                 log "  prior release passed systemd and application health gate"
             else
                 die "prior release failed health gate after automatic rollback"

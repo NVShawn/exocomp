@@ -391,6 +391,17 @@ class TestCompleteBundleAssembly:
         assert "StartLimitIntervalSec" not in service_section
         assert "StartLimitBurst" not in service_section
 
+    @pytest.mark.parametrize("component", ("node", "coordinator"))
+    def test_systemd_stop_does_not_depend_on_release_rpc(self, component):
+        unit = (
+            self.bundle_dir
+            / "release"
+            / component
+            / f"exocomp-{component}.service"
+        ).read_text()
+        assert "ExecStop=/bin/kill -TERM $MAINPID" in unit
+        assert f"current/bin/exocomp_{component} stop" not in unit
+
     def test_license_file_present_when_repo_has_license(self):
         """LICENSE is included in the bundle when it exists in the repo root.
 

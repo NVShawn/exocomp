@@ -25,7 +25,9 @@ Group=@ACCOUNT@
 
 # ── Executable ────────────────────────────────────────────────────────────────
 ExecStart=@INSTALL_DIR@/current/bin/exocomp_node start
-ExecStop=@INSTALL_DIR@/current/bin/exocomp_node stop
+# The release stop command requires distributed Erlang RPC, which may not be
+# ready during a failed upgrade. The BEAM handles SIGTERM gracefully.
+ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
 
 WorkingDirectory=@INSTALL_DIR@

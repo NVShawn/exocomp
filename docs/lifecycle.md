@@ -39,8 +39,10 @@ If extraction is interrupted, no partial directory becomes current. If config
 validation or health fails, the command exits nonzero and restores the prior
 healthy version. An `EXOCOMP_HEALTHCHECK_COMMAND` override may reject the
 candidate, but automatic rollback always checks the restored release with the
-shipped component-specific application probe. Preserve the staged candidate
-and logs for diagnosis.
+shipped component-specific application probe and its independent retry budget.
+Service shutdown uses SIGTERM rather than distributed Erlang RPC, so rollback
+can stop a candidate whose distribution listener never became ready. Preserve
+the staged candidate and logs for diagnosis.
 
 ## Manual rollback
 
