@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:04:06.174828Z'
+updated_at: '2026-07-26T04:04:28.619142Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-07-26 04:04
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-26 04:04
+---
+Understanding: I will reproduce and correct the four rc.2 clean-host defects as one runtime-installability change: align the replay ledger with installer-owned state, assemble llama-server's complete shared-library closure with deterministic lookup, make published checksum/install commands match the actual archive, and ship backup/restore tooling in installed and offline payloads. I will add focused clean-root/doc-command/shipped-only lifecycle regressions, then run test-installer, test-bundle, test-release-packaging, and the clean-systemd VM gate before commit, push, and closure.
 ---
 <!-- COMMENTS:END -->
