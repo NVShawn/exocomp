@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: In Progress
+status: Done
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:20:41.112395Z'
+updated_at: '2026-07-26T04:22:33.289816Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -273,5 +273,10 @@ author: oompah
 created: 2026-07-26 04:20
 ---
 Verification: PASS — make test-installer (69), make test-bundle (75, including verbatim outer verification/extraction, both installs, bundled-ERTS start/RPC, dynamic llama closure, and shipped backup/restore), make test-release-packaging (6 package + 3 normalizer + 6 operator-doc tests), make test-deps (9), make compliance-check, and make check-links. The live full-systemd VM cannot run inside this bubblewrap workspace (PID 1 is bwrap and the container engine is unavailable); the hermetic systemd-control regression passed, while real amd64/arm64 VM requalification remains the already-scoped downstream EXOCOMP-123 responsibility.
+---
+author: oompah
+created: 2026-07-26 04:22
+---
+Completion: delivered and pushed commit 53fbc231a7c2e63dad054b8d47f01cd5a43832c8 on epic-EXOCOMP-117. The shipped node now uses writable /var/lib/exocomp-node replay state, receives a validated self-contained llama runtime plus installed backup utility atomically, and has documentation matching the actual archive/checksum/release layout. Required Make gates and the clean-root bundled-ERTS/systemd-control/backup-restore regression pass; branch is clean and exactly synchronized with origin. Live full-system VM requalification is intentionally left to existing downstream EXOCOMP-123 because this execution sandbox is not a booted VM.
 ---
 <!-- COMMENTS:END -->
