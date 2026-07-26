@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:22:33.289816Z'
+updated_at: '2026-07-26T04:22:46.634173Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -278,5 +278,20 @@ author: oompah
 created: 2026-07-26 04:22
 ---
 Completion: delivered and pushed commit 53fbc231a7c2e63dad054b8d47f01cd5a43832c8 on epic-EXOCOMP-117. The shipped node now uses writable /var/lib/exocomp-node replay state, receives a validated self-contained llama runtime plus installed backup utility atomically, and has documentation matching the actual archive/checksum/release layout. Required Make gates and the clean-root bundled-ERTS/systemd-control/backup-restore regression pass; branch is clean and exactly synchronized with origin. Live full-system VM requalification is intentionally left to existing downstream EXOCOMP-123 because this execution sandbox is not a booted VM.
+---
+author: oompah
+created: 2026-07-26 04:22
+---
+Run #1 [attempt=1, profile=deep, role=deep -> Codex/default]
+- Turns: 0, Tool calls: 188
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 11m 38s
+- Log: EXOCOMP-118__20260726T041109Z.jsonl
+---
+author: oompah
+created: 2026-07-26 04:22
+---
+Aligned node replay state with installer-owned storage; shipped, validated, and installed llama runtime dependencies plus backup/restore tooling; corrected operator archive/checksum commands; added clean-root, bundled-ERTS, runtime-loader, and shipped-only lifecycle regressions. Required gates pass and commit 53fbc23 is pushed.
 ---
 <!-- COMMENTS:END -->
