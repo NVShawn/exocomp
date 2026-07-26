@@ -7,10 +7,11 @@ title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:02:54.251890Z'
+updated_at: '2026-07-26T04:03:13.845210Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -74,5 +75,15 @@ author: oompah
 created: 2026-07-26 04:02
 ---
 Verification: searched task titles/content and repository docs/plans for clean-host, replay ledger, llama-server dependencies, archive/checksum paths, and state-backup terms; reviewed EXOCOMP-43, 44, 46, 47, 68, 114, 115, 117, 120, and 123 via full tracker views. docs/release-evidence/v0.1.0-rc.2/README.md records the four exact failures as newly observed qualification findings. No code changed, so Make quality gates are not applicable.
+---
+author: oompah
+created: 2026-07-26 04:03
+---
+Focus handoff: duplicate_detector
+
+1. Outcome: duplicate screening found no duplicate; EXOCOMP-118 is the unique corrective task for the installed-node and shipped-payload failures exposed by v0.1.0-rc.2.
+2. Evidence/decisions: full records reviewed were EXOCOMP-43, 44, 46, 47, 68, 114, 115, 117, 120, and 123. The first group delivered the underlying installer/bundle/lifecycle machinery; EXOCOMP-47 produced the failure evidence; EXOCOMP-117 deliberately decomposed the fixes; EXOCOMP-120 and 123 have non-overlapping reproducibility and downstream qualification scopes. Relevant evidence is docs/release-evidence/v0.1.0-rc.2/README.md; likely implementation areas remain config/config.exs, scripts/assemble-bundle.sh, scripts/install.sh, release assets/systemd units, docs/installation.md, docs/lifecycle.md, and installer/bundle/release tests.
+3. Remaining work/risks: align the durable ledger with installer-owned writable state; ship llama-server's complete shared-library closure and configure lookup; make documented verification/install commands match archive layout; ship state-backup.sh in installed/offline payloads; add clean-root/systemd, no-host-Erlang/no-network, verbatim-doc-command, and shipped-only backup/restore regressions. Guard the boundary with EXOCOMP-120 so runtime payload completeness stays here while signed metadata/license completeness stays there.
+4. Recommended next focus: devops, because the work crosses release assembly, installer/systemd runtime ownership, offline payload layout, and clean-host qualification tests.
 ---
 <!-- COMMENTS:END -->
