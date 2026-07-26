@@ -7,10 +7,12 @@ title: Make offline bundles reproducible and cryptographically complete
 parent: EXOCOMP-117
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:01:21.347285Z'
+updated_at: '2026-07-26T05:01:48.344992Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -64,5 +66,32 @@ author: oompah
 created: 2026-07-26 05:01
 ---
 Discovery: No duplicate confirmed. Full records reviewed for EXOCOMP-41, EXOCOMP-44, EXOCOMP-47, EXOCOMP-68, EXOCOMP-117, EXOCOMP-118, and EXOCOMP-119. Key evidence: (1) EXOCOMP-44 built the initial bundle assembly infrastructure (assemble-bundle.sh, SBOM, provenance, signing, manifest.sha256) but qualification of rc.2 found that the signed root does NOT authenticate manifest.json, SBOM, or provenance — EXOCOMP-44 comment #21 explicitly notes 'signed-metadata and shipped-license defects are distinct follow-up work tracked by EXOCOMP-120'; (2) EXOCOMP-41 built the repo governance/license files but the assembled bundle LICENSES/ directory is empty — EXOCOMP-41 comment #29 says 'newly observed shipped-license completeness defect is distinct follow-up work tracked by EXOCOMP-120'; (3) EXOCOMP-68 covered OTP archive reproducibility (byte-identical double-build for OTP .tar.gz archives) but NOT complete-bundle reproducibility — the raw/amd64/live/bundle-reproducibility.sha256 evidence shows two identical complete-bundle assemblies have different SHA-256 values; (4) EXOCOMP-117 is the parent remediation epic that deliberately decomposed these defects — EXOCOMP-120 is its explicitly named unique child for 'deterministic and cryptographically complete bundles'. EXOCOMP-120 is unique and should proceed to implementation.
+---
+author: oompah
+created: 2026-07-26 05:01
+---
+Focus handoff: duplicate_detector
+
+1. Outcome: Duplicate screening found no duplicate. EXOCOMP-120 is the unique remediation child task for the three related v0.1.0-rc.2 qualification failures: (a) non-deterministic complete-bundle assembly, (b) signed root not authenticating manifest.json/SBOM/provenance/licenses, (c) empty LICENSES directory in the bundle.
+
+2. Relevant files, commands, evidence, and decisions:
+   - docs/release-evidence/v0.1.0-rc.2/README.md: M6-CRIT-8 records all three defects; evidence files raw/amd64/live/bundle-reproducibility.sha256 (differing SHA-256 for two identical assemblies) and raw/amd64/live/unsigned-metadata-tamper-verify.log (strict verify passes after manifest/provenance tamper) confirm the gaps.
+   - docs/release-evidence/v0.1.0-rc.2/raw/arm64/artifacts/assemble.log: 'WARN: LICENSES/ directory not found at .../src/LICENSES; skipping' confirms the empty licenses gap.
+   - scripts/assemble-bundle.sh: existing assembly script from EXOCOMP-44 — sources of nondeterminism (timestamps in SBOM/provenance, missing SOURCE_DATE_EPOCH normalization for complete bundle) need to be found and removed.
+   - scripts/verify-bundle.sh: ships in bundle; needs to verify manifest.json, SBOM, provenance, and licenses files against the signed root.
+   - licenses/ or LICENSES/: source tree location for component license texts that must be populated and staged.
+   - tests/test_bundle.py: existing test suite (75 tests in rc.2) — needs double-build byte-identity tests, signed-metadata tamper tests for each metadata class, and license completeness tests.
+   - Makefile targets: make release-check, make test-compliance, make test-bundle, make test-release-packaging.
+
+3. Remaining work and risks:
+   - Identify all nondeterministic inputs in complete bundle assembly (SBOM timestamps, provenance build timestamps, manifest timestamps, archive metadata) and normalize them.
+   - Define a single signed integrity root that transitively covers manifest.json, SBOM, provenance, and license inventory alongside the existing payload files.
+   - Update verify-bundle.sh to reject any tamper of these metadata files during strict verification.
+   - Populate the LICENSES directory from the component inventory (licenses/components.toml) and fail assembly when required license texts are missing.
+   - Add double-build byte-identity test, tamper tests for each metadata class, license completeness tests, and offline strict verification tests.
+   - Risk: The SBOM and provenance have time-varying fields (creation timestamps, build timestamps) — these need to be set from SOURCE_DATE_EPOCH consistently.
+   - Risk: The signed manifest structure needs to change — currently manifest.sha256 covers payload files but the signing needs to also cover manifest.json, sbom.spdx.json, provenance.json, and license files.
+
+4. Recommended next focus: devops — the work crosses release assembly scripts (bash), tamper verification, offline bundle layout, and test suites (Python). All implementation is in scripts/assemble-bundle.sh, scripts/verify-bundle.sh, licenses/, and tests/test_bundle.py.
 ---
 <!-- COMMENTS:END -->
