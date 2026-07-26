@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: In Review
+status: Needs Human
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-26T03:54:40.412075Z'
+updated_at: '2026-07-26T03:55:55.284347Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -289,5 +289,10 @@ Run #3 [attempt=3, profile=deep, role=deep -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 2m 48s
 - Log: EXOCOMP-42__20260723T210438Z.jsonl
+---
+author: oompah
+created: 2026-07-26 03:55
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was In Review with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->

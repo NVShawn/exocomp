@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: In Review
+status: Needs Human
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-26T03:54:43.162472Z'
+updated_at: '2026-07-26T03:55:56.571896Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -473,5 +473,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 10s
 - Log: EXOCOMP-43__20260723T232948Z.jsonl
+---
+author: oompah
+created: 2026-07-26 03:55
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was In Review with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->

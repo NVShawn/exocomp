@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: In Review
+status: Needs Human
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-26T03:54:37.591004Z'
+updated_at: '2026-07-26T03:55:53.936013Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -248,5 +248,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-07-26 03:55
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was In Review with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->
