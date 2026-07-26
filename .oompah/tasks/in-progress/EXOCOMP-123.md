@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T10:46:31.976983Z'
+updated_at: '2026-07-26T11:04:12.683803Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -322,5 +322,10 @@ author: oompah
 created: 2026-07-26 10:46
 ---
 Discovery: rc.7 amd64 shipped-artifact preflight now passes end to end: strict signed-bundle verification in a no-network namespace, offline coordinator/node install, production PKI ceremony with offline root removal, healthy coordinator, node-bound enrollment over TLS, and enrolled node systemd startup. Two preceding failures were confined to the uncommitted qualification helper (service account inherited inaccessible /root; SSL application not started for the clean enrollment eval), not candidate code. Candidate commit remains 4a02c172da52ef7fe04aaa8bf7cc0701c4b38859.
+---
+author: oompah
+created: 2026-07-26 11:04
+---
+Implementation: rc.7 is rejected by live failed-service recovery. The node action catalog correctly invoked exact sudo, but the shipped unit made every setuid transition impossible (NoNewPrivileges=true, empty capability bounding set, SecureBits=noroot). Commit 34ee7d2 applies the live-validated minimum: node-only CAP_SETUID/CAP_SETGID bounding set, no ambient capabilities, NoNewPrivileges=false, no noroot secure bit, and account-scoped !pam_session while preserving exact NOPASSWD commands and sudo auditing. Installer/Elixir regression tests and operator documentation were updated; invariant rc.8 M5 baselines were added. Host gates: 76 installer tests and 28 release-check tests pass.
 ---
 <!-- COMMENTS:END -->
