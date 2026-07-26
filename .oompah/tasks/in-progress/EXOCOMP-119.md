@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:29:48.930500Z'
+updated_at: '2026-07-26T04:29:56.834604Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -141,5 +141,10 @@ author: oompah
 created: 2026-07-26 04:29
 ---
 Discovery: The docs/source comparison found three stable operator issues: the first coordinator install example starts the service before its PKI ceremony; docs/pki-operations.md uses a source-checkout backup path instead of the installed exocomp-state-backup utility; and no single safe readiness command proves Listener, PKI.State, EnrollmentToken, and health together. Bootstrap also atomically creates final online/offline directories, so pre-creating empty targets is an operator-visible failure mode worth documenting. The production enrollment/token endpoint remains absent and cannot yet be documented accurately.
+---
+author: oompah
+created: 2026-07-26 04:29
+---
+Implementation (docs): Updated docs/installation.md to stage first coordinator installs with --no-start; expanded docs/pki-operations.md with installer-created state-parent guidance, atomic-target precautions, a redacted PKI initialization result, protected-cookie readiness inspection, installed backup/restore commands, and mandatory degraded health semantics; expanded docs/clean-host-qualification.md with the no-secret enrollment/replay/identity/trust-root/audit/restart evidence sequence. No runtime behavior or source code was changed.
 ---
 <!-- COMMENTS:END -->
