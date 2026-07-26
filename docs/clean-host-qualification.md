@@ -57,6 +57,18 @@ run M5 performance gates, exercise upgrade/automatic rollback/backup restore,
 inspect hardening, and uninstall while protected-state/user-data hashes remain
 unchanged.
 
+For the enrollment record, install the coordinator with `--no-start`, perform
+the PKI ceremony, remove the passphrase input and offline-root mount, then
+start it. Capture coordinator health and required-process presence without
+capturing a plaintext token. Issue a short-lived token bound to the test node,
+enroll once, and record only the token's redacted audit result. Prove that the
+same token and a different node identity are rejected, that an untrusted root
+cannot establish TLS, and that renewal succeeds only over the enrolled mTLS
+identity. Restart both services and repeat the health and renewal checks;
+hashes of the PKI state and consumed-token store must show durable recovery.
+An unavailable audit sink must block issuance and enrollment and make
+coordinator health degraded.
+
 An M5 performance pass under CPU emulation is conservative and counts. A
 performance-only failure under emulation is inconclusive: record it as such and
 rerun that gate on an arm64-virtualized or bare-metal host. Functional, safety,

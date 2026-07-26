@@ -31,10 +31,18 @@ sudo ./scripts/install.sh \
   --bundle ./releases/exocomp-coordinator-0.1.0-linux-amd64.tar.gz \
   --checksums ./manifest.sha256 \
   --version 0.1.0 \
+  --no-start \
   --non-interactive
 ```
 
-Install a node the same way with `--component node`. Supply an exact
+Use `--no-start` for the first coordinator install so the service cannot
+accept traffic before its PKI ceremony. Initialize the PKI, verify the root
+fingerprint, and start the coordinator by following
+[PKI operations](pki-operations.md). A later upgrade should omit
+`--no-start`; the installer then health-gates the candidate and rolls back on
+failure.
+
+Install a node with `--component node`. Supply an exact
 comma-separated action allow-list only when recovery actions are intended:
 
 ```sh
@@ -69,7 +77,8 @@ libraries shipped in `/opt/exocomp/node/current/lib/llama`.
 
 ## First-node sequence
 
-1. Install and initialize the coordinator PKI as described in
+1. Install the coordinator with `--no-start`, initialize its PKI, and verify
+   production readiness as described in
    [PKI operations](pki-operations.md).
 2. Distribute the root fingerprint over a separate authenticated channel.
 3. Add the node ID/DNS identity to the coordinator inventory.

@@ -7,37 +7,94 @@ authorized ceremony.
 
 ## Initialize and distribute trust
 
-Before the first start, invoke the shipped coordinator release with a
-passphrase supplied through a protected environment, never a command-line
-argument:
+Install the coordinator with `--no-start` before the first PKI ceremony. The
+installer creates `/var/lib/exocomp-coordinator` for coordinator-owned durable
+state. Do not pre-create the final
+`/var/lib/exocomp-coordinator/pki` or `/secure/offline/exocomp-root`
+directories: initialization creates both atomically and rejects an empty or
+partial tree. Their parent directories must already exist and permit the
+`exocomp-coordinator` service account to create the final directories.
+
+Invoke the shipped coordinator release with a passphrase supplied through a
+root-provisioned file that is readable only by the service account. Never put
+the passphrase in an argument, shell variable assignment, transcript, or
+service environment file:
 
 ```sh
+sudo install \
+  -o exocomp-coordinator \
+  -g exocomp-coordinator \
+  -m 0600 \
+  /secure/input/root-passphrase \
+  /run/exocomp-root-passphrase
 sudo -u exocomp-coordinator \
-  env EXOCOMP_ROOT_KEY_PASSPHRASE_FILE=/secure/input/root-passphrase \
+  env EXOCOMP_ROOT_KEY_PASSPHRASE_FILE=/run/exocomp-root-passphrase \
   /opt/exocomp/coordinator/current/bin/exocomp_coordinator eval '
     passphrase =
       System.fetch_env!("EXOCOMP_ROOT_KEY_PASSPHRASE_FILE")
       |> File.read!()
       |> String.trim()
-    result =
-      Exocomp.Coordinator.PKI.Bootstrap.initialize(
+    case Exocomp.Coordinator.PKI.Bootstrap.initialize(
         online_state: "/var/lib/exocomp-coordinator/pki",
         offline_backup: "/secure/offline/exocomp-root",
         root_key_protection: {:passphrase, passphrase}
-      )
-    IO.inspect(result)
+      ) do
+      {:ok, metadata} ->
+        IO.puts("disposition=#{metadata.disposition}")
+        IO.puts("root_fingerprint=#{metadata.root_fingerprint}")
+      {:error, error} ->
+        IO.puts(:stderr, "PKI initialization failed: #{error.code}")
+        System.halt(1)
+    end
   '
+sudo rm -f /run/exocomp-root-passphrase
 ```
 
-Record the returned root fingerprint in the change record. Distribute it over
-an authenticated out-of-band channel and compare it character for character
-at the node before enrollment. Never obtain both a certificate and its trust
-fingerprint from the same unauthenticated channel.
+Confirm that the temporary passphrase copy was removed and unmount the offline
+backup. Record the returned root fingerprint in the change record. Distribute
+it over an authenticated out-of-band channel and compare it character for
+character at the node before enrollment. Never obtain both a certificate and
+its trust fingerprint from the same unauthenticated channel.
 
 Initialization is idempotent only when the online and offline trees are both
 complete and agree. If either is missing, mismatched, too permissive, or cannot
 decrypt, stop. Restore the matched pair from a verified backup; do not create a
 new root under the old identity.
+
+## Verify production readiness
+
+Start the coordinator, then inspect health and the required production
+processes through release RPC. The command reads the protected release cookie
+without printing it:
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable --now exocomp-coordinator.service
+sudo bash -c '
+  set -a
+  . /opt/exocomp/coordinator/config/release-cookie.env
+  set +a
+  exec /opt/exocomp/coordinator/current/bin/exocomp_coordinator rpc "
+    running = fn name ->
+      case Process.whereis(name) do
+        pid when is_pid(pid) -> Process.alive?(pid)
+        _other -> false
+      end
+    end
+    IO.inspect(%{
+      health: Exocomp.Coordinator.Health.check(),
+      listener: running.(Exocomp.Coordinator.Listener),
+      pki: running.(Exocomp.Coordinator.PKI.State),
+      enrollment: running.(Exocomp.Coordinator.EnrollmentToken)
+    })
+  "
+'
+```
+
+A production candidate qualifies only when `health.status` is `:healthy` and
+all three process values are `true`. Missing listener, PKI state, enrollment
+token service, or audit must make health `:degraded`; a running systemd unit is
+not sufficient. Do not issue a token while health is degraded.
 
 ## Enrollment and renewal
 
@@ -79,9 +136,11 @@ failure, not permission to edit PKI files manually.
 Use the protected-state tool while the service is stopped or quiesced:
 
 ```sh
-sudo ./scripts/state-backup.sh create \
+sudo systemctl stop exocomp-coordinator.service
+sudo /opt/exocomp/coordinator/current/bin/exocomp-state-backup create \
   --component coordinator \
   --output /secure/backups/exocomp-coordinator-state.tar.gz
+sudo systemctl start exocomp-coordinator.service
 ```
 
 The archive contains private material. Store it encrypted and separately from
@@ -90,7 +149,7 @@ The restore command refuses non-empty destinations unless `--force` is
 explicit:
 
 ```sh
-sudo ./scripts/state-backup.sh restore \
+sudo /opt/exocomp/coordinator/current/bin/exocomp-state-backup restore \
   --component coordinator \
   --archive /secure/backups/exocomp-coordinator-state.tar.gz
 ```
