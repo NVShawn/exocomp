@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T01:55:13.902810Z'
+updated_at: '2026-07-26T03:13:56.302150Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -229,5 +229,10 @@ author: oompah
 created: 2026-07-26 01:55
 ---
 Human action required: confirm whether signed candidate tag v0.1.0-rc.1 and its SSH signing identity (ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw, principal shedwards@nvidia.com) are acceptable for M6 release qualification; if not, provide the accepted tag name and signing key. The bare-metal requirement has been removed and merged to main in PR #15 (merge 5be1965); clean full-system architecture-correct VMs are supported, QEMU emulation must be disclosed, and performance-only failures under emulation remain inconclusive. Current arm64 VM evidence: release-check 22/22, packaging 13/13, installer 63/63, bundle 69/69, fixture service 22/22, fmt-check and lint passed. The general Elixir test gate passed 1,589 tests and hit three fixed-timeout cases under emulation (5s/2s/100ms), recorded as timing-inconclusive while the shipped-artifact and live M6-CRIT matrix continues.
+---
+author: oompah
+created: 2026-07-26 03:13
+---
+Human question: do you accept signed candidate tag v0.1.0-rc.2 and its SSH signing identity (principal shedwards@nvidia.com, ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw) as the M6 qualification identity? If not, provide the accepted signing key/principal and tag name. No hardware action is needed. Agent-resolvable work is still progressing: the arm64 VM is currently running build 2/2 of the shipped-release matrix. The first build, bundled ERTS startup, dependency inspection, and deterministic archive creation passed. The matrix uncovered an annotated-tag SOURCE_DATE_EPOCH bug; the fix and regression test passed and merged to main in PR #16 (47cf04c).
 ---
 <!-- COMMENTS:END -->
