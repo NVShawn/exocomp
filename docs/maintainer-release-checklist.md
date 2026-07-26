@@ -16,6 +16,10 @@ record or CI system, not only in a local shell history.
       `LLAMA_LIB_DIR_<ARCH>` at its matching companion libraries. Bundle
       assembly must reject any non-baseline ELF dependency missing from that
       directory.
+- [ ] Set `BUNDLE_BUILDER_IMAGE` to the immutable architecture-specific
+      builder image with digest and `BUNDLE_SIGN_KEY` to the release minisign
+      key when invoking a bundle Make target. Confirm the resulting archive
+      contains `bundle.minisig` before qualification.
 
 ## License and supply chain
 

@@ -58,6 +58,10 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 BUNDLE_VERSION ?= $(shell git describe --tags --exact-match 2>/dev/null | sed 's/^v//' || echo "dev")
 BUNDLE_SOURCE_COMMIT ?= $(shell git rev-parse HEAD 2>/dev/null || echo "unknown")
 BUNDLE_DIST ?= dist
+# Release bundles must carry the immutable builder identity and a manifest
+# signature.  Leave these empty only for local fixture/development assembly.
+BUNDLE_BUILDER_IMAGE ?=
+BUNDLE_SIGN_KEY ?=
 # Paths to pre-built OTP archives (set these when calling bundle targets)
 NODE_ARCHIVE_AMD64 ?= _build/release/amd64/rel/exocomp_node
 NODE_ARCHIVE_ARM64 ?= _build/release/arm64/rel/exocomp_node
@@ -260,6 +264,8 @@ bundle-amd64: ## Assemble complete offline bundle for amd64. Set release archive
 		$(if $(LLAMA_LIB_DIR_AMD64),--llama-lib-dir "$(LLAMA_LIB_DIR_AMD64)") \
 		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
 		$(if $(MODEL_SHA256),--model-sha256 "$(MODEL_SHA256)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
@@ -274,6 +280,8 @@ bundle-arm64: ## Assemble complete offline bundle for arm64. Set release archive
 		$(if $(LLAMA_LIB_DIR_ARM64),--llama-lib-dir "$(LLAMA_LIB_DIR_ARM64)") \
 		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
 		$(if $(MODEL_SHA256),--model-sha256 "$(MODEL_SHA256)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
@@ -286,6 +294,8 @@ bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64. Set release arc
 		$(if $(COORD_ARCHIVE_AMD64),--coord-archive "$(COORD_ARCHIVE_AMD64)") \
 		$(if $(LLAMA_SERVER_AMD64),--llama-server "$(LLAMA_SERVER_AMD64)") \
 		$(if $(LLAMA_LIB_DIR_AMD64),--llama-lib-dir "$(LLAMA_LIB_DIR_AMD64)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
@@ -298,6 +308,8 @@ bundle-runtime-arm64: ## Assemble runtime-only bundle for arm64. Set release arc
 		$(if $(COORD_ARCHIVE_ARM64),--coord-archive "$(COORD_ARCHIVE_ARM64)") \
 		$(if $(LLAMA_SERVER_ARM64),--llama-server "$(LLAMA_SERVER_ARM64)") \
 		$(if $(LLAMA_LIB_DIR_ARM64),--llama-lib-dir "$(LLAMA_LIB_DIR_ARM64)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 

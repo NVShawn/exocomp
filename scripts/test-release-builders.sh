@@ -47,6 +47,15 @@ for architecture in amd64 arm64; do
     fail "Makefile is missing build-${architecture}"
 done
 
+grep -Eq '^BUNDLE_BUILDER_IMAGE[[:space:]]*\?=' Makefile ||
+  fail "Makefile does not expose the immutable bundle builder identity"
+grep -Eq '^BUNDLE_SIGN_KEY[[:space:]]*\?=' Makefile ||
+  fail "Makefile does not expose the bundle signing key"
+[ "$(grep -Fc -- '--builder-image "$(BUNDLE_BUILDER_IMAGE)"' Makefile)" -eq 4 ] ||
+  fail "every bundle target must pass the builder identity to the assembler"
+[ "$(grep -Fc -- '--sign-key "$(BUNDLE_SIGN_KEY)"' Makefile)" -eq 4 ] ||
+  fail "every bundle target must pass the signing key to the assembler"
+
 grep -Fq -- "--platform \"\${target_platform}\"" scripts/check-builder-capability.sh ||
   fail "capability check does not select an explicit platform"
 grep -Fq -- "--platform \"\${target_platform}\"" scripts/build-releases.sh ||
