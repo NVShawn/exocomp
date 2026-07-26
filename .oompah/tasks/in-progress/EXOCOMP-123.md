@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T09:35:43.206625Z'
+updated_at: '2026-07-26T09:36:13.185046Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -25,13 +25,13 @@ merged_at: null
 oompah.agent_run_id: 710ecfae-144d-41e4-b1eb-9a45083f6e84
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 669741
-  total_output_tokens: 8681
+  total_input_tokens: 669945
+  total_output_tokens: 88369
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 669741
-      output_tokens: 8681
+      input_tokens: 669945
+      output_tokens: 88369
       cost_usd: 0.0
   runs:
   - profile: default
@@ -46,6 +46,12 @@ oompah.task_costs:
     output_tokens: 3759
     cost_usd: 0.0
     recorded_at: '2026-07-26T07:59:06.258785+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 204
+    output_tokens: 79688
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T09:36:10.797973+00:00'
 ---
 ## Summary
 
@@ -230,5 +236,20 @@ author: oompah
 created: 2026-07-26 09:35
 ---
 Implementation: Fixed version-detection regression in scripts/install.sh (commit bf0b3ee). The sed regex \`[0-9]+\.[0-9]+\.[0-9]+[^.]*\` stopped at the dot in \`-rc.4\`, causing the full substitution to fail—install.sh would output the raw filename, fail semver validation, and die before creating any directories. Fixed with \`.+\` backtracked against the \`-linux-(amd64|arm64)\.tar\.gz\` suffix, which correctly extracts \`0.1.0-rc.4\`. Added 5-case parametrised test \`TestVersionValidation::test_version_detected_from_archive_name\` covering stable and pre-release versions; 76 installer tests pass. Will now re-run coordinator install on the amd64 qualification VM.
+---
+author: oompah
+created: 2026-07-26 09:36
+---
+Agent failed: Reached maximum number of turns (200). Retrying in 20s (attempt #2)
+---
+author: oompah
+created: 2026-07-26 09:36
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 342, Tool calls: 236
+- Tokens: 204 in / 79.7K out [79.9K total]
+- Cost: $0.0000
+- Exit: error, Duration: 36m 24s
+- Log: EXOCOMP-123__20260726T085948Z.jsonl
 ---
 <!-- COMMENTS:END -->
