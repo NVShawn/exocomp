@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T22:38:52.563177Z'
+updated_at: '2026-07-26T23:22:14.961792Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -967,5 +967,10 @@ author: oompah
 created: 2026-07-26 22:38
 ---
 Discovery (continuation attempt #3): Repository/tag audit confirms v0.1.0-rc.18 peels to and has a valid SSH signature over 28f8dc35cecbc137de531feab57e22ce991cc03d. The completed amd64 root is internally consistent: nine required repository/release gates, two byte-identical release builds, two byte-identical signed bundles, strict no-network install/PKI/enrollment, operational recovery/hardening, passing short/full shipped M5, lifecycle/rollback/backup/uninstall, and no failure markers. Arm64 is not stalled: its clean rc.18 root is actively progressing through the native release-matrix build/dependency inspection under full-system QEMU. I am preserving that run and auditing the final collector while it completes.
+---
+author: oompah
+created: 2026-07-26 23:22
+---
+Discovery: The fresh arm64 rc.18 run failed closed at complete-bundle assembly because the temporary orchestration selected the vendor llama-b10107 directory, whose libggml-base.so requires unbundled libgomp.so.1. Candidate code/artifacts did not fail. The guest already contains the intended exact upstream b10107 no-OpenMP build: source tag b10107 at c0bc8591e8815c63cb01dd3f051a8b0df02501c9, Release build, GGML_OPENMP=OFF, native aarch64 server, and no libgomp in its ldd closure. I corrected only the uncommitted arm64 wrapper to use that build/bin runtime and record its source/build identity; the failed root will be preserved as rejected and a complete fresh arm64 run restarted from an empty rc18 root.
 ---
 <!-- COMMENTS:END -->
