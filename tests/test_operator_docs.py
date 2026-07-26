@@ -89,6 +89,18 @@ class OperatorDocumentationTest(unittest.TestCase):
             self.assertIn(token, backup)
         self.assertIn("--bundle-dir", verify)
 
+    def test_qualification_accepts_full_system_vms_and_discloses_emulation(self):
+        qualification = " ".join(DOCS["qualification"].read_text().lower().split())
+
+        for phrase in (
+            "bare metal is not required",
+            "full-system virtual machines",
+            "uname -m",
+            "cpu emulation",
+            "performance-only failure under emulation is inconclusive",
+        ):
+            self.assertIn(phrase, qualification)
+
 
 if __name__ == "__main__":
     unittest.main()
