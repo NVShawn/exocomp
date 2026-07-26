@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-121
 type: bug
-status: In Progress
+status: Done
 priority: 2
 title: Make cross-architecture tests robust under full-system arm64 execution
 parent: EXOCOMP-117
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T06:23:50.263775Z'
+updated_at: '2026-07-26T06:24:03.226024Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -103,5 +103,10 @@ author: oompah
 created: 2026-07-26 06:23
 ---
 Verification: All 844 tests pass (10 excluded by tag) on amd64 with Elixir 1.20.2/OTP 28 inside the project's pinned builder container (docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm). The five changed test files were specifically verified: Bench.HostSamplerTest (6 passed including Linux-tagged tests), Exocomp.Coordinator.HealthPollerTest (5 passed), Exocomp.Coordinator.A2ARouterTest (33 passed), Exocomp.Coordinator.MultiNodeDiscoveryPollingTest (17 passed), and Exocomp.Node.Safety.DiskPressureCollectorTest. Full suite: 844 passed, 10 excluded. No regressions.
+---
+author: oompah
+created: 2026-07-26 06:23
+---
+Completion: Committed and pushed EXOCOMP-121 fix to epic-EXOCOMP-117 (78dbe38). Five test files updated to replace brittle wall-clock assumptions with deterministic synchronization and bounded monotonic-deadline helpers: (1) Bench.HostSamplerTest — line-framed port, 30s await_port_line, eventual CPU/RSS observation, never-ready regression test; (2) HealthPollerTest — resolver+probe workers hold via receive then crash on explicit signal at 150ms, verifies in-flight ownership and 3-node concurrency=1 sequencing, 10s eventually deadline; (3) A2ARouterTest — 5-concurrent-caller await raised from 2s to 10s test-only; (4) MultiNodeDiscoveryPollingTest — monotonic 10s eventually, strengthened sibling-node assertion; (5) DiskPressureCollectorTest — Code.ensure_loaded? guard. Production code and production timeouts unchanged. All 844 amd64 tests pass.
 ---
 <!-- COMMENTS:END -->
