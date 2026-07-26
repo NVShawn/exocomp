@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:07:52.317663Z'
+updated_at: '2026-07-26T04:10:17.006433Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -59,5 +59,10 @@ author: oompah
 created: 2026-07-26 04:07
 ---
 Understanding: Duplicate-detector pass only. I will search existing tasks and project decisions for production coordinator PKI, enrollment, renewal, listener, and health work; inspect the full records of credible candidates; then either archive this issue as a confirmed duplicate or record a no-duplicate handoff for an implementation agent.
+---
+author: oompah
+created: 2026-07-26 04:10
+---
+Discovery: No confirmed duplicate. Full records reviewed for EXOCOMP-17, EXOCOMP-19, EXOCOMP-20, EXOCOMP-60, EXOCOMP-77, EXOCOMP-107, EXOCOMP-117, and EXOCOMP-123. EXOCOMP-77 starts validated PKI/token services only through a test-oriented isolated tree and explicitly excludes certificate issuance/node enrollment; EXOCOMP-107 supplies node-side client/install/scheduling; EXOCOMP-19 supplies the coordinator listener/A2A modules; EXOCOMP-20 verifies internal/fixture paths; EXOCOMP-123 is later release requalification. Current production Application.start/2 omits Listener, PKI.State, and EnrollmentToken while Health.check/0 only considers inventory/registry/audit, directly confirming EXOCOMP-119 owns the remaining shipped-runtime integration rather than repeating a prior task.
 ---
 <!-- COMMENTS:END -->
