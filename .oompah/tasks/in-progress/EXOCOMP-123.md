@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T23:23:26.356507Z'
+updated_at: '2026-07-26T23:33:24.907976Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -977,5 +977,20 @@ author: oompah
 created: 2026-07-26 23:23
 ---
 Implementation (qualification orchestration): Preserved the failed arm64 root at /var/lib/exocomp-qualification/rejected/rc18-arm64-openmp-input-20260726T2320Z. Updated only the uncommitted arm64 qualification wrapper to select inputs/llama-b10107-no-openmp/build/bin and record the upstream commit/tag plus CMake OpenMP/server flags in runtime-inputs.txt. Verified the guest source checkout remains clean at signed rc.18 commit 28f8dc35, verified the no-OpenMP server has no libgomp dependency, and launched a complete new arm64 run from an empty /var/lib/exocomp-qualification/rc18 root at 23:23 UTC. The candidate source/tag and completed amd64 record are unchanged.
+---
+author: oompah
+created: 2026-07-26 23:33
+---
+Run #4 [attempt=4, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 157
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 17s
+- Log: EXOCOMP-123__20260726T223307Z.jsonl
+---
+author: oompah
+created: 2026-07-26 23:33
+---
+Agent stalled 4 time(s) (3617s). Escalating from 'standard' to 'deep'. Retrying in 80s (attempt #4)
 ---
 <!-- COMMENTS:END -->
