@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-120
 type: bug
-status: In Progress
+status: Open
 priority: 1
 title: Make offline bundles reproducible and cryptographically complete
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:01:48.344992Z'
+updated_at: '2026-07-26T05:02:04.441760Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -20,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: 9b4f07b2-dcfc-4e12-9d30-180501209c97
 oompah.work_branch: epic-EXOCOMP-117
+oompah.task_costs:
+  total_input_tokens: 33
+  total_output_tokens: 6286
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 33
+      output_tokens: 6286
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 33
+    output_tokens: 6286
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T05:02:00.406475+00:00'
 ---
 ## Summary
 
@@ -93,5 +109,25 @@ Focus handoff: duplicate_detector
    - Risk: The signed manifest structure needs to change — currently manifest.sha256 covers payload files but the signing needs to also cover manifest.json, sbom.spdx.json, provenance.json, and license files.
 
 4. Recommended next focus: devops — the work crosses release assembly scripts (bash), tamper verification, offline bundle layout, and test suites (Python). All implementation is in scripts/assemble-bundle.sh, scripts/verify-bundle.sh, licenses/, and tests/test_bundle.py.
+---
+author: oompah
+created: 2026-07-26 05:02
+---
+Agent completed successfully in 163s (6319 tokens)
+---
+author: oompah
+created: 2026-07-26 05:02
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 46, Tool calls: 30
+- Tokens: 33 in / 6.3K out [6.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 43s
+- Log: EXOCOMP-120__20260726T045920Z.jsonl
+---
+author: oompah
+created: 2026-07-26 05:02
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
