@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: Done
+status: In Progress
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -13,22 +13,22 @@ labels:
 - focus-complete:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:55:00.641743Z'
+updated_at: '2026-07-26T04:55:23.150183Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: a74b3314-e256-4c6b-9609-0d7d78ef8764
+oompah.agent_run_id: 9a0db3c7-ae7b-4855-b5bf-2cf327b734c4
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 4403172
-  total_output_tokens: 22398
+  total_input_tokens: 4403217
+  total_output_tokens: 73410
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 4403172
-      output_tokens: 22398
+      input_tokens: 4403217
+      output_tokens: 73410
       cost_usd: 0.0
   runs:
   - profile: default
@@ -49,6 +49,12 @@ oompah.task_costs:
     output_tokens: 1242
     cost_usd: 0.0
     recorded_at: '2026-07-26T04:38:45.245791+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 45
+    output_tokens: 51012
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T04:55:12.896494+00:00'
 ---
 ## Summary
 
@@ -263,5 +269,48 @@ author: oompah
 created: 2026-07-26 04:55
 ---
 Wired production coordinator PKI and enrollment services: Bootstrap.load_online_state/1 for production restarts without offline root; Application.start/2 now supervises PKI.State, EnrollmentToken, Listener; Health.check/0 requires all components; CoordinatorRouter with EnrollmentHandler (Bearer token) and RenewalHandler (mTLS); Listener uses fail_if_no_peer_cert:false for enrollment. All make test/test-installer/test-bundle gates pass (844+69+75 tests).
+---
+author: oompah
+created: 2026-07-26 04:55
+---
+Agent completed successfully in 952s (51057 tokens)
+---
+author: oompah
+created: 2026-07-26 04:55
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 92, Tool calls: 57
+- Tokens: 45 in / 51.0K out [51.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 15m 52s
+- Log: EXOCOMP-119__20260726T043923Z.jsonl
+---
+author: oompah
+created: 2026-07-26 04:55
+---
+Close refused by orchestrator: branch `epic-EXOCOMP-117` has 3 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 3
+    c8296bf EXOCOMP-119: Start production coordinator PKI and enrollment services
+    6af78a7 EXOCOMP-119: document production PKI readiness
+    53fbc23 EXOCOMP-118: make shipped node bundle install cleanly
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head epic-EXOCOMP-117 --title "EXOCOMP-119: Start production coordinator PKI and enrollment services" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-26 04:55
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 04:55
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
