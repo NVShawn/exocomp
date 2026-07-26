@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T15:11:34.155202Z'
+updated_at: '2026-07-26T15:30:10.039398Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -549,5 +549,16 @@ author: oompah
 created: 2026-07-26 15:11
 ---
 Discovery: Signed rc.12 is rejected by the lifecycle phase. Root cause: the shipped state-backup.sh binary uses --no-same-owner during archive extraction in validate_archive(), causing restored config files (coordinator.json, release-cookie.env) to be owned by root:root instead of exocomp-coordinator:exocomp-coordinator. The coordinator service cannot read its config from root:root 600 files running as the exocomp-coordinator service user, producing {:file_read, :eacces} on every startup. This is a divergence between the committed source (which has --no-same-owner at the rc.12 tag) and what was needed. A previous agent's uncommitted working-tree fix (--same-owner) is already present along with a bundle regression test, rc.13 M5 baselines, and updated baseline count assertion. I will commit the fix, run source-tree gates, create rc.13, and restart full qualification on both VMs from clean state.
+---
+author: oompah
+created: 2026-07-26 15:30
+---
+Verification progress (attempt #8): rc.13 qualification running on both VMs.
+
+amd64 (192.168.122.136): Phases 1-8 complete (repo gates, double build, reproducibility, bench_harness build, bundle assembly, live preflight, operational, M5 bench short). Phase 9 (M5 bench full, ~30 min) now active. All prior phases passed. Fixed: src-gates symlink issue in continuation script (live-preflight.sh expects \${QUALIFICATION_ROOT}/src-gates).
+
+arm64 (192.168.122.171): In repository gate phase (release-check compliance tests) under full QEMU emulation. Expected to be ~2-3x slower than amd64 overall.
+
+Root cause of today's rc.13: state-backup.sh --no-same-owner → --same-owner fix now in source at 640dd7dd. All prior rc candidates (rc.3-rc.12) remain rejected; no results reused.
 ---
 <!-- COMMENTS:END -->
