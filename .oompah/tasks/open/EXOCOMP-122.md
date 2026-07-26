@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:34:05.035886Z'
+updated_at: '2026-07-26T06:34:16.647910Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 609e9442-d417-4f51-b235-7d13569cf66c
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 1395139
-  total_output_tokens: 6928
+  total_input_tokens: 1395209
+  total_output_tokens: 9129
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1395139
-      output_tokens: 6928
+      input_tokens: 1395209
+      output_tokens: 9129
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 6928
     cost_usd: 0.0
     recorded_at: '2026-07-26T06:28:41.099313+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 70
+    output_tokens: 2201
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T06:34:15.438453+00:00'
 ---
 ## Summary
 
@@ -158,5 +164,15 @@ author: oompah
 created: 2026-07-26 06:33
 ---
 Focus handoff: docs — (1) Outcome: documentation complete. Created docs/performance-qualification.md specifying the full M5 shipped-artifact gate: three-tier Make targets, prerequisites, host profiles, versioned TOML baselines, hard gate format, missing-metric failure, artifact identity fields, evidence layout, architecture qualification requirements, and troubleshooting. Updated docs/release-qualification.md and docs/maintainer-release-checklist.md to cross-reference the new doc and include M5 steps. (2) Relevant files: docs/performance-qualification.md (new), docs/release-qualification.md (updated Related Docs + M5 section), docs/maintainer-release-checklist.md (new M5 gate section). Baseline directory location: apps/bench/priv/bench/baselines/<version>/<arch>.toml. (3) Remaining work: The feature implementation is entirely absent — Make targets bench-llama-short-shipped and bench-llama-full do not exist; baseline TOML files have not been created; the regression gate evaluator in Bench.Report.Summary is a stub; artifact-identity capture from build-identity.json is not wired; evidence JSONL output path is not implemented. The docs/ specification above is the authoritative contract for the feature agent. (4) Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-26 06:34
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 53
+- Tokens: 70 in / 2.2K out [2.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 5m 25s
+- Log: EXOCOMP-122__20260726T062851Z.jsonl
 ---
 <!-- COMMENTS:END -->
