@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T17:13:28.311815Z'
+updated_at: '2026-07-26T17:19:57.559706Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -666,5 +666,10 @@ author: oompah
 created: 2026-07-26 17:13
 ---
 Verification progress (continuation attempt #10): Both exact signed rc.15 guest jobs are still healthy. amd64 has passed all repository gates, double-build reproducibility, signed no-network bundle verification/install, production PKI/enrollment/renewal, multi-node diagnostics, approved recovery, hardening, and shipped M5 short; the full M5 process has crossed its 30-minute minimum and remains active. arm64 has passed through test-bundle and is running exact-tag make test under full-system QEMU. No candidate failure is present.
+---
+author: oompah
+created: 2026-07-26 17:19
+---
+Discovery: signed rc.15 is rejected by live amd64 lifecycle and none of its results will count for acceptance. The installer application health gate invokes the release 'rpc' command with System.halt(...); because rpc evaluates remotely, a passing health check terminates the newly started service itself. systemd then runs ExecStop against an already-dead node, gets :noconnection, and restart churn makes the upgrade fail. Live inspection also found StartLimitIntervalSec/StartLimitBurst in [Service], which systemd ignores; both units must place start limits in [Unit]. I am stopping the obsolete arm64 rc.15 job and fixing both defects with regression coverage before a replacement candidate.
 ---
 <!-- COMMENTS:END -->
