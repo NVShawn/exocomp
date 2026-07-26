@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T08:02:51.395668Z'
+updated_at: '2026-07-26T08:12:01.125570Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -175,5 +175,10 @@ author: oompah
 created: 2026-07-26 08:02
 ---
 Discovery: origin/main is 01c14b8 (only EXOCOMP-118 merged); the current epic branch is seven commits ahead through EXOCOMP-122 at 371ca4e, and no post-remediation candidate tag exists. Therefore the task's mandatory order—siblings land on main, then sign an exact candidate—has not yet occurred. The rc.2 SSH signing identity is available and verifies, and the retained amd64 KVM and full-system arm64 QEMU guests are running with the pinned llama/model inputs, but they contain rc.2 state and have no clean snapshots. I will use them only for preflight regression gates unless/until an exact signed post-merge candidate and clean guest reset are available.
+---
+author: oompah
+created: 2026-07-26 08:12
+---
+Implementation: Preflight exposed an integration regression between EXOCOMP-119 and the release qualification path. Updated scripts/smoke-releases.sh and scripts/test-clean-container.sh so their narrowly scoped bundled-ERTS probes explicitly disable coordinator PKI only inside the ephemeral eval process; production startup remains fail-closed and will still be qualified with initialized PKI on systemd guests. Added structural regression assertions in scripts/test-release-builders.sh for both probes. make test-builders passes (runtime-dependency fixtures, 13 offline matrix checks, packaging/normalizer/operator-doc suites).
 ---
 <!-- COMMENTS:END -->
