@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T05:19:43.191102Z'
-work_branch: null
+updated_at: '2026-07-26T05:19:50.122441Z'
+work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: f7e83871-0faf-4ec1-b10a-06076df9204a
+oompah.work_branch: epic-EXOCOMP-117
 ---
 ## Summary
 
@@ -40,3 +42,16 @@ Acceptance Criteria
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-26 05:19
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-26 05:19
+---
+Focus: CI Failure Fixer
+---
+<!-- COMMENTS:END -->
