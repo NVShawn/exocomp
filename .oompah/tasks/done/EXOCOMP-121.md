@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T06:24:05.669408Z'
+updated_at: '2026-07-26T06:24:18.776374Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -18,6 +18,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: d9d58849-1fc3-48d5-b36f-84563dd987fa
 oompah.work_branch: epic-EXOCOMP-117
+oompah.task_costs:
+  total_input_tokens: 68
+  total_output_tokens: 2197
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 68
+      output_tokens: 2197
+      cost_usd: 0.0
+  runs:
+  - profile: deep
+    model: unknown
+    input_tokens: 68
+    output_tokens: 2197
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T06:24:17.447384+00:00'
 ---
 ## Summary
 
@@ -113,5 +129,15 @@ author: oompah
 created: 2026-07-26 06:24
 ---
 Fixed arm64 test timing fragility in 5 test files: replaced brittle wall-clock assert_receive/sleep patterns with deterministic synchronization (port line framing, explicit crash signals) and bounded monotonic-deadline eventually helpers. All 844 tests pass on amd64 in the project's pinned Elixir 1.20.2/OTP 28 container. Production code and timeouts unchanged.
+---
+author: oompah
+created: 2026-07-26 06:24
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 0, Tool calls: 41
+- Tokens: 68 in / 2.2K out [2.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 6s
+- Log: EXOCOMP-121__20260726T062013Z.jsonl
 ---
 <!-- COMMENTS:END -->
