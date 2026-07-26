@@ -1,0 +1,864 @@
+=== test-release-matrix-arm64 start 2026-07-26T02:20:47+00:00 ===
+./scripts/test-release-matrix.sh \
+	--arch arm64 \
+
+
+=== Offline structural checks ===
+  PASS: test-clean-container.sh exists and is executable
+  PASS: test-release-matrix.sh is non-interactive
+  PASS: test-clean-container.sh is non-interactive
+  PASS: docs/release-qualification.md exists
+  PASS: docs/release-qualification.md documents emulated execution
+  PASS: docs/release-qualification.md documents wrong-arch diagnostic
+  PASS: Makefile has test-release-matrix target
+
+=== Offline fixture: wrong-arch detection ===
+  PASS: wrong-arch produces actionable diagnostic
+
+=== Offline fixture: missing runtime dependency detection ===
+  PASS: missing dep produces actionable diagnostic
+
+=== Offline fixture: path-independent content digest ===
+  PASS: identical trees at different root paths have matching digests
+  PASS: one-byte runtime cookie change produces a different tree digest
+  PASS: deterministic release packagers exist and are executable
+  PASS: packager excludes reusable release cookies
+
+=== Double-build reproducibility: exocomp_node / arm64 ===
+Build 1/2 for exocomp_node (arm64)...
+Pulling pinned linux/arm64 builder docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+podman can execute linux/arm64 (aarch64)
+Building node and coordinator releases for linux/arm64
+* creating .mix-home/archives/hex-2.5.1
+Elixir 1.20.2 / OTP 28.5.0.3 / glibc 2.36
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+Resolving Hex dependencies...
+Resolution completed in 1.121s
+Unchanged:
+  bandit 1.12.1
+  hpax 1.0.4
+  jason 1.4.5
+  mime 2.0.7
+  nimble_options 1.1.1
+  plug 1.20.3
+  plug_crypto 2.2.0
+  telemetry 1.4.2
+  thousand_island 1.5.0
+  websock 0.5.3
+  x509 0.9.2
+Normalized locked Bandit 1.12.1 release input for deterministic compilation
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+warning: "xref: [exclude: ...]" in your mix.exs file is deprecated, instead use: "elixirc_options: [no_warn_undefined: ...]"
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:243: Mix.Tasks.Compile.Elixir.xref_exclude_opts/2
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:142: Mix.Tasks.Compile.Elixir.run/1
+  (mix 1.20.2) lib/mix/task.ex:502: anonymous fn/3 in Mix.Task.run_task/5
+  (mix 1.20.2) lib/mix/task.compiler.ex:299: Mix.Task.Compiler.run_compiler/2
+  (mix 1.20.2) lib/mix/task.compiler.ex:287: Mix.Task.Compiler.run/4
+  (mix 1.20.2) lib/mix/tasks/compile.all.ex:75: Mix.Tasks.Compile.All.do_run/2
+
+==> x509
+Compiling 24 files (.ex)
+     warning: the variable "size" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 371 │     <<i::unsigned-size(size)-unit(8)>> = :crypto.strong_rand_bytes(size)
+     │                        ~
+     │
+     └─ lib/x509/certificate.ex:371:24: X509.Certificate.random_serial/1
+
+Generated x509 app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> jason
+Compiling 10 files (.ex)
+Compiling lib/encode.ex (it's taking more than 10s)
+Compiling lib/decoder.ex (it's taking more than 10s)
+Generated jason app
+==> plug_crypto
+Compiling 5 files (.ex)
+Generated plug_crypto app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+===> Analyzing applications...
+===> Compiling telemetry
+==> thousand_island
+Compiling 18 files (.ex)
+Generated thousand_island app
+==> plug
+Compiling 1 file (.erl)
+Compiling 42 files (.ex)
+Compiling lib/plug/conn.ex (it's taking more than 10s)
+Compiling lib/plug/debugger.ex (it's taking more than 10s)
+Generated plug app
+==> websock
+Compiling 1 file (.ex)
+Generated websock app
+==> bandit
+Compiling 54 files (.ex)
+Generated bandit app
+==> bench
+Compiling 12 files (.ex)
+Generated bench app
+==> exocomp_core
+Compiling 22 files (.ex)
+Generated exocomp_core app
+==> exocomp_coordinator
+Compiling 42 files (.ex)
+Generated exocomp_coordinator app
+==> exocomp_node
+Compiling 53 files (.ex)
+Generated exocomp_node app
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_node-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_node
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node
+
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_coordinator-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_coordinator
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator
+
+
+02:27:44.960 [error] [Node.Application] EXOCOMP_CONFIG_FILE is not set; the listener will not start. Set the environment variable and restart the release.
+exocomp_node: started with bundled ERTS
+
+02:27:45.661 [notice] Application exocomp_node exited: :stopped
+exocomp_coordinator: started with bundled ERTS
+
+02:27:58.932 [notice] Application exocomp_coordinator exited: :stopped
+Built linux/arm64 releases under _build/release/arm64/rel
+
+Inspecting runtime dependencies for linux/arm64 releases
+  exocomp_node: _build/release/arm64/rel/exocomp_node
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_node (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_node/dep-report.json
+PASS: all dynamic dependencies are declared.
+  exocomp_coordinator: _build/release/arm64/rel/exocomp_coordinator
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_coordinator (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_coordinator/dep-report.json
+PASS: all dynamic dependencies are declared.
+
+All runtime dependency checks passed for linux/arm64.
+
+Packaging deterministic, secret-free release archives
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.tar.gz  sha256:50ed1939b5b45c78aaa5dcdacb1ac6b3787fe2a8420527ed74c136eba042821a
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.manifest.json
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.tar.gz  sha256:178e88ad67d33a9f7daab04b97cab7e4ba24a233a35b67407a1f4fb28e7411f1
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.manifest.json
+Packaged linux/arm64 releases under /var/lib/exocomp-qualification/src/dist/releases
+Snapshotting build 1...
+Build 2/2 for exocomp_node (arm64)...
+Pulling pinned linux/arm64 builder docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+podman can execute linux/arm64 (aarch64)
+Building node and coordinator releases for linux/arm64
+* creating .mix-home/archives/hex-2.5.1
+Elixir 1.20.2 / OTP 28.5.0.3 / glibc 2.36
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+Resolving Hex dependencies...
+Resolution completed in 1.08s
+Unchanged:
+  bandit 1.12.1
+  hpax 1.0.4
+  jason 1.4.5
+  mime 2.0.7
+  nimble_options 1.1.1
+  plug 1.20.3
+  plug_crypto 2.2.0
+  telemetry 1.4.2
+  thousand_island 1.5.0
+  websock 0.5.3
+  x509 0.9.2
+Bandit release input already has deterministic Thousand Island key ordering
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+warning: "xref: [exclude: ...]" in your mix.exs file is deprecated, instead use: "elixirc_options: [no_warn_undefined: ...]"
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:243: Mix.Tasks.Compile.Elixir.xref_exclude_opts/2
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:142: Mix.Tasks.Compile.Elixir.run/1
+  (mix 1.20.2) lib/mix/task.ex:502: anonymous fn/3 in Mix.Task.run_task/5
+  (mix 1.20.2) lib/mix/task.compiler.ex:299: Mix.Task.Compiler.run_compiler/2
+  (mix 1.20.2) lib/mix/task.compiler.ex:287: Mix.Task.Compiler.run/4
+  (mix 1.20.2) lib/mix/tasks/compile.all.ex:75: Mix.Tasks.Compile.All.do_run/2
+
+==> x509
+Compiling 24 files (.ex)
+     warning: the variable "size" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 371 │     <<i::unsigned-size(size)-unit(8)>> = :crypto.strong_rand_bytes(size)
+     │                        ~
+     │
+     └─ lib/x509/certificate.ex:371:24: X509.Certificate.random_serial/1
+
+Generated x509 app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> jason
+Compiling 10 files (.ex)
+Compiling lib/encode.ex (it's taking more than 10s)
+Compiling lib/decoder.ex (it's taking more than 10s)
+Generated jason app
+==> plug_crypto
+Compiling 5 files (.ex)
+Generated plug_crypto app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+===> Analyzing applications...
+===> Compiling telemetry
+==> thousand_island
+Compiling 18 files (.ex)
+Generated thousand_island app
+==> plug
+Compiling 1 file (.erl)
+Compiling 42 files (.ex)
+Compiling lib/plug/conn.ex (it's taking more than 10s)
+Compiling lib/plug/debugger.ex (it's taking more than 10s)
+Generated plug app
+==> websock
+Compiling 1 file (.ex)
+Generated websock app
+==> bandit
+Compiling 54 files (.ex)
+Generated bandit app
+==> bench
+Compiling 12 files (.ex)
+Generated bench app
+==> exocomp_core
+Compiling 22 files (.ex)
+Generated exocomp_core app
+==> exocomp_coordinator
+Compiling 42 files (.ex)
+Generated exocomp_coordinator app
+==> exocomp_node
+Compiling 53 files (.ex)
+Generated exocomp_node app
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_node-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_node
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node
+
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_coordinator-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_coordinator
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator
+
+
+02:43:12.519 [error] [Node.Application] EXOCOMP_CONFIG_FILE is not set; the listener will not start. Set the environment variable and restart the release.
+exocomp_node: started with bundled ERTS
+
+02:43:13.297 [notice] Application exocomp_node exited: :stopped
+exocomp_coordinator: started with bundled ERTS
+
+02:43:26.949 [notice] Application exocomp_coordinator exited: :stopped
+Built linux/arm64 releases under _build/release/arm64/rel
+
+Inspecting runtime dependencies for linux/arm64 releases
+  exocomp_node: _build/release/arm64/rel/exocomp_node
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_node (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_node/dep-report.json
+PASS: all dynamic dependencies are declared.
+  exocomp_coordinator: _build/release/arm64/rel/exocomp_coordinator
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_coordinator (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_coordinator/dep-report.json
+PASS: all dynamic dependencies are declared.
+
+All runtime dependency checks passed for linux/arm64.
+
+Packaging deterministic, secret-free release archives
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.tar.gz  sha256:50ed1939b5b45c78aaa5dcdacb1ac6b3787fe2a8420527ed74c136eba042821a
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.manifest.json
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.tar.gz  sha256:178e88ad67d33a9f7daab04b97cab7e4ba24a233a35b67407a1f4fb28e7411f1
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.manifest.json
+Packaged linux/arm64 releases under /var/lib/exocomp-qualification/src/dist/releases
+Snapshotting build 2...
+  PASS: packaged archives are byte-identical for exocomp_node / arm64
+  PASS: double-build digests match for exocomp_node / arm64: 60cd5bece62aca6c4bb837552270e2d9f45e57efa386a75decdf604216ce7032
+  PASS: manifest field 'product' present in exocomp_node/arm64: "product": "exocomp_node"
+  PASS: manifest field 'version' present in exocomp_node/arm64: "version": "0.1.0"
+  PASS: manifest field 'architecture' present in exocomp_node/arm64: "architecture": "arm64"
+  PASS: manifest field 'source_commit' present in exocomp_node/arm64: "source_commit": "581128d6680ec921b140d97d5018139582a5dd66"
+  PASS: manifest field 'source_tag' present in exocomp_node/arm64: "source_tag": "v0.1.0-rc.2"
+  PASS: manifest field 'builder_digest' present in exocomp_node/arm64: "builder_digest": "sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc"
+  PASS: manifest field 'elixir_version' present in exocomp_node/arm64: "elixir_version": "1.20.2"
+  PASS: manifest field 'otp_version' present in exocomp_node/arm64: "otp_version": "28.5.0.3"
+  PASS: manifest field 'erts_version' present in exocomp_node/arm64: "erts_version": "16.4.0.3"
+  PASS: manifest field 'dependency_lock_sha256' present in exocomp_node/arm64: "dependency_lock_sha256": "1dfe980a408835b5eee0d05dda5dcedf159d9a09bb32495c38ed72dff599c4c7"
+  PASS: manifest field 'release_input_normalizer_sha256' present in exocomp_node/arm64: "release_input_normalizer_sha256": "e862594e1d5a424411171ac0cdd5268ad831180b1bf415584cdee8aec6762e55"
+  PASS: manifest field 'build_command' present in exocomp_node/arm64: "build_command": "make build-arm64"
+  PASS: manifest field 'product' present in exocomp_node/arm64: "product": "exocomp_node"
+  PASS: manifest field 'version' present in exocomp_node/arm64: "version": "0.1.0"
+  PASS: manifest field 'architecture' present in exocomp_node/arm64: "architecture": "arm64"
+  PASS: manifest field 'source_commit' present in exocomp_node/arm64: "source_commit": "581128d6680ec921b140d97d5018139582a5dd66"
+  PASS: manifest field 'source_tag' present in exocomp_node/arm64: "source_tag": "v0.1.0-rc.2"
+  PASS: manifest field 'builder_digest' present in exocomp_node/arm64: "builder_digest": "sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc"
+  PASS: manifest field 'elixir_version' present in exocomp_node/arm64: "elixir_version": "1.20.2"
+  PASS: manifest field 'otp_version' present in exocomp_node/arm64: "otp_version": "28.5.0.3"
+  PASS: manifest field 'erts_version' present in exocomp_node/arm64: "erts_version": "16.4.0.3"
+  PASS: manifest field 'dependency_lock_sha256' present in exocomp_node/arm64: "dependency_lock_sha256": "1dfe980a408835b5eee0d05dda5dcedf159d9a09bb32495c38ed72dff599c4c7"
+  PASS: manifest field 'release_input_normalizer_sha256' present in exocomp_node/arm64: "release_input_normalizer_sha256": "e862594e1d5a424411171ac0cdd5268ad831180b1bf415584cdee8aec6762e55"
+  PASS: manifest field 'build_command' present in exocomp_node/arm64: "build_command": "make build-arm64"
+
+=== Double-build reproducibility: exocomp_coordinator / arm64 ===
+Build 1/2 for exocomp_coordinator (arm64)...
+Pulling pinned linux/arm64 builder docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+podman can execute linux/arm64 (aarch64)
+Building node and coordinator releases for linux/arm64
+* creating .mix-home/archives/hex-2.5.1
+Elixir 1.20.2 / OTP 28.5.0.3 / glibc 2.36
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+Resolving Hex dependencies...
+Resolution completed in 1.26s
+Unchanged:
+  bandit 1.12.1
+  hpax 1.0.4
+  jason 1.4.5
+  mime 2.0.7
+  nimble_options 1.1.1
+  plug 1.20.3
+  plug_crypto 2.2.0
+  telemetry 1.4.2
+  thousand_island 1.5.0
+  websock 0.5.3
+  x509 0.9.2
+Bandit release input already has deterministic Thousand Island key ordering
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+warning: "xref: [exclude: ...]" in your mix.exs file is deprecated, instead use: "elixirc_options: [no_warn_undefined: ...]"
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:243: Mix.Tasks.Compile.Elixir.xref_exclude_opts/2
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:142: Mix.Tasks.Compile.Elixir.run/1
+  (mix 1.20.2) lib/mix/task.ex:502: anonymous fn/3 in Mix.Task.run_task/5
+  (mix 1.20.2) lib/mix/task.compiler.ex:299: Mix.Task.Compiler.run_compiler/2
+  (mix 1.20.2) lib/mix/task.compiler.ex:287: Mix.Task.Compiler.run/4
+  (mix 1.20.2) lib/mix/tasks/compile.all.ex:75: Mix.Tasks.Compile.All.do_run/2
+
+==> x509
+Compiling 24 files (.ex)
+     warning: the variable "size" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 371 │     <<i::unsigned-size(size)-unit(8)>> = :crypto.strong_rand_bytes(size)
+     │                        ~
+     │
+     └─ lib/x509/certificate.ex:371:24: X509.Certificate.random_serial/1
+
+Generated x509 app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> jason
+Compiling 10 files (.ex)
+Compiling lib/encode.ex (it's taking more than 10s)
+Compiling lib/decoder.ex (it's taking more than 10s)
+Generated jason app
+==> plug_crypto
+Compiling 5 files (.ex)
+Generated plug_crypto app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+===> Analyzing applications...
+===> Compiling telemetry
+==> thousand_island
+Compiling 18 files (.ex)
+Generated thousand_island app
+==> plug
+Compiling 1 file (.erl)
+Compiling 42 files (.ex)
+Compiling lib/plug/conn.ex (it's taking more than 10s)
+Compiling lib/plug/debugger.ex (it's taking more than 10s)
+Generated plug app
+==> websock
+Compiling 1 file (.ex)
+Generated websock app
+==> bandit
+Compiling 54 files (.ex)
+Generated bandit app
+==> bench
+Compiling 12 files (.ex)
+Generated bench app
+==> exocomp_core
+Compiling 22 files (.ex)
+Generated exocomp_core app
+==> exocomp_coordinator
+Compiling 42 files (.ex)
+Generated exocomp_coordinator app
+==> exocomp_node
+Compiling 53 files (.ex)
+Generated exocomp_node app
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_node-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_node
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node
+
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_coordinator-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_coordinator
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator
+
+
+02:59:03.482 [error] [Node.Application] EXOCOMP_CONFIG_FILE is not set; the listener will not start. Set the environment variable and restart the release.
+exocomp_node: started with bundled ERTS
+
+02:59:04.160 [notice] Application exocomp_node exited: :stopped
+exocomp_coordinator: started with bundled ERTS
+
+02:59:17.434 [notice] Application exocomp_coordinator exited: :stopped
+Built linux/arm64 releases under _build/release/arm64/rel
+
+Inspecting runtime dependencies for linux/arm64 releases
+  exocomp_node: _build/release/arm64/rel/exocomp_node
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_node (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_node/dep-report.json
+PASS: all dynamic dependencies are declared.
+  exocomp_coordinator: _build/release/arm64/rel/exocomp_coordinator
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_coordinator (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_coordinator/dep-report.json
+PASS: all dynamic dependencies are declared.
+
+All runtime dependency checks passed for linux/arm64.
+
+Packaging deterministic, secret-free release archives
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.tar.gz  sha256:50ed1939b5b45c78aaa5dcdacb1ac6b3787fe2a8420527ed74c136eba042821a
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.manifest.json
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.tar.gz  sha256:178e88ad67d33a9f7daab04b97cab7e4ba24a233a35b67407a1f4fb28e7411f1
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.manifest.json
+Packaged linux/arm64 releases under /var/lib/exocomp-qualification/src/dist/releases
+Snapshotting build 1...
+Build 2/2 for exocomp_coordinator (arm64)...
+Pulling pinned linux/arm64 builder docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+podman can execute linux/arm64 (aarch64)
+Building node and coordinator releases for linux/arm64
+* creating .mix-home/archives/hex-2.5.1
+Elixir 1.20.2 / OTP 28.5.0.3 / glibc 2.36
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+Resolving Hex dependencies...
+Resolution completed in 1.097s
+Unchanged:
+  bandit 1.12.1
+  hpax 1.0.4
+  jason 1.4.5
+  mime 2.0.7
+  nimble_options 1.1.1
+  plug 1.20.3
+  plug_crypto 2.2.0
+  telemetry 1.4.2
+  thousand_island 1.5.0
+  websock 0.5.3
+  x509 0.9.2
+Bandit release input already has deterministic Thousand Island key ordering
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+warning: "xref: [exclude: ...]" in your mix.exs file is deprecated, instead use: "elixirc_options: [no_warn_undefined: ...]"
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:243: Mix.Tasks.Compile.Elixir.xref_exclude_opts/2
+  (mix 1.20.2) lib/mix/tasks/compile.elixir.ex:142: Mix.Tasks.Compile.Elixir.run/1
+  (mix 1.20.2) lib/mix/task.ex:502: anonymous fn/3 in Mix.Task.run_task/5
+  (mix 1.20.2) lib/mix/task.compiler.ex:299: Mix.Task.Compiler.run_compiler/2
+  (mix 1.20.2) lib/mix/task.compiler.ex:287: Mix.Task.Compiler.run/4
+  (mix 1.20.2) lib/mix/tasks/compile.all.ex:75: Mix.Tasks.Compile.All.do_run/2
+
+==> x509
+Compiling 24 files (.ex)
+     warning: the variable "size" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 371 │     <<i::unsigned-size(size)-unit(8)>> = :crypto.strong_rand_bytes(size)
+     │                        ~
+     │
+     └─ lib/x509/certificate.ex:371:24: X509.Certificate.random_serial/1
+
+Generated x509 app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> jason
+Compiling 10 files (.ex)
+Compiling lib/encode.ex (it's taking more than 10s)
+Compiling lib/decoder.ex (it's taking more than 10s)
+Generated jason app
+==> plug_crypto
+Compiling 5 files (.ex)
+Generated plug_crypto app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+===> Analyzing applications...
+===> Compiling telemetry
+==> thousand_island
+Compiling 18 files (.ex)
+Generated thousand_island app
+==> plug
+Compiling 1 file (.erl)
+Compiling 42 files (.ex)
+Compiling lib/plug/conn.ex (it's taking more than 10s)
+Compiling lib/plug/debugger.ex (it's taking more than 10s)
+Generated plug app
+==> websock
+Compiling 1 file (.ex)
+Generated websock app
+==> bandit
+Compiling 54 files (.ex)
+Generated bandit app
+==> bench
+Compiling 12 files (.ex)
+Generated bench app
+==> exocomp_core
+Compiling 22 files (.ex)
+Generated exocomp_core app
+==> exocomp_coordinator
+Compiling 42 files (.ex)
+Generated exocomp_coordinator app
+==> exocomp_node
+Compiling 53 files (.ex)
+Generated exocomp_node app
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_node-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_node
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_node/bin/exocomp_node
+
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+* assembling exocomp_coordinator-0.1.0 on MIX_ENV=prod
+* skipping runtime configuration (config/runtime.exs not found)
+
+Release created at _build/release/arm64/rel/exocomp_coordinator
+
+    # To start your system
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator stop
+
+To list all commands:
+
+    _build/release/arm64/rel/exocomp_coordinator/bin/exocomp_coordinator
+
+
+03:14:46.142 [error] [Node.Application] EXOCOMP_CONFIG_FILE is not set; the listener will not start. Set the environment variable and restart the release.
+exocomp_node: started with bundled ERTS
+
+03:14:46.819 [notice] Application exocomp_node exited: :stopped
+exocomp_coordinator: started with bundled ERTS
+
+03:14:59.854 [notice] Application exocomp_coordinator exited: :stopped
+Built linux/arm64 releases under _build/release/arm64/rel
+
+Inspecting runtime dependencies for linux/arm64 releases
+  exocomp_node: _build/release/arm64/rel/exocomp_node
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_node (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_node/dep-report.json
+PASS: all dynamic dependencies are declared.
+  exocomp_coordinator: _build/release/arm64/rel/exocomp_coordinator
+Inspecting ELF dependencies in _build/release/arm64/rel/exocomp_coordinator (arm64)
+Baseline: /var/lib/exocomp-qualification/src/release/runtime-baseline.lock
+
+
+Dependency report: _build/release/arm64/rel/exocomp_coordinator/dep-report.json
+PASS: all dynamic dependencies are declared.
+
+All runtime dependency checks passed for linux/arm64.
+
+Packaging deterministic, secret-free release archives
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.tar.gz  sha256:50ed1939b5b45c78aaa5dcdacb1ac6b3787fe2a8420527ed74c136eba042821a
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-node-0.1.0-linux-arm64.manifest.json
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.tar.gz  sha256:178e88ad67d33a9f7daab04b97cab7e4ba24a233a35b67407a1f4fb28e7411f1
+/var/lib/exocomp-qualification/src/dist/releases/exocomp-coordinator-0.1.0-linux-arm64.manifest.json
+Packaged linux/arm64 releases under /var/lib/exocomp-qualification/src/dist/releases
+Snapshotting build 2...
+  PASS: packaged archives are byte-identical for exocomp_coordinator / arm64
+  PASS: double-build digests match for exocomp_coordinator / arm64: f5b2164625af2f0729550a3797e31cec92637859230cfefe5a198281c735fa43
+  PASS: manifest field 'product' present in exocomp_coordinator/arm64: "product": "exocomp_coordinator"
+  PASS: manifest field 'version' present in exocomp_coordinator/arm64: "version": "0.1.0"
+  PASS: manifest field 'architecture' present in exocomp_coordinator/arm64: "architecture": "arm64"
+  PASS: manifest field 'source_commit' present in exocomp_coordinator/arm64: "source_commit": "581128d6680ec921b140d97d5018139582a5dd66"
+  PASS: manifest field 'source_tag' present in exocomp_coordinator/arm64: "source_tag": "v0.1.0-rc.2"
+  PASS: manifest field 'builder_digest' present in exocomp_coordinator/arm64: "builder_digest": "sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc"
+  PASS: manifest field 'elixir_version' present in exocomp_coordinator/arm64: "elixir_version": "1.20.2"
+  PASS: manifest field 'otp_version' present in exocomp_coordinator/arm64: "otp_version": "28.5.0.3"
+  PASS: manifest field 'erts_version' present in exocomp_coordinator/arm64: "erts_version": "16.4.0.3"
+  PASS: manifest field 'dependency_lock_sha256' present in exocomp_coordinator/arm64: "dependency_lock_sha256": "1dfe980a408835b5eee0d05dda5dcedf159d9a09bb32495c38ed72dff599c4c7"
+  PASS: manifest field 'release_input_normalizer_sha256' present in exocomp_coordinator/arm64: "release_input_normalizer_sha256": "e862594e1d5a424411171ac0cdd5268ad831180b1bf415584cdee8aec6762e55"
+  PASS: manifest field 'build_command' present in exocomp_coordinator/arm64: "build_command": "make build-arm64"
+  PASS: manifest field 'product' present in exocomp_coordinator/arm64: "product": "exocomp_coordinator"
+  PASS: manifest field 'version' present in exocomp_coordinator/arm64: "version": "0.1.0"
+  PASS: manifest field 'architecture' present in exocomp_coordinator/arm64: "architecture": "arm64"
+  PASS: manifest field 'source_commit' present in exocomp_coordinator/arm64: "source_commit": "581128d6680ec921b140d97d5018139582a5dd66"
+  PASS: manifest field 'source_tag' present in exocomp_coordinator/arm64: "source_tag": "v0.1.0-rc.2"
+  PASS: manifest field 'builder_digest' present in exocomp_coordinator/arm64: "builder_digest": "sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc"
+  PASS: manifest field 'elixir_version' present in exocomp_coordinator/arm64: "elixir_version": "1.20.2"
+  PASS: manifest field 'otp_version' present in exocomp_coordinator/arm64: "otp_version": "28.5.0.3"
+  PASS: manifest field 'erts_version' present in exocomp_coordinator/arm64: "erts_version": "16.4.0.3"
+  PASS: manifest field 'dependency_lock_sha256' present in exocomp_coordinator/arm64: "dependency_lock_sha256": "1dfe980a408835b5eee0d05dda5dcedf159d9a09bb32495c38ed72dff599c4c7"
+  PASS: manifest field 'release_input_normalizer_sha256' present in exocomp_coordinator/arm64: "release_input_normalizer_sha256": "e862594e1d5a424411171ac0cdd5268ad831180b1bf415584cdee8aec6762e55"
+  PASS: manifest field 'build_command' present in exocomp_coordinator/arm64: "build_command": "make build-arm64"
+
+=== Clean-container startup: exocomp_node / arm64 ===
+Testing clean-container startup: exocomp_node / arm64
+  Release : /var/lib/exocomp-qualification/src/_build/release/arm64/rel/exocomp_node
+  ERTS    : erts-16.4.0.3
+  Image   : docker.io/library/debian:bookworm-slim@sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0
+Trying to pull docker.io/library/debian@sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0...
+Getting image source signatures
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying config sha256:0895689d2b33b6fc8d95ea2d2b878902aa912d786c05e7ff6fdb6bd5a7b61648
+Writing manifest to image destination
+0895689d2b33b6fc8d95ea2d2b878902aa912d786c05e7ff6fdb6bd5a7b61648
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+[1/2] STEP 1/1: FROM docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc AS builder
+--> 5d634838ce32
+[2/2] STEP 1/3: FROM docker.io/library/debian:bookworm-slim@sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0
+[2/2] STEP 2/3: ARG LIB_ARCH
+--> aa1e66c7786a
+[2/2] STEP 3/3: COPY --from=builder /usr/lib/${LIB_ARCH}/libcrypto.so.3 /usr/lib/${LIB_ARCH}/libcrypto.so.3
+[2/2] COMMIT localhost/exocomp-clean-target:arm64
+--> d48c19a6131f
+Successfully tagged localhost/exocomp-clean-target:arm64
+d48c19a6131f96499a65733afccaabb460db87f6e10c05db893dbf12d5a40e2e
+ERTS source: bundled (no system erl on PATH — correct)
+warning: the VM is running with native name encoding of latin1 which may cause Elixir to malfunction as it expects utf8. Please ensure your locale is set to UTF-8 (which can be verified by running "locale" in your shell) or set the ELIXIR_ERL_OPTIONS="+fnu" environment variable
+
+03:24:47.591 [error] [Node.Application] EXOCOMP_CONFIG_FILE is not set; the listener will not start. Set the environment variable and restart the release.
+Release started with bundled ERTS
+
+03:24:48.192 [notice] Application exocomp_node exited: :stopped
+PASS: exocomp_node / arm64 started in clean container using bundled ERTS
+  PASS: clean-container startup passed for exocomp_node / arm64
+
+=== Clean-container startup: exocomp_coordinator / arm64 ===
+Testing clean-container startup: exocomp_coordinator / arm64
+  Release : /var/lib/exocomp-qualification/src/_build/release/arm64/rel/exocomp_coordinator
+  ERTS    : erts-16.4.0.3
+  Image   : docker.io/library/debian:bookworm-slim@sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0
+Trying to pull docker.io/library/debian@sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0...
+Getting image source signatures
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying config sha256:0895689d2b33b6fc8d95ea2d2b878902aa912d786c05e7ff6fdb6bd5a7b61648
+Writing manifest to image destination
+0895689d2b33b6fc8d95ea2d2b878902aa912d786c05e7ff6fdb6bd5a7b61648
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+[1/2] STEP 1/1: FROM docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc AS builder
+--> 5d634838ce32
+[2/2] STEP 1/3: FROM docker.io/library/debian:bookworm-slim@sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0
+[2/2] STEP 2/3: ARG LIB_ARCH
+--> Using cache aa1e66c7786a633973cddbea820308cc741292078576feeec5afd215d729c705
+--> aa1e66c7786a
+[2/2] STEP 3/3: COPY --from=builder /usr/lib/${LIB_ARCH}/libcrypto.so.3 /usr/lib/${LIB_ARCH}/libcrypto.so.3
+--> Using cache d48c19a6131f96499a65733afccaabb460db87f6e10c05db893dbf12d5a40e2e
+[2/2] COMMIT localhost/exocomp-clean-target:arm64
+--> d48c19a6131f
+Successfully tagged localhost/exocomp-clean-target:arm64
+d48c19a6131f96499a65733afccaabb460db87f6e10c05db893dbf12d5a40e2e
+ERTS source: bundled (no system erl on PATH — correct)
+warning: the VM is running with native name encoding of latin1 which may cause Elixir to malfunction as it expects utf8. Please ensure your locale is set to UTF-8 (which can be verified by running "locale" in your shell) or set the ELIXIR_ERL_OPTIONS="+fnu" environment variable
+Release started with bundled ERTS
+
+03:25:32.710 [notice] Application exocomp_coordinator exited: :stopped
+PASS: exocomp_coordinator / arm64 started in clean container using bundled ERTS
+  PASS: clean-container startup passed for exocomp_coordinator / arm64
+
+=== Wrong-arch negative test (live) ===
+  SKIP: /var/lib/exocomp-qualification/src/_build/release/amd64/rel/exocomp_node not found; build amd64 release first
+
+=== Missing runtime dependency negative test (live) ===
+  SKIP: /var/lib/exocomp-qualification/src/_build/release/amd64/rel/exocomp_node not found; build amd64 release first
+
+==========================================
+Results: 67 passed, 0 failed
+==========================================
+=== test-release-matrix-arm64 end 2026-07-26T03:25:36+00:00 rc=0 ===

@@ -1,0 +1,2 @@
+replay_parent=stat: cannot statx '/var/lib/exocomp': No such file or directory
+drwxr-x--- exocomp-node:exocomp-node /var/lib/exocomp-node

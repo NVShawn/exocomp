@@ -1,0 +1,2 @@
+[install] ==> PREFLIGHT
+[install] ERROR: bundle not found: /var/lib/exocomp-qualification/evidence/live/exocomp-complete-0.1.0-rc.2-linux-amd64/exocomp-node-0.1.0-linux-amd64.tar.gz

@@ -1,0 +1,89 @@
+2026-07-26T01:33:46Z
+ Static hostname: exocomp-amd64
+       Icon name: computer-vm
+         Chassis: vm 🖴
+      Machine ID: ecd12dc3f936403eab5e86c7c04b7689
+         Boot ID: 47a837b9a56b43319110b81eb332de41
+  Virtualization: kvm
+Operating System: Ubuntu 24.04.4 LTS
+          Kernel: Linux 6.8.0-106-generic
+    Architecture: x86-64
+ Hardware Vendor: QEMU
+  Hardware Model: Standard PC _Q35 + ICH9, 2009_
+Firmware Version: 1.17.0-debian-1.17.0-1ubuntu1
+   Firmware Date: Tue 2014-04-01
+    Firmware Age: 12y 3month 3w 3d
+Linux exocomp-amd64 6.8.0-106-generic #106-Ubuntu SMP PREEMPT_DYNAMIC Fri Mar  6 07:58:08 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+kvm
+running
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           48 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  8
+On-line CPU(s) list:                     0-7
+Vendor ID:                               AuthenticAMD
+Model name:                              AMD Ryzen Threadripper 3970X 32-Core Processor
+CPU family:                              23
+Model:                                   49
+Thread(s) per core:                      1
+Core(s) per socket:                      1
+Socket(s):                               8
+Stepping:                                0
+BogoMIPS:                                7386.12
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm rep_good nopl cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw perfctr_core ssbd ibpb stibp vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr wbnoinvd arat npt lbrv nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload vgif umip rdpid overflow_recov succor
+Virtualization:                          AMD-V
+Hypervisor vendor:                       KVM
+Virtualization type:                     full
+L1d cache:                               512 KiB (8 instances)
+L1i cache:                               512 KiB (8 instances)
+L2 cache:                                4 MiB (8 instances)
+L3 cache:                                128 MiB (8 instances)
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0-7
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Mitigation; untrained return thunk; SMT disabled
+Vulnerability Spec rstack overflow:      Mitigation; SMT disabled
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Retpolines; IBPB conditional; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+               total        used        free      shared  buff/cache   available
+Mem:      8325550080   576528384  4962951168     1253376  3112468480  7749021696
+Swap:              0           0           0
+Filesystem       1B-blocks       Used   Available Use% Mounted on
+/dev/vda1      61285326848 4209831936 57058717696   7% /
+## HEAD (no branch)
+tag v0.1.0-rc.2
+Tagger: NVShawn <shedwards@nvidia.com>
+Date:   Sun Jul 26 01:32:58 2026 +0000
+
+Exocomp 0.1.0 release candidate 2 for M6 qualification
+-----BEGIN SSH SIGNATURE-----
+U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrqdN0/bztzFN1Ac2CbK4fb9qZ3
+ra5oxJtBL5+4bvFCcAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5
+AAAAQASh63eKvfjm802IAM+kf9YJFyKMN/FBgKBd6L/MElYoLhiPrMjyH0emB7BQ7W2kUU
+tNDLTFnjV5zo1enb2WBgI=
+-----END SSH SIGNATURE-----
+
+commit 581128d6680ec921b140d97d5018139582a5dd66
+Author: NVShawn <shedwards@nvidia.com>
+Date:   Sun Jul 26 01:32:51 2026 +0000
+
+    EXOCOMP-47: peel signed tags for release epochs
+
+    Dereference annotated and signed candidate tags to their commits before deriving SOURCE_DATE_EPOCH so deterministic archive packaging receives one integer timestamp. Cover the failure with an annotated-tag regression test.
+
+    🤖 Generated with https://github.com/lesserevil/oompah
+
+    Co-authored-by: oompah <lesserevil@users.noreply.github.com>

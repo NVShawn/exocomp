@@ -1,0 +1,7 @@
+● exocomp-node.service - Exocomp Node Agent
+     Loaded: loaded (/etc/systemd/system/exocomp-node.service; disabled; preset: enabled)
+     Active: activating (auto-restart) (Result: exit-code) since Sun 2026-07-26 01:42:19 UTC; 1s ago
+       Docs: https://github.com/NVShawn/exocomp
+    Process: 94604 ExecStart=/opt/exocomp/node/current/bin/exocomp_node start (code=exited, status=1/FAILURE)
+   Main PID: 94604 (code=exited, status=1/FAILURE)
+        CPU: 2.147s

@@ -1,0 +1,16 @@
+cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  ./LICENSE
+f3fd5dd5da91e9734093a3b603a55575e4afe9eef98db3a92e8cf700863aa90d  ./THIRD_PARTY_NOTICES.md
+88593c2c6942b3fb33683a3ade804b40c55cd0b389f18f05bbb0a556b15d0f01  ./llama-server
+6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e  ./models/qwen2.5-1.5b-instruct-q4_k_m.gguf
+6b958afdc97d9750a6633104c1a3f92851cfb6868af25fa000e645562a05bc93  ./release/Containerfile.clean-target
+c78463007e8fe0e59b18041abd6519549190485670a07fa137755f836e617de5  ./release/builders.lock
+8ac6bfbdea1045feb59296882b91ea139956f30bd202318cae275f4aa4be3b56  ./release/coordinator/exocomp-coordinator.service
+928d54f1fe8ab3f0947cde525b34ec1c55987b2f71e874eb885819c8d7a83a5d  ./release/node/exocomp-node.service
+80dc1732200fec13a34c8e3cc298b11192b327828d95cc1b65a5372fa4748948  ./release/runtime-baseline.lock
+2fe5651b7e6b82194ddb8f00f82a436ebb696c770afc699f4a8b61df3d325a4c  ./release/templates/coordinator.json
+f38e2abe1263af8c5ac24fd9927cc095ba6c0d38acd713e0f975cec00dd7a77d  ./release/templates/node.json
+c6bf415579b7dd2439f5c34fc80797c3d0708414a41630511d9bcbd69911ff4e  ./releases/exocomp-coordinator-0.1.0-linux-amd64.tar.gz
+22e6ce3e4c42192a999be79bade29de28386d5b0092b9dd9529d6294e8faa85b  ./releases/exocomp-node-0.1.0-linux-amd64.tar.gz
+9ec585583e2b3ac5fe4c12a4311735e805b554fdbe9810648603ba4a5e3f2c63  ./scripts/install.sh
+93788d646fefcd093460782cb31d007735f4da9b289e48db4d8a84961cd445e4  ./scripts/uninstall.sh
+6366026c8710e3b6100adc628e8e7e1284e518bd537b50f4e1c00b79473623d0  ./scripts/verify-bundle.sh

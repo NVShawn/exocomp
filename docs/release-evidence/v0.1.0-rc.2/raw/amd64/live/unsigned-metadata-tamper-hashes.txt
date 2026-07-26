@@ -1,0 +1,5 @@
+original_and_tampered_metadata_hashes
+0a59597513c50a7000eb2584687f9e9bd0daf327fc9ca074ffcf5be3c46d6ea9  /var/lib/exocomp-qualification/evidence/live/exocomp-complete-0.1.0-rc.2-linux-amd64/provenance.json
+d4259d0841eaaf0c562e29b939ce2b7a9a4b4f26ac8381970756f807fcdbed85  /var/lib/exocomp-qualification/evidence/live/metadata-tamper-copy/provenance.json
+de481897194ff9e94fb46e9b4e7b1b3147bcd21a047402c5f2333916b4422082  /var/lib/exocomp-qualification/evidence/live/exocomp-complete-0.1.0-rc.2-linux-amd64/manifest.json
+350a9f1b263d6aef1f5731dcdf1edd8f8fe273c29cb6fdc439b5373e69bf7279  /var/lib/exocomp-qualification/evidence/live/metadata-tamper-copy/manifest.json

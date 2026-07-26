@@ -1,0 +1,25 @@
+2026-07-26T02:24:09+00:00
+Linux doorman 6.18.0-8-generic #8-Ubuntu SMP PREEMPT_DYNAMIC Wed Dec 17 16:14:24 UTC 2025 x86_64 GNU/Linux
+QEMU emulator version 10.2.1 (Debian 1:10.2.1+ds-1ubuntu3.1)
+Id:             29
+Name:           exocomp-amd64-qualification
+UUID:           ecd12dc3-f936-403e-ab5e-86c7c04b7689
+OS Type:        hvm
+State:          running
+CPU(s):         8
+CPU time:       824.3s
+Max memory:     8388608 KiB
+Used memory:    8388608 KiB
+Persistent:     yes
+Autostart:      enable
+Autostart Once: disable
+Managed save:   no
+Security model: apparmor
+Security DOI:   0
+Security label: libvirt-ecd12dc3-f936-403e-ab5e-86c7c04b7689 (enforcing)
+
+  <memory unit='KiB'>8388608</memory>
+  <vcpu placement='static'>8</vcpu>
+    <type arch='x86_64' machine='pc-q35-10.2'>hvm</type>
+  <cpu mode='host-passthrough' check='none' migratable='on'/>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>

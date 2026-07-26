@@ -1,0 +1,41 @@
+[install] ==> PREFLIGHT
+[install]   bundle:    /var/lib/exocomp-qualification/evidence/live/exocomp-complete-0.1.0-rc.2-linux-arm64/releases/exocomp-node-0.1.0-linux-arm64.tar.gz
+[install]   version:   0.1.0-rc.2
+[install]   component: node
+[install]   arch:      aarch64
+[install]   checksums: /var/lib/exocomp-qualification/evidence/live/exocomp-complete-0.1.0-rc.2-linux-arm64/manifest.sha256
+[install]   verifying checksums...
+[install]   checksum OK: 50ed1939b5b45c78aaa5dcdacb1ac6b3787fe2a8420527ed74c136eba042821a
+[install]   preflight passed
+[install] ==> USERS AND DIRECTORIES
+[install]   creating system user: exocomp-node
+[install]   creating directories
+[install]   directories configured
+[install] ==> INSTALL RELEASE
+[install]   extracting /var/lib/exocomp-qualification/evidence/live/exocomp-complete-0.1.0-rc.2-linux-arm64/releases/exocomp-node-0.1.0-linux-arm64.tar.gz
+[install]   release 0.1.0-rc.2 staged
+[install] ==> CONFIGURATION
+[install]   installing config template: /opt/exocomp/node/config/node.json
+[install] ==> RELEASE COOKIE
+[install]   protected release cookie provisioned
+[install] ==> CONFIG VALIDATION
+[install]   staged release accepted configuration
+[install] ==> CURRENT VERSION SWITCH
+[install]   current -> releases/0.1.0-rc.2
+[install] ==> SUDOERS POLICY
+[install]   validating with visudo...
+/etc/sudoers.d/exocomp-node: parsed OK
+[install]   visudo check passed
+[install]   sudoers policy installed: /etc/sudoers.d/exocomp-node
+[install] ==> SYSTEMD UNIT
+[install]   unit installed: /etc/systemd/system/exocomp-node.service
+[install] ==> ACTIVATE
+[install]   --no-start set; skipping service start
+[install] ==> MANIFEST
+[install]   manifest written: /opt/exocomp/node/manifest-0.1.0-rc.2.txt
+
+[install] ==> exocomp-node 0.1.0-rc.2 installed successfully
+[install]     install: /opt/exocomp/node
+[install]     config:  /opt/exocomp/node/config/node.json
+[install]     log:     /opt/exocomp/node/log/
+exit_code=0

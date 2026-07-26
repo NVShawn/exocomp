@@ -1,0 +1,4 @@
+da8de3cf1c8a1805ec52a5153c8f8583246cb192599b2899fc9e5ded224eaf55  opt/exocomp/node/config/node.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  opt/exocomp/node/config/qualification-marker
+378158a67f0348c9a97a712173d1f5ea18c20803c0de5732bbcba2c64bc8efef  opt/exocomp/node/config/release-cookie.env
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  var/lib/exocomp-node/qualification-marker

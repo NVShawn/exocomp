@@ -1,0 +1,24 @@
+2026-07-26T01:44:49+00:00
+Linux exocomp-amd64 6.8.0-106-generic #106-Ubuntu SMP PREEMPT_DYNAMIC Fri Mar  6 07:58:08 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+x86_64
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.4 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+kvm
+running
+8
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       553Mi       2.1Gi       1.2Mi       5.4Gi       7.2Gi
+Swap:             0B          0B          0B
+SOURCE    FSTYPE  SIZE AVAIL
+/dev/vda1 ext4   57.1G 50.7G

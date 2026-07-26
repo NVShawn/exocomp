@@ -1,0 +1,15 @@
+● exocomp-coordinator.service - Exocomp Coordinator
+     Loaded: loaded (/etc/systemd/system/exocomp-coordinator.service; disabled; preset: enabled)
+     Active: active (running) since Sun 2026-07-26 03:38:24 UTC; 4s ago
+       Docs: https://github.com/NVShawn/exocomp
+   Main PID: 78506 (beam.smp)
+      Tasks: 34 (limit: 9412)
+     Memory: 31.0M (peak: 31.0M)
+        CPU: 6.980s
+     CGroup: /system.slice/exocomp-coordinator.service
+             ├─78506 /opt/exocomp/coordinator/releases/0.1.0-rc.2/erts-16.4.0.3/bin/beam.smp -- -root /opt/exocomp/coordinator/releases/0.1.0-rc.2 -bindir /opt/exocomp/coordinator/releases/0.1.0-rc.2/erts-16.4.0.3/bin -progname erl -- -home /opt/exocomp/coordinator -- -noshell -s elixir start_cli -mode embedded -setcookie [REDACTED] -sname exocomp_coordinator -config /opt/exocomp/coordinator/releases/0.1.0-rc.2/releases/0.1.0/sys -boot /opt/exocomp/coordinator/releases/0.1.0-rc.2/releases/0.1.0/start -boot_var RELEASE_LIB /opt/exocomp/coordinator/releases/0.1.0-rc.2/lib -- -- -extra --no-halt
+             ├─78540 /opt/exocomp/coordinator/releases/0.1.0-rc.2/erts-16.4.0.3/bin/epmd -daemon
+             └─78544 erl_child_setup 65536
+
+Jul 26 03:38:23 exocomp-arm64 systemd[1]: Starting exocomp-coordinator.service - Exocomp Coordinator...
+Jul 26 03:38:24 exocomp-arm64 systemd[1]: Started exocomp-coordinator.service - Exocomp Coordinator.

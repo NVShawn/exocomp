@@ -1,0 +1,39 @@
+Usage: make <target>
+
+Targets:
+  [36mhelp           [0m Show this help.
+  [36minit           [0m Check the native development builder.
+  [36minit-amd64     [0m Check Linux amd64 builder capability.
+  [36minit-arm64     [0m Check Linux arm64 builder capability.
+  [36mfmt            [0m Format all source files in place.
+  [36mfmt-check      [0m Check formatting without modifying files.
+  [36mbuild          [0m Build releases for ARCH=amd64 or ARCH=arm64.
+  [36mbuild-amd64    [0m Build clean Linux amd64 node and coordinator releases.
+  [36mbuild-arm64    [0m Build clean Linux arm64 node and coordinator releases.
+  [36minspect-deps-amd64[0m Inspect runtime deps for a built amd64 release. Set RELEASE=exocomp_node or exocomp_coordinator.
+  [36minspect-deps-arm64[0m Inspect runtime deps for a built arm64 release. Set RELEASE=exocomp_node or exocomp_coordinator.
+  [36mtest           [0m Run the test suite.
+  [36mtest-builders  [0m Validate immutable multi-architecture builder definitions and runtime dep inspection.
+  [36mtest-deps      [0m Run runtime dependency inspection tests (no container required).
+  [36mtest-release-matrix[0m Run OTP release qualification matrix (requires Docker and real builds). Pass ARCH=amd64|arm64 to test one arch; SKIP_BUILD=1 to skip rebuild.
+  [36mtest-release-packaging[0m Test deterministic archives, secret omission, manifests, and operator commands.
+  [36mlint           [0m Run static analysis / linters.
+  [36mtest-compliance[0m Run open-source governance and license tests.
+  [36mcompliance-check[0m Validate governance, links, headers, and license inventory.
+  [36mcheck-links    [0m Validate local documentation links and external URL forms.
+  [36mcheck-licenses [0m Validate license text, headers, dependencies, and notices.
+  [36mrelease-check  [0m Run governance checks required before a release.
+  [36mclean          [0m Remove build artifacts.
+  [36mgen-test-fixtures[0m Generate TLS test fixture certificates for apps/exocomp_node test suite.
+  [36mtest-fixture-service[0m Run exocomp-fixture daemon unit tests (requires Python 3.11+, no systemd needed).
+  [36mfixture-install[0m Install the exocomp-fixture systemd service (requires root; run inside a VM or privileged container with systemd).
+  [36mfixture-cleanup[0m Remove the exocomp-fixture systemd service (requires root; idempotent, no-op if not installed).
+  [36mtest-integration[0m Run ExUnit systemd integration tests (requires root + systemd; do NOT run via the standard builder container).
+  [36mbench-llama-short[0m Run focused llama.cpp inference benchmark tests (CI short run; no real llama-server required).
+  [36mtest-installer [0m Run hardened installer/uninstaller tests (requires Python 3.11+, no systemd or root needed).
+  [36mtest-bundle    [0m Run offline bundle assembly, SBOM, provenance, and tamper-detection tests (requires Python 3.11+).
+  [36mbundle-amd64   [0m Assemble complete offline bundle for amd64. Set NODE_ARCHIVE_AMD64, COORD_ARCHIVE_AMD64, LLAMA_SERVER_AMD64, MODEL_PATH, MODEL_SHA256.
+  [36mbundle-arm64   [0m Assemble complete offline bundle for arm64. Set NODE_ARCHIVE_ARM64, COORD_ARCHIVE_ARM64, LLAMA_SERVER_ARM64, MODEL_PATH, MODEL_SHA256.
+  [36mbundle-runtime-amd64[0m Assemble runtime-only bundle for amd64 (no model). Set NODE_ARCHIVE_AMD64, COORD_ARCHIVE_AMD64, LLAMA_SERVER_AMD64.
+  [36mbundle-runtime-arm64[0m Assemble runtime-only bundle for arm64 (no model). Set NODE_ARCHIVE_ARM64, COORD_ARCHIVE_ARM64, LLAMA_SERVER_ARM64.
+  [36mverify-bundle  [0m Verify an extracted bundle. Set BUNDLE_DIR=<path> and optionally PUBLIC_KEY=<path>.
