@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-26T04:30:56.629518Z'
+updated_at: '2026-07-26T04:36:01.008032Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -254,5 +254,10 @@ author: oompah
 created: 2026-07-26 04:30
 ---
 The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Done with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Git evidence: EXOCOMP-44 branch EXOCOMP-44 has 1 unlanded commit(s), including b225eb5eb0e1. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-26 04:36
+---
+Follow-up repair: the managed repository still held a local EXOCOMP-44 ref after the remote branch was removed, so the landing-evidence detector could still see superseded commit b225eb5. The local ref is now removed too; the SHA remains recorded here and the recovered delivery remains verified on main via 50cd48c / PR #14.
 ---
 <!-- COMMENTS:END -->
