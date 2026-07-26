@@ -140,8 +140,8 @@ defmodule Exocomp.Node.ExecutorTest do
       Executor.execute(:restart_service, "myapp.service", @allow_list, lock_server: lock)
 
       [{executable, argv, _opts} | _] = MockCommander.calls(mock)
-      assert executable == "/usr/bin/systemctl"
-      assert argv == ["restart", "myapp.service"]
+      assert executable == "/usr/bin/sudo"
+      assert argv == ["/usr/bin/systemctl", "restart", "myapp.service"]
       # The argv must not contain any string that came from outside the catalog.
       # Specifically, no operator characters that would change shell behaviour.
       for arg <- argv do
@@ -325,8 +325,8 @@ defmodule Exocomp.Node.ExecutorTest do
 
       [action_call, verifier_call] = calls
       {exec1, argv1, _} = action_call
-      assert exec1 == "/usr/bin/systemctl"
-      assert argv1 == ["restart", "myapp.service"]
+      assert exec1 == "/usr/bin/sudo"
+      assert argv1 == ["/usr/bin/systemctl", "restart", "myapp.service"]
 
       {exec2, argv2, _} = verifier_call
       assert exec2 == "/usr/bin/systemctl"

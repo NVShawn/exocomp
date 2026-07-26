@@ -996,8 +996,8 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
     } do
       # [PASS/FAIL evidence for M3-CRIT-7]
       #
-      # The argv sent to the OS commander must be exactly ["restart", target]
-      # as defined by the catalog. No caller-supplied field can modify it.
+      # The argv sent to sudo must be the fixed systemctl path followed by
+      # exactly ["restart", target]. No caller-supplied field can modify it.
       MockCommander.push(mock, {:ok, "", 0})
       MockCommander.push(mock, {:ok, "", 0})
 
@@ -1005,8 +1005,8 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
 
       [{executable, argv, opts} | _] = MockCommander.calls(mock)
 
-      assert executable == "/usr/bin/systemctl"
-      assert argv == ["restart", "myapp.service"]
+      assert executable == "/usr/bin/sudo"
+      assert argv == ["/usr/bin/systemctl", "restart", "myapp.service"]
       assert Keyword.get(opts, :env) == []
 
       for arg <- argv do
