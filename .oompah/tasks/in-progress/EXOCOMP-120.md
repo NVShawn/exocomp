@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:17:27.506512Z'
+updated_at: '2026-07-26T05:17:45.602912Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -162,5 +162,27 @@ Discovery: Three root causes confirmed by code inspection:
 2. SIGNED ROOT GAP: assemble-bundle.sh Phase 3 explicitly excluded manifest.json, sbom.spdx.json, and provenance.json from the find command generating manifest.sha256. Since bundle.minisig signs manifest.sha256, none of those three files were authenticated. Tamper passed strict verification.
 
 3. EMPTY LICENSES: licenses/ has only components.toml; no LICENSES/ directory exists at repo root. assemble-bundle.sh warned (not failed) when LICENSES_DIR was absent and created an empty LICENSES/ in the bundle. verify-bundle.sh had no LICENSES checks.
+---
+author: oompah
+created: 2026-07-26 05:17
+---
+Implementation: Six changes across five files:
+
+1. LICENSES/Apache-2.0.txt, LICENSES/MIT.txt, LICENSES/BSD-3-Clause.txt (new): Canonical SPDX license texts for the governed component inventory. Apache-2.0.txt is the project's own LICENSE file (sha256 matches compliance check). MIT and BSD-3-Clause cover llama.cpp, Bandit, Thousand Island, WebSock, and x509.
+
+2. scripts/generate-sbom.sh: Added --timestamp parameter. When set, uses it directly; when absent, falls back to SOURCE_DATE_EPOCH (via date -d @\$epoch) then to wall-clock time. Removed the volatile timestamp from documentNamespace so it is stable across identical builds.
+
+3. scripts/assemble-bundle.sh:
+   - Moved SOURCE_DATE_EPOCH computation to script startup (before any metadata generation).
+   - Changed BUILD_TIMESTAMP derivation to 'date -u -d @\${SOURCE_DATE_EPOCH}' so all metadata timestamps are deterministic.
+   - Passed --timestamp \${BUILD_TIMESTAMP} to generate-sbom.sh.
+   - Changed LICENSES-dir missing from warn+empty-mkdir to die (hard fail) with required-license-file validation for Apache-2.0.txt, MIT.txt, BSD-3-Clause.txt.
+   - Added new Phase 7 that appends SHA-256 entries for manifest.json, sbom.spdx.json, and provenance.json to manifest.sha256 AFTER they are generated, so the signature in Phase 8 transitively authenticates all metadata.
+
+4. scripts/verify-bundle.sh: Added Check 6 (metadata coverage) — in strict mode, fails if manifest.json, sbom.spdx.json, or provenance.json is not listed in manifest.sha256. Added Check 7 (LICENSES) — in strict mode, fails if LICENSES/ is absent or empty.
+
+5. docs/installation.md: Added prose section documenting the new --public-key --strict workflow, placed after the executable sh blocks to avoid shifting the block index used by TestDocumentedCleanRootWorkflow.
+
+6. tests/test_bundle.py: Added 23 new tests in 5 classes (Tests 15–19): double-build byte-identity, SBOM timestamp determinism, SBOM namespace stability, signed-metadata tamper detection for manifest.json/sbom/provenance, metadata coverage in manifest.sha256, license completeness (3 required files + manifest coverage), assembly-fails-closed tests (missing dir, missing MIT.txt), and strict-mode metadata/license rejection.
 ---
 <!-- COMMENTS:END -->
