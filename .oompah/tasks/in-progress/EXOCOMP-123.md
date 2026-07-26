@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T19:16:18.638550Z'
+updated_at: '2026-07-26T19:21:17.028571Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -772,5 +772,20 @@ author: oompah
 created: 2026-07-26 19:16
 ---
 Discovery: signed rc.17 is rejected by fresh amd64 lifecycle and none of its results will count for acceptance. The new path correctly stopped the failed release before switching, restored the prior link, reset systemd failure state, started the prior unit, and waited; however, the built-in RPC probe still returned :noconnection for all 10 attempts while systemd reported active, so rollback failed closed. I am stopping the obsolete arm64 record and diagnosing distribution/application readiness before signing any replacement.
+---
+author: oompah
+created: 2026-07-26 19:21
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 214
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 12s
+- Log: EXOCOMP-123__20260726T182104Z.jsonl
+---
+author: oompah
+created: 2026-07-26 19:21
+---
+Agent stalled 1 time(s) (3612s). Escalating from 'default' to 'standard'. Retrying in 10s (attempt #1)
 ---
 <!-- COMMENTS:END -->
