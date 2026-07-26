@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T20:28:13.333392Z'
+updated_at: '2026-07-26T20:53:39.755717Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -884,5 +884,12 @@ Understanding (continuation): Resuming rc.18 qualification in progress. Both VMs
 - arm64 (exocomp-arm64-qualification): Repository gates all passed (fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, test). Currently running test-release-matrix (started 20:20 UTC).
 
 rc.18 candidate (commit 28f8dc35): ExecStop uses SIGTERM instead of RPC-based stop, ordered rollback with configurable health probe. All prior rc.3-rc.17 results remain rejected. Will monitor completion and proceed to lifecycle phase and evidence assembly.
+---
+author: oompah
+created: 2026-07-26 20:53
+---
+Verification progress: amd64 qualification for rc.18 COMPLETE — all 44 gate checks passed including M5 bench full (passed at 20:46) and lifecycle (upgrade, rollback, backup, restore, all uninstall variants — passed at 20:47). Lifecycle evidence confirms: automatic rollback with SIGTERM ExecStop and ordered health-probe now works end to end.
+
+arm64 root cause identified and fixed: the source directory at /var/lib/exocomp-qualification/src is owned by exocomp:exocomp, but the qualification runs as root. git 2.35.2+ refused to run git status in build-releases.sh with 'dubious ownership', causing test-release-matrix to fail with exit 128. Fix: configured git global safe.directory='*' on the arm64 VM (HOME=/root git config --global --add safe.directory '*') and restarted the arm64 rc.18 qualification from a clean empty root. The candidate source/tag at 28f8dc35 is unchanged — this is purely an environment configuration fix. arm64 qualification restarted at 20:53 UTC.
 ---
 <!-- COMMENTS:END -->
