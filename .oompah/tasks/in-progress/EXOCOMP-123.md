@@ -17,13 +17,13 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T20:25:55.169916Z'
+updated_at: '2026-07-26T20:26:10.888422Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 04f84f64-3e1c-4059-bd2f-d734beee47bc
+oompah.agent_run_id: a686c545-8244-484c-88a9-c66b301d025e
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 671145
@@ -863,5 +863,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: stalled, Duration: 1h 3m 42s
 - Log: EXOCOMP-123__20260726T192212Z.jsonl
+---
+author: oompah
+created: 2026-07-26 20:26
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-26 20:26
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
