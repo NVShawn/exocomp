@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: In Progress
+status: Needs Human
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,13 +18,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T00:38:13.800196Z'
+updated_at: '2026-07-26T00:40:07.950993Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 8b00a712-e38c-4339-9c7b-086c729ec63f
+oompah.agent_run_id: 3469956c-048f-4369-a97f-e7b4c1223ad9
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
   total_input_tokens: 1007700
@@ -153,5 +153,20 @@ author: oompah
 created: 2026-07-26 00:38
 ---
 Human decision received: bare metal is not required. A clean, full-system arm64 VM is acceptable qualification evidence. QEMU CPU emulation on this amd64 host may be used if the guest reports arm64, runs systemd, starts the shipped arm64 artifacts, and completes every M6-CRIT scenario. A passing M5 gate counts as conservative evidence; a performance-only failure under emulation is inconclusive and must remain unresolved rather than being waived.
+---
+author: oompah
+created: 2026-07-26 00:40
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Open with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-26 00:40
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 00:40
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
