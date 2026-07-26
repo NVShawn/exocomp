@@ -584,6 +584,20 @@ class TestPermissions:
         mode = unit.stat().st_mode & 0o777
         assert mode == 0o644, f"unit file mode should be 0644; got {oct(mode)}"
 
+    def test_coordinator_unit_uses_bootstrap_managed_pki_state(self):
+        unit = self.tmp / "systemd" / "exocomp-coordinator.service"
+        content = unit.read_text()
+        state = self.root / "var" / "lib" / "exocomp-coordinator"
+        expected = {
+            f"Environment=EXOCOMP_PKI_ONLINE_STATE={state}/pki",
+            f"Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE={state}/enrollment-tokens",
+            f"Environment=EXOCOMP_TLS_CA_PATH={state}/pki/root_ca.pem",
+            f"Environment=EXOCOMP_TLS_CERT_PATH={state}/pki/coordinator.pem",
+            f"Environment=EXOCOMP_TLS_KEY_PATH={state}/pki/coordinator_key.pem",
+        }
+        assert expected <= set(content.splitlines())
+        assert "@STATE_DIR@" not in content
+
     def test_sudoers_mode_440_when_installed(self):
         # Install with allow-list to get a sudoers file
         info = _make_bundle_tree(self.tmp / "sub", self.component, self.version)
@@ -1346,6 +1360,18 @@ class TestUnitHardeningDirectives:
         unit_path = RELEASE_DIR / component / f"exocomp-{component}.service"
         content = unit_path.read_text()
         assert f"Environment={environment}=" in content
+
+    def test_coordinator_unit_passes_bootstrap_managed_pki_paths(self):
+        unit_path = RELEASE_DIR / "coordinator" / "exocomp-coordinator.service"
+        content = unit_path.read_text()
+        expected = {
+            "Environment=EXOCOMP_PKI_ONLINE_STATE=@STATE_DIR@/pki",
+            "Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE=@STATE_DIR@/enrollment-tokens",
+            "Environment=EXOCOMP_TLS_CA_PATH=@STATE_DIR@/pki/root_ca.pem",
+            "Environment=EXOCOMP_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator.pem",
+            "Environment=EXOCOMP_TLS_KEY_PATH=@STATE_DIR@/pki/coordinator_key.pem",
+        }
+        assert expected <= set(content.splitlines())
 
 
 class TestConfigTemplates:

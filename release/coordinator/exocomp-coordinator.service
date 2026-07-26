@@ -25,6 +25,11 @@ WorkingDirectory=@INSTALL_DIR@
 
 # ── Environment ───────────────────────────────────────────────────────────────
 Environment=EXOCOMP_COORDINATOR_CONFIG_FILE=@INSTALL_DIR@/config/coordinator.json
+Environment=EXOCOMP_PKI_ONLINE_STATE=@STATE_DIR@/pki
+Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE=@STATE_DIR@/enrollment-tokens
+Environment=EXOCOMP_TLS_CA_PATH=@STATE_DIR@/pki/root_ca.pem
+Environment=EXOCOMP_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator.pem
+Environment=EXOCOMP_TLS_KEY_PATH=@STATE_DIR@/pki/coordinator_key.pem
 Environment=EXOCOMP_LOG_DIR=@INSTALL_DIR@/log
 Environment=ERL_CRASH_DUMP=@INSTALL_DIR@/log/erl_crash.dump
 EnvironmentFile=-@INSTALL_DIR@/config/release-cookie.env
