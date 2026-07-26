@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T14:59:17.624691Z'
+updated_at: '2026-07-26T15:11:34.155202Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -544,5 +544,10 @@ author: oompah
 created: 2026-07-26 14:59
 ---
 Understanding (continuation attempt #8): Resuming from where attempt #7 left off. Previous state: v0.1.0-rc.12 signed at HEAD (cf4c7b6), amd64 had completed Phases 1-8 including short M5 bench and was running full M5 bench (~30 min), arm64 had passed fmt/lint/release-check/packaging/installer/test-bundle and was running make test. I will: (1) reconcile VM and evidence state, (2) complete any remaining phases on both architectures, (3) assemble signed indexed evidence, (4) commit, push, and close. Will not reuse any rc.3 through rc.11 results.
+---
+author: oompah
+created: 2026-07-26 15:11
+---
+Discovery: Signed rc.12 is rejected by the lifecycle phase. Root cause: the shipped state-backup.sh binary uses --no-same-owner during archive extraction in validate_archive(), causing restored config files (coordinator.json, release-cookie.env) to be owned by root:root instead of exocomp-coordinator:exocomp-coordinator. The coordinator service cannot read its config from root:root 600 files running as the exocomp-coordinator service user, producing {:file_read, :eacces} on every startup. This is a divergence between the committed source (which has --no-same-owner at the rc.12 tag) and what was needed. A previous agent's uncommitted working-tree fix (--same-owner) is already present along with a bundle regression test, rc.13 M5 baselines, and updated baseline count assertion. I will commit the fix, run source-tree gates, create rc.13, and restart full qualification on both VMs from clean state.
 ---
 <!-- COMMENTS:END -->
