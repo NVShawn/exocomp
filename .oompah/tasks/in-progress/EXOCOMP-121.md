@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T06:20:13.710748Z'
+updated_at: '2026-07-26T06:23:50.263775Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -98,5 +98,10 @@ author: oompah
 created: 2026-07-26 06:20
 ---
 Focus: CI Failure Fixer
+---
+author: oompah
+created: 2026-07-26 06:23
+---
+Verification: All 844 tests pass (10 excluded by tag) on amd64 with Elixir 1.20.2/OTP 28 inside the project's pinned builder container (docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm). The five changed test files were specifically verified: Bench.HostSamplerTest (6 passed including Linux-tagged tests), Exocomp.Coordinator.HealthPollerTest (5 passed), Exocomp.Coordinator.A2ARouterTest (33 passed), Exocomp.Coordinator.MultiNodeDiscoveryPollingTest (17 passed), and Exocomp.Node.Safety.DiskPressureCollectorTest. Full suite: 844 passed, 10 excluded. No regressions.
 ---
 <!-- COMMENTS:END -->
