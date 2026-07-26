@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T07:50:21.051933Z'
+updated_at: '2026-07-26T07:50:28.813911Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -238,5 +238,10 @@ author: oompah
 created: 2026-07-26 07:50
 ---
 Implementation: Delivered a standalone digest-pinned bench_harness release; real shipped-artifact short/full Make targets; direct-release and installed-systemd orchestration with PID/root verification and rollback; artifact/model/llama hashes; runtime host capture; strict per-version amd64/arm64 baselines; BEAM-only CPU/RAM aggregation with exact metric failures and missing-metric rejection; atomic JSONL/summary evidence; exact-candidate CI dispatch with archive/source identity checks and retained evidence; and release qualification documentation. Final hardening requires both <5% gates and rejects relaxed or incomplete baselines.
+---
+author: oompah
+created: 2026-07-26 07:50
+---
+Verification: PASS — make test-m5-qualification completed through the pinned amd64 builder (3 Python operational checks and 32 focused ExUnit tests); the complete bench application passed 110/110 tests and warnings-as-errors compilation under Elixir 1.20.2/OTP 28.5; bench_harness assembled successfully and its CLI returned the expected actionable exit-2 missing-input diagnostic. PASS — make release-check (27 tests), make test-builders (13 structural/runtime-dependency checks plus packaging/docs suites), make check-links, compliance-check, workflow YAML parse, workflow shell syntax, changed-file formatting, and git diff --check. Native amd64 and full-system arm64 candidate performance runs remain intentionally owned by existing downstream requalification task EXOCOMP-123.
 ---
 <!-- COMMENTS:END -->
