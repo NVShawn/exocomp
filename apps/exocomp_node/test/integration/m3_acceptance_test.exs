@@ -498,7 +498,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
         restore_env(:vacuum_cooldown_secs, prev_cooldown)
         restore_env(:vacuum_max_retries, prev_retries)
         restore_env(:vacuum_state_server, prev_state_server)
-        if Process.alive?(state_pid), do: GenServer.stop(state_pid)
+        stop_server(state_pid)
       end)
 
       :ok
@@ -907,7 +907,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
           else: Application.delete_env(:exocomp_node, :os_commander)
 
         MockCommander.stop(mock)
-        if Process.alive?(lock), do: GenServer.stop(lock)
+        stop_server(lock)
       end)
 
       %{mock: mock, lock: lock}
@@ -1075,9 +1075,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
           path: path
         )
 
-      on_exit(fn ->
-        if Process.alive?(ledger), do: GenServer.stop(ledger)
-      end)
+      on_exit(fn -> stop_server(ledger) end)
 
       %{ledger: ledger}
     end
@@ -1333,6 +1331,12 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
   defp restore_env(key, nil), do: Application.delete_env(:exocomp_node, key)
   defp restore_env(key, val), do: Application.put_env(:exocomp_node, key, val)
 
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
+  end
+
   # ── M3-CRIT-6 helpers ─────────────────────────────────────────────────────
 
   defp setup_approval_integration(tmp_dir) do
@@ -1382,8 +1386,8 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
         else: Application.delete_env(:exocomp_node, :os_commander)
 
       MockCommander.stop(mock)
-      if Process.alive?(lock), do: GenServer.stop(lock)
-      if Process.alive?(ledger), do: GenServer.stop(ledger)
+      stop_server(lock)
+      stop_server(ledger)
     end)
 
     %{

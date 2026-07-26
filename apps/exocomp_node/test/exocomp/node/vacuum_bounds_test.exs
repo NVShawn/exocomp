@@ -69,7 +69,7 @@ defmodule Exocomp.Node.VacuumBoundsTest do
       restore_env(:vacuum_state_server, prev_state_server)
 
       # Stop the isolated VacuumState process if it's still alive.
-      if Process.alive?(state_pid), do: GenServer.stop(state_pid)
+      stop_server(state_pid)
     end)
 
     %{state_pid: state_pid}
@@ -102,6 +102,12 @@ defmodule Exocomp.Node.VacuumBoundsTest do
 
   defp restore_env(key, nil), do: Application.delete_env(:exocomp_node, key)
   defp restore_env(key, val), do: Application.put_env(:exocomp_node, key, val)
+
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
+  end
 
   # ── Threshold gate ────────────────────────────────────────────────────────
 

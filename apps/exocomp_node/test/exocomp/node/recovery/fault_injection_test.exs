@@ -145,7 +145,7 @@ defmodule Exocomp.Node.Recovery.FaultInjectionTest do
     {:ok, server} = ReplayLedger.start_link(opts)
 
     on_exit(fn ->
-      if Process.alive?(server), do: GenServer.stop(server)
+      stop_server(server)
     end)
 
     %{server: server, name: name, table: table, path: path}
@@ -1096,5 +1096,11 @@ defmodule Exocomp.Node.Recovery.FaultInjectionTest do
   # Shorthand for building a StateMachine transition_record map.
   defp tr(seq, from, to, tag, timestamp) do
     %{from: from, to: to, event_tag: tag, sequence: seq, timestamp: timestamp}
+  end
+
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
   end
 end

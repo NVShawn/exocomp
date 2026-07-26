@@ -164,7 +164,7 @@ defmodule Exocomp.Node.Safety.ReplayLedgerTest do
     {:ok, server} = ReplayLedger.start_link(opts)
 
     on_exit(fn ->
-      if Process.alive?(server), do: GenServer.stop(server)
+      stop_server(server)
     end)
 
     %{server: server, name: name, table: table, path: path}
@@ -180,5 +180,11 @@ defmodule Exocomp.Node.Safety.ReplayLedgerTest do
 
   defp unique_atom(prefix) do
     :"#{prefix}_#{System.unique_integer([:positive])}"
+  end
+
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
   end
 end
