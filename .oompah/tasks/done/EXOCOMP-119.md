@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: In Progress
+status: Done
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -13,7 +13,7 @@ labels:
 - focus-complete:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:56:58.263216Z'
+updated_at: '2026-07-26T04:57:10.581700Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -332,5 +332,10 @@ author: oompah
 created: 2026-07-26 04:56
 ---
 Verification: PR #18 is OPEN, non-draft, with base main and head epic-EXOCOMP-117, and includes commits 53fbc23, 6af78a7, and c8296bf. git pull --rebase reported Already up to date; git push reported Everything up-to-date; local HEAD and origin/epic-EXOCOMP-117 both resolve to c8296bf1335dc892df1072f1cf2fdaa87451ef80; git status is clean. Previously recorded gates remain PASS: make test (844/0), make test-installer (69), make test-bundle (75), and make check-links.
+---
+author: oompah
+created: 2026-07-26 04:57
+---
+Completion: Delivered production coordinator PKI, enrollment-token, listener, enrollment, renewal, durable online-state recovery, fail-closed health, operator documentation, and focused integration coverage in commits 6af78a7 and c8296bf. The shared epic branch is pushed and clean, required review PR #18 is open against main, and all recorded Make gates pass. EXOCOMP-119 is ready for review/merge.
 ---
 <!-- COMMENTS:END -->
