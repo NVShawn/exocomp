@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: In Progress
+status: Open
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -9,9 +9,11 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:frontend
+- needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:08:55.961858Z'
+updated_at: '2026-07-26T04:09:21.799844Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -186,5 +188,30 @@ Discovery: Confirmed all four rc.2 defects in code:
 4. CHECKSUM PATH MISMATCH: install.sh:verify_checksums() looks for CHECKSUMS_FILE defaulting to checksums.sha256 in BUNDLE_ROOT, but assemble-bundle.sh generates manifest.sha256 inside the bundle and <bundle>.tar.gz.sha256 at dist level. The documented commands and installer lookup don't align. Fix: align the filename or docs.
 
 All fixes are in shell scripts (assemble-bundle.sh), Elixir config (config/config.exs), possibly systemd unit templates, and docs. No frontend work involved.
+---
+author: oompah
+created: 2026-07-26 04:09
+---
+Focus handoff: frontend
+
+1. Outcome: Frontend focus confirmed there is zero frontend (UI/CSS/JS) work in this task. All four rc.2 defects are DevOps/systems issues in shell scripts, Elixir config, and systemd units.
+
+2. Relevant files and evidence:
+   - config/config.exs line 13: hardcodes /var/lib/exocomp/replay_ledger.dets (wrong dir)
+   - install.sh:setup_users_and_dirs(): creates /var/lib/exocomp-node (correct installer dir)
+   - scripts/assemble-bundle.sh section 2e (~line 195): ships install.sh, uninstall.sh, verify-bundle.sh but NOT state-backup.sh
+   - scripts/state-backup.sh: exists in repo, just not included in bundle assembly
+   - assemble-bundle.sh section 2b: ships llama-server binary only, no shared library (.so) dependencies
+   - install.sh:verify_checksums(): expects checksums.sha256 in bundle root; assemble-bundle.sh produces manifest.sha256 inside bundle and <name>.tar.gz.sha256 in dist/ — misaligned
+
+3. Remaining work (all DevOps):
+   - Fix config/config.exs to use /var/lib/exocomp-node/replay_ledger.dets
+   - Add state-backup.sh to assemble-bundle.sh scripts section
+   - Add llama-server shared library packaging (lib/ directory + LD_LIBRARY_PATH or RPATH in systemd unit)
+   - Align checksum filename between assembler and installer / docs
+   - Add regression tests: clean-root install, no-host-Erlang startup, verbatim-doc commands, shipped-only backup/restore
+   - Run make test-installer, test-bundle, test-release-packaging
+
+4. Recommended next focus: devops — all changes are in shell scripts, Elixir config, and systemd/release templates.
 ---
 <!-- COMMENTS:END -->
