@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: Needs Human
+status: In Progress
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T00:45:05.210320Z'
+updated_at: '2026-07-26T01:12:39.676322Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -194,5 +194,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 58s
 - Log: EXOCOMP-47__20260726T004008Z.jsonl
+---
+author: oompah
+created: 2026-07-26 01:12
+---
+Qualification resumed with the human decision that bare metal is not required. Provisioned persistent clean full-system arm64 VM exocomp-arm64-qualification under QEMU (Ubuntu 24.04, aarch64 guest, systemd running, 8 vCPU, 8 GiB RAM, 60 GiB disk, Podman arm64). The guest is checked out at pushed commit fe95b001ffd8871b87956d071f3eed1855601821, which documents VM/emulation qualification semantics and adds a regression test. Host release/documentation gates passed. Running the candidate qualification gates and live shipped-artifact scenarios in the guest now; emulation will be recorded in the evidence.
 ---
 <!-- COMMENTS:END -->
