@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T19:22:12.403256Z'
+updated_at: '2026-07-26T19:27:11.870612Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -827,5 +827,10 @@ author: oompah
 created: 2026-07-26 19:22
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 19:27
+---
+Understanding (continuation): Resuming from the rc.17 rejection. rc.17 failed because the automatic rollback's built-in RPC probe returned :noconnection for all 10 attempts even though systemd reported the prior release as active. Previous agent diagnosed root cause: old ExecStop used 'bin/exocomp_node stop' (RPC-based) which requires Erlang distribution. If the failed release's distribution was never initialized (which would cause the upgrade health check to fail), ExecStop would time out waiting for RPC, then systemd sends SIGKILL to the BEAM. With SIGKILL, the BEAM cannot cleanly unregister from EPMD, leaving a stale registration. The prior release then cannot register the same node name, so its distribution fails to start and RPC returns :noconnection indefinitely. Fix: change ExecStop to 'kill -TERM \$MAINPID' so systemd sends SIGTERM directly to the BEAM process, which handles it via init:stop() → clean EPMD unregistration → prior release can register normally. Staged changes are present from previous agent: (1) ExecStop=kill -TERM in both service files, (2) configurable rollback healthcheck attempts/interval, (3) tests verifying retry behavior, (4) rc.18 M5 baselines. Plan: review staged changes for correctness, run tests, commit, sign rc.18 tag, and run full qualification.
 ---
 <!-- COMMENTS:END -->
