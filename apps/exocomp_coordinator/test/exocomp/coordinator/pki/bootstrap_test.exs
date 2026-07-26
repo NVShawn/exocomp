@@ -58,6 +58,9 @@ defmodule Exocomp.Coordinator.PKI.BootstrapTest do
              X509.Certificate.to_der(coordinator),
              X509.Certificate.public_key(intermediate)
            )
+
+    assert File.read!(Path.join(options[:online_state], "coordinator_chain.pem")) ==
+             X509.Certificate.to_pem(coordinator) <> X509.Certificate.to_pem(intermediate)
   end
 
   test "keeps the root private key out of online state and protects its backup", %{
@@ -174,6 +177,23 @@ defmodule Exocomp.Coordinator.PKI.BootstrapTest do
              Bootstrap.initialize(options)
 
     assert mismatch =~ "does not match"
+  end
+
+  test "fails closed when the outbound coordinator chain is missing or corrupt", %{
+    options: options
+  } do
+    assert {:ok, _metadata} = Bootstrap.initialize(options)
+    chain_path = Path.join(options[:online_state], "coordinator_chain.pem")
+    File.write!(chain_path, File.read!(Path.join(options[:online_state], "coordinator.pem")))
+    File.chmod!(chain_path, 0o644)
+
+    assert {:error, %{code: :invalid_pki_state, message: message}} =
+             Bootstrap.initialize(options)
+
+    assert message =~ "certificate chain file"
+
+    assert {:error, %{code: :invalid_pki_state}} =
+             Bootstrap.load_online_state(online_state: options[:online_state])
   end
 
   test "cleans staging state when initialization cannot complete", %{options: options} do

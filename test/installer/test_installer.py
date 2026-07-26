@@ -597,6 +597,7 @@ class TestPermissions:
             f"Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE={state}/enrollment-tokens",
             f"Environment=EXOCOMP_TLS_CA_PATH={state}/pki/root_ca.pem",
             f"Environment=EXOCOMP_TLS_CERT_PATH={state}/pki/coordinator.pem",
+            f"Environment=EXOCOMP_A2A_TLS_CERT_PATH={state}/pki/coordinator_chain.pem",
             f"Environment=EXOCOMP_TLS_KEY_PATH={state}/pki/coordinator_key.pem",
         }
         assert expected <= set(content.splitlines())
@@ -1425,6 +1426,7 @@ class TestUnitHardeningDirectives:
             "Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE=@STATE_DIR@/enrollment-tokens",
             "Environment=EXOCOMP_TLS_CA_PATH=@STATE_DIR@/pki/root_ca.pem",
             "Environment=EXOCOMP_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator.pem",
+            "Environment=EXOCOMP_A2A_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator_chain.pem",
             "Environment=EXOCOMP_TLS_KEY_PATH=@STATE_DIR@/pki/coordinator_key.pem",
         }
         assert expected <= set(content.splitlines())

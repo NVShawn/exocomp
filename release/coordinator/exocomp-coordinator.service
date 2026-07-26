@@ -29,6 +29,7 @@ Environment=EXOCOMP_PKI_ONLINE_STATE=@STATE_DIR@/pki
 Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE=@STATE_DIR@/enrollment-tokens
 Environment=EXOCOMP_TLS_CA_PATH=@STATE_DIR@/pki/root_ca.pem
 Environment=EXOCOMP_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator.pem
+Environment=EXOCOMP_A2A_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator_chain.pem
 Environment=EXOCOMP_TLS_KEY_PATH=@STATE_DIR@/pki/coordinator_key.pem
 Environment=EXOCOMP_LOG_DIR=@INSTALL_DIR@/log
 Environment=ERL_CRASH_DUMP=@INSTALL_DIR@/log/erl_crash.dump

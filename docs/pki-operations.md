@@ -67,6 +67,13 @@ complete and agree. If either is missing, mismatched, too permissive, or cannot
 decrypt, stop. Restore the matched pair from a verified backup; do not create a
 new root under the old identity.
 
+The online tree contains both `coordinator.pem`, the leaf used by the
+coordinator listener, and `coordinator_chain.pem`, the leaf plus intermediate
+chain used when the coordinator authenticates to node A2A listeners. Both are
+bootstrap-managed files. Do not concatenate or replace them manually; a
+missing or inconsistent outbound chain makes PKI validation and multi-node
+diagnostics fail closed.
+
 ## Verify production readiness
 
 Start the coordinator, then inspect health and the required production

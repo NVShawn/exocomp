@@ -16,6 +16,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     "intermediate_ca.pem" => 0o644,
     "intermediate_ca_key.pem" => 0o600,
     "coordinator.pem" => 0o644,
+    "coordinator_chain.pem" => 0o644,
     "coordinator_key.pem" => 0o600,
     "approval_signing.key" => 0o600,
     "approval_signing.pub" => 0o644,
@@ -60,6 +61,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
              {:ok, certificates} <- read_online_certs(online),
              {:ok, online_keys} <- read_online_private_keys(online),
              :ok <- validate_online_material(certificates, online_keys),
+             :ok <- validate_coordinator_chain(online, certificates),
              :ok <- validate_approval_key(online),
              fingerprint = fingerprint(certificates.root),
              :ok <- validate_fingerprint(online_manifest, fingerprint) do
@@ -331,6 +333,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
       "intermediate_ca.pem" => material.intermediate_cert,
       "intermediate_ca_key.pem" => material.intermediate_key,
       "coordinator.pem" => material.coordinator_cert,
+      "coordinator_chain.pem" => material.coordinator_cert <> material.intermediate_cert,
       "coordinator_key.pem" => material.coordinator_key,
       "approval_signing.key" => material.approval_private,
       "approval_signing.pub" => material.approval_public,
@@ -391,6 +394,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
          {:ok, certificates} <- read_certificates(online, backup),
          {:ok, keys} <- read_keys(online, backup, passphrase),
          :ok <- validate_certificates(certificates, keys),
+         :ok <- validate_coordinator_chain(online, certificates),
          :ok <- validate_approval_key(online),
          fingerprint = fingerprint(certificates.root),
          :ok <- validate_fingerprint(online_manifest, fingerprint) do
@@ -598,6 +602,20 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     case :public_key.pkix_path_validation(root, chain, max_path_length: 1) do
       {:ok, _validation} -> :ok
       {:error, _reason} -> invalid_state("The coordinator certificate chain is invalid")
+    end
+  end
+
+  defp validate_coordinator_chain(online, certificates) do
+    expected =
+      X509.Certificate.to_pem(certificates.coordinator) <>
+        X509.Certificate.to_pem(certificates.intermediate)
+
+    case File.read(Path.join(online, "coordinator_chain.pem")) do
+      {:ok, ^expected} ->
+        :ok
+
+      _error ->
+        invalid_state("The coordinator certificate chain file is corrupt or inconsistent")
     end
   end
 

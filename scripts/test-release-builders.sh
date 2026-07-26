@@ -89,9 +89,36 @@ grep -Fq "scripts/smoke-releases.sh prod" scripts/build-releases.sh ||
 for runtime_env in \
   EXOCOMP_PKI_ONLINE_STATE \
   EXOCOMP_PKI_OFFLINE_ROOT_BACKUP \
-  EXOCOMP_ENROLLMENT_TOKEN_STORE; do
+  EXOCOMP_ENROLLMENT_TOKEN_STORE \
+  EXOCOMP_TLS_CA_PATH \
+  EXOCOMP_A2A_TLS_CERT_PATH \
+  EXOCOMP_TLS_KEY_PATH; do
   grep -Fq "System.get_env(\"${runtime_env}\")" config/runtime.exs ||
     fail "production runtime configuration does not read ${runtime_env} at boot"
+done
+grep -Fq "a2a_tls: a2a_tls" config/runtime.exs ||
+  fail "production runtime configuration does not wire outbound coordinator A2A TLS"
+for qualification_script in \
+  scripts/qualification-live-preflight.sh \
+  scripts/qualification-live-operational.sh \
+  scripts/qualification-live-lifecycle.sh; do
+  [ -x "${qualification_script}" ] ||
+    fail "${qualification_script} is missing or not executable"
+  bash -n "${qualification_script}" ||
+    fail "${qualification_script} does not parse"
+done
+for live_marker in \
+  "strict verification succeeds with no network namespace" \
+  "active-service restart requires a valid bound approval" \
+  "multi-node diagnostics preserve reachable" \
+  "failed fixture recovers exactly once" \
+  "bounded cleanup succeeds while unsafe action modes fail closed" \
+  "installed backup utility restores protected coordinator PKI and state" \
+  "failed candidate health gate automatically restores the prior release" \
+  "default uninstall preserves protected and unrelated state" \
+  "system-cache purge removes releases and preserves all protected state"; do
+  grep -Fq "${live_marker}" scripts/qualification-live-*.sh ||
+    fail "live qualification helpers do not cover: ${live_marker}"
 done
 grep -Fq "replay_ledger_path" scripts/smoke-releases.sh ||
   fail "production smoke test does not isolate replay ledger state"
