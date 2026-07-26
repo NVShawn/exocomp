@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T12:08:52.590496Z'
+updated_at: '2026-07-26T12:14:36.943352Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -377,5 +377,20 @@ author: oompah
 created: 2026-07-26 12:08
 ---
 Discovery: Signed rc.10 is rejected by the first shipped M5 short gate. The standalone bench_harness release starts :inets but omits its runtime :public_key dependency; OTP 28 :httpc constructs TLS hostname-verification options even for the local HTTP llama health probe, producing UndefinedFunctionError before measurement. Source/unit tests masked this because apps/bench/test/test_helper.exs explicitly starts :public_key. I stopped the incomplete arm64 rc.10 run and will qualify only a replacement candidate.
+---
+author: oompah
+created: 2026-07-26 12:14
+---
+Agent stalled — no productive actions (writes/commands) for 10 consecutive turns (3645s). Retrying in 160s (attempt #5)
+---
+author: oompah
+created: 2026-07-26 12:14
+---
+Run #5 [attempt=5, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 264
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 45s
+- Log: EXOCOMP-123__20260726T111352Z.jsonl
 ---
 <!-- COMMENTS:END -->
