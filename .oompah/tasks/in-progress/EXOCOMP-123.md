@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T21:31:43.653611Z'
+updated_at: '2026-07-26T21:32:05.313245Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -922,5 +922,10 @@ author: oompah
 created: 2026-07-26 21:31
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 21:32
+---
+Understanding (continuation): Resuming exact signed v0.1.0-rc.18 qualification at 28f8dc35. amd64 has a complete 44-check passing record, including full M5 and lifecycle; arm64 was restarted from an empty evidence root after correcting only the guest Git safe.directory configuration. I will reconcile both guest/evidence states, finish the uncontaminated arm64 run, audit every M6-CRIT artifact, create and verify signed indexed evidence, commit/push it, then close only if the complete dual-architecture qualification passes.
 ---
 <!-- COMMENTS:END -->
