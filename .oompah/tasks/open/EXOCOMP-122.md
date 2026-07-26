@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-122
 type: feature
-status: In Progress
+status: Open
 priority: 2
 title: Add a shipped-artifact M5 performance qualification gate
 parent: EXOCOMP-117
@@ -9,9 +9,11 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:docs
+- needs:feature
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:33:49.914308Z'
+updated_at: '2026-07-26T06:34:05.035886Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -151,5 +153,10 @@ author: oompah
 created: 2026-07-26 06:33
 ---
 Verification: make check-links passes (all internal doc links resolve). make compliance-check passes. git status is clean and branch is up to date with origin/epic-EXOCOMP-117 at cd5c0c7. No code changes were made; only documentation was added or updated.
+---
+author: oompah
+created: 2026-07-26 06:33
+---
+Focus handoff: docs — (1) Outcome: documentation complete. Created docs/performance-qualification.md specifying the full M5 shipped-artifact gate: three-tier Make targets, prerequisites, host profiles, versioned TOML baselines, hard gate format, missing-metric failure, artifact identity fields, evidence layout, architecture qualification requirements, and troubleshooting. Updated docs/release-qualification.md and docs/maintainer-release-checklist.md to cross-reference the new doc and include M5 steps. (2) Relevant files: docs/performance-qualification.md (new), docs/release-qualification.md (updated Related Docs + M5 section), docs/maintainer-release-checklist.md (new M5 gate section). Baseline directory location: apps/bench/priv/bench/baselines/<version>/<arch>.toml. (3) Remaining work: The feature implementation is entirely absent — Make targets bench-llama-short-shipped and bench-llama-full do not exist; baseline TOML files have not been created; the regression gate evaluator in Bench.Report.Summary is a stub; artifact-identity capture from build-identity.json is not wired; evidence JSONL output path is not implemented. The docs/ specification above is the authoritative contract for the feature agent. (4) Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
