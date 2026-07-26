@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T14:01:21.866536Z'
+updated_at: '2026-07-26T14:05:25.171036Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -503,5 +503,10 @@ author: oompah
 created: 2026-07-26 14:01
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 14:05
+---
+Understanding (attempt #7): Resuming from stalled Codex agent. Current state: amd64 completed Phases 1-8 (repo gates, builds, bundle, preflight, operational, bench-short) and was killed mid-Phase 9 (M5 bench full). No bench evidence dir exists yet; coordinator and node services are still active on 192.168.122.136. arm64 is mid-qualification: completed fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, and is currently running 'make test' under QEMU emulation on 192.168.122.171. Plan: (1) Resume amd64 Phase 9 (M5 full bench, ~30 min) then Phase 10 (lifecycle), (2) Continue arm64 in parallel through all remaining phases, (3) Assemble evidence index, sign, commit, push, and close.
 ---
 <!-- COMMENTS:END -->
