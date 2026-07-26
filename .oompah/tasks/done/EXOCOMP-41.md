@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-26T04:13:01.598071Z'
+updated_at: '2026-07-26T04:13:04.498551Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -253,5 +253,10 @@ author: oompah
 created: 2026-07-26 03:55
 ---
 The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was In Review with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-26 04:13
+---
+Resolved without human input. The original governance and compliance delivery was recovered by 50cd48c and verified on main in PR #14 at 2085e44, with full recovery gates passing. PR #17 merely reused the shared epic branch for EXOCOMP-47 evidence and falsely reopened this sibling. The newly observed shipped-license completeness defect is distinct follow-up work tracked by EXOCOMP-120.
 ---
 <!-- COMMENTS:END -->
