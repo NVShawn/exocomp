@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-122
 type: feature
-status: Open
+status: In Progress
 priority: 2
 title: Add a shipped-artifact M5 performance qualification gate
 parent: EXOCOMP-117
@@ -10,16 +10,15 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:docs
-- needs:feature
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:34:16.647910Z'
+updated_at: '2026-07-26T06:34:34.306487Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 609e9442-d417-4f51-b235-7d13569cf66c
+oompah.agent_run_id: df549d17-2f5c-4f62-8cfc-1fe47aa4ff10
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 1395209
@@ -174,5 +173,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 5m 25s
 - Log: EXOCOMP-122__20260726T062851Z.jsonl
+---
+author: oompah
+created: 2026-07-26 06:34
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-26 06:34
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->
