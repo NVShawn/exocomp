@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T10:12:13.973979Z'
+updated_at: '2026-07-26T10:12:28.814095Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -302,5 +302,10 @@ author: oompah
 created: 2026-07-26 10:12
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 10:12
+---
+Understanding (continuation attempt #3): I am reconciling the current branch/tag/evidence/VM state left by the prior qualification runs, then will resume the exact signed post-remediation candidate qualification on clean amd64 and arm64 systemd guests. I will preserve rejected rc.3/rc.4 results as non-acceptance evidence, fix only newly proven release blockers with focused tests, and close only after every M6-CRIT/live scenario has fresh signed indexed passing evidence committed and pushed.
 ---
 <!-- COMMENTS:END -->
