@@ -77,6 +77,12 @@ grep -Fq "scripts/smoke-releases.sh prod" scripts/build-releases.sh ||
   fail "built releases are not checked for bundled ERTS"
 grep -Fq "replay_ledger_path" scripts/smoke-releases.sh ||
   fail "production smoke test does not isolate replay ledger state"
+grep -Fq "Application.put_env(:exocomp_coordinator, :require_pki, false)" \
+  scripts/smoke-releases.sh ||
+  fail "production smoke test does not isolate the ERTS probe from operator PKI state"
+grep -Fq "Application.put_env(:exocomp_coordinator, :require_pki, false)" \
+  scripts/test-clean-container.sh ||
+  fail "clean-container ERTS probe does not isolate operator PKI state"
 grep -Fq "inspect-release-deps.sh" scripts/build-releases.sh ||
   fail "build script does not invoke dependency inspection"
 grep -Fq "package-releases.sh" scripts/build-releases.sh ||

@@ -24,6 +24,10 @@ for release in exocomp_node exocomp_coordinator; do
       )
 
     Application.put_env(:exocomp_node, :replay_ledger_path, smoke_ledger)
+    # This probe validates that the packaged release carries a working ERTS.
+    # Production PKI startup is exercised separately with initialized state;
+    # do not make this isolated packaging probe depend on operator secrets.
+    Application.put_env(:exocomp_coordinator, :require_pki, false)
     result = Application.ensure_all_started(:${release})
 
     case result do
