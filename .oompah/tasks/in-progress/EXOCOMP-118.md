@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:08:32.150843Z'
+updated_at: '2026-07-26T04:08:55.961858Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -171,5 +171,20 @@ author: oompah
 created: 2026-07-26 04:08
 ---
 Understanding: Dispatched as Frontend Developer focus. After reviewing the codebase, this task involves exclusively DevOps/systems work: (1) fixing a path mismatch in config/config.exs where production config opens /var/lib/exocomp/replay_ledger.dets but the installer creates /var/lib/exocomp-node; (2) adding state-backup.sh to the assemble-bundle.sh scripts section which currently ships only install.sh, uninstall.sh, and verify-bundle.sh; (3) packaging llama-server shared library dependencies; (4) aligning documented checksum/install commands with actual archive layout. There is zero frontend (HTML/CSS/JS/UI) work in this issue. Proceeding to hand off to devops.
+---
+author: oompah
+created: 2026-07-26 04:08
+---
+Discovery: Confirmed all four rc.2 defects in code:
+
+1. PATH MISMATCH (config/config.exs:13): Production config hardcodes /var/lib/exocomp/replay_ledger.dets but install.sh:setup_users_and_dirs() creates var_dir=/var/lib/exocomp-node. Fix: change config.exs to use /var/lib/exocomp-node/replay_ledger.dets.
+
+2. MISSING state-backup.sh (scripts/assemble-bundle.sh:~195, section 2e): Bundle ships install.sh, uninstall.sh, verify-bundle.sh only. state-backup.sh exists in scripts/ but is never copied to BUNDLE_STAGE/scripts/. Fix: add cp -f for state-backup.sh in that section.
+
+3. LLAMA-SERVER SHARED LIBRARY: Bundle copies only the llama-server binary (section 2b) with no accompanying shared libraries. Fix: need to also copy libllama-server-impl.so and any other runtime deps into a lib/ subdirectory alongside the binary, and set RPATH or LD_LIBRARY_PATH accordingly in systemd unit.
+
+4. CHECKSUM PATH MISMATCH: install.sh:verify_checksums() looks for CHECKSUMS_FILE defaulting to checksums.sha256 in BUNDLE_ROOT, but assemble-bundle.sh generates manifest.sha256 inside the bundle and <bundle>.tar.gz.sha256 at dist level. The documented commands and installer lookup don't align. Fix: align the filename or docs.
+
+All fixes are in shell scripts (assemble-bundle.sh), Elixir config (config/config.exs), possibly systemd unit templates, and docs. No frontend work involved.
 ---
 <!-- COMMENTS:END -->
