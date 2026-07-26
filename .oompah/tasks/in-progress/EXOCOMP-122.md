@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T07:41:31.757264Z'
+updated_at: '2026-07-26T07:50:21.051933Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -233,5 +233,10 @@ author: oompah
 created: 2026-07-26 07:41
 ---
 Discovery: The inherited implementation is structurally complete and its prior run log records 108/108 bench tests plus a standalone harness build under the digest-pinned Elixir 1.20.2/OTP 28.5 image. Final audit found three reliability gaps before handoff: evidence was written directly into the final directory (allowing partial output), baseline validation did not require both documented <5% hard gates or prevent relaxed budgets, and CI exercised only the fake-server target rather than providing an exact candidate-bundle path for the shipped short gate. I will close those gaps and rerun the pinned focused suite through the existing container service workaround because the local Docker CLI cannot mutate its /run state in this managed sandbox.
+---
+author: oompah
+created: 2026-07-26 07:50
+---
+Implementation: Delivered a standalone digest-pinned bench_harness release; real shipped-artifact short/full Make targets; direct-release and installed-systemd orchestration with PID/root verification and rollback; artifact/model/llama hashes; runtime host capture; strict per-version amd64/arm64 baselines; BEAM-only CPU/RAM aggregation with exact metric failures and missing-metric rejection; atomic JSONL/summary evidence; exact-candidate CI dispatch with archive/source identity checks and retained evidence; and release qualification documentation. Final hardening requires both <5% gates and rejects relaxed or incomplete baselines.
 ---
 <!-- COMMENTS:END -->
