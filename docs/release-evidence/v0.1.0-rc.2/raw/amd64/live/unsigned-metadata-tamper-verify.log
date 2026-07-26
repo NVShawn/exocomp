@@ -1,0 +1,15 @@
+[verify-bundle] Bundle dir: /var/lib/exocomp-qualification/evidence/live/metadata-tamper-copy
+[verify-bundle] Manifest: 16 entries
+[verify-bundle] ==> Verifying file checksums...
+[verify-bundle]   all 16 checksums OK
+[verify-bundle] ==> Verifying SBOM...
+[verify-bundle]   SBOM structure OK
+[verify-bundle] ==> Verifying provenance...
+[verify-bundle]   provenance structure OK
+[verify-bundle] ==> Verifying signature...
+Signature and comment signature verified
+Trusted comment: exocomp bundle manifest signature
+[verify-bundle]   signature OK
+[verify-bundle]
+[verify-bundle] ==> VERIFICATION PASSED
+verify_after_metadata_tamper_exit=0

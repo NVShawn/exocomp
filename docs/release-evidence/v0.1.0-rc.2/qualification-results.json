@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "candidate": {
+    "tag": "v0.1.0-rc.2",
+    "commit": "581128d6680ec921b140d97d5018139582a5dd66",
+    "required_main_merge": "2085e44152f03ffd41f35cbfeee89a0da53b8bce",
+    "tag_signature_verified": true
+  },
+  "decision": "fail",
+  "publication_ready": false,
+  "hosts": {
+    "amd64": {
+      "guest_architecture": "x86_64",
+      "systemd": true,
+      "virtualization": "kvm",
+      "cpu_execution": "host-passthrough"
+    },
+    "arm64": {
+      "guest_architecture": "aarch64",
+      "systemd": true,
+      "virtualization": "qemu-full-system",
+      "cpu_execution": "emulated-cortex-a57"
+    }
+  },
+  "criteria": {
+    "M6-CRIT-1": {"amd64": "fail", "arm64": "fail"},
+    "M6-CRIT-2": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-3": {"amd64": "fail", "arm64": "fail"},
+    "M6-CRIT-4": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-5": {"amd64": "fail", "arm64": "fail"},
+    "M6-CRIT-6": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-7": {"amd64": "fail", "arm64": "fail"},
+    "M6-CRIT-8": {"amd64": "fail", "arm64": "fail"},
+    "M6-CRIT-9": {"amd64": "fail", "arm64": "fail"}
+  },
+  "arm64_emulation_findings": {
+    "performance_timing_test": "inconclusive",
+    "functional_health_poller_test": "fail",
+    "artifact_and_lifecycle_failures": "fail"
+  },
+  "scenario_results": {
+    "offline_artifact_verification": "pass",
+    "offline_install_with_corrected_paths": "pass",
+    "documented_install_commands": "fail",
+    "complete_bundle_runtime": "fail",
+    "pki_enrollment_renewal": "fail",
+    "multi_node_diagnostics": "fail",
+    "m4_failed_service_recovery": "fail",
+    "m5_shipped_artifact_gate": "fail",
+    "systemd_hardening": "pass",
+    "upgrade_automatic_rollback": "fail",
+    "backup_restore": "fail",
+    "default_and_purge_uninstall": "pass"
+  }
+}

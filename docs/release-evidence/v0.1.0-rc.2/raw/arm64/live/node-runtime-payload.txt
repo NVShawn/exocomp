@@ -1,0 +1,2 @@
+installed_llama_server=no
+installed_model=no

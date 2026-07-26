@@ -1,0 +1,12 @@
+=== fmt-check start 2026-07-26T02:08:35+00:00 ===
+podman run --rm --init --userns=keep-id --platform linux/arm64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/var/lib/exocomp-qualification/src:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc sh -c 'mix local.hex --force --quiet && mix format --check-formatted'
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+* creating .mix-home/archives/hex-2.5.1
+=== fmt-check end 2026-07-26T02:09:48+00:00 rc=0 ===

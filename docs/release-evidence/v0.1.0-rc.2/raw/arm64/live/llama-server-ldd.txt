@@ -1,0 +1,7 @@
+	linux-vdso.so.1 (0x0000fc470f0da000)
+	libllama-server-impl.so => not found
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000fc470edd0000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000fc470ed90000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000fc470ebd0000)
+	/lib/ld-linux-aarch64.so.1 (0x0000fc470f090000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000fc470eb20000)

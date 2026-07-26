@@ -1,0 +1,27 @@
+2026-07-26T02:24:09+00:00
+Linux doorman 6.18.0-8-generic #8-Ubuntu SMP PREEMPT_DYNAMIC Wed Dec 17 16:14:24 UTC 2025 x86_64 GNU/Linux
+QEMU emulator version 10.2.1 (Debian 1:10.2.1+ds-1ubuntu3.1)
+Id:             28
+Name:           exocomp-arm64-qualification
+UUID:           8661712a-4a08-4187-a033-bf6a0a80c537
+OS Type:        hvm
+State:          running
+CPU(s):         8
+CPU time:       10729.0s
+Max memory:     8388608 KiB
+Used memory:    8388608 KiB
+Persistent:     yes
+Autostart:      enable
+Autostart Once: disable
+Managed save:   no
+Security model: apparmor
+Security DOI:   0
+Security label: libvirt-8661712a-4a08-4187-a033-bf6a0a80c537 (enforcing)
+Messages:       tainted: custom guest agent control commands issued
+
+  <memory unit='KiB'>8388608</memory>
+  <vcpu placement='static'>8</vcpu>
+    <type arch='aarch64' machine='virt-10.2'>hvm</type>
+  <cpu mode='custom' match='exact' check='none'>
+    <model fallback='forbid'>cortex-a57</model>
+    <emulator>/usr/bin/qemu-system-aarch64</emulator>

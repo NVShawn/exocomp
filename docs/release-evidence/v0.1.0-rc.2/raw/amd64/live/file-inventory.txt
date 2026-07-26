@@ -1,0 +1,17 @@
+LICENSE
+THIRD_PARTY_NOTICES.md
+bundle.minisig
+llama-server
+manifest.json
+manifest.sha256
+models/qwen2.5-1.5b-instruct-q4_k_m.gguf
+provenance.json
+release/Containerfile.clean-target
+release/builders.lock
+release/runtime-baseline.lock
+releases/exocomp-coordinator-0.1.0-linux-amd64.tar.gz
+releases/exocomp-node-0.1.0-linux-amd64.tar.gz
+sbom.spdx.json
+scripts/install.sh
+scripts/uninstall.sh
+scripts/verify-bundle.sh

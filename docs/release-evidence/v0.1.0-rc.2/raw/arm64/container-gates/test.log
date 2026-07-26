@@ -1,0 +1,1112 @@
+=== test start 2026-07-26T02:14:27+00:00 ===
+./scripts/test-release-builders.sh
+Test 1: valid release (amd64) — expect PASS
+  PASS: valid amd64 release accepted
+Test 2: valid release (arm64) — expect PASS
+  PASS: valid arm64 release accepted
+Test 3: release with undeclared dependency — expect FAIL
+  PASS: release with undeclared dependency correctly rejected
+Test 4: dep-report.json produced after valid run
+  PASS: dep-report.json includes parsed dependencies and interpreter
+Test 5: dep-report.json produced after failing run
+  PASS: dep-report.json produced on failure and starts with '{'
+Test 6: release without ERTS directory — expect exit 2
+  PASS: missing ERTS directory correctly rejected with exit code 2
+Test 7: unsupported architecture — expect exit 2
+  PASS: unsupported architecture correctly rejected
+Test 8: missing baseline file — expect exit 2
+  PASS: missing baseline file correctly rejected
+Test 9: readelf failure — expect exit 2
+  PASS: readelf failure correctly rejected with exit code 2
+
+Results: 9 passed, 0 failed
+
+=== Offline structural checks ===
+  PASS: test-clean-container.sh exists and is executable
+  PASS: test-release-matrix.sh is non-interactive
+  PASS: test-clean-container.sh is non-interactive
+  PASS: docs/release-qualification.md exists
+  PASS: docs/release-qualification.md documents emulated execution
+  PASS: docs/release-qualification.md documents wrong-arch diagnostic
+  PASS: Makefile has test-release-matrix target
+
+=== Offline fixture: wrong-arch detection ===
+  PASS: wrong-arch produces actionable diagnostic
+
+=== Offline fixture: missing runtime dependency detection ===
+  PASS: missing dep produces actionable diagnostic
+
+=== Offline fixture: path-independent content digest ===
+  PASS: identical trees at different root paths have matching digests
+  PASS: one-byte runtime cookie change produces a different tree digest
+  PASS: deterministic release packagers exist and are executable
+  PASS: packager excludes reusable release cookies
+
+=== Offline mode: skipping build, container, and live negative tests ===
+
+==========================================
+Results: 13 passed, 0 failed
+==========================================
+test_archive_metadata_is_normalized_to_source_epoch (test_package_release.PackageReleaseTest.test_archive_metadata_is_normalized_to_source_epoch) ... ok
+test_archive_omits_cookie_and_embeds_identity (test_package_release.PackageReleaseTest.test_archive_omits_cookie_and_embeds_identity) ... ok
+test_equivalent_inputs_produce_byte_identical_archives (test_package_release.PackageReleaseTest.test_equivalent_inputs_produce_byte_identical_archives) ... ok
+test_manifest_records_identity_archive_hash_and_complete_payload (test_package_release.PackageReleaseTest.test_manifest_records_identity_archive_hash_and_complete_payload) ... ok
+test_product_and_architecture_naming_matrix (test_package_release.PackageReleaseTest.test_product_and_architecture_naming_matrix) ... ok
+test_annotated_tag_uses_peeled_commit_timestamp (test_package_release.PackageReleasesScriptTest.test_annotated_tag_uses_peeled_commit_timestamp) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 15.083s
+
+OK
+test_adds_stable_sort_and_is_idempotent (test_release_input_normalizer.ReleaseInputNormalizerTest.test_adds_stable_sort_and_is_idempotent) ... ok
+test_changed_lock_identity_fails_closed_without_editing_source (test_release_input_normalizer.ReleaseInputNormalizerTest.test_changed_lock_identity_fails_closed_without_editing_source) ... ok
+test_changed_source_shape_fails_closed (test_release_input_normalizer.ReleaseInputNormalizerTest.test_changed_source_shape_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.354s
+
+OK
+test_all_shell_command_blocks_parse (test_operator_docs.OperatorDocumentationTest.test_all_shell_command_blocks_parse) ... ok
+test_documented_lifecycle_flags_exist_in_shipped_scripts (test_operator_docs.OperatorDocumentationTest.test_documented_lifecycle_flags_exist_in_shipped_scripts) ... ok
+test_guides_cover_required_safety_and_lifecycle_topics (test_operator_docs.OperatorDocumentationTest.test_guides_cover_required_safety_and_lifecycle_topics) ... ok
+test_qualification_accepts_full_system_vms_and_discloses_emulation (test_operator_docs.OperatorDocumentationTest.test_qualification_accepts_full_system_vms_and_discloses_emulation) ... ok
+test_required_guides_are_linked_from_index (test_operator_docs.OperatorDocumentationTest.test_required_guides_are_linked_from_index) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.125s
+
+OK
+release builder definitions are pinned and valid
+podman run --rm --init --userns=keep-id --platform linux/arm64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/var/lib/exocomp-qualification/src:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc sh -c 'mix local.hex --force --quiet && MIX_ENV=test mix deps.get && \
+	MIX_ENV=test mix test && \
+	MIX_ENV=test mix release exocomp_node --overwrite && \
+	MIX_ENV=test mix release exocomp_coordinator --overwrite && \
+	scripts/smoke-releases.sh test'
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+* creating .mix-home/archives/hex-2.5.1
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+Resolving Hex dependencies...
+Resolution completed in 1.108s
+Unchanged:
+  bandit 1.12.1
+  hpax 1.0.4
+  jason 1.4.5
+  mime 2.0.7
+  nimble_options 1.1.1
+  plug 1.20.3
+  plug_crypto 2.2.0
+  telemetry 1.4.2
+  thousand_island 1.5.0
+  websock 0.5.3
+  x509 0.9.2
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+==> bench
+warning: the following files do not match any of the configured `:test_load_filters` / `:test_ignore_filters`:
+
+test/support/fake_llama_server.ex
+
+This might indicate a typo in a test file name (for example, using "foo_tests.exs" instead of "foo_test.exs").
+
+See the configuration for `:test_pattern` under `mix help test` for more information.
+
+Running ExUnit with seed: 862477, max_cases: 16
+
+.........................................................................
+
+  1) test CPU and RSS increase under live synthetic load (Bench.HostSamplerTest)
+     apps/bench/test/bench/host_sampler_test.exs:108
+     Assertion failed, no matching message after 5000ms
+     The following variables were pinned:
+       child = #Port<0.146>
+     The process mailbox is empty.
+     code: assert_receive {^child, {:data, "ready\n"}}
+     stacktrace:
+       test/bench/host_sampler_test.exs:136: (test)
+
+....
+Finished in 21.8 seconds (15.3s async, 6.5s sync)
+
+Result: 77/78 passed
+Failed: 1 test
+==> exocomp_core
+Running ExUnit with seed: 862477, max_cases: 16
+
+................................................................................................................................................................................................
+Finished in 19.6 seconds (19.6s async, 0.00s sync)
+
+Result: 192 passed
+==> exocomp_coordinator
+Running ExUnit with seed: 862477, max_cases: 16
+
+...............................................................................    warning: default values for the optional arguments in the private function inventory_node/2 are never used
+    │
+ 18 │   defp inventory_node(id, hostname \\ nil) do
+    │        ~
+    │
+    └─ test/exocomp/coordinator/resolver_test.exs:18:8: Exocomp.Coordinator.ResolverTest (module)
+
+     warning: default values for the optional arguments in the private function start_client_agent/1 are never used
+     │
+ 169 │   defp start_client_agent(responses \\ %{}) do
+     │        ~
+     │
+     └─ test/exocomp/coordinator/multi_node_orchestration_integration_test.exs:169:8: Exocomp.Coordinator.MultiNodeOrchestrationIntegrationTest (module)
+
+    warning: default values for the optional arguments in the private function clock_agent/1 are never used
+    │
+ 17 │   defp clock_agent(initial \\ nil) do
+    │        ~
+    │
+    └─ test/exocomp/coordinator/enrollment_token_test.exs:17:8: Exocomp.Coordinator.EnrollmentTokenTest (module)
+
+
+02:18:21.181 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.409 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.577 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.583 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.589 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.607 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.614 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.629 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.639 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.645 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.766 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.843 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.876 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.888 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.896 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:22.923 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.188 [warning] [CoordinatorA2ARouter] mTLS client certificate missing
+.
+02:18:23.205 [warning] [CoordinatorA2ARouter] mTLS client certificate missing
+.
+02:18:23.216 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.343 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.393 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.403 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.421 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.445 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+
+02:18:23.466 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+    warning: unused alias NodeOutcome
+    │
+ 10 │   alias Exocomp.Coordinator.{DiagnosticGoal, GoalStore, NodeOutcome, Orchestrator}
+    │   ~
+    │
+    └─ test/exocomp/coordinator/orchestrator_test.exs:10:3
+
+..
+02:18:23.501 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.522 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+
+02:18:23.528 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.556 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+
+02:18:23.558 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.560 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.560 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+
+02:18:23.561 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+
+02:18:23.585 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+
+02:18:23.593 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.614 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.644 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.
+02:18:23.651 [info] [CoordinatorA2ARouter] mTLS client certificate accepted
+.......................................................................................................................................................................................................
+
+  1) test resolver and probe crashes are isolated and release capacity (Exocomp.Coordinator.HealthPollerTest)
+     apps/exocomp_coordinator/test/exocomp/coordinator/health_poller_test.exs:160
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:probed, "node-2", ["192.0.2.2"]}
+     stacktrace:
+       test/exocomp/coordinator/health_poller_test.exs:183: (test)
+
+.......................................................................................................................................................................
+Finished in 64.5 seconds (37.2s async, 27.3s sync)
+
+Result: 477/478 passed
+Failed: 1 test
+==> exocomp_node
+    warning: redefining module Exocomp.Node.Test.FakeLlamaServer (current version loaded from /workspace/_build/test/lib/exocomp_node/ebin/Elixir.Exocomp.Node.Test.FakeLlamaServer.beam)
+    │
+  3 │ defmodule Exocomp.Node.Test.FakeLlamaServer do
+    │ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fake_llama_server.ex:3: Exocomp.Node.Test.FakeLlamaServer (module)
+
+    warning: redefining module Exocomp.Node.MockCommander (current version loaded from /workspace/_build/test/lib/exocomp_node/ebin/Elixir.Exocomp.Node.MockCommander.beam)
+    │
+  3 │ defmodule Exocomp.Node.MockCommander do
+    │ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/mock_commander.ex:3: Exocomp.Node.MockCommander (module)
+
+Running ExUnit with seed: 862477, max_cases: 16
+Excluding tags: [:integration, :systemd]
+
+....................................................................................................................................................................................................................................................    warning: default values for the optional arguments in the private function setup_with_fake_server/1 are never used
+    │
+ 56 │   defp setup_with_fake_server(opts \\ []) do
+    │        ~
+    │
+    └─ test/exocomp/node/proposal_client_test.exs:56:8: Exocomp.Node.ProposalClientTest (module)
+
+    warning: unused alias TextPart
+    │
+  9 │   alias Exocomp.A2A.{Artifact, DataPart, Message, TextPart}
+    │   ~
+    │
+    └─ test/exocomp/node/a2a_router_test.exs:9:3
+
+
+02:19:24.811 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.139 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.151 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.158 [info] [A2ARouter] mTLS client certificate accepted
+..
+02:19:25.187 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.196 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.215 [info] [A2ARouter] mTLS client certificate accepted
+
+02:19:25.227 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.266 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.286 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.324 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.459 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.493 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.626 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.634 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.932 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:25.948 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:19:26.077 [warning] [A2ARouter] mTLS client certificate missing
+.
+02:19:26.101 [info] [A2ARouter] mTLS client certificate accepted
+
+02:19:26.152 [info] [A2ARouter] mTLS client certificate accepted
+................................      warning: default values for the optional arguments in the private function build_evidence/3 are never used
+      │
+ 1293 │   defp build_evidence(id, collector, overrides \\ []) do
+      │        ~
+      │
+      └─ test/integration/m3_acceptance_test.exs:1293:8: Exocomp.Integration.M3AcceptanceTest (module)
+
+.........................................................................................................................warning: using map.field notation (without parentheses) to invoke function :malformed.required_evidence() is deprecated, you must add parentheses instead: remote.function()
+  (exocomp_node 0.1.0) lib/exocomp/node/safety/policy_engine.ex:464: Exocomp.Node.Safety.PolicyEngine.scope_evidence_for_candidate/3
+  (exocomp_node 0.1.0) lib/exocomp/node/safety/policy_engine.ex:409: anonymous fn/6 in Exocomp.Node.Safety.PolicyEngine.do_evaluate/4
+  (elixir 1.20.2) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+  (exocomp_node 0.1.0) lib/exocomp/node/safety/policy_engine.ex:406: Exocomp.Node.Safety.PolicyEngine.do_evaluate/4
+  (exocomp_node 0.1.0) lib/exocomp/node/safety/policy_engine.ex:187: Exocomp.Node.Safety.PolicyEngine.evaluate/4
+  test/exocomp/node/safety/policy_engine_test.exs:210: Exocomp.Node.Safety.PolicyEngineTest."test evaluate/4 safety and determinism an exception in filtering is caught and denied as an internal policy error"/1
+  (ex_unit 1.20.2) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+  (stdlib 7.3) timer.erl:599: :timer.tc/2
+  (ex_unit 1.20.2) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+...........................................................     warning: the following conditional expression will always succeed:
+
+         is_binary(ev.collector_version)
+
+     because it evaluates to:
+
+         dynamic(true)
+
+     where "ev" was given the types:
+
+         # type: dynamic(%Exocomp.Node.Safety.Evidence{
+           schema_version: binary(),
+           collector: binary(),
+           collector_version: binary(),
+           observed_at:
+             %DateTime{calendar: term()} or
+               %DateTime{
+                 utc_offset: float() or integer(),
+                 std_offset: float() or integer(),
+                 microsecond: {term(), term()},
+                 calendar: Calendar.ISO
+               },
+           values: %{binary() => binary()}
+         })
+         # from: test/exocomp/node/safety/disk_pressure_collector_test.exs:148
+         {_threshold, ev} =
+           case right do
+             ...
+           end
+
+         # type: dynamic(%Exocomp.Node.Safety.Evidence{
+           schema_version: binary(),
+           evidence_id: binary(),
+           collector: binary(),
+           collector_version: binary(),
+           observed_at:
+             %DateTime{calendar: term()} or
+               %DateTime{
+                 utc_offset: float() or integer(),
+                 std_offset: float() or integer(),
+                 microsecond: {term(), term()},
+                 calendar: Calendar.ISO
+               },
+           values: %{binary() => binary()}
+         })
+         # from: test/exocomp/node/safety/disk_pressure_collector_test.exs:151:14
+         is_binary(ev.evidence_id)
+
+     type warning found at:
+     │
+ 153 │       assert is_binary(ev.collector_version) and byte_size(ev.collector_version) > 0
+     │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ test/exocomp/node/safety/disk_pressure_collector_test.exs:153: Exocomp.Node.Safety.DiskPressureCollectorTest."test evidence record structure all required fields are present in the returned Evidence struct"/1
+
+     warning: incompatible types given to Exocomp.Node.ProposalClient.propose/1:
+
+         Exocomp.Node.ProposalClient.propose("not a map")
+
+     given types:
+
+         -binary()-
+
+     but expected one of:
+
+         map()
+
+     type warning found at:
+     │
+ 101 │       ProposalClient.propose("not a map")
+     │                      ~
+     │
+     └─ test/exocomp/node/proposal_client_test.exs:101:22: Exocomp.Node.ProposalClientTest."test non-map input is rejected at the function clause level"/1
+
+     warning: the following conditional expression will always succeed:
+
+         is_binary(id)
+
+     because it evaluates to:
+
+         dynamic(true)
+
+     where "id" was given the type:
+
+         # type: binary()
+         # from: test/exocomp/node/skills/service_diagnose_test.exs:112
+         {id} =
+           case right do
+             ...
+           end
+
+     type warning found at:
+     │
+ 115 │     assert is_binary(id) and id != ""
+     │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ test/exocomp/node/skills/service_diagnose_test.exs:115: Exocomp.Node.Skills.ServiceDiagnoseTest."test returned artifact has a non-empty artifactId"/1
+
+     warning: the following conditional expression will always succeed:
+
+         is_binary(id)
+
+     because it evaluates to:
+
+         dynamic(true)
+
+     where "id" was given the type:
+
+         # type: binary()
+         # from: test/exocomp/node/skills/system_diagnose_test.exs:150
+         {id} =
+           case right do
+             ...
+           end
+
+     type warning found at:
+     │
+ 151 │     assert is_binary(id) and id != ""
+     │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ test/exocomp/node/skills/system_diagnose_test.exs:151: Exocomp.Node.Skills.SystemDiagnoseTest."test returned artifact has a non-empty artifactId"/1
+
+    warning: the following conditional expression will always succeed:
+
+        is_binary(id)
+
+    because it evaluates to:
+
+        dynamic(true)
+
+    where "id" was given the type:
+
+        # type: binary()
+        # from: test/exocomp/node/skills/remediation_propose_test.exs:87
+        {id} =
+          case right do
+            ...
+          end
+
+    type warning found at:
+    │
+ 88 │     assert is_binary(id) and id != ""
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/exocomp/node/skills/remediation_propose_test.exs:88: Exocomp.Node.Skills.RemediationProposeTest."test returned artifact has a non-empty artifactId"/1
+
+......
+02:19:42.305 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.307 [warning] [Executor] action=restart_service target="myapp.service" error={:output_limit_exceeded, 200000}
+...
+02:19:42.325 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.326 [warning] [Executor] action=restart_service target="myapp.service" error=:timeout
+..
+02:19:42.337 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+..
+02:19:42.352 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.354 [warning] [Executor] action=restart_service target="myapp.service" failed exit_code=127
+..
+02:19:42.363 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+...
+02:19:42.379 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.380 [warning] [Executor] action=restart_service target="myapp.service" failed exit_code=1
+..
+02:19:42.388 [debug] [Executor] action=vacuum_logs target=nil exec=/usr/bin/journalctl argv=["--vacuum-size=100M"]
+....
+02:19:42.413 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+.
+02:19:42.420 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+.
+02:19:42.427 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.428 [warning] [Executor] action=restart_service target="myapp.service" error=:timeout
+...
+02:19:42.442 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.443 [warning] [Executor] action=restart_service target="myapp.service" error={:output_limit_exceeded, 99999}
+.
+02:19:42.448 [debug] [Executor] action=vacuum_logs target=nil exec=/usr/bin/journalctl argv=["--vacuum-size=100M"]
+.
+02:19:42.454 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.455 [warning] [Executor] action=restart_service target="myapp.service" failed exit_code=1
+...
+02:19:42.575 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.578 [warning] [Executor] post-action verification failed action=restart_service target="myapp.service" reason={:service_not_active, 3}
+..
+02:19:42.592 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.592 [debug] [Executor] action=restart_service target="nginx.service" exec=/usr/bin/systemctl argv=["restart", "nginx.service"]
+.
+02:19:42.601 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+.
+02:19:42.624 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+
+02:19:42.629 [warning] [Executor] action=restart_service target="myapp.service" failed exit_code=1
+..................................
+02:19:42.937 [warning] Certificate chain validation failed: :cert_expired
+.
+02:19:43.006 [warning] Certificate chain validation failed: :invalid_issuer
+.
+02:19:43.093 [warning] Certificate SAN does not match node_id "exocomp-test-node" (SANs redacted)
+.
+02:19:43.127 [warning] Key file has insecure permissions (mode too permissive)
+.
+02:19:43.176 [warning] Key file has insecure permissions (mode too permissive)
+..
+02:19:43.271 [warning] Key file has insecure permissions (mode too permissive)
+.
+02:19:43.292 [warning] Key file has insecure permissions (mode too permissive)
+..........................................
+02:19:45.244 [info] ProposalClient inference attempt
+
+02:19:45.247 [warning] ProposalClient inference failed
+
+02:19:45.249 [info] ProposalClient inference attempt
+
+02:19:45.251 [warning] ProposalClient inference failed
+.
+02:19:45.252 [info] ProposalClient inference attempt
+
+02:19:45.253 [warning] ProposalClient inference failed
+.
+02:19:45.451 [info] ProposalClient inference attempt
+
+02:19:45.454 [warning] ProposalClient inference failed
+..
+02:19:45.783 [info] ProposalClient inference attempt
+
+02:19:45.897 [info] ProposalClient inference succeeded
+.
+02:19:45.906 [info] ProposalClient inference attempt
+
+02:19:45.915 [warning] ProposalClient inference failed
+.
+02:19:46.001 [info] ProposalClient inference attempt
+
+02:19:46.109 [warning] ProposalClient inference failed
+.
+02:19:46.183 [info] ProposalClient inference attempt
+
+02:19:46.528 [warning] ProposalClient inference failed
+.
+02:19:46.617 [info] ProposalClient inference attempt
+
+02:19:46.641 [warning] ProposalClient inference failed
+.
+02:19:46.698 [info] ProposalClient inference attempt
+.
+02:19:46.701 [warning] ProposalClient inference failed
+.
+02:19:46.705 [info] ProposalClient inference attempt
+
+02:19:46.707 [warning] ProposalClient inference failed
+.
+02:19:46.711 [info] ProposalClient inference attempt
+
+02:19:46.713 [warning] ProposalClient inference failed
+
+02:19:46.777 [info] ProposalClient inference attempt
+
+02:19:46.881 [warning] ProposalClient inference failed
+.
+02:19:47.213 [warning] llama-server exited: 143
+
+02:19:47.218 [info] restarting llama-server in 133ms (attempt 1)
+.
+02:19:49.062 [warning] llama-server did not become ready within 600ms
+.
+02:19:49.090 [error] failed to start llama-server: Erlang error: :enoent
+
+02:19:49.092 [info] restarting llama-server in 550ms (attempt 1)
+
+02:19:49.654 [error] failed to start llama-server: Erlang error: :enoent
+
+02:19:49.657 [info] restarting llama-server in 1426ms (attempt 2)
+
+02:19:51.091 [error] failed to start llama-server: Erlang error: :enoent
+
+02:19:51.092 [info] restarting llama-server in 2940ms (attempt 3)
+.
+02:19:51.142 [error] failed to start llama-server: Erlang error: :enoent
+
+02:19:51.145 [info] restarting llama-server in 719ms (attempt 1)
+...
+02:19:51.346 [warning] ignoring non-loopback llama_host "0.0.0.0"; llama-server is loopback-only
+.
+02:19:51.634 [warning] llama-server exited: 143
+
+02:19:51.635 [info] restarting llama-server in 128ms (attempt 1)
+..
+02:19:52.138 [info] [ApprovalGate] start correlation_id=0a883ee4a03af46fb71c243b2593b9c4 action=restart_service target=fixture.service
+.
+02:19:52.140 [warning] [ApprovalGate] token_invalid correlation_id=0a883ee4a03af46fb71c243b2593b9c4 action=restart_service reason=:invalid_signature
+
+02:19:52.249 [info] [ApprovalGate] start correlation_id=1a7162957b242d266a933a1d0fce39c2 action=restart_service target=fixture.service
+
+02:19:52.252 [info] [ApprovalGate] token_valid correlation_id=1a7162957b242d266a933a1d0fce39c2 nonce=nonce-ex... action=restart_service
+
+02:19:52.255 [info] [ApprovalGate] preconditions_ok correlation_id=1a7162957b242d266a933a1d0fce39c2 nonce=nonce-ex... action=restart_service
+
+02:19:52.305 [info] [ApprovalGate] replay_claimed correlation_id=1a7162957b242d266a933a1d0fce39c2 nonce=nonce-ex... action=restart_service
+
+02:19:52.311 [info] [ApprovalGate] execution_success correlation_id=1a7162957b242d266a933a1d0fce39c2 nonce=nonce-ex... action=restart_service
+
+02:19:52.365 [info] [ApprovalGate] start correlation_id=1a7162957b242d266a933a1d0fce39c2 action=restart_service target=fixture.service
+
+02:19:52.366 [info] [ApprovalGate] token_valid correlation_id=1a7162957b242d266a933a1d0fce39c2 nonce=nonce-ex... action=restart_service
+
+02:19:52.368 [info] [ApprovalGate] preconditions_ok correlation_id=1a7162957b242d266a933a1d0fce39c2 nonce=nonce-ex... action=restart_service
+
+02:19:52.374 [info] [ApprovalGate] replay_already_executed correlation_id=1a7162957b242d266a933a1d0fce39c2 nonce=nonce-ex... action=restart_service
+.
+02:19:52.434 [info] [ApprovalGate] start correlation_id=cc3feb384bd615f6c1647b648fa938f3 action=restart_service target=fixture.service
+
+02:19:52.435 [info] [ApprovalGate] token_valid correlation_id=cc3feb384bd615f6c1647b648fa938f3 nonce=nonce-ex... action=restart_service
+
+02:19:52.437 [warning] [ApprovalGate] precondition_changed correlation_id=cc3feb384bd615f6c1647b648fa938f3 nonce=nonce-ex... action=restart_service target=fixture.service reason=:precondition_changed
+.
+02:19:52.485 [info] [ApprovalGate] start correlation_id=c5ab989813eb6e5dc042a81c96564f83 action=restart_service target=fixture.service
+
+02:19:52.486 [warning] [ApprovalGate] token_invalid correlation_id=c5ab989813eb6e5dc042a81c96564f83 action=restart_service reason=:expired
+..
+02:19:52.630 [info] [ApprovalGate] start correlation_id=e940d042301b860339bbf0b2ae452d91 action=restart_service target=fixture.service
+
+02:19:52.631 [info] [ApprovalGate] token_valid correlation_id=e940d042301b860339bbf0b2ae452d91 nonce=nonce-ex... action=restart_service
+
+02:19:52.631 [info] [ApprovalGate] preconditions_ok correlation_id=e940d042301b860339bbf0b2ae452d91 nonce=nonce-ex... action=restart_service
+
+02:19:52.666 [info] [ApprovalGate] replay_claimed correlation_id=e940d042301b860339bbf0b2ae452d91 nonce=nonce-ex... action=restart_service
+
+02:19:52.671 [warning] [ApprovalGate] execution_failed correlation_id=e940d042301b860339bbf0b2ae452d91 nonce=nonce-ex... action=restart_service error={:audit_unavailable, :sink_unavailable}
+......
+02:19:53.128 [info] [ApprovalGate] start correlation_id=485d0b391fb986a1965afe56640a55fa action=restart_service target=fixture.service
+
+02:19:53.128 [info] [ApprovalGate] token_valid correlation_id=485d0b391fb986a1965afe56640a55fa nonce=nonce-ex... action=restart_service
+
+02:19:53.129 [info] [ApprovalGate] preconditions_ok correlation_id=485d0b391fb986a1965afe56640a55fa nonce=nonce-ex... action=restart_service
+
+02:19:53.183 [info] [ApprovalGate] replay_claimed correlation_id=485d0b391fb986a1965afe56640a55fa nonce=nonce-ex... action=restart_service
+
+02:19:53.188 [info] [ApprovalGate] execution_success correlation_id=485d0b391fb986a1965afe56640a55fa nonce=nonce-ex... action=restart_service
+..
+02:19:53.364 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:53.365 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:53.367 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:53.395 [info] [ApprovalGate] replay_claimed correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:53.397 [warning] [ApprovalGate] execution_failed correlation_id=corr-test-1 nonce=unit-tes... action=restart_service error=:not_allowed
+.
+02:19:53.509 [info] [ApprovalGate] start correlation_id=corr-test-1 action=vacuum_logs target=example.service
+
+02:19:53.554 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=vacuum_logs reason={:binding_mismatch, :action_id, "vacuum_logs", "restart_service"}
+.
+02:19:53.612 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:53.613 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :task_id, "task-test-1", "wrong-task"}
+.
+02:19:53.662 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:53.668 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason=:invalid_signature
+.
+02:19:53.718 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:53.725 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :parameter_hash, "be1b421ff6c9b2b97f429306cf7b478ebd068497d655ed2d2792594d9425b9df", "80e6b9cb31428f02de1787d3f43ca94dbc86358aa6465b42e90fe85a6bbc6ec7"}
+.
+02:19:53.768 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:53.769 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:53.770 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+.
+02:19:53.774 [error] [ApprovalGate] replay_storage_failure correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:53.841 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:53.848 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :task_id, "wrong-task", "task-test-1"}
+..
+02:19:54.042 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.043 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :node_id, "node-test-1", "wrong"}
+.
+02:19:54.109 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+.
+02:19:54.110 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:54.111 [warning] [ApprovalGate] precondition_changed correlation_id=corr-test-1 nonce=unit-tes... action=restart_service target=example.service reason={:collection_failed, :state_changed}
+
+02:19:54.155 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.158 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :action_id, "restart_service", "vacuum_logs"}
+.
+02:19:54.239 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.246 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason=:expired
+..
+02:19:54.391 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+.
+02:19:54.392 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason=:expired
+
+02:19:54.460 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.461 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:54.462 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+
+02:19:54.475 [error] [ApprovalGate] replay_storage_failure correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+.
+02:19:54.565 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.573 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :node_id, "wrong-node", "node-test-1"}
+.
+02:19:54.635 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.646 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=HJ7o2pEX... action=restart_service
+
+02:19:54.649 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=HJ7o2pEX... action=restart_service
+
+02:19:54.696 [info] [ApprovalGate] replay_claimed correlation_id=corr-test-1 nonce=HJ7o2pEX... action=restart_service
+
+02:19:54.699 [debug] [Executor] action=restart_service target="example.service" exec=/usr/bin/systemctl argv=["restart", "example.service"]
+
+02:19:54.701 [info] [ApprovalGate] execution_success correlation_id=corr-test-1 nonce=HJ7o2pEX... action=restart_service
+
+02:19:54.749 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.757 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=HJ7o2pEX... action=restart_service
+
+02:19:54.758 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=HJ7o2pEX... action=restart_service
+
+02:19:54.761 [info] [ApprovalGate] replay_already_executed correlation_id=corr-test-1 nonce=HJ7o2pEX... action=restart_service
+.
+02:19:54.924 [warning] reconciled crashed replay ledger claim nonce="gImHdpr1kLW8b5ux3YzP-A" action=:restart_service target="example.service"
+
+02:19:54.958 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:54.964 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=gImHdpr1... action=restart_service
+
+02:19:54.965 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=gImHdpr1... action=restart_service
+
+02:19:54.968 [info] [ApprovalGate] replay_incomplete_pending correlation_id=corr-test-1 nonce=gImHdpr1... action=restart_service waiting=true
+.
+02:19:55.289 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:55.312 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=wVijjWXE... action=restart_service
+
+02:19:55.313 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=wVijjWXE... action=restart_service
+
+02:19:55.372 [info] [ApprovalGate] replay_claimed correlation_id=corr-test-1 nonce=wVijjWXE... action=restart_service
+
+02:19:55.375 [debug] [Executor] action=restart_service target="example.service" exec=/usr/bin/systemctl argv=["restart", "example.service"]
+
+02:19:55.382 [info] [ApprovalGate] execution_success correlation_id=corr-test-1 nonce=wVijjWXE... action=restart_service
+.
+02:19:55.522 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:55.526 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason=:public_key_unavailable
+.
+02:19:55.585 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:55.591 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=kUR2g6PE... action=restart_service
+
+02:19:55.592 [warning] [ApprovalGate] precondition_changed correlation_id=corr-test-1 nonce=kUR2g6PE... action=restart_service target=example.service reason=:precondition_changed
+.
+02:19:55.655 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:55.656 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=unit-tes... action=restart_service
+.
+02:19:55.657 [warning] [ApprovalGate] precondition_changed correlation_id=corr-test-1 nonce=unit-tes... action=restart_service target=example.service reason=:precondition_changed
+.
+02:19:55.850 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:55.856 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=Ewp8T9Ea... action=restart_service
+
+02:19:55.857 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=Ewp8T9Ea... action=restart_service
+
+02:19:55.896 [info] [ApprovalGate] replay_claimed correlation_id=corr-test-1 nonce=Ewp8T9Ea... action=restart_service
+
+02:19:55.899 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:55.906 [info] [ApprovalGate] token_valid correlation_id=corr-test-1 nonce=Ewp8T9Ea... action=restart_service
+
+02:19:55.907 [info] [ApprovalGate] preconditions_ok correlation_id=corr-test-1 nonce=Ewp8T9Ea... action=restart_service
+
+02:19:55.911 [info] [ApprovalGate] replay_incomplete_pending correlation_id=corr-test-1 nonce=Ewp8T9Ea... action=restart_service waiting=true
+
+02:19:55.951 [debug] [Executor] action=restart_service target="example.service" exec=/usr/bin/systemctl argv=["restart", "example.service"]
+
+02:19:55.953 [info] [ApprovalGate] execution_success correlation_id=corr-test-1 nonce=Ewp8T9Ea... action=restart_service
+.
+02:19:56.071 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:56.072 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :parameter_hash, "expected-hash", "actual-hash"}
+..
+02:19:56.295 [info] [ApprovalGate] start correlation_id=corr-test-1 action=restart_service target=example.service
+
+02:19:56.306 [warning] [ApprovalGate] token_invalid correlation_id=corr-test-1 action=restart_service reason={:binding_mismatch, :node_id, nil, ""}
+....................................................................................
+02:20:01.912 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:01.920 [info] ProposalClient inference attempt
+
+02:20:01.926 [warning] ProposalClient inference failed
+
+02:20:02.084 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:02.219 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:02.694 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:03.136 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:03.281 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:03.427 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:03.911 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:03.919 [info] ProposalClient inference attempt
+
+02:20:03.922 [warning] ProposalClient inference failed
+
+02:20:04.071 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:04.238 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:04.608 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:04.765 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:05.295 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:05.966 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:05.981 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:06.000 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:06.160 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:06.514 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:06.728 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:06.913 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:07.076 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:07.548 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:07.786 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:07.939 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:08.283 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:08.480 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:08.830 [notice] TLS :server: In state :wait_cert at tls_handshake_1_3.erl:454 generated SERVER ALERT: Fatal - Certificate Required
+ - :certificate_required
+
+02:20:08.846 [notice] TLS :client: In state :connection received SERVER ALERT: Fatal - Certificate Required
+
+.
+02:20:09.307 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:09.695 [info] [A2ARouter] mTLS client certificate accepted
+
+02:20:09.864 [info] [A2ARouter] mTLS client certificate accepted
+.
+02:20:09.973 [warning] Certificate chain validation failed: :invalid_issuer
+
+02:20:09.976 [error] [Listener] startup failed: {:invalid_chain, "[REDACTED]"}
+.
+02:20:10.050 [warning] Key file has insecure permissions (mode too permissive)
+
+02:20:10.052 [error] [Listener] startup failed: :key_not_secure
+.
+02:20:10.129 [warning] Certificate SAN does not match node_id "exocomp-test-node" (SANs redacted)
+
+02:20:10.132 [error] [Listener] startup failed: {:san_mismatch, [expected: "exocomp-test-node"]}
+.
+02:20:10.569 [error] [Listener] config load error: :enoent
+
+02:20:10.570 [error] [Listener] reload failed: :enoent
+
+02:20:10.573 [error] GenServer Exocomp.Node.Listener terminating
+** (stop) :enoent
+Last message (from #PID<0.10556.0>): :reload
+State: %{config: %Exocomp.Node.Config{version: 1, node_id: "exocomp-test-node", tls: %Exocomp.Node.Config.TLS{ca_cert: "/workspace/apps/exocomp_node/test/fixtures/certs/ca.crt", node_cert: "/workspace/apps/exocomp_node/test/fixtures/certs/node.crt", node_key: "[REDACTED]"}, listen: %Exocomp.Node.Config.Listen{host: "127.0.0.1", port: 18438}}, config_path: "/tmp/listener_test_cfg_6722063.json", bandit_pid: #PID<0.10560.0>}
+Client #PID<0.10556.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.20.2) lib/gen_server.ex:1180: GenServer.call/3
+    test/exocomp/node/listener_test.exs:218: Exocomp.Node.ListenerTest."test reload with missing config file returns error and listener stops"/1
+    (ex_unit 1.20.2) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.20.2) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+02:20:10.648 [error] [Listener] config load error: :enoent
+
+02:20:10.649 [error] [Listener] startup failed: :enoent
+.
+02:20:10.674 [error] [Listener] config load error: {:json_parse, %Jason.DecodeError{position: 55, token: nil, data: "{\"version\": 1, \"node_id\": \"exocomp-test-node\", \"tls\": {"}}
+
+02:20:10.676 [error] [Listener] startup failed: {:json_parse, %Jason.DecodeError{position: 55, token: nil, data: "{\"version\": 1, \"node_id\": \"exocomp-test-node\", \"tls\": {"}}
+.
+02:20:10.685 [error] [Listener] config load error: {:unsupported_version, 99}
+
+02:20:10.686 [error] [Listener] startup failed: {:unsupported_version, 99}
+..
+02:20:10.932 [error] [Listener] config load error: :enoent
+
+02:20:10.934 [error] [Listener] startup failed: :enoent
+.
+02:20:11.200 [error] Task #PID<0.11212.0> started from #PID<0.11210.0> terminating
+** (stop) exited in: :gen_server.call(#PID<0.11196.0>, :accept_options, :infinity)
+    ** (EXIT) no process: the process is not alive or there's no process currently associated with the given name, possibly because its application isn't started
+    (stdlib 7.3) gen_server.erl:1301: :gen_server.call/3
+    (ssl 11.6.0.3) tls_socket.erl:120: :tls_socket.accept/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:34: ThousandIsland.Acceptor.accept/6
+    (elixir 1.20.2) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{18437, Bandit.DelegatingHandler}, 5}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.11194.0>, #PID<0.11210.0>, 5, %ThousandIsland.ServerConfig{port: 18437, transport_module: ThousandIsland.Transports.SSL, transport_options: [certfile: ~c"/workspace/apps/exocomp_node/test/fixtures/certs/node.crt", keyfile: ~c"/tmp/listener_test_key_2911633.key", cacertfile: ~c"/workspace/apps/exocomp_node/test/fixtures/certs/ca.crt", verify: :verify_peer, fail_if_no_peer_cert: true, versions: [:"tlsv1.3"], ip: {127, 0, 0, 1}, alpn_preferred_protocols: ["h2", "http/1.1"]], handler_module: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {Exocomp.Node.A2ARouter, [node_id: "exocomp-test-node"]}, handler_module: Bandit.InitialHandler, http_1_enabled: true, http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_acceptors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_count: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout: 15000, silent_terminate_on_error: false}}]
+...............
+02:20:12.456 [info] [ApprovalGate] start correlation_id=7557838427da7814bc4264156fc0821c action=restart_service target=fixture.service
+
+02:20:12.457 [info] [ApprovalGate] token_valid correlation_id=7557838427da7814bc4264156fc0821c nonce=nonce-fi... action=restart_service
+
+02:20:12.457 [info] [ApprovalGate] preconditions_ok correlation_id=7557838427da7814bc4264156fc0821c nonce=nonce-fi... action=restart_service
+
+02:20:12.485 [info] [ApprovalGate] replay_claimed correlation_id=7557838427da7814bc4264156fc0821c nonce=nonce-fi... action=restart_service
+
+02:20:12.488 [info] [ApprovalGate] execution_success correlation_id=7557838427da7814bc4264156fc0821c nonce=nonce-fi... action=restart_service
+.
+02:20:12.609 [info] [ApprovalGate] start correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb action=restart_service target=fixture.service
+
+02:20:12.611 [info] [ApprovalGate] token_valid correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb nonce=nonce-fi... action=restart_service
+
+02:20:12.612 [info] [ApprovalGate] preconditions_ok correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb nonce=nonce-fi... action=restart_service
+
+02:20:12.638 [info] [ApprovalGate] replay_claimed correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb nonce=nonce-fi... action=restart_service
+
+02:20:12.640 [info] [ApprovalGate] execution_success correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb nonce=nonce-fi... action=restart_service
+
+02:20:12.696 [info] [ApprovalGate] start correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb action=restart_service target=fixture.service
+
+02:20:12.697 [info] [ApprovalGate] token_valid correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb nonce=nonce-fi... action=restart_service
+
+02:20:12.698 [info] [ApprovalGate] preconditions_ok correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb nonce=nonce-fi... action=restart_service
+
+02:20:12.702 [info] [ApprovalGate] replay_already_executed correlation_id=1f4ecfbf33aad7f45d667c8fe7e6fecb nonce=nonce-fi... action=restart_service
+........
+02:20:13.246 [info] [ApprovalGate] start correlation_id=f26c1b65e0b45f7c3c0ba288a89d1ecf action=restart_service target=fixture.service
+
+02:20:13.247 [info] [ApprovalGate] token_valid correlation_id=f26c1b65e0b45f7c3c0ba288a89d1ecf nonce=nonce-fi... action=restart_service
+
+02:20:13.250 [info] [ApprovalGate] preconditions_ok correlation_id=f26c1b65e0b45f7c3c0ba288a89d1ecf nonce=nonce-fi... action=restart_service
+
+02:20:13.290 [info] [ApprovalGate] replay_claimed correlation_id=f26c1b65e0b45f7c3c0ba288a89d1ecf nonce=nonce-fi... action=restart_service
+
+02:20:13.293 [info] [ApprovalGate] execution_success correlation_id=f26c1b65e0b45f7c3c0ba288a89d1ecf nonce=nonce-fi... action=restart_service
+....
+02:20:13.614 [info] [ApprovalGate] start correlation_id=a87b0502d67bd59bd9349ec86dbd726b action=restart_service target=fixture.service
+
+02:20:13.615 [info] [ApprovalGate] token_valid correlation_id=a87b0502d67bd59bd9349ec86dbd726b nonce=nonce-fi... action=restart_service
+
+02:20:13.616 [info] [ApprovalGate] preconditions_ok correlation_id=a87b0502d67bd59bd9349ec86dbd726b nonce=nonce-fi... action=restart_service
+
+02:20:13.644 [info] [ApprovalGate] replay_claimed correlation_id=a87b0502d67bd59bd9349ec86dbd726b nonce=nonce-fi... action=restart_service
+
+02:20:13.646 [warning] [ApprovalGate] execution_failed correlation_id=a87b0502d67bd59bd9349ec86dbd726b nonce=nonce-fi... action=restart_service error={:audit_unavailable, :partition_simulated}
+.
+02:20:13.728 [info] [ApprovalGate] start correlation_id=463a5f16abb6981b15188c7fca6c027b action=restart_service target=fixture.service
+
+02:20:13.729 [info] [ApprovalGate] token_valid correlation_id=463a5f16abb6981b15188c7fca6c027b nonce=nonce-fi... action=restart_service
+
+02:20:13.729 [info] [ApprovalGate] preconditions_ok correlation_id=463a5f16abb6981b15188c7fca6c027b nonce=nonce-fi... action=restart_service
+
+02:20:13.760 [info] [ApprovalGate] replay_claimed correlation_id=463a5f16abb6981b15188c7fca6c027b nonce=nonce-fi... action=restart_service
+
+02:20:13.761 [info] [ApprovalGate] execution_success correlation_id=463a5f16abb6981b15188c7fca6c027b nonce=nonce-fi... action=restart_service
+.
+02:20:13.838 [info] [ApprovalGate] start correlation_id=1b0579cdde83dfb4840857bf59c4238e action=restart_service target=fixture.service
+
+02:20:13.839 [info] [ApprovalGate] token_valid correlation_id=1b0579cdde83dfb4840857bf59c4238e nonce=nonce-fi... action=restart_service
+
+02:20:13.840 [info] [ApprovalGate] preconditions_ok correlation_id=1b0579cdde83dfb4840857bf59c4238e nonce=nonce-fi... action=restart_service
+
+02:20:13.863 [info] [ApprovalGate] replay_claimed correlation_id=1b0579cdde83dfb4840857bf59c4238e nonce=nonce-fi... action=restart_service
+
+02:20:13.867 [info] [ApprovalGate] execution_success correlation_id=1b0579cdde83dfb4840857bf59c4238e nonce=nonce-fi... action=restart_service
+.
+02:20:13.970 [info] [ApprovalGate] start correlation_id=9903713c47d86fefa6363cce365cbc73 action=restart_service target=fixture.service
+
+02:20:13.971 [info] [ApprovalGate] token_valid correlation_id=9903713c47d86fefa6363cce365cbc73 nonce=nonce-fi... action=restart_service
+
+02:20:13.972 [info] [ApprovalGate] preconditions_ok correlation_id=9903713c47d86fefa6363cce365cbc73 nonce=nonce-fi... action=restart_service
+
+02:20:13.999 [info] [ApprovalGate] replay_claimed correlation_id=9903713c47d86fefa6363cce365cbc73 nonce=nonce-fi... action=restart_service
+
+02:20:14.001 [warning] [ApprovalGate] execution_failed correlation_id=9903713c47d86fefa6363cce365cbc73 nonce=nonce-fi... action=restart_service error={:audit_unavailable, :audit_sink_unavailable}
+...............
+02:20:14.766 [debug] [Executor] action=restart_service target="myapp.service" exec=/usr/bin/systemctl argv=["restart", "myapp.service"]
+...................
+02:20:15.693 [info] [ApprovalGate] start correlation_id=corr-m3-test action=restart_service target=example.service
+
+02:20:15.700 [info] [ApprovalGate] token_valid correlation_id=corr-m3-test nonce=EsKStlTr... action=restart_service
+
+02:20:15.701 [warning] [ApprovalGate] precondition_changed correlation_id=corr-m3-test nonce=EsKStlTr... action=restart_service target=example.service reason=:precondition_changed
+.....
+02:20:15.856 [info] [ApprovalGate] start correlation_id=corr-m3-test action=restart_service target=example.service
+
+02:20:15.861 [warning] [ApprovalGate] token_invalid correlation_id=corr-m3-test action=restart_service reason={:binding_mismatch, :node_id, "node-m3-test", "other-node"}
+......
+02:20:16.302 [info] [ApprovalGate] start correlation_id=corr-m3-test action=restart_service target=example.service
+
+02:20:16.307 [warning] [ApprovalGate] token_invalid correlation_id=corr-m3-test action=restart_service reason=:expired
+..
+02:20:16.376 [info] [ApprovalGate] start correlation_id=corr-m3-test action=restart_service target=example.service
+
+02:20:16.382 [info] [ApprovalGate] token_valid correlation_id=corr-m3-test nonce=AwLb_gwd... action=restart_service
+
+02:20:16.383 [info] [ApprovalGate] preconditions_ok correlation_id=corr-m3-test nonce=AwLb_gwd... action=restart_service
+
+02:20:16.418 [info] [ApprovalGate] replay_claimed correlation_id=corr-m3-test nonce=AwLb_gwd... action=restart_service
+
+02:20:16.420 [debug] [Executor] action=restart_service target="example.service" exec=/usr/bin/systemctl argv=["restart", "example.service"]
+
+02:20:16.422 [info] [ApprovalGate] execution_success correlation_id=corr-m3-test nonce=AwLb_gwd... action=restart_service
+
+02:20:16.471 [info] [ApprovalGate] start correlation_id=corr-m3-test action=restart_service target=example.service
+
+02:20:16.480 [info] [ApprovalGate] token_valid correlation_id=corr-m3-test nonce=AwLb_gwd... action=restart_service
+
+02:20:16.481 [info] [ApprovalGate] preconditions_ok correlation_id=corr-m3-test nonce=AwLb_gwd... action=restart_service
+
+02:20:16.493 [info] [ApprovalGate] replay_already_executed correlation_id=corr-m3-test nonce=AwLb_gwd... action=restart_service
+.
+02:20:16.575 [info] [ApprovalGate] start correlation_id=corr-m3-test action=restart_service target=example.service
+
+02:20:16.580 [warning] [ApprovalGate] token_invalid correlation_id=corr-m3-test action=restart_service reason=:invalid_signature
+....
+Finished in 70.6 seconds (36.1s async, 34.4s sync)
+
+Result: 844 passed, 10 excluded
+make: *** [Makefile:113: test] Error 2
+=== test end 2026-07-26T02:20:19+00:00 rc=2 ===

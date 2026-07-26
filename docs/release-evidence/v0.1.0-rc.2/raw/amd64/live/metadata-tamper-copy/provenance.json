@@ -1,0 +1,93 @@
+{
+  "_type": "https://in-toto.io/Statement/v0.1",
+  "subject": [
+    {
+      "name": "exocomp-complete-0.1.0-rc.2-linux-amd64",
+      "digest": {
+        "sha256": "de481897194ff9e94fb46e9b4e7b1b3147bcd21a047402c5f2333916b4422082"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v0.2",
+  "predicate": {
+    "builder": {
+      "id": "https://github.com/NVShawn/exocomp/blob/main/scripts/assemble-bundle.sh"
+    },
+    "buildType": "https://github.com/NVShawn/exocomp/buildType/offline-bundle/v1",
+    "invocation": {
+      "configSource": {
+        "uri": "git+https://github.com/NVShawn/exocomp.git",
+        "digest": {
+          "sha1": "581128d6680ec921b140d97d5018139582a5dd66"
+        },
+        "entryPoint": "scripts/assemble-bundle.sh"
+      },
+      "parameters": {
+        "arch": "amd64",
+        "version": "0.1.0-rc.2",
+        "kind": "complete"
+      },
+      "environment": {
+        "builder_image": "docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d",
+        "builder_image_digest": "sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d"
+      }
+    },
+    "buildConfig": {
+      "steps": [
+        {
+          "id": "build-otp-releases",
+          "command": "scripts/build-releases.sh amd64",
+          "inputs": {
+            "builder_image": "docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d",
+            "mix_lock_digest": "sha256:1dfe980a408835b5eee0d05dda5dcedf159d9a09bb32495c38ed72dff599c4c7"
+          }
+        },
+        {
+          "id": "assemble-bundle",
+          "command": "scripts/assemble-bundle.sh --arch amd64 --version 0.1.0-rc.2 --kind complete",
+          "inputs": {
+            "otp_releases": "_build/release/amd64/rel/",
+            "installer_scripts": "scripts/install.sh, scripts/uninstall.sh",
+            "systemd_units": "release/node/, release/coordinator/"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "buildInvocationId": "581128d6680ec921b140d97d5018139582a5dd66-amd64-complete-2026-07-26T01:40:09Z",
+      "buildStartedOn": "2026-07-26T01:40:09Z",
+      "buildFinishedOn": "2026-07-26T01:40:09Z",
+      "completeness": {
+        "parameters": true,
+        "environment": true,
+        "materials": false
+      },
+      "reproducible": true
+    },
+    "materials": [
+      {
+        "uri": "git+https://github.com/NVShawn/exocomp.git",
+        "digest": {
+          "sha1": "581128d6680ec921b140d97d5018139582a5dd66"
+        }
+      },
+      {
+        "uri": "https://hub.docker.com/r/hexpm/elixir",
+        "digest": {
+          "sha256": "9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d"
+        }
+      }
+    ],
+    "toolchain": {
+      "elixir_version": "1.20.2",
+      "otp_version": "28.5.0.3",
+      "glibc_baseline": "2.36",
+      "builder_image_tag": "docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim",
+      "builder_image_digest": "sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d"
+    },
+    "dependency_locks": {
+      "mix_lock": "sha256:1dfe980a408835b5eee0d05dda5dcedf159d9a09bb32495c38ed72dff599c4c7",
+      "builders_lock": "release/builders.lock"
+    }
+  }
+}

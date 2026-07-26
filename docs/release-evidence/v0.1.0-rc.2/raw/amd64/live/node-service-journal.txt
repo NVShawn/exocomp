@@ -1,0 +1,12 @@
+Jul 26 01:42:17 exocomp-amd64 systemd[1]: /etc/systemd/system/exocomp-node.service:52: Unknown key name 'StartLimitIntervalSec' in section 'Service', ignoring.
+Jul 26 01:42:17 exocomp-amd64 systemd[1]: Starting exocomp-node.service - Exocomp Node Agent...
+Jul 26 01:42:17 exocomp-amd64 systemd[1]: Started exocomp-node.service - Exocomp Node Agent.
+Jul 26 01:42:18 exocomp-amd64 exocomp-node[94604]: {exit,terminating,[{application_controller,call,2,[{file,"application_controller.erl"},{line,515}]},{application,enqueue_or_start,6,[{file,"application.erl"},{line,381}]},{application,ensure_all_started,3,[{file,"application.erl"},{line,360}]},{elixir,start_cli,0,[{file,"src/elixir.erl"},{line,182}]},{init,start_it,1,[]},{init,start_em,1,[]},{init,do_boot,3,[]}]}
+Jul 26 01:42:18 exocomp-amd64 exocomp-node[94604]: 01:42:18.178 [notice] Application exocomp_node exited: Exocomp.Node.Application.start(:normal, []) returned an error: shutdown: failed to start child: Exocomp.Node.Safety.ReplayLedger
+Jul 26 01:42:18 exocomp-amd64 exocomp-node[94604]:     ** (EXIT) {:dets_unavailable, {:file_error, ~c"/var/lib/exocomp/replay_ledger.dets", :enoent}}
+Jul 26 01:42:19 exocomp-amd64 exocomp-node[94604]: Kernel pid terminated (application_controller) ("{application_start_failure,exocomp_node,{{shutdown,{failed_to_start_child,'Elixir.Exocomp.Node.Safety.ReplayLedger',{dets_unavailable,{file_error,\"/var/lib/exocomp/replay_ledger.dets\",enoent}}}},{'Elixir.Exocomp.Node.Application',start,[normal,[]]}}}")
+Jul 26 01:42:19 exocomp-amd64 exocomp-node[94604]:
+Jul 26 01:42:19 exocomp-amd64 exocomp-node[94604]: Crash dump is being written to: /opt/exocomp/node/log/erl_crash.dump...done
+Jul 26 01:42:19 exocomp-amd64 systemd[1]: exocomp-node.service: Main process exited, code=exited, status=1/FAILURE
+Jul 26 01:42:19 exocomp-amd64 systemd[1]: exocomp-node.service: Failed with result 'exit-code'.
+Jul 26 01:42:19 exocomp-amd64 systemd[1]: exocomp-node.service: Consumed 2.147s CPU time.

@@ -1,0 +1,16 @@
+%{
+  listener: nil,
+  health: %{
+    status: :healthy,
+    registry: %{node_count: 0},
+    audit: %{
+      last_error: nil,
+      healthy: true,
+      sink: Exocomp.Coordinator.Audit.JSONLines
+    },
+    inventory: %{error: nil, version: 1, source: nil, node_count: 0}
+  },
+  pki: nil,
+  enrollment: nil
+}
+rpc_exit=0

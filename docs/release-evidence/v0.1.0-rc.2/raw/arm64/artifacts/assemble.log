@@ -1,0 +1,38 @@
+[assemble-bundle] Bundle: exocomp-complete-0.1.0-rc.2-linux-arm64
+[assemble-bundle] Kind:   complete
+[assemble-bundle] ==> VALIDATING INPUTS
+[assemble-bundle]   node archive:        dist/releases/exocomp-node-0.1.0-linux-arm64.tar.gz
+[assemble-bundle]   coord archive:       dist/releases/exocomp-coordinator-0.1.0-linux-arm64.tar.gz
+[assemble-bundle]   llama-server:        /var/lib/exocomp-qualification/inputs/llama-b10107/llama-server
+[assemble-bundle]   model:               /var/lib/exocomp-qualification/inputs/qwen2.5-1.5b-instruct-q4_k_m.gguf
+[assemble-bundle]   verifying model SHA-256...
+[assemble-bundle]   model SHA-256 OK: 6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e
+[assemble-bundle]   source commit:       581128d6680ec921b140d97d5018139582a5dd66
+[assemble-bundle] ==> STAGING BUNDLE CONTENTS
+[assemble-bundle]   staged: releases/exocomp-node-0.1.0-linux-arm64.tar.gz
+[assemble-bundle]   staged: releases/exocomp-coordinator-0.1.0-linux-arm64.tar.gz
+[assemble-bundle]   staged: llama-server
+[assemble-bundle]   staged: models/qwen2.5-1.5b-instruct-q4_k_m.gguf
+[assemble-bundle]   staged: release/
+[assemble-bundle]   staged: scripts/
+[assemble-bundle] WARN:   LICENSES/ directory not found at /var/lib/exocomp-qualification/src/LICENSES; skipping
+[assemble-bundle]   staged: THIRD_PARTY_NOTICES.md
+[assemble-bundle]   staged: LICENSE
+[assemble-bundle] ==> GENERATING MANIFEST
+[assemble-bundle]   manifest.sha256: 16 entries
+[assemble-bundle] ==> GENERATING STRUCTURED MANIFEST
+[assemble-bundle]   manifest.json written
+[assemble-bundle] ==> GENERATING SPDX SBOM
+[assemble-bundle]   sbom.spdx.json written
+[assemble-bundle] ==> GENERATING PROVENANCE
+[assemble-bundle]   provenance.json written
+[assemble-bundle] ==> SIGNING
+Signed: /tmp/tmp.PYCJBvHgZj/exocomp-complete-0.1.0-rc.2-linux-arm64/bundle.minisig
+[assemble-bundle]   bundle.minisig written
+[assemble-bundle] ==> CREATING ARCHIVE
+[assemble-bundle]   created: /var/lib/exocomp-qualification/evidence/artifacts/exocomp-complete-0.1.0-rc.2-linux-arm64.tar.gz
+[assemble-bundle]   created: /var/lib/exocomp-qualification/evidence/artifacts/exocomp-complete-0.1.0-rc.2-linux-arm64.tar.gz.sha256
+[assemble-bundle]
+[assemble-bundle] ==> DONE
+[assemble-bundle]     archive:  /var/lib/exocomp-qualification/evidence/artifacts/exocomp-complete-0.1.0-rc.2-linux-arm64.tar.gz
+[assemble-bundle]     checksum: /var/lib/exocomp-qualification/evidence/artifacts/exocomp-complete-0.1.0-rc.2-linux-arm64.tar.gz.sha256

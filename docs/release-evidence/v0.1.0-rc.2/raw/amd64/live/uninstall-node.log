@@ -1,0 +1,25 @@
+[uninstall] ==> VALIDATION
+[uninstall]   component: node
+[uninstall]   purge:     none
+[uninstall]   dry-run:   0
+[uninstall] ==> DISCOVER VERSION
+[uninstall]   current version: 0.1.0-rc.2
+[uninstall] ==> STOP SERVICE
+[uninstall]   exocomp-node is not running (skip stop)
+[uninstall]   exocomp-node is not enabled (skip disable)
+[uninstall] ==> REMOVE INSTALLED FILES
+[uninstall]   rm -f /etc/systemd/system/exocomp-node.service
+[uninstall]   rm -f /etc/sudoers.d/exocomp-node
+[uninstall]   rm -f /opt/exocomp/node/current  (symlink)
+[uninstall]   rm -rf /opt/exocomp/node/releases/0.1.0-rc.2
+[uninstall]   rm -f /opt/exocomp/node/manifest-0.1.0-rc.2.txt
+[uninstall] ==> RELOAD SYSTEMD
+[uninstall]   systemctl daemon-reload
+[uninstall] ==> PRESERVED (operator state — NOT removed)
+[uninstall]   /opt/exocomp/node/config
+[uninstall]   /opt/exocomp/node/log
+[uninstall]   /var/lib/exocomp-node
+[uninstall]   (use --purge categories to remove specific data classes)
+
+[uninstall] ==> exocomp-node uninstalled
+[uninstall]     operator state preserved in /opt/exocomp/node/config/

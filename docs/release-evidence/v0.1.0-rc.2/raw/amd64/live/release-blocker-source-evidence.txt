@@ -1,0 +1,9 @@
+70:The current release exposes enrollment domain APIs but no standalone
+73:candidate without this integration as not qualified, rather than improvising
+50:  Intended for integration testing of PKI and enrollment. Production startup
+13:  `start_supervised_tree/1` directly to start a named, isolated sub-tree with
+71:  @spec start_supervised_tree(keyword()) :: {:ok, pid()} | {:error, term()}
+72:  def start_supervised_tree(opts) when is_list(opts) do
+20:sudo ./scripts/state-backup.sh create \
+50:`scripts/state-backup.sh` includes configuration and PKI, audit logs, and
+shipped_state_backup_script=absent
