@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T05:55:33.097462Z'
+updated_at: '2026-07-26T06:19:54.288562Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -73,5 +73,20 @@ author: oompah
 created: 2026-07-26 05:55
 ---
 Additional arm64 discovery: The mandated full-system make test progressed past Bench.HostSamplerTest and HealthPollerTest, then exposed a separate test-only scheduler limit in A2ARouterTest: five concurrent local callers exceeded Task.await_many(..., 2_000) only under full-suite QEMU load (498/499 coordinator tests). The focused test passes repeatedly in isolation, confirming load-sensitive latency rather than a semantic failure. I minimally raised that test-only bounded await to 10s; production behavior remains untouched. Re-running the exact arm64 make test gate now.
+---
+author: oompah
+created: 2026-07-26 06:19
+---
+Agent stalled — no productive actions (writes/commands) for 10 consecutive turns (3607s). Retrying in 10s (attempt #1)
+---
+author: oompah
+created: 2026-07-26 06:19
+---
+Run #1 [attempt=1, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 232
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 7s
+- Log: EXOCOMP-121__20260726T051950Z.jsonl
 ---
 <!-- COMMENTS:END -->
