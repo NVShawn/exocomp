@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:39:22.997053Z'
+updated_at: '2026-07-26T04:39:35.323091Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -232,5 +232,10 @@ author: oompah
 created: 2026-07-26 04:39
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 04:39
+---
+Understanding: I am the Software Engineer focus for EXOCOMP-119. The previous focus handoffs confirm the gap: apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex starts only the general M2 supervision tree with no Listener, PKI.State, or EnrollmentToken; health.ex only checks Inventory/Registry/Audit; enrollment/renewal endpoints are absent from the production A2A router. My plan: (1) read all relevant source files to understand current module APIs; (2) wire PKI.State, EnrollmentToken, Listener, and enrollment/renewal handlers into Application.start/2 production tree; (3) update Health.check/0 to require all live components; (4) add release-mode integration tests; (5) run make test and available gates; (6) commit and push.
 ---
 <!-- COMMENTS:END -->
