@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T03:59:45.224374Z'
+updated_at: '2026-07-26T03:59:47.876511Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -244,5 +244,10 @@ author: oompah
 created: 2026-07-26 03:20
 ---
 The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Open with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-26 03:59
+---
+Qualification is complete, with a publication-blocking result rather than a human-input blocker. Signed amd64 and full-system arm64 evidence for v0.1.0-rc.2 was merged to main by PR #17 as 01c14b8. The accepted qualification principal is shedwards@nvidia.com with ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw. Passing evidence covers deterministic OTP archives, clean-container startup, hardening, and protected-state uninstall. Concrete failures are now tracked under remediation epic EXOCOMP-117 as EXOCOMP-118 through EXOCOMP-122; EXOCOMP-123 is dependency-blocked until those fixes land, then will run a fresh signed candidate matrix. This closes the evidence-gathering task only; v0.1.0-rc.2 remains not publication-ready.
 ---
 <!-- COMMENTS:END -->
