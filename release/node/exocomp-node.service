@@ -73,7 +73,7 @@ SecureBits=noroot noroot-locked
 # directories the service legitimately needs.
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config
+ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config @STATE_DIR@
 
 # Private /tmp prevents the service from accessing /tmp state written by other
 # processes.

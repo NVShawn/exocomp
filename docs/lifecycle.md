@@ -17,13 +17,13 @@ Create and verify a protected-state backup first. Install the candidate with
 the same component and allow-list:
 
 ```sh
-sudo ./scripts/state-backup.sh create \
+sudo /opt/exocomp/node/current/bin/exocomp-state-backup create \
   --component node \
   --output /secure/backups/exocomp-node-pre-upgrade.tar.gz
 sudo ./scripts/install.sh \
   --component node \
-  --bundle ./exocomp-node-0.2.0-linux-amd64.tar.gz \
-  --checksums ./checksums.sha256 \
+  --bundle ./releases/exocomp-node-0.2.0-linux-amd64.tar.gz \
+  --checksums ./manifest.sha256 \
   --version 0.2.0 \
   --allow-list exocomp-fixture.service \
   --non-interactive
@@ -47,16 +47,26 @@ Consumed-execution state remains under `/var/lib`, preventing action replay.
 
 ## Backup and restore
 
-`scripts/state-backup.sh` includes configuration and PKI, audit logs, and
-durable state such as enrollment and consumed-execution records. It does not
-include versioned binaries. Backups may contain secrets; keep mode `0600`,
-encrypt at rest, separate keys, test restore periodically, and retain the
-adjacent checksum.
+The offline bundle ships `scripts/state-backup.sh`, and every installed release
+exposes the same utility as
+`/opt/exocomp/<component>/current/bin/exocomp-state-backup`.
+It includes configuration and PKI, audit logs, and durable state such as
+enrollment and consumed-execution records. It does not include versioned
+binaries. Backups may contain secrets; keep mode `0600`, encrypt at rest,
+separate keys, test restore periodically, and retain the adjacent checksum.
 
 Restore onto an empty destination by default. `--force` merges the verified
 backup over existing Exocomp state but does not delete unknown files. After
 restore, validate permissions, identity fingerprint, audit continuity,
 inventory, and health before enabling traffic.
+
+Restore with the installed utility while the service is stopped:
+
+```sh
+sudo /opt/exocomp/node/current/bin/exocomp-state-backup restore \
+  --component node \
+  --archive /secure/backups/exocomp-node-pre-upgrade.tar.gz
+```
 
 ## Safe removal
 

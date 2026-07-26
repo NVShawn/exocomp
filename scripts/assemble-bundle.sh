@@ -16,9 +16,11 @@
 #   LICENSES/            — License texts for bundled components
 #   THIRD_PARTY_NOTICES.md
 #   releases/            — OTP release archives (node + coordinator)
-#   llama-server         — llama.cpp inference server binary
+#   llama-server         — relocatable llama.cpp launcher
+#   llama-server.bin     — llama.cpp inference server executable
+#   lib/llama/           — non-system llama.cpp shared-library closure
 #   release/             — systemd units, config templates
-#   scripts/             — install.sh, uninstall.sh, verify-bundle.sh
+#   scripts/             — install, uninstall, verification, and state utilities
 #
 # The complete bundle additionally includes:
 #   models/              — Verified Qwen GGUF model
@@ -33,6 +35,8 @@
 #   --node-archive   PATH                             node OTP release archive
 #   --coord-archive  PATH                             coordinator OTP release archive
 #   --llama-server   PATH                             llama-server binary
+#   --llama-lib-dir  PATH                             directory containing its .so files
+#                                                     (default: binary directory)
 #   --model          PATH                             Qwen GGUF model file
 #                                                     (required for --kind complete)
 #   --model-sha256   SHA256                           expected SHA-256 of the model file
@@ -57,6 +61,7 @@ KIND="complete"
 NODE_ARCHIVE=""
 COORD_ARCHIVE=""
 LLAMA_SERVER_BIN=""
+LLAMA_LIB_DIR=""
 MODEL_PATH=""
 MODEL_SHA256=""
 SOURCE_COMMIT=""
@@ -84,6 +89,47 @@ sha256_file() {
     sha256sum "$1" | awk '{print $1}'
 }
 
+is_elf() {
+    [[ "$(dd if="$1" bs=4 count=1 2>/dev/null | od -A n -t x1 | tr -d ' \n')" == "7f454c46" ]]
+}
+
+validate_llama_runtime() {
+    local runtime_root="$1"
+    local elf
+    local needed
+    local readelf_output
+    local baseline="${REPO_ROOT}/release/runtime-baseline.lock"
+
+    is_elf "${runtime_root}/llama-server.bin" || return 0
+    command -v readelf >/dev/null 2>&1 ||
+        die "readelf is required to validate the llama-server runtime closure"
+    [[ -f "${baseline}" ]] || die "runtime baseline not found: ${baseline}"
+
+    while IFS= read -r elf; do
+        is_elf "${elf}" || continue
+        if ! readelf_output="$(readelf -d "${elf}" 2>/dev/null)"; then
+            die "could not inspect llama runtime ELF: ${elf}"
+        fi
+        while IFS= read -r needed; do
+            [[ -n "${needed}" ]] || continue
+            if [[ -e "${runtime_root}/lib/llama/${needed}" ]]; then
+                continue
+            fi
+            if grep -qFx "${needed}" "${baseline}"; then
+                continue
+            fi
+            die "llama runtime dependency '${needed}' required by $(basename "${elf}") is not bundled"
+        done < <(
+            printf '%s\n' "${readelf_output}" |
+                sed -n '/(NEEDED)/s/.*Shared library: \[\([^]]*\)\].*/\1/p'
+        )
+    done < <(
+        find "${runtime_root}" -type f \
+            \( -name 'llama-server.bin' -o -name '*.so*' \) |
+            sort
+    )
+}
+
 # ── Argument parsing ───────────────────────────────────────────────────────────
 
 while [[ $# -gt 0 ]]; do
@@ -94,6 +140,7 @@ while [[ $# -gt 0 ]]; do
         --node-archive)   NODE_ARCHIVE="$2";     shift 2 ;;
         --coord-archive)  COORD_ARCHIVE="$2";    shift 2 ;;
         --llama-server)   LLAMA_SERVER_BIN="$2"; shift 2 ;;
+        --llama-lib-dir)  LLAMA_LIB_DIR="$2";    shift 2 ;;
         --model)          MODEL_PATH="$2";       shift 2 ;;
         --model-sha256)   MODEL_SHA256="$2";     shift 2 ;;
         --source-commit)  SOURCE_COMMIT="$2";    shift 2 ;;
@@ -155,8 +202,13 @@ fi
 
 if [[ -n "${LLAMA_SERVER_BIN}" ]]; then
     [[ -f "${LLAMA_SERVER_BIN}" ]] || die "llama-server binary not found: ${LLAMA_SERVER_BIN}"
+    LLAMA_LIB_DIR="${LLAMA_LIB_DIR:-$(dirname "${LLAMA_SERVER_BIN}")}"
+    [[ -d "${LLAMA_LIB_DIR}" ]] || die "llama library directory not found: ${LLAMA_LIB_DIR}"
     log "  llama-server:        ${LLAMA_SERVER_BIN}"
+    log "  llama libraries:     ${LLAMA_LIB_DIR}"
 else
+    [[ -z "${LLAMA_LIB_DIR}" ]] ||
+        die "--llama-lib-dir requires --llama-server"
     warn "  --llama-server not set; llama-server will be absent from bundle"
 fi
 
@@ -209,11 +261,45 @@ if [[ -n "${NODE_ARCHIVE}" || -n "${COORD_ARCHIVE}" ]]; then
     fi
 fi
 
-# 2b. llama-server binary
+# 2b. llama-server and its non-system runtime dependency closure
 if [[ -n "${LLAMA_SERVER_BIN}" ]]; then
-    cp -f "${LLAMA_SERVER_BIN}" "${BUNDLE_STAGE}/llama-server"
+    mkdir -p "${BUNDLE_STAGE}/lib/llama"
+    cp -f "${LLAMA_SERVER_BIN}" "${BUNDLE_STAGE}/llama-server.bin"
+    chmod 755 "${BUNDLE_STAGE}/llama-server.bin"
+
+    while IFS= read -r llama_lib; do
+        # Dereference input symlinks so the offline payload cannot retain a
+        # build-host path while still providing every SONAME alias.
+        cp -fL "${llama_lib}" "${BUNDLE_STAGE}/lib/llama/$(basename "${llama_lib}")"
+    done < <(
+        find "${LLAMA_LIB_DIR}" -maxdepth 1 \
+            \( -type f -o -type l \) -name '*.so*' |
+            sort
+    )
+
+    cat > "${BUNDLE_STAGE}/llama-server" <<'LLAMA_LAUNCHER'
+#!/bin/sh
+set -eu
+
+server_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+if [ -d "${server_dir}/lib/llama" ]; then
+    llama_lib_dir="${server_dir}/lib/llama"
+else
+    llama_lib_dir="${server_dir}/../lib/llama"
+fi
+
+if [ -n "${LD_LIBRARY_PATH:-}" ]; then
+    LD_LIBRARY_PATH="${llama_lib_dir}:${LD_LIBRARY_PATH}"
+else
+    LD_LIBRARY_PATH="${llama_lib_dir}"
+fi
+export LD_LIBRARY_PATH
+exec "${server_dir}/llama-server.bin" "$@"
+LLAMA_LAUNCHER
     chmod 755 "${BUNDLE_STAGE}/llama-server"
-    log "  staged: llama-server"
+
+    validate_llama_runtime "${BUNDLE_STAGE}"
+    log "  staged: llama-server runtime"
 fi
 
 # 2c. GGUF model (complete bundle only)
@@ -231,6 +317,7 @@ log "  staged: release/"
 mkdir -p "${BUNDLE_STAGE}/scripts"
 cp -f "${SCRIPT_DIR}/install.sh"     "${BUNDLE_STAGE}/scripts/"
 cp -f "${SCRIPT_DIR}/uninstall.sh"   "${BUNDLE_STAGE}/scripts/"
+cp -f "${SCRIPT_DIR}/state-backup.sh" "${BUNDLE_STAGE}/scripts/"
 cp -f "${SCRIPT_DIR}/verify-bundle.sh" "${BUNDLE_STAGE}/scripts/"
 chmod 755 "${BUNDLE_STAGE}/scripts/"*.sh
 log "  staged: scripts/"

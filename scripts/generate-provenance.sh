@@ -154,7 +154,7 @@ cat > "${OUTPUT}" <<PROVENANCE_END
           "command": "scripts/assemble-bundle.sh --arch ${ARCH} --version ${VERSION} --kind ${KIND}",
           "inputs": {
             "otp_releases": "_build/release/${ARCH}/rel/",
-            "installer_scripts": "scripts/install.sh, scripts/uninstall.sh",
+            "installer_scripts": "scripts/install.sh, scripts/uninstall.sh, scripts/state-backup.sh",
             "systemd_units": "release/node/, release/coordinator/"
           }
         }

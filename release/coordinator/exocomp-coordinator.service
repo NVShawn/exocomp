@@ -61,7 +61,7 @@ SecureBits=noroot noroot-locked
 # ── Filesystem access ─────────────────────────────────────────────────────────
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config
+ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config @STATE_DIR@
 
 PrivateTmp=true
 

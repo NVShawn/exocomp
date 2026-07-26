@@ -44,6 +44,7 @@ VERIFY_SH = SCRIPTS_DIR / "verify-bundle.sh"
 GEN_SBOM_SH = SCRIPTS_DIR / "generate-sbom.sh"
 GEN_PROV_SH = SCRIPTS_DIR / "generate-provenance.sh"
 SIGN_SH = SCRIPTS_DIR / "sign-bundle.sh"
+INSTALLATION_DOC = REPO_ROOT / "docs" / "installation.md"
 
 
 # ── Mock artifact builders ─────────────────────────────────────────────────────
@@ -60,8 +61,24 @@ def _make_otp_archive(dest_dir: Path, component: str, version: str, arch: str) -
     inner.mkdir()
     (inner / "bin").mkdir()
     stub = inner / "bin" / f"exocomp_{component}"
-    stub.write_text("#!/bin/sh\necho stub\n")
+    stub.write_text(
+        "#!/bin/sh\n"
+        'release_root="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"\n'
+        'exec "${release_root}/erts-28.5.0.3/bin/beam.smp" "$@"\n'
+    )
     stub.chmod(0o755)
+
+    beam_dir = inner / "erts-28.5.0.3" / "bin"
+    beam_dir.mkdir(parents=True)
+    beam = beam_dir / "beam.smp"
+    beam.write_text(
+        "#!/bin/sh\n"
+        'if [ -n "${EXOCOMP_FAKE_RELEASE_LOG:-}" ]; then\n'
+        '    printf "%s\\n" "$*" >> "${EXOCOMP_FAKE_RELEASE_LOG}"\n'
+        "fi\n"
+        "exit 0\n"
+    )
+    beam.chmod(0o755)
 
     rel_dir = inner / "releases" / version
     rel_dir.mkdir(parents=True)
@@ -78,10 +95,11 @@ def _make_otp_archive(dest_dir: Path, component: str, version: str, arch: str) -
 
 
 def _make_llama_server(dest_dir: Path) -> Path:
-    """Create a stub llama-server binary."""
+    """Create a stub llama-server binary with a representative companion library."""
     p = dest_dir / "llama-server-stub"
     p.write_bytes(b"#!/bin/sh\necho llama-server-stub\n")
     p.chmod(0o755)
+    (dest_dir / "libllama-server-impl.so").write_bytes(b"fake llama runtime library")
     return p
 
 
@@ -112,6 +130,7 @@ def _run_assemble(
     node_archive: Path | None = None,
     coord_archive: Path | None = None,
     llama_server: Path | None = None,
+    llama_lib_dir: Path | None = None,
     model: Path | None = None,
     model_sha256: str = "",
     source_commit: str = "abc1234def5678",
@@ -138,6 +157,8 @@ def _run_assemble(
         cmd += ["--coord-archive", str(coord_archive)]
     if llama_server:
         cmd += ["--llama-server", str(llama_server)]
+    if llama_lib_dir:
+        cmd += ["--llama-lib-dir", str(llama_lib_dir)]
     if model:
         cmd += ["--model", str(model)]
     if model_sha256:
@@ -287,12 +308,34 @@ class TestCompleteBundleAssembly:
     def test_verify_bundle_sh_present(self):
         assert (self.bundle_dir / "scripts" / "verify-bundle.sh").exists()
 
+    def test_state_backup_sh_present(self):
+        backup = self.bundle_dir / "scripts" / "state-backup.sh"
+        assert backup.exists()
+        assert backup.stat().st_mode & stat.S_IXUSR
+
     def test_llama_server_present(self):
         assert (self.bundle_dir / "llama-server").exists()
 
     def test_llama_server_is_executable(self):
         ls = self.bundle_dir / "llama-server"
         assert ls.stat().st_mode & stat.S_IXUSR, "llama-server must be executable"
+
+    def test_llama_server_executable_and_runtime_libraries_present(self):
+        assert (self.bundle_dir / "llama-server.bin").is_file()
+        assert (
+            self.bundle_dir / "lib" / "llama" / "libllama-server-impl.so"
+        ).is_file()
+
+    def test_llama_launcher_starts_using_only_the_shipped_runtime(self):
+        env = {"PATH": os.environ["PATH"], "LD_LIBRARY_PATH": ""}
+        result = subprocess.run(
+            [str(self.bundle_dir / "llama-server"), "--version"],
+            capture_output=True,
+            text=True,
+            check=True,
+            env=env,
+        )
+        assert result.stdout == "llama-server-stub\n"
 
     def test_model_present_in_complete_bundle(self):
         model_files = list((self.bundle_dir / "models").glob("*.gguf"))
@@ -326,6 +369,184 @@ class TestCompleteBundleAssembly:
 
     def test_verify_bundle_passes(self):
         _run_verify(bundle_dir=self.bundle_dir, expect_exit=0)
+
+
+class TestDocumentedCleanRootWorkflow:
+    def test_verbatim_install_commands_and_shipped_backup_restore(self, tmp_path):
+        artifacts_dir = tmp_path / "artifacts"
+        artifacts_dir.mkdir()
+        node_archive = _make_otp_archive(artifacts_dir, "node", "0.1.0", "amd64")
+        coord_archive = _make_otp_archive(
+            artifacts_dir, "coordinator", "0.1.0", "amd64"
+        )
+        llama_server = _make_llama_server(artifacts_dir)
+        model, model_sha256 = _make_model(artifacts_dir)
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch="amd64",
+            version="0.1.0",
+            kind="complete",
+            node_archive=node_archive,
+            coord_archive=coord_archive,
+            llama_server=llama_server,
+            model=model,
+            model_sha256=model_sha256,
+            dist_dir=dist,
+        )
+
+        command_blocks = re.findall(
+            r"```sh\n(.*?)```", INSTALLATION_DOC.read_text(), re.DOTALL
+        )
+        assert len(command_blocks) >= 2
+
+        tool_guard = tmp_path / "guarded-bin"
+        tool_guard.mkdir()
+        sudo = tool_guard / "sudo"
+        sudo.write_text('#!/bin/sh\nexec "$@"\n')
+        sudo.chmod(0o755)
+        for forbidden in ("erl", "elixir", "mix", "curl", "wget"):
+            guard = tool_guard / forbidden
+            guard.write_text(
+                f"#!/bin/sh\necho '{forbidden} must not be used' >&2\nexit 99\n"
+            )
+            guard.chmod(0o755)
+        systemctl = tool_guard / "systemctl"
+        systemctl.write_text(
+            """#!/bin/sh
+set -eu
+command="$1"
+shift
+unit=""
+for argument in "$@"; do
+    unit="$argument"
+done
+case "${command}" in
+    start|restart|stop|is-active)
+        unit="${unit%.service}"
+        ;;
+esac
+printf '%s %s\n' "${command}" "${unit}" >> "${EXOCOMP_FAKE_SYSTEMD_LOG}"
+case "${command}" in
+    is-system-running|enable|daemon-reload|status)
+        exit 0
+        ;;
+    start|restart)
+        component="${unit#exocomp-}"
+        "${EXOCOMP_ROOT}/opt/exocomp/${component}/current/bin/exocomp_${component}" start
+        : > "${EXOCOMP_FAKE_SYSTEMD_STATE}/${unit}"
+        exit 0
+        ;;
+    stop)
+        rm -f "${EXOCOMP_FAKE_SYSTEMD_STATE}/${unit}"
+        exit 0
+        ;;
+    is-active)
+        test -f "${EXOCOMP_FAKE_SYSTEMD_STATE}/${unit}"
+        ;;
+    *)
+        echo "unexpected systemctl command: ${command}" >&2
+        exit 2
+        ;;
+esac
+"""
+        )
+        systemctl.chmod(0o755)
+
+        clean_root = tmp_path / "clean-root"
+        fake_systemd_state = tmp_path / "fake-systemd-state"
+        fake_systemd_state.mkdir()
+        fake_systemd_log = tmp_path / "fake-systemd.log"
+        fake_release_log = tmp_path / "fake-release.log"
+        env = {
+            **os.environ,
+            "PATH": f"{tool_guard}:{os.environ['PATH']}",
+            "EXOCOMP_ROOT": str(clean_root),
+            "EXOCOMP_SYSTEMD_DIR": str(tmp_path / "systemd"),
+            "EXOCOMP_SUDOERS_DIR": str(tmp_path / "sudoers"),
+            "EXOCOMP_SKIP_SYSTEMD": "0",
+            "EXOCOMP_SKIP_VISUDO": "1",
+            "EXOCOMP_CONFIG_VALIDATOR_COMMAND": "true",
+            "EXOCOMP_FAKE_SYSTEMD_STATE": str(fake_systemd_state),
+            "EXOCOMP_FAKE_SYSTEMD_LOG": str(fake_systemd_log),
+            "EXOCOMP_FAKE_RELEASE_LOG": str(fake_release_log),
+        }
+
+        subprocess.run(
+            ["bash", "-euo", "pipefail", "-c", command_blocks[0]],
+            cwd=dist,
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        bundle_dir = dist / "exocomp-complete-0.1.0-linux-amd64"
+        subprocess.run(
+            ["bash", "-euo", "pipefail", "-c", command_blocks[1]],
+            cwd=bundle_dir,
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        node_current = clean_root / "opt" / "exocomp" / "node" / "current"
+        assert (node_current / "bin" / "exocomp_node").is_file()
+        assert (node_current / "erts-28.5.0.3" / "bin" / "beam.smp").is_file()
+        assert (node_current / "bin" / "llama-server").is_file()
+        assert (node_current / "bin" / "exocomp-state-backup").is_file()
+        assert Path(shutil.which("erl", path=str(tool_guard))) == tool_guard / "erl"
+        assert (fake_systemd_state / "exocomp-node").is_file()
+        systemd_calls = fake_systemd_log.read_text()
+        assert "start exocomp-node" in systemd_calls
+        assert "is-active exocomp-node" in systemd_calls
+        release_calls = fake_release_log.read_text().splitlines()
+        assert "start" in release_calls
+        assert any(call.startswith("rpc ") for call in release_calls)
+
+        install_dir = clean_root / "opt" / "exocomp" / "node"
+        state_dir = clean_root / "var" / "lib" / "exocomp-node"
+        pki = install_dir / "config" / "pki" / "identity.pem"
+        audit = install_dir / "log" / "audit.jsonl"
+        ledger = state_dir / "replay_ledger.dets"
+        pki.write_text("protected identity")
+        audit.write_text('{"event":"installed"}\n')
+        ledger.write_text("durable replay ledger")
+
+        backup = tmp_path / "backups" / "node-state.tar.gz"
+        installed_backup = node_current / "bin" / "exocomp-state-backup"
+        subprocess.run(
+            [
+                str(installed_backup),
+                "create",
+                "--component", "node",
+                "--output", str(backup),
+            ],
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        shutil.rmtree(install_dir / "config")
+        shutil.rmtree(install_dir / "log")
+        shutil.rmtree(state_dir)
+        subprocess.run(
+            [
+                str(installed_backup),
+                "restore",
+                "--component", "node",
+                "--archive", str(backup),
+            ],
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        assert pki.read_text() == "protected identity"
+        assert audit.read_text() == '{"event":"installed"}\n'
+        assert ledger.read_text() == "durable replay ledger"
+        assert not (fake_systemd_state / "exocomp-node").exists()
 
 
 # ── Test 2: Manifest covers every file ────────────────────────────────────────
@@ -720,6 +941,116 @@ class TestChecksumConsistency:
         assert actual == recorded, (
             f"Archive checksum mismatch:\n  recorded: {recorded}\n  actual:   {actual}"
         )
+
+
+@pytest.mark.skipif(
+    shutil.which("cc") is None or shutil.which("readelf") is None,
+    reason="C compiler and readelf are required for native loader coverage",
+)
+class TestLlamaRuntimeClosure:
+    @staticmethod
+    def _build_dynamic_runtime(tmp_path: Path) -> tuple[Path, Path]:
+        source = tmp_path / "source"
+        libraries = tmp_path / "llama-libs"
+        source.mkdir()
+        libraries.mkdir()
+
+        (source / "ggml.c").write_text(
+            'const char *ggml_message(void) { return "runtime closure ok"; }\n'
+        )
+        (source / "impl.c").write_text(
+            "extern const char *ggml_message(void);\n"
+            "const char *server_message(void) { return ggml_message(); }\n"
+        )
+        (source / "server.c").write_text(
+            "#include <stdio.h>\n"
+            "extern const char *server_message(void);\n"
+            "int main(void) { puts(server_message()); return 0; }\n"
+        )
+
+        subprocess.run(
+            [
+                "cc", "-fPIC", "-shared",
+                "-Wl,-soname,libggml-base.so",
+                "-o", str(libraries / "libggml-base.so"),
+                str(source / "ggml.c"),
+            ],
+            check=True,
+        )
+        subprocess.run(
+            [
+                "cc", "-fPIC", "-shared",
+                "-Wl,-soname,libllama-server-impl.so",
+                "-o", str(libraries / "libllama-server-impl.so"),
+                str(source / "impl.c"),
+                "-L", str(libraries),
+                "-Wl,--no-as-needed",
+                "-l:libggml-base.so",
+            ],
+            check=True,
+        )
+        server = tmp_path / "llama-server"
+        subprocess.run(
+            [
+                "cc",
+                "-o", str(server),
+                str(source / "server.c"),
+                "-L", str(libraries),
+                f"-Wl,-rpath-link,{libraries}",
+                "-Wl,--no-as-needed",
+                "-l:libllama-server-impl.so",
+            ],
+            check=True,
+        )
+        return server, libraries
+
+    def test_dynamic_server_starts_with_transitive_shipped_libraries(self, tmp_path):
+        server, libraries = self._build_dynamic_runtime(tmp_path)
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch="amd64",
+            version="1.0.0",
+            kind="runtime",
+            llama_server=server,
+            llama_lib_dir=libraries,
+            dist_dir=dist,
+        )
+        archive = dist / "exocomp-runtime-1.0.0-linux-amd64.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        bundle_dir = _extract_bundle(archive, extract_dir)
+
+        result = subprocess.run(
+            [str(bundle_dir / "llama-server"), "--version"],
+            capture_output=True,
+            text=True,
+            check=True,
+            env={"PATH": os.environ["PATH"], "LD_LIBRARY_PATH": ""},
+        )
+        assert result.stdout == "runtime closure ok\n"
+        assert (bundle_dir / "lib" / "llama" / "libggml-base.so").is_file()
+        assert (
+            bundle_dir / "lib" / "llama" / "libllama-server-impl.so"
+        ).is_file()
+
+    def test_assembly_rejects_an_incomplete_dynamic_runtime(self, tmp_path):
+        server, _libraries = self._build_dynamic_runtime(tmp_path)
+        empty_libraries = tmp_path / "empty-libs"
+        empty_libraries.mkdir()
+
+        result = _run_assemble(
+            tmp=tmp_path,
+            arch="amd64",
+            version="1.0.0",
+            kind="runtime",
+            llama_server=server,
+            llama_lib_dir=empty_libraries,
+            dist_dir=tmp_path / "dist",
+            expect_exit=1,
+        )
+        assert "libllama-server-impl.so" in result.stderr
+        assert "not bundled" in result.stderr
 
 
 # ── Test 8: Runtime-only bundle — model absent ────────────────────────────────

@@ -12,6 +12,10 @@ record or CI system, not only in a local shell history.
       documentation, and qualification gate affected by the release.
 - [ ] Resolve every `Unreleased` changelog entry and prepare release notes from
       the [template](release-notes-template.md).
+- [ ] Point `LLAMA_SERVER_<ARCH>` at the pinned executable and
+      `LLAMA_LIB_DIR_<ARCH>` at its matching companion libraries. Bundle
+      assembly must reject any non-baseline ELF dependency missing from that
+      directory.
 
 ## License and supply chain
 
@@ -33,6 +37,8 @@ record or CI system, not only in a local shell history.
       upgrade, rollback, and safe uninstall.
 - [ ] Confirm systemd hardening, ownership, permissions, privilege policy, and
       protected-state retention.
+- [ ] Start both the extracted and installed `llama-server` launchers, then
+      complete backup and restore with the installed `exocomp-state-backup`.
 - [ ] Verify user-facing commands against the final artifacts.
 
 ## Publish and follow up

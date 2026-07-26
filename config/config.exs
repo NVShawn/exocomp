@@ -10,7 +10,7 @@ config :exocomp_coordinator,
 
 replay_ledger_path =
   if config_env() == :prod do
-    "/var/lib/exocomp/replay_ledger.dets"
+    "/var/lib/exocomp-node/replay_ledger.dets"
   else
     Path.join(System.tmp_dir!(), "exocomp_replay_ledger_#{config_env()}.dets")
   end

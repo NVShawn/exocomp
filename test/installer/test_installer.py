@@ -50,6 +50,7 @@ INSTALL_SH = REPO_ROOT / "scripts" / "install.sh"
 UNINSTALL_SH = REPO_ROOT / "scripts" / "uninstall.sh"
 STATE_BACKUP_SH = REPO_ROOT / "scripts" / "state-backup.sh"
 RELEASE_DIR = REPO_ROOT / "release"
+CONFIG_EXS = REPO_ROOT / "config" / "config.exs"
 
 
 # ── systemd availability ────────────────────────────────────────────────────────
@@ -175,6 +176,9 @@ def _make_bundle_tree(
     bundle_scripts.mkdir(exist_ok=True)
     shutil.copy(INSTALL_SH, bundle_scripts / "install.sh")
     shutil.copy(UNINSTALL_SH, bundle_scripts / "uninstall.sh")
+    shutil.copy(STATE_BACKUP_SH, bundle_scripts / "state-backup.sh")
+    for script in bundle_scripts.glob("*.sh"):
+        script.chmod(0o755)
 
     bundle_path, checksums_path = _make_mock_bundle(
         bundle_dir, component, version, contents=contents
@@ -186,6 +190,7 @@ def _make_bundle_tree(
         "checksums_path": checksums_path,
         "install_sh": bundle_scripts / "install.sh",
         "uninstall_sh": bundle_scripts / "uninstall.sh",
+        "state_backup_sh": bundle_scripts / "state-backup.sh",
     }
 
 
@@ -375,6 +380,32 @@ class TestCleanInstall:
         )
         assert log_dir.is_dir()
 
+    def test_durable_state_directory_is_writable_and_matches_runtime_config(self):
+        state_dir = self.root / "var" / "lib" / "exocomp-node"
+        assert state_dir.is_dir()
+        assert state_dir.stat().st_mode & 0o777 == 0o750
+        assert os.access(state_dir, os.W_OK)
+
+        runtime_config = CONFIG_EXS.read_text()
+        assert '"/var/lib/exocomp-node/replay_ledger.dets"' in runtime_config
+        assert '"/var/lib/exocomp/replay_ledger.dets"' not in runtime_config
+
+    def test_systemd_unit_grants_only_the_installer_owned_state_path(self):
+        unit = self.tmp / "systemd" / "exocomp-node.service"
+        content = unit.read_text()
+        state_dir = self.root / "var" / "lib" / "exocomp-node"
+        assert f"ReadWritePaths={self.root}/opt/exocomp/node/log " in content
+        assert str(state_dir) in content
+        assert "@STATE_DIR@" not in content
+
+    def test_backup_utility_is_installed_in_the_versioned_release(self):
+        backup = (
+            self.root / "opt" / "exocomp" / "node" / "current"
+            / "bin" / "exocomp-state-backup"
+        )
+        assert backup.is_file()
+        assert backup.stat().st_mode & stat.S_IXUSR
+
     def test_release_cookie_is_random_protected_and_not_in_release_payload(self):
         cookie_file = (
             self.root / "opt" / "exocomp" / self.component
@@ -408,6 +439,78 @@ class TestCleanInstall:
             / "config" / "release-cookie.env"
         ).read_text().strip()
         assert second_cookie != content
+
+
+class TestBundledLlamaRuntimeInstall:
+    def test_node_install_copies_the_shipped_runtime_into_the_atomic_release(self, tmp_path):
+        version = "1.0.0"
+        info = _make_bundle_tree(tmp_path, "node", version)
+        bundle_dir = info["bundle_dir"]
+
+        launcher = bundle_dir / "llama-server"
+        launcher.write_text(
+            '#!/bin/sh\nexec "$(dirname "$0")/llama-server.bin" "$@"\n'
+        )
+        launcher.chmod(0o755)
+        executable = bundle_dir / "llama-server.bin"
+        executable.write_text("#!/bin/sh\nprintf 'bundled llama runtime\\n'\n")
+        executable.chmod(0o755)
+        libraries = bundle_dir / "lib" / "llama"
+        libraries.mkdir(parents=True)
+        (libraries / "libllama-server-impl.so").write_bytes(b"shipped-runtime-lib")
+
+        _run_install(info, "node", version, env=_make_env(tmp_path))
+
+        current = tmp_path / "root" / "opt" / "exocomp" / "node" / "current"
+        installed_launcher = current / "bin" / "llama-server"
+        installed_executable = current / "bin" / "llama-server.bin"
+        installed_library = current / "lib" / "llama" / "libllama-server-impl.so"
+        assert installed_launcher.is_file()
+        assert installed_executable.is_file()
+        assert installed_library.read_bytes() == b"shipped-runtime-lib"
+
+        result = subprocess.run(
+            [str(installed_launcher), "--version"],
+            capture_output=True,
+            text=True,
+            check=True,
+            env={"PATH": os.environ["PATH"]},
+        )
+        assert result.stdout == "bundled llama runtime\n"
+
+
+class TestRuntimePayloadPreflight:
+    def test_missing_backup_utility_is_rejected_before_host_mutation(self, tmp_path):
+        info = _make_bundle_tree(tmp_path, "node", "1.0.0")
+        info["state_backup_sh"].unlink()
+
+        result = _run_install(
+            info,
+            "node",
+            "1.0.0",
+            env=_make_env(tmp_path),
+            expect_exit=1,
+        )
+
+        assert "state backup utility not found" in result.stderr
+        assert not (tmp_path / "root" / "opt" / "exocomp").exists()
+
+    def test_incomplete_llama_runtime_is_rejected_before_host_mutation(self, tmp_path):
+        info = _make_bundle_tree(tmp_path, "node", "1.0.0")
+        launcher = info["bundle_dir"] / "llama-server"
+        launcher.write_text("#!/bin/sh\nexit 0\n")
+        launcher.chmod(0o755)
+
+        result = _run_install(
+            info,
+            "node",
+            "1.0.0",
+            env=_make_env(tmp_path),
+            expect_exit=1,
+        )
+
+        assert "llama-server executable is missing" in result.stderr
+        assert not (tmp_path / "root" / "opt" / "exocomp").exists()
 
 
 class TestRepeatInstall:
@@ -854,7 +957,7 @@ class TestProtectedStateBackupRestore:
         subprocess.run(
             [
                 "bash",
-                str(STATE_BACKUP_SH),
+                str(info["state_backup_sh"]),
                 "create",
                 "--component",
                 component,
@@ -875,7 +978,7 @@ class TestProtectedStateBackupRestore:
         subprocess.run(
             [
                 "bash",
-                str(STATE_BACKUP_SH),
+                str(info["state_backup_sh"]),
                 "restore",
                 "--component",
                 component,

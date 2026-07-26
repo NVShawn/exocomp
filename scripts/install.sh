@@ -12,7 +12,7 @@
 #   --bundle     PATH                     release archive (.tar.gz)
 #                                         default: auto-detect from bundle directory
 #   --checksums  PATH                     SHA-256 checksums file
-#                                         default: <bundle-dir>/checksums.sha256
+#                                         default: <bundle-dir>/manifest.sha256
 #   --version    VERSION                  override version detected from archive
 #   --allow-list SVC1,SVC2,...            comma-separated systemd service names
 #                                         granted in the sudoers policy
@@ -198,9 +198,13 @@ preflight() {
 
     # 1b. Determine release archive
     if [[ -z "${BUNDLE}" ]]; then
-        # Auto-detect: look for exocomp-<component>-*.tar.gz in bundle root
+        # Auto-detect: look in the delivered releases/ directory first, then
+        # retain compatibility with older development bundle roots.
         local matches
-        matches=("${BUNDLE_ROOT}"/exocomp-"${COMPONENT}"-*.tar.gz)
+        matches=("${BUNDLE_ROOT}"/releases/exocomp-"${COMPONENT}"-*.tar.gz)
+        if [[ ${#matches[@]} -eq 0 ]] || [[ ! -f "${matches[0]}" ]]; then
+            matches=("${BUNDLE_ROOT}"/exocomp-"${COMPONENT}"-*.tar.gz)
+        fi
         if [[ ${#matches[@]} -eq 0 ]] || [[ ! -f "${matches[0]}" ]]; then
             die "no release archive found in ${BUNDLE_ROOT}; pass --bundle PATH"
         fi
@@ -240,7 +244,7 @@ preflight() {
 
     # 1e. Validate checksums
     if [[ -z "${CHECKSUMS_FILE}" ]]; then
-        CHECKSUMS_FILE="${BUNDLE_ROOT}/checksums.sha256"
+        CHECKSUMS_FILE="${BUNDLE_ROOT}/manifest.sha256"
     fi
     if [[ ! -f "${CHECKSUMS_FILE}" ]]; then
         # Warn but allow if no checksums file (e.g. dev install)
@@ -272,6 +276,17 @@ preflight() {
     local unit_template="${BUNDLE_ROOT}/release/${COMPONENT}/exocomp-${COMPONENT}.service"
     if [[ ! -f "${unit_template}" ]]; then
         die "systemd unit template not found in bundle: ${unit_template}"
+    fi
+    [[ -x "${BUNDLE_ROOT}/scripts/state-backup.sh" ]] ||
+        die "state backup utility not found in bundle: ${BUNDLE_ROOT}/scripts/state-backup.sh"
+
+    # 1i. A delivered node llama runtime is an atomic payload: the relocatable
+    # launcher and its executable must both be present before host mutation.
+    if [[ "${COMPONENT}" == "node" && -e "${BUNDLE_ROOT}/llama-server" ]]; then
+        [[ -x "${BUNDLE_ROOT}/llama-server" ]] ||
+            die "bundled llama-server launcher is not executable"
+        [[ -x "${BUNDLE_ROOT}/llama-server.bin" ]] ||
+            die "bundled llama-server executable is missing: ${BUNDLE_ROOT}/llama-server.bin"
     fi
 
     log "  preflight passed"
@@ -444,6 +459,30 @@ install_release() {
         rm -rf "${staging_dir}"
         die "release extraction failed; current version was not changed"
     fi
+
+    # The llama runtime is delivered alongside the OTP archives because it is
+    # shared release input, but a node must receive it in the same versioned
+    # directory as the release. Keeping this copy in staging preserves the
+    # installer's atomic rollback boundary.
+    if [[ "${COMPONENT}" == "node" && -x "${BUNDLE_ROOT}/llama-server" ]]; then
+        mkdir -p "${staging_dir}/bin" "${staging_dir}/lib/llama"
+        cp -f "${BUNDLE_ROOT}/llama-server" "${staging_dir}/bin/llama-server"
+        cp -f "${BUNDLE_ROOT}/llama-server.bin" "${staging_dir}/bin/llama-server.bin"
+        if [[ -d "${BUNDLE_ROOT}/lib/llama" ]]; then
+            cp -a "${BUNDLE_ROOT}/lib/llama/." "${staging_dir}/lib/llama/"
+        fi
+        chmod 755 \
+            "${staging_dir}/bin/llama-server" \
+            "${staging_dir}/bin/llama-server.bin"
+        log "  staged bundled llama-server runtime"
+    fi
+
+    cp -f \
+        "${BUNDLE_ROOT}/scripts/state-backup.sh" \
+        "${staging_dir}/bin/exocomp-state-backup"
+    chmod 755 "${staging_dir}/bin/exocomp-state-backup"
+    log "  staged protected-state backup utility"
+
     mv -f "${staging_dir}" "${versioned_dir}"
 
     # Set ownership: root owns the release; service account has read access
@@ -662,8 +701,10 @@ install_systemd_unit() {
 
     # Substitute install path in unit file
     local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local state_dir="${EXOCOMP_ROOT}/var/lib/exocomp-${COMPONENT}"
     sed \
         -e "s|@INSTALL_DIR@|${install_dir}|g" \
+        -e "s|@STATE_DIR@|${state_dir}|g" \
         -e "s|@COMPONENT@|${COMPONENT}|g" \
         -e "s|@ACCOUNT@|exocomp-${COMPONENT}|g" \
         -e "s|@VERSION@|${VERSION}|g" \

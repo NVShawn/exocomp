@@ -13,18 +13,23 @@ operator-verified GGUF file; the installer never downloads a model.
 
 ## Verify and install
 
-Copy the release bundle, its checksum file, manifest, and signature to the
-target. For an offline install, transfer them on controlled media and disable
-network access before verification. Verify the outer bundle before extracting
-it, then run the non-interactive installer from the extracted directory:
+Copy the release bundle and its adjacent `.sha256` file to the target. For an
+offline install, transfer them on controlled media and disable network access
+before verification. The following commands match the delivered archive layout:
+verify the outer archive, extract its single top-level directory, verify the
+nested manifest, confirm the bundled inference runtime loads, and install from
+the embedded `releases/` directory:
 
 ```sh
-sha256sum -c checksums.sha256
+sha256sum -c exocomp-complete-0.1.0-linux-amd64.tar.gz.sha256
+tar -xzf exocomp-complete-0.1.0-linux-amd64.tar.gz
+cd exocomp-complete-0.1.0-linux-amd64
 ./scripts/verify-bundle.sh --bundle-dir .
+./llama-server --version
 sudo ./scripts/install.sh \
   --component coordinator \
-  --bundle ./exocomp-coordinator-0.1.0-linux-amd64.tar.gz \
-  --checksums ./checksums.sha256 \
+  --bundle ./releases/exocomp-coordinator-0.1.0-linux-amd64.tar.gz \
+  --checksums ./manifest.sha256 \
   --version 0.1.0 \
   --non-interactive
 ```
@@ -35,8 +40,8 @@ comma-separated action allow-list only when recovery actions are intended:
 ```sh
 sudo ./scripts/install.sh \
   --component node \
-  --bundle ./exocomp-node-0.1.0-linux-amd64.tar.gz \
-  --checksums ./checksums.sha256 \
+  --bundle ./releases/exocomp-node-0.1.0-linux-amd64.tar.gz \
+  --checksums ./manifest.sha256 \
   --version 0.1.0 \
   --allow-list exocomp-fixture.service \
   --non-interactive
@@ -54,6 +59,13 @@ adjacent `log` directory; durable state is under
 `/var/lib/exocomp-<component>`. Replace template node identity, coordinator
 address, TLS paths, model path, and resource values before production use.
 Never make a key or cookie group/world-readable.
+
+The node replay ledger is `/var/lib/exocomp-node/replay_ledger.dets`. Both the
+installer and systemd assign `/var/lib/exocomp-node` to the `exocomp-node`
+service account, and the service unit grants no other durable write path.
+The installed inference launcher is
+`/opt/exocomp/node/current/bin/llama-server`; it resolves only the companion
+libraries shipped in `/opt/exocomp/node/current/lib/llama`.
 
 ## First-node sequence
 
