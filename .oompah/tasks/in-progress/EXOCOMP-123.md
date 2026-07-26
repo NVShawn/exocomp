@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T23:22:14.961792Z'
+updated_at: '2026-07-26T23:23:26.356507Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -972,5 +972,10 @@ author: oompah
 created: 2026-07-26 23:22
 ---
 Discovery: The fresh arm64 rc.18 run failed closed at complete-bundle assembly because the temporary orchestration selected the vendor llama-b10107 directory, whose libggml-base.so requires unbundled libgomp.so.1. Candidate code/artifacts did not fail. The guest already contains the intended exact upstream b10107 no-OpenMP build: source tag b10107 at c0bc8591e8815c63cb01dd3f051a8b0df02501c9, Release build, GGML_OPENMP=OFF, native aarch64 server, and no libgomp in its ldd closure. I corrected only the uncommitted arm64 wrapper to use that build/bin runtime and record its source/build identity; the failed root will be preserved as rejected and a complete fresh arm64 run restarted from an empty rc18 root.
+---
+author: oompah
+created: 2026-07-26 23:23
+---
+Implementation (qualification orchestration): Preserved the failed arm64 root at /var/lib/exocomp-qualification/rejected/rc18-arm64-openmp-input-20260726T2320Z. Updated only the uncommitted arm64 qualification wrapper to select inputs/llama-b10107-no-openmp/build/bin and record the upstream commit/tag plus CMake OpenMP/server flags in runtime-inputs.txt. Verified the guest source checkout remains clean at signed rc.18 commit 28f8dc35, verified the no-OpenMP server has no libgomp dependency, and launched a complete new arm64 run from an empty /var/lib/exocomp-qualification/rc18 root at 23:23 UTC. The candidate source/tag and completed amd64 record are unchanged.
 ---
 <!-- COMMENTS:END -->
