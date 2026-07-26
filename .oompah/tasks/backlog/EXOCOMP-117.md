@@ -5,12 +5,18 @@ status: Backlog
 priority: 1
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
-children: []
+children:
+- EXOCOMP-118
+- EXOCOMP-119
+- EXOCOMP-120
+- EXOCOMP-121
+- EXOCOMP-122
+- EXOCOMP-123
 blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-26T03:57:27.844799Z'
+updated_at: '2026-07-26T03:58:35.750990Z'
 work_branch: null
 target_branch: null
 review_url: null

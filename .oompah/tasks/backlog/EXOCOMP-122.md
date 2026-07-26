@@ -1,0 +1,43 @@
+---
+id: EXOCOMP-122
+type: feature
+status: Backlog
+priority: 2
+title: Add a shipped-artifact M5 performance qualification gate
+parent: EXOCOMP-117
+children: []
+blocked_by: []
+labels: []
+assignee: null
+created_at: '2026-07-26T03:58:34.780590Z'
+updated_at: '2026-07-26T03:58:34.780590Z'
+work_branch: null
+target_branch: null
+review_url: null
+review_number: null
+merged_at: null
+---
+## Summary
+
+Context
+The v0.1.0-rc.2 qualification could find only bench-llama-short, which uses a fake server. There is no documented Make target or versioned baseline that measures the installed node, coordinator, and real llama-server release payload for M5 acceptance.
+
+Implementation
+Add short and full Make targets that run the M5 harness against shipped release artifacts, record pinned host profiles and versioned amd64 and arm64 baselines, separate BEAM control-plane usage from llama.cpp, and enforce documented regression budgets with clear failed-metric output. Integrate the full target into release qualification docs and evidence collection.
+
+Testing
+Cover harness configuration, artifact identity, host-profile capture, baseline selection, threshold pass and fail behavior, missing metric failure, and result reproducibility. Exercise the short target in CI and the full target on clean amd64 and full-system arm64 guests using the exact candidate artifacts.
+
+Acceptance Criteria
+- Documented Make targets run the real shipped processes rather than fake-only fixtures.
+- Versioned baselines and raw evidence identify artifact and host profile.
+- A threshold regression fails with the exact metric and budget.
+- Both architecture qualification runs satisfy every applicable M5 criterion.
+- Focused tests and relevant Make gates pass.
+
+## Acceptance Criteria
+
+- [ ] Define acceptance criteria.
+
+## Notes
+
