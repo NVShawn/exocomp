@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T20:08:21.487167Z'
+updated_at: '2026-07-26T20:25:55.169916Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: 04f84f64-3e1c-4059-bd2f-d734beee47bc
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 670875
-  total_output_tokens: 333770
+  total_input_tokens: 671145
+  total_output_tokens: 342179
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 670875
-      output_tokens: 333770
+      input_tokens: 671145
+      output_tokens: 342179
       cost_usd: 0.0
   runs:
   - profile: default
@@ -83,6 +83,12 @@ oompah.task_costs:
     output_tokens: 683
     cost_usd: 0.0
     recorded_at: '2026-07-26T18:20:24.004284+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 270
+    output_tokens: 8409
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T20:25:52.912479+00:00'
 ---
 ## Summary
 
@@ -842,5 +848,20 @@ author: oompah
 created: 2026-07-26 20:08
 ---
 Discovery: The amd64 make test exit code 2 failure was transient — re-running make test directly on the VM produced exit 0 (845 tests, smoke releases both pass). Root cause was likely a momentary container-engine issue with --pull always during the pipeline run. Deleted the partial rc18 evidence directory and restarted the complete amd64 qualification from scratch. Both VMs are now progressing: amd64 is running make test (779 log lines, A2ARouter tests visible); arm64 is running test-bundle (395 log lines, TestDoubleBuildReproducibility visible). No code changes needed for this issue — the rc.18 candidate at 28f8dc35 with SIGTERM ExecStop and ordered rollback health check remains valid.
+---
+author: oompah
+created: 2026-07-26 20:25
+---
+Agent stalled 1 time(s) (3822s (8679 tokens)). Escalating from 'default' to 'standard'. Retrying in 10s (attempt #1)
+---
+author: oompah
+created: 2026-07-26 20:25
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 258, Tool calls: 160
+- Tokens: 270 in / 8.4K out [8.7K total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 3m 42s
+- Log: EXOCOMP-123__20260726T192212Z.jsonl
 ---
 <!-- COMMENTS:END -->
