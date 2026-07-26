@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:29:56.834604Z'
+updated_at: '2026-07-26T04:31:57.405894Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -146,5 +146,10 @@ author: oompah
 created: 2026-07-26 04:29
 ---
 Implementation (docs): Updated docs/installation.md to stage first coordinator installs with --no-start; expanded docs/pki-operations.md with installer-created state-parent guidance, atomic-target precautions, a redacted PKI initialization result, protected-cookie readiness inspection, installed backup/restore commands, and mandatory degraded health semantics; expanded docs/clean-host-qualification.md with the no-secret enrollment/replay/identity/trust-root/audit/restart evidence sequence. No runtime behavior or source code was changed.
+---
+author: oompah
+created: 2026-07-26 04:31
+---
+Verification (docs): PASS: python3 tests/test_operator_docs.py (6 tests), make check-links, git diff --check, and Elixir syntax parsing for both embedded release-eval/RPC expressions. make test reached and passed the release-builder/offline checks, package tests, release-input normalizer tests, and operator-doc tests, then could not launch the pinned Elixir builder because the host's docker/podman shim cannot chmod /run/user/1000/libpod on this read-only environment. Direct host Mix checks are unavailable because the host has Elixir 1.18.3 while the project requires 1.20.2; this is an environment limitation, not a documentation failure.
 ---
 <!-- COMMENTS:END -->
