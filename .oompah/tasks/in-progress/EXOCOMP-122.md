@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:30:32.755353Z'
+updated_at: '2026-07-26T06:33:49.914308Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -141,5 +141,15 @@ author: oompah
 created: 2026-07-26 06:30
 ---
 Discovery: Explored the full M5 bench harness. Key findings: (1) Makefile has only bench-llama-short (fake server, no real llama-server required). (2) apps/bench contains Config, HostProfile, BeamSampler, Run, Sample, Report::Summary, Driver modules and the llama_inference_test.exs suite — all using FakeLlamaServer. (3) plans/milestone-5-performance.md defines M5 acceptance criteria, performance gates (< 5% CPU core, < 5% RAM for BEAM control plane), and measurement architecture. (4) Two pinned host profiles exist: apps/bench/priv/bench/profiles/amd64-ci.toml and arm64-ci.toml. (5) docs/release-qualification.md covers OTP reproducibility/clean-container matrix only; no M5 performance gate is documented anywhere in docs/. (6) docs/maintainer-release-checklist.md has no M5 qualification step. (7) docs/release-evidence/v0.1.0-rc.2/README.md explicitly records M5 FAIL with the reason: no shipped-artifact Make gate or baseline exists. I will now create docs/performance-qualification.md and update docs/release-qualification.md and docs/maintainer-release-checklist.md to document the M5 shipped-artifact gate, then hand off to the feature agent for implementation.
+---
+author: oompah
+created: 2026-07-26 06:33
+---
+Implementation: Created docs/performance-qualification.md (421 lines) covering the M5 shipped-artifact gate in full. Updated docs/release-qualification.md to add an M5 section with make target examples and a link to the new doc. Updated docs/maintainer-release-checklist.md to add per-architecture M5 gate checklist items and evidence-collection steps. All docs pass make check-links and make compliance-check. Key decisions documented: (1) three-tier target model (bench-llama-short fake CI / bench-llama-short-shipped real CI / bench-llama-full release); (2) hard gates are CPU < 5% of one core and RAM < 5% of host RAM for BEAM control plane only, llama.cpp reported separately; (3) versioned TOML baselines in apps/bench/priv/bench/baselines/<version>/<arch>.toml; (4) failure output names the exact metric, observed value, budget, artifact, host, and baseline path; (5) missing metric is a gate failure; (6) bench-llama-full must pass on both native amd64 and full-system arm64 QEMU guests.
+---
+author: oompah
+created: 2026-07-26 06:33
+---
+Verification: make check-links passes (all internal doc links resolve). make compliance-check passes. git status is clean and branch is up to date with origin/epic-EXOCOMP-117 at cd5c0c7. No code changes were made; only documentation was added or updated.
 ---
 <!-- COMMENTS:END -->
