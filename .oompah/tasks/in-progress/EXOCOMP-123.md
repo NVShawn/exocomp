@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-123
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
@@ -16,13 +16,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:20:52.312282Z'
+updated_at: '2026-07-26T18:21:04.791372Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 9b467efa-c6d5-45c3-b9e1-2cbd91b1eb8a
+oompah.agent_run_id: e67270ef-4b35-4aeb-8760-6c3111bfda4e
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 670875
@@ -732,5 +732,15 @@ Run #12 [attempt=12, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 2m 31s
 - Log: EXOCOMP-123__20260726T181759Z.jsonl
+---
+author: oompah
+created: 2026-07-26 18:21
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 18:21
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
