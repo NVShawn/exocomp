@@ -313,6 +313,22 @@ class TestCompleteBundleAssembly:
         assert backup.exists()
         assert backup.stat().st_mode & stat.S_IXUSR
 
+    def test_state_backup_restore_uses_same_owner(self):
+        """Verify restore extraction preserves ownership (--same-owner, not --no-same-owner).
+
+        The restore path must propagate original file ownership from the archive
+        so that cp -a in restore_category sets the correct owner on the destination.
+        Using --no-same-owner discards owner metadata, causing coordinator config
+        files to be restored as root:root instead of exocomp-coordinator:exocomp-coordinator.
+        """
+        backup_sh = self.bundle_dir / "scripts" / "state-backup.sh"
+        text = backup_sh.read_text()
+        # The extraction inside validate_archive must not strip owner info.
+        assert "--no-same-owner" not in text, (
+            "state-backup.sh must not use --no-same-owner during restore extraction; "
+            "use --same-owner so that cp -a propagates original file ownership to the destination"
+        )
+
     def test_llama_server_present(self):
         assert (self.bundle_dir / "llama-server").exists()
 
