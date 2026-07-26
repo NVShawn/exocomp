@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T03:59:55.375901Z'
+updated_at: '2026-07-26T04:02:46.151767Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -59,5 +59,15 @@ author: oompah
 created: 2026-07-26 03:59
 ---
 Understanding: duplicate screening will compare this issue's clean-host bundle failures—replay-ledger path ownership, missing llama-server shared libraries, archive/checksum command mismatch, and absent backup/restore payload—against existing tasks. I will read plausible candidates in full and either archive EXOCOMP-118 as a confirmed duplicate or hand it off without implementation.
+---
+author: oompah
+created: 2026-07-26 04:02
+---
+Discovery: no duplicate confirmed. EXOCOMP-43/44 and recovery EXOCOMP-114 delivered the installer and bundle infrastructure; EXOCOMP-46/115 delivered lifecycle and backup/restore behavior; EXOCOMP-47 gathered the signed v0.1.0-rc.2 evidence and explicitly routed these newly observed runtime defects into remediation epic EXOCOMP-117, whose task graph names EXOCOMP-118 as the dedicated child. EXOCOMP-68 tests OTP-release startup rather than the complete installed bundle. Adjacent EXOCOMP-120 owns bundle reproducibility, signed metadata, and licenses, while EXOCOMP-123 is downstream requalification. None covers EXOCOMP-118's combined replay-ledger path, llama runtime-library, delivered command-layout, and shipped backup-utility fixes.
+---
+author: oompah
+created: 2026-07-26 04:02
+---
+Implementation: none in this duplicate_detector run, as required. The issue is unique and should proceed to an implementation specialist; repository files and git history were left unchanged.
 ---
 <!-- COMMENTS:END -->
