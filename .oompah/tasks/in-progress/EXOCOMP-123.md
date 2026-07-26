@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T16:26:42.689293Z'
+updated_at: '2026-07-26T16:31:46.041565Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -616,5 +616,10 @@ author: oompah
 created: 2026-07-26 16:26
 ---
 Discovery: signed rc.14 is rejected by its fresh exact-tag make test gate (844/845). VacuumBoundsTest asserted function_exported?(VacuumBounds, :check_eligible, 1) without ensuring the module was loaded; under the clean parallel run it returned false despite the function existing. This is a test-order/load race, but the required exact-tag gate did not pass, so no rc.14 result will be accepted. I am stopping arm64, adding a load-safe structural assertion, and will require repeated full test passes before signing a replacement candidate.
+---
+author: oompah
+created: 2026-07-26 16:31
+---
+Implementation: commit 151ce856 makes every VacuumBounds API-shape assertion explicitly load the module before function_exported?/3, eliminating the randomized test-order false negative; invariant rc.15 M5 baselines are added. Pretag verification on amd64 passed make test three consecutive times (845 tests, 10 excluded each), fmt-check, 32 focused M5 tests, and all 77 installer tests. Signed tag v0.1.0-rc.15 at 151ce8560dab898c789335660e4fe375a79269eb is verified and pushed; fresh dual-architecture qualification is starting from empty roots.
 ---
 <!-- COMMENTS:END -->
