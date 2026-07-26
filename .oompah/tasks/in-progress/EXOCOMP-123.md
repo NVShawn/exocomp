@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T13:05:03.838901Z'
+updated_at: '2026-07-26T13:11:30.157104Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -458,5 +458,10 @@ author: oompah
 created: 2026-07-26 13:05
 ---
 Discovery: signed v0.1.0-rc.11 is rejected and none of its incomplete results will count for acceptance. Fresh amd64 make test failed 1/845 in M3AcceptanceTest cleanup: Process.alive?/1 returned true, the ReplayLedger exited before GenServer.stop/3, and the untrapped cleanup exit failed the test. rc.11 fixed the identical TOCTOU race in approval_gate_test.exs but not the remaining M3 integration helpers. I stopped the arm64 rc.11 run and am applying the same exit-safe cleanup pattern across the remaining test helpers before signing a replacement candidate.
+---
+author: oompah
+created: 2026-07-26 13:11
+---
+Implementation: Applied exit-safe GenServer teardown to all remaining node test helpers that used the racy Process.alive?/GenServer.stop check, not just the one rc.11 file; this preserves teardown intent while treating an already-exited linked process as successful cleanup. Added invariant amd64/arm64 rc.12 M5 baseline identities and updated the baseline inventory assertion. Commits b723eea, 33a9d23, and cf4c7b6 are pushed. Three consecutive pinned amd64 make test runs passed 845 tests (10 excluded); final exact-HEAD pretag gates are running before any rc.12 tag is created.
 ---
 <!-- COMMENTS:END -->
