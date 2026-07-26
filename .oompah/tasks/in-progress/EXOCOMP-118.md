@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:11:37.493387Z'
+updated_at: '2026-07-26T04:13:43.556215Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -253,5 +253,10 @@ author: oompah
 created: 2026-07-26 04:11
 ---
 Understanding: implementing the clean-host runtime contract end to end: align the replay ledger with installer-owned durable state; ship llama-server with its complete non-system shared-library closure and relocatable lookup; reconcile the bundle manifest/archive paths with documented verification and installation commands; and include shipped backup/restore tooling. I will add focused bundle, installer, and lifecycle regressions, then run test-installer, test-bundle, test-release-packaging, and the available clean-systemd gate before commit/push/closure.
+---
+author: oompah
+created: 2026-07-26 04:13
+---
+Discovery: confirmed the rc.2 failures are one inconsistent payload contract. Production node config targets /var/lib/exocomp while install.sh and StateDirectory own /var/lib/exocomp-node; assembly places component archives under releases/ and emits manifest.sha256 plus an adjacent outer .sha256 while docs/installer referenced root archives and checksums.sha256; only the llama executable was staged and not installed with its companion DSOs; and state-backup.sh existed only in the source tree. A terminated prior attempt left relevant uncommitted edits, which I reviewed and am completing with focused regressions rather than discarding.
 ---
 <!-- COMMENTS:END -->
