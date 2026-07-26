@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T16:07:03.529010Z'
+updated_at: '2026-07-26T16:08:30.514062Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -596,5 +596,10 @@ author: oompah
 created: 2026-07-26 16:07
 ---
 Understanding (continuation attempt #9): Resuming the signed v0.1.0-rc.13 qualification at commit 640dd7dd. The previous run reported amd64 phases 1-8 passing with the full M5 gate active and arm64 progressing through repository gates. I will reconcile current guest and evidence state, finish every missing exact-tag phase without reusing rejected candidates, assemble and verify signed indexed evidence, commit and push it, then close only if every M6-CRIT/live requirement passes.
+---
+author: oompah
+created: 2026-07-26 16:08
+---
+Discovery (continuation attempt #9): rc.13 amd64 passed every repository/build/offline/live/operational gate and the full 30-minute M5 gate, then lifecycle failed during the synthetic prior-version node reinstall: /opt/exocomp/node/config/node.json and release-cookie.env became root-owned, so the exocomp-node service failed with {:file_read, :eacces}. Separately, an obsolete rc.12 arm64 continuation was still running concurrently against the same source checkout as rc.13, invalidating the in-progress arm64 record. I am stopping the obsolete job, determining whether the ownership failure is candidate installer behavior or helper setup, and will restart only fresh uncontaminated qualification work.
 ---
 <!-- COMMENTS:END -->
