@@ -62,6 +62,19 @@ versions side by side and health-gates an upgrade. It also creates
 `RELEASE_COOKIE`, mode `0600`. Published archives contain no reusable Erlang
 cookie.
 
+`verify-bundle.sh` checks every file listed in `manifest.sha256` — including
+`manifest.json`, `sbom.spdx.json`, `provenance.json`, and all `LICENSES/`
+license texts — against their recorded SHA-256 digest. This ensures that the
+structured metadata and license inventory cannot be silently tampered after a
+signed bundle is distributed. When a release signing key is available, pass
+`--public-key <path>` to authenticate the signature and `--strict` to require
+it; strict mode also rejects bundles where any metadata file is not listed in
+the signed manifest, or where the `LICENSES/` directory is absent or empty:
+
+    ./scripts/verify-bundle.sh --bundle-dir . \
+      --public-key /path/to/exocomp-release.pub \
+      --strict
+
 Configuration is under `/opt/exocomp/<component>/config`; logs are under the
 adjacent `log` directory; durable state is under
 `/var/lib/exocomp-<component>`. Replace template node identity, coordinator

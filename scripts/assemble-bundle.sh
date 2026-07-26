@@ -74,6 +74,12 @@ NOTICES_FILE="THIRD_PARTY_NOTICES.md"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "${SCRIPT_DIR}")"
 
+# ── Reproducibility epoch ────────────────────────────────────────────────────
+# Resolve SOURCE_DATE_EPOCH early so every timestamp in the bundle is derived
+# from the same fixed origin.  This must happen before any metadata is written.
+SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-$(git -C "${REPO_ROOT}" log -1 --format='%ct' 2>/dev/null || date +%s)}"
+export SOURCE_DATE_EPOCH
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 log()  { echo "[assemble-bundle] $*"; }
@@ -323,13 +329,22 @@ chmod 755 "${BUNDLE_STAGE}/scripts/"*.sh
 log "  staged: scripts/"
 
 # 2f. License texts
-if [[ -d "${REPO_ROOT}/${LICENSES_DIR}" ]]; then
-    cp -rf "${REPO_ROOT}/${LICENSES_DIR}" "${BUNDLE_STAGE}/LICENSES"
-    log "  staged: LICENSES/"
-else
-    warn "  LICENSES/ directory not found at ${REPO_ROOT}/${LICENSES_DIR}; skipping"
-    mkdir -p "${BUNDLE_STAGE}/LICENSES"
+# Assembly fails closed when the required LICENSES directory is absent or empty.
+# Every governed component that ships in the bundle must have its license text present.
+LICENSES_SRC="${REPO_ROOT}/${LICENSES_DIR}"
+if [[ ! -d "${LICENSES_SRC}" ]]; then
+    die "LICENSES directory not found at ${LICENSES_SRC}; populate it before assembling a bundle"
 fi
+
+# Verify required SPDX license files are present.
+REQUIRED_LICENSES=("Apache-2.0.txt" "MIT.txt" "BSD-3-Clause.txt")
+for req_lic in "${REQUIRED_LICENSES[@]}"; do
+    [[ -f "${LICENSES_SRC}/${req_lic}" ]] \
+        || die "Required license text missing: ${LICENSES_SRC}/${req_lic}"
+done
+
+cp -rf "${LICENSES_SRC}" "${BUNDLE_STAGE}/LICENSES"
+log "  staged: LICENSES/ ($(find "${BUNDLE_STAGE}/LICENSES" -type f | wc -l) files)"
 
 # 2g. Third-party notices
 if [[ -f "${REPO_ROOT}/${NOTICES_FILE}" ]]; then
@@ -370,7 +385,9 @@ log "  manifest.sha256: $(wc -l < "${MANIFEST_SHA256}") entries"
 
 log "==> GENERATING STRUCTURED MANIFEST"
 
-BUILD_TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+# Derive a deterministic ISO-8601 timestamp from SOURCE_DATE_EPOCH.
+BUILD_TIMESTAMP="$(date -u -d "@${SOURCE_DATE_EPOCH}" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null \
+    || date -u -r "${SOURCE_DATE_EPOCH}" +%Y-%m-%dT%H:%M:%SZ)"
 
 MANIFEST_JSON="${BUNDLE_STAGE}/manifest.json"
 
@@ -445,6 +462,7 @@ bash "${SCRIPT_DIR}/generate-sbom.sh" \
     --source-commit "${SOURCE_COMMIT}" \
     --builder-image "${BUILDER_IMAGE}" \
     --bundle-dir "${BUNDLE_STAGE}" \
+    --timestamp "${BUILD_TIMESTAMP}" \
     --output "${SBOM_PATH}"
 
 log "  sbom.spdx.json written"
@@ -466,7 +484,29 @@ bash "${SCRIPT_DIR}/generate-provenance.sh" \
 
 log "  provenance.json written"
 
-# ── Phase 7: Sign the manifest ────────────────────────────────────────────────
+# ── Phase 7: Extend manifest to cover all metadata files ──────────────────────
+#
+# manifest.sha256 was generated in Phase 3 covering only the payload files
+# (OTP archives, binaries, installer scripts, release configs, license texts).
+# Now that manifest.json, sbom.spdx.json, and provenance.json exist we append
+# their checksums so the signature (Phase 8) transitively authenticates every
+# file in the bundle.  Verifiers using verify-bundle.sh already check every
+# entry in manifest.sha256, so no verifier changes are needed for the hash
+# coverage — only the strict-mode sentinel check is updated.
+
+log "==> EXTENDING MANIFEST TO COVER METADATA FILES"
+
+(
+    cd "${BUNDLE_STAGE}"
+    for meta_file in manifest.json sbom.spdx.json provenance.json; do
+        if [[ -f "${meta_file}" ]]; then
+            sha256sum "${meta_file}" >> "${MANIFEST_SHA256}"
+            log "  manifest.sha256 += ${meta_file}"
+        fi
+    done
+)
+
+# ── Phase 8: Sign the manifest ────────────────────────────────────────────────
 
 if [[ -n "${SIGN_KEY}" ]]; then
     log "==> SIGNING"
@@ -485,10 +525,8 @@ log "==> CREATING ARCHIVE"
 
 mkdir -p "${DIST_DIR}"
 
-# Reproducible tar: sort entries, strip atime/ctime, use fixed ownership
-# Set SOURCE_DATE_EPOCH if not already set (for reproducibility)
-SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-$(git -C "${REPO_ROOT}" log -1 --format='%ct' 2>/dev/null || date +%s)}"
-export SOURCE_DATE_EPOCH
+# SOURCE_DATE_EPOCH was set at script startup; it controls all timestamps
+# (metadata files and the archive mtime) for byte-identical reproducibility.
 
 tar \
     --create \

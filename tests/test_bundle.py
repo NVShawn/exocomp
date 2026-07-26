@@ -1415,3 +1415,428 @@ class TestGenerateProvenanceStandalone:
         assert source_commit in sha1_values, (
             f"source commit {source_commit!r} not found in provenance materials: {sha1_values}"
         )
+
+
+# ── Test 15: Double-build byte-identity (reproducibility) ─────────────────────
+
+
+class TestDoubleBuildReproducibility:
+    """Test 15: Two complete-bundle assemblies with the same SOURCE_DATE_EPOCH
+    must produce byte-identical .tar.gz archives.
+
+    This catches any nondeterministic input: filesystem mtimes, SBOM timestamps,
+    provenance build timestamps, manifest.json timestamps, archive metadata.
+    """
+
+    def _assemble_once(self, *, tmp: Path, artifacts: dict, epoch: str) -> bytes:
+        """Run one assembly and return the archive bytes."""
+        dist = tmp / "dist"
+        env = {**os.environ, "SOURCE_DATE_EPOCH": epoch}
+        result = subprocess.run(
+            [
+                "bash", str(ASSEMBLE_SH),
+                "--arch", artifacts["arch"],
+                "--version", artifacts["version"],
+                "--kind", "complete",
+                "--node-archive", str(artifacts["node_archive"]),
+                "--coord-archive", str(artifacts["coord_archive"]),
+                "--llama-server", str(artifacts["llama_server"]),
+                "--model", str(artifacts["model"]),
+                "--model-sha256", artifacts["model_sha256"],
+                "--source-commit", "abc1234def5678",
+                "--builder-image", "docker.io/hexpm/elixir:test@sha256:000",
+                "--dist-dir", str(dist),
+            ],
+            capture_output=True, text=True, env=env,
+        )
+        assert result.returncode == 0, (
+            f"assemble-bundle.sh failed:\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        assert archive.exists(), f"archive not found: {archive}"
+        return archive.read_bytes()
+
+    def test_identical_inputs_produce_byte_identical_archive(self, tmp_path, artifacts):
+        """Two assemblies from identical inputs must be byte-identical."""
+        epoch = "1700000000"
+        tmp1 = tmp_path / "build1"
+        tmp2 = tmp_path / "build2"
+        tmp1.mkdir()
+        tmp2.mkdir()
+
+        bytes1 = self._assemble_once(tmp=tmp1, artifacts=artifacts, epoch=epoch)
+        bytes2 = self._assemble_once(tmp=tmp2, artifacts=artifacts, epoch=epoch)
+
+        assert bytes1 == bytes2, (
+            f"Double build produced non-identical archives: "
+            f"size1={len(bytes1)}, size2={len(bytes2)}"
+        )
+
+    def test_different_epoch_produces_different_archive(self, tmp_path, artifacts):
+        """Bundles built with different SOURCE_DATE_EPOCH values must differ."""
+        tmp1 = tmp_path / "build1"
+        tmp2 = tmp_path / "build2"
+        tmp1.mkdir()
+        tmp2.mkdir()
+
+        bytes1 = self._assemble_once(tmp=tmp1, artifacts=artifacts, epoch="1700000000")
+        bytes2 = self._assemble_once(tmp=tmp2, artifacts=artifacts, epoch="1800000000")
+
+        assert bytes1 != bytes2, "Different SOURCE_DATE_EPOCH must produce different archives"
+
+    def test_sbom_timestamp_is_deterministic(self, tmp_path, artifacts):
+        """SBOM creationInfo.created must match the SOURCE_DATE_EPOCH, not wall-clock time."""
+        epoch = "1700000000"
+        dist = tmp_path / "dist"
+        env = {**os.environ, "SOURCE_DATE_EPOCH": epoch}
+        subprocess.run(
+            [
+                "bash", str(ASSEMBLE_SH),
+                "--arch", artifacts["arch"],
+                "--version", artifacts["version"],
+                "--kind", "complete",
+                "--node-archive", str(artifacts["node_archive"]),
+                "--coord-archive", str(artifacts["coord_archive"]),
+                "--llama-server", str(artifacts["llama_server"]),
+                "--model", str(artifacts["model"]),
+                "--model-sha256", artifacts["model_sha256"],
+                "--source-commit", "abc1234",
+                "--dist-dir", str(dist),
+            ],
+            capture_output=True, text=True, env=env, check=True,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        bundle_dir = _extract_bundle(archive, extract_dir)
+
+        sbom = json.loads((bundle_dir / "sbom.spdx.json").read_text())
+        created = sbom["creationInfo"]["created"]
+        # Must be exactly the ISO-8601 representation of epoch 1700000000
+        assert created == "2023-11-14T22:13:20Z", (
+            f"SBOM creation timestamp {created!r} does not match SOURCE_DATE_EPOCH={epoch}"
+        )
+
+    def test_sbom_namespace_stable_across_builds(self, tmp_path, artifacts):
+        """SBOM documentNamespace must not embed a per-build timestamp."""
+        epoch = "1700000000"
+        dist1 = tmp_path / "dist1"
+        dist2 = tmp_path / "dist2"
+        env = {**os.environ, "SOURCE_DATE_EPOCH": epoch}
+
+        for dist in (dist1, dist2):
+            subprocess.run(
+                [
+                    "bash", str(ASSEMBLE_SH),
+                    "--arch", artifacts["arch"],
+                    "--version", artifacts["version"],
+                    "--kind", "complete",
+                    "--node-archive", str(artifacts["node_archive"]),
+                    "--coord-archive", str(artifacts["coord_archive"]),
+                    "--llama-server", str(artifacts["llama_server"]),
+                    "--model", str(artifacts["model"]),
+                    "--model-sha256", artifacts["model_sha256"],
+                    "--source-commit", "abc1234",
+                    "--dist-dir", str(dist),
+                ],
+                capture_output=True, text=True, env=env, check=True,
+            )
+
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+
+        e1 = tmp_path / "e1"
+        e2 = tmp_path / "e2"
+        e1.mkdir()
+        e2.mkdir()
+        sbom1 = json.loads(_extract_bundle(dist1 / f"{bundle_name}.tar.gz", e1).joinpath("sbom.spdx.json").read_text())
+        sbom2 = json.loads(_extract_bundle(dist2 / f"{bundle_name}.tar.gz", e2).joinpath("sbom.spdx.json").read_text())
+
+        assert sbom1["documentNamespace"] == sbom2["documentNamespace"], (
+            f"SBOM documentNamespace differs between builds:\n"
+            f"  build1: {sbom1['documentNamespace']}\n"
+            f"  build2: {sbom2['documentNamespace']}"
+        )
+
+
+# ── Test 16: Signed-metadata tamper detection ─────────────────────────────────
+
+
+class TestSignedMetadataTamperDetection:
+    """Test 16: verify-bundle.sh must reject tampering of manifest.json,
+    sbom.spdx.json, and provenance.json because those files are now listed
+    in manifest.sha256 (and the signature covers manifest.sha256).
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self, tmp_path, artifacts):
+        self.tmp = tmp_path
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            dist_dir=dist,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        self.bundle_dir = _extract_bundle(archive, extract_dir)
+
+    def _tamper_and_verify(self, rel_path: str) -> subprocess.CompletedProcess:
+        """Append a byte to `rel_path` inside the bundle and run verify-bundle."""
+        target = self.bundle_dir / rel_path
+        assert target.exists(), f"Expected file not found in bundle: {rel_path}"
+        target.write_bytes(target.read_bytes() + b"\n# TAMPERED\n")
+        return _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+
+    def test_tampered_manifest_json_fails_verification(self):
+        """Tampering manifest.json must cause verify-bundle.sh to fail."""
+        result = self._tamper_and_verify("manifest.json")
+        combined = result.stdout + result.stderr
+        assert "TAMPERED" in combined or "tampered" in combined.lower() or "mismatch" in combined.lower(), (
+            f"Expected tamper message; got:\n{combined}"
+        )
+
+    def test_tampered_sbom_fails_verification(self):
+        """Tampering sbom.spdx.json must cause verify-bundle.sh to fail."""
+        result = self._tamper_and_verify("sbom.spdx.json")
+        assert result.returncode == 1
+
+    def test_tampered_provenance_fails_verification(self):
+        """Tampering provenance.json must cause verify-bundle.sh to fail."""
+        result = self._tamper_and_verify("provenance.json")
+        assert result.returncode == 1
+
+    def test_deleted_manifest_json_fails_verification(self):
+        """Deleting manifest.json must cause verify-bundle.sh to fail."""
+        (self.bundle_dir / "manifest.json").unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+        assert result.returncode == 1
+
+    def test_deleted_sbom_fails_verification(self):
+        """Deleting sbom.spdx.json must cause verify-bundle.sh to fail."""
+        (self.bundle_dir / "sbom.spdx.json").unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+        assert result.returncode == 1
+
+    def test_deleted_provenance_fails_verification(self):
+        """Deleting provenance.json must cause verify-bundle.sh to fail."""
+        (self.bundle_dir / "provenance.json").unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+        assert result.returncode == 1
+
+    def test_metadata_files_listed_in_manifest_sha256(self):
+        """manifest.sha256 must list manifest.json, sbom.spdx.json, and provenance.json."""
+        manifest_text = (self.bundle_dir / "manifest.sha256").read_text()
+        for meta in ("manifest.json", "sbom.spdx.json", "provenance.json"):
+            assert meta in manifest_text, (
+                f"{meta} must be listed in manifest.sha256 to be covered by the signature"
+            )
+
+
+# ── Test 17: License completeness ─────────────────────────────────────────────
+
+
+class TestLicenseCompleteness:
+    """Test 17: Assembled bundles must contain a populated LICENSES/ directory
+    with all required license texts for governed third-party components.
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self, tmp_path, artifacts):
+        self.tmp = tmp_path
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            dist_dir=dist,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        self.bundle_dir = _extract_bundle(archive, extract_dir)
+
+    def test_licenses_directory_present(self):
+        """LICENSES/ directory must exist in the assembled bundle."""
+        licenses_dir = self.bundle_dir / "LICENSES"
+        assert licenses_dir.is_dir(), "LICENSES/ directory must be present in bundle"
+
+    def test_licenses_directory_non_empty(self):
+        """LICENSES/ directory must contain at least one license file."""
+        licenses_dir = self.bundle_dir / "LICENSES"
+        files = list(licenses_dir.iterdir())
+        assert len(files) > 0, "LICENSES/ directory must not be empty"
+
+    def test_apache_2_license_present(self):
+        """Apache-2.0.txt must be present for Erlang/OTP, Elixir, and Hex package components."""
+        assert (self.bundle_dir / "LICENSES" / "Apache-2.0.txt").exists(), (
+            "LICENSES/Apache-2.0.txt must be present (required by Erlang/OTP, Elixir, and others)"
+        )
+
+    def test_mit_license_present(self):
+        """MIT.txt must be present for llama.cpp and MIT-licensed Hex packages."""
+        assert (self.bundle_dir / "LICENSES" / "MIT.txt").exists(), (
+            "LICENSES/MIT.txt must be present (required by llama.cpp, Bandit, etc.)"
+        )
+
+    def test_bsd_3_clause_license_present(self):
+        """BSD-3-Clause.txt must be present for x509 and other BSD-licensed components."""
+        assert (self.bundle_dir / "LICENSES" / "BSD-3-Clause.txt").exists(), (
+            "LICENSES/BSD-3-Clause.txt must be present (required by x509)"
+        )
+
+    def test_licenses_covered_by_manifest(self):
+        """LICENSES/ files must appear in manifest.sha256 to be signature-authenticated."""
+        manifest_text = (self.bundle_dir / "manifest.sha256").read_text()
+        licenses_dir = self.bundle_dir / "LICENSES"
+        for lic_file in sorted(licenses_dir.iterdir()):
+            rel = f"LICENSES/{lic_file.name}"
+            assert rel in manifest_text, (
+                f"{rel} must be listed in manifest.sha256"
+            )
+
+    def test_non_strict_verification_passes_with_populated_licenses(self):
+        """Non-strict verification must pass when LICENSES/ is populated."""
+        _run_verify(bundle_dir=self.bundle_dir, strict=False, expect_exit=0)
+
+
+# ── Test 18: Assembly fails closed on missing LICENSES ────────────────────────
+
+
+class TestAssemblyFailsOnMissingLicenses:
+    """Test 18: assemble-bundle.sh must fail (not warn) when the LICENSES
+    source directory is absent or when required license files are missing.
+    """
+
+    def test_assembly_fails_when_licenses_dir_absent(self, tmp_path, artifacts):
+        """Assembly must fail when --licenses-dir points to a non-existent path."""
+        missing_dir = tmp_path / "nonexistent_licenses"
+        result = _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            extra_args=["--licenses-dir", str(missing_dir)],
+            expect_exit=1,
+        )
+        combined = result.stdout + result.stderr
+        assert "licenses" in combined.lower() or "LICENSES" in combined, (
+            f"Expected LICENSES error; got:\n{combined}"
+        )
+
+    def test_assembly_fails_when_required_license_file_missing(self, tmp_path, artifacts):
+        """Assembly must fail when a required license SPDX file is absent from LICENSES/."""
+        # Create a LICENSES dir with only Apache-2.0, omit MIT and BSD-3-Clause.
+        incomplete_licenses = tmp_path / "incomplete_licenses"
+        incomplete_licenses.mkdir()
+        (incomplete_licenses / "Apache-2.0.txt").write_text("Apache License placeholder\n")
+        # MIT.txt and BSD-3-Clause.txt are absent — assembly must fail.
+        result = _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            extra_args=["--licenses-dir", str(incomplete_licenses)],
+            expect_exit=1,
+        )
+        combined = result.stdout + result.stderr
+        assert "MIT" in combined or "license" in combined.lower(), (
+            f"Expected missing license error; got:\n{combined}"
+        )
+
+
+# ── Test 19: Strict verification rejects unauthenticated metadata ─────────────
+
+
+class TestStrictVerificationRejectsUnauthenticatedMetadata:
+    """Test 19: In strict mode, verify-bundle.sh must reject a bundle where
+    metadata files (manifest.json, sbom.spdx.json, provenance.json) are not
+    listed in manifest.sha256.
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self, tmp_path, artifacts):
+        self.tmp = tmp_path
+        # Assemble and extract a normal bundle.
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            dist_dir=dist,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        self.bundle_dir = _extract_bundle(archive, extract_dir)
+
+    def test_metadata_in_manifest_non_strict_passes(self):
+        """A correctly assembled bundle has metadata in manifest.sha256; non-strict passes."""
+        manifest_text = (self.bundle_dir / "manifest.sha256").read_text()
+        for meta in ("manifest.json", "sbom.spdx.json", "provenance.json"):
+            assert meta in manifest_text, f"{meta} must be in manifest.sha256 after assembly"
+        # non-strict verification does not require a signature
+        _run_verify(bundle_dir=self.bundle_dir, strict=False, expect_exit=0)
+
+    def test_strict_fails_when_manifest_json_removed_from_manifest(self):
+        """Removing manifest.json's entry from manifest.sha256 and then tampering
+        the file must be detectable: the strict verifier rejects uncovered metadata.
+        """
+        manifest_path = self.bundle_dir / "manifest.sha256"
+        lines = manifest_path.read_text().splitlines(keepends=True)
+        # Strip the manifest.json entry to simulate an old-style bundle.
+        stripped = [l for l in lines if "manifest.json" not in l]
+        manifest_path.write_text("".join(stripped))
+
+        # Strict mode must reject because manifest.json is not covered.
+        result = _run_verify(bundle_dir=self.bundle_dir, strict=True, expect_exit=1)
+        combined = result.stdout + result.stderr
+        assert "manifest.json" in combined or "metadata" in combined.lower(), (
+            f"Expected manifest.json coverage error; got:\n{combined}"
+        )
+
+    def test_strict_fails_when_licenses_dir_empty(self):
+        """Strict mode must fail when the LICENSES directory is empty."""
+        licenses_dir = self.bundle_dir / "LICENSES"
+        # Remove all license files to simulate an old empty-LICENSES bundle.
+        for f in list(licenses_dir.iterdir()):
+            f.unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, strict=True, expect_exit=1)
+        combined = result.stdout + result.stderr
+        assert "license" in combined.lower() or "LICENSES" in combined, (
+            f"Expected LICENSES error; got:\n{combined}"
+        )
