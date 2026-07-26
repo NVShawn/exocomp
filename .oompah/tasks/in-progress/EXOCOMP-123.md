@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T11:04:12.683803Z'
+updated_at: '2026-07-26T11:12:22.393893Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -327,5 +327,20 @@ author: oompah
 created: 2026-07-26 11:04
 ---
 Implementation: rc.7 is rejected by live failed-service recovery. The node action catalog correctly invoked exact sudo, but the shipped unit made every setuid transition impossible (NoNewPrivileges=true, empty capability bounding set, SecureBits=noroot). Commit 34ee7d2 applies the live-validated minimum: node-only CAP_SETUID/CAP_SETGID bounding set, no ambient capabilities, NoNewPrivileges=false, no noroot secure bit, and account-scoped !pam_session while preserving exact NOPASSWD commands and sudo auditing. Installer/Elixir regression tests and operator documentation were updated; invariant rc.8 M5 baselines were added. Host gates: 76 installer tests and 28 release-check tests pass.
+---
+author: oompah
+created: 2026-07-26 11:12
+---
+Run #4 [attempt=4, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 325
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 8s
+- Log: EXOCOMP-123__20260726T101214Z.jsonl
+---
+author: oompah
+created: 2026-07-26 11:12
+---
+Agent stalled 2 time(s) (3608s). Escalating from 'standard' to 'deep'. Retrying in 80s (attempt #4)
 ---
 <!-- COMMENTS:END -->
