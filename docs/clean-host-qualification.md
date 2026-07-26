@@ -1,8 +1,12 @@
 # Clean-Host Release Qualification
 
 Qualification starts from a signed candidate tag and immutable artifacts on
-fresh amd64 and arm64 systemd hosts. Offline structural checks or emulation are
-useful evidence but do not count as a native architecture pass.
+fresh amd64 and arm64 systemd hosts or full-system virtual machines. Bare metal
+is not required. A VM qualifies for its guest architecture when `uname -m`
+reports the target architecture and all live scenarios execute inside that
+guest. This includes an arm64 VM using QEMU CPU emulation on an amd64
+hypervisor; container-only user-mode emulation is useful matrix evidence but
+does not provide the systemd host lifecycle required here.
 
 ## Evidence record
 
@@ -11,6 +15,11 @@ architecture and OS, builder and clean-target digests, command transcript,
 artifact checksums/signatures/manifests/SBOM/provenance/licenses, individual
 M6-CRIT results, failures, and operator identity. Hash the completed evidence
 index and sign that hash with the release qualification key.
+
+For a VM, also record the hypervisor, guest machine and CPU model, whether the
+CPU is virtualized or emulated, and the output of `uname -m`. Emulation must be
+disclosed; it is acceptable evidence, not a reason to relabel the underlying
+host hardware.
 
 Run repository gates from the clean tagged checkout:
 
@@ -25,15 +34,15 @@ make build-amd64
 make test-release-matrix ARCH=amd64 SKIP_BUILD=1
 ```
 
-On a native arm64 host, replace `amd64` with `arm64`. Do not relabel an amd64
-QEMU run as a live arm64 pass.
+In an arm64 guest, replace `amd64` with `arm64`. Run the live matrix inside the
+guest rather than merely launching an arm64 container on the amd64 host.
 
 ## M6-CRIT evidence
 
 | Criterion | Required evidence |
 |---|---|
 | M6-CRIT-1 | Governance/license gate transcript and inventory |
-| M6-CRIT-2 | Both native archives contain ERTS and start without system Erlang |
+| M6-CRIT-2 | Both architecture archives contain ERTS and start without system Erlang |
 | M6-CRIT-3 | Network-disabled bundle verification and install on both hosts |
 | M6-CRIT-4 | service user, unit hardening, permissions, and exact sudoers |
 | M6-CRIT-5 | forced candidate-health failure, prior-version recovery, protected-state hashes |
@@ -47,6 +56,12 @@ run multi-node diagnostics, recover the shipped failed fixture exactly once,
 run M5 performance gates, exercise upgrade/automatic rollback/backup restore,
 inspect hardening, and uninstall while protected-state/user-data hashes remain
 unchanged.
+
+An M5 performance pass under CPU emulation is conservative and counts. A
+performance-only failure under emulation is inconclusive: record it as such and
+rerun that gate on an arm64-virtualized or bare-metal host. Functional, safety,
+artifact, lifecycle, or reproducibility failures remain failures regardless of
+the VM execution mode.
 
 Publication is blocked by any missing architecture, skipped live scenario,
 manifest mismatch, nondeterministic archive, embedded reusable cookie,
