@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -17,6 +18,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PACKAGER = REPO_ROOT / "scripts" / "package_release.py"
 NORMALIZER = REPO_ROOT / "scripts" / "prepare-release-deps.sh"
+PACKAGE_RELEASES = REPO_ROOT / "scripts" / "package-releases.sh"
+BUILDERS_LOCK = REPO_ROOT / "release" / "builders.lock"
 
 
 class PackageReleaseTest(unittest.TestCase):
@@ -164,6 +167,68 @@ class PackageReleaseTest(unittest.TestCase):
                 "exocomp-coordinator-1.2.3-linux-arm64.tar.gz",
             },
         )
+
+
+class PackageReleasesScriptTest(unittest.TestCase):
+    def test_annotated_tag_uses_peeled_commit_timestamp(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            scripts = root / "scripts"
+            release = root / "release"
+            scripts.mkdir()
+            release.mkdir()
+            shutil.copy2(PACKAGE_RELEASES, scripts / "package-releases.sh")
+            shutil.copy2(BUILDERS_LOCK, release / "builders.lock")
+            (scripts / "prepare-release-deps.sh").write_text("#!/bin/sh\n")
+            (scripts / "prepare-release-deps.sh").chmod(0o755)
+            (root / "mix.exs").write_text('def project, do: [version: "0.1.0",]\n')
+            (root / "mix.lock").write_text("%{}\n")
+            for product in ("exocomp_node", "exocomp_coordinator"):
+                (root / "_build" / "release" / "amd64" / "rel" / product).mkdir(
+                    parents=True
+                )
+
+            capture = root / "source-epochs"
+            (scripts / "package_release.py").write_text(
+                """#!/usr/bin/env python3
+import pathlib
+import sys
+
+value = sys.argv[sys.argv.index("--source-epoch") + 1]
+if not value.isdigit():
+    raise SystemExit(f"source epoch is not an integer: {value!r}")
+with pathlib.Path("source-epochs").open("a") as output:
+    output.write(value + "\\n")
+"""
+            )
+            (scripts / "package_release.py").chmod(0o755)
+
+            def git(*args: str) -> subprocess.CompletedProcess[str]:
+                return subprocess.run(
+                    ["git", *args],
+                    cwd=root,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+
+            git("init", "-q")
+            git("config", "user.name", "Release Test")
+            git("config", "user.email", "release-test@example.invalid")
+            git("add", ".")
+            git("commit", "-qm", "fixture")
+            git("tag", "-a", "v0.1.0-rc.1", "-m", "annotated candidate")
+            expected_epoch = git("show", "-s", "--format=%ct", "HEAD").stdout.strip()
+
+            subprocess.run(
+                [str(scripts / "package-releases.sh"), "amd64"],
+                cwd=root,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertEqual(capture.read_text().splitlines(), [expected_epoch] * 2)
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ esac
 version="${RELEASE_VERSION:-$(sed -n 's/^[[:space:]]*version: "\([^"]*\)",$/\1/p' "${repo_root}/mix.exs" | head -1)}"
 source_commit="$(git -C "${repo_root}" rev-parse HEAD)"
 source_tag="$(git -C "${repo_root}" describe --tags --exact-match 2>/dev/null || echo untagged)"
-source_epoch="${SOURCE_DATE_EPOCH:-$(git -C "${repo_root}" show -s --format=%ct "${source_tag}" 2>/dev/null || git -C "${repo_root}" show -s --format=%ct HEAD)}"
+source_epoch="${SOURCE_DATE_EPOCH:-$(git -C "${repo_root}" show -s --format=%ct "${source_tag}^{commit}" 2>/dev/null || git -C "${repo_root}" show -s --format=%ct HEAD)}"
 output_dir="${RELEASE_OUTPUT_DIR:-${repo_root}/dist/releases}"
 build_command="make build-${architecture}"
 
