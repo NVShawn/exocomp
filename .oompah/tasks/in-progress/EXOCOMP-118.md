@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:08:08.912442Z'
+updated_at: '2026-07-26T04:08:32.150843Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -166,5 +166,10 @@ author: oompah
 created: 2026-07-26 04:08
 ---
 Discovery: the four failures share an inconsistent payload contract. config/config.exs hard-codes /var/lib/exocomp/replay_ledger.dets while install.sh and StateDirectory own /var/lib/exocomp-node; assemble-bundle.sh copies only the llama executable at bundle root (no companion .so closure and no installation into the node release); it also omits state-backup.sh. Assembly emits <bundle>.tar.gz.sha256 and embeds component archives as releases/*.tar.gz covered by manifest.sha256, but installation.md/lifecycle.md use checksums.sha256 and root-level archives. I will add a relocatable llama wrapper plus validated bundled ELF-library closure, install that runtime into node versions, align state paths/systemd write access, ship lifecycle tooling, and test the delivered commands/payload directly.
+---
+author: oompah
+created: 2026-07-26 04:08
+---
+Understanding: Dispatched as Frontend Developer focus. After reviewing the codebase, this task involves exclusively DevOps/systems work: (1) fixing a path mismatch in config/config.exs where production config opens /var/lib/exocomp/replay_ledger.dets but the installer creates /var/lib/exocomp-node; (2) adding state-backup.sh to the assemble-bundle.sh scripts section which currently ships only install.sh, uninstall.sh, and verify-bundle.sh; (3) packaging llama-server shared library dependencies; (4) aligning documented checksum/install commands with actual archive layout. There is zero frontend (HTML/CSS/JS/UI) work in this issue. Proceeding to hand off to devops.
 ---
 <!-- COMMENTS:END -->
