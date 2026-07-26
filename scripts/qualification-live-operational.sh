@@ -482,7 +482,6 @@ mkdir -p /etc/systemd/system/exocomp-fixture.service.d
 printf '[Service]\nRestart=no\n' \
     > /etc/systemd/system/exocomp-fixture.service.d/qualification.conf
 systemctl daemon-reload
-systemctl restart exocomp-fixture.service
 sleep 2
 systemctl is-active --quiet exocomp-fixture.service
 
@@ -671,6 +670,10 @@ require_output "approval_replay=denied" \
     "${evidence_dir}/active-service-approval.txt"
 pass "active-service restart requires a valid bound approval and rejects replay"
 
+# The fixture was started once by installation and once by the approved action.
+# Clear systemd's start-rate accounting before intentionally failing it so the
+# subsequent single recovery attempt tests policy rather than StartLimitBurst.
+systemctl reset-failed exocomp-fixture.service
 printf 'failed\n' > /run/exocomp-fixture/mode
 for _attempt in $(seq 1 20); do
     if systemctl is-failed --quiet exocomp-fixture.service; then
