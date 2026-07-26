@@ -84,6 +84,15 @@ if grep -Eq '^[[:space:]]+--user([=[:space:]]|\\)' scripts/build-releases.sh; th
 fi
 grep -Fq "scripts/smoke-releases.sh prod" scripts/build-releases.sh ||
   fail "built releases are not checked for bundled ERTS"
+[ -f "config/runtime.exs" ] ||
+  fail "production release runtime configuration is missing"
+for runtime_env in \
+  EXOCOMP_PKI_ONLINE_STATE \
+  EXOCOMP_PKI_OFFLINE_ROOT_BACKUP \
+  EXOCOMP_ENROLLMENT_TOKEN_STORE; do
+  grep -Fq "System.get_env(\"${runtime_env}\")" config/runtime.exs ||
+    fail "production runtime configuration does not read ${runtime_env} at boot"
+done
 grep -Fq "replay_ledger_path" scripts/smoke-releases.sh ||
   fail "production smoke test does not isolate replay ledger state"
 grep -Fq "Application.put_env(:exocomp_coordinator, :require_pki, false)" \
