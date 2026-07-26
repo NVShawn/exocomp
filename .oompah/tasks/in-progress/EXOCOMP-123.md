@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T12:18:32.503572Z'
+updated_at: '2026-07-26T12:43:34.454557Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -407,5 +407,10 @@ author: oompah
 created: 2026-07-26 12:18
 ---
 Understanding (continuation attempt #5): Resuming from rc.10 rejection. The two post-rc.10 commits (77c6d8c: add :public_key to bench extra_applications; 6df88c3: race-safe approval cleanup) are on HEAD. rc.11 M5 baseline directories exist but no git tag has been created and no evidence directory exists yet. My plan: (1) run available source-tree tests to verify fixes are sound, (2) sign the v0.1.0-rc.11 tag at HEAD, (3) create docs/release-evidence/v0.1.0-rc.11/ evidence structure, (4) run all Make gates available in this environment, (5) run qualification helpers against the amd64 and arm64 VMs if accessible, (6) commit signed indexed evidence and close the task.
+---
+author: oompah
+created: 2026-07-26 12:43
+---
+Discovery (attempt #5): Both VMs accessible via QEMU agent. amd64 VM: rc11-preflight source checkout at 6df88c3 (correct HEAD), services running rc.10. arm64 VM: src/ updated from rc.4 to 6df88c3 via git fetch from GitHub. amd64 has llama-b10107-no-openmp runtime, arm64 uses llama-b10107 native binaries (no OpenMP deps). rc.11 signed tag created at HEAD (6df88c3) — fixes: :public_key in bench_harness extra_applications + race-safe approval cleanup. All source-tree gates pass (fmt-check, lint, test, test-bundle, test-installer, test-m5-qualification, release-check). Now launching comprehensive qualification on both VMs: two builds for reproducibility, bench_harness build, complete bundle assembly, preflight/operational/bench/lifecycle phases.
 ---
 <!-- COMMENTS:END -->
