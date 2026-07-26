@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:29:05.405009Z'
+updated_at: '2026-07-26T06:30:32.755353Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-07-26 06:29
 ---
 Understanding: As Technical Writer, I will document the M5 shipped-artifact performance qualification gate. The duplicate_detector run confirmed the gap: only a fake-server bench-llama-short target exists; no Make targets, versioned baselines, or documented regression budgets cover real shipped artifacts. My scope is documentation only — I will write or update docs in docs/ covering the new Make targets (bench-llama-short-shipped, bench-llama-full), artifact/host identity recording, baseline selection, threshold-failure semantics, and CI/release-qualification integration. I will explore the existing docs, Makefile, and bench harness first, then author the documentation.
+---
+author: oompah
+created: 2026-07-26 06:30
+---
+Discovery: Explored the full M5 bench harness. Key findings: (1) Makefile has only bench-llama-short (fake server, no real llama-server required). (2) apps/bench contains Config, HostProfile, BeamSampler, Run, Sample, Report::Summary, Driver modules and the llama_inference_test.exs suite — all using FakeLlamaServer. (3) plans/milestone-5-performance.md defines M5 acceptance criteria, performance gates (< 5% CPU core, < 5% RAM for BEAM control plane), and measurement architecture. (4) Two pinned host profiles exist: apps/bench/priv/bench/profiles/amd64-ci.toml and arm64-ci.toml. (5) docs/release-qualification.md covers OTP reproducibility/clean-container matrix only; no M5 performance gate is documented anywhere in docs/. (6) docs/maintainer-release-checklist.md has no M5 qualification step. (7) docs/release-evidence/v0.1.0-rc.2/README.md explicitly records M5 FAIL with the reason: no shipped-artifact Make gate or baseline exists. I will now create docs/performance-qualification.md and update docs/release-qualification.md and docs/maintainer-release-checklist.md to document the M5 shipped-artifact gate, then hand off to the feature agent for implementation.
 ---
 <!-- COMMENTS:END -->
