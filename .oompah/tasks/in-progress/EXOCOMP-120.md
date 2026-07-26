@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T04:59:20.616073Z'
+updated_at: '2026-07-26T04:59:30.855684Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -54,5 +54,10 @@ author: oompah
 created: 2026-07-26 04:59
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-26 04:59
+---
+Understanding: Investigating EXOCOMP-120 as Duplicate Investigator. The issue describes three distinct problems: (1) non-deterministic complete-bundle assembly producing non-byte-identical archives, (2) signed root not authenticating manifest.json, SBOM, provenance, or license files — so tampering those passes strict verification, (3) empty LICENSES directory missing required third-party license texts. Searching for existing tasks covering these topics before any implementation.
 ---
 <!-- COMMENTS:END -->
