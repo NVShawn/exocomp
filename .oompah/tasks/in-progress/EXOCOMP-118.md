@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: Open
+status: In Progress
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -11,13 +11,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:07:09.486654Z'
+updated_at: '2026-07-26T04:07:47.653671Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: eaa487c6-37e6-4d72-baa7-9ba4e63e08ed
+oompah.agent_run_id: 4e058296-0656-4fa6-a2c6-ee779b2bcbfb
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 2269544
@@ -141,5 +141,25 @@ author: oompah
 created: 2026-07-26 04:04
 ---
 Understanding: I will reproduce and correct the four rc.2 clean-host defects as one runtime-installability change: align the replay ledger with installer-owned state, assemble llama-server's complete shared-library closure with deterministic lookup, make published checksum/install commands match the actual archive, and ship backup/restore tooling in installed and offline payloads. I will add focused clean-root/doc-command/shipped-only lifecycle regressions, then run test-installer, test-bundle, test-release-packaging, and the clean-systemd VM gate before commit, push, and closure.
+---
+author: oompah
+created: 2026-07-26 04:07
+---
+Run #1 [attempt=1, profile=deep, role=deep -> Codex/default]
+- Turns: 0, Tool calls: 54
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 29s
+- Log: EXOCOMP-118__20260726T040407Z.jsonl
+---
+author: oompah
+created: 2026-07-26 04:07
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-26 04:07
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
