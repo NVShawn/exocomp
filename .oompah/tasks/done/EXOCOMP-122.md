@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T07:51:24.568591Z'
+updated_at: '2026-07-26T07:51:37.930050Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -248,5 +248,20 @@ author: oompah
 created: 2026-07-26 07:51
 ---
 Completion: Shipped-artifact M5 qualification gate is complete in commit 371ca4e and pushed to origin/epic-EXOCOMP-117. The branch is clean and exactly matches origin. Delivered real short/full process orchestration, immutable harness build, strict versioned amd64/arm64 budgets, artifact/host identity, deterministic actionable failures, atomic raw evidence, candidate CI integration, focused tests, and release documentation. No new follow-up was filed because EXOCOMP-123 already owns clean amd64/full-system arm64 execution against the next exact signed candidate.
+---
+author: oompah
+created: 2026-07-26 07:51
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Codex/default]
+- Turns: 0, Tool calls: 132
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 16m 24s
+- Log: EXOCOMP-122__20260726T073513Z.jsonl
+---
+author: oompah
+created: 2026-07-26 07:51
+---
+Delivered and pushed the shipped-artifact M5 qualification gate with real short/full targets, strict architecture baselines, artifact and host identity, atomic evidence, exact-metric failures, CI candidate execution, documentation, and passing focused/release checks (commit 371ca4e).
 ---
 <!-- COMMENTS:END -->
