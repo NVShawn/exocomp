@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:19:20.935334Z'
+updated_at: '2026-07-26T05:19:23.425274Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -224,5 +224,10 @@ Files changed (8):
 - scripts/verify-bundle.sh: Check 6 (strict: metadata covered by manifest.sha256); Check 7 (strict: LICENSES non-empty)
 - docs/installation.md: operator guidance for --public-key --strict workflow
 - tests/test_bundle.py: 23 new tests in 5 classes covering all three defects
+---
+author: oompah
+created: 2026-07-26 05:19
+---
+Fixed three v0.1.0-rc.2 bundle defects: (1) deterministic timestamps via SOURCE_DATE_EPOCH at script startup + generate-sbom.sh --timestamp + stable documentNamespace; (2) signed root now covers manifest.json/sbom/provenance by appending metadata checksums to manifest.sha256 before signing; (3) LICENSES/ populated with Apache-2.0/MIT/BSD-3-Clause, assembly fails hard when missing. verify-bundle.sh --strict now validates metadata coverage and LICENSES presence. Added 23 new tests (98 total), all Make gates pass.
 ---
 <!-- COMMENTS:END -->
