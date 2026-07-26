@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T05:20:05.912893Z'
+updated_at: '2026-07-26T05:24:36.472672Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -58,5 +58,10 @@ author: oompah
 created: 2026-07-26 05:20
 ---
 Understanding: The arm64 qualification failures appear to be test synchronization defects, not production timeout defects. I will inspect the actual Actions logs and the Bench.HostSamplerTest / HealthPollerTest code, reproduce locally where possible, replace fixed timing assumptions with bounded synchronization on observable state, add delayed-progress and never-progress regression coverage, then stress focused tests and run the repository test gate without changing production safety timeouts.
+---
+author: oompah
+created: 2026-07-26 05:24
+---
+Discovery: GitHub reports no Actions runs for this branch/repository; the checked-in rc.2 qualification log is the authoritative failure record. It shows HostSamplerTest blocked on assert_receive "ready" for 5,000 ms and HealthPollerTest used bare assert_receive (100 ms) for node-2 after node-1's resolver crashed. Current production code already removes crashed tasks and dispatches the next due node; only the tests impose brittle wall-clock assumptions. Both focused tests pass on amd64 with the pinned Elixir 1.20.2/OTP 28 runtime, confirming the emulation-specific scheduler-latency diagnosis.
 ---
 <!-- COMMENTS:END -->
