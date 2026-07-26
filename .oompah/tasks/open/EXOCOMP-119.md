@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: Backlog
+status: Open
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T03:58:31.966643Z'
+updated_at: '2026-07-26T03:59:14.405076Z'
 work_branch: null
 target_branch: null
 review_url: null
