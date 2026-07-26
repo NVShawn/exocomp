@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T16:08:30.514062Z'
+updated_at: '2026-07-26T16:12:01.714375Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -601,5 +601,10 @@ author: oompah
 created: 2026-07-26 16:08
 ---
 Discovery (continuation attempt #9): rc.13 amd64 passed every repository/build/offline/live/operational gate and the full 30-minute M5 gate, then lifecycle failed during the synthetic prior-version node reinstall: /opt/exocomp/node/config/node.json and release-cookie.env became root-owned, so the exocomp-node service failed with {:file_read, :eacces}. Separately, an obsolete rc.12 arm64 continuation was still running concurrently against the same source checkout as rc.13, invalidating the in-progress arm64 record. I am stopping the obsolete job, determining whether the ownership failure is candidate installer behavior or helper setup, and will restart only fresh uncontaminated qualification work.
+---
+author: oompah
+created: 2026-07-26 16:12
+---
+Implementation: rc.13 is rejected by live lifecycle and none of its results will count for acceptance. Commit 798ddd9 fixes the installer upgrade bug by removing the recursive root chown of the whole component tree, preserving service ownership of existing config/cookie/PKI/log state; a behavioral upgrade regression test now asserts protected-file UID/GID stability. Added invariant rc.14 M5 baselines. make test-installer passes 77 tests; structural M5 tests pass (the host container portion is unavailable because its rootless Podman runtime path is read-only). Signed tag v0.1.0-rc.14 at 798ddd92156afac4e790e17384ae28d9ed6c9c11 is verified and pushed.
 ---
 <!-- COMMENTS:END -->
