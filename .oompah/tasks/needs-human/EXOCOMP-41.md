@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: Done
+status: Needs Human
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-26T04:26:05.515933Z'
+updated_at: '2026-07-26T04:30:54.990564Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -273,5 +273,10 @@ author: oompah
 created: 2026-07-26 04:26
 ---
 Recovered governance delivery verified on main via PR #14; removed stale superseded branch that caused false landing-evidence escalation.
+---
+author: oompah
+created: 2026-07-26 04:30
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Done with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Git evidence: EXOCOMP-41 branch EXOCOMP-41 has 1 unlanded commit(s), including 886a6abab473. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->
