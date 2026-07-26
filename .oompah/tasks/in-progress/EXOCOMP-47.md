@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: Needs Human
+status: In Progress
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T03:13:56.302150Z'
+updated_at: '2026-07-26T03:16:36.370626Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -234,5 +234,10 @@ author: oompah
 created: 2026-07-26 03:13
 ---
 Human question: do you accept signed candidate tag v0.1.0-rc.2 and its SSH signing identity (principal shedwards@nvidia.com, ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw) as the M6 qualification identity? If not, provide the accepted signing key/principal and tag name. No hardware action is needed. Agent-resolvable work is still progressing: the arm64 VM is currently running build 2/2 of the shipped-release matrix. The first build, bundled ERTS startup, dependency inspection, and deterministic archive creation passed. The matrix uncovered an annotated-tag SOURCE_DATE_EPOCH bug; the fix and regression test passed and merged to main in PR #16 (47cf04c).
+---
+author: oompah
+created: 2026-07-26 03:16
+---
+Human decision received: accept v0.1.0-rc.2 and the qualification identity shedwards@nvidia.com, ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw. The signing-identity blocker is resolved. Continue the in-flight arm64 qualification matrix and remaining M6-CRIT evidence collection; no hardware or signing decision remains.
 ---
 <!-- COMMENTS:END -->
