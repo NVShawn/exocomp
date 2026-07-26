@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:26:15.547557Z'
+updated_at: '2026-07-26T04:29:48.930500Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-07-26 04:26
 ---
 Understanding: Documentation-focus pass only. I will verify the existing coordinator PKI, enrollment, renewal, installer-path, and clean-host interfaces against source; update concise operator documentation only where examples can be proven accurate; run the relevant documentation checks; then leave a docs handoff identifying implementation-dependent gaps for the feature specialist.
+---
+author: oompah
+created: 2026-07-26 04:29
+---
+Discovery: The docs/source comparison found three stable operator issues: the first coordinator install example starts the service before its PKI ceremony; docs/pki-operations.md uses a source-checkout backup path instead of the installed exocomp-state-backup utility; and no single safe readiness command proves Listener, PKI.State, EnrollmentToken, and health together. Bootstrap also atomically creates final online/offline directories, so pre-creating empty targets is an operator-visible failure mode worth documenting. The production enrollment/token endpoint remains absent and cannot yet be documented accurately.
 ---
 <!-- COMMENTS:END -->
