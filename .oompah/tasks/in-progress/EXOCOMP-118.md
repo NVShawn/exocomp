@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: Open
+status: In Progress
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T03:59:12.035704Z'
+updated_at: '2026-07-26T03:59:17.391537Z'
 work_branch: null
 target_branch: null
 review_url: null
