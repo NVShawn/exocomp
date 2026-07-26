@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T09:11:45.939075Z'
+updated_at: '2026-07-26T09:35:43.206625Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -225,5 +225,10 @@ author: oompah
 created: 2026-07-26 09:11
 ---
 Discovery: Both qualification VMs (exocomp-amd64-qualification and exocomp-arm64-qualification) are running and accessible via QEMU guest agent. The amd64 VM already has all repository/release Make gates passed for rc.4 (verified in rc4/evidence/raw/amd64/repo-gates/ transcript). rc.4 artifacts (node + coordinator) are built at rc4/src-gates/dist/releases/. llama-b10107-no-openmp runtime is complete. Coordinator currently running rc.3 on amd64 VM. arm64 VM source is at rc.2 HEAD, no rc.4 qualification started yet. Writing comprehensive live qualification scripts to run on both VMs.
+---
+author: oompah
+created: 2026-07-26 09:35
+---
+Implementation: Fixed version-detection regression in scripts/install.sh (commit bf0b3ee). The sed regex \`[0-9]+\.[0-9]+\.[0-9]+[^.]*\` stopped at the dot in \`-rc.4\`, causing the full substitution to fail—install.sh would output the raw filename, fail semver validation, and die before creating any directories. Fixed with \`.+\` backtracked against the \`-linux-(amd64|arm64)\.tar\.gz\` suffix, which correctly extracts \`0.1.0-rc.4\`. Added 5-case parametrised test \`TestVersionValidation::test_version_detected_from_archive_name\` covering stable and pre-release versions; 76 installer tests pass. Will now re-run coordinator install on the amd64 qualification VM.
 ---
 <!-- COMMENTS:END -->
