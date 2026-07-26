@@ -6,11 +6,16 @@ priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-118
+- EXOCOMP-119
+- EXOCOMP-120
+- EXOCOMP-121
+- EXOCOMP-122
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T03:58:35.710500Z'
+updated_at: '2026-07-26T03:59:08.489970Z'
 work_branch: null
 target_branch: null
 review_url: null
