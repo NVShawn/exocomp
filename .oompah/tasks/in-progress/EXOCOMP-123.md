@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T12:56:38.307873Z'
+updated_at: '2026-07-26T13:03:40.369812Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -448,5 +448,10 @@ author: oompah
 created: 2026-07-26 12:56
 ---
 Understanding (continuation attempt #6): v0.1.0-rc.11 is a signed tag at 6df88c3 and the branch is pushed. I am resuming the already-started fresh qualification by reconciling the two VM workspaces and any running/background build logs, then will complete double-build reproducibility, every required repository and shipped-artifact/live gate on amd64 and arm64, assemble a signed evidence index, commit and push it, and close only if every M6-CRIT requirement passes. Rejected rc.3 through rc.10 evidence will not be reused.
+---
+author: oompah
+created: 2026-07-26 13:03
+---
+Discovery (continuation attempt #6): The prior guest jobs did not reach rc.11 qualification: the ephemeral orchestration wrappers copied archives from the obsolete _build/release/<arch> path and omitted RELEASE_VERSION, while current make build-* writes dist/releases artifacts using mix.exs version 0.1.0 unless RELEASE_VERSION is supplied. I corrected only the uncommitted guest orchestration to build 0.1.0-rc.11 into isolated build1/build2 directories, compare exact hashes, record every required Make gate per architecture, supply the locked builder-image digest during signed bundle assembly, and run both short and full shipped M5 gates. The signed candidate remains unchanged at 6df88c3. Fresh jobs are running in both dedicated systemd guests.
 ---
 <!-- COMMENTS:END -->
