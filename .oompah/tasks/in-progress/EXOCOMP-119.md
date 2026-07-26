@@ -9,9 +9,10 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
+- focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:31:57.405894Z'
+updated_at: '2026-07-26T04:32:51.283569Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -151,5 +152,18 @@ author: oompah
 created: 2026-07-26 04:31
 ---
 Verification (docs): PASS: python3 tests/test_operator_docs.py (6 tests), make check-links, git diff --check, and Elixir syntax parsing for both embedded release-eval/RPC expressions. make test reached and passed the release-builder/offline checks, package tests, release-input normalizer tests, and operator-doc tests, then could not launch the pinned Elixir builder because the host's docker/podman shim cannot chmod /run/user/1000/libpod on this read-only environment. Direct host Mix checks are unavailable because the host has Elixir 1.18.3 while the project requires 1.20.2; this is an environment limitation, not a documentation failure.
+---
+author: oompah
+created: 2026-07-26 04:32
+---
+Focus handoff: docs
+
+Outcome: Completed and pushed the documentation phase in commit 6af78a7. First coordinator installation now stages with --no-start; the PKI ceremony uses a service-owned temporary passphrase file and redacted output; readiness checks Listener, PKI.State, EnrollmentToken, and Health together; backup examples use the installed utility; clean-host evidence now covers replay, identity mismatch, bad root, missing audit, mTLS renewal, and restart durability without recording tokens.
+
+Evidence/decisions: Changed docs/installation.md, docs/pki-operations.md, and docs/clean-host-qualification.md. PASS: tests/test_operator_docs.py (6), make check-links, git diff --check, and Elixir syntax parsing of embedded eval/RPC expressions. make test passed all pre-container checks but the pinned builder could not start because the host docker/podman shim cannot chmod the read-only /run/user/1000/libpod. Branch is pushed at 6af78a7.
+
+Remaining work/risks: Production behavior is still absent. Application.start/2 must supervise Listener, PKI.State, EnrollmentToken, enrollment/renewal handlers, and node runtime clients; Health.check/0 must fail degraded for every required component. Bootstrap filenames/state location currently disagree with release/templates/coordinator.json, and start_supervised_tree/1 requires the offline root and passphrase on every validation while the operator security contract unmounts the offline root after the ceremony. Resolve that boundary without keeping root material online. A2ARouter globally requires mTLS and has no bootstrap enrollment route; EnrollmentClient expects an HTTPS enrollment response, and renewal needs a distinct authenticated mTLS path. Once the supported token issuance/enrollment interface lands, replace the current installation-guide warning that no standalone issuance command exists with the exact verified operator command. Required release-mode tests and make test/test-installer/test-bundle/clean-host gates remain.
+
+Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
