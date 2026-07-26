@@ -160,11 +160,15 @@ defmodule Exocomp.Node.Safety.ApprovalGateTest do
     opts = [name: name, table: table, path: path] ++ extra_opts
     {:ok, server} = ReplayLedger.start_link(opts)
 
-    on_exit(fn ->
-      if Process.alive?(server), do: GenServer.stop(server)
-    end)
+    on_exit(fn -> stop_server(server) end)
 
     %{server: server, name: name, table: table, path: path}
+  end
+
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
   end
 
   # Build a valid token payload with dynamic timestamps so tokens are always live.
@@ -251,7 +255,7 @@ defmodule Exocomp.Node.Safety.ApprovalGateTest do
         else: Application.delete_env(:exocomp_node, :os_commander)
 
       MockCommander.stop(mock)
-      if Process.alive?(lock), do: GenServer.stop(lock)
+      stop_server(lock)
     end)
 
     %{
@@ -437,9 +441,7 @@ defmodule Exocomp.Node.Safety.ApprovalGateTest do
           path: ledger.path
         )
 
-      on_exit(fn ->
-        if Process.alive?(restarted), do: GenServer.stop(restarted)
-      end)
+      on_exit(fn -> stop_server(restarted) end)
 
       # After restart, :pending → :crashed_incomplete.
       assert {:ok, :crashed_incomplete} = ReplayLedger.status(nonce, restarted)
