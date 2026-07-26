@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-26T04:35:55.993404Z'
+updated_at: '2026-07-26T04:35:58.651024Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -283,5 +283,10 @@ author: oompah
 created: 2026-07-26 04:35
 ---
 Follow-up repair: the managed repository still held a local EXOCOMP-41 ref after the remote branch was removed, so the landing-evidence detector could still see superseded commit 886a6ab. The local ref is now removed too; the SHA remains recorded here and the recovered delivery remains verified on main via 50cd48c / PR #14.
+---
+author: oompah
+created: 2026-07-26 04:35
+---
+Recovered delivery verified on main; stale remote and managed-local branch refs removed.
 ---
 <!-- COMMENTS:END -->
