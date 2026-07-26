@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T09:01:52.811576Z'
+updated_at: '2026-07-26T09:11:45.939075Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-07-26 09:01
 ---
 Understanding: Software Engineer continuation run on EXOCOMP-123. The previous DevOps agent successfully made all code fixes (PKI wiring, bundle signing inputs, coordinator formatting, rc.4 M5 baselines) and signed the v0.1.0-rc.4 tag at commit 73b61e8, then stalled during live qualification. My role is to: (1) verify the code changes are sound by running available source-tree tests, (2) create the docs/release-evidence/v0.1.0-rc.4/ evidence directory structure, (3) run all Make gates available in this environment, and (4) determine next steps for live VM qualification. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-07-26 09:11
+---
+Discovery: Both qualification VMs (exocomp-amd64-qualification and exocomp-arm64-qualification) are running and accessible via QEMU guest agent. The amd64 VM already has all repository/release Make gates passed for rc.4 (verified in rc4/evidence/raw/amd64/repo-gates/ transcript). rc.4 artifacts (node + coordinator) are built at rc4/src-gates/dist/releases/. llama-b10107-no-openmp runtime is complete. Coordinator currently running rc.3 on amd64 VM. arm64 VM source is at rc.2 HEAD, no rc.4 qualification started yet. Writing comprehensive live qualification scripts to run on both VMs.
 ---
 <!-- COMMENTS:END -->
