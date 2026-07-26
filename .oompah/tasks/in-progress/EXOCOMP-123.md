@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T11:37:18.799126Z'
+updated_at: '2026-07-26T11:53:31.867884Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -367,5 +367,10 @@ author: oompah
 created: 2026-07-26 11:37
 ---
 Implementation: rc.9 fixes production coordinator-to-node A2A mTLS by emitting and validating a leaf-plus-intermediate coordinator chain, wiring it into the systemd/runtime outbound client, and covering bootstrap corruption plus installer/runtime structure. Added invariant rc.9 M5 ceilings and committed qualification helpers that exercise exact-tag offline install/PKI/enrollment, signed approval and replay denial, multi-node diagnostics, automatic recovery, bounded cleanup/unsafe denials, lifecycle rollback/backup/uninstall, and protected-state preservation. Focused gates pass: test-builders and all 76 installer tests; the clean amd64 full rerun passes 845 tests (10 excluded).
+---
+author: oompah
+created: 2026-07-26 11:53
+---
+Discovery: signed rc.9 is rejected and none of its results will count for acceptance. Its amd64 live run proved the production signed-approval gate and exact sudo restart worked, then the exact-tag qualification helper supplied active service evidence without the required health classification; ApprovalRequired correctly escalated the post-action verification as unstable. This is confined to the new qualification helper, not candidate runtime behavior. I added a real fixture health probe to the helper and created fresh invariant rc.10 M5 identities; qualification restarts from the replacement signed tag.
 ---
 <!-- COMMENTS:END -->
