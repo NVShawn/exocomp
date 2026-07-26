@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:17:45.602912Z'
+updated_at: '2026-07-26T05:19:03.280273Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -184,5 +184,30 @@ Implementation: Six changes across five files:
 5. docs/installation.md: Added prose section documenting the new --public-key --strict workflow, placed after the executable sh blocks to avoid shifting the block index used by TestDocumentedCleanRootWorkflow.
 
 6. tests/test_bundle.py: Added 23 new tests in 5 classes (Tests 15–19): double-build byte-identity, SBOM timestamp determinism, SBOM namespace stability, signed-metadata tamper detection for manifest.json/sbom/provenance, metadata coverage in manifest.sha256, license completeness (3 required files + manifest coverage), assembly-fails-closed tests (missing dir, missing MIT.txt), and strict-mode metadata/license rejection.
+---
+author: oompah
+created: 2026-07-26 05:19
+---
+Verification: All tests pass.
+
+make test-bundle: 98 passed (75 pre-existing + 23 new)
+make test-compliance: 24 passed
+make test-release-packaging: 24 passed
+make release-check: passed (compliance + compliance-check)
+Full suite: 122 passed, 0 failed
+
+New test coverage added:
+- TestDoubleBuildReproducibility (4 tests): byte-identical archive, SBOM timestamp determinism, SBOM namespace stability, different-epoch gives different archive
+- TestSignedMetadataTamperDetection (7 tests): tamper/delete manifest.json, sbom.spdx.json, provenance.json each fail verify-bundle.sh; all three are listed in manifest.sha256
+- TestLicenseCompleteness (7 tests): LICENSES/ exists and non-empty, Apache-2.0/MIT/BSD-3-Clause present, covered in manifest, non-strict passes
+- TestAssemblyFailsOnMissingLicenses (2 tests): absent LICENSES dir fails; incomplete LICENSES (missing MIT) fails
+- TestStrictVerificationRejectsUnauthenticatedMetadata (3 tests): non-strict passes; strict rejects uncovered manifest.json; strict rejects empty LICENSES
+
+Acceptance criteria verification:
+✅ Identical inputs produce byte-identical archives (TestDoubleBuildReproducibility::test_identical_inputs_produce_byte_identical_archive)
+✅ Strict verify rejects manifest/SBOM/provenance/license tamper (TestSignedMetadataTamperDetection)
+✅ Every governed component has required shipped license (TestLicenseCompleteness + LICENSES/ dir populated)
+✅ Assembly fails closed for missing/unsigned content (TestAssemblyFailsOnMissingLicenses + TestStrictVerificationRejectsUnauthenticatedMetadata)
+✅ All Make gates pass
 ---
 <!-- COMMENTS:END -->
