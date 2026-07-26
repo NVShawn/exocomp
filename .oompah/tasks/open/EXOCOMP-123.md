@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-123
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:20:25.225749Z'
+updated_at: '2026-07-26T18:20:52.312282Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
