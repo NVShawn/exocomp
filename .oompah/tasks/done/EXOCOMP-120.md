@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:19:23.425274Z'
+updated_at: '2026-07-26T05:19:37.942941Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: d29229cf-723e-41b6-896e-ea06365889e8
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 33
-  total_output_tokens: 6286
+  total_input_tokens: 115
+  total_output_tokens: 46483
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 33
-      output_tokens: 6286
+      input_tokens: 115
+      output_tokens: 46483
       cost_usd: 0.0
   runs:
   - profile: default
@@ -35,6 +35,12 @@ oompah.task_costs:
     output_tokens: 6286
     cost_usd: 0.0
     recorded_at: '2026-07-26T05:02:00.406475+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 82
+    output_tokens: 40197
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T05:19:35.907188+00:00'
 ---
 ## Summary
 
@@ -229,5 +235,20 @@ author: oompah
 created: 2026-07-26 05:19
 ---
 Fixed three v0.1.0-rc.2 bundle defects: (1) deterministic timestamps via SOURCE_DATE_EPOCH at script startup + generate-sbom.sh --timestamp + stable documentNamespace; (2) signed root now covers manifest.json/sbom/provenance by appending metadata checksums to manifest.sha256 before signing; (3) LICENSES/ populated with Apache-2.0/MIT/BSD-3-Clause, assembly fails hard when missing. verify-bundle.sh --strict now validates metadata coverage and LICENSES presence. Added 23 new tests (98 total), all Make gates pass.
+---
+author: oompah
+created: 2026-07-26 05:19
+---
+Agent completed successfully in 1043s (40279 tokens)
+---
+author: oompah
+created: 2026-07-26 05:19
+---
+Run #1 [attempt=1, profile=deep, role=deep -> Claude/default]
+- Turns: 153, Tool calls: 94
+- Tokens: 82 in / 40.2K out [40.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 17m 23s
+- Log: EXOCOMP-120__20260726T050216Z.jsonl
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-121
 type: bug
-status: Open
+status: In Progress
 priority: 2
 title: Make cross-architecture tests robust under full-system arm64 execution
 parent: EXOCOMP-117
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T03:59:19.761719Z'
+updated_at: '2026-07-26T05:19:43.191102Z'
 work_branch: null
 target_branch: null
 review_url: null
