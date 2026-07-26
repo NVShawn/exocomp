@@ -77,9 +77,13 @@ defmodule Exocomp.Coordinator.Handlers.EnrollmentHandler do
         Logger.warning("[EnrollmentHandler] PKI.State not running")
         service_unavailable(conn, "PKI service unavailable")
 
-      {:error, %Error{code: code}} when code in [:token_not_found, :token_expired,
-                                                  :token_node_mismatch,
-                                                  :token_already_consumed] ->
+      {:error, %Error{code: code}}
+      when code in [
+             :token_not_found,
+             :token_expired,
+             :token_node_mismatch,
+             :token_already_consumed
+           ] ->
         conn
         |> put_resp_content_type("application/json")
         |> send_resp(401, ~s({"error":"Token invalid or not authorized for this node"}))
@@ -171,7 +175,8 @@ defmodule Exocomp.Coordinator.Handlers.EnrollmentHandler do
         EnrollmentToken.consume(token, node_id)
       catch
         :exit, _reason ->
-          {:error, Error.new(:enrollment_service_unavailable, "enrollment service is unavailable")}
+          {:error,
+           Error.new(:enrollment_service_unavailable, "enrollment service is unavailable")}
       end
     else
       {:error, Error.new(:enrollment_service_unavailable, "enrollment service is unavailable")}

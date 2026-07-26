@@ -28,8 +28,8 @@ defmodule Exocomp.Coordinator.Health do
     status =
       if healthy?(inventory) and healthy?(registry) and healthy_audit?(audit) and
            healthy?(pki) and listener and enrollment_token,
-        do: :healthy,
-        else: :degraded
+         do: :healthy,
+         else: :degraded
 
     %{
       status: status,

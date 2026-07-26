@@ -95,6 +95,7 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
       if Process.alive?(pid) do
         ref = Process.monitor(pid)
         Process.exit(pid, :kill)
+
         receive do
           {:DOWN, ^ref, :process, ^pid, _} -> :ok
         after
@@ -106,8 +107,17 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
     enrollment_name = :"#{prefix}_enrollment_token"
     pki_state_name = :"#{prefix}_pki_state"
     audit_name = :"#{prefix}_audit"
-    %{pid: pid, enrollment: enrollment_name, pki_state: pki_state_name, audit: audit_name,
-      online: online, offline: offline, store: store, prefix: prefix}
+
+    %{
+      pid: pid,
+      enrollment: enrollment_name,
+      pki_state: pki_state_name,
+      audit: audit_name,
+      online: online,
+      offline: offline,
+      store: store,
+      prefix: prefix
+    }
   end
 
   defp make_csr(node_id) do
@@ -158,9 +168,7 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
     @tag :tmp_dir
     test "fails on missing online state", %{tmp_dir: tmp_dir} do
       assert {:error, %Error{}} =
-               Bootstrap.load_online_state(
-                 online_state: Path.join(tmp_dir, "nonexistent")
-               )
+               Bootstrap.load_online_state(online_state: Path.join(tmp_dir, "nonexistent"))
     end
 
     @tag :tmp_dir
@@ -247,17 +255,21 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
     } do
       store = Path.join(tmp_dir, "restart-tokens")
       audit_name = unique_prefix()
-      start_supervised!({Audit, name: audit_name, sink: {Exocomp.Coordinator.Audit.JSONLines,
-                                                          path: Path.join(tmp_dir, "audit.jsonl"),
-                                                          max_bytes: 1_048_576}},
-                         id: audit_name)
+
+      start_supervised!(
+        {Audit,
+         name: audit_name,
+         sink:
+           {Exocomp.Coordinator.Audit.JSONLines,
+            path: Path.join(tmp_dir, "audit.jsonl"), max_bytes: 1_048_576}},
+        id: audit_name
+      )
 
       svc1 = unique_prefix()
 
       start_supervised!(
         {EnrollmentToken,
-         name: svc1, store_path: store, audit_server: audit_name,
-         inventory_fn: fn _ -> :ok end},
+         name: svc1, store_path: store, audit_server: audit_name, inventory_fn: fn _ -> :ok end},
         id: svc1
       )
 
@@ -272,8 +284,7 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
 
       start_supervised!(
         {EnrollmentToken,
-         name: svc2, store_path: store, audit_server: audit_name,
-         inventory_fn: fn _ -> :ok end},
+         name: svc2, store_path: store, audit_server: audit_name, inventory_fn: fn _ -> :ok end},
         id: svc2
       )
 
@@ -308,8 +319,7 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
 
       start_supervised!(
         {EnrollmentToken,
-         name: svc, store_path: nil, audit_server: audit_name,
-         inventory_fn: fn _ -> :ok end},
+         name: svc, store_path: nil, audit_server: audit_name, inventory_fn: fn _ -> :ok end},
         id: svc
       )
 
@@ -367,10 +377,12 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
       assert {:ok, _chain_pem} = Issuer.issue_leaf(csr, ctx.online)
 
       online_files = Path.wildcard(Path.join(ctx.online, "**/*")) |> Enum.reject(&File.dir?/1)
-      node_key_files = Enum.filter(online_files, fn f ->
-        name = Path.basename(f)
-        String.contains?(name, @node_alpha)
-      end)
+
+      node_key_files =
+        Enum.filter(online_files, fn f ->
+          name = Path.basename(f)
+          String.contains?(name, @node_alpha)
+        end)
 
       assert node_key_files == [],
              "Online PKI state must not retain node key material"
@@ -491,8 +503,10 @@ defmodule Exocomp.Coordinator.PKIEnrollmentTest do
 
       # Verify node_id can be extracted from the issued leaf cert
       leaf = X509.Certificate.from_der!(leaf_der)
+
       assert {:Extension, _, _, [{:dNSName, dns_name}]} =
                X509.Certificate.extension(leaf, :subject_alt_name)
+
       assert to_string(dns_name) == @node_alpha
 
       # Issue renewal certificate

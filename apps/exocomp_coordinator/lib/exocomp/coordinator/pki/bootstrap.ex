@@ -84,8 +84,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
   end
 
   def load_online_state(_options) do
-    {:error,
-     Error.new(:invalid_pki_options, "PKI load options must be a keyword list")}
+    {:error, Error.new(:invalid_pki_options, "PKI load options must be a keyword list")}
   end
 
   @spec initialize(keyword()) :: {:ok, metadata()} | {:error, Error.t()}
