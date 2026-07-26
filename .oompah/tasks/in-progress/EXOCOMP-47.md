@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: Needs Human
+status: In Progress
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-25T21:11:45.512437Z'
+updated_at: '2026-07-26T00:38:13.800196Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-07-25 21:11
 ---
 Human action required: choose and sign a candidate tag that contains main merge 2085e44152f03ffd41f35cbfeee89a0da53b8bce, then follow docs/clean-host-qualification.md on one native amd64 host and one native arm64 host (no QEMU/emulation). Attach the signed M6-CRIT evidence for artifact verification, offline install/no-network behavior, PKI/enrollment/renewal, multi-node diagnostics, failed-service recovery, M5 gates, hardening, upgrade/rollback, backup/restore, and uninstall. For each M6-CRIT item, answer: did it pass on both native architectures, and where is the signed evidence? If every answer is yes, move EXOCOMP-47 to Merged; if any answer is no, move it to Open with the failing criterion and logs.
+---
+author: oompah
+created: 2026-07-26 00:38
+---
+Human decision received: bare metal is not required. A clean, full-system arm64 VM is acceptable qualification evidence. QEMU CPU emulation on this amd64 host may be used if the guest reports arm64, runs systemd, starts the shipped arm64 artifacts, and completes every M6-CRIT scenario. A passing M5 gate counts as conservative evidence; a performance-only failure under emulation is inconclusive and must remain unresolved rather than being waived.
 ---
 <!-- COMMENTS:END -->
