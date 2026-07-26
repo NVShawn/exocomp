@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:25:43.117370Z'
+updated_at: '2026-07-26T18:32:49.098578Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -762,5 +762,10 @@ author: oompah
 created: 2026-07-26 18:25
 ---
 Implementation: install.sh now stops the failed release while current still points to its own control script, refuses to switch if it remains active, atomically restores the prior link, clears systemd failure limits, starts (not restarts) the prior unit, and waits for systemd plus built-in application health before returning. Added a behavioral fake-systemd regression proving stop/reset/start ordering and a final prior-version RPC probe; added invariant rc.17 amd64/arm64 M5 baselines.
+---
+author: oompah
+created: 2026-07-26 18:32
+---
+Verification: focused host gates pass (78 installer tests, 101 bundle tests, 28 release-check tests, packaging/operator docs, and 13 builder/offline checks). The host M5 structural tests pass; its container half is unavailable only because the host rootless-Podman runtime path is read-only. On the dedicated amd64 guest, exact commit cbab8ce passed fmt, lint, release-check, packaging, installer, bundle, full focused M5, and three consecutive make test runs (845 passed, 10 excluded each) with bundled-ERTS smoke checks. Signed tag v0.1.0-rc.17 is verified and pushed; fresh dual-architecture qualification begins next.
 ---
 <!-- COMMENTS:END -->
