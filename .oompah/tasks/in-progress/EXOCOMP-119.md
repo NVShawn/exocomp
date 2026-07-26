@@ -10,25 +10,24 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:docs
-- needs:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:32:55.050694Z'
+updated_at: '2026-07-26T04:33:17.224978Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 597429dd-5b2c-44ec-98c4-09d3de006c56
+oompah.agent_run_id: 06f9b310-a395-4e0e-9b7d-f5a133b562cf
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 1610713
-  total_output_tokens: 6197
+  total_input_tokens: 4403133
+  total_output_tokens: 21156
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1610713
-      output_tokens: 6197
+      input_tokens: 4403133
+      output_tokens: 21156
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +36,12 @@ oompah.task_costs:
     output_tokens: 6197
     cost_usd: 0.0
     recorded_at: '2026-07-26T04:10:57.855997+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 2792420
+    output_tokens: 14959
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T04:33:05.816293+00:00'
 ---
 ## Summary
 
@@ -166,5 +171,35 @@ Evidence/decisions: Changed docs/installation.md, docs/pki-operations.md, and do
 Remaining work/risks: Production behavior is still absent. Application.start/2 must supervise Listener, PKI.State, EnrollmentToken, enrollment/renewal handlers, and node runtime clients; Health.check/0 must fail degraded for every required component. Bootstrap filenames/state location currently disagree with release/templates/coordinator.json, and start_supervised_tree/1 requires the offline root and passphrase on every validation while the operator security contract unmounts the offline root after the ceremony. Resolve that boundary without keeping root material online. A2ARouter globally requires mTLS and has no bootstrap enrollment route; EnrollmentClient expects an HTTPS enrollment response, and renewal needs a distinct authenticated mTLS path. Once the supported token issuance/enrollment interface lands, replace the current installation-guide warning that no standalone issuance command exists with the exact verified operator command. Required release-mode tests and make test/test-installer/test-bundle/clean-host gates remain.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-26 04:33
+---
+Agent completed successfully in 430s (2807379 tokens)
+---
+author: oompah
+created: 2026-07-26 04:33
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 78
+- Tokens: 2.8M in / 15.0K out [2.8M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 10s
+- Log: EXOCOMP-119__20260726T042557Z.jsonl
+---
+author: oompah
+created: 2026-07-26 04:33
+---
+Focus handoff from `docs` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-26 04:33
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-07-26 04:33
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
