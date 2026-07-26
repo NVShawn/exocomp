@@ -4,10 +4,14 @@ defmodule Exocomp.Coordinator.Application do
   @moduledoc """
   Starts coordinator services.
 
-  Normal startup launches the full M2 supervision tree: Audit, Registry,
-  Inventory, Resolver, HealthPoller, GoalStore, Orchestrator, and TaskRegistry.
+  Normal startup launches the full supervision tree: Audit, Registry,
+  Inventory, Resolver, HealthPoller, GoalStore, Orchestrator, TaskRegistry,
+  and (when `require_pki` is true) PKI.State, EnrollmentToken, and Listener.
+
   PKI validation is gated by the `:require_pki` application config (default
-  true; set to false in test environment).
+  true; set to false in test environment). When enabled, `Bootstrap.load_online_state/1`
+  validates the configured online PKI directory without requiring the offline
+  root backup. If PKI loading fails, the application fails to start.
 
   Integration tests that exercise PKI and enrollment call
   `start_supervised_tree/1` directly to start a named, isolated sub-tree with
@@ -16,20 +20,54 @@ defmodule Exocomp.Coordinator.Application do
 
   use Application
 
-  alias Exocomp.Coordinator.PKI.Bootstrap
+  require Logger
+
+  alias Exocomp.Coordinator.{Audit, EnrollmentToken, Listener}
+  alias Exocomp.Coordinator.PKI.{Bootstrap, State}
 
   @impl true
   def start(_type, _args) do
-    children = [
-      {Exocomp.Coordinator.Audit, Application.get_env(:exocomp_coordinator, :audit, [])},
-      {Exocomp.Coordinator.Registry, Application.get_env(:exocomp_coordinator, :registry, [])},
+    require_pki? = Application.get_env(:exocomp_coordinator, :require_pki, true)
+
+    case build_children(require_pki?) do
+      {:ok, children} ->
+        Supervisor.start_link(children,
+          strategy: :one_for_one,
+          name: Exocomp.Coordinator.Supervisor
+        )
+
+      {:error, _reason} = error ->
+        error
+    end
+  end
+
+  # ── Child list construction ───────────────────────────────────────────────────
+
+  defp build_children(require_pki?) do
+    if require_pki? do
+      case pki_and_listener_children() do
+        {:ok, extra} -> {:ok, base_children() ++ extra}
+        {:error, _} = error -> error
+      end
+    else
+      {:ok, base_children()}
+    end
+  end
+
+  defp base_children do
+    [
+      {Audit, Application.get_env(:exocomp_coordinator, :audit, [])},
+      {Exocomp.Coordinator.Registry,
+       Application.get_env(:exocomp_coordinator, :registry, [])},
       {Exocomp.Coordinator.Inventory,
        inventory_path: Application.get_env(:exocomp_coordinator, :inventory_path)},
-      {Exocomp.Coordinator.Resolver, Application.get_env(:exocomp_coordinator, :resolver, [])},
+      {Exocomp.Coordinator.Resolver,
+       Application.get_env(:exocomp_coordinator, :resolver, [])},
       {Task.Supervisor, name: Exocomp.Coordinator.PollTaskSupervisor},
       {Exocomp.Coordinator.HealthPoller,
        Application.get_env(:exocomp_coordinator, :health_poller, [])},
-      {Exocomp.Coordinator.GoalStore, Application.get_env(:exocomp_coordinator, :goal_store, [])},
+      {Exocomp.Coordinator.GoalStore,
+       Application.get_env(:exocomp_coordinator, :goal_store, [])},
       {Task.Supervisor, name: Exocomp.Coordinator.DiagTaskSupervisor},
       {Exocomp.Coordinator.Orchestrator,
        Application.get_env(:exocomp_coordinator, :orchestrator, [])},
@@ -37,11 +75,45 @@ defmodule Exocomp.Coordinator.Application do
       {Exocomp.Coordinator.RemediationLifecycle,
        Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}
     ]
+  end
 
-    Supervisor.start_link(children,
-      strategy: :one_for_one,
-      name: Exocomp.Coordinator.Supervisor
-    )
+  # Loads the online PKI state and returns child specs for PKI.State,
+  # EnrollmentToken, and Listener. Returns {:error, reason} if the online
+  # PKI state is absent or invalid, causing the application to fail to start.
+  defp pki_and_listener_children do
+    online_state = Application.get_env(:exocomp_coordinator, :pki_online_state)
+
+    if is_nil(online_state) do
+      Logger.error(
+        "[CoordinatorApp] require_pki is true but pki_online_state is not configured; " <>
+          "set the EXOCOMP_PKI_ONLINE_STATE environment variable"
+      )
+
+      {:error, :pki_not_configured}
+    else
+      case Bootstrap.load_online_state(online_state: online_state) do
+        {:ok, metadata} ->
+          store_path =
+            Application.get_env(:exocomp_coordinator, :enrollment_token_store_path) ||
+              Path.join(Path.dirname(online_state), "enrollment-tokens")
+
+          children = [
+            {State, [metadata: metadata]},
+            {EnrollmentToken, [store_path: store_path, audit_server: Audit]},
+            {Listener, Application.get_env(:exocomp_coordinator, :listener, [])}
+          ]
+
+          {:ok, children}
+
+        {:error, error} ->
+          Logger.error(
+            "[CoordinatorApp] PKI state load failed (#{inspect(error.code)}); " <>
+              "ensure the PKI ceremony has been completed and the online state is intact"
+          )
+
+          {:error, {:pki_load_failed, error.code}}
+      end
+    end
   end
 
   @doc """

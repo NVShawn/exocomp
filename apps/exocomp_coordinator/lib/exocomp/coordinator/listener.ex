@@ -113,7 +113,7 @@ defmodule Exocomp.Coordinator.Listener do
     ip = parse_ip(config.listen.host)
 
     Bandit.start_link(
-      plug: {Exocomp.Coordinator.A2ARouter, coordinator_id: config.coordinator_id},
+      plug: {Exocomp.Coordinator.CoordinatorRouter, coordinator_id: config.coordinator_id},
       scheme: :https,
       port: config.listen.port,
       ip: ip,
@@ -128,7 +128,12 @@ defmodule Exocomp.Coordinator.Listener do
       keyfile: config.tls.coord_key,
       cacertfile: config.tls.ca_cert,
       verify: :verify_peer,
-      fail_if_no_peer_cert: true,
+      # Allow connections without a client certificate so that enrolling nodes
+      # (which do not yet have a coordinator-issued cert) can reach /v1/enroll.
+      # mTLS is still enforced for all A2A routes via the authenticate_mtls plug
+      # in A2ARouter, and the renewal route (/v1/renew) requires a client cert
+      # at the application layer.
+      fail_if_no_peer_cert: false,
       versions: [:"tlsv1.3"]
     ]
   end
