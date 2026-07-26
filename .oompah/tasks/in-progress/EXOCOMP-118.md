@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:13:43.556215Z'
+updated_at: '2026-07-26T04:19:45.246532Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -258,5 +258,10 @@ author: oompah
 created: 2026-07-26 04:13
 ---
 Discovery: confirmed the rc.2 failures are one inconsistent payload contract. Production node config targets /var/lib/exocomp while install.sh and StateDirectory own /var/lib/exocomp-node; assembly places component archives under releases/ and emits manifest.sha256 plus an adjacent outer .sha256 while docs/installer referenced root archives and checksums.sha256; only the llama executable was staged and not installed with its companion DSOs; and state-backup.sh existed only in the source tree. A terminated prior attempt left relevant uncommitted edits, which I reviewed and am completing with focused regressions rather than discarding.
+---
+author: oompah
+created: 2026-07-26 04:19
+---
+Implementation: production replay state now targets /var/lib/exocomp-node and rendered units explicitly allow only the installer-owned state directory. Bundle assembly emits a relocatable llama launcher, original executable, and copied .so payload, validates every ELF NEEDED entry against the shipped closure or pinned host baseline, ships state-backup.sh, and records it in provenance. install.sh atomically places llama plus exocomp-state-backup in each node/versioned release before switching current. Installation/lifecycle/maintainer docs now use the delivered outer .sha256, extracted directory, releases/* archives, manifest.sha256, installed inference path, and installed backup command. Regressions cover incomplete payload rejection, real dynamic/transitive llama loading, rendered state ownership, verbatim doc commands, bundled-ERTS service-start control flow with host Erlang/network tools forbidden, and shipped-only backup/restore.
 ---
 <!-- COMMENTS:END -->
