@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:02:16.183738Z'
+updated_at: '2026-07-26T05:06:09.280687Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -138,5 +138,18 @@ author: oompah
 created: 2026-07-26 05:02
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-26 05:06
+---
+Understanding (DevOps): Three defects to fix in this session:
+
+1. NON-DETERMINISM: assemble-bundle.sh computes BUILD_TIMESTAMP via 'date -u' BEFORE SOURCE_DATE_EPOCH is set (Phase 8), so two identical builds get different timestamps → different manifests → different SBOM/provenance → different archive SHA-256. Also generate-sbom.sh uses its own 'date -u' call and embeds the timestamp in the document namespace. Fix: compute SOURCE_DATE_EPOCH at script top, derive all timestamps from it.
+
+2. SIGNED ROOT GAP: manifest.sha256 explicitly excludes manifest.json, sbom.spdx.json, and provenance.json from its find command. Since the signature covers manifest.sha256, all three metadata files are unauthenticated. Fix: after generating all metadata files, append their SHA-256 entries to manifest.sha256 before signing.
+
+3. EMPTY LICENSES: No LICENSES/ directory at repo root (only licenses/components.toml). assemble-bundle.sh warns and creates empty LICENSES/ in bundle. Fix: create LICENSES/Apache-2.0.txt, LICENSES/MIT.txt, LICENSES/BSD-3-Clause.txt at repo root; change assemble-bundle.sh to die (not warn) when LICENSES dir is absent.
+
+Plan: (a) fix generate-sbom.sh timestamp parameter, (b) fix assemble-bundle.sh SOURCE_DATE_EPOCH + reorder to append metadata to manifest.sha256, (c) create LICENSES/ texts, (d) update verify-bundle.sh strict mode to validate metadata coverage, (e) add tests for double-build reproducibility, signed-metadata tamper, license completeness.
 ---
 <!-- COMMENTS:END -->
