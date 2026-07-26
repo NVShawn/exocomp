@@ -13,7 +13,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:09:21.799844Z'
+updated_at: '2026-07-26T04:09:31.744626Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 4e058296-0656-4fa6-a2c6-ee779b2bcbfb
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 2269544
-  total_output_tokens: 7004
+  total_input_tokens: 2269558
+  total_output_tokens: 11207
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 2269544
-      output_tokens: 7004
+      input_tokens: 2269558
+      output_tokens: 11207
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 7004
     cost_usd: 0.0
     recorded_at: '2026-07-26T04:03:55.158344+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 14
+    output_tokens: 4203
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T04:09:28.467391+00:00'
 ---
 ## Summary
 
@@ -213,5 +219,25 @@ Focus handoff: frontend
    - Run make test-installer, test-bundle, test-release-packaging
 
 4. Recommended next focus: devops — all changes are in shell scripts, Elixir config, and systemd/release templates.
+---
+author: oompah
+created: 2026-07-26 04:09
+---
+Agent completed successfully in 103s (4217 tokens)
+---
+author: oompah
+created: 2026-07-26 04:09
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
+- Turns: 25, Tool calls: 16
+- Tokens: 14 in / 4.2K out [4.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 43s
+- Log: EXOCOMP-118__20260726T040747Z.jsonl
+---
+author: oompah
+created: 2026-07-26 04:09
+---
+Focus handoff from `frontend` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
