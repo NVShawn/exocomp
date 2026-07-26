@@ -12,10 +12,12 @@ blocked_by:
 - EXOCOMP-120
 - EXOCOMP-121
 - EXOCOMP-122
-labels: []
+labels:
+- focus-complete:duplicate_detector
+- needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T07:58:39.989500Z'
+updated_at: '2026-07-26T07:58:59.085326Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -115,5 +117,18 @@ author: oompah
 created: 2026-07-26 07:58
 ---
 Discovery: No confirmed duplicate. Full records reviewed for EXOCOMP-47 and EXOCOMP-117 (parent epic with children EXOCOMP-118, 119, 120, 121, 122). Key distinctions: EXOCOMP-47 owned the *initial* M6 qualification run that produced signed failure evidence for v0.1.0-rc.2 (now Merged, evidence committed to main via PR #17). EXOCOMP-117 is the remediation epic; its children (EXOCOMP-118 through EXOCOMP-122) are each done, delivering: clean bundle install, production coordinator PKI/enrollment wiring, reproducible offline bundles, robust cross-arch tests, and shipped M5 performance gate. EXOCOMP-123 is explicitly the distinct follow-up requalification task—to build a new signed release candidate after fixes land and run the complete qualification matrix fresh, without reusing results from the failed rc.2 run. It is not a repeat of EXOCOMP-47 (which recorded failure evidence) nor does it overlap any of the sibling remediation tasks.
+---
+author: oompah
+created: 2026-07-26 07:58
+---
+Focus handoff: duplicate_detector
+
+1. Outcome: Duplicate screening confirmed no duplicate. EXOCOMP-123 is the unique designated child task for post-remediation requalification of the M6 release candidate. All sibling remediation tasks (EXOCOMP-118, 119, 120, 121, 122) are now Done, unblocking this task.
+
+2. Evidence/decisions: Full task records reviewed: EXOCOMP-47 (initial M6 qualification—now Merged with failure evidence), EXOCOMP-117 (remediation epic with all children Done), EXOCOMP-118 through EXOCOMP-122 (each covering a distinct defect domain: bundle runtime paths/llama deps/backup tooling; coordinator PKI/enrollment; offline bundle reproducibility; cross-arch test robustness; M5 performance gate). Docs searched: docs/release-evidence/v0.1.0-rc.2/, docs/clean-host-qualification.md, docs/installation.md. No scope overlap found with any of the above.
+
+3. Remaining work/risks: The full requalification scope is substantial: build the exact candidate twice for amd64 and arm64; run all required Make gates (release-check, test-release-packaging, test-installer, test-bundle, test-release-matrix, test); run every documented live scenario (PKI init, enrollment/renewal, multi-node diagnostics, failed-service recovery, shipped-artifact M5 gates, hardening, upgrade/rollback, backup/restore, default+purge uninstall) on clean systemd guests; verify checksums, signatures, SBOM, provenance, reproducibility; commit signed indexed evidence. Requires a booted VM environment (QEMU arm64 accepted per EXOCOMP-47 precedent). No code changes needed for this specific task—evidence collection and qualification run only.
+
+4. Recommended next focus: devops (release qualification, signing, and evidence collection across both architectures).
 ---
 <!-- COMMENTS:END -->
