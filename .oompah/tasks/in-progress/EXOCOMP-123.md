@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T20:26:10.888422Z'
+updated_at: '2026-07-26T20:28:13.333392Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -873,5 +873,16 @@ author: oompah
 created: 2026-07-26 20:26
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 20:28
+---
+Understanding (continuation): Resuming rc.18 qualification in progress. Both VMs are actively running:
+
+- amd64 (exocomp-amd64-qualification): Phases 1-8 all passed (repo gates, double-build reproducibility, bench_harness build, bundle assembly, preflight, full operational scenarios, M5 bench short). Phase 9 (M5 bench full) started at 20:14 UTC and is currently running — expected completion ~20:44 UTC.
+
+- arm64 (exocomp-arm64-qualification): Repository gates all passed (fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, test). Currently running test-release-matrix (started 20:20 UTC).
+
+rc.18 candidate (commit 28f8dc35): ExecStop uses SIGTERM instead of RPC-based stop, ordered rollback with configurable health probe. All prior rc.3-rc.17 results remain rejected. Will monitor completion and proceed to lifecycle phase and evidence assembly.
 ---
 <!-- COMMENTS:END -->
