@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T14:59:02.768192Z'
+updated_at: '2026-07-26T14:59:17.624691Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -539,5 +539,10 @@ author: oompah
 created: 2026-07-26 14:59
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 14:59
+---
+Understanding (continuation attempt #8): Resuming from where attempt #7 left off. Previous state: v0.1.0-rc.12 signed at HEAD (cf4c7b6), amd64 had completed Phases 1-8 including short M5 bench and was running full M5 bench (~30 min), arm64 had passed fmt/lint/release-check/packaging/installer/test-bundle and was running make test. I will: (1) reconcile VM and evidence state, (2) complete any remaining phases on both architectures, (3) assemble signed indexed evidence, (4) commit, push, and close. Will not reuse any rc.3 through rc.11 results.
 ---
 <!-- COMMENTS:END -->
