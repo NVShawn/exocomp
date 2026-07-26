@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: In Progress
+status: Open
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:10:51.024576Z'
+updated_at: '2026-07-26T04:11:02.720690Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -20,6 +20,22 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: f90c7d94-f2eb-40d4-b0ca-a2287203e574
 oompah.work_branch: epic-EXOCOMP-117
+oompah.task_costs:
+  total_input_tokens: 1610713
+  total_output_tokens: 6197
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 1610713
+      output_tokens: 6197
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 1610713
+    output_tokens: 6197
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T04:10:57.855997+00:00'
 ---
 ## Summary
 
@@ -86,5 +102,25 @@ Relevant files: coordinator application/listener/health/config and enrollment ro
 Remaining work/risks: Compose validated PKI, token, issuer, authenticated enrollment/renewal endpoints, and listener under production supervision; wire node enrollment/renewal into installed runtime; require audit and all mandatory components in health; align installer ownership/paths; add release-mode replay/identity/root/audit/restart durability coverage; run the required Make and clean-host gates. The main risk is correctly composing prior modules without weakening fail-closed behavior or exposing tokens/passphrases.
 
 Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-26 04:11
+---
+Agent completed successfully in 202s (1616910 tokens)
+---
+author: oompah
+created: 2026-07-26 04:11
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 28
+- Tokens: 1.6M in / 6.2K out [1.6M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 22s
+- Log: EXOCOMP-119__20260726T040739Z.jsonl
+---
+author: oompah
+created: 2026-07-26 04:11
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->

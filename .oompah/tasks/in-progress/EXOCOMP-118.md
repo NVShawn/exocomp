@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: Open
+status: In Progress
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -10,16 +10,15 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:frontend
-- needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:09:31.744626Z'
+updated_at: '2026-07-26T04:11:09.122500Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 4e058296-0656-4fa6-a2c6-ee779b2bcbfb
+oompah.agent_run_id: 07944eee-61ca-483c-852d-f95ad80398dc
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 2269558
@@ -239,5 +238,15 @@ author: oompah
 created: 2026-07-26 04:09
 ---
 Focus handoff from `frontend` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-26 04:11
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-26 04:11
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->
