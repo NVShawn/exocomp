@@ -20,7 +20,7 @@ defmodule Bench.MixProject do
 
   def application do
     [
-      extra_applications: [:crypto, :logger, :inets],
+      extra_applications: [:crypto, :logger, :inets, :public_key],
       mod: {Bench.Application, []}
     ]
   end

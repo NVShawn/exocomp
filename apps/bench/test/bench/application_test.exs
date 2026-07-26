@@ -8,4 +8,11 @@ defmodule Bench.ApplicationTest do
     assert {:ok, _applications} = Application.ensure_all_started(:bench)
     assert is_pid(Process.whereis(Bench.Supervisor))
   end
+
+  test "declares the OTP applications required by the standalone harness" do
+    applications = Application.spec(:bench, :applications)
+
+    assert :inets in applications
+    assert :public_key in applications
+  end
 end
