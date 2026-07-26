@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T13:03:40.369812Z'
+updated_at: '2026-07-26T13:05:03.838901Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -453,5 +453,10 @@ author: oompah
 created: 2026-07-26 13:03
 ---
 Discovery (continuation attempt #6): The prior guest jobs did not reach rc.11 qualification: the ephemeral orchestration wrappers copied archives from the obsolete _build/release/<arch> path and omitted RELEASE_VERSION, while current make build-* writes dist/releases artifacts using mix.exs version 0.1.0 unless RELEASE_VERSION is supplied. I corrected only the uncommitted guest orchestration to build 0.1.0-rc.11 into isolated build1/build2 directories, compare exact hashes, record every required Make gate per architecture, supply the locked builder-image digest during signed bundle assembly, and run both short and full shipped M5 gates. The signed candidate remains unchanged at 6df88c3. Fresh jobs are running in both dedicated systemd guests.
+---
+author: oompah
+created: 2026-07-26 13:05
+---
+Discovery: signed v0.1.0-rc.11 is rejected and none of its incomplete results will count for acceptance. Fresh amd64 make test failed 1/845 in M3AcceptanceTest cleanup: Process.alive?/1 returned true, the ReplayLedger exited before GenServer.stop/3, and the untrapped cleanup exit failed the test. rc.11 fixed the identical TOCTOU race in approval_gate_test.exs but not the remaining M3 integration helpers. I stopped the arm64 rc.11 run and am applying the same exit-safe cleanup pattern across the remaining test helpers before signing a replacement candidate.
 ---
 <!-- COMMENTS:END -->
