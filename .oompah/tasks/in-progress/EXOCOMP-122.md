@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:42:18.317824Z'
+updated_at: '2026-07-26T07:13:38.733093Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -193,5 +193,10 @@ author: oompah
 created: 2026-07-26 06:42
 ---
 Discovery: The current Bench.Report.Summary and Bench.Driver are validation/serialization stubs, so Make/CI wiring alone cannot satisfy the gate. Release artifacts do contain build-identity.json at their root; installed releases live under /opt/exocomp/<component>/current; systemd exposes MainPID; the shipped llama launcher execs llama-server.bin with its bundled lib closure. I will build a standalone bench_harness OTP release using the existing digest-pinned Debian builder, run it natively, verify sampled PIDs resolve inside the exact supplied release/runtime artifacts, use direct shipped releases for short mode and installed systemd services for full mode, and preserve service state on cleanup.
+---
+author: oompah
+created: 2026-07-26 07:13
+---
+Implementation: Added digest-pinned standalone bench_harness release construction plus bench-llama-short-shipped and bench-llama-full Make targets. Short mode launches and verifies the supplied OTP releases directly; full mode preserves systemd unit state and rejects MainPIDs outside the supplied installed roots. Added exact artifact/model/llama identity capture, runtime host capture, rc.2 and v0.1.0 amd64/arm64 TOML baselines, strict CPU/RAM aggregation excluding llama.cpp, missing-metric hard failure, actionable failure blocks, atomic JSONL/summary evidence, CI short-harness workflow, and release docs/checklist updates. Partial process startup is rolled back and tested.
 ---
 <!-- COMMENTS:END -->
