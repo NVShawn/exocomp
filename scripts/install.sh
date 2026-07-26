@@ -220,7 +220,7 @@ preflight() {
 
     # 1c. Determine version from archive name if not given
     if [[ -z "${VERSION}" ]]; then
-        VERSION="$(basename "${BUNDLE}" | sed -E 's/^exocomp-[^-]+-([0-9]+\.[0-9]+\.[0-9]+[^.]*)-.*\.tar\.gz$/\1/' 2>/dev/null || true)"
+        VERSION="$(basename "${BUNDLE}" | sed -E 's/^exocomp-[^-]+-(.+)-linux-(amd64|arm64)\.tar\.gz$/\1/' 2>/dev/null || true)"
         if [[ -z "${VERSION}" ]]; then
             die "cannot determine version from archive name; pass --version VERSION"
         fi

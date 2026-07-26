@@ -1302,6 +1302,52 @@ class TestVersionValidation:
 
         assert not (tmp_path / "root" / "opt" / "exocomp").exists()
 
+    @pytest.mark.parametrize(
+        "version",
+        ["0.1.0", "1.2.3", "0.1.0-rc.4", "1.0.0-beta.1", "2.3.4-alpha.12"],
+    )
+    def test_version_detected_from_archive_name(self, tmp_path, version):
+        """install.sh must correctly parse semver pre-release versions with dots from
+        the archive filename when --version is not supplied.  Regression for:
+        ``exocomp-coordinator-0.1.0-rc.4-linux-amd64.tar.gz`` extracting as ``0.1.0``
+        instead of ``0.1.0-rc.4`` due to ``[^.]*`` stopping at the dot in the
+        pre-release segment."""
+        component = "node"
+        info = _make_bundle_tree(tmp_path, component, version)
+        env = _make_env(tmp_path)
+
+        # Run install WITHOUT --version so the script must detect it from the
+        # archive filename.
+        cmd = [
+            "bash",
+            str(info["install_sh"]),
+            "--component", component,
+            "--bundle", str(info["bundle_path"]),
+            "--checksums", str(info["checksums_path"]),
+            "--non-interactive",
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True, env=env)
+        assert result.returncode == 0, (
+            f"install.sh failed to detect version '{version}' from archive name\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+
+        # Verify the versioned release directory uses the full version string.
+        root = tmp_path / "root"
+        versioned = root / "opt" / "exocomp" / component / "releases" / version
+        assert versioned.is_dir(), (
+            f"versioned release dir '{version}' not found; "
+            f"version was likely truncated by the archive-name parser"
+        )
+
+        # Verify the current symlink also points to the correct version.
+        current = root / "opt" / "exocomp" / component / "current"
+        assert current.is_symlink(), "current symlink not created"
+        assert current.readlink() == Path(f"releases/{version}"), (
+            f"current symlink points to {current.readlink()!r}; "
+            f"expected releases/{version}"
+        )
+
 
 class TestUnitHardeningDirectives:
     """Verify all required hardening directives are present in both unit files."""
