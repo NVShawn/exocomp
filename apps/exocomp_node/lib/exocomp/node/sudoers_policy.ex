@@ -34,6 +34,11 @@ defmodule Exocomp.Node.SudoersPolicy do
   - **sudo-only** — the generated entries do not grant login, shell access,
     or the ability to run setuid programs other than the named commands.
 
+  - **No PAM login session** — the generated account-scoped
+    `Defaults:<account> !pam_session` setting avoids opening a login session
+    from the hardened systemd sandbox. Command authorization, the exact
+    argument policy, and sudo auditing remain enabled.
+
   ## Output format
 
   The rendered string is a valid sudoers fragment suitable for placement in
@@ -45,7 +50,7 @@ defmodule Exocomp.Node.SudoersPolicy do
       # Exocomp node sudoers policy
       # Generated for account: exocomp
       # DO NOT EDIT — regenerate from the installed action catalog.
-      Defaults!EXOCOMP_RESTART requiretty
+      Defaults:exocomp !pam_session
       exocomp ALL=(root) NOPASSWD: /usr/bin/systemctl restart myapp.service
       exocomp ALL=(root) NOPASSWD: /usr/bin/journalctl --vacuum-size=100M
   """
@@ -124,7 +129,9 @@ defmodule Exocomp.Node.SudoersPolicy do
     # Exocomp node sudoers policy
     # Generated for account: #{account}
     # DO NOT EDIT — regenerate from the installed action catalog.
-    # Validate with: visudo -c -f /etc/sudoers.d/#{filename(account)}\
+    # Validate with: visudo -c -f /etc/sudoers.d/#{filename(account)}
+    # Disable only PAM login-session setup for the sandboxed service account.
+    Defaults:#{account} !pam_session\
     """
   end
 

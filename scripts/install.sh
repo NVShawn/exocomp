@@ -162,6 +162,9 @@ render_sudoers() {
 # Generated for account: ${account}
 # DO NOT EDIT — regenerate from the installed action catalog.
 # Validate with: visudo -c -f ${EXOCOMP_SUDOERS_DIR}/${account}
+# The hardened service has no login session.  Keep command authorization and
+# sudo auditing enabled while avoiding PAM session setup from that sandbox.
+Defaults:${account} !pam_session
 SUDOERS_HEADER
 
     for entry in "${entries[@]}"; do

@@ -21,6 +21,14 @@ The only cleanup privilege is the installed, size-bounded journal vacuum
 command. Never grant a shell, arbitrary path deletion, generic `systemctl`, or
 wildcard arguments.
 
+The node unit deliberately retains only `CAP_SETUID` and `CAP_SETGID` in its
+capability bounding set and sets `NoNewPrivileges=false` so `/usr/bin/sudo` can
+enter the exact root commands above. It grants no ambient capabilities. The
+account-scoped `Defaults:exocomp-node !pam_session` avoids opening a PAM login
+session from the systemd sandbox; sudo command authorization and auditing stay
+enabled. Do not broaden the capability set or remove the argument-exact
+sudoers entries.
+
 ## Approval
 
 An already inactive/failed allow-listed service may restart once automatically

@@ -60,13 +60,17 @@ StandardError=journal
 SyslogIdentifier=exocomp-node
 
 # ── Capability hardening ──────────────────────────────────────────────────────
-# Drop all capabilities.  The service never needs root privileges.
-CapabilityBoundingSet=
+# The service itself starts without effective or ambient capabilities.  Keep
+# only setuid/setgid in the bounding set so the fixed /usr/bin/sudo actions can
+# cross to the exact root commands installed in /etc/sudoers.d/exocomp-node.
+CapabilityBoundingSet=CAP_SETGID CAP_SETUID
 AmbientCapabilities=
 
 # ── Privilege escalation prevention ──────────────────────────────────────────
-NoNewPrivileges=true
-SecureBits=noroot noroot-locked
+# NoNewPrivileges and SecureBits=noroot would make the exact sudo action
+# catalog impossible to execute.  Privilege remains bounded by the generated
+# argument-exact NOPASSWD policy; no generic sudo or systemctl grant exists.
+NoNewPrivileges=false
 
 # ── Filesystem access ─────────────────────────────────────────────────────────
 # Mount the system namespace read-only and grant write access only to the

@@ -331,14 +331,18 @@ class TestCleanInstall:
         )
         assert unit.exists(), f"systemd unit not found: {unit}"
         content = unit.read_text()
-        assert "NoNewPrivileges=true" in content, "unit missing NoNewPrivileges=true"
+        assert "NoNewPrivileges=false" in content, (
+            "node unit must permit only the exact sudo transition"
+        )
         assert "ProtectSystem=strict" in content, "unit missing ProtectSystem=strict"
-        assert "CapabilityBoundingSet=" in content, "unit missing CapabilityBoundingSet="
+        assert "CapabilityBoundingSet=CAP_SETGID CAP_SETUID" in content
+        assert "AmbientCapabilities=" in content
 
     def test_sudoers_installed_with_exact_entries(self):
         sudoers = self.tmp / "sudoers" / f"exocomp-{self.component}"
         assert sudoers.exists(), f"sudoers file not found: {sudoers}"
         content = sudoers.read_text()
+        assert "Defaults:exocomp-node !pam_session" in content
         # Exact restart entries
         assert "NOPASSWD: /usr/bin/systemctl restart myapp.service" in content
         assert "NOPASSWD: /usr/bin/systemctl restart other.service" in content
@@ -1353,7 +1357,6 @@ class TestUnitHardeningDirectives:
     """Verify all required hardening directives are present in both unit files."""
 
     REQUIRED_DIRECTIVES = [
-        "NoNewPrivileges=true",
         "ProtectSystem=strict",
         "ProtectHome=true",
         "CapabilityBoundingSet=",
@@ -1381,6 +1384,13 @@ class TestUnitHardeningDirectives:
             f"Missing hardening directives in exocomp-{component}.service:\n"
             + "\n".join(f"  {d}" for d in missing)
         )
+        if component == "node":
+            assert "NoNewPrivileges=false" in content
+            assert "CapabilityBoundingSet=CAP_SETGID CAP_SETUID" in content
+            assert not re.search(r"^SecureBits=noroot", content, re.MULTILINE)
+        else:
+            assert "NoNewPrivileges=true" in content
+            assert re.search(r"^CapabilityBoundingSet=$", content, re.MULTILINE)
 
     @pytest.mark.parametrize("component", ["node", "coordinator"])
     def test_unit_runs_as_dedicated_user(self, component):

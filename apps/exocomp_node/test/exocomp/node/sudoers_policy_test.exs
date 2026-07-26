@@ -48,6 +48,7 @@ defmodule Exocomp.Node.SudoersPolicyTest do
         policy
         |> String.split("\n")
         |> Enum.reject(&String.starts_with?(String.trim(&1), "#"))
+        |> Enum.reject(&String.starts_with?(String.trim(&1), "Defaults:"))
         |> Enum.reject(&(String.trim(&1) == ""))
 
       for line <- command_lines do
@@ -108,6 +109,8 @@ defmodule Exocomp.Node.SudoersPolicyTest do
                policy,
                "exocomp ALL=(root) NOPASSWD: /usr/bin/journalctl --vacuum-size="
              )
+
+      assert String.contains?(policy, "Defaults:exocomp !pam_session")
 
       # Must have exactly one systemctl line for this allow-list.
       systemctl_lines = count_lines_containing(policy, "/usr/bin/systemctl")
