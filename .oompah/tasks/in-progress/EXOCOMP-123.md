@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T22:33:22.130555Z'
+updated_at: '2026-07-26T22:38:52.563177Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -962,5 +962,10 @@ author: oompah
 created: 2026-07-26 22:33
 ---
 Understanding (continuation attempt #3): Resuming exact signed v0.1.0-rc.18 qualification at 28f8dc35. amd64 has a complete passing 44-check record; arm64 was restarted from an empty evidence root after a guest-only Git safe.directory correction and was healthy in make test. I will reconcile guest and repository state, finish the uncontaminated arm64 matrix, audit both M6-CRIT records, assemble and verify signed indexed evidence, commit/push it, and close only if the complete dual-architecture qualification passes.
+---
+author: oompah
+created: 2026-07-26 22:38
+---
+Discovery (continuation attempt #3): Repository/tag audit confirms v0.1.0-rc.18 peels to and has a valid SSH signature over 28f8dc35cecbc137de531feab57e22ce991cc03d. The completed amd64 root is internally consistent: nine required repository/release gates, two byte-identical release builds, two byte-identical signed bundles, strict no-network install/PKI/enrollment, operational recovery/hardening, passing short/full shipped M5, lifecycle/rollback/backup/uninstall, and no failure markers. Arm64 is not stalled: its clean rc.18 root is actively progressing through the native release-matrix build/dependency inspection under full-system QEMU. I am preserving that run and auditing the final collector while it completes.
 ---
 <!-- COMMENTS:END -->
