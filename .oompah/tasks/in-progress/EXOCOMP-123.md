@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T17:19:57.559706Z'
+updated_at: '2026-07-26T17:23:41.420800Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -671,5 +671,10 @@ author: oompah
 created: 2026-07-26 17:19
 ---
 Discovery: signed rc.15 is rejected by live amd64 lifecycle and none of its results will count for acceptance. The installer application health gate invokes the release 'rpc' command with System.halt(...); because rpc evaluates remotely, a passing health check terminates the newly started service itself. systemd then runs ExecStop against an already-dead node, gets :noconnection, and restart churn makes the upgrade fail. Live inspection also found StartLimitIntervalSec/StartLimitBurst in [Service], which systemd ignores; both units must place start limits in [Unit]. I am stopping the obsolete arm64 rc.15 job and fixing both defects with regression coverage before a replacement candidate.
+---
+author: oompah
+created: 2026-07-26 17:23
+---
+Implementation: commit c351dc2 fixes the live upgrade blockers. Installer RPC health probes now return :ok or raise on the remote service instead of calling System.halt, so a successful probe cannot terminate the service. Both node and coordinator start-limit directives moved from [Service] to [Unit]. Bundle regression fixtures reject destructive health RPCs and assert correct unit section placement; invariant rc.16 M5 identities are added. Focused results: 77 installer tests, 101 bundle tests, 28 release-check tests, and test-builders pass; host M5 structural tests pass while its container half is unavailable due the known read-only rootless-Podman runtime path.
 ---
 <!-- COMMENTS:END -->
