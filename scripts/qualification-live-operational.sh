@@ -532,8 +532,15 @@ node_rpc '
       String.trim(output)
     end
 
+    health =
+      case :httpc.request(~c"http://127.0.0.1:8877/health") do
+        {:ok, {{_version, 200, _reason}, _headers, _body}} -> "healthy"
+        _other -> "unhealthy"
+      end
+
     Evidence.new(node_id, service, %{
       "active_state" => value.("ActiveState"),
+      "health" => health,
       "sub_state" => value.("SubState"),
       "unit_name" => service
     })
