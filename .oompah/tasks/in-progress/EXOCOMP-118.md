@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:19:45.246532Z'
+updated_at: '2026-07-26T04:20:26.778528Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -263,5 +263,10 @@ author: oompah
 created: 2026-07-26 04:19
 ---
 Implementation: production replay state now targets /var/lib/exocomp-node and rendered units explicitly allow only the installer-owned state directory. Bundle assembly emits a relocatable llama launcher, original executable, and copied .so payload, validates every ELF NEEDED entry against the shipped closure or pinned host baseline, ships state-backup.sh, and records it in provenance. install.sh atomically places llama plus exocomp-state-backup in each node/versioned release before switching current. Installation/lifecycle/maintainer docs now use the delivered outer .sha256, extracted directory, releases/* archives, manifest.sha256, installed inference path, and installed backup command. Regressions cover incomplete payload rejection, real dynamic/transitive llama loading, rendered state ownership, verbatim doc commands, bundled-ERTS service-start control flow with host Erlang/network tools forbidden, and shipped-only backup/restore.
+---
+author: oompah
+created: 2026-07-26 04:20
+---
+Implementation: aligned production replay storage and both hardened units with installer-owned /var/lib/exocomp-<component>; changed bundle assembly to ship a relocatable llama launcher, executable, and validated transitive DSO closure via --llama-lib-dir; installed that runtime plus exocomp-state-backup atomically inside each node/version payload; shipped state-backup.sh offline and recorded it in provenance; changed installer defaults/archive discovery to manifest.sha256 and releases/; and corrected installation/lifecycle/maintainer commands. Added regressions for real ELF dependency closure, missing-DSO rejection, clean-root verbatim documented install with guarded Erlang/network tools and service activation, installed/offline backup restore, durable state, and installed llama startup.
 ---
 <!-- COMMENTS:END -->
