@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: In Progress
+status: Open
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:04:28.619142Z'
+updated_at: '2026-07-26T04:07:09.486654Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
