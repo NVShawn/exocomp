@@ -7,10 +7,11 @@ title: Add a shipped-artifact M5 performance qualification gate
 parent: EXOCOMP-117
 children: []
 blocked_by: []
-labels: []
+labels:
+- focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:28:03.114584Z'
+updated_at: '2026-07-26T06:28:20.683377Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -74,5 +75,10 @@ author: oompah
 created: 2026-07-26 06:28
 ---
 Verification: Repository checks corroborate a distinct undelivered gap: make help exposes only bench-llama-short and labels it as requiring no real llama-server; the focused workload tests use Bench.Test.FakeLlamaServer; docs/release-evidence/v0.1.0-rc.2 records M5 FAIL because no shipped-artifact Make gate or baseline exists. No tests were run because this screening made no source changes. git status is clean and up to date with origin/epic-EXOCOMP-117.
+---
+author: oompah
+created: 2026-07-26 06:28
+---
+Focus handoff: duplicate_detector — (1) Outcome: no duplicate confirmed; EXOCOMP-122 is the remediation vehicle for an M5 shipped-artifact gap proven after earlier M5 tasks were merged. (2) Evidence: reviewed tracker records EXOCOMP-5/35/38/40/47/112/117/123; Makefile:181 defines only fake-compatible bench-llama-short; apps/bench/test/bench/workload/llama_inference_test.exs explicitly uses FakeLlamaServer; docs/release-evidence/v0.1.0-rc.2/README.md:52 records the missing shipped-artifact gate and baseline. EXOCOMP-40 is the closest title/scope match, but contains no implementation history and predates the signed failure evidence; EXOCOMP-117 intentionally created this distinct corrective child. (3) Remaining work/risks: implement real installed node/coordinator/llama-server short and full targets, artifact and host identity capture, versioned amd64/arm64 baselines, deterministic metric/budget failure behavior, CI/docs/evidence integration, and tests. Full verification requires exact candidate artifacts on clean amd64 and full-system arm64 guests; emulated performance-only failures remain inconclusive under existing qualification policy. (4) Recommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
