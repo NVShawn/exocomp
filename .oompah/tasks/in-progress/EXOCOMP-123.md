@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T19:27:11.870612Z'
+updated_at: '2026-07-26T19:34:48.975761Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -832,5 +832,10 @@ author: oompah
 created: 2026-07-26 19:27
 ---
 Understanding (continuation): Resuming from the rc.17 rejection. rc.17 failed because the automatic rollback's built-in RPC probe returned :noconnection for all 10 attempts even though systemd reported the prior release as active. Previous agent diagnosed root cause: old ExecStop used 'bin/exocomp_node stop' (RPC-based) which requires Erlang distribution. If the failed release's distribution was never initialized (which would cause the upgrade health check to fail), ExecStop would time out waiting for RPC, then systemd sends SIGKILL to the BEAM. With SIGKILL, the BEAM cannot cleanly unregister from EPMD, leaving a stale registration. The prior release then cannot register the same node name, so its distribution fails to start and RPC returns :noconnection indefinitely. Fix: change ExecStop to 'kill -TERM \$MAINPID' so systemd sends SIGTERM directly to the BEAM process, which handles it via init:stop() → clean EPMD unregistration → prior release can register normally. Staged changes are present from previous agent: (1) ExecStop=kill -TERM in both service files, (2) configurable rollback healthcheck attempts/interval, (3) tests verifying retry behavior, (4) rc.18 M5 baselines. Plan: review staged changes for correctness, run tests, commit, sign rc.18 tag, and run full qualification.
+---
+author: oompah
+created: 2026-07-26 19:34
+---
+Implementation: v0.1.0-rc.18 signed at commit 28f8dc3. Changes from rc.17: (1) ExecStop in both node and coordinator systemd units changed from RPC-based 'bin/exocomp_{component} stop' to '/bin/kill -TERM \$MAINPID' — eliminates EPMD stale-registration issue when the failed release never initialized Erlang distribution, causing rollback RPC probe to return :noconnection for all attempts; (2) rollback health probe uses separate configurable attempt/interval budget (EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS / INTERVAL, default 10/2) independent of the upgrade health check; (3) test_bundle asserts ExecStop does not use RPC; test_installer verifies retried rollback health probe with prior release failing 2/3 attempts; (4) rc.18 M5 baselines added. Host gates: 78 installer tests, 103 bundle tests, 32 M5 qualification tests, 28 release-check tests, 845 Elixir unit tests (all pass). Starting fresh dual-architecture qualification on both VMs from empty evidence roots.
 ---
 <!-- COMMENTS:END -->
