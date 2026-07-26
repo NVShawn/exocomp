@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-123
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
@@ -15,7 +15,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T03:59:08.489970Z'
+updated_at: '2026-07-26T03:59:29.594952Z'
 work_branch: null
 target_branch: null
 review_url: null
