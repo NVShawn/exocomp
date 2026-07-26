@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:19:03.280273Z'
+updated_at: '2026-07-26T05:19:12.680765Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -209,5 +209,20 @@ Acceptance criteria verification:
 ✅ Every governed component has required shipped license (TestLicenseCompleteness + LICENSES/ dir populated)
 ✅ Assembly fails closed for missing/unsigned content (TestAssemblyFailsOnMissingLicenses + TestStrictVerificationRejectsUnauthenticatedMetadata)
 ✅ All Make gates pass
+---
+author: oompah
+created: 2026-07-26 05:19
+---
+Completion: EXOCOMP-120 delivered on epic-EXOCOMP-117 branch, commit 101ef49.
+
+Files changed (8):
+- LICENSES/Apache-2.0.txt (new): canonical Apache 2.0 license text
+- LICENSES/BSD-3-Clause.txt (new): BSD 3-Clause license text for x509
+- LICENSES/MIT.txt (new): MIT license text for llama.cpp, Bandit, Thousand Island, WebSock
+- scripts/generate-sbom.sh: --timestamp parameter; SOURCE_DATE_EPOCH fallback; stable documentNamespace
+- scripts/assemble-bundle.sh: SOURCE_DATE_EPOCH at startup; deterministic BUILD_TIMESTAMP; LICENSES hard-fail with required-file validation; Phase 7 appends metadata checksums to manifest.sha256 before signing
+- scripts/verify-bundle.sh: Check 6 (strict: metadata covered by manifest.sha256); Check 7 (strict: LICENSES non-empty)
+- docs/installation.md: operator guidance for --public-key --strict workflow
+- tests/test_bundle.py: 23 new tests in 5 classes covering all three defects
 ---
 <!-- COMMENTS:END -->
