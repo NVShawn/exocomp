@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:06:09.280687Z'
+updated_at: '2026-07-26T05:17:27.506512Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -151,5 +151,16 @@ Understanding (DevOps): Three defects to fix in this session:
 3. EMPTY LICENSES: No LICENSES/ directory at repo root (only licenses/components.toml). assemble-bundle.sh warns and creates empty LICENSES/ in bundle. Fix: create LICENSES/Apache-2.0.txt, LICENSES/MIT.txt, LICENSES/BSD-3-Clause.txt at repo root; change assemble-bundle.sh to die (not warn) when LICENSES dir is absent.
 
 Plan: (a) fix generate-sbom.sh timestamp parameter, (b) fix assemble-bundle.sh SOURCE_DATE_EPOCH + reorder to append metadata to manifest.sha256, (c) create LICENSES/ texts, (d) update verify-bundle.sh strict mode to validate metadata coverage, (e) add tests for double-build reproducibility, signed-metadata tamper, license completeness.
+---
+author: oompah
+created: 2026-07-26 05:17
+---
+Discovery: Three root causes confirmed by code inspection:
+
+1. NON-DETERMINISM: generate-sbom.sh called 'date -u' unconditionally (both for creationInfo.created and documentNamespace), and assemble-bundle.sh called 'date -u' for BUILD_TIMESTAMP before SOURCE_DATE_EPOCH was defined (it was only set in Phase 8, the archive creation phase). Two identical builds differed because every metadata file had a different timestamp.
+
+2. SIGNED ROOT GAP: assemble-bundle.sh Phase 3 explicitly excluded manifest.json, sbom.spdx.json, and provenance.json from the find command generating manifest.sha256. Since bundle.minisig signs manifest.sha256, none of those three files were authenticated. Tamper passed strict verification.
+
+3. EMPTY LICENSES: licenses/ has only components.toml; no LICENSES/ directory exists at repo root. assemble-bundle.sh warned (not failed) when LICENSES_DIR was absent and created an empty LICENSES/ in the bundle. verify-bundle.sh had no LICENSES checks.
 ---
 <!-- COMMENTS:END -->
