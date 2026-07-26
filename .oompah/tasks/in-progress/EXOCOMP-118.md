@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:20:26.778528Z'
+updated_at: '2026-07-26T04:20:41.112395Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -268,5 +268,10 @@ author: oompah
 created: 2026-07-26 04:20
 ---
 Implementation: aligned production replay storage and both hardened units with installer-owned /var/lib/exocomp-<component>; changed bundle assembly to ship a relocatable llama launcher, executable, and validated transitive DSO closure via --llama-lib-dir; installed that runtime plus exocomp-state-backup atomically inside each node/version payload; shipped state-backup.sh offline and recorded it in provenance; changed installer defaults/archive discovery to manifest.sha256 and releases/; and corrected installation/lifecycle/maintainer commands. Added regressions for real ELF dependency closure, missing-DSO rejection, clean-root verbatim documented install with guarded Erlang/network tools and service activation, installed/offline backup restore, durable state, and installed llama startup.
+---
+author: oompah
+created: 2026-07-26 04:20
+---
+Verification: PASS — make test-installer (69), make test-bundle (75, including verbatim outer verification/extraction, both installs, bundled-ERTS start/RPC, dynamic llama closure, and shipped backup/restore), make test-release-packaging (6 package + 3 normalizer + 6 operator-doc tests), make test-deps (9), make compliance-check, and make check-links. The live full-systemd VM cannot run inside this bubblewrap workspace (PID 1 is bwrap and the container engine is unavailable); the hermetic systemd-control regression passed, while real amd64/arm64 VM requalification remains the already-scoped downstream EXOCOMP-123 responsibility.
 ---
 <!-- COMMENTS:END -->
