@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:28:51.475372Z'
+updated_at: '2026-07-26T06:29:05.405009Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -131,5 +131,10 @@ author: oompah
 created: 2026-07-26 06:28
 ---
 Focus: Technical Writer
+---
+author: oompah
+created: 2026-07-26 06:29
+---
+Understanding: As Technical Writer, I will document the M5 shipped-artifact performance qualification gate. The duplicate_detector run confirmed the gap: only a fake-server bench-llama-short target exists; no Make targets, versioned baselines, or documented regression budgets cover real shipped artifacts. My scope is documentation only — I will write or update docs in docs/ covering the new Make targets (bench-llama-short-shipped, bench-llama-full), artifact/host identity recording, baseline selection, threshold-failure semantics, and CI/release-qualification integration. I will explore the existing docs, Makefile, and bench harness first, then author the documentation.
 ---
 <!-- COMMENTS:END -->
