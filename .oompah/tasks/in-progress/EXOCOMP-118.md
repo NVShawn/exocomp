@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:02:46.151767Z'
+updated_at: '2026-07-26T04:02:54.251890Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -69,5 +69,10 @@ author: oompah
 created: 2026-07-26 04:02
 ---
 Implementation: none in this duplicate_detector run, as required. The issue is unique and should proceed to an implementation specialist; repository files and git history were left unchanged.
+---
+author: oompah
+created: 2026-07-26 04:02
+---
+Verification: searched task titles/content and repository docs/plans for clean-host, replay ledger, llama-server dependencies, archive/checksum paths, and state-backup terms; reviewed EXOCOMP-43, 44, 46, 47, 68, 114, 115, 117, 120, and 123 via full tracker views. docs/release-evidence/v0.1.0-rc.2/README.md records the four exact failures as newly observed qualification findings. No code changed, so Make quality gates are not applicable.
 ---
 <!-- COMMENTS:END -->
