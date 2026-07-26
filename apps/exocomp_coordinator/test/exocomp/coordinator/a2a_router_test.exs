@@ -11,6 +11,7 @@ defmodule Exocomp.Coordinator.A2ARouterTest do
   alias Exocomp.Coordinator.TaskRegistry
 
   @base_opts [coordinator_id: "coordinator.example"]
+  @concurrent_call_timeout_ms 10_000
 
   # ---------------------------------------------------------------------------
   # Helpers
@@ -639,7 +640,7 @@ defmodule Exocomp.Coordinator.A2ARouterTest do
           |> A2ARouter.call(opts)
         end)
       end)
-      |> Task.await_many(2_000)
+      |> Task.await_many(@concurrent_call_timeout_ms)
 
     task_ids = Enum.map(tasks, fn conn -> Jason.decode!(conn.resp_body)["id"] end)
     statuses = Enum.map(tasks, & &1.status)

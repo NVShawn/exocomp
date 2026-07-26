@@ -29,6 +29,9 @@ defmodule Exocomp.Coordinator.MultiNodeDiscoveryPollingTest do
 
   alias Exocomp.Coordinator.{Audit, HealthPoller, Inventory.Node, Registry}
 
+  @eventually_timeout_ms 10_000
+  @eventually_interval_ms 5
+
   # ---------------------------------------------------------------------------
   # Audit sink that sends events to the test process.
   # ---------------------------------------------------------------------------
@@ -160,15 +163,23 @@ defmodule Exocomp.Coordinator.MultiNodeDiscoveryPollingTest do
     id
   end
 
-  defp eventually(assertion, attempts \\ 200)
-  defp eventually(assertion, 0), do: assert(assertion.())
+  defp eventually(assertion, timeout_ms \\ @eventually_timeout_ms) do
+    deadline = System.monotonic_time(:millisecond) + timeout_ms
+    eventually_until(assertion, deadline)
+  end
 
-  defp eventually(assertion, attempts) do
+  defp eventually_until(assertion, deadline) do
     if assertion.() do
       :ok
     else
-      Process.sleep(5)
-      eventually(assertion, attempts - 1)
+      remaining = deadline - System.monotonic_time(:millisecond)
+
+      if remaining > 0 do
+        Process.sleep(min(@eventually_interval_ms, remaining))
+        eventually_until(assertion, deadline)
+      else
+        assert assertion.()
+      end
     end
   end
 
@@ -471,8 +482,13 @@ defmodule Exocomp.Coordinator.MultiNodeDiscoveryPollingTest do
     :ok = HealthPoller.poll_now(poller)
 
     eventually(fn ->
-      {:ok, h} = Registry.get("integ-hotel", registry)
-      h.consecutive_failures >= 1
+      {:ok, hotel} = Registry.get("integ-hotel", registry)
+      {:ok, india} = Registry.get("integ-india", registry)
+      {:ok, juliet} = Registry.get("integ-juliet", registry)
+
+      hotel.consecutive_failures >= 1 and
+        india.reachability == :healthy and
+        juliet.reachability == :healthy
     end)
 
     # Previous verified address must be preserved.

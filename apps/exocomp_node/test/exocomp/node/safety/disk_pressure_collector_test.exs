@@ -252,6 +252,7 @@ defmodule Exocomp.Node.Safety.DiskPressureCollectorTest do
   describe "config-only values" do
     test "collect/0 accepts no arguments — mount point and thresholds cannot be supplied by the caller" do
       # collect/0 takes no arguments; this test asserts the public arity.
+      assert Code.ensure_loaded?(DiskPressureCollector)
       assert function_exported?(DiskPressureCollector, :collect, 0)
       refute function_exported?(DiskPressureCollector, :collect, 1)
     end

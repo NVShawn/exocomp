@@ -5,6 +5,10 @@ defmodule Exocomp.Coordinator.HealthPollerTest do
 
   alias Exocomp.Coordinator.{HealthPoller, Inventory.Node, Registry}
 
+  @eventually_timeout_ms 10_000
+  @eventually_interval_ms 5
+  @former_receive_timeout_ms 100
+
   test "runs three polls concurrently, enforces the bound, and refills capacity" do
     owner = self()
     {registry, clock} = start_registry(4)
@@ -157,35 +161,59 @@ defmodule Exocomp.Coordinator.HealthPollerTest do
     end)
   end
 
-  test "resolver and probe crashes are isolated and release capacity" do
+  test "delayed resolver and probe crashes are isolated and release capacity" do
     owner = self()
-    {registry, _clock} = start_registry(2)
+    {registry, _clock} = start_registry(3)
     task_supervisor = start_task_supervisor()
 
     resolver = fn
-      %{id: "node-1"} -> raise "resolver crashed"
-      _entry -> {:ok, ["192.0.2.2"]}
+      %{id: "node-1"} ->
+        send(owner, {:resolver_started, self()})
+        receive do: (:crash -> raise("resolver crashed"))
+
+      entry ->
+        {:ok, ["192.0.2.#{String.replace_prefix(entry.id, "node-", "")}"]}
     end
 
-    probe = fn entry, _opts ->
-      send(owner, {:probed, entry.id, entry.candidate_addresses})
-      healthy(entry.id)
+    probe = fn
+      %{id: "node-2"}, _opts ->
+        send(owner, {:probe_started, self()})
+        receive do: (:crash -> raise("probe crashed"))
+
+      entry, _opts ->
+        send(owner, {:probed, entry.id, entry.candidate_addresses})
+        healthy(entry.id)
     end
 
     poller =
       start_poller(registry, task_supervisor,
         concurrency: 1,
+        timeout_ms: 30_000,
         resolver_adapter: resolver,
         probe_adapter: probe
       )
 
     :ok = HealthPoller.poll_now(poller)
-    assert_receive {:probed, "node-2", ["192.0.2.2"]}
+    assert_receive {:resolver_started, resolver_pid}, @eventually_timeout_ms
+    assert HealthPoller.in_flight(poller) == ["node-1"]
+    refute_received {:probe_started, _pid}
+
+    Process.send_after(resolver_pid, :crash, @former_receive_timeout_ms + 50)
+    assert_receive {:probe_started, probe_pid}, @eventually_timeout_ms
+    assert HealthPoller.in_flight(poller) == ["node-2"]
+    refute_received {:probed, "node-3", _addresses}
+
+    Process.send_after(probe_pid, :crash, @former_receive_timeout_ms + 50)
+    assert_receive {:probed, "node-3", ["192.0.2.3"]}, @eventually_timeout_ms
 
     eventually(fn ->
-      {:ok, failed} = Registry.get("node-1", registry)
-      {:ok, healthy} = Registry.get("node-2", registry)
-      failed.reachability == :unreachable and healthy.reachability == :healthy
+      {:ok, resolver_failed} = Registry.get("node-1", registry)
+      {:ok, probe_failed} = Registry.get("node-2", registry)
+      {:ok, healthy} = Registry.get("node-3", registry)
+
+      resolver_failed.reachability == :unreachable and
+        probe_failed.reachability == :unreachable and
+        healthy.reachability == :healthy
     end)
   end
 
@@ -259,15 +287,23 @@ defmodule Exocomp.Coordinator.HealthPollerTest do
     }
   end
 
-  defp eventually(assertion, attempts \\ 100)
-  defp eventually(assertion, 0), do: assert(assertion.())
+  defp eventually(assertion, timeout_ms \\ @eventually_timeout_ms) do
+    deadline = System.monotonic_time(:millisecond) + timeout_ms
+    eventually_until(assertion, deadline)
+  end
 
-  defp eventually(assertion, attempts) do
+  defp eventually_until(assertion, deadline) do
     if assertion.() do
       :ok
     else
-      Process.sleep(5)
-      eventually(assertion, attempts - 1)
+      remaining = deadline - System.monotonic_time(:millisecond)
+
+      if remaining > 0 do
+        Process.sleep(min(@eventually_interval_ms, remaining))
+        eventually_until(assertion, deadline)
+      else
+        assert assertion.()
+      end
     end
   end
 

@@ -5,6 +5,9 @@ defmodule Bench.HostSamplerTest do
 
   alias Bench.HostSampler
 
+  @child_eventually_timeout_ms 30_000
+  @delayed_readiness_ms 5_100
+
   setup do
     root =
       Path.join(System.tmp_dir!(), "host-sampler-#{System.unique_integer([:positive])}")
@@ -105,6 +108,7 @@ defmodule Bench.HostSamplerTest do
   end
 
   @tag :linux
+  @tag timeout: 120_000
   test "CPU and RSS increase under live synthetic load" do
     child =
       Port.open(
@@ -114,9 +118,11 @@ defmodule Bench.HostSamplerTest do
           :exit_status,
           :stderr_to_stdout,
           :use_stdio,
+          {:line, 1_024},
           args: [
             "-e",
             """
+            Process.sleep(#{@delayed_readiness_ms})
             IO.puts("ready")
             IO.read(:line)
             allocation = :binary.copy(<<1>>, 64 * 1_024 * 1_024)
@@ -133,7 +139,7 @@ defmodule Bench.HostSamplerTest do
       if Port.info(child), do: Port.close(child)
     end)
 
-    assert_receive {^child, {:data, "ready\n"}}, 5_000
+    assert :ok = await_port_line(child, "ready", @child_eventually_timeout_ms)
     {:os_pid, os_pid} = Port.info(child, :os_pid)
 
     {:ok, sampler} =
@@ -143,18 +149,95 @@ defmodule Bench.HostSamplerTest do
     baseline_rss = sample(baseline, :node, "memory.rss.bytes").value
 
     Port.command(child, "allocate\n")
-    assert_receive {^child, {:data, "allocated 67108864\n"}}, 5_000
-    Process.sleep(200)
+    assert :ok = await_port_line(child, "allocated 67108864", @child_eventually_timeout_ms)
 
-    loaded = HostSampler.flush(sampler)
+    assert {:ok, _loaded} =
+             eventually_value(
+               fn ->
+                 samples = HostSampler.flush(sampler)
+                 cpu = sample(samples, :node, "cpu.percent").value
+                 rss = sample(samples, :node, "memory.rss.bytes").value
 
-    assert sample(loaded, :node, "cpu.percent").value > 0
-    assert sample(loaded, :node, "memory.rss.bytes").value > baseline_rss
+                 if is_number(cpu) and cpu > 0 and is_integer(rss) and rss > baseline_rss do
+                   {:ok, samples}
+                 else
+                   :retry
+                 end
+               end,
+               @child_eventually_timeout_ms
+             )
+
     assert :ok = HostSampler.stop(sampler)
+  end
+
+  @tag :linux
+  test "waiting for child readiness is bounded when readiness never occurs" do
+    child =
+      Port.open(
+        {:spawn_executable, System.find_executable("elixir")},
+        [
+          :binary,
+          :exit_status,
+          :stderr_to_stdout,
+          :use_stdio,
+          {:line, 1_024},
+          args: ["-e", "Process.sleep(:infinity)"]
+        ]
+      )
+
+    on_exit(fn ->
+      if Port.info(child), do: Port.close(child)
+    end)
+
+    assert {:error, :timeout} = await_port_line(child, "ready", 20)
   end
 
   defp sample(samples, source, name) do
     Enum.find(samples, &(&1.source == source and &1.metric_name == name))
+  end
+
+  defp await_port_line(port, expected, timeout_ms) do
+    deadline = System.monotonic_time(:millisecond) + timeout_ms
+    await_port_line_until(port, expected, deadline)
+  end
+
+  defp await_port_line_until(port, expected, deadline) do
+    remaining = max(deadline - System.monotonic_time(:millisecond), 0)
+
+    receive do
+      {^port, {:data, {:eol, ^expected}}} ->
+        :ok
+
+      {^port, {:data, _other}} ->
+        await_port_line_until(port, expected, deadline)
+
+      {^port, {:exit_status, status}} ->
+        {:error, {:exit_status, status}}
+    after
+      remaining -> {:error, :timeout}
+    end
+  end
+
+  defp eventually_value(observation, timeout_ms) do
+    deadline = System.monotonic_time(:millisecond) + timeout_ms
+    eventually_value_until(observation, deadline)
+  end
+
+  defp eventually_value_until(observation, deadline) do
+    case observation.() do
+      {:ok, _value} = success ->
+        success
+
+      :retry ->
+        remaining = deadline - System.monotonic_time(:millisecond)
+
+        if remaining > 0 do
+          Process.sleep(min(20, remaining))
+          eventually_value_until(observation, deadline)
+        else
+          {:error, :timeout}
+        end
+    end
   end
 
   defp write_process(root, pid, opts) do
