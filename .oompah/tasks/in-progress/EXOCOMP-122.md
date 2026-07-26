@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T07:13:38.733093Z'
+updated_at: '2026-07-26T07:34:46.427564Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -198,5 +198,20 @@ author: oompah
 created: 2026-07-26 07:13
 ---
 Implementation: Added digest-pinned standalone bench_harness release construction plus bench-llama-short-shipped and bench-llama-full Make targets. Short mode launches and verifies the supplied OTP releases directly; full mode preserves systemd unit state and rejects MainPIDs outside the supplied installed roots. Added exact artifact/model/llama identity capture, runtime host capture, rc.2 and v0.1.0 amd64/arm64 TOML baselines, strict CPU/RAM aggregation excluding llama.cpp, missing-metric hard failure, actionable failure blocks, atomic JSONL/summary evidence, CI short-harness workflow, and release docs/checklist updates. Partial process startup is rolled back and tested.
+---
+author: oompah
+created: 2026-07-26 07:34
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 263
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 13s
+- Log: EXOCOMP-122__20260726T063434Z.jsonl
+---
+author: oompah
+created: 2026-07-26 07:34
+---
+Agent stalled 1 time(s) (3613s). Escalating from 'standard' to 'deep'. Retrying in 20s (attempt #2)
 ---
 <!-- COMMENTS:END -->
