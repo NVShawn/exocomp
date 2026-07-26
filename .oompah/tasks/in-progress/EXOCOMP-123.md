@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T20:53:39.755717Z'
+updated_at: '2026-07-26T21:31:17.786961Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: a686c545-8244-484c-88a9-c66b301d025e
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 671145
-  total_output_tokens: 342179
+  total_input_tokens: 671278
+  total_output_tokens: 346841
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 671145
-      output_tokens: 342179
+      input_tokens: 671278
+      output_tokens: 346841
       cost_usd: 0.0
   runs:
   - profile: default
@@ -89,6 +89,12 @@ oompah.task_costs:
     output_tokens: 8409
     cost_usd: 0.0
     recorded_at: '2026-07-26T20:25:52.912479+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 133
+    output_tokens: 4662
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T21:31:15.006814+00:00'
 ---
 ## Summary
 
@@ -891,5 +897,20 @@ created: 2026-07-26 20:53
 Verification progress: amd64 qualification for rc.18 COMPLETE — all 44 gate checks passed including M5 bench full (passed at 20:46) and lifecycle (upgrade, rollback, backup, restore, all uninstall variants — passed at 20:47). Lifecycle evidence confirms: automatic rollback with SIGTERM ExecStop and ordered health-probe now works end to end.
 
 arm64 root cause identified and fixed: the source directory at /var/lib/exocomp-qualification/src is owned by exocomp:exocomp, but the qualification runs as root. git 2.35.2+ refused to run git status in build-releases.sh with 'dubious ownership', causing test-release-matrix to fail with exit 128. Fix: configured git global safe.directory='*' on the arm64 VM (HOME=/root git config --global --add safe.directory '*') and restarted the arm64 rc.18 qualification from a clean empty root. The candidate source/tag at 28f8dc35 is unchanged — this is purely an environment configuration fix. arm64 qualification restarted at 20:53 UTC.
+---
+author: oompah
+created: 2026-07-26 21:31
+---
+Agent stalled 2 time(s) (3906s (4795 tokens)). Escalating from 'standard' to 'deep'. Retrying in 20s (attempt #2)
+---
+author: oompah
+created: 2026-07-26 21:31
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
+- Turns: 127, Tool calls: 88
+- Tokens: 133 in / 4.7K out [4.8K total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 5m 6s
+- Log: EXOCOMP-123__20260726T202610Z.jsonl
 ---
 <!-- COMMENTS:END -->
