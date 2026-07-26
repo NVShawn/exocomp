@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:35:02.206840Z'
+updated_at: '2026-07-26T06:42:18.317824Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -188,5 +188,10 @@ author: oompah
 created: 2026-07-26 06:35
 ---
 Understanding: Continuing the completed documentation handoff as DevOps. I will reconcile docs/performance-qualification.md with the existing harness, release packaging, Makefile, and CI; implement reproducible short/full shipped-artifact orchestration with pinned baselines, host/artifact identity and evidence paths; add focused operational tests; then run the relevant Make gates. Any application-layer evaluator work that is materially outside this focus will receive a precise feature handoff after the DevOps surface is committed and pushed.
+---
+author: oompah
+created: 2026-07-26 06:42
+---
+Discovery: The current Bench.Report.Summary and Bench.Driver are validation/serialization stubs, so Make/CI wiring alone cannot satisfy the gate. Release artifacts do contain build-identity.json at their root; installed releases live under /opt/exocomp/<component>/current; systemd exposes MainPID; the shipped llama launcher execs llama-server.bin with its bundled lib closure. I will build a standalone bench_harness OTP release using the existing digest-pinned Debian builder, run it natively, verify sampled PIDs resolve inside the exact supplied release/runtime artifacts, use direct shipped releases for short mode and installed systemd services for full mode, and preserve service state on cleanup.
 ---
 <!-- COMMENTS:END -->
