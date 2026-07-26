@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:17:55.586616Z'
+updated_at: '2026-07-26T18:20:25.225749Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -25,13 +25,13 @@ merged_at: null
 oompah.agent_run_id: 9b467efa-c6d5-45c3-b9e1-2cbd91b1eb8a
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 670850
-  total_output_tokens: 333087
+  total_input_tokens: 670875
+  total_output_tokens: 333770
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 670850
-      output_tokens: 333087
+      input_tokens: 670875
+      output_tokens: 333770
       cost_usd: 0.0
   runs:
   - profile: default
@@ -76,6 +76,12 @@ oompah.task_costs:
     output_tokens: 8810
     cost_usd: 0.0
     recorded_at: '2026-07-26T16:01:41.602495+00:00'
+  - profile: deep
+    model: unknown
+    input_tokens: 25
+    output_tokens: 683
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T18:20:24.004284+00:00'
 ---
 ## Summary
 
@@ -716,5 +722,15 @@ author: oompah
 created: 2026-07-26 18:17
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 18:20
+---
+Run #12 [attempt=12, profile=deep, role=deep -> Claude/default]
+- Turns: 0, Tool calls: 15
+- Tokens: 25 in / 683 out [708 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 31s
+- Log: EXOCOMP-123__20260726T181759Z.jsonl
 ---
 <!-- COMMENTS:END -->
