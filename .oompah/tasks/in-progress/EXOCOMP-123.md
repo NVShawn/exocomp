@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T17:37:54.719399Z'
+updated_at: '2026-07-26T18:12:47.452638Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -686,5 +686,25 @@ author: oompah
 created: 2026-07-26 17:37
 ---
 Verification progress: amd64 passed all repository gates, two identical release builds, and the newly required two byte-identical complete signed bundle assemblies. Strict no-network verification/install and production PKI/enrollment preflight also passed; operational scenarios are active. arm64 remains healthy in lint's fully emulated compile with no failure.
+---
+author: oompah
+created: 2026-07-26 18:12
+---
+Run #11 [attempt=11, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 170
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 42s
+- Log: EXOCOMP-123__20260726T171203Z.jsonl
+---
+author: oompah
+created: 2026-07-26 18:12
+---
+Agent stalled 7 time(s) (3642s). Escalating from 'standard' to 'deep'. Retrying in 300s (attempt #11)
+---
+author: oompah
+created: 2026-07-26 18:12
+---
+Discovery: signed rc.16 is rejected by fresh amd64 lifecycle and none of its results will count for acceptance. Full shipped M5 passed, but forced upgrade-health failure exposed an incomplete rollback contract: install.sh restores the prior symlink and calls systemctl restart without waiting for the restored application to become RPC-ready. In the live race, the new service was not yet RPC-ready when rollback began; ExecStop returned :noconnection, the stop timed out, and the installer returned while the prior service was only starting. The lifecycle's immediate prior-release RPC therefore failed. I am stopping the still-running arm64 rc.16 record and will make rollback ordered and application-health-verified before signing a replacement candidate.
 ---
 <!-- COMMENTS:END -->
