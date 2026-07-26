@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T08:53:58.240413Z'
+updated_at: '2026-07-26T08:59:31.833494Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -190,5 +190,20 @@ author: oompah
 created: 2026-07-26 08:53
 ---
 Discovery: Signed candidate v0.1.0-rc.3 was rejected immediately by its fresh exact-tag make fmt-check gate; no rc.3 result will be reused for acceptance. The drift was confined to five EXOCOMP-119 coordinator source/test files. I applied mix format through the pinned Elixir 1.20.2 builder, verified fmt/lint and an 844-test pass, and added fresh invariant rc.4 M5 baseline identities. Commit 73b61e8 is now undergoing preflight before a replacement tag is signed.
+---
+author: oompah
+created: 2026-07-26 08:59
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 256
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 11s
+- Log: EXOCOMP-123__20260726T075922Z.jsonl
+---
+author: oompah
+created: 2026-07-26 08:59
+---
+Agent stalled 1 time(s) (3611s). Escalating from 'standard' to 'deep'. Retrying in 10s (attempt #1)
 ---
 <!-- COMMENTS:END -->
