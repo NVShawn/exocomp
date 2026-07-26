@@ -17,7 +17,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T07:58:59.085326Z'
+updated_at: '2026-07-26T07:59:14.982262Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: 900ae188-7a8d-4419-8fb8-02c30e0114d1
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 669727
-  total_output_tokens: 4922
+  total_input_tokens: 669741
+  total_output_tokens: 8681
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 669727
-      output_tokens: 4922
+      input_tokens: 669741
+      output_tokens: 8681
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 4922
     cost_usd: 0.0
     recorded_at: '2026-07-26T07:57:17.437765+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 14
+    output_tokens: 3759
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T07:59:06.258785+00:00'
 ---
 ## Summary
 
@@ -130,5 +136,25 @@ Focus handoff: duplicate_detector
 3. Remaining work/risks: The full requalification scope is substantial: build the exact candidate twice for amd64 and arm64; run all required Make gates (release-check, test-release-packaging, test-installer, test-bundle, test-release-matrix, test); run every documented live scenario (PKI init, enrollment/renewal, multi-node diagnostics, failed-service recovery, shipped-artifact M5 gates, hardening, upgrade/rollback, backup/restore, default+purge uninstall) on clean systemd guests; verify checksums, signatures, SBOM, provenance, reproducibility; commit signed indexed evidence. Requires a booted VM environment (QEMU arm64 accepted per EXOCOMP-47 precedent). No code changes needed for this specific task—evidence collection and qualification run only.
 
 4. Recommended next focus: devops (release qualification, signing, and evidence collection across both architectures).
+---
+author: oompah
+created: 2026-07-26 07:59
+---
+Agent completed successfully in 91s (3773 tokens)
+---
+author: oompah
+created: 2026-07-26 07:59
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
+- Turns: 25, Tool calls: 17
+- Tokens: 14 in / 3.8K out [3.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 31s
+- Log: EXOCOMP-123__20260726T075740Z.jsonl
+---
+author: oompah
+created: 2026-07-26 07:59
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
