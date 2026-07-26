@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:28:20.683377Z'
+updated_at: '2026-07-26T06:28:28.168297Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -80,5 +80,10 @@ author: oompah
 created: 2026-07-26 06:28
 ---
 Focus handoff: duplicate_detector — (1) Outcome: no duplicate confirmed; EXOCOMP-122 is the remediation vehicle for an M5 shipped-artifact gap proven after earlier M5 tasks were merged. (2) Evidence: reviewed tracker records EXOCOMP-5/35/38/40/47/112/117/123; Makefile:181 defines only fake-compatible bench-llama-short; apps/bench/test/bench/workload/llama_inference_test.exs explicitly uses FakeLlamaServer; docs/release-evidence/v0.1.0-rc.2/README.md:52 records the missing shipped-artifact gate and baseline. EXOCOMP-40 is the closest title/scope match, but contains no implementation history and predates the signed failure evidence; EXOCOMP-117 intentionally created this distinct corrective child. (3) Remaining work/risks: implement real installed node/coordinator/llama-server short and full targets, artifact and host identity capture, versioned amd64/arm64 baselines, deterministic metric/budget failure behavior, CI/docs/evidence integration, and tests. Full verification requires exact candidate artifacts on clean amd64 and full-system arm64 guests; emulated performance-only failures remain inconclusive under existing qualification policy. (4) Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-26 06:28
+---
+Completion: Duplicate investigation is complete. No duplicate was archived, no repository changes were made, and focus-complete:duplicate_detector is set. EXOCOMP-122 remains In Progress for a fresh feature-focused implementation run using the recorded handoff.
 ---
 <!-- COMMENTS:END -->
