@@ -15,7 +15,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T07:58:31.715905Z'
+updated_at: '2026-07-26T07:58:39.989500Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -110,5 +110,10 @@ author: oompah
 created: 2026-07-26 07:58
 ---
 Understanding: Duplicate-detector pass only. EXOCOMP-123 is the designated child requalification task under remediation epic EXOCOMP-117. I will compare its scope against existing tasks—particularly EXOCOMP-47 (original M6 qualification), other EXOCOMP-117 sibling tasks (118-122), and any other candidate—then either archive this issue as a confirmed duplicate or record the no-duplicate result and hand off to an implementation specialist.
+---
+author: oompah
+created: 2026-07-26 07:58
+---
+Discovery: No confirmed duplicate. Full records reviewed for EXOCOMP-47 and EXOCOMP-117 (parent epic with children EXOCOMP-118, 119, 120, 121, 122). Key distinctions: EXOCOMP-47 owned the *initial* M6 qualification run that produced signed failure evidence for v0.1.0-rc.2 (now Merged, evidence committed to main via PR #17). EXOCOMP-117 is the remediation epic; its children (EXOCOMP-118 through EXOCOMP-122) are each done, delivering: clean bundle install, production coordinator PKI/enrollment wiring, reproducible offline bundles, robust cross-arch tests, and shipped M5 performance gate. EXOCOMP-123 is explicitly the distinct follow-up requalification task—to build a new signed release candidate after fixes land and run the complete qualification matrix fresh, without reusing results from the failed rc.2 run. It is not a repeat of EXOCOMP-47 (which recorded failure evidence) nor does it overlap any of the sibling remediation tasks.
 ---
 <!-- COMMENTS:END -->
