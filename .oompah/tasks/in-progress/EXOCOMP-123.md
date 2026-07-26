@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:25:35.469306Z'
+updated_at: '2026-07-26T18:25:43.117370Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -757,5 +757,10 @@ author: oompah
 created: 2026-07-26 18:25
 ---
 Discovery (continuation): rc.16 rollback restored the symlink before systemd stopped the failed release, so ExecStop could run the prior release control script against the failed node; after restart, rollback returned without waiting for the restored application RPC health gate. The deliberately failing qualification override (/bin/false) must only reject the candidate, not prevent the built-in restored-release probe.
+---
+author: oompah
+created: 2026-07-26 18:25
+---
+Implementation: install.sh now stops the failed release while current still points to its own control script, refuses to switch if it remains active, atomically restores the prior link, clears systemd failure limits, starts (not restarts) the prior unit, and waits for systemd plus built-in application health before returning. Added a behavioral fake-systemd regression proving stop/reset/start ordering and a final prior-version RPC probe; added invariant rc.17 amd64/arm64 M5 baselines.
 ---
 <!-- COMMENTS:END -->
