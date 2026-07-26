@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T13:11:30.157104Z'
+updated_at: '2026-07-26T13:21:34.502312Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -463,5 +463,10 @@ author: oompah
 created: 2026-07-26 13:11
 ---
 Implementation: Applied exit-safe GenServer teardown to all remaining node test helpers that used the racy Process.alive?/GenServer.stop check, not just the one rc.11 file; this preserves teardown intent while treating an already-exited linked process as successful cleanup. Added invariant amd64/arm64 rc.12 M5 baseline identities and updated the baseline inventory assertion. Commits b723eea, 33a9d23, and cf4c7b6 are pushed. Three consecutive pinned amd64 make test runs passed 845 tests (10 excluded); final exact-HEAD pretag gates are running before any rc.12 tag is created.
+---
+author: oompah
+created: 2026-07-26 13:21
+---
+Discovery: the first rc.12 amd64 orchestration attempt stopped before live installation because its uncommitted wrapper named the pinned no-OpenMP executable llama-server.bin, while the verified runtime input is llama-server. Candidate artifacts and source gates were unaffected. I corrected the ephemeral path and restarted the entire amd64 rc.12 run from an empty rc12 evidence directory rather than reusing partial results. The arm64 exact-tag run continues independently.
 ---
 <!-- COMMENTS:END -->
