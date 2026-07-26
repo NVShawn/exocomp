@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T16:12:01.714375Z'
+updated_at: '2026-07-26T16:24:31.943969Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -606,5 +606,10 @@ author: oompah
 created: 2026-07-26 16:12
 ---
 Implementation: rc.13 is rejected by live lifecycle and none of its results will count for acceptance. Commit 798ddd9 fixes the installer upgrade bug by removing the recursive root chown of the whole component tree, preserving service ownership of existing config/cookie/PKI/log state; a behavioral upgrade regression test now asserts protected-file UID/GID stability. Added invariant rc.14 M5 baselines. make test-installer passes 77 tests; structural M5 tests pass (the host container portion is unavailable because its rootless Podman runtime path is read-only). Signed tag v0.1.0-rc.14 at 798ddd92156afac4e790e17384ae28d9ed6c9c11 is verified and pushed.
+---
+author: oompah
+created: 2026-07-26 16:24
+---
+Qualification restart: the first rc.14 orchestration stopped before live installation because the uncommitted evidence helper attempted to copy bundle metadata before strict preflight had extracted the archive. Candidate code/artifacts did not fail. I moved metadata capture after preflight, discarded both partial rc.14 evidence roots, cleaned both exact-tag checkouts, and restarted a single fresh run per architecture at 798ddd9. No partial result will be accepted.
 ---
 <!-- COMMENTS:END -->
