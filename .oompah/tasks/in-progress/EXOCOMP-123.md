@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T12:17:24.185942Z'
+updated_at: '2026-07-26T12:18:32.503572Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -402,5 +402,10 @@ author: oompah
 created: 2026-07-26 12:17
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 12:18
+---
+Understanding (continuation attempt #5): Resuming from rc.10 rejection. The two post-rc.10 commits (77c6d8c: add :public_key to bench extra_applications; 6df88c3: race-safe approval cleanup) are on HEAD. rc.11 M5 baseline directories exist but no git tag has been created and no evidence directory exists yet. My plan: (1) run available source-tree tests to verify fixes are sound, (2) sign the v0.1.0-rc.11 tag at HEAD, (3) create docs/release-evidence/v0.1.0-rc.11/ evidence structure, (4) run all Make gates available in this environment, (5) run qualification helpers against the amd64 and arm64 VMs if accessible, (6) commit signed indexed evidence and close the task.
 ---
 <!-- COMMENTS:END -->
