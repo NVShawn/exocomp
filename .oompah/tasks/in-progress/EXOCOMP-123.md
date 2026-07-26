@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T10:24:13.647399Z'
+updated_at: '2026-07-26T10:24:21.517272Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -312,5 +312,10 @@ author: oompah
 created: 2026-07-26 10:24
 ---
 Discovery: Fresh rc.5 live-path inspection found an untested privilege-boundary blocker before signing. ActionCatalog generated exact sudoers entries for /usr/bin/systemctl and /usr/bin/journalctl, but Executor invoked those programs directly as the unprivileged exocomp-node service user; fixture/unit tests injected a commander or ran as root, masking the production denial. rc.5 remains unsigned and is rejected as a preflight identity. The replacement source is b4d0123.
+---
+author: oompah
+created: 2026-07-26 10:24
+---
+Implementation: ActionCatalog now executes the immutable privileged commands through /usr/bin/sudo with absolute systemctl/journalctl paths and validated fixed argv, matching the installed NOPASSWD policy while preserving the no-shell boundary. Updated focused catalog, executor, and M3 acceptance assertions; added invariant amd64/arm64 rc.6 M5 baseline identities. Host-native make release-check and make test-installer pass (28 governance tests, 76 installer tests), and M5 structural tests pass. Commit b4d0123 is pushed.
 ---
 <!-- COMMENTS:END -->
