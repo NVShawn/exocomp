@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: Open
+status: In Progress
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -12,13 +12,13 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:39:12.834303Z'
+updated_at: '2026-07-26T04:39:22.997053Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 06f9b310-a395-4e0e-9b7d-f5a133b562cf
+oompah.agent_run_id: a74b3314-e256-4c6b-9609-0d7d78ef8764
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 4403172
@@ -222,5 +222,15 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 5m 31s
 - Log: EXOCOMP-119__20260726T043317Z.jsonl
+---
+author: oompah
+created: 2026-07-26 04:39
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 04:39
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
