@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T00:42:40.476591Z'
+updated_at: '2026-07-26T00:43:23.190347Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -173,5 +173,10 @@ author: oompah
 created: 2026-07-26 00:42
 ---
 Understanding: EXOCOMP-47 needs M6 release qualification on clean hosts. The recovery epic EXOCOMP-115 has already landed on origin/main (commits 301d87e and 516faf8), which added docs/clean-host-qualification.md, docs/release-qualification.md, and corresponding Makefile targets (test-bundle, release-check, build-amd64, test-release-matrix). The current epic-EXOCOMP-6 branch is behind origin/main by ~24 commits. Plan: (1) merge origin/main into this branch to recover all EXOCOMP-115 work, (2) run the automated qualification gates that work in this environment (fmt-check, lint, test-installer), (3) document what requires native-hardware runs as Needs Human, (4) close appropriately.
+---
+author: oompah
+created: 2026-07-26 00:43
+---
+Discovery: Fast-forwarded epic-EXOCOMP-6 to origin/main (2085e44). All EXOCOMP-115/114/113 recovery work is now present: docs/clean-host-qualification.md, docs/release-qualification.md, Makefile targets (test-bundle, release-check, build-amd64, test-release-matrix), and test suites (tests/test_bundle.py, tests/test_check_compliance.py, tests/test_operator_docs.py, tests/test_package_release.py). Running automated gates now.
 ---
 <!-- COMMENTS:END -->
