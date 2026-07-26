@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:22:04.856807Z'
+updated_at: '2026-07-26T18:25:35.469306Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -752,5 +752,10 @@ author: oompah
 created: 2026-07-26 18:22
 ---
 Operator intervention: repeated qualification runs were being terminated by the global 60-minute ACP turn timeout and, on some attempts, the 200-turn cap while full-system arm64 and 30-minute M5 work was still healthy. Runtime configuration is now OOMPAH_TURN_TIMEOUT_MS=14400000 (4 hours) and OOMPAH_MAX_TURNS=800. The service was gracefully restarted and this task was automatically redispatched; continue the exact signed-candidate qualification without reusing rejected evidence.
+---
+author: oompah
+created: 2026-07-26 18:25
+---
+Discovery (continuation): rc.16 rollback restored the symlink before systemd stopped the failed release, so ExecStop could run the prior release control script against the failed node; after restart, rollback returned without waiting for the restored application RPC health gate. The deliberately failing qualification override (/bin/false) must only reject the candidate, not prevent the built-in restored-release probe.
 ---
 <!-- COMMENTS:END -->
