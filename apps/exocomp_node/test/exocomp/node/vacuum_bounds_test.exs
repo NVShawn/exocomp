@@ -202,6 +202,7 @@ defmodule Exocomp.Node.VacuumBoundsTest do
   describe "caller path rejection" do
     test "check_eligible/1 accepts no path argument — callers cannot supply a path" do
       # The public arity is exactly 1.  There is no 2-arity variant.
+      assert Code.ensure_loaded?(VacuumBounds)
       assert function_exported?(VacuumBounds, :check_eligible, 1)
       refute function_exported?(VacuumBounds, :check_eligible, 2)
     end
@@ -225,6 +226,7 @@ defmodule Exocomp.Node.VacuumBoundsTest do
 
   describe "caller limit rejection (bounds cannot be widened)" do
     test "check_eligible/1 accepts no limit arguments — arity is exactly 1" do
+      assert Code.ensure_loaded?(VacuumBounds)
       assert function_exported?(VacuumBounds, :check_eligible, 1)
       refute function_exported?(VacuumBounds, :check_eligible, 2)
     end

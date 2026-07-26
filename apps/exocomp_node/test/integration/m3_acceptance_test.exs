@@ -537,6 +537,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
       #
       # The public API has no 2-arity or 3-arity variant. Callers cannot pass
       # additional parameters to widen the allowed vacuum limits.
+      assert Code.ensure_loaded?(VacuumBounds)
       assert function_exported?(VacuumBounds, :check_eligible, 1)
       refute function_exported?(VacuumBounds, :check_eligible, 2)
       refute function_exported?(VacuumBounds, :check_eligible, 3)
