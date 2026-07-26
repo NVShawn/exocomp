@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T04:59:30.855684Z'
+updated_at: '2026-07-26T05:01:21.347285Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -59,5 +59,10 @@ author: oompah
 created: 2026-07-26 04:59
 ---
 Understanding: Investigating EXOCOMP-120 as Duplicate Investigator. The issue describes three distinct problems: (1) non-deterministic complete-bundle assembly producing non-byte-identical archives, (2) signed root not authenticating manifest.json, SBOM, provenance, or license files — so tampering those passes strict verification, (3) empty LICENSES directory missing required third-party license texts. Searching for existing tasks covering these topics before any implementation.
+---
+author: oompah
+created: 2026-07-26 05:01
+---
+Discovery: No duplicate confirmed. Full records reviewed for EXOCOMP-41, EXOCOMP-44, EXOCOMP-47, EXOCOMP-68, EXOCOMP-117, EXOCOMP-118, and EXOCOMP-119. Key evidence: (1) EXOCOMP-44 built the initial bundle assembly infrastructure (assemble-bundle.sh, SBOM, provenance, signing, manifest.sha256) but qualification of rc.2 found that the signed root does NOT authenticate manifest.json, SBOM, or provenance — EXOCOMP-44 comment #21 explicitly notes 'signed-metadata and shipped-license defects are distinct follow-up work tracked by EXOCOMP-120'; (2) EXOCOMP-41 built the repo governance/license files but the assembled bundle LICENSES/ directory is empty — EXOCOMP-41 comment #29 says 'newly observed shipped-license completeness defect is distinct follow-up work tracked by EXOCOMP-120'; (3) EXOCOMP-68 covered OTP archive reproducibility (byte-identical double-build for OTP .tar.gz archives) but NOT complete-bundle reproducibility — the raw/amd64/live/bundle-reproducibility.sha256 evidence shows two identical complete-bundle assemblies have different SHA-256 values; (4) EXOCOMP-117 is the parent remediation epic that deliberately decomposed these defects — EXOCOMP-120 is its explicitly named unique child for 'deterministic and cryptographically complete bundles'. EXOCOMP-120 is unique and should proceed to implementation.
 ---
 <!-- COMMENTS:END -->
