@@ -76,6 +76,12 @@ def _make_otp_archive(dest_dir: Path, component: str, version: str, arch: str) -
         'if [ -n "${EXOCOMP_FAKE_RELEASE_LOG:-}" ]; then\n'
         '    printf "%s\\n" "$*" >> "${EXOCOMP_FAKE_RELEASE_LOG}"\n'
         "fi\n"
+        'case "$*" in\n'
+        '    rpc*"System.halt"*)\n'
+        '        echo "health RPC must not halt the service node" >&2\n'
+        "        exit 86\n"
+        "        ;;\n"
+        "esac\n"
         "exit 0\n"
     )
     beam.chmod(0o755)
@@ -371,6 +377,20 @@ class TestCompleteBundleAssembly:
     def test_systemd_coordinator_unit_present(self):
         assert (self.bundle_dir / "release" / "coordinator" / "exocomp-coordinator.service").exists()
 
+    @pytest.mark.parametrize("component", ("node", "coordinator"))
+    def test_systemd_start_limits_are_in_unit_section(self, component):
+        unit = (
+            self.bundle_dir
+            / "release"
+            / component
+            / f"exocomp-{component}.service"
+        ).read_text()
+        unit_section, service_section = unit.split("[Service]", maxsplit=1)
+        assert "StartLimitIntervalSec=120s" in unit_section
+        assert "StartLimitBurst=4" in unit_section
+        assert "StartLimitIntervalSec" not in service_section
+        assert "StartLimitBurst" not in service_section
+
     def test_license_file_present_when_repo_has_license(self):
         """LICENSE is included in the bundle when it exists in the repo root.
 
@@ -518,7 +538,11 @@ esac
         assert "is-active exocomp-node" in systemd_calls
         release_calls = fake_release_log.read_text().splitlines()
         assert "start" in release_calls
-        assert any(call.startswith("rpc ") for call in release_calls)
+        health_rpc_calls = [
+            call for call in release_calls if call.startswith("rpc ")
+        ]
+        assert health_rpc_calls
+        assert all("System.halt" not in call for call in health_rpc_calls)
 
         install_dir = clean_root / "opt" / "exocomp" / "node"
         state_dir = clean_root / "var" / "lib" / "exocomp-node"

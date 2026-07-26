@@ -815,16 +815,20 @@ application_healthcheck() {
         "${release_bin}" rpc '
           case Process.whereis(Exocomp.Node.Listener) do
             pid when is_pid(pid) ->
-              if Process.alive?(pid), do: System.halt(0), else: System.halt(1)
+              if Process.alive?(pid) do
+                :ok
+              else
+                raise "node listener is not alive"
+              end
             _other ->
-              System.halt(1)
+              raise "node listener is not running"
           end
         '
     else
         "${release_bin}" rpc '
           case Exocomp.Coordinator.Health.check() do
-            %{status: :healthy} -> System.halt(0)
-            _other -> System.halt(1)
+            %{status: :healthy} -> :ok
+            other -> raise "coordinator is unhealthy: #{inspect(other)}"
           end
         '
     fi

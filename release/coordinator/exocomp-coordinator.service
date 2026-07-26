@@ -4,6 +4,11 @@ Documentation=https://github.com/NVShawn/exocomp
 After=network-online.target
 Wants=network-online.target
 
+# Bound automatic restart churn. Start-limit directives belong to this unit
+# section; systemd ignores them when placed in the service section.
+StartLimitIntervalSec=120s
+StartLimitBurst=4
+
 # ── Ordering and dependency ────────────────────────────────────────────────────
 # Require network before starting.  Node connections are accepted after start.
 
@@ -46,8 +51,6 @@ StateDirectoryMode=0750
 # ── Restart policy ───────────────────────────────────────────────────────────
 Restart=on-failure
 RestartSec=5s
-StartLimitIntervalSec=120s
-StartLimitBurst=4
 TimeoutStartSec=60s
 TimeoutStopSec=60s
 
