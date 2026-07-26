@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-123
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
@@ -17,13 +17,13 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T19:21:40.968087Z'
+updated_at: '2026-07-26T19:22:12.403256Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: ab97af77-d4d3-48e3-b740-3506d02a7287
+oompah.agent_run_id: 04f84f64-3e1c-4059-bd2f-d734beee47bc
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 670875
@@ -817,5 +817,15 @@ author: oompah
 created: 2026-07-26 19:21
 ---
 Focus handoff from `` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-26 19:22
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 19:22
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
