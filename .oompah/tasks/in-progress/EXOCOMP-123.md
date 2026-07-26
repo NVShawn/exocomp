@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T17:12:26.553831Z'
+updated_at: '2026-07-26T17:13:28.311815Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -661,5 +661,10 @@ author: oompah
 created: 2026-07-26 17:12
 ---
 Understanding (continuation attempt #10): Resuming the exact signed v0.1.0-rc.15 qualification at 151ce8560dab898c789335660e4fe375a79269eb. I will reconcile both dedicated guest jobs and fresh evidence roots, finish every missing repository/build/offline/live/M5/lifecycle gate without reusing rejected candidates, assemble and verify a signed evidence index, commit and push it, then close only if all M6-CRIT requirements pass.
+---
+author: oompah
+created: 2026-07-26 17:13
+---
+Verification progress (continuation attempt #10): Both exact signed rc.15 guest jobs are still healthy. amd64 has passed all repository gates, double-build reproducibility, signed no-network bundle verification/install, production PKI/enrollment/renewal, multi-node diagnostics, approved recovery, hardening, and shipped M5 short; the full M5 process has crossed its 30-minute minimum and remains active. arm64 has passed through test-bundle and is running exact-tag make test under full-system QEMU. No candidate failure is present.
 ---
 <!-- COMMENTS:END -->
