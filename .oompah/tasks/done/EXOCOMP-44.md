@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-26T04:26:12.567691Z'
+updated_at: '2026-07-26T04:26:16.333766Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -244,5 +244,10 @@ author: oompah
 created: 2026-07-26 04:26
 ---
 Resolved without human action. The full EXOCOMP-44 bundle, SBOM, provenance, signing, verification, and test delivery was recovered and verified on main by 50cd48c in PR #14 (merge 2085e44). The stale original branch EXOCOMP-44 had no PR and only kept the landing-evidence detector seeing superseded commit b225eb5, so the remote branch was removed. That commit remains recoverable by SHA. Current qualification defects remain tracked by EXOCOMP-120.
+---
+author: oompah
+created: 2026-07-26 04:26
+---
+Recovered bundle delivery verified on main via PR #14; removed stale superseded branch that caused false landing-evidence escalation.
 ---
 <!-- COMMENTS:END -->
