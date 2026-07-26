@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T00:43:23.190347Z'
+updated_at: '2026-07-26T00:45:05.210320Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -27,13 +27,13 @@ merged_at: null
 oompah.agent_run_id: 3469956c-048f-4369-a97f-e7b4c1223ad9
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 1007700
-  total_output_tokens: 3823
+  total_input_tokens: 1007774
+  total_output_tokens: 5743
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1007700
-      output_tokens: 3823
+      input_tokens: 1007774
+      output_tokens: 5743
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 3823
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:50:37.782495+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 74
+    output_tokens: 1920
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T00:45:03.861151+00:00'
 ---
 ## Summary
 
@@ -178,5 +184,15 @@ author: oompah
 created: 2026-07-26 00:43
 ---
 Discovery: Fast-forwarded epic-EXOCOMP-6 to origin/main (2085e44). All EXOCOMP-115/114/113 recovery work is now present: docs/clean-host-qualification.md, docs/release-qualification.md, Makefile targets (test-bundle, release-check, build-amd64, test-release-matrix), and test suites (tests/test_bundle.py, tests/test_check_compliance.py, tests/test_operator_docs.py, tests/test_package_release.py). Running automated gates now.
+---
+author: oompah
+created: 2026-07-26 00:45
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 40
+- Tokens: 74 in / 1.9K out [2.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 58s
+- Log: EXOCOMP-47__20260726T004008Z.jsonl
 ---
 <!-- COMMENTS:END -->
