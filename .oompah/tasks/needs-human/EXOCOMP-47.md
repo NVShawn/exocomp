@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T01:20:09.401850Z'
+updated_at: '2026-07-26T01:55:13.902810Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -224,5 +224,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 5m 2s
 - Log: EXOCOMP-47__20260726T011508Z.jsonl
+---
+author: oompah
+created: 2026-07-26 01:55
+---
+Human action required: confirm whether signed candidate tag v0.1.0-rc.1 and its SSH signing identity (ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw, principal shedwards@nvidia.com) are acceptable for M6 release qualification; if not, provide the accepted tag name and signing key. The bare-metal requirement has been removed and merged to main in PR #15 (merge 5be1965); clean full-system architecture-correct VMs are supported, QEMU emulation must be disclosed, and performance-only failures under emulation remain inconclusive. Current arm64 VM evidence: release-check 22/22, packaging 13/13, installer 63/63, bundle 69/69, fixture service 22/22, fmt-check and lint passed. The general Elixir test gate passed 1,589 tests and hit three fixed-timeout cases under emulation (5s/2s/100ms), recorded as timing-inconclusive while the shipped-artifact and live M6-CRIT matrix continues.
 ---
 <!-- COMMENTS:END -->
