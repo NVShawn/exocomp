@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T11:14:05.969219Z'
+updated_at: '2026-07-26T11:23:06.453872Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -357,5 +357,10 @@ author: oompah
 created: 2026-07-26 11:14
 ---
 Understanding (continuation attempt #4): Resuming from the rc.8 node privilege-boundary fix at commit 34ee7d2. I will reconcile branch/tag/evidence/VM state, preflight and sign the next exact candidate, run every required repository, packaging, offline, systemd/live, M5, upgrade/rollback, backup/restore, and uninstall scenario fresh on amd64 and arm64, record signed indexed evidence, then commit, push, and close only if every M6-CRIT item passes.
+---
+author: oompah
+created: 2026-07-26 11:23
+---
+Discovery: rc.8 pretag amd64 passed strict no-network verification/install, production PKI init, enrollment/renewal, restart durability, audit fail-closed behavior, and live failed-service recovery through shipped sudo. The required live multi-node diagnostic then exposed a distinct release blocker: the coordinator's production A2A client has no :a2a_tls runtime configuration, Bootstrap emits only coordinator.pem (leaf) plus intermediate_ca.pem, and the node rejects the outbound coordinator client certificate with TLS unknown_ca because no coordinator chain file is presented. rc.8 remains unsigned/rejected preflight source; no result will be reused for acceptance.
 ---
 <!-- COMMENTS:END -->
