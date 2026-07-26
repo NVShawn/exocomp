@@ -52,8 +52,8 @@ publication.
 make bench-llama-full \
   LLAMA_SERVER=/path/to/llama-server \
   LLAMA_LIB_DIR=/path/to/llama-libs \
-  NODE_RELEASE=/path/to/exocomp_node \
-  COORD_RELEASE=/path/to/exocomp_coordinator \
+  NODE_RELEASE=/opt/exocomp/node/current \
+  COORD_RELEASE=/opt/exocomp/coordinator/current \
   MODEL_PATH=/path/to/model.gguf \
   MODEL_SHA256=<sha256>
 ```

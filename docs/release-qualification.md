@@ -243,6 +243,10 @@ make bench-llama-full \
   MODEL_SHA256=<sha256>
 ```
 
+For this full run, `NODE_RELEASE` and `COORD_RELEASE` must resolve to the
+installed release roots used by the systemd units (normally each component's
+`current` symlink), not a second extracted copy.
+
 `bench-llama-full` must pass on **both** architectures before publication.
 A gate failure prints the exact metric, observed value, and budget, then
 exits non-zero. For full prerequisites, baseline management, failure

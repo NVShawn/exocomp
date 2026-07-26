@@ -7,7 +7,7 @@ prerequisites, versioned baselines, and regression gate behavior.
 
 ## Overview
 
-The M5 gate has two tiers:
+The M5 gate has three tiers:
 
 | Target | Purpose | llama-server | Duration |
 |--------|---------|-------------|----------|
@@ -66,6 +66,12 @@ Set these environment variables before running a shipped-artifact target:
 The harness refuses to start if any required variable is unset or if the
 `MODEL_SHA256` does not match `MODEL_PATH`.
 
+Both shipped targets first build a standalone `bench_harness` OTP release with
+the architecture-matched, digest-pinned builder in `release/builders.lock`.
+The resulting harness runs natively, so neither target measures source-tree
+node or coordinator applications and neither depends on an unpinned host Mix
+runtime.
+
 ### Installed services
 
 `bench-llama-full` requires that `exocomp-node` and `exocomp-coordinator`
@@ -76,6 +82,13 @@ standard installer from the qualified bundle before running the full target:
 # Install from the qualified bundle (offline, network disabled)
 sudo bash <bundle>/install.sh --offline
 ```
+
+For the full target, set `NODE_RELEASE` and `COORD_RELEASE` to the installed
+release roots (normally `/opt/exocomp/node/current` and
+`/opt/exocomp/coordinator/current`). The harness reads each systemd `MainPID`
+and fails before sampling unless `/proc/<pid>/exe` resolves inside the
+corresponding supplied root. It records which units were already active and
+stops only units it started.
 
 ### Host qualification
 
@@ -108,10 +121,11 @@ make bench-llama-short-shipped \
   MODEL_SHA256=<sha256>
 ```
 
-Starts the real `llama-server` with the specified model and runs a reduced
-set of inference scenarios. The run captures a host profile snapshot and
-compares results against the versioned baseline for the detected architecture.
-Exits non-zero when a hard gate fails.
+Starts the real node and coordinator OTP release payloads directly, starts the
+real `llama-server` with the specified model, and runs a reduced set of
+inference scenarios. The run captures a host profile snapshot and compares
+results against the versioned baseline for the detected architecture. Exits
+non-zero when a hard gate fails.
 
 ### Full release qualification run
 
@@ -126,10 +140,11 @@ make bench-llama-full \
 ```
 
 Starts the installed `exocomp-node` and `exocomp-coordinator` units,
-launches the real `llama-server`, and runs the complete M5 workload suite
-with the full warm-up and run duration. Must be run on a clean amd64 host
-**and** on a clean arm64 host independently. Each run produces a JSONL
-evidence file and a summary report. Exits non-zero when any hard gate fails.
+launches the real `llama-server`, records model readiness and
+sequential/concurrent inference, then measures steady-idle control-plane usage
+for at least 30 minutes after warm-up. It must be run on a clean amd64 host
+**and** on a clean arm64 host independently. Each run produces a JSONL evidence
+file and a summary report. Exits non-zero when any hard gate fails.
 
 ## Host Profiles
 
@@ -173,6 +188,9 @@ release version has one baseline file per architecture:
 
 ```
 apps/bench/priv/bench/baselines/
+  v0.1.0-rc.2/
+    amd64.toml
+    arm64.toml
   v0.1.0/
     amd64.toml
     arm64.toml
@@ -184,7 +202,7 @@ metric:
 ```toml
 # Example baseline excerpt — apps/bench/priv/bench/baselines/v0.1.0/amd64.toml
 schema_version = 1
-artifact_version = "v0.1.0"
+artifact_version = "0.1.0"
 architecture = "amd64"
 host_profile = "amd64-ci"
 
@@ -192,12 +210,14 @@ host_profile = "amd64-ci"
 
   [gates.beam_cpu_percent]
   description = "BEAM control plane (node + coordinator, excluding llama.cpp) average CPU"
+  metric = "beam.cpu.node_plus_coordinator.mean_percent"
   budget = 5.0
   unit = "percent"
   direction = "lower_is_better"
 
   [gates.beam_ram_percent]
   description = "BEAM control plane (node + coordinator, excluding llama.cpp) RSS as percent of host RAM"
+  metric = "beam.memory.node_plus_coordinator.peak_percent"
   budget = 5.0
   unit = "percent"
   direction = "lower_is_better"
@@ -215,10 +235,14 @@ host_profile = "amd64-ci"
   unit = "ms"
 ```
 
-`[gates]` entries are hard — the run exits non-zero when the observed value
-exceeds the budget. `[reference]` entries are informational; their values are
-written to the evidence file for cross-release comparison but do not block
-the run.
+`[gates]` entries are hard — the run exits non-zero unless the observed value
+is strictly below the budget. `[reference]` entries are informational; their
+values are written to the summary for cross-release comparison but do not
+block the run.
+
+The baseline loader requires both documented control-plane gates and rejects
+a baseline that raises either ceiling above 5%. A missing or relaxed gate
+therefore cannot silently weaken release qualification.
 
 ### Selecting a baseline
 
@@ -239,10 +263,10 @@ budget, and artifact version before exiting non-zero:
 ```
 M5 gate FAIL: beam_cpu_percent
   metric:   beam.cpu.node_plus_coordinator.mean_percent
-  observed: 7.3 percent
-  budget:   5.0 percent
-  artifact: exocomp_node v0.1.0 (commit abc1234)
-  host:     amd64-ci (Intel Xeon E5-2673, 2 vCPU, 7.0 GiB)
+  observed: 7.300 percent
+  budget:   < 5.000 percent
+  artifact: exocomp_node v0.1.0 (commit abc1234def56)
+  host:     amd64 (Intel Xeon E5-2673, 2 vCPU, 7.0 GiB)
   baseline: apps/bench/priv/bench/baselines/v0.1.0/amd64.toml
 ```
 
@@ -259,8 +283,8 @@ the run fails with:
 M5 gate FAIL: beam_cpu_percent
   metric:   beam.cpu.node_plus_coordinator.mean_percent
   observed: (not recorded)
-  budget:   5.0 percent
-  reason:   metric was not emitted; check that the node process stayed alive
+  budget:   < 5.000 percent
+  reason:   metric was not emitted
 ```
 
 ## BEAM vs. llama.cpp Separation
@@ -286,20 +310,35 @@ Every evidence file records a complete artifact identity snapshot:
   "elixir_version": "1.20.2",
   "otp_version": "27.3",
   "erts_version": "15.3",
+  "llama_server_path": "/path/to/llama-server.bin",
   "llama_server_sha256": "a1b2c3...",
+  "llama_launcher_sha256": "b2c3d4...",
   "model_sha256": "d4e5f6...",
-  "model_path": "/path/to/model.gguf"
+  "model_path": "/path/to/model.gguf",
+  "node": {
+    "product": "exocomp_node",
+    "version": "0.1.0",
+    "build_identity_sha256": "e5f6a7..."
+  },
+  "coordinator": {
+    "product": "exocomp_coordinator",
+    "version": "0.1.0",
+    "build_identity_sha256": "f6a7b8..."
+  }
 }
 ```
 
 These fields come from:
-- `build-identity.json` inside the extracted OTP release (`artifact_version`,
+- both `build-identity.json` files inside the extracted OTP releases
+  (`artifact_version`,
   `source_commit`, `elixir_version`, `otp_version`, `erts_version`)
-- SHA-256 of the shipped `llama-server` binary (`llama_server_sha256`)
+- SHA-256 of the shipped `llama-server.bin` runtime and its launcher
 - `MODEL_SHA256` variable verified against the model file (`model_sha256`)
 
-The harness refuses to proceed if `build-identity.json` is absent from the
-extracted release directory.
+The harness refuses to proceed if either identity is absent or if their
+version, architecture, source commit, or toolchain fields differ.
+The per-file payload inventories are represented by each complete
+`build_identity.json` SHA-256 rather than repeated in every JSONL record.
 
 ## Evidence Collection
 
@@ -347,17 +386,26 @@ find docs/release-evidence/v0.1.0/ \
 
 ## CI Integration
 
-`bench-llama-short` is required on every CI push. Add it to the CI pipeline
-alongside `make test`:
+`bench-llama-short` is required on every CI push and pull request by
+`.github/workflows/m5-harness.yml`:
 
 ```yaml
 - run: make bench-llama-short
+- run: make test-m5-qualification
 ```
 
-`bench-llama-short-shipped` runs in CI when shipped binaries are available
-(typically on release candidate branches). It requires the same environment
-variables as the full target but uses a shorter run duration suited to CI
-time budgets.
+The focused qualification target covers configuration, artifact and model
+identity, host capture, baseline selection, threshold pass/fail behavior,
+missing metrics, evidence reproducibility, and owned-process rollback under
+the pinned builder toolchain.
+
+For an exact candidate check, dispatch `.github/workflows/m5-harness.yml` at
+the candidate commit and provide the HTTPS URL and SHA-256 of its complete
+amd64 bundle. The workflow verifies the outer archive and bundle manifest,
+rejects unsafe archive paths, checks that both OTP identities match the
+selected commit, then runs `bench-llama-short-shipped` and retains its evidence
+as a CI artifact. The target uses a shorter run duration suited to CI time
+budgets.
 
 `bench-llama-full` runs only on the designated release qualification guests
 (clean amd64 KVM and full-system arm64 QEMU guests) and must not run in
