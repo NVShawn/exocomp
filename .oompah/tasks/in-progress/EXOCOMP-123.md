@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:21:04.791372Z'
+updated_at: '2026-07-26T18:21:20.143108Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -742,5 +742,10 @@ author: oompah
 created: 2026-07-26 18:21
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 18:21
+---
+Understanding (continuation): Resuming after signed rc.16 was rejected by live automatic rollback. I will reconcile branch, uncommitted changes, tags, guest jobs, and evidence; fix rollback so restoration is ordered and application-health-verified with focused tests; run repeated exact-source gates; then sign and fully requalify a fresh candidate on both architectures. No rc.3-rc.16 result will be reused for acceptance.
 ---
 <!-- COMMENTS:END -->
