@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T19:34:48.975761Z'
+updated_at: '2026-07-26T20:08:21.487167Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -837,5 +837,10 @@ author: oompah
 created: 2026-07-26 19:34
 ---
 Implementation: v0.1.0-rc.18 signed at commit 28f8dc3. Changes from rc.17: (1) ExecStop in both node and coordinator systemd units changed from RPC-based 'bin/exocomp_{component} stop' to '/bin/kill -TERM \$MAINPID' — eliminates EPMD stale-registration issue when the failed release never initialized Erlang distribution, causing rollback RPC probe to return :noconnection for all attempts; (2) rollback health probe uses separate configurable attempt/interval budget (EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS / INTERVAL, default 10/2) independent of the upgrade health check; (3) test_bundle asserts ExecStop does not use RPC; test_installer verifies retried rollback health probe with prior release failing 2/3 attempts; (4) rc.18 M5 baselines added. Host gates: 78 installer tests, 103 bundle tests, 32 M5 qualification tests, 28 release-check tests, 845 Elixir unit tests (all pass). Starting fresh dual-architecture qualification on both VMs from empty evidence roots.
+---
+author: oompah
+created: 2026-07-26 20:08
+---
+Discovery: The amd64 make test exit code 2 failure was transient — re-running make test directly on the VM produced exit 0 (845 tests, smoke releases both pass). Root cause was likely a momentary container-engine issue with --pull always during the pipeline run. Deleted the partial rc18 evidence directory and restarted the complete amd64 qualification from scratch. Both VMs are now progressing: amd64 is running make test (779 log lines, A2ARouter tests visible); arm64 is running test-bundle (395 log lines, TestDoubleBuildReproducibility visible). No code changes needed for this issue — the rc.18 candidate at 28f8dc35 with SIGTERM ExecStop and ordered rollback health check remains valid.
 ---
 <!-- COMMENTS:END -->
