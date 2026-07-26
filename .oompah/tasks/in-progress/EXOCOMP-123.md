@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T11:53:31.867884Z'
+updated_at: '2026-07-26T12:08:52.590496Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -372,5 +372,10 @@ author: oompah
 created: 2026-07-26 11:53
 ---
 Discovery: signed rc.9 is rejected and none of its results will count for acceptance. Its amd64 live run proved the production signed-approval gate and exact sudo restart worked, then the exact-tag qualification helper supplied active service evidence without the required health classification; ApprovalRequired correctly escalated the post-action verification as unstable. This is confined to the new qualification helper, not candidate runtime behavior. I added a real fixture health probe to the helper and created fresh invariant rc.10 M5 identities; qualification restarts from the replacement signed tag.
+---
+author: oompah
+created: 2026-07-26 12:08
+---
+Discovery: Signed rc.10 is rejected by the first shipped M5 short gate. The standalone bench_harness release starts :inets but omits its runtime :public_key dependency; OTP 28 :httpc constructs TLS hostname-verification options even for the local HTTP llama health probe, producing UndefinedFunctionError before measurement. Source/unit tests masked this because apps/bench/test/test_helper.exs explicitly starts :public_key. I stopped the incomplete arm64 rc.10 run and will qualify only a replacement candidate.
 ---
 <!-- COMMENTS:END -->
