@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T21:32:05.313245Z'
+updated_at: '2026-07-26T21:34:40.254710Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -927,5 +927,10 @@ author: oompah
 created: 2026-07-26 21:32
 ---
 Understanding (continuation): Resuming exact signed v0.1.0-rc.18 qualification at 28f8dc35. amd64 has a complete 44-check passing record, including full M5 and lifecycle; arm64 was restarted from an empty evidence root after correcting only the guest Git safe.directory configuration. I will reconcile both guest/evidence states, finish the uncontaminated arm64 run, audit every M6-CRIT artifact, create and verify signed indexed evidence, commit/push it, then close only if the complete dual-architecture qualification passes.
+---
+author: oompah
+created: 2026-07-26 21:34
+---
+Discovery (continuation): The rc.18 amd64 record is complete and internally consistent: 84 evidence files; signed tag 28f8dc35 verified; nine repository/release gates passed; two release builds and two complete signed bundle assemblies are byte-identical; no-network install, PKI/enrollment, operational recovery/hardening, short and full M5, and lifecycle all passed. Arm64 remains healthy in the clean exact-tag make test run under full-system QEMU. The only collector issue found was stale temporary rc.17 parameters, now corrected locally for rc.18 before final evidence assembly.
 ---
 <!-- COMMENTS:END -->
