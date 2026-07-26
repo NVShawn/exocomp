@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: In Progress
+status: Needs Human
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,13 +18,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T01:12:39.676322Z'
+updated_at: '2026-07-26T01:15:08.717916Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 3469956c-048f-4369-a97f-e7b4c1223ad9
+oompah.agent_run_id: d93cb513-1a53-4049-b420-8b3464abdccb
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
   total_input_tokens: 1007774
@@ -199,5 +199,20 @@ author: oompah
 created: 2026-07-26 01:12
 ---
 Qualification resumed with the human decision that bare metal is not required. Provisioned persistent clean full-system arm64 VM exocomp-arm64-qualification under QEMU (Ubuntu 24.04, aarch64 guest, systemd running, 8 vCPU, 8 GiB RAM, 60 GiB disk, Podman arm64). The guest is checked out at pushed commit fe95b001ffd8871b87956d071f3eed1855601821, which documents VM/emulation qualification semantics and adds a regression test. Host release/documentation gates passed. Running the candidate qualification gates and live shipped-artifact scenarios in the guest now; emulation will be recorded in the evidence.
+---
+author: oompah
+created: 2026-07-26 01:15
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Open with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-07-26 01:15
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 01:15
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
