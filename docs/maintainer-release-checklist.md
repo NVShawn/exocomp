@@ -41,6 +41,33 @@ record or CI system, not only in a local shell history.
       complete backup and restore with the installed `exocomp-state-backup`.
 - [ ] Verify user-facing commands against the final artifacts.
 
+## M5 performance gate
+
+Run the full shipped-artifact performance qualification on clean amd64 and
+arm64 guests independently. Both architecture runs must pass before
+publication.
+
+```sh
+# On each qualification guest (amd64 and arm64):
+make bench-llama-full \
+  LLAMA_SERVER=/path/to/llama-server \
+  LLAMA_LIB_DIR=/path/to/llama-libs \
+  NODE_RELEASE=/path/to/exocomp_node \
+  COORD_RELEASE=/path/to/exocomp_coordinator \
+  MODEL_PATH=/path/to/model.gguf \
+  MODEL_SHA256=<sha256>
+```
+
+- [ ] `bench-llama-full` exits zero on the clean amd64 qualification guest.
+- [ ] `bench-llama-full` exits zero on the clean arm64 qualification guest.
+- [ ] Evidence files from both runs are copied into
+      `docs/release-evidence/<tag>/raw/amd64/bench/` and
+      `docs/release-evidence/<tag>/raw/arm64/bench/` and included in the
+      signed `evidence-index.sha256`.
+
+For baseline management, gate failure interpretation, and evidence collection
+details, see [Performance Qualification](performance-qualification.md).
+
 ## Publish and follow up
 
 - [ ] Create and verify the signed tag from the qualified commit.

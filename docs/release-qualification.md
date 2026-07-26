@@ -213,8 +213,46 @@ fields are verified to be present and consistent:
 
 Non-deterministic fields (timestamps, build paths) are not compared.
 
+## M5 Performance Qualification
+
+The release qualification matrix covers build reproducibility and clean-host
+startup. A separate M5 performance gate covers the installed node, coordinator,
+and real llama-server release payload.
+
+Run the short shipped-artifact benchmark in CI:
+
+```sh
+make bench-llama-short-shipped \
+  LLAMA_SERVER=/path/to/llama-server \
+  LLAMA_LIB_DIR=/path/to/llama-libs \
+  NODE_RELEASE=/path/to/exocomp_node \
+  COORD_RELEASE=/path/to/exocomp_coordinator \
+  MODEL_PATH=/path/to/model.gguf \
+  MODEL_SHA256=<sha256>
+```
+
+Run the full release qualification on clean amd64 and arm64 guests:
+
+```sh
+make bench-llama-full \
+  LLAMA_SERVER=/path/to/llama-server \
+  LLAMA_LIB_DIR=/path/to/llama-libs \
+  NODE_RELEASE=/path/to/exocomp_node \
+  COORD_RELEASE=/path/to/exocomp_coordinator \
+  MODEL_PATH=/path/to/model.gguf \
+  MODEL_SHA256=<sha256>
+```
+
+`bench-llama-full` must pass on **both** architectures before publication.
+A gate failure prints the exact metric, observed value, and budget, then
+exits non-zero. For full prerequisites, baseline management, failure
+interpretation, and evidence collection, see
+[Performance Qualification](performance-qualification.md).
+
 ## Related Documentation
 
+- [Performance Qualification](performance-qualification.md) — M5 shipped-artifact
+  performance gate, baselines, and regression budgets.
 - [Runtime Dependencies](runtime-dependencies.md) — host library contract and
   ELF dependency inspection.
 - `release/builders.lock` — pinned builder images and glibc baseline.
