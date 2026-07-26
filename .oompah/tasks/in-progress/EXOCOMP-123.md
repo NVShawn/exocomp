@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-123
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
@@ -15,12 +15,14 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T03:59:29.594952Z'
-work_branch: null
+updated_at: '2026-07-26T07:54:24.200607Z'
+work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 63de4199-2ab0-43c1-8e17-2783bc5da833
+oompah.work_branch: epic-EXOCOMP-117
 ---
 ## Summary
 
@@ -46,3 +48,16 @@ Acceptance Criteria
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-26 07:54
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 07:54
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
