@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:54:31.183038Z'
+updated_at: '2026-07-26T04:54:38.600740Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -247,5 +247,10 @@ author: oompah
 created: 2026-07-26 04:54
 ---
 Implementation: Committed c8296bf with 9 files changed, 1217 insertions. Key changes: (1) Bootstrap.load_online_state/1 validates online PKI state without the offline root backup (required for production restarts). (2) Application.start/2 now wires PKI.State, EnrollmentToken, and Listener under the production supervision tree when require_pki:true; fails to start if PKI unavailable (fail-closed). (3) Health.check/0 extended to check PKI.State, Listener, and EnrollmentToken — returns :degraded if any absent. (4) CoordinatorRouter dispatches /v1/enroll to EnrollmentHandler (Bearer token), /v1/renew to RenewalHandler (mTLS), all else to A2ARouter. (5) Listener uses CoordinatorRouter with fail_if_no_peer_cert:false for enrollment connections; mTLS still enforced for A2A routes. (6) PKIEnrollmentTest covering: load_online_state without offline root, PKI tree startup, token issuance/consumption, replay rejection, identity mismatch, audit fail-closed, restart durability, handler behavior, health check.
+---
+author: oompah
+created: 2026-07-26 04:54
+---
+Verification: PASS. make test: 844 tests passed, 0 failures. make test-installer: 69 tests passed. make test-bundle: 75 tests passed. make check-links: PASS. All quality gates green. Tests include existing M2 acceptance tests (unchanged), existing integration tests, new PKIEnrollmentTest covering all acceptance criteria: token replay rejection (token_already_consumed), identity mismatch (token_node_mismatch), audit fail-closed, restart durability, and health reporting of missing required components. Build produces valid coordinator release with CoordinatorRouter, EnrollmentHandler, RenewalHandler, and updated supervision tree.
 ---
 <!-- COMMENTS:END -->
