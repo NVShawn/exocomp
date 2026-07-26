@@ -108,6 +108,16 @@ class OperatorDocumentationTest(unittest.TestCase):
         )
         self.assertNotIn("checksums.sha256", lifecycle)
 
+    def test_pki_ceremony_uses_installed_working_directory_and_cookie(self):
+        pki = DOCS["pki"].read_text()
+
+        self.assertIn("cd /opt/exocomp/coordinator", pki)
+        self.assertIn(". ./config/release-cookie.env", pki)
+        self.assertIn(
+            'exec ./current/bin/exocomp_coordinator eval "$1"',
+            pki,
+        )
+
     def test_qualification_accepts_full_system_vms_and_discloses_emulation(self):
         qualification = " ".join(DOCS["qualification"].read_text().lower().split())
 

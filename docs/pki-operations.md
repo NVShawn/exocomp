@@ -29,7 +29,13 @@ sudo install \
   /run/exocomp-root-passphrase
 sudo -u exocomp-coordinator \
   env EXOCOMP_ROOT_KEY_PASSPHRASE_FILE=/run/exocomp-root-passphrase \
-  /opt/exocomp/coordinator/current/bin/exocomp_coordinator eval '
+  sh -c '
+    cd /opt/exocomp/coordinator
+    set -a
+    . ./config/release-cookie.env
+    set +a
+    exec ./current/bin/exocomp_coordinator eval "$1"
+  ' sh '
     passphrase =
       System.fetch_env!("EXOCOMP_ROOT_KEY_PASSPHRASE_FILE")
       |> File.read!()
