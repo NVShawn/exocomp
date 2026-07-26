@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-26T06:24:03.226024Z'
+updated_at: '2026-07-26T06:24:05.669408Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -108,5 +108,10 @@ author: oompah
 created: 2026-07-26 06:23
 ---
 Completion: Committed and pushed EXOCOMP-121 fix to epic-EXOCOMP-117 (78dbe38). Five test files updated to replace brittle wall-clock assumptions with deterministic synchronization and bounded monotonic-deadline helpers: (1) Bench.HostSamplerTest — line-framed port, 30s await_port_line, eventual CPU/RSS observation, never-ready regression test; (2) HealthPollerTest — resolver+probe workers hold via receive then crash on explicit signal at 150ms, verifies in-flight ownership and 3-node concurrency=1 sequencing, 10s eventually deadline; (3) A2ARouterTest — 5-concurrent-caller await raised from 2s to 10s test-only; (4) MultiNodeDiscoveryPollingTest — monotonic 10s eventually, strengthened sibling-node assertion; (5) DiskPressureCollectorTest — Code.ensure_loaded? guard. Production code and production timeouts unchanged. All 844 amd64 tests pass.
+---
+author: oompah
+created: 2026-07-26 06:24
+---
+Fixed arm64 test timing fragility in 5 test files: replaced brittle wall-clock assert_receive/sleep patterns with deterministic synchronization (port line framing, explicit crash signals) and bounded monotonic-deadline eventually helpers. All 844 tests pass on amd64 in the project's pinned Elixir 1.20.2/OTP 28 container. Production code and timeouts unchanged.
 ---
 <!-- COMMENTS:END -->
