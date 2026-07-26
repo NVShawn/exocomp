@@ -11,14 +11,30 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T06:28:28.168297Z'
+updated_at: '2026-07-26T06:28:51.475372Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 56619550-d780-4a97-ba9e-11d11063a16e
+oompah.agent_run_id: 609e9442-d417-4f51-b235-7d13569cf66c
 oompah.work_branch: epic-EXOCOMP-117
+oompah.task_costs:
+  total_input_tokens: 1395139
+  total_output_tokens: 6928
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 1395139
+      output_tokens: 6928
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 1395139
+    output_tokens: 6928
+    cost_usd: 0.0
+    recorded_at: '2026-07-26T06:28:41.099313+00:00'
 ---
 ## Summary
 
@@ -85,5 +101,35 @@ author: oompah
 created: 2026-07-26 06:28
 ---
 Completion: Duplicate investigation is complete. No duplicate was archived, no repository changes were made, and focus-complete:duplicate_detector is set. EXOCOMP-122 remains In Progress for a fresh feature-focused implementation run using the recorded handoff.
+---
+author: oompah
+created: 2026-07-26 06:28
+---
+Agent completed successfully in 259s (1402067 tokens)
+---
+author: oompah
+created: 2026-07-26 06:28
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 28
+- Tokens: 1.4M in / 6.9K out [1.4M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 19s
+- Log: EXOCOMP-122__20260726T062425Z.jsonl
+---
+author: oompah
+created: 2026-07-26 06:28
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-26 06:28
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 06:28
+---
+Focus: Technical Writer
 ---
 <!-- COMMENTS:END -->
