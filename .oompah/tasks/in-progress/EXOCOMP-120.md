@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-120
 type: bug
-status: Open
+status: In Progress
 priority: 1
 title: Make offline bundles reproducible and cryptographically complete
 parent: EXOCOMP-117
@@ -10,12 +10,14 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T03:59:16.748246Z'
-work_branch: null
+updated_at: '2026-07-26T04:59:20.616073Z'
+work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: 9b4f07b2-dcfc-4e12-9d30-180501209c97
+oompah.work_branch: epic-EXOCOMP-117
 ---
 ## Summary
 
@@ -41,3 +43,16 @@ Acceptance Criteria
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-26 04:59
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-26 04:59
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
