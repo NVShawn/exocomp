@@ -10,9 +10,10 @@ blocked_by: []
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:docs
+- focus-complete:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:54:38.600740Z'
+updated_at: '2026-07-26T04:54:49.501751Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -252,5 +253,10 @@ author: oompah
 created: 2026-07-26 04:54
 ---
 Verification: PASS. make test: 844 tests passed, 0 failures. make test-installer: 69 tests passed. make test-bundle: 75 tests passed. make check-links: PASS. All quality gates green. Tests include existing M2 acceptance tests (unchanged), existing integration tests, new PKIEnrollmentTest covering all acceptance criteria: token replay rejection (token_already_consumed), identity mismatch (token_node_mismatch), audit fail-closed, restart durability, and health reporting of missing required components. Build produces valid coordinator release with CoordinatorRouter, EnrollmentHandler, RenewalHandler, and updated supervision tree.
+---
+author: oompah
+created: 2026-07-26 04:54
+---
+Completion: Production coordinator PKI and enrollment services are now wired and tested. Delivered in commits 6af78a7 (docs) and c8296bf (implementation) on branch epic-EXOCOMP-117. All acceptance criteria met: (1) Production startup has live PKI.State, EnrollmentToken, and Listener via Application.start/2 when require_pki:true. (2) Bootstrap.load_online_state/1 enables restarts without offline root. (3) Token replay, identity mismatch, and missing audit fail closed. (4) Health.check/0 returns :degraded when any required component absent. (5) EnrollmentHandler (POST /v1/enroll, Bearer token) and RenewalHandler (POST /v1/renew, mTLS) expose enrollment/renewal flows. (6) All make test/test-installer/test-bundle gates pass.
 ---
 <!-- COMMENTS:END -->
