@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T07:59:43.795742Z'
+updated_at: '2026-07-26T08:02:51.395668Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -170,5 +170,10 @@ author: oompah
 created: 2026-07-26 07:59
 ---
 Understanding: DevOps qualification pass for a fresh post-remediation M6 candidate. I will identify and pin the exact source/tag, inspect the established rc.2 evidence contract, build/rebuild amd64 and arm64 artifacts where supported, run all repository and release Make gates plus shipped-artifact/live checks available in clean guests, and record only newly verified evidence. I will not reuse rc.2 results; unavailable signing or guest infrastructure will be documented and routed as remaining work rather than represented as passing.
+---
+author: oompah
+created: 2026-07-26 08:02
+---
+Discovery: origin/main is 01c14b8 (only EXOCOMP-118 merged); the current epic branch is seven commits ahead through EXOCOMP-122 at 371ca4e, and no post-remediation candidate tag exists. Therefore the task's mandatory order—siblings land on main, then sign an exact candidate—has not yet occurred. The rc.2 SSH signing identity is available and verifies, and the retained amd64 KVM and full-system arm64 QEMU guests are running with the pinned llama/model inputs, but they contain rc.2 state and have no clean snapshots. I will use them only for preflight regression gates unless/until an exact signed post-merge candidate and clean guest reset are available.
 ---
 <!-- COMMENTS:END -->
