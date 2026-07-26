@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T08:12:01.125570Z'
+updated_at: '2026-07-26T08:36:51.542688Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -180,5 +180,10 @@ author: oompah
 created: 2026-07-26 08:12
 ---
 Implementation: Preflight exposed an integration regression between EXOCOMP-119 and the release qualification path. Updated scripts/smoke-releases.sh and scripts/test-clean-container.sh so their narrowly scoped bundled-ERTS probes explicitly disable coordinator PKI only inside the ephemeral eval process; production startup remains fail-closed and will still be qualified with initialized PKI on systemd guests. Added structural regression assertions in scripts/test-release-builders.sh for both probes. make test-builders passes (runtime-dependency fixtures, 13 offline matrix checks, packaging/normalizer/operator-doc suites).
+---
+author: oompah
+created: 2026-07-26 08:36
+---
+Implementation: Live publication preflight found two additional release blockers. The coordinator systemd unit now receives the bootstrap PKI/enrollment state paths (e5db3e0). Bundle Make targets now pass an immutable builder identity and minisign key into the assembler, with structural gate coverage and maintainer documentation (b6fa9ee). The prior b10107 binary input also exposed an undeclared libgomp dependency; I am rebuilding the exact pinned upstream tag with OpenMP disabled so the offline runtime has a redistributable, closed dependency set.
 ---
 <!-- COMMENTS:END -->
