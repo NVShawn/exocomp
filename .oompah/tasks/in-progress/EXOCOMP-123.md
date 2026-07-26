@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:21:20.143108Z'
+updated_at: '2026-07-26T18:22:04.856807Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -747,5 +747,10 @@ author: oompah
 created: 2026-07-26 18:21
 ---
 Understanding (continuation): Resuming after signed rc.16 was rejected by live automatic rollback. I will reconcile branch, uncommitted changes, tags, guest jobs, and evidence; fix rollback so restoration is ordered and application-health-verified with focused tests; run repeated exact-source gates; then sign and fully requalify a fresh candidate on both architectures. No rc.3-rc.16 result will be reused for acceptance.
+---
+author: oompah
+created: 2026-07-26 18:22
+---
+Operator intervention: repeated qualification runs were being terminated by the global 60-minute ACP turn timeout and, on some attempts, the 200-turn cap while full-system arm64 and 30-minute M5 work was still healthy. Runtime configuration is now OOMPAH_TURN_TIMEOUT_MS=14400000 (4 hours) and OOMPAH_MAX_TURNS=800. The service was gracefully restarted and this task was automatically redispatched; continue the exact signed-candidate qualification without reusing rejected evidence.
 ---
 <!-- COMMENTS:END -->
