@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T13:51:39.324411Z'
+updated_at: '2026-07-26T13:56:12.413701Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -478,5 +478,20 @@ author: oompah
 created: 2026-07-26 13:51
 ---
 Verification progress: final rc.12 amd64 record has passed fmt/lint/release-check, packaging/installer/bundle/test, release matrix, two identical release builds, signed no-network bundle verification/install, production PKI/enrollment/renewal, restart/audit durability, multi-node diagnostics, approval/recovery, hardening, and the short shipped M5 gate; its mandatory 30-minute full M5 run is active. Arm64 has passed fmt/lint/release-check/packaging/installer and is advancing through test-bundle under full-system QEMU. No candidate failure is present.
+---
+author: oompah
+created: 2026-07-26 13:56
+---
+Run #7 [attempt=7, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 162
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 2s
+- Log: EXOCOMP-123__20260726T125611Z.jsonl
+---
+author: oompah
+created: 2026-07-26 13:56
+---
+Agent stalled 4 time(s) (3602s). Escalating from 'standard' to 'deep'. Retrying in 300s (attempt #7)
 ---
 <!-- COMMENTS:END -->
