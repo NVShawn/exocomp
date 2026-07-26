@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T17:23:41.420800Z'
+updated_at: '2026-07-26T17:32:31.977015Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -676,5 +676,10 @@ author: oompah
 created: 2026-07-26 17:23
 ---
 Implementation: commit c351dc2 fixes the live upgrade blockers. Installer RPC health probes now return :ok or raise on the remote service instead of calling System.halt, so a successful probe cannot terminate the service. Both node and coordinator start-limit directives moved from [Service] to [Unit]. Bundle regression fixtures reject destructive health RPCs and assert correct unit section placement; invariant rc.16 M5 identities are added. Focused results: 77 installer tests, 101 bundle tests, 28 release-check tests, and test-builders pass; host M5 structural tests pass while its container half is unavailable due the known read-only rootless-Podman runtime path.
+---
+author: oompah
+created: 2026-07-26 17:32
+---
+Qualification progress: fresh exact-tag rc.16 runs are active from empty roots with the corrected double-bundle reproducibility check. amd64 has passed through test-bundle and is running make test; arm64 is completing pinned-builder startup for fmt-check under full-system QEMU. Both jobs are alive and no failure marker is present.
 ---
 <!-- COMMENTS:END -->
