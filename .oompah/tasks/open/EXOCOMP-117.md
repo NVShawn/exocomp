@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-117
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-26T03:59:24.290096Z'
+updated_at: '2026-07-26T04:23:38.097494Z'
 work_branch: null
 target_branch: null
 review_url: null
