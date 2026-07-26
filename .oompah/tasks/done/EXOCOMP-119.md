@@ -13,7 +13,7 @@ labels:
 - focus-complete:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:54:58.189252Z'
+updated_at: '2026-07-26T04:55:00.641743Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -258,5 +258,10 @@ author: oompah
 created: 2026-07-26 04:54
 ---
 Completion: Production coordinator PKI and enrollment services are now wired and tested. Delivered in commits 6af78a7 (docs) and c8296bf (implementation) on branch epic-EXOCOMP-117. All acceptance criteria met: (1) Production startup has live PKI.State, EnrollmentToken, and Listener via Application.start/2 when require_pki:true. (2) Bootstrap.load_online_state/1 enables restarts without offline root. (3) Token replay, identity mismatch, and missing audit fail closed. (4) Health.check/0 returns :degraded when any required component absent. (5) EnrollmentHandler (POST /v1/enroll, Bearer token) and RenewalHandler (POST /v1/renew, mTLS) expose enrollment/renewal flows. (6) All make test/test-installer/test-bundle gates pass.
+---
+author: oompah
+created: 2026-07-26 04:55
+---
+Wired production coordinator PKI and enrollment services: Bootstrap.load_online_state/1 for production restarts without offline root; Application.start/2 now supervises PKI.State, EnrollmentToken, Listener; Health.check/0 requires all components; CoordinatorRouter with EnrollmentHandler (Bearer token) and RenewalHandler (mTLS); Listener uses fail_if_no_peer_cert:false for enrollment. All make test/test-installer/test-bundle gates pass (844+69+75 tests).
 ---
 <!-- COMMENTS:END -->
