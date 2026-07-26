@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-120
 type: bug
-status: Open
+status: In Progress
 priority: 1
 title: Make offline bundles reproducible and cryptographically complete
 parent: EXOCOMP-117
@@ -9,16 +9,15 @@ children: []
 blocked_by: []
 labels:
 - focus-complete:duplicate_detector
-- needs:devops
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:02:04.441760Z'
+updated_at: '2026-07-26T05:02:16.183738Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 9b4f07b2-dcfc-4e12-9d30-180501209c97
+oompah.agent_run_id: d29229cf-723e-41b6-896e-ea06365889e8
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 33
@@ -129,5 +128,15 @@ author: oompah
 created: 2026-07-26 05:02
 ---
 Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-26 05:02
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-07-26 05:02
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->
