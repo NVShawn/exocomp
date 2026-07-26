@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T16:31:46.041565Z'
+updated_at: '2026-07-26T16:36:31.582690Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -621,5 +621,10 @@ author: oompah
 created: 2026-07-26 16:31
 ---
 Implementation: commit 151ce856 makes every VacuumBounds API-shape assertion explicitly load the module before function_exported?/3, eliminating the randomized test-order false negative; invariant rc.15 M5 baselines are added. Pretag verification on amd64 passed make test three consecutive times (845 tests, 10 excluded each), fmt-check, 32 focused M5 tests, and all 77 installer tests. Signed tag v0.1.0-rc.15 at 151ce8560dab898c789335660e4fe375a79269eb is verified and pushed; fresh dual-architecture qualification is starting from empty roots.
+---
+author: oompah
+created: 2026-07-26 16:36
+---
+Understanding (continuation attempt #9): Resuming the active exact-tag v0.1.0-rc.15 qualification at 151ce8560dab898c789335660e4fe375a79269eb. Both dedicated clean systemd guest runs were launched from empty evidence roots after rc.14 was rejected. I will complete both architecture matrices, audit every live/M5/lifecycle result, assemble and verify a signed evidence index, commit and push the accepted evidence, then close only if every M6-CRIT requirement passes.
 ---
 <!-- COMMENTS:END -->
