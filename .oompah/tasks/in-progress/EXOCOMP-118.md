@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T03:59:26.030375Z'
+updated_at: '2026-07-26T03:59:55.375901Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -54,5 +54,10 @@ author: oompah
 created: 2026-07-26 03:59
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-26 03:59
+---
+Understanding: duplicate screening will compare this issue's clean-host bundle failures—replay-ledger path ownership, missing llama-server shared libraries, archive/checksum command mismatch, and absent backup/restore payload—against existing tasks. I will read plausible candidates in full and either archive EXOCOMP-118 as a confirmed duplicate or hand it off without implementation.
 ---
 <!-- COMMENTS:END -->
