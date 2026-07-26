@@ -405,9 +405,11 @@ setup_users_and_dirs() {
     mkdir -p "${pki_dir}"
     mkdir -p "${var_dir}"
 
-    # Set ownership and permissions
-    # Releases dir: owned by root, readable by service account
-    do_chown -R root:root "${install_dir}"
+    # Set ownership and permissions. Do not recursively chown install_dir:
+    # config/ and log/ contain protected service-owned state that must retain
+    # its ownership across upgrades.
+    do_chown root:root "${install_dir}"
+    do_chown root:root "${releases_dir}"
     do_chown "${account}:${account}" "${config_dir}"
     do_chown "${account}:${account}" "${log_dir}"
     do_chown "${account}:${account}" "${pki_dir}"

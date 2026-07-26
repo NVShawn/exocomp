@@ -863,6 +863,33 @@ class TestUpgradePreparation:
         _run_install(info2, self.component, self.v2, env=self.env)
         assert cookie.read_text() == original
 
+    def test_protected_file_ownership_is_preserved_across_upgrade(self):
+        info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
+        info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
+        _run_install(info1, self.component, self.v1, env=self.env)
+
+        config_dir = (
+            self.root / "opt" / "exocomp" / self.component / "config"
+        )
+        protected_paths = [
+            config_dir / f"{self.component}.json",
+            config_dir / "release-cookie.env",
+        ]
+        owners_before = {
+            path: (path.stat().st_uid, path.stat().st_gid)
+            for path in protected_paths
+        }
+
+        _run_install(info2, self.component, self.v2, env=self.env)
+
+        owners_after = {
+            path: (path.stat().st_uid, path.stat().st_gid)
+            for path in protected_paths
+        }
+        assert owners_after == owners_before, (
+            "upgrade must not replace service ownership of protected config"
+        )
+
     def test_failed_health_gate_rolls_back_to_prior_healthy_version(self):
         info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
         info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
