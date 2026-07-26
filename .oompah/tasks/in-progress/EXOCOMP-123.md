@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T10:24:21.517272Z'
+updated_at: '2026-07-26T10:46:31.976983Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -317,5 +317,10 @@ author: oompah
 created: 2026-07-26 10:24
 ---
 Implementation: ActionCatalog now executes the immutable privileged commands through /usr/bin/sudo with absolute systemctl/journalctl paths and validated fixed argv, matching the installed NOPASSWD policy while preserving the no-shell boundary. Updated focused catalog, executor, and M3 acceptance assertions; added invariant amd64/arm64 rc.6 M5 baseline identities. Host-native make release-check and make test-installer pass (28 governance tests, 76 installer tests), and M5 structural tests pass. Commit b4d0123 is pushed.
+---
+author: oompah
+created: 2026-07-26 10:46
+---
+Discovery: rc.7 amd64 shipped-artifact preflight now passes end to end: strict signed-bundle verification in a no-network namespace, offline coordinator/node install, production PKI ceremony with offline root removal, healthy coordinator, node-bound enrollment over TLS, and enrolled node systemd startup. Two preceding failures were confined to the uncommitted qualification helper (service account inherited inaccessible /root; SSL application not started for the clean enrollment eval), not candidate code. Candidate commit remains 4a02c172da52ef7fe04aaa8bf7cc0701c4b38859.
 ---
 <!-- COMMENTS:END -->
