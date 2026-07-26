@@ -1304,13 +1304,13 @@ class TestVersionValidation:
 
     @pytest.mark.parametrize(
         "version",
-        ["0.1.0", "1.2.3", "0.1.0-rc.4", "1.0.0-beta.1", "2.3.4-alpha.12"],
+        ["0.1.0", "1.2.3", "0.1.0-rc.5", "1.0.0-beta.1", "2.3.4-alpha.12"],
     )
     def test_version_detected_from_archive_name(self, tmp_path, version):
         """install.sh must correctly parse semver pre-release versions with dots from
         the archive filename when --version is not supplied.  Regression for:
-        ``exocomp-coordinator-0.1.0-rc.4-linux-amd64.tar.gz`` extracting as ``0.1.0``
-        instead of ``0.1.0-rc.4`` due to ``[^.]*`` stopping at the dot in the
+        ``exocomp-coordinator-0.1.0-rc.5-linux-amd64.tar.gz`` extracting as ``0.1.0``
+        instead of ``0.1.0-rc.5`` due to ``[^.]*`` stopping at the dot in the
         pre-release segment."""
         component = "node"
         info = _make_bundle_tree(tmp_path, component, version)
