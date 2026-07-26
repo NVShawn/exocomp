@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: Merged
+status: In Review
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-25T21:10:24.842861Z'
+updated_at: '2026-07-26T03:54:37.591004Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
