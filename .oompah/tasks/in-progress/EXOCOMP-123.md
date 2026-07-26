@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T09:36:37.333063Z'
+updated_at: '2026-07-26T09:46:57.111321Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -261,5 +261,10 @@ author: oompah
 created: 2026-07-26 09:36
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-26 09:46
+---
+Understanding (continuation run #2): Picking up from previous Software Engineer session. Previous agent fixed install.sh version detection (bf0b3ee) and wrote QA scripts, then hit max turns. Root causes for the 7 failures in the amd64 qualification run are now identified: (1) PKI ceremony fails with pki_storage_error because exocomp-coordinator user cannot traverse /var/lib/exocomp-qualification/rc4/ (mode 750, owned by exocomp:exocomp, not in group) — the offline backup path in QA scripts is inaccessible; (2) The bundle on the VM was assembled from rc.4 tag (73b61e8) BEFORE the install.sh fix (bf0b3ee), so install.sh in the bundle extracts version as 0.1.0 instead of 0.1.0-rc.4. Coordinator still functions but version directory is wrong. These issues cascade into all downstream failures: coordinator starts but crashes (PKI uninitialized), node never successfully enrolls, M5 bench never runs. Plan: fix both issues in source, create rc.5 candidate, rebuild bundles on both VMs, run fresh qualification.
 ---
 <!-- COMMENTS:END -->
