@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T13:29:26.782606Z'
+updated_at: '2026-07-26T13:51:39.324411Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -473,5 +473,10 @@ author: oompah
 created: 2026-07-26 13:29
 ---
 Discovery: the corrected amd64 run passed all repo/build/preflight/operational scenarios, then the temporary wrapper pre-created the write-once BENCH_EVIDENCE_DIR; the shipped M5 harness correctly rejected it. I removed that wrapper-only mkdir for both short and full evidence paths. To keep the acceptance record atomic, I discarded the partial rc.12 directories, stopped arm64 before it reached the same condition, and restarted both complete exact-tag runs from empty evidence roots. Candidate source remains unchanged.
+---
+author: oompah
+created: 2026-07-26 13:51
+---
+Verification progress: final rc.12 amd64 record has passed fmt/lint/release-check, packaging/installer/bundle/test, release matrix, two identical release builds, signed no-network bundle verification/install, production PKI/enrollment/renewal, restart/audit durability, multi-node diagnostics, approval/recovery, hardening, and the short shipped M5 gate; its mandatory 30-minute full M5 run is active. Arm64 has passed fmt/lint/release-check/packaging/installer and is advancing through test-bundle under full-system QEMU. No candidate failure is present.
 ---
 <!-- COMMENTS:END -->
