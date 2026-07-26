@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: In Progress
+status: Needs Human
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T03:16:36.370626Z'
+updated_at: '2026-07-26T03:20:06.361576Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -239,5 +239,10 @@ author: oompah
 created: 2026-07-26 03:16
 ---
 Human decision received: accept v0.1.0-rc.2 and the qualification identity shedwards@nvidia.com, ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw. The signing-identity blocker is resolved. Continue the in-flight arm64 qualification matrix and remaining M6-CRIT evidence collection; no hardware or signing decision remains.
+---
+author: oompah
+created: 2026-07-26 03:20
+---
+The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was Open with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
 ---
 <!-- COMMENTS:END -->
