@@ -16,13 +16,13 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T18:12:47.452638Z'
+updated_at: '2026-07-26T18:17:55.586616Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 2adce003-0e1c-4448-9cc8-a5cf650137ab
+oompah.agent_run_id: 9b467efa-c6d5-45c3-b9e1-2cbd91b1eb8a
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
   total_input_tokens: 670850
@@ -706,5 +706,15 @@ author: oompah
 created: 2026-07-26 18:12
 ---
 Discovery: signed rc.16 is rejected by fresh amd64 lifecycle and none of its results will count for acceptance. Full shipped M5 passed, but forced upgrade-health failure exposed an incomplete rollback contract: install.sh restores the prior symlink and calls systemctl restart without waiting for the restored application to become RPC-ready. In the live race, the new service was not yet RPC-ready when rollback began; ExecStop returned :noconnection, the stop timed out, and the installer returned while the prior service was only starting. The lifecycle's immediate prior-release RPC therefore failed. I am stopping the still-running arm64 rc.16 record and will make rollback ordered and application-health-verified before signing a replacement candidate.
+---
+author: oompah
+created: 2026-07-26 18:17
+---
+Retrying (attempt #11, agent: deep)
+---
+author: oompah
+created: 2026-07-26 18:17
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
