@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-26T21:34:40.254710Z'
+updated_at: '2026-07-26T22:32:21.323564Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -932,5 +932,20 @@ author: oompah
 created: 2026-07-26 21:34
 ---
 Discovery (continuation): The rc.18 amd64 record is complete and internally consistent: 84 evidence files; signed tag 28f8dc35 verified; nine repository/release gates passed; two release builds and two complete signed bundle assemblies are byte-identical; no-network install, PKI/enrollment, operational recovery/hardening, short and full M5, and lifecycle all passed. Arm64 remains healthy in the clean exact-tag make test run under full-system QEMU. The only collector issue found was stale temporary rc.17 parameters, now corrected locally for rc.18 before final evidence assembly.
+---
+author: oompah
+created: 2026-07-26 22:32
+---
+Agent stalled — no productive actions (writes/commands) for 10 consecutive turns (3637s). Retrying in 40s (attempt #3)
+---
+author: oompah
+created: 2026-07-26 22:32
+---
+Run #3 [attempt=3, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 56
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 37s
+- Log: EXOCOMP-123__20260726T213143Z.jsonl
 ---
 <!-- COMMENTS:END -->
