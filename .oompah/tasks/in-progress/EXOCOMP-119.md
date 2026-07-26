@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:10:17.006433Z'
+updated_at: '2026-07-26T04:10:25.088026Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -64,5 +64,10 @@ author: oompah
 created: 2026-07-26 04:10
 ---
 Discovery: No confirmed duplicate. Full records reviewed for EXOCOMP-17, EXOCOMP-19, EXOCOMP-20, EXOCOMP-60, EXOCOMP-77, EXOCOMP-107, EXOCOMP-117, and EXOCOMP-123. EXOCOMP-77 starts validated PKI/token services only through a test-oriented isolated tree and explicitly excludes certificate issuance/node enrollment; EXOCOMP-107 supplies node-side client/install/scheduling; EXOCOMP-19 supplies the coordinator listener/A2A modules; EXOCOMP-20 verifies internal/fixture paths; EXOCOMP-123 is later release requalification. Current production Application.start/2 omits Listener, PKI.State, and EnrollmentToken while Health.check/0 only considers inventory/registry/audit, directly confirming EXOCOMP-119 owns the remaining shipped-runtime integration rather than repeating a prior task.
+---
+author: oompah
+created: 2026-07-26 04:10
+---
+Verification: Duplicate screen completed read-only. Repository/task-history searches and full candidate task views show no task that owns production wiring plus installed-artifact enrollment/renewal recovery. Source inspection confirms the reported gap in Application.start/2 and Health.check/0. No files were changed and no tests were run because this focus forbids implementation. The worktree already contains unrelated modifications in config/config.exs, both systemd units, and scripts/install.sh; they were preserved untouched.
 ---
 <!-- COMMENTS:END -->
