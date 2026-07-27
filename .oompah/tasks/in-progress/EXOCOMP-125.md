@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T17:21:54.997775Z'
+updated_at: '2026-07-27T17:24:55.749043Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -163,5 +163,10 @@ author: oompah
 created: 2026-07-27 17:21
 ---
 Discovery (Software Engineer): recovered the exact-e2afa4b guest runs at 192.168.122.136/171. amd64 passed pinned gates, artifact build/install/readiness and remains in the real >=2h soak. arm64 stopped during the focused suite because Bench.QualificationTest's synthetic llama restart timed out at do_poll_until_unhealthy under slow full-system QEMU (46/47 bench tests passed); no shipped workload had started. This is an emulation-sensitive fake restart test seam, not an arm64 artifact failure. I will make the fake restart transition deterministic, add regression coverage, and relaunch exact-commit qualification.
+---
+author: oompah
+created: 2026-07-27 17:24
+---
+Implementation (Software Engineer): replaced the fake llama server's asynchronous mode casts and 100 ms reopen race with synchronous mode transitions plus a one-request :error_503_once restart state. Qualification orchestration and restart workload tests now exercise an observed unhealthy transition followed atomically by recovery, independent of QEMU scheduling speed; production restart behavior and timeouts are unchanged.
 ---
 <!-- COMMENTS:END -->
