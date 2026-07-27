@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T17:24:55.749043Z'
+updated_at: '2026-07-27T17:39:11.878675Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -168,5 +168,10 @@ author: oompah
 created: 2026-07-27 17:24
 ---
 Implementation (Software Engineer): replaced the fake llama server's asynchronous mode casts and 100 ms reopen race with synchronous mode transitions plus a one-request :error_503_once restart state. Qualification orchestration and restart workload tests now exercise an observed unhealthy transition followed atomically by recovery, independent of QEMU scheduling speed; production restart behavior and timeouts are unchanged.
+---
+author: oompah
+created: 2026-07-27 17:39
+---
+Qualification methodology update: pre-soak audit found the runtime probe retained every 1s observation in the measured node/coordinator heap, which would manufacture a linear RSS slope. Commit 02ae00f streams JSONL to collision-resistant mode-0600 private-temp spools with a constant-size VM state and removes them after export; tests prove repeated samples grow only the spool and cleanup succeeds. fmt-check, lint, and test-m5-qualification pass. Fresh exact-02ae00f amd64/arm64 runs are active.
 ---
 <!-- COMMENTS:END -->
