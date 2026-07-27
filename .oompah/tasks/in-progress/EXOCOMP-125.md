@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T17:20:11.974365Z'
+updated_at: '2026-07-27T17:21:54.997775Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-07-27 17:20
 ---
 Understanding (Software Engineer): continue the exact-e2afa4b dual-architecture qualification already launched; reconcile active guest runs and branch state, diagnose and fix any remaining shipped-artifact-only failures with focused regression coverage, collect genuine amd64/arm64 raw restart, mixed polling, loaded recovery, and soak evidence, rerun repository gates, update the milestone report, then commit, push, and close the task.
+---
+author: oompah
+created: 2026-07-27 17:21
+---
+Discovery (Software Engineer): recovered the exact-e2afa4b guest runs at 192.168.122.136/171. amd64 passed pinned gates, artifact build/install/readiness and remains in the real >=2h soak. arm64 stopped during the focused suite because Bench.QualificationTest's synthetic llama restart timed out at do_poll_until_unhealthy under slow full-system QEMU (46/47 bench tests passed); no shipped workload had started. This is an emulation-sensitive fake restart test seam, not an arm64 artifact failure. I will make the fake restart transition deterministic, add regression coverage, and relaunch exact-commit qualification.
 ---
 <!-- COMMENTS:END -->
