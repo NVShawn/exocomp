@@ -18,7 +18,7 @@ BASELINES = REPO_ROOT / "apps" / "bench" / "priv" / "bench" / "baselines"
 class M5QualificationWorkflowTest(unittest.TestCase):
     def test_checked_in_baselines_pin_identity_and_both_hard_gates(self) -> None:
         paths = sorted(BASELINES.glob("v*/*.toml"))
-        self.assertEqual(42, len(paths))
+        self.assertEqual(44, len(paths))
 
         expected_metrics = {
             "beam_cpu_percent": "beam.cpu.node_plus_coordinator.mean_percent",

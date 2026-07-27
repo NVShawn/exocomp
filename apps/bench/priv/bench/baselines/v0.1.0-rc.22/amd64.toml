@@ -1,0 +1,22 @@
+# M5 shipped-artifact hard gates for Exocomp v0.1.0-rc.22 on amd64.
+#
+# These are invariant M5 acceptance ceilings, not measurements copied from a
+# rejected candidate. The rc.22 qualification run records fresh observations.
+schema_version = 1
+artifact_version = "0.1.0-rc.22"
+architecture = "amd64"
+host_profile = "amd64-ci"
+
+[gates.beam_cpu_percent]
+description = "BEAM control plane (node + coordinator, excluding llama.cpp) average CPU"
+metric = "beam.cpu.node_plus_coordinator.mean_percent"
+budget = 5.0
+unit = "percent"
+direction = "lower_is_better"
+
+[gates.beam_ram_percent]
+description = "BEAM control plane (node + coordinator, excluding llama.cpp) peak RSS as percent of host RAM"
+metric = "beam.memory.node_plus_coordinator.peak_percent"
+budget = 5.0
+unit = "percent"
+direction = "lower_is_better"
