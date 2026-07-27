@@ -7,7 +7,7 @@ defmodule Exocomp.Coordinator.QualificationProbeTest do
 
   test "polling exercises a healthy, slow, and unreachable mixture without mailbox growth" do
     assert {:ok, samples} =
-             QualificationProbe.polling(cycles: 4, slow_ms: 5, timeout_ms: 100)
+             QualificationProbe.polling(cycles: 4, slow_ms: 5, timeout_ms: 2_000)
 
     assert values(samples, "coordinator.poll.healthy.count") == [1, 1, 1, 1]
     assert values(samples, "coordinator.poll.slow.count") == [1, 1, 1, 1]

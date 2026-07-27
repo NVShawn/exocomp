@@ -17,6 +17,7 @@ defmodule Exocomp.Coordinator.QualificationProbe do
   }
 
   @source "coordinator"
+  @default_poll_timeout_ms 2_000
 
   defmodule RecoveryAdapter do
     @moduledoc false
@@ -77,7 +78,11 @@ defmodule Exocomp.Coordinator.QualificationProbe do
     cycles = positive(Keyword.get(opts, :cycles, 5), :cycles)
     concurrency = positive(Keyword.get(opts, :concurrency, 3), :concurrency)
     slow_ms = positive(Keyword.get(opts, :slow_ms, 20), :slow_ms)
-    timeout_ms = positive(Keyword.get(opts, :timeout_ms, 200), :timeout_ms)
+    # This is an orchestration deadline, not a performance budget. Keep enough
+    # headroom for the shipped arm64 VM under full-system CPU emulation; the
+    # measured cycle latency and exact reachability outcomes remain hard gates.
+    timeout_ms =
+      positive(Keyword.get(opts, :timeout_ms, @default_poll_timeout_ms), :timeout_ms)
 
     names = unique_names()
 
@@ -85,7 +90,10 @@ defmodule Exocomp.Coordinator.QualificationProbe do
          {:ok, registry} <-
            Registry.start_link(
              name: names.registry,
-             poll_interval_ms: 1,
+             # Explicitly marking all entries due below defines one measured
+             # cycle. A short interval can make a completed node due again
+             # before a slow/emulated cycle drains, causing endless refills.
+             poll_interval_ms: 60_000,
              jitter_ms: 0
            ),
          :ok <- Registry.rebuild(mixed_nodes(), registry),
