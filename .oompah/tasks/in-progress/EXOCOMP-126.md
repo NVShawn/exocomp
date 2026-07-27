@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:59:57.725373Z'
+updated_at: '2026-07-27T17:00:06.312186Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -231,5 +231,10 @@ author: oompah
 created: 2026-07-27 16:59
 ---
 Verification: Focused recovery suite passes: node 20/20 and coordinator 18/18, including the new authenticated coordinator-to-node A2A acceptance test. Forced compilation passes with warnings-as-errors. Both test releases build and smoke-start successfully. The canonical make test host-side builder/docs checks passed, but its container phase is unavailable because this sandbox blocks rootless Podman clone/runtime writes. Fallback Elixir 1.20.2/OTP 27 full run reached 1,366/1,368 passing; the only failure is the pre-existing X509 CSR test under OTP 27, while the project gate is pinned to OTP 28. git diff --check passes.
+---
+author: oompah
+created: 2026-07-27 17:00
+---
+Verification correction: the fallback full umbrella run totaled 1,671/1,673 passing (113 bench + 192 core + 858/859 node + 508/509 coordinator). The two failures were the existing OTP-27-sensitive X509 CSR test and the new A2A test before its Plug.Test peer-data fix; the new test was then fixed and passes in both focused runs. All changed-code tests pass.
 ---
 <!-- COMMENTS:END -->
