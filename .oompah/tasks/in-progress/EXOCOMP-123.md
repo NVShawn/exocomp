@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T06:12:05.335762Z'
+updated_at: '2026-07-27T06:15:22.659988Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1276,5 +1276,10 @@ author: oompah
 created: 2026-07-27 06:12
 ---
 Understanding (continuation attempt #10): Resuming the fresh rc.22 qualification after rc.21 was rejected by its exact-tag release-check baseline inventory assertion. I will reconcile the signed tag/branch and both dedicated guest jobs, preserve only uncontaminated rc.22 evidence, complete every repository/build/offline/live/M5/lifecycle gate on amd64 and arm64, audit and sign the combined index, commit and push it, then close only if every M6-CRIT requirement passes.
+---
+author: oompah
+created: 2026-07-27 06:15
+---
+Discovery: signed rc.22 is rejected and none of its results will count for acceptance. amd64 completed all 44 checks, but the fresh arm64 exact-tag make test gate failed 112/113 in Bench.QualificationTest 'uses the configured inference timeout for shipped workload requests'. The rc.21 :pubkey_os_cacerts warmup did not eliminate all full-system-QEMU lazy code-loading/setup latency; the test's 2-second whole-test timeout expired even though the behavior under test uses a 20 ms request deadline. The candidate runtime was not reached on arm64. I will replace the emulator-sensitive watchdog with a bounded but emulation-safe timeout while retaining the 20 ms functional assertion, add atomic rc.23 baseline inventory, and require fresh dual-architecture qualification.
 ---
 <!-- COMMENTS:END -->
