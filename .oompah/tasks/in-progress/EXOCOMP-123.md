@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T01:45:31.305320Z'
+updated_at: '2026-07-27T01:51:28.643944Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1094,5 +1094,10 @@ author: oompah
 created: 2026-07-27 01:45
 ---
 Discovery (continuation attempt #6): arm64 completed all nine exact-tag repository gates, two byte-identical release builds, and two byte-identical complete signed bundle assemblies. The uncommitted continuation then stopped before live preflight because it tried to copy bundle metadata from final-dist/<bundle>/, but the assembler retains only the archive there. This is a collector-path defect, not a candidate failure; no live phase began. I will preserve the valid exact-tag gates/builds, move metadata capture after strict preflight extracts the bundle (as in the established workflow), and resume cleanly from that boundary.
+---
+author: oompah
+created: 2026-07-27 01:51
+---
+Implementation (qualification orchestration): Added a guarded arm64 live-boundary continuation that verifies the exact signed tag, all nine repository gate records, two reproducible release builds, two reproducible signed bundles, the archive checksum, clean live evidence directories, and the pinned harness before starting live work. Metadata/runtime identity capture now occurs after strict preflight extraction. Strengthened the final evidence collector to re-verify the tag, source identity, no-libgomp runtime closure, provenance/SBOM/licenses, both M5 modes, reproducibility, and all live/lifecycle pass markers before signing. These are uncommitted qualification helpers only; candidate 28f8dc35 is unchanged.
 ---
 <!-- COMMENTS:END -->
