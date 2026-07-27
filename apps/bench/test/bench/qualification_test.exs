@@ -111,7 +111,11 @@ defmodule Bench.QualificationTest do
     assert path == env["BENCH_EVIDENCE_DIR"]
   end
 
-  @tag timeout: 2_000
+  # Keep a watchdog below the 120-second production default so a regression
+  # that ignores the configured 20 ms deadline still fails promptly. Allow
+  # enough time for one-time OTP code loading under full-system CPU emulation;
+  # that startup cost is not the behavior this test measures.
+  @tag timeout: 30_000
   test "uses the configured inference timeout for shipped workload requests", %{
     env: env,
     fake: fake
