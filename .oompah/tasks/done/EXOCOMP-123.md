@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T11:03:25.013325Z'
+updated_at: '2026-07-27T11:03:38.894849Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1505,5 +1505,20 @@ author: oompah
 created: 2026-07-27 11:03
 ---
 Completion: v0.1.0-rc.23 is the accepted publication-ready qualification identity (signed tag at 902bee1a52bf037fdaab50bd0c71ba82fa51a8d6). Both amd64 KVM and arm64 full-system QEMU passed every M6-CRIT item and all shipped-artifact live scenarios. The complete 184-file signed evidence set is committed at a62f128 under docs/release-evidence/v0.1.0-rc.23/ and pushed to origin/epic-EXOCOMP-117. The worktree is clean and up to date; no rejected rc.3-rc.22 results were reused.
+---
+author: oompah
+created: 2026-07-27 11:03
+---
+Run #15 [attempt=15, profile=deep, role=deep -> Codex/default]
+- Turns: 0, Tool calls: 39
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 19m 20s
+- Log: EXOCOMP-123__20260727T104418Z.jsonl
+---
+author: oompah
+created: 2026-07-27 11:03
+---
+Accepted v0.1.0-rc.23 at signed tag 902bee1a after complete fresh amd64 KVM and arm64 full-system QEMU qualification. All M6-CRIT criteria, required Make gates, reproducible release/bundle builds, no-network install, production PKI/enrollment, operational recovery/hardening, shipped M5 short/full gates, lifecycle/rollback/backup/restore/uninstall, and protected-state checks passed. Signed indexed evidence is committed and pushed at a62f128 in docs/release-evidence/v0.1.0-rc.23/.
 ---
 <!-- COMMENTS:END -->
