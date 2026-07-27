@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T16:15:45.545611Z'
+updated_at: '2026-07-27T16:15:57.678012Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -41,5 +41,10 @@ author: oompah
 created: 2026-07-27 16:15
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-07-27 16:15
+---
+Understanding (Duplicate Investigator): This task (triggered by EXOCOMP-124) asks to close M5-CRIT-3 through M5-CRIT-6 by implementing missing M5 workloads: llama restart benchmarks, mixed coordinator polling benchmarks, recovery observation-to-verification latency under load, and multi-hour leak/soak analysis. I will now search for candidate duplicates before any implementation.
 ---
 <!-- COMMENTS:END -->
