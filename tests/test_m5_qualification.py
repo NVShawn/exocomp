@@ -5,9 +5,60 @@
 from __future__ import annotations
 
 import re
-import tomllib
 import unittest
 from pathlib import Path
+
+try:
+    import tomllib
+except ModuleNotFoundError:
+    # Python <3.11 compatibility: provide a minimal TOML subset loader that
+    # handles the simple key-value + [section.subsection] format used by the
+    # baseline files in this project.  No external dependencies required.
+    import re as _re
+
+    class _TomllibCompat:
+        """Minimal TOML subset loader (Python <3.11 fallback)."""
+
+        @staticmethod
+        def load(fp: "IO[bytes]") -> dict:
+            """Load TOML from a binary file object."""
+            return _TomllibCompat._parse(fp.read().decode("utf-8"))
+
+        @staticmethod
+        def _parse(text: str) -> dict:
+            result: dict = {}
+            current = result
+            for raw_line in text.splitlines():
+                # Strip inline comments (safe: none of our values contain '#')
+                line = raw_line.split("#", 1)[0].strip()
+                if not line:
+                    continue
+                # Section header: [a] or [a.b.c]
+                m = _re.match(r"^\[([A-Za-z0-9_.]+)\]$", line)
+                if m:
+                    current = result
+                    for part in m.group(1).split("."):
+                        current = current.setdefault(part, {})
+                    continue
+                # Key = value
+                m = _re.match(r"^([A-Za-z0-9_]+)\s*=\s*(.+)$", line)
+                if m:
+                    key, raw_val = m.group(1), m.group(2).strip()
+                    if raw_val.startswith('"') and raw_val.endswith('"'):
+                        current[key] = raw_val[1:-1]
+                    elif raw_val in ("true", "false"):
+                        current[key] = raw_val == "true"
+                    else:
+                        try:
+                            current[key] = int(raw_val)
+                        except ValueError:
+                            try:
+                                current[key] = float(raw_val)
+                            except ValueError:
+                                current[key] = raw_val
+            return result
+
+    tomllib = _TomllibCompat()  # type: ignore[assignment]
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
