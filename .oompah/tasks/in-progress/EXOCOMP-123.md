@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T06:20:39.849250Z'
+updated_at: '2026-07-27T06:37:02.748536Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1286,5 +1286,10 @@ author: oompah
 created: 2026-07-27 06:20
 ---
 Implementation: commit 902bee1 keeps the functional BENCH_INFERENCE_TIMEOUT_MS=20 assertion but raises only the surrounding ExUnit watchdog from 2 seconds to 30 seconds—still well below the 120-second production default—so full-system arm64 OTP code loading cannot create a false failure. Added invariant rc.23 amd64/arm64 M5 baselines and atomically updated the inventory assertion to 46. Host structural M5 tests pass; host container execution remains unavailable because the rootless Podman runtime path is read-only. Exact-source guest pretag gates are active before any rc.23 tag is created.
+---
+author: oompah
+created: 2026-07-27 06:37
+---
+Verification (pretag): exact commit 902bee1 passed amd64 fmt-check, release-check, focused M5, and three consecutive full make test runs (845 passed, 10 excluded, bundled node/coordinator smoke passes). The full-system arm64 guest passed fmt-check, release-check, focused M5 (including the prior failing configured-timeout test), and complete make test (845 passed, 10 excluded, both bundled release smoke checks). Signed tag v0.1.0-rc.23 verifies and is pushed. Fresh write-once rc.23 qualification units are now active on both guests from empty roots.
 ---
 <!-- COMMENTS:END -->
