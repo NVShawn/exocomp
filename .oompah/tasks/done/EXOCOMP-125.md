@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-125
 type: task
-status: In Review
+status: Done
 priority: 1
 title: Complete remaining M5 workload and soak qualification
 parent: null
@@ -11,11 +11,11 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:43:02.716915Z'
-work_branch: null
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-07-27T18:43:13.210278Z'
+work_branch: EXOCOMP-125
+target_branch: main
+review_url: https://github.com/NVShawn/exocomp/pull/20
+review_number: '20'
 merged_at: null
 oompah.agent_run_id: 804f8637-046c-4f3c-838c-bdcbc500fa88
 oompah.task_costs:
@@ -40,6 +40,10 @@ oompah.task_costs:
     output_tokens: 48340
     cost_usd: 0.0
     recorded_at: '2026-07-27T18:42:12.114980+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/20
+oompah.review_number: '20'
+oompah.work_branch: EXOCOMP-125
+oompah.target_branch: main
 ---
 ## Summary
 
@@ -301,5 +305,10 @@ author: oompah
 created: 2026-07-27 18:42
 ---
 Understanding (Software Engineer, attempt #3): All M5-CRIT-3 through M5-CRIT-6 workloads are implemented and pushed at commit e36e483 on branch EXOCOMP-125. The previous agent's close attempt was blocked because no PR exists targeting main. I need to open a PR and then close the task.
+---
+author: oompah
+created: 2026-07-27 18:43
+---
+Completion (Software Engineer, attempt #3): Opened PR #20 (https://github.com/NVShawn/exocomp/pull/20) targeting main from branch EXOCOMP-125. All M5-CRIT-3 through M5-CRIT-6 workloads implemented, tested (56 tests pass), and evidence committed. All 8 M5 milestone acceptance criteria checked off in plans/milestone-5-performance.md. Ready for merge.
 ---
 <!-- COMMENTS:END -->
