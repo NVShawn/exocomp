@@ -27,6 +27,7 @@ defmodule Exocomp.Coordinator.MixProject do
   defp deps do
     [
       {:exocomp_core, in_umbrella: true},
+      {:exocomp_node, in_umbrella: true, only: :test},
       {:jason, "~> 1.4"},
       {:bandit, "~> 1.0"},
       {:plug, "~> 1.17"},

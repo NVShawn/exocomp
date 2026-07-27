@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Node.Handlers.AgentCardHandler do
   @moduledoc """
-  Serves the diagnostic-only node Agent Card.
+  Serves the node Agent Card advertising diagnostic and recovery skills.
   """
 
   import Plug.Conn
@@ -26,6 +26,12 @@ defmodule Exocomp.Node.Handlers.AgentCardHandler do
       id: "exocomp.remediation.propose",
       name: "Remediation Propose",
       description: "Propose a known remediation intent given current diagnostic context."
+    },
+    %AgentSkill{
+      id: "exocomp.service.recover",
+      name: "Service Recover",
+      description:
+        "Execute one audited, idempotent automatic restart of an allow-listed failed service and verify stability."
     }
   ]
 
@@ -35,7 +41,8 @@ defmodule Exocomp.Node.Handlers.AgentCardHandler do
 
     card = %AgentCard{
       name: "Exocomp Node Agent",
-      description: "Diagnostic-only Exocomp node agent. Cannot modify host state.",
+      description:
+        "Exocomp node agent. Supports diagnostics and automatic failed-service recovery.",
       url: "https://#{node_id}/",
       version: "0.1.0",
       capabilities: %AgentCapabilities{},

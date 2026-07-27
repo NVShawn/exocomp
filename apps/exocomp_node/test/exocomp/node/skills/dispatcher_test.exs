@@ -60,6 +60,42 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
     on_exit(fn -> Application.delete_env(:exocomp_node, :remediation_propose_client) end)
   end
 
+  defp install_recover_fakes do
+    now = DateTime.utc_now()
+    Application.put_env(:exocomp_node, :allowed_services, ["sshd.service"])
+
+    healthy_data = %{
+      "active_state" => "active",
+      "sub_state" => "running",
+      "health" => "healthy",
+      "unit_name" => "sshd.service"
+    }
+
+    Application.put_env(:exocomp_node, :service_recover_audit_fun, fn _ev -> :ok end)
+
+    Application.put_env(:exocomp_node, :service_recover_refresh_fun, fn _nid, _svc ->
+      {:ok, Exocomp.Recovery.Evidence.new("n1", "sshd.service", healthy_data, collected_at: now)}
+    end)
+
+    Application.put_env(:exocomp_node, :service_recover_verify_fun, fn _nid, _svc ->
+      {:ok, Exocomp.Recovery.Evidence.new("n1", "sshd.service", healthy_data, collected_at: now)}
+    end)
+
+    Application.put_env(:exocomp_node, :service_recover_executor, fn :restart_service,
+                                                                     _svc,
+                                                                     _al ->
+      {:ok, %{exit_code: 0, argv: ["systemctl", "restart", "sshd.service"]}}
+    end)
+
+    on_exit(fn ->
+      Application.delete_env(:exocomp_node, :allowed_services)
+      Application.delete_env(:exocomp_node, :service_recover_audit_fun)
+      Application.delete_env(:exocomp_node, :service_recover_refresh_fun)
+      Application.delete_env(:exocomp_node, :service_recover_verify_fun)
+      Application.delete_env(:exocomp_node, :service_recover_executor)
+    end)
+  end
+
   # ---------------------------------------------------------------------------
   # Test: routes each known skill_id to the correct handler
   # ---------------------------------------------------------------------------
@@ -81,6 +117,37 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
 
     assert {:ok, %Artifact{}} =
              Dispatcher.dispatch("exocomp.remediation.propose", %{"cpu" => 90})
+  end
+
+  test "routes 'exocomp.service.recover' to ServiceRecover" do
+    install_recover_fakes()
+    now = DateTime.utc_now()
+
+    evidence_map = %{
+      "evidence_id" => "ev-disp-test",
+      "collected_at" => DateTime.to_iso8601(now),
+      "node_id" => "n1",
+      "service" => "sshd.service",
+      "collector_version" => "1.0",
+      "data" => %{
+        "active_state" => "failed",
+        "sub_state" => "failed",
+        "health" => "unhealthy",
+        "unit_name" => "sshd.service"
+      }
+    }
+
+    params = %{
+      "service" => "sshd.service",
+      "node_id" => "n1",
+      "evidence" => evidence_map
+    }
+
+    assert {:ok, %Artifact{name: "service-recover"}} =
+             Dispatcher.dispatch("exocomp.service.recover", params, %{
+               task_id: "dispatcher-node-task",
+               correlation_id: "dispatcher-workflow"
+             })
   end
 
   # ---------------------------------------------------------------------------

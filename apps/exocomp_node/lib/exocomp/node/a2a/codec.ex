@@ -24,6 +24,7 @@ defmodule Exocomp.Node.A2A.Codec do
     exocomp.system.diagnose
     exocomp.service.diagnose
     exocomp.remediation.propose
+    exocomp.service.recover
   ]
 
   # ---------------------------------------------------------------------------

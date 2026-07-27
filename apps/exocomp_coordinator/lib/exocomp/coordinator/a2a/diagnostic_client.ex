@@ -2,18 +2,22 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.A2A.DiagnosticClient do
   @moduledoc """
-  Coordinator-side A2A 1.0 boundary for node diagnostic tasks.
+  Coordinator-side A2A 1.0 boundary for node tasks.
 
-  Only `exocomp.system.diagnose` and `exocomp.service.diagnose` can be sent.
-  There is no generic message API, so remediation and executor traffic cannot
-  cross this boundary.
+  Permitted skills: `exocomp.system.diagnose`, `exocomp.service.diagnose`,
+  and `exocomp.service.recover`.  There is no generic message API, so
+  arbitrary remediation and executor traffic cannot cross this boundary.
   """
 
   alias Exocomp.A2A.Task
   alias Exocomp.Coordinator.A2A.{ClientError, Codec, HTTPTransport}
   alias Exocomp.Coordinator.Registry
 
-  @diagnostic_skills ["exocomp.system.diagnose", "exocomp.service.diagnose"]
+  @diagnostic_skills [
+    "exocomp.system.diagnose",
+    "exocomp.service.diagnose",
+    "exocomp.service.recover"
+  ]
   @default_timeout_ms 5_000
 
   @spec send(String.t(), String.t(), map(), keyword()) ::

@@ -6,21 +6,23 @@ defmodule Exocomp.Node.Skills.Dispatcher do
 
   ## Supported skills
 
-  | skill_id                      | Handler module                             |
-  |-------------------------------|--------------------------------------------|
-  | `"exocomp.system.diagnose"`   | `Exocomp.Node.Skills.SystemDiagnose`       |
-  | `"exocomp.service.diagnose"`  | `Exocomp.Node.Skills.ServiceDiagnose`      |
-  | `"exocomp.remediation.propose"` | `Exocomp.Node.Skills.RemediationPropose` |
+  | skill_id                        | Handler module                               |
+  |---------------------------------|----------------------------------------------|
+  | `"exocomp.system.diagnose"`     | `Exocomp.Node.Skills.SystemDiagnose`         |
+  | `"exocomp.service.diagnose"`    | `Exocomp.Node.Skills.ServiceDiagnose`        |
+  | `"exocomp.remediation.propose"` | `Exocomp.Node.Skills.RemediationPropose`     |
+  | `"exocomp.service.recover"`     | `Exocomp.Node.Skills.ServiceRecover`         |
 
   Unknown skill IDs return `{:error, :unknown_skill}`.
   """
 
-  alias Exocomp.Node.Skills.{SystemDiagnose, ServiceDiagnose, RemediationPropose}
+  alias Exocomp.Node.Skills.{SystemDiagnose, ServiceDiagnose, RemediationPropose, ServiceRecover}
 
   @skill_map %{
     "exocomp.system.diagnose" => SystemDiagnose,
     "exocomp.service.diagnose" => ServiceDiagnose,
-    "exocomp.remediation.propose" => RemediationPropose
+    "exocomp.remediation.propose" => RemediationPropose,
+    "exocomp.service.recover" => ServiceRecover
   }
 
   @doc """
