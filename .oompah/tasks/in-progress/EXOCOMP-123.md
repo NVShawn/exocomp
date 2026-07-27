@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T02:50:23.088938Z'
+updated_at: '2026-07-27T02:54:14.488342Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1134,5 +1134,10 @@ author: oompah
 created: 2026-07-27 02:50
 ---
 Understanding (continuation attempt #7): Resuming exact signed v0.1.0-rc.18 qualification at 28f8dc35. amd64 has a complete passing 44-check record; arm64 has passed repository gates, reproducible builds/bundles, strict live preflight and operational scenarios, while its QEMU-only short M5 CPU sample was documented as inconclusive and the authoritative full M5 gate was launched. I will reconcile the active guest/evidence state, complete full M5 and lifecycle, audit and sign the combined evidence index, commit/push it, then close only if every M6-CRIT requirement passes.
+---
+author: oompah
+created: 2026-07-27 02:54
+---
+Discovery (continuation attempt #7): signed rc.18 is not yet acceptable. The arm64 short M5 run completed every inference but had a QEMU-only CPU ceiling miss; the authoritative full M5 run then failed before evidence publication with {:workload_failed, "llama.concurrent", [0, 0, 3]} at its highest concurrency. docs/clean-host-qualification.md permits only performance-only emulation misses to be inconclusive and says functional failures remain failures, so I will not sign or accept the record. I am diagnosing whether the three errors are the shipped harness's fixed inference timeout under full-system emulation or a candidate runtime defect.
 ---
 <!-- COMMENTS:END -->
