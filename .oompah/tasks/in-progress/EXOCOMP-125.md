@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T17:39:11.878675Z'
+updated_at: '2026-07-27T18:08:02.928216Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -173,5 +173,10 @@ author: oompah
 created: 2026-07-27 17:39
 ---
 Qualification methodology update: pre-soak audit found the runtime probe retained every 1s observation in the measured node/coordinator heap, which would manufacture a linear RSS slope. Commit 02ae00f streams JSONL to collision-resistant mode-0600 private-temp spools with a constant-size VM state and removes them after export; tests prove repeated samples grow only the spool and cleanup succeeds. fmt-check, lint, and test-m5-qualification pass. Fresh exact-02ae00f amd64/arm64 runs are active.
+---
+author: oompah
+created: 2026-07-27 18:08
+---
+Qualification restart: mixed polling on slow arm64 QEMU exposed that the qualification Registry's 1 ms due interval could re-enqueue completed nodes before a measured cycle drained. Commit 3bb10793afa60645b8dcc0cccd43d4e890b72483 defines each cycle explicitly with make_all_due/1, uses a 60 s registry interval, and gives orchestration (not performance) a 2 s deadline; local and emulated-arm focused M5 suites pass. Fresh clean exact-commit runs are active: amd64 PID 2934548 at /var/lib/exocomp-qualification/m5-3bb10793afa6-amd64 and arm64 PID 792868 at /var/lib/exocomp-qualification/m5-3bb10793afa6-arm64.
 ---
 <!-- COMMENTS:END -->
