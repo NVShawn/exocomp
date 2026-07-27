@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-124
 type: chore
-status: Backlog
+status: Done
 priority: 2
 title: Reconcile milestone plan acceptance checkboxes with main
 parent: null
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-27T16:07:00.355913Z'
-updated_at: '2026-07-27T16:09:36.087863Z'
+updated_at: '2026-07-27T16:09:57.497506Z'
 work_branch: null
 target_branch: null
 review_url: null
