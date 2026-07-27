@@ -16,6 +16,7 @@ defmodule Bench.Test.FakeLlamaServer do
 
   - `:ok` (default) — HTTP 200 with `{"status":"ok"}`.
   - `:error_503` — HTTP 503 (not ready).
+  - `:error_503_once` — returns one HTTP 503, then atomically becomes healthy.
   - `:timeout` — never responds (hangs until client times out).
   - `:closed` — immediately closes the connection (simulates crash).
 
@@ -81,7 +82,7 @@ defmodule Bench.Test.FakeLlamaServer do
     completions_mode: :valid_json
   ]
 
-  @type health_mode :: :ok | :error_503 | :timeout | :closed
+  @type health_mode :: :ok | :error_503 | :error_503_once | :timeout | :closed
   @type completions_mode ::
           :valid_json | :invalid_json | :error_500 | :timeout | :schema_violation
 
@@ -104,15 +105,16 @@ defmodule Bench.Test.FakeLlamaServer do
 
   @doc "Set the health endpoint response mode."
   @spec set_health_mode(GenServer.server(), health_mode()) :: :ok
-  def set_health_mode(pid, mode) when mode in [:ok, :error_503, :timeout, :closed] do
-    GenServer.cast(pid, {:set_health_mode, mode})
+  def set_health_mode(pid, mode)
+      when mode in [:ok, :error_503, :error_503_once, :timeout, :closed] do
+    GenServer.call(pid, {:set_health_mode, mode})
   end
 
   @doc "Set the completions endpoint response mode."
   @spec set_completions_mode(GenServer.server(), completions_mode()) :: :ok
   def set_completions_mode(pid, mode)
       when mode in [:valid_json, :invalid_json, :error_500, :timeout, :schema_violation] do
-    GenServer.cast(pid, {:set_completions_mode, mode})
+    GenServer.call(pid, {:set_completions_mode, mode})
   end
 
   # ---------------------------------------------------------------------------
@@ -140,15 +142,21 @@ defmodule Bench.Test.FakeLlamaServer do
   @impl GenServer
   def handle_call(:port, _from, state), do: {:reply, state.port, state}
 
+  def handle_call(:get_modes, _from, %{health_mode: :error_503_once} = state) do
+    {:reply, {:error_503, state.completions_mode}, %{state | health_mode: :ok}}
+  end
+
   def handle_call(:get_modes, _from, state) do
     {:reply, {state.health_mode, state.completions_mode}, state}
   end
 
-  @impl GenServer
-  def handle_cast({:set_health_mode, mode}, state), do: {:noreply, %{state | health_mode: mode}}
+  def handle_call({:set_health_mode, mode}, _from, state) do
+    {:reply, :ok, %{state | health_mode: mode}}
+  end
 
-  def handle_cast({:set_completions_mode, mode}, state),
-    do: {:noreply, %{state | completions_mode: mode}}
+  def handle_call({:set_completions_mode, mode}, _from, state) do
+    {:reply, :ok, %{state | completions_mode: mode}}
+  end
 
   @impl GenServer
   def handle_info(:accept, state) do

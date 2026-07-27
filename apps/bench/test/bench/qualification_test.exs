@@ -26,12 +26,7 @@ defmodule Bench.QualificationTest do
 
     def restart_llama(_config, _identity, processes) do
       fake = :persistent_term.get({__MODULE__, :llama_server})
-      Bench.Test.FakeLlamaServer.set_health_mode(fake, :closed)
-
-      spawn(fn ->
-        Process.sleep(100)
-        Bench.Test.FakeLlamaServer.set_health_mode(fake, :ok)
-      end)
+      Bench.Test.FakeLlamaServer.set_health_mode(fake, :error_503_once)
 
       {:ok, processes}
     end

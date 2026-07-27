@@ -316,16 +316,8 @@ defmodule Bench.Workload.LlamaInferenceTest do
       fake = start_fake(health_mode: :ok)
       url = base_url(fake)
 
-      # The crash_fn switches health to :error_503, then after a short delay
-      # restores it to :ok (simulating a self-healing restart).
       crash_fn = fn ->
-        FakeLlamaServer.set_health_mode(fake, :error_503)
-
-        spawn(fn ->
-          Process.sleep(200)
-          FakeLlamaServer.set_health_mode(fake, :ok)
-        end)
-
+        FakeLlamaServer.set_health_mode(fake, :error_503_once)
         :ok
       end
 
