@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-117
 type: epic
-status: Done
+status: In Review
 priority: 0
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-27T11:11:40.074247Z'
+updated_at: '2026-07-27T11:11:57.812794Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -28,6 +28,22 @@ oompah.review_number: '18'
 oompah.work_branch: epic-EXOCOMP-117
 oompah.target_branch: main
 oompah.agent_run_id: b04ff248-8bbd-48e0-801a-78ec3dc96315
+oompah.task_costs:
+  total_input_tokens: 33
+  total_output_tokens: 16823
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 33
+      output_tokens: 16823
+      cost_usd: 0.0
+  runs:
+  - profile: deep
+    model: unknown
+    input_tokens: 33
+    output_tokens: 16823
+    cost_usd: 0.0
+    recorded_at: '2026-07-27T11:11:54.572587+00:00'
 ---
 ## Summary
 
@@ -100,5 +116,20 @@ author: oompah
 created: 2026-07-27 11:11
 ---
 Fixed CI failure on PR #18: added Python <3.11 compatibility to tests/test_m5_qualification.py by providing a minimal pure-Python TOML subset parser fallback when tomllib stdlib module is unavailable. CI check 'Short llama harness self-test' now passes.
+---
+author: oompah
+created: 2026-07-27 11:11
+---
+Agent completed successfully in 454s (16856 tokens)
+---
+author: oompah
+created: 2026-07-27 11:11
+---
+Run #YOLO-reopen [attempt=YOLO-reopen, profile=deep, role=deep -> Claude/default]
+- Turns: 63, Tool calls: 41
+- Tokens: 33 in / 16.8K out [16.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 34s
+- Log: EXOCOMP-117__20260727T110421Z.jsonl
 ---
 <!-- COMMENTS:END -->
