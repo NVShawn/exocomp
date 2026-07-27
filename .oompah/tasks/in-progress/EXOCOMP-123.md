@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T06:11:52.238268Z'
+updated_at: '2026-07-27T06:12:05.335762Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1271,5 +1271,10 @@ author: oompah
 created: 2026-07-27 06:11
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-27 06:12
+---
+Understanding (continuation attempt #10): Resuming the fresh rc.22 qualification after rc.21 was rejected by its exact-tag release-check baseline inventory assertion. I will reconcile the signed tag/branch and both dedicated guest jobs, preserve only uncontaminated rc.22 evidence, complete every repository/build/offline/live/M5/lifecycle gate on amd64 and arm64, audit and sign the combined index, commit and push it, then close only if every M6-CRIT requirement passes.
 ---
 <!-- COMMENTS:END -->
