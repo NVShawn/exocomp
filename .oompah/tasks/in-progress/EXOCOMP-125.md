@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T16:57:34.758276Z'
+updated_at: '2026-07-27T17:06:38.865141Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -123,5 +123,10 @@ author: oompah
 created: 2026-07-27 16:57
 ---
 Qualification update: the first amd64 live preflight correctly failed before benchmarking because the runner's private umask leaked into installation and denied the service account access. Fixed in f92f02c by isolating preflight under umask 022 while explicitly keeping rollback material 0600; shellcheck, bash syntax, static workflow tests passed. Stopped the obsolete arm64 preflight before mutation. Fresh exact-f92f02c amd64 and arm64 runs are active.
+---
+author: oompah
+created: 2026-07-27 17:06
+---
+Qualification update: f92f02c passed amd64 offline install/readiness, then failed closed at the first sibling-release RPC because bench_harness inherited RELEASE_* launcher variables into the coordinator CLI; the installed coordinator's own RPC was verified healthy. Commit e2afa4b clears all caller release launcher variables while supplying only the protected sibling cookie, with a focused regression test (47 bench + probe suites pass). Fresh exact-e2afa4b runs are active on both guests.
 ---
 <!-- COMMENTS:END -->
