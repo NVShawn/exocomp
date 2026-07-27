@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-126
 type: task
-status: Done
+status: Merged
 priority: 1
 title: Complete failed-service recovery through the A2A workflow
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T17:01:36.032274Z'
+updated_at: '2026-07-27T17:04:50.016676Z'
 work_branch: EXOCOMP-126
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/19
@@ -260,5 +260,10 @@ author: oompah
 created: 2026-07-27 17:01
 ---
 Completed authenticated failed-service recovery across coordinator and node A2A workflows with trusted allow-list enforcement, fail-closed audit behavior, workflow correlation, nested recovery evidence, and end-to-end coverage. Pushed commits d3c4488 and eabc4e1; opened PR #19 to main.
+---
+author: oompah
+created: 2026-07-27 17:04
+---
+YOLO: merged PR #19.
 ---
 <!-- COMMENTS:END -->
