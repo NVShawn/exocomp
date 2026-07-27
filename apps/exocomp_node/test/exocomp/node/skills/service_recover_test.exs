@@ -17,6 +17,19 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
   @service "exocomp-fixture.service"
   @node_id "node-test"
 
+  setup do
+    previous = Application.get_env(:exocomp_node, :allowed_services)
+    Application.put_env(:exocomp_node, :allowed_services, [@service])
+
+    on_exit(fn ->
+      if is_nil(previous) do
+        Application.delete_env(:exocomp_node, :allowed_services)
+      else
+        Application.put_env(:exocomp_node, :allowed_services, previous)
+      end
+    end)
+  end
+
   # ---------------------------------------------------------------------------
   # Helpers
   # ---------------------------------------------------------------------------
@@ -57,8 +70,6 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
       %{
         "service" => @service,
         "node_id" => @node_id,
-        "allow_list" => [@service],
-        "task_id" => "test-episode-#{System.unique_integer([:positive])}",
         "evidence" => evidence_map()
       },
       extra
@@ -91,8 +102,8 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
     end)
 
     Application.put_env(:exocomp_node, :service_recover_executor, fn :restart_service,
-                                                                       _service,
-                                                                       _allow_list ->
+                                                                     _service,
+                                                                     _allow_list ->
       Agent.update(exec_agent, &(&1 + 1))
       {:ok, %{exit_code: 0, argv: ["systemctl", "restart", @service]}}
     end)
@@ -116,7 +127,11 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
 
     try do
       params = failed_params()
-      assert {:ok, %Artifact{} = artifact} = ServiceRecover.execute(params, %{})
+      suffix = System.unique_integer([:positive, :monotonic])
+      task_id = "node-task-#{suffix}"
+      correlation_id = "workflow-#{suffix}"
+      context = %{task_id: task_id, correlation_id: correlation_id}
+      assert {:ok, %Artifact{} = artifact} = ServiceRecover.execute(params, context)
 
       assert artifact.name == "service-recover"
       assert [%DataPart{data: data}] = artifact.parts
@@ -125,6 +140,8 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
       assert data["execution_attempted"] == true
       assert data["schema_version"] == "1"
       assert data["skill"] == "exocomp.service.recover"
+      assert data["episode_id"] == task_id
+      assert data["correlation_id"] == correlation_id
       assert is_list(data["inner_artifacts"])
     after
       cleanup_callbacks()
@@ -169,7 +186,6 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
   test "returns invalid_params when service is missing" do
     params = %{
       "node_id" => @node_id,
-      "allow_list" => [@service],
       "evidence" => evidence_map()
     }
 
@@ -179,7 +195,6 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
   test "returns invalid_params when node_id is missing" do
     params = %{
       "service" => @service,
-      "allow_list" => [@service],
       "evidence" => evidence_map()
     }
 
@@ -189,8 +204,7 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
   test "returns invalid_params when evidence is missing" do
     params = %{
       "service" => @service,
-      "node_id" => @node_id,
-      "allow_list" => [@service]
+      "node_id" => @node_id
     }
 
     assert {:error, :invalid_params} = ServiceRecover.execute(params, %{})
@@ -198,9 +212,16 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
 
   test "returns error when evidence is malformed (missing evidence_id)" do
     Application.put_env(:exocomp_node, :service_recover_audit_fun, fn _ -> :ok end)
-    Application.put_env(:exocomp_node, :service_recover_refresh_fun, fn _, _ -> {:error, :noop} end)
+
+    Application.put_env(:exocomp_node, :service_recover_refresh_fun, fn _, _ ->
+      {:error, :noop}
+    end)
+
     Application.put_env(:exocomp_node, :service_recover_verify_fun, fn _, _ -> {:error, :noop} end)
-    Application.put_env(:exocomp_node, :service_recover_executor, fn _, _, _ -> {:error, :noop} end)
+
+    Application.put_env(:exocomp_node, :service_recover_executor, fn _, _, _ ->
+      {:error, :noop}
+    end)
 
     try do
       bad_evidence = Map.delete(evidence_map(), "evidence_id")
@@ -208,7 +229,6 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
       params = %{
         "service" => @service,
         "node_id" => @node_id,
-        "allow_list" => [@service],
         "evidence" => bad_evidence
       }
 
@@ -222,14 +242,24 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
   # Allow-list rejection
   # ---------------------------------------------------------------------------
 
-  test "returns recovery_failed when service is not in allow_list" do
+  test "caller cannot broaden the configured service allow-list" do
     Application.put_env(:exocomp_node, :service_recover_audit_fun, fn _ -> :ok end)
-    Application.put_env(:exocomp_node, :service_recover_refresh_fun, fn _, _ -> {:error, :noop} end)
+
+    Application.put_env(:exocomp_node, :service_recover_refresh_fun, fn _, _ ->
+      {:error, :noop}
+    end)
+
     Application.put_env(:exocomp_node, :service_recover_verify_fun, fn _, _ -> {:error, :noop} end)
-    Application.put_env(:exocomp_node, :service_recover_executor, fn _, _, _ -> {:error, :noop} end)
+
+    Application.put_env(:exocomp_node, :service_recover_executor, fn _, _, _ ->
+      {:error, :noop}
+    end)
+
+    Application.put_env(:exocomp_node, :allowed_services, ["other-service.service"])
 
     try do
-      params = failed_params(%{"allow_list" => ["other-service.service"]})
+      params = failed_params(%{"allow_list" => [@service]})
+
       assert {:error, {:recovery_failed, {:service_not_allowed, @service}}} =
                ServiceRecover.execute(params, %{})
     after
@@ -243,16 +273,21 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
 
   test "returns recovery_failed when evidence shows active service" do
     Application.put_env(:exocomp_node, :service_recover_audit_fun, fn _ -> :ok end)
-    Application.put_env(:exocomp_node, :service_recover_refresh_fun, fn _, _ -> {:error, :noop} end)
+
+    Application.put_env(:exocomp_node, :service_recover_refresh_fun, fn _, _ ->
+      {:error, :noop}
+    end)
+
     Application.put_env(:exocomp_node, :service_recover_verify_fun, fn _, _ -> {:error, :noop} end)
-    Application.put_env(:exocomp_node, :service_recover_executor, fn _, _, _ -> {:error, :noop} end)
+
+    Application.put_env(:exocomp_node, :service_recover_executor, fn _, _, _ ->
+      {:error, :noop}
+    end)
 
     try do
       params = %{
         "service" => @service,
         "node_id" => @node_id,
-        "allow_list" => [@service],
-        "task_id" => "test-active",
         "evidence" => evidence_map("active", "running", "healthy")
       }
 
@@ -261,5 +296,12 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
     after
       cleanup_callbacks()
     end
+  end
+
+  test "fails closed when no durable audit callback is configured" do
+    Application.delete_env(:exocomp_node, :service_recover_audit_fun)
+
+    assert {:error, {:recovery_failed, {:audit_unavailable, :audit_sink_not_configured}}} =
+             ServiceRecover.execute(failed_params(), %{})
   end
 end

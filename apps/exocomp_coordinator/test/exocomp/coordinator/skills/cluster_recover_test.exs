@@ -78,11 +78,11 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecoverTest do
   defmodule ForwardingCapture do
     @moduledoc "Stores the forwarded params in the process dictionary for assertion."
 
-    def send(_node_id, "exocomp.service.recover", params, _opts \\ []) do
+    def send(_node_id, "exocomp.service.recover", params, opts \\ []) do
       # Notify the caller (test process) via process dictionary key written
       # before the call — use :erlang.send to avoid naming ambiguity.
       owner = Process.get(:capture_owner)
-      if owner, do: :erlang.send(owner, {:captured_params, params})
+      if owner, do: :erlang.send(owner, {:captured_request, params, opts})
 
       {:ok,
        %Task{
@@ -182,7 +182,7 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecoverTest do
     assert {:error, :invalid_params} = ClusterRecover.execute(params, %{})
   end
 
-  test "forwards allow_list and task_id to the node client" do
+  test "forwards only the target and evidence while propagating trusted workflow context" do
     put_client(ForwardingCapture)
     # Register self as the capture owner so ForwardingCapture can notify us.
     Process.put(:capture_owner, self())
@@ -195,10 +195,20 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecoverTest do
 
     assert {:ok, _artifact} = ClusterRecover.execute(params, %{})
 
-    assert_receive {:captured_params, forwarded}, 1_000
-    assert forwarded["allow_list"] == [@service]
-    assert forwarded["task_id"] == "custom-episode"
+    assert_receive {:captured_request, forwarded, opts}, 1_000
+    refute Map.has_key?(forwarded, "allow_list")
+    refute Map.has_key?(forwarded, "task_id")
     assert forwarded["service"] == @service
     assert forwarded["node_id"] == @node_id
+    refute Keyword.has_key?(opts, :context_id)
+
+    assert {:ok, _artifact} =
+             ClusterRecover.execute(params, %{
+               task_id: "coordinator-task",
+               correlation_id: "workflow-correlation"
+             })
+
+    assert_receive {:captured_request, _forwarded, correlated_opts}, 1_000
+    assert correlated_opts[:context_id] == "workflow-correlation"
   end
 end

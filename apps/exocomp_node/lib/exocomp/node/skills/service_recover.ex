@@ -29,14 +29,10 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
         }
       }
 
-  ## Optional params
-
-  - `"allow_list"` — list of allowed service names; falls back to the
-    `:allowed_services` application config for `:exocomp_node`.
-  - `"task_id"` — idempotency key for the recovery episode (generated if absent).
-
   ## Injectable configuration (Application config, `:exocomp_node`)
 
+  - `:allowed_services` — installation-time service allow-list. The A2A
+    request cannot override this value.
   - `:service_recover_audit_fun`   — `fn AuditEvent.t() -> :ok | {:error, term()} end`
   - `:service_recover_refresh_fun` — `fn node_id, service -> {:ok, Evidence.t()} | {:error, term()} end`
   - `:service_recover_verify_fun`  — `fn node_id, service -> {:ok, Evidence.t()} | {:error, term()} end`
@@ -52,18 +48,15 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
 
   @impl true
   def execute(
-        %{"service" => service, "node_id" => node_id, "evidence" => evidence_map} = params,
-        _context
+        %{"service" => service, "node_id" => node_id, "evidence" => evidence_map},
+        context
       )
       when is_binary(service) and is_binary(node_id) and is_map(evidence_map) do
     with {:ok, evidence} <- decode_evidence(evidence_map) do
-      task_id = Map.get(params, "task_id") || new_id()
-
-      allow_list =
-        Map.get(params, "allow_list") ||
-          Application.get_env(:exocomp_node, :allowed_services, [])
-
-      opts = build_opts(task_id, node_id, allow_list)
+      task_id = context_value(context, :task_id) || new_id()
+      correlation_id = context_value(context, :correlation_id) || task_id
+      allow_list = Application.get_env(:exocomp_node, :allowed_services, [])
+      opts = build_opts(task_id, correlation_id, node_id, allow_list)
 
       case FailedService.recover(evidence, opts) do
         {:ok, flow} ->
@@ -100,8 +93,6 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
     end
   end
 
-  defp decode_evidence(_), do: {:error, :invalid_evidence}
-
   defp required_string(map, key) do
     case Map.get(map, key) do
       value when is_binary(value) and byte_size(value) > 0 -> {:ok, value}
@@ -129,9 +120,9 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
   # Options assembly
   # ---------------------------------------------------------------------------
 
-  defp build_opts(task_id, node_id, allow_list) do
+  defp build_opts(task_id, correlation_id, node_id, allow_list) do
     audit_fun =
-      Application.get_env(:exocomp_node, :service_recover_audit_fun, &noop_audit/1)
+      Application.get_env(:exocomp_node, :service_recover_audit_fun, &missing_audit/1)
 
     refresh_fun =
       Application.get_env(:exocomp_node, :service_recover_refresh_fun, &missing_evidence/2)
@@ -151,6 +142,7 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
 
     [
       task_id: task_id,
+      correlation_id: correlation_id,
       node_id: node_id,
       allow_list: allow_list,
       audit_fun: audit_fun,
@@ -161,7 +153,13 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
     ]
   end
 
-  defp noop_audit(_event), do: :ok
+  defp context_value(context, key) when is_map(context) do
+    Map.get(context, key) || Map.get(context, Atom.to_string(key))
+  end
+
+  defp context_value(_context, _key), do: nil
+
+  defp missing_audit(_event), do: {:error, :audit_sink_not_configured}
 
   defp missing_evidence(_node_id, _service),
     do: {:error, :evidence_collector_not_configured}
@@ -176,6 +174,8 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
       "skill" => "exocomp.service.recover",
       "outcome" => Atom.to_string(flow.machine.state),
       "service" => flow.machine.service,
+      "episode_id" => flow.machine.episode_id,
+      "correlation_id" => flow.machine.correlation_id,
       "execution_attempted" => flow.machine.execution_attempted,
       "inner_artifacts" => Enum.map(flow.task.artifacts, &encode_task_artifact/1),
       "history_length" => length(flow.task.history)

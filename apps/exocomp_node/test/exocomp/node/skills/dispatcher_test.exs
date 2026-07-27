@@ -62,6 +62,7 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
 
   defp install_recover_fakes do
     now = DateTime.utc_now()
+    Application.put_env(:exocomp_node, :allowed_services, ["sshd.service"])
 
     healthy_data = %{
       "active_state" => "active",
@@ -81,12 +82,13 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
     end)
 
     Application.put_env(:exocomp_node, :service_recover_executor, fn :restart_service,
-                                                                       _svc,
-                                                                       _al ->
+                                                                     _svc,
+                                                                     _al ->
       {:ok, %{exit_code: 0, argv: ["systemctl", "restart", "sshd.service"]}}
     end)
 
     on_exit(fn ->
+      Application.delete_env(:exocomp_node, :allowed_services)
       Application.delete_env(:exocomp_node, :service_recover_audit_fun)
       Application.delete_env(:exocomp_node, :service_recover_refresh_fun)
       Application.delete_env(:exocomp_node, :service_recover_verify_fun)
@@ -138,13 +140,14 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
     params = %{
       "service" => "sshd.service",
       "node_id" => "n1",
-      "allow_list" => ["sshd.service"],
-      "task_id" => "dispatcher-test-#{System.unique_integer([:positive])}",
       "evidence" => evidence_map
     }
 
     assert {:ok, %Artifact{name: "service-recover"}} =
-             Dispatcher.dispatch("exocomp.service.recover", params)
+             Dispatcher.dispatch("exocomp.service.recover", params, %{
+               task_id: "dispatcher-node-task",
+               correlation_id: "dispatcher-workflow"
+             })
   end
 
   # ---------------------------------------------------------------------------

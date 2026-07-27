@@ -55,6 +55,15 @@ defmodule Exocomp.Coordinator.InventoryAuthorizerTest do
       assert :ok = InventoryAuthorizer.authorize_selection(%{"node_ids" => ["node-a"]})
     end
 
+    test "authorizes the singular node_id used by cluster recovery" do
+      Application.put_env(:exocomp_coordinator, :authorized_node_ids, ["node-a"])
+
+      assert :ok = InventoryAuthorizer.authorize_selection(%{"node_id" => "node-a"})
+
+      assert {:error, {:unauthorized_nodes, ["node-x"]}} =
+               InventoryAuthorizer.authorize_selection(%{"node_id" => "node-x"})
+    end
+
     test "returns error when requested node_ids contain unauthorized IDs" do
       Application.put_env(:exocomp_coordinator, :authorized_node_ids, ["node-a", "node-b"])
 

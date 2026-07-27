@@ -26,8 +26,9 @@ defmodule Exocomp.Coordinator.A2ARouter do
   Exposes:
   - `exocomp.cluster.health`
   - `exocomp.cluster.diagnose`
+  - `exocomp.cluster.recover`
 
-  Remediation execution skills are intentionally unreachable. Streaming and
+  Arbitrary remediation execution skills remain unreachable. Streaming and
   push notifications are declared unsupported.
   """
 
@@ -78,7 +79,8 @@ defmodule Exocomp.Coordinator.A2ARouter do
          {:ok, {skill_id, params}} <- Codec.extract_skill(message),
          :ok <- authorizer.authorize_selection(params),
          {:ok, task_id} <- TaskRegistry.submit(message, skill_id, registry) do
-      run_skill_async(task_id, skill_id, params, registry, dispatcher)
+      context = %{task_id: task_id, correlation_id: message.contextId || task_id}
+      run_skill_async(task_id, skill_id, params, context, registry, dispatcher)
       {:ok, task} = TaskRegistry.get(task_id, registry)
       json_response(conn, 202, Codec.encode_task(task))
     else
@@ -161,7 +163,7 @@ defmodule Exocomp.Coordinator.A2ARouter do
   # :completed | :failed. The dispatcher is run in an inner Task so that
   # a per-skill timeout can be enforced without blocking the outer worker
   # process indefinitely.
-  defp run_skill_async(task_id, skill_id, params, registry, dispatcher) do
+  defp run_skill_async(task_id, skill_id, params, context, registry, dispatcher) do
     Task.start(fn ->
       case TaskRegistry.transition(task_id, :working, nil, registry) do
         :ok ->
@@ -174,7 +176,7 @@ defmodule Exocomp.Coordinator.A2ARouter do
           dispatch_task =
             Task.async(fn ->
               try do
-                dispatcher.dispatch(skill_id, params)
+                dispatcher.dispatch(skill_id, params, context)
               rescue
                 e -> {:error, {:exception, Exception.message(e)}}
               catch

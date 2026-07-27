@@ -29,11 +29,6 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecover do
         }
       }
 
-  ## Optional params
-
-  - `"allow_list"` — forwarded verbatim to the node skill.
-  - `"task_id"`   — forwarded verbatim to the node skill.
-
   ## Injectable configuration (Application config, `:exocomp_coordinator`)
 
   - `:cluster_recover_node_client` — module implementing `send/4` and
@@ -59,11 +54,15 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecover do
   @impl true
   def execute(
         %{"node_id" => node_id, "service" => service, "evidence" => evidence} = params,
-        _context
+        context
       )
       when is_binary(node_id) and is_binary(service) and is_map(evidence) do
     node_client =
-      Application.get_env(:exocomp_coordinator, :cluster_recover_node_client, @default_node_client)
+      Application.get_env(
+        :exocomp_coordinator,
+        :cluster_recover_node_client,
+        @default_node_client
+      )
 
     client_opts =
       Application.get_env(:exocomp_coordinator, :cluster_recover_client_opts, [])
@@ -78,14 +77,23 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecover do
     timeout_ms =
       Application.get_env(:exocomp_coordinator, :cluster_recover_timeout_ms, @default_timeout_ms)
 
-    # Build the params to forward to the node skill (keep all fields the caller
-    # supplied, including allow_list, task_id, etc.)
-    node_params = Map.take(params, ["service", "node_id", "evidence", "allow_list", "task_id"])
+    # Only diagnostic evidence and the exact target cross the node boundary.
+    # Authorization inputs such as the node's service allow-list are always
+    # resolved from trusted node configuration.
+    node_params = Map.take(params, ["service", "node_id", "evidence"])
+    client_opts = put_context_id(client_opts, context)
 
     with {:ok, task} <-
            node_client.send(node_id, "exocomp.service.recover", node_params, client_opts),
          {:ok, terminal_task} <-
-           wait_for_terminal(node_id, task, node_client, client_opts, poll_interval_ms, timeout_ms) do
+           wait_for_terminal(
+             node_id,
+             task,
+             node_client,
+             client_opts,
+             poll_interval_ms,
+             timeout_ms
+           ) do
       build_artifact(node_id, terminal_task)
     else
       {:error, error} ->
@@ -94,6 +102,19 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecover do
   end
 
   def execute(_params, _context), do: {:error, :invalid_params}
+
+  defp put_context_id(client_opts, context) do
+    case context_value(context, :correlation_id) || context_value(context, :task_id) do
+      value when is_binary(value) and value != "" -> Keyword.put(client_opts, :context_id, value)
+      _other -> client_opts
+    end
+  end
+
+  defp context_value(context, key) when is_map(context) do
+    Map.get(context, key) || Map.get(context, Atom.to_string(key))
+  end
+
+  defp context_value(_context, _key), do: nil
 
   # ---------------------------------------------------------------------------
   # Polling
@@ -136,7 +157,9 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecover do
     node_result = %{
       "task_id" => task.id,
       "status" => Atom.to_string(task.status.state),
-      "artifact_count" => length(task.artifacts)
+      "artifact_count" => length(task.artifacts),
+      "artifacts" => Enum.map(task.artifacts, &encode_artifact/1),
+      "history_length" => length(task.history)
     }
 
     data = %{
@@ -154,6 +177,17 @@ defmodule Exocomp.Coordinator.Skills.ClusterRecover do
 
     {:ok, artifact}
   end
+
+  defp encode_artifact(artifact) do
+    %{
+      "artifactId" => artifact.artifactId,
+      "name" => artifact.name,
+      "parts" => Enum.map(artifact.parts, &encode_part/1)
+    }
+  end
+
+  defp encode_part(%DataPart{data: data}), do: %{"type" => "data", "data" => data}
+  defp encode_part(other), do: inspect(other)
 
   defp new_id, do: :crypto.strong_rand_bytes(16) |> Base.encode16(case: :lower)
 end

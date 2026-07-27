@@ -19,7 +19,6 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
   import Plug.Conn
   import Plug.Test
 
-  alias Exocomp.A2A.DataPart
   alias Exocomp.Node.A2ARouter
   alias Exocomp.Node.Recovery.FailedService
   alias Exocomp.Node.TaskRegistry
@@ -29,6 +28,19 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
   @now ~U[2026-07-25 14:00:00Z]
   @service "exocomp-fixture.service"
   @node_id "node-m4"
+
+  setup do
+    previous = Application.get_env(:exocomp_node, :allowed_services)
+    Application.put_env(:exocomp_node, :allowed_services, [@service])
+
+    on_exit(fn ->
+      if is_nil(previous) do
+        Application.delete_env(:exocomp_node, :allowed_services)
+      else
+        Application.put_env(:exocomp_node, :allowed_services, previous)
+      end
+    end)
+  end
 
   # ---------------------------------------------------------------------------
   # Helpers
@@ -51,7 +63,7 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
     )
   end
 
-  defp evidence_map(active, sub, health, id, opts \\ []) do
+  defp evidence_map(active, sub, health, id, opts) do
     ev = evidence(active, sub, health, id, opts)
 
     %{
@@ -123,9 +135,7 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
       :unexpected_failure ->
         {:ok, task} = TaskRegistry.get(task_id, registry)
 
-        flunk(
-          "Task #{task_id} failed unexpectedly; message: #{inspect(task.status.message)}"
-        )
+        flunk("Task #{task_id} failed unexpectedly; message: #{inspect(task.status.message)}")
 
       {:error, reason} ->
         flunk("TaskRegistry.get failed: #{inspect(reason)}")
@@ -207,8 +217,8 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
     end)
 
     Application.put_env(:exocomp_node, :service_recover_executor, fn :restart_service,
-                                                                       @service,
-                                                                       _allow_list ->
+                                                                     @service,
+                                                                     _allow_list ->
       Agent.update(executions, &(&1 + 1))
       {:ok, %{exit_code: 0, argv: ["systemctl", "restart", @service]}}
     end)
@@ -226,9 +236,8 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
               "skill" => "exocomp.service.recover",
               "service" => @service,
               "node_id" => @node_id,
-              "allow_list" => [@service],
-              "task_id" => "m4-a2a-acceptance-episode",
-              "evidence" => evidence_map("failed", "failed", "unhealthy", "a2a-obs", collected_at: now)
+              "evidence" =>
+                evidence_map("failed", "failed", "unhealthy", "a2a-obs", collected_at: now)
             }
           }
         ]
@@ -267,6 +276,8 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
       assert part["data"]["outcome"] == "completed"
       assert part["data"]["service"] == @service
       assert part["data"]["execution_attempted"] == true
+      assert part["data"]["episode_id"] == task_id
+      assert part["data"]["correlation_id"] == task_id
 
       # Exactly one execution occurred through the A2A path
       assert Agent.get(executions, & &1) == 1
@@ -278,6 +289,8 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
       assert Enum.member?(audit_tags, :failed_and_allowed)
       assert Enum.member?(audit_tags, :execution_complete)
       assert Enum.member?(audit_tags, :stable_health)
+      assert Enum.all?(Agent.get(audits, & &1), &(&1.episode_id == task_id))
+      assert Enum.all?(Agent.get(audits, & &1), &(&1.correlation_id == task_id))
 
       # Confirm skill is in the agent card
       card_conn =
@@ -332,6 +345,7 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
   end
 
   test "M4-CRIT-2 A2A: recovery of non-allowed service returns failed task" do
+    Application.put_env(:exocomp_node, :allowed_services, ["other-service.service"])
     registry = start_registry()
     opts = A2ARouter.init(node_id: @node_id, registry: registry)
     now = DateTime.utc_now()
@@ -345,9 +359,10 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
             "skill" => "exocomp.service.recover",
             "service" => @service,
             "node_id" => @node_id,
-            "allow_list" => ["other-service.service"],
-            "task_id" => "m4-disallowed-test",
-            "evidence" => evidence_map("failed", "failed", "unhealthy", "disallowed-obs", collected_at: now)
+            # A caller-supplied list cannot override the installed policy.
+            "allow_list" => [@service],
+            "evidence" =>
+              evidence_map("failed", "failed", "unhealthy", "disallowed-obs", collected_at: now)
           }
         }
       ]
@@ -361,7 +376,7 @@ defmodule Exocomp.Integration.M4AcceptanceTest do
     assert submit_conn.status == 202
     task_id = Jason.decode!(submit_conn.resp_body)["id"]
 
-    # Service not in allow_list → recovery_failed → task transitions to :failed
+    # Service not in installed allow-list → recovery_failed → task transitions to :failed
     assert_task_state(task_id, registry, :failed, 2_000)
 
     {:ok, task} = TaskRegistry.get(task_id, registry)

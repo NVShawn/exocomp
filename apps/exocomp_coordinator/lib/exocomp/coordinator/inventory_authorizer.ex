@@ -5,13 +5,12 @@ defmodule Exocomp.Coordinator.InventoryAuthorizer do
   Validates node selections in incoming A2A requests against the coordinator's
   live inventory.
 
-  An A2A message may include a `"node_ids"` list in its skill params to target
-  a specific subset of cluster nodes. This module checks that all requested
-  node IDs are present in the authorized inventory before the task is
-  submitted.
+  An A2A message may include either a `"node_ids"` list or a singular
+  `"node_id"` in its skill params. This module checks that every requested
+  node ID is present in the authorized inventory before the task is submitted.
 
-  Messages with no `"node_ids"` selection are accepted unconditionally (the
-  request targets all inventory nodes).
+  Messages with no node selection are accepted unconditionally (the request
+  targets all inventory nodes).
 
   ## Configuration
 
@@ -42,7 +41,17 @@ defmodule Exocomp.Coordinator.InventoryAuthorizer do
   """
   @spec authorize_selection(map()) ::
           :ok | {:error, {:unauthorized_nodes, [String.t()]}}
+  def authorize_selection(%{"node_id" => node_id}) when is_binary(node_id) and node_id != "" do
+    authorize_node_ids([node_id])
+  end
+
   def authorize_selection(%{"node_ids" => node_ids}) when is_list(node_ids) and node_ids != [] do
+    authorize_node_ids(node_ids)
+  end
+
+  def authorize_selection(_params), do: :ok
+
+  defp authorize_node_ids(node_ids) do
     authorized = Application.get_env(:exocomp_coordinator, :authorized_node_ids, nil)
 
     case authorized do
@@ -60,6 +69,4 @@ defmodule Exocomp.Coordinator.InventoryAuthorizer do
         end
     end
   end
-
-  def authorize_selection(_params), do: :ok
 end
