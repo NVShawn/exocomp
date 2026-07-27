@@ -9,7 +9,10 @@ defmodule Bench.Workload.LlamaInferenceTest do
   :bench_llama` so that `make bench-llama-short` can target them selectively.
   """
 
-  use ExUnit.Case, async: true
+  # These tests exercise an in-process TCP server. Keep them out of ExUnit's
+  # async pool so CPU-emulated qualification guests cannot starve a response
+  # past the workload's own request deadline.
+  use ExUnit.Case, async: false
 
   @moduletag :bench_llama
 
