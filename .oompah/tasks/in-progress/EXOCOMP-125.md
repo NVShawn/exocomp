@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-125
 type: task
-status: Done
+status: In Progress
 priority: 1
 title: Complete remaining M5 workload and soak qualification
 parent: null
@@ -11,21 +11,21 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:42:03.130073Z'
+updated_at: '2026-07-27T18:42:23.441069Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 5e39a6c5-926b-4da7-8a1b-4a3fae5da1ca
+oompah.agent_run_id: 804f8637-046c-4f3c-838c-bdcbc500fa88
 oompah.task_costs:
-  total_input_tokens: 44
-  total_output_tokens: 7386
+  total_input_tokens: 142
+  total_output_tokens: 55726
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 44
-      output_tokens: 7386
+      input_tokens: 142
+      output_tokens: 55726
       cost_usd: 0.0
   runs:
   - profile: default
@@ -34,6 +34,12 @@ oompah.task_costs:
     output_tokens: 7386
     cost_usd: 0.0
     recorded_at: '2026-07-27T16:19:16.934986+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 98
+    output_tokens: 48340
+    cost_usd: 0.0
+    recorded_at: '2026-07-27T18:42:12.114980+00:00'
 ---
 ## Summary
 
@@ -243,5 +249,52 @@ author: oompah
 created: 2026-07-27 18:42
 ---
 Implemented M5-CRIT-3 through M5-CRIT-6 workloads (restart, coordinator polling, recovery latency, soak analysis), committed harness validation evidence, updated milestone plan. All 56 test-m5-qualification tests pass. Branch e36e483 ready for merge.
+---
+author: oompah
+created: 2026-07-27 18:42
+---
+Agent completed successfully in 1314s (48438 tokens)
+---
+author: oompah
+created: 2026-07-27 18:42
+---
+Run #3 [attempt=3, profile=standard, role=standard -> Claude/default]
+- Turns: 180, Tool calls: 114
+- Tokens: 98 in / 48.3K out [48.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 21m 54s
+- Log: EXOCOMP-125__20260727T182019Z.jsonl
+---
+author: oompah
+created: 2026-07-27 18:42
+---
+Close refused by orchestrator: branch `EXOCOMP-125` has 7 commits not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 7
+    e36e483 EXOCOMP-125: commit M5 harness evidence and close M5-CRIT-3 through M5-CRIT-6
+    3bb1079 EXOCOMP-125: bound mixed polling cycles
+    02ae00f EXOCOMP-125: keep soak telemetry out of measured heaps
+    5606e92 EXOCOMP-125: make restart qualification deterministic
+    e2afa4b EXOCOMP-125: isolate sibling release RPC environment
+    f92f02c EXOCOMP-125: preserve installer service permissions
+    1ff41fe EXOCOMP-125: add remaining M5 qualification workloads
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head EXOCOMP-125 --title "EXOCOMP-125: Complete remaining M5 workload and soak qualification" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-27 18:42
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-27 18:42
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
