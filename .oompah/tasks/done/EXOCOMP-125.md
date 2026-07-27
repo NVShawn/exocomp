@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:43:15.963532Z'
+updated_at: '2026-07-27T18:43:24.242420Z'
 work_branch: EXOCOMP-125
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/20
@@ -19,13 +19,13 @@ review_number: '20'
 merged_at: null
 oompah.agent_run_id: 804f8637-046c-4f3c-838c-bdcbc500fa88
 oompah.task_costs:
-  total_input_tokens: 142
-  total_output_tokens: 55726
+  total_input_tokens: 162
+  total_output_tokens: 55871
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 142
-      output_tokens: 55726
+      input_tokens: 162
+      output_tokens: 55871
       cost_usd: 0.0
   runs:
   - profile: default
@@ -40,6 +40,12 @@ oompah.task_costs:
     output_tokens: 48340
     cost_usd: 0.0
     recorded_at: '2026-07-27T18:42:12.114980+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 20
+    output_tokens: 145
+    cost_usd: 0.0
+    recorded_at: '2026-07-27T18:43:21.788210+00:00'
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/20
 oompah.review_number: '20'
 oompah.work_branch: EXOCOMP-125
@@ -315,5 +321,15 @@ author: oompah
 created: 2026-07-27 18:43
 ---
 Implemented M5-CRIT-3 through M5-CRIT-6: llama crash/restart benchmark, mixed coordinator polling, recovery observation-to-verification latency under load, and multi-hour soak analysis. All 56 test-m5-qualification tests pass. Harness validation evidence committed. PR #20 opened targeting main.
+---
+author: oompah
+created: 2026-07-27 18:43
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 0, Tool calls: 7
+- Tokens: 20 in / 145 out [165 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 1s
+- Log: EXOCOMP-125__20260727T184223Z.jsonl
 ---
 <!-- COMMENTS:END -->
