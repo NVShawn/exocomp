@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-126
 type: task
-status: In Review
+status: Done
 priority: 1
 title: Complete failed-service recovery through the A2A workflow
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T17:01:25.090381Z'
+updated_at: '2026-07-27T17:01:32.977647Z'
 work_branch: EXOCOMP-126
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/19
