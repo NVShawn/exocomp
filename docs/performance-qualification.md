@@ -146,6 +146,14 @@ for at least 30 minutes after warm-up. It must be run on a clean amd64 host
 **and** on a clean arm64 host independently. Each run produces a JSONL evidence
 file and a summary report. Exits non-zero when any hard gate fails.
 
+The harness allows the per-inference deadline to be increased from its
+120-second default with `BENCH_INFERENCE_TIMEOUT_MS`. This is intended for
+full-system CPU emulation where a healthy native `llama-server` may need more
+than 120 seconds at the highest concurrency. Record any override in the
+qualification transcript. It changes only the request deadline: every
+sequential and concurrent inference must still succeed, and the CPU/RAM
+budgets remain unchanged.
+
 ## Host Profiles
 
 Pinned reference profiles live in `apps/bench/priv/bench/profiles/`:
@@ -456,6 +464,10 @@ Check whether the failure is on a performance-timing metric (startup, latency)
 or on a control-plane CPU/RAM gate. Timing-only failures under CPU emulation
 are inconclusive under qualification policy. CPU and RAM gate failures are
 always conclusive and must be investigated regardless of execution environment.
+If healthy inference crosses the default request deadline, rerun the complete
+gate with a recorded `BENCH_INFERENCE_TIMEOUT_MS` value large enough for the
+emulated host. An inference that still returns an HTTP, schema, or runtime
+error remains a functional failure.
 
 ## Related Documentation
 

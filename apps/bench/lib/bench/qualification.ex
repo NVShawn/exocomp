@@ -77,7 +77,7 @@ defmodule Bench.Qualification do
                LlamaInference.measure_sequential(
                  processes.llama_url,
                  proposal_count: 1,
-                 timeout_ms: 120_000
+                 timeout_ms: config.inference_timeout_ms
                ),
              :ok <- sleep_fn.(config.warm_up_seconds * 1_000),
              _discarded_warm_up <- HostSampler.flush(sampler),
@@ -85,14 +85,14 @@ defmodule Bench.Qualification do
                LlamaInference.measure_sequential(
                  processes.llama_url,
                  proposal_count: config.proposal_count,
-                 timeout_ms: 120_000
+                 timeout_ms: config.inference_timeout_ms
                ),
              :ok <- validate_sequential(sequential_samples, config.proposal_count),
              {:ok, concurrent_samples} <-
                LlamaInference.measure_concurrent(
                  processes.llama_url,
                  concurrency_levels: config.concurrency_levels,
-                 timeout_ms: 120_000
+                 timeout_ms: config.inference_timeout_ms
                ),
              :ok <- validate_concurrent(concurrent_samples),
              _discarded_workload_samples <- HostSampler.flush(sampler),

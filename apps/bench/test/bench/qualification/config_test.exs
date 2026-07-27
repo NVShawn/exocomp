@@ -40,6 +40,7 @@ defmodule Bench.Qualification.ConfigTest do
     assert config.mode == :short
     assert config.run_seconds == 5
     assert config.warm_up_seconds == 2
+    assert config.inference_timeout_ms == 120_000
     assert config.concurrency_levels == [1, 2]
     assert Config.to_map(config)["mode"] == "short"
   end
@@ -64,6 +65,7 @@ defmodule Bench.Qualification.ConfigTest do
         "BENCH_EVIDENCE_DIR" => evidence,
         "BENCH_LLAMA_PORT" => "18081",
         "BENCH_SAMPLE_INTERVAL_MS" => "250",
+        "BENCH_INFERENCE_TIMEOUT_MS" => "600000",
         "BENCH_PROPOSAL_COUNT" => "7"
       })
 
@@ -71,7 +73,15 @@ defmodule Bench.Qualification.ConfigTest do
     assert config.evidence_dir == evidence
     assert config.llama_port == 18_081
     assert config.sample_interval_ms == 250
+    assert config.inference_timeout_ms == 600_000
     assert config.proposal_count == 7
+  end
+
+  test "rejects an invalid inference timeout", %{env: env} do
+    assert {:error, {:invalid_positive_integer, "BENCH_INFERENCE_TIMEOUT_MS", "0"}} =
+             env
+             |> Map.put("BENCH_INFERENCE_TIMEOUT_MS", "0")
+             |> Config.from_env()
   end
 
   test "reports all missing required environment variables", %{env: env} do

@@ -69,7 +69,7 @@ defmodule Bench.QualificationTest do
       "BENCH_PROPOSAL_COUNT" => "2"
     }
 
-    %{root: root, env: env}
+    %{root: root, env: env, fake: fake}
   end
 
   test "writes raw samples and a complete summary for a deterministic short run", %{env: env} do
@@ -109,6 +109,29 @@ defmodule Bench.QualificationTest do
              )
 
     assert path == env["BENCH_EVIDENCE_DIR"]
+  end
+
+  @tag timeout: 2_000
+  test "uses the configured inference timeout for shipped workload requests", %{
+    env: env,
+    fake: fake
+  } do
+    FakeLlamaServer.set_completions_mode(fake, :timeout)
+
+    env =
+      Map.put(env, "BENCH_INFERENCE_TIMEOUT_MS", "20")
+
+    assert {:ok, config} = Config.from_env(env)
+
+    assert {:error, {:workload_failed, "llama.sequential", details}} =
+             Qualification.run(config,
+               process_module: TestProcesses,
+               sleep_fn: fn _ -> :ok end
+             )
+
+    assert details.expected == 2
+    assert details.successes == 0
+    assert details.errors == 2
   end
 
   test "process cleanup is idempotent for an empty owned set" do

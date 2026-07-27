@@ -23,6 +23,7 @@ defmodule Bench.Qualification.Config do
     :warm_up_seconds,
     :run_seconds,
     :sample_interval_ms,
+    :inference_timeout_ms,
     :proposal_count,
     :concurrency_levels
   ]
@@ -54,6 +55,8 @@ defmodule Bench.Qualification.Config do
          :ok <- minimum_run_duration(mode, run_seconds),
          {:ok, sample_interval_ms} <-
            positive_integer(env, "BENCH_SAMPLE_INTERVAL_MS", 1_000),
+         {:ok, inference_timeout_ms} <-
+           positive_integer(env, "BENCH_INFERENCE_TIMEOUT_MS", 120_000),
          {:ok, proposal_count} <-
            positive_integer(env, "BENCH_PROPOSAL_COUNT", default_proposals(mode)),
          {:ok, evidence_dir} <- evidence_dir(env) do
@@ -71,6 +74,7 @@ defmodule Bench.Qualification.Config do
          warm_up_seconds: warm_up_seconds,
          run_seconds: run_seconds,
          sample_interval_ms: sample_interval_ms,
+         inference_timeout_ms: inference_timeout_ms,
          proposal_count: proposal_count,
          concurrency_levels: default_concurrency(mode)
        }}
