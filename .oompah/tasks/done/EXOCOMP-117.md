@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-27T11:11:37.017183Z'
+updated_at: '2026-07-27T11:11:40.074247Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -95,5 +95,10 @@ author: oompah
 created: 2026-07-27 11:11
 ---
 Completion: CI is now passing on PR #18. The 'Short llama harness self-test' check went from FAIL to PASS after the fix was pushed to epic-EXOCOMP-117. Root cause: tests/test_m5_qualification.py imported tomllib (Python 3.11+ stdlib only) but the CI runner uses Python 3.10. Fix: added a try/except import that activates a minimal pure-Python TOML subset parser as a fallback, with no external dependencies. The 'Exact candidate shipped-artifact gate' correctly shows 'skipping' (only runs on workflow_dispatch with explicit bundle inputs).
+---
+author: oompah
+created: 2026-07-27 11:11
+---
+Fixed CI failure on PR #18: added Python <3.11 compatibility to tests/test_m5_qualification.py by providing a minimal pure-Python TOML subset parser fallback when tomllib stdlib module is unavailable. CI check 'Short llama harness self-test' now passes.
 ---
 <!-- COMMENTS:END -->
