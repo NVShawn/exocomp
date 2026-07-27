@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T09:33:27.835811Z'
+updated_at: '2026-07-27T09:33:47.036276Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1403,5 +1403,10 @@ author: oompah
 created: 2026-07-27 09:33
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-27 09:33
+---
+Understanding (continuation attempt #13): Resuming exact signed v0.1.0-rc.23 qualification at 902bee1. From prior agent (attempt #12): amd64 has a complete passing 44-check record (QUALIFICATION_STATUS=pass); arm64 was actively progressing with all 9 repo gates done, builds 1+2 complete and reproducible, bench_harness complete, and bundle assembly starting at 09:03Z. I will reconcile both guest and evidence states, advance or complete the arm64 matrix, assemble signed indexed evidence, commit/push, and close only if every M6-CRIT requirement passes.
 ---
 <!-- COMMENTS:END -->
