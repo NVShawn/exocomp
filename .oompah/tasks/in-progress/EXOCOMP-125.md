@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T16:48:29.991414Z'
+updated_at: '2026-07-27T16:57:34.758276Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -118,5 +118,10 @@ author: oompah
 created: 2026-07-27 16:48
 ---
 Verification (implementation): pinned-builder make fmt-check and make lint passed; make test-m5-qualification passed (4 workflow tests, 46 bench tests, 3 core probe tests, 2 coordinator workload tests); full make test passed (127 bench, 195 core, 502 coordinator, 845 node with 10 expected exclusions) and both OTP release smoke checks passed. Dual-architecture two-hour artifact qualification is the remaining verification stage.
+---
+author: oompah
+created: 2026-07-27 16:57
+---
+Qualification update: the first amd64 live preflight correctly failed before benchmarking because the runner's private umask leaked into installation and denied the service account access. Fixed in f92f02c by isolating preflight under umask 022 while explicitly keeping rollback material 0600; shellcheck, bash syntax, static workflow tests passed. Stopped the obsolete arm64 preflight before mutation. Fresh exact-f92f02c amd64 and arm64 runs are active.
 ---
 <!-- COMMENTS:END -->
