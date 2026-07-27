@@ -248,9 +248,20 @@ installed release roots used by the systemd units (normally each component's
 `current` symlink), not a second extracted copy.
 
 `bench-llama-full` must pass on **both** architectures before publication.
-A gate failure prints the exact metric, observed value, and budget, then
-exits non-zero. For full prerequisites, baseline management, failure
-interpretation, and evidence collection, see
+A full run includes at least two hours of post-warm-up sampling, real llama
+crash/restart, mixed healthy/slow/unreachable coordinator polling, recovery
+under concurrent inference load, and leak analysis for memory, process counts,
+named mailboxes, file descriptors, and task histories. A gate failure prints
+the exact metric, observed value, and budget, then exits non-zero.
+
+On a dedicated qualification guest, `scripts/qualify-m5-workloads.sh` builds
+and signs the exact commit, saves a rollback archive, runs the live-install
+preflight, and produces a self-contained raw evidence directory. Set
+`M5_DEDICATED_GUEST=1`, `M5_ARCH`, and `M5_SOURCE_COMMIT`; never run this
+destructive, scoped guest workflow on a development host.
+
+For full prerequisites, baseline management, failure interpretation, and
+evidence collection, see
 [Performance Qualification](performance-qualification.md).
 
 ## Related Documentation

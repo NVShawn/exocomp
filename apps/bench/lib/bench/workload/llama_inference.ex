@@ -265,39 +265,32 @@ defmodule Bench.Workload.LlamaInference do
           {:ok, [Sample.t()]} | {:error, term()}
   def measure_restart(base_url, crash_fn, opts \\ []) do
     timeout_ms = Keyword.get(opts, :timeout_ms, @default_timeout_ms)
+    restart_timeout_ms = Keyword.get(opts, :restart_timeout_ms, @restart_timeout_ms)
     diagnostic_fn = Keyword.get(opts, :diagnostic_fn, nil)
 
     with :ok <- wait_until_healthy(base_url, timeout_ms) do
       t_crash = mono_ms()
-      :ok = crash_fn.()
 
-      # Poll until server goes down.
-      {down_ms, t_down} = poll_until_unhealthy(base_url, @restart_timeout_ms)
+      with :ok <- crash_fn.(),
+           {:ok, down_ms, t_down} <- poll_until_unhealthy(base_url, restart_timeout_ms),
+           diag_available <- diagnostic_available(diagnostic_fn),
+           {:ok, restart_ms, _t_ready} <-
+             poll_until_healthy_timed(
+               base_url,
+               restart_timeout_ms,
+               @restart_poll_interval_ms,
+               t_down
+             ) do
+        total_ms = mono_ms() - t_crash
 
-      # Optionally check that diagnostics remain available during the outage.
-      diag_available =
-        if is_function(diagnostic_fn, 0) do
-          case diagnostic_fn.() do
-            :ok -> 1
-            _ -> 0
-          end
-        else
-          1
-        end
-
-      # Poll until server comes back up.
-      {restart_ms, _t_ready} =
-        poll_until_healthy_timed(base_url, @restart_timeout_ms, @restart_poll_interval_ms, t_down)
-
-      total_ms = mono_ms() - t_crash
-
-      {:ok,
-       [
-         sample("llama.restart.down_ms", down_ms, "ms"),
-         sample("llama.restart.recovery_ms", restart_ms, "ms"),
-         sample("llama.restart.total_ms", total_ms, "ms"),
-         sample("llama.restart.diagnostics_available", diag_available, "bool")
-       ]}
+        {:ok,
+         [
+           sample("llama.restart.down_ms", down_ms, "ms"),
+           sample("llama.restart.recovery_ms", restart_ms, "ms"),
+           sample("llama.restart.total_ms", total_ms, "ms"),
+           sample("llama.restart.diagnostics_available", diag_available, "bool")
+         ]}
+      end
     end
   end
 
@@ -382,7 +375,7 @@ defmodule Bench.Workload.LlamaInference do
     end
   end
 
-  # Returns {elapsed_ms_until_down, t_down}.
+  # Returns {:ok, elapsed_ms_until_down, t_down}.
   defp poll_until_unhealthy(base_url, timeout_ms) do
     t0 = mono_ms()
     deadline = t0 + timeout_ms
@@ -392,7 +385,7 @@ defmodule Bench.Workload.LlamaInference do
 
   defp do_poll_until_unhealthy(base_url, t0, deadline) do
     if mono_ms() >= deadline do
-      {mono_ms() - t0, mono_ms()}
+      {:error, :shutdown_timeout}
     else
       case health_check(base_url) do
         :ok ->
@@ -400,7 +393,7 @@ defmodule Bench.Workload.LlamaInference do
           do_poll_until_unhealthy(base_url, t0, deadline)
 
         _ ->
-          {mono_ms() - t0, mono_ms()}
+          {:ok, mono_ms() - t0, mono_ms()}
       end
     end
   end
@@ -414,11 +407,11 @@ defmodule Bench.Workload.LlamaInference do
 
   defp do_poll_until_healthy_timed(base_url, t0, deadline, poll_ms) do
     if mono_ms() >= deadline do
-      {mono_ms() - t0, mono_ms()}
+      {:error, :restart_timeout}
     else
       case health_check(base_url) do
         :ok ->
-          {mono_ms() - t0, mono_ms()}
+          {:ok, mono_ms() - t0, mono_ms()}
 
         _ ->
           Process.sleep(poll_ms)
@@ -426,6 +419,15 @@ defmodule Bench.Workload.LlamaInference do
       end
     end
   end
+
+  defp diagnostic_available(diagnostic_fn) when is_function(diagnostic_fn, 0) do
+    case diagnostic_fn.() do
+      :ok -> 1
+      _other -> 0
+    end
+  end
+
+  defp diagnostic_available(_diagnostic_fn), do: 1
 
   defp health_check(base_url) do
     url = String.to_charlist("#{base_url}/health")

@@ -390,6 +390,15 @@ defmodule Bench.Workload.LlamaInferenceTest do
         assert is_number(s.value)
       end
     end
+
+    test "fails when the crash trigger never makes the server unavailable" do
+      fake = start_fake(health_mode: :ok)
+
+      assert {:error, :shutdown_timeout} =
+               LlamaInference.measure_restart(base_url(fake), fn -> :ok end,
+                 restart_timeout_ms: 100
+               )
+    end
   end
 
   # ---------------------------------------------------------------------------

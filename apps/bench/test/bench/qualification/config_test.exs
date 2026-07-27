@@ -41,19 +41,23 @@ defmodule Bench.Qualification.ConfigTest do
     assert config.run_seconds == 5
     assert config.warm_up_seconds == 2
     assert config.inference_timeout_ms == 120_000
+    assert config.restart_timeout_ms == 120_000
     assert config.concurrency_levels == [1, 2]
+    assert config.soak_load_interval_seconds == 5
+    assert config.poll_cycles == 2
+    assert config.poll_concurrency == 3
     assert Config.to_map(config)["mode"] == "short"
   end
 
-  test "full mode enforces the 30-minute qualification minimum", %{env: env} do
+  test "full mode enforces the two-hour soak qualification minimum", %{env: env} do
     full = Map.put(env, "BENCH_MODE", "full")
     assert {:ok, config} = Config.from_env(full)
-    assert config.run_seconds == 1_800
+    assert config.run_seconds == 7_200
     assert config.concurrency_levels == [1, 2, 4]
 
-    too_short = Map.put(full, "BENCH_RUN_SECONDS", "1799")
+    too_short = Map.put(full, "BENCH_RUN_SECONDS", "7199")
 
-    assert {:error, {:full_run_too_short, 1_799, 1_800}} =
+    assert {:error, {:full_run_too_short, 7_199, 7_200}} =
              Config.from_env(too_short)
   end
 
@@ -66,7 +70,11 @@ defmodule Bench.Qualification.ConfigTest do
         "BENCH_LLAMA_PORT" => "18081",
         "BENCH_SAMPLE_INTERVAL_MS" => "250",
         "BENCH_INFERENCE_TIMEOUT_MS" => "600000",
-        "BENCH_PROPOSAL_COUNT" => "7"
+        "BENCH_RESTART_TIMEOUT_MS" => "240000",
+        "BENCH_PROPOSAL_COUNT" => "7",
+        "BENCH_SOAK_LOAD_INTERVAL_SECONDS" => "30",
+        "BENCH_POLL_CYCLES" => "8",
+        "BENCH_POLL_CONCURRENCY" => "4"
       })
 
     assert {:ok, config} = Config.from_env(configured)
@@ -74,7 +82,11 @@ defmodule Bench.Qualification.ConfigTest do
     assert config.llama_port == 18_081
     assert config.sample_interval_ms == 250
     assert config.inference_timeout_ms == 600_000
+    assert config.restart_timeout_ms == 240_000
     assert config.proposal_count == 7
+    assert config.soak_load_interval_seconds == 30
+    assert config.poll_cycles == 8
+    assert config.poll_concurrency == 4
   end
 
   test "rejects an invalid inference timeout", %{env: env} do

@@ -8,7 +8,7 @@ defmodule Bench.Qualification.Config do
   @required_env ~w(
     LLAMA_SERVER LLAMA_LIB_DIR NODE_RELEASE COORD_RELEASE MODEL_PATH MODEL_SHA256
   )
-  @full_minimum_seconds 1_800
+  @full_minimum_seconds 7_200
 
   @enforce_keys [
     :mode,
@@ -24,8 +24,12 @@ defmodule Bench.Qualification.Config do
     :run_seconds,
     :sample_interval_ms,
     :inference_timeout_ms,
+    :restart_timeout_ms,
     :proposal_count,
-    :concurrency_levels
+    :concurrency_levels,
+    :soak_load_interval_seconds,
+    :poll_cycles,
+    :poll_concurrency
   ]
   defstruct @enforce_keys
 
@@ -35,8 +39,8 @@ defmodule Bench.Qualification.Config do
   @doc """
   Parses qualification configuration from an environment-shaped map.
 
-  `BENCH_MODE` is `short` or `full`. Full runs enforce the M5 minimum
-  30-minute steady-idle measurement even when a duration override is present.
+  `BENCH_MODE` is `short` or `full`. Full runs enforce the M5 minimum two-hour
+  soak measurement even when a duration override is present.
   """
   @spec from_env(map()) :: {:ok, t()} | {:error, term()}
   def from_env(env \\ System.get_env()) when is_map(env) do
@@ -57,8 +61,20 @@ defmodule Bench.Qualification.Config do
            positive_integer(env, "BENCH_SAMPLE_INTERVAL_MS", 1_000),
          {:ok, inference_timeout_ms} <-
            positive_integer(env, "BENCH_INFERENCE_TIMEOUT_MS", 120_000),
+         {:ok, restart_timeout_ms} <-
+           positive_integer(env, "BENCH_RESTART_TIMEOUT_MS", 120_000),
          {:ok, proposal_count} <-
            positive_integer(env, "BENCH_PROPOSAL_COUNT", default_proposals(mode)),
+         {:ok, soak_load_interval_seconds} <-
+           positive_integer(
+             env,
+             "BENCH_SOAK_LOAD_INTERVAL_SECONDS",
+             default_soak_load_interval(mode)
+           ),
+         {:ok, poll_cycles} <-
+           positive_integer(env, "BENCH_POLL_CYCLES", default_poll_cycles(mode)),
+         {:ok, poll_concurrency} <-
+           positive_integer(env, "BENCH_POLL_CONCURRENCY", 3),
          {:ok, evidence_dir} <- evidence_dir(env) do
       {:ok,
        %__MODULE__{
@@ -75,8 +91,12 @@ defmodule Bench.Qualification.Config do
          run_seconds: run_seconds,
          sample_interval_ms: sample_interval_ms,
          inference_timeout_ms: inference_timeout_ms,
+         restart_timeout_ms: restart_timeout_ms,
          proposal_count: proposal_count,
-         concurrency_levels: default_concurrency(mode)
+         concurrency_levels: default_concurrency(mode),
+         soak_load_interval_seconds: soak_load_interval_seconds,
+         poll_cycles: poll_cycles,
+         poll_concurrency: poll_concurrency
        }}
     end
   end
@@ -167,4 +187,8 @@ defmodule Bench.Qualification.Config do
   defp default_proposals(:full), do: 20
   defp default_concurrency(:short), do: [1, 2]
   defp default_concurrency(:full), do: [1, 2, 4]
+  defp default_soak_load_interval(:short), do: 5
+  defp default_soak_load_interval(:full), do: 60
+  defp default_poll_cycles(:short), do: 2
+  defp default_poll_cycles(:full), do: 20
 end

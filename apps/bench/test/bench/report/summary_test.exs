@@ -81,8 +81,62 @@ defmodule Bench.Report.SummaryTest do
       assert summary.metrics["beam.cpu.node_plus_coordinator.mean_percent"] == 3.5
       assert summary.metrics["beam.memory.node_plus_coordinator.peak_percent"] == 4.0
       assert summary.metrics["llama.cpu.mean_percent"] == 80.0
+      assert summary.metrics["bundle.cpu.mean_percent"] == 83.5
       assert summary.metrics["llama.memory.rss.peak_bytes"] == 3_000
+      assert summary.metrics["bundle.memory.rss.peak_bytes"] == 3_400
       assert Summary.pass?(summary)
+    end
+
+    test "retains qualification metrics and reports polling latency percentiles" do
+      resource_samples = [
+        sample(1, :node, "cpu.percent", 1.0),
+        sample(1, :coordinator, "cpu.percent", 1.0),
+        sample(1, :node, "memory.rss.bytes", 100),
+        sample(1, :coordinator, "memory.rss.bytes", 100)
+      ]
+
+      workload_samples =
+        for {value, timestamp} <- Enum.with_index([10, 20, 30, 40], 2) do
+          sample(timestamp, :coordinator, "coordinator.poll.cycle_ms", value)
+        end ++
+          [
+            sample(6, :coordinator, "recovery.safety_pass", 1),
+            sample(7, :beam, "soak.pass", 1)
+          ]
+
+      summary =
+        Summary.build(resource_samples ++ workload_samples, baseline(), artifact(), host(10_000))
+
+      assert summary.metrics["coordinator.poll.cycle_ms.count"] == 4
+      assert summary.metrics["coordinator.poll.cycle_ms.p50"] == 20
+      assert summary.metrics["coordinator.poll.cycle_ms.p95"] == 40
+      assert summary.metrics["recovery.safety_pass"] == 1
+      assert summary.metrics["soak.pass"] == 1
+    end
+
+    test "full qualification correctness gates fail by exact missing workload metric" do
+      samples = [
+        sample(1, :node, "cpu.percent", 1.0),
+        sample(1, :coordinator, "cpu.percent", 1.0),
+        sample(1, :node, "memory.rss.bytes", 100),
+        sample(1, :coordinator, "memory.rss.bytes", 100),
+        sample(2, :llama, "llama.restart.diagnostics_available", 1),
+        sample(3, :coordinator, "coordinator.poll.healthy.count", 1),
+        sample(3, :coordinator, "coordinator.poll.slow.count", 1),
+        sample(3, :coordinator, "coordinator.poll.unreachable.count", 1),
+        sample(3, :coordinator, "coordinator.poll.mailbox.depth", 0),
+        sample(4, :coordinator, "coordinator.poll.mailbox.depth", 0),
+        sample(5, :coordinator, "recovery.safety_pass", 1)
+      ]
+
+      summary =
+        Summary.build(samples, baseline(), artifact(), host(10_000), config: %{"mode" => "full"})
+
+      refute Summary.pass?(summary)
+      failure = Enum.find(summary.gate_results, &(&1["name"] == "soak_stability"))
+      assert failure["metric"] == "soak.pass"
+      assert failure["reason"] == "metric was not emitted"
+      assert Summary.failure_text(summary) =~ "budget:   = 1 qualification"
     end
 
     test "a missing component sample cannot be hidden by the other component" do

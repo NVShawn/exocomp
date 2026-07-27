@@ -45,6 +45,7 @@ defmodule Bench.Report.Summary do
     host = mapify(host_profile)
     artifact = mapify(artifact_identity)
     metrics = aggregate(samples, host)
+    config = Keyword.get(opts, :config, %{})
 
     %__MODULE__{
       run_id: Keyword.get(opts, :run_id),
@@ -54,8 +55,8 @@ defmodule Bench.Report.Summary do
       artifact_identity: artifact,
       baseline_path: baseline.path,
       baseline_reference: baseline.reference,
-      config: Keyword.get(opts, :config, %{}),
-      gate_results: evaluate(metrics, baseline.gates)
+      config: config,
+      gate_results: evaluate(metrics, baseline.gates) ++ qualification_gates(metrics, config)
     }
   end
 
@@ -119,6 +120,8 @@ defmodule Bench.Report.Summary do
       "node.cpu.mean_percent" => mean_metric(samples, :node, "cpu.percent"),
       "coordinator.cpu.mean_percent" => mean_metric(samples, :coordinator, "cpu.percent"),
       "llama.cpu.mean_percent" => mean_metric(samples, :llama, "cpu.percent"),
+      "bundle.cpu.mean_percent" =>
+        combined_mean(samples, "cpu.percent", [:node, :coordinator, :llama]),
       "node.memory.rss.peak_bytes" => peak_metric(samples, :node, "memory.rss.bytes"),
       "coordinator.memory.rss.peak_bytes" =>
         peak_metric(samples, :coordinator, "memory.rss.bytes"),
@@ -126,10 +129,19 @@ defmodule Bench.Report.Summary do
       "bundle.memory.rss.peak_bytes" => combined_peak(samples, "memory.rss.bytes")
     }
     |> Map.merge(workload_metrics(samples))
+    |> Map.merge(distribution_metrics(samples, "coordinator.poll.cycle_ms"))
+    |> Map.put(
+      "coordinator.poll.mailbox.growth",
+      growth(samples, "coordinator.poll.mailbox.depth")
+    )
   end
 
   defp combined_mean(samples, metric_name) do
-    case combined_values(samples, metric_name, [:node, :coordinator]) do
+    combined_mean(samples, metric_name, [:node, :coordinator])
+  end
+
+  defp combined_mean(samples, metric_name, sources) do
+    case combined_values(samples, metric_name, sources) do
       {:ok, values} when values != [] -> mean(values)
       _ -> nil
     end
@@ -212,11 +224,115 @@ defmodule Bench.Report.Summary do
   defp workload_metrics(samples) do
     samples
     |> Enum.filter(fn sample ->
-      sample.source == :llama and String.starts_with?(sample.metric_name, "llama.")
+      Enum.any?(
+        ["llama.", "coordinator.poll.", "recovery.", "soak."],
+        &String.starts_with?(sample.metric_name, &1)
+      )
     end)
     |> Enum.reduce(%{}, fn sample, metrics ->
       Map.put(metrics, sample.metric_name, sample.value)
     end)
+  end
+
+  defp distribution_metrics(samples, metric_name) do
+    values =
+      for %Sample{metric_name: ^metric_name, value: value} <- samples, is_number(value), do: value
+
+    case Enum.sort(values) do
+      [] ->
+        %{}
+
+      sorted ->
+        %{
+          "#{metric_name}.count" => length(sorted),
+          "#{metric_name}.p50" => percentile(sorted, 50),
+          "#{metric_name}.p95" => percentile(sorted, 95),
+          "#{metric_name}.p99" => percentile(sorted, 99),
+          "#{metric_name}.max" => List.last(sorted)
+        }
+    end
+  end
+
+  defp percentile(sorted, percentile) do
+    index = ceil(percentile / 100 * length(sorted)) - 1
+    Enum.at(sorted, max(index, 0))
+  end
+
+  defp growth(samples, metric_name) do
+    values =
+      for %Sample{metric_name: ^metric_name, value: value} <- samples, is_number(value), do: value
+
+    case values do
+      [] -> nil
+      [_only] -> 0
+      values -> List.last(values) - hd(values)
+    end
+  end
+
+  defp qualification_gates(metrics, config) do
+    case fetch(config, "mode") do
+      "short" ->
+        [
+          equality_gate(
+            metrics,
+            "llama_restart_diagnostics",
+            "llama.restart.diagnostics_available"
+          )
+        ]
+
+      "full" ->
+        [
+          equality_gate(
+            metrics,
+            "llama_restart_diagnostics",
+            "llama.restart.diagnostics_available"
+          ),
+          minimum_gate(metrics, "coordinator_poll_healthy", "coordinator.poll.healthy.count"),
+          minimum_gate(metrics, "coordinator_poll_slow", "coordinator.poll.slow.count"),
+          minimum_gate(
+            metrics,
+            "coordinator_poll_unreachable",
+            "coordinator.poll.unreachable.count"
+          ),
+          maximum_gate(
+            metrics,
+            "coordinator_poll_mailbox_growth",
+            "coordinator.poll.mailbox.growth"
+          ),
+          equality_gate(metrics, "recovery_safety", "recovery.safety_pass"),
+          equality_gate(metrics, "soak_stability", "soak.pass")
+        ]
+
+      _other ->
+        []
+    end
+  end
+
+  defp equality_gate(metrics, name, metric) do
+    qualification_gate(name, metric, Map.get(metrics, metric), 1, "equals", &(&1 == 1))
+  end
+
+  defp minimum_gate(metrics, name, metric) do
+    qualification_gate(name, metric, Map.get(metrics, metric), 1, "at_least", &(&1 >= 1))
+  end
+
+  defp maximum_gate(metrics, name, metric) do
+    qualification_gate(name, metric, Map.get(metrics, metric), 0, "at_most", &(&1 <= 0))
+  end
+
+  defp qualification_gate(name, metric, observed, budget, direction, predicate) do
+    passed = is_number(observed) and predicate.(observed)
+
+    %{
+      "name" => name,
+      "metric" => metric,
+      "observed" => observed,
+      "budget" => budget,
+      "unit" => "qualification",
+      "direction" => direction,
+      "status" => if(passed, do: "pass", else: "fail"),
+      "reason" => if(is_number(observed), do: nil, else: "metric was not emitted")
+    }
   end
 
   defp gate_result(gate, observed, status, reason) do
@@ -263,7 +379,7 @@ defmodule Bench.Report.Summary do
     M5 gate FAIL: #{result["name"]}
       metric:   #{result["metric"]}
       observed: #{observed}
-      budget:   < #{format_number(result["budget"])} #{result["unit"]}
+      budget:   #{format_budget(result)}
       artifact: exocomp_node v#{String.trim_leading(artifact_version, "v")} (commit #{short_commit(commit)})
       host:     #{host_arch} (#{cpu_model}, #{cpu_count} vCPU, #{ram})
       baseline: #{summary.baseline_path}#{reason}
@@ -273,6 +389,18 @@ defmodule Bench.Report.Summary do
 
   defp format_number(value) when is_integer(value), do: Integer.to_string(value)
   defp format_number(value) when is_float(value), do: :erlang.float_to_binary(value, decimals: 3)
+
+  defp format_budget(%{"direction" => "equals"} = result),
+    do: "= #{format_number(result["budget"])} #{result["unit"]}"
+
+  defp format_budget(%{"direction" => "at_least"} = result),
+    do: ">= #{format_number(result["budget"])} #{result["unit"]}"
+
+  defp format_budget(%{"direction" => "at_most"} = result),
+    do: "<= #{format_number(result["budget"])} #{result["unit"]}"
+
+  defp format_budget(result),
+    do: "< #{format_number(result["budget"])} #{result["unit"]}"
 
   defp short_commit(commit) when is_binary(commit), do: String.slice(commit, 0, 12)
   defp short_commit(commit), do: to_string(commit)

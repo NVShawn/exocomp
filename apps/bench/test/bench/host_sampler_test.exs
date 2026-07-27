@@ -83,6 +83,20 @@ defmodule Bench.HostSamplerTest do
     assert :ok = HostSampler.stop(sampler)
   end
 
+  test "replaces a restarted target and resets its CPU baseline", %{root: root} do
+    write_process(root, "123", cpu_ticks: 100, rss_kb: 10, pss_kb: 8)
+    write_process(root, "124", cpu_ticks: 500, rss_kb: 20, pss_kb: 16)
+    {:ok, sampler} = HostSampler.start_link(node: 123, proc_root: root, interval: 60_000)
+
+    _first = HostSampler.flush(sampler)
+    assert :ok = HostSampler.set_target(sampler, :node, 124)
+    restarted = HostSampler.flush(sampler)
+
+    assert sample(restarted, :node, "memory.rss.bytes").value == 20 * 1_024
+    assert sample(restarted, :node, "cpu.percent").tags == [:warming_up]
+    assert :ok = HostSampler.stop(sampler)
+  end
+
   test "reads optional cgroup v2 network accounting", %{root: root} do
     cgroup_root = Path.join(root, "cgroup")
     write_process(root, "789", cpu_ticks: 1, rss_kb: 4, pss_kb: 3)

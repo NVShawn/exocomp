@@ -17,6 +17,9 @@ defmodule Bench.Qualification do
     Workload.LlamaInference
   }
 
+  alias Bench.Analysis.Soak, as: SoakAnalysis
+  alias Bench.Workload.Soak, as: SoakWorkload
+
   @doc """
   Runs one configured qualification.
 
@@ -44,11 +47,22 @@ defmodule Bench.Qualification do
          {:ok, baseline} <- Baseline.select(identity.artifact_version, identity.architecture),
          {:ok, reference_host} <- HostProfile.load(baseline.host_profile),
          true <- HostProfile.compatible?(host, reference_host),
-         {:ok, processes} <- process_module.start(config, identity) do
+         {:ok, processes} <- process_module.start(config, identity),
+         {:ok, process_holder} <- Agent.start(fn -> processes end) do
       try do
-        execute(config, identity, host, baseline, processes, now_fn.(), opts)
+        execute(
+          config,
+          identity,
+          host,
+          baseline,
+          process_holder,
+          process_module,
+          now_fn.(),
+          opts
+        )
       after
-        process_module.stop(processes)
+        process_module.stop(Agent.get(process_holder, & &1))
+        Agent.stop(process_holder)
       end
     else
       false -> {:error, :host_profile_incompatible}
@@ -56,8 +70,18 @@ defmodule Bench.Qualification do
     end
   end
 
-  defp execute(config, identity, host, baseline, processes, now, opts) do
+  defp execute(
+         config,
+         identity,
+         host,
+         baseline,
+         process_holder,
+         process_module,
+         now,
+         opts
+       ) do
     sleep_fn = Keyword.get(opts, :sleep_fn, &Process.sleep/1)
+    processes = Agent.get(process_holder, & &1)
 
     with {:ok, sampler} <-
            HostSampler.start_link(
@@ -95,16 +119,132 @@ defmodule Bench.Qualification do
                  timeout_ms: config.inference_timeout_ms
                ),
              :ok <- validate_concurrent(concurrent_samples),
-             _discarded_workload_samples <- HostSampler.flush(sampler),
-             :ok <- sleep_fn.(config.run_seconds * 1_000) do
-          host_samples = HostSampler.flush(sampler)
-          samples = startup_samples ++ sequential_samples ++ concurrent_samples ++ host_samples
+             {:ok, restart_samples} <-
+               measure_restart(
+                 config,
+                 identity,
+                 process_holder,
+                 process_module,
+                 sampler
+               ),
+             {:ok, polling_samples} <-
+               process_module.coordinator_polling(
+                 config,
+                 Agent.get(process_holder, & &1)
+               ),
+             {:ok, recovery_samples, recovery_load_samples} <-
+               measure_recovery_under_load(
+                 config,
+                 Agent.get(process_holder, & &1),
+                 process_module
+               ),
+             workload_host_samples = HostSampler.flush(sampler),
+             :ok <-
+               process_module.start_runtime_samplers(
+                 config,
+                 Agent.get(process_holder, & &1)
+               ),
+             soak_started_at = System.system_time(:millisecond),
+             {:ok, soak_load_samples} <-
+               run_soak(config, Agent.get(process_holder, & &1), sleep_fn),
+             host_samples = HostSampler.flush(sampler),
+             {:ok, runtime_samples} <-
+               process_module.runtime_samples(config, Agent.get(process_holder, & &1)),
+             {:ok, soak_analysis_samples} <-
+               analyze_soak(
+                 config,
+                 host_samples ++ runtime_samples,
+                 soak_started_at
+               ) do
+          samples =
+            startup_samples ++
+              sequential_samples ++
+              concurrent_samples ++
+              restart_samples ++
+              polling_samples ++
+              recovery_samples ++
+              recovery_load_samples ++
+              soak_load_samples ++
+              workload_host_samples ++
+              host_samples ++ runtime_samples ++ soak_analysis_samples
+
           finish(config, identity, host, baseline, samples, now)
         end
       after
         if Process.alive?(sampler), do: HostSampler.stop(sampler)
       end
     end
+  end
+
+  defp measure_restart(config, identity, process_holder, process_module, sampler) do
+    processes = Agent.get(process_holder, & &1)
+
+    crash_fn = fn ->
+      current = Agent.get(process_holder, & &1)
+
+      with {:ok, restarted} <- process_module.restart_llama(config, identity, current),
+           :ok <- HostSampler.set_target(sampler, :llama, restarted.llama_pid) do
+        Agent.update(process_holder, fn _old -> restarted end)
+        :ok
+      end
+    end
+
+    diagnostic_fn = fn ->
+      process_holder
+      |> Agent.get(& &1)
+      |> process_module.diagnostics_available()
+    end
+
+    LlamaInference.measure_restart(processes.llama_url, crash_fn,
+      timeout_ms: config.inference_timeout_ms,
+      restart_timeout_ms: config.restart_timeout_ms,
+      diagnostic_fn: diagnostic_fn
+    )
+  end
+
+  defp measure_recovery_under_load(config, processes, process_module) do
+    load =
+      Task.async(fn ->
+        LlamaInference.measure_concurrent(processes.llama_url,
+          concurrency_levels: [List.last(config.concurrency_levels)],
+          timeout_ms: config.inference_timeout_ms
+        )
+      end)
+
+    try do
+      with {:ok, recovery_samples} <- process_module.recovery(config, processes),
+           {:ok, load_samples} <-
+             Task.await(
+               load,
+               config.inference_timeout_ms * List.last(config.concurrency_levels) + 5_000
+             ) do
+        {:ok, recovery_samples, load_samples}
+      end
+    after
+      if Process.alive?(load.pid), do: Task.shutdown(load, :brutal_kill)
+    end
+  end
+
+  defp run_soak(config, processes, sleep_fn) do
+    workload_fn = fn ->
+      LlamaInference.measure_sequential(processes.llama_url,
+        proposal_count: 1,
+        timeout_ms: config.inference_timeout_ms
+      )
+    end
+
+    SoakWorkload.run(
+      config.run_seconds * 1_000,
+      config.soak_load_interval_seconds * 1_000,
+      workload_fn,
+      sleep_fn: sleep_fn
+    )
+  end
+
+  defp analyze_soak(%Config{mode: :short}, _samples, _started_at), do: {:ok, []}
+
+  defp analyze_soak(%Config{mode: :full}, samples, started_at) do
+    SoakAnalysis.analyze(samples, start_timestamp: started_at)
   end
 
   defp finish(config, identity, host, baseline, samples, now) do

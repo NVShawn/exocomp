@@ -23,6 +23,85 @@ defmodule Bench.QualificationTest do
     end
 
     def stop(_processes), do: :ok
+
+    def restart_llama(_config, _identity, processes) do
+      fake = :persistent_term.get({__MODULE__, :llama_server})
+      Bench.Test.FakeLlamaServer.set_health_mode(fake, :closed)
+
+      spawn(fn ->
+        Process.sleep(100)
+        Bench.Test.FakeLlamaServer.set_health_mode(fake, :ok)
+      end)
+
+      {:ok, processes}
+    end
+
+    def diagnostics_available(_processes), do: :ok
+    def coordinator_polling(%{mode: :short}, _processes), do: {:ok, []}
+
+    def coordinator_polling(%{mode: :full}, _processes) do
+      samples =
+        for {name, value} <- [
+              {"coordinator.poll.cycle_ms", 10},
+              {"coordinator.poll.healthy.count", 1},
+              {"coordinator.poll.slow.count", 1},
+              {"coordinator.poll.unreachable.count", 1},
+              {"coordinator.poll.mailbox.depth", 0}
+            ],
+            do: sample(:coordinator, name, value)
+
+      {:ok, samples}
+    end
+
+    def recovery(%{mode: :short}, _processes), do: {:ok, []}
+
+    def recovery(%{mode: :full}, _processes) do
+      {:ok,
+       [
+         sample(:coordinator, "recovery.observation_to_verification_ms", 10),
+         sample(:coordinator, "recovery.safety_pass", 1)
+       ]}
+    end
+
+    def start_runtime_samplers(_config, _processes), do: :ok
+    def runtime_samples(%{mode: :short}, _processes), do: {:ok, []}
+
+    def runtime_samples(%{mode: :full}, _processes) do
+      now = System.system_time(:millisecond)
+
+      metrics = [
+        {:node, "memory.rss.bytes", 100_000_000},
+        {:coordinator, "memory.rss.bytes", 100_000_000},
+        {:llama, "memory.rss.bytes", 100_000_000},
+        {:node, "file_descriptors.open", 10},
+        {:coordinator, "file_descriptors.open", 10},
+        {:llama, "file_descriptors.open", 10},
+        {:node, "beam.process.count", 100},
+        {:coordinator, "beam.process.count", 100},
+        {:node, "node.task_history.count", 0},
+        {:coordinator, "coordinator.task_history.count", 0},
+        {:node, "beam.mailbox.task_registry.depth", 0},
+        {:coordinator, "beam.mailbox.goal_store.depth", 0}
+      ]
+
+      samples =
+        for offset <- 0..3,
+            {source, name, value} <- metrics,
+            do: sample(source, name, value, now + offset)
+
+      {:ok, samples}
+    end
+
+    defp sample(source, name, value, timestamp \\ System.system_time(:millisecond)) do
+      %Bench.Sample{
+        timestamp: timestamp,
+        source: source,
+        metric_name: name,
+        value: value,
+        unit: "count",
+        tags: []
+      }
+    end
   end
 
   setup do
@@ -48,9 +127,11 @@ defmodule Bench.QualificationTest do
 
     fake = start_supervised!({FakeLlamaServer, []})
     :persistent_term.put({TestProcesses, :llama_url}, FakeLlamaServer.base_url(fake))
+    :persistent_term.put({TestProcesses, :llama_server}, fake)
 
     on_exit(fn ->
       :persistent_term.erase({TestProcesses, :llama_url})
+      :persistent_term.erase({TestProcesses, :llama_server})
       File.rm_rf!(root)
     end)
 
@@ -95,6 +176,9 @@ defmodule Bench.QualificationTest do
     decoded = evidence_dir |> Path.join("summary.json") |> File.read!() |> Jason.decode!()
     assert decoded["run_id"] == summary.run_id
     assert decoded["baseline_path"] =~ "/v0.1.0/#{current_architecture()}.toml"
+    assert decoded["metrics"]["llama.restart.diagnostics_available"] == 1
+    assert decoded["metrics"]["llama.restart.total_ms"] >= 0
+    assert decoded["metrics"]["soak.load.iterations"] == 1
   end
 
   test "refuses to overwrite an existing evidence directory", %{env: env} do
@@ -109,6 +193,38 @@ defmodule Bench.QualificationTest do
              )
 
     assert path == env["BENCH_EVIDENCE_DIR"]
+  end
+
+  test "full orchestration emits passing restart, polling, recovery, and soak gates", %{
+    env: env,
+    root: root
+  } do
+    env =
+      Map.merge(env, %{
+        "BENCH_MODE" => "full",
+        "BENCH_RUN_SECONDS" => "7200",
+        "BENCH_EVIDENCE_DIR" => Path.join(root, "full-evidence")
+      })
+
+    assert {:ok, config} = Config.from_env(env)
+
+    assert {status, summary, _evidence_dir} =
+             Qualification.run(config,
+               process_module: TestProcesses,
+               sleep_fn: fn _milliseconds -> :ok end
+             )
+
+    assert status in [:ok, :gate_failed]
+
+    correctness =
+      Enum.filter(summary.gate_results, fn result ->
+        result["direction"] in ["equals", "at_least", "at_most"]
+      end)
+
+    assert length(correctness) == 7
+    assert Enum.all?(correctness, &(&1["status"] == "pass"))
+    assert summary.metrics["soak.required_metrics_present"] == 1
+    assert summary.metrics["soak.pass"] == 1
   end
 
   # Keep a watchdog below the 120-second production default so a regression
@@ -151,6 +267,10 @@ defmodule Bench.QualificationTest do
 
     assert :ok = Processes.stop(processes)
     assert :ok = Processes.stop(processes)
+    assert :ok = Processes.diagnostics_available(%{processes | node_pid: System.pid()})
+
+    assert {:error, :llama_process_not_owned} =
+             Processes.restart_llama(nil, nil, processes)
   end
 
   test "short process startup rejects a release without its shipped executable", %{env: env} do
