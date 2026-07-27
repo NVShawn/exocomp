@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-124
 type: chore
-status: Backlog
+status: In Progress
 priority: 2
 title: Reconcile milestone plan acceptance checkboxes with main
 parent: null
@@ -10,12 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-27T16:07:00.355913Z'
-updated_at: '2026-07-27T16:07:00.355913Z'
+updated_at: '2026-07-27T16:07:41.894776Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: bbed2a7c-4fb3-463b-b700-7895a20941aa
 ---
 ## Summary
 
@@ -27,3 +28,16 @@ Audit every M1-M6 acceptance criterion in plans/ against implementation, tests, 
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-27 16:07
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-27 16:07
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
