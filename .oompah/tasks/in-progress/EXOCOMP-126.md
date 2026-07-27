@@ -11,13 +11,29 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:18:44.045175Z'
+updated_at: '2026-07-27T16:19:09.193375Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: f4011013-6a4f-4a33-a9df-45d3fefea971
+oompah.agent_run_id: 0822dc44-8a71-49e9-a76c-08b077dcf419
+oompah.task_costs:
+  total_input_tokens: 1984473
+  total_output_tokens: 6448
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 1984473
+      output_tokens: 6448
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: unknown
+    input_tokens: 1984473
+    output_tokens: 6448
+    cost_usd: 0.0
+    recorded_at: '2026-07-27T16:18:55.563667+00:00'
 ---
 ## Summary
 
@@ -65,5 +81,35 @@ Focus handoff: duplicate_detector
 3. Remaining work/risks: Add an authenticated recovery skill/task contract across node and coordinator A2A surfaces; bridge detection and diagnosis into FailedService without bypassing task/audit/idempotency controls; advertise and validate only the intended recovery capability; add an end-to-end fixture-service test proving request, node execution, stability verification, artifacts/history, and audit correlation. Preserve the existing one-attempt and restricted-executor invariants.
 
 4. Recommended next focus: feature.
+---
+author: oompah
+created: 2026-07-27 16:18
+---
+Agent completed successfully in 189s (1990921 tokens)
+---
+author: oompah
+created: 2026-07-27 16:18
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 1, Tool calls: 27
+- Tokens: 2.0M in / 6.4K out [2.0M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 9s
+- Log: EXOCOMP-126__20260727T161550Z.jsonl
+---
+author: oompah
+created: 2026-07-27 16:18
+---
+Focus handoff from `duplicate_detector` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-07-27 16:19
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-27 16:19
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
