@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-125
 type: task
-status: In Progress
+status: Done
 priority: 1
 title: Complete remaining M5 workload and soak qualification
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:41:46.847487Z'
+updated_at: '2026-07-27T18:42:00.257492Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -233,5 +233,10 @@ author: oompah
 created: 2026-07-27 18:41
 ---
 Verification: make fmt-check passed, make lint passed (compliance: all checks passed), make test-m5-qualification passed (4 Python + 47 bench + 3 core + 2 coordinator = 56 tests, all green). Branch pushed to origin/EXOCOMP-125 at commit e36e483. All 8 M5 milestone acceptance criteria now checked in plans/milestone-5-performance.md.
+---
+author: oompah
+created: 2026-07-27 18:41
+---
+Completion: EXOCOMP-125 delivered all M5-CRIT-3 through M5-CRIT-6 workloads and evidence. Commits 1ff41fe through e36e483 on branch EXOCOMP-125: (1) llama crash/restart benchmark with PID retargeting and restart_ms/diagnostics_available metrics; (2) coordinator mixed polling with healthy/slow/unreachable node mixtures and mailbox growth gate; (3) M4 recovery observation-to-verification latency under concurrent inference load with safety gate; (4) 2-hour bounded soak with slope/window analysis for RSS, processes, mailboxes, FDs, task/goal history; (5) harness validation evidence (amd64 summary.json + samples.jsonl.xz showing all 7 new gates pass); (6) arm64 equivalence README; (7) milestone M5-CRIT-3 through M5-CRIT-6 checked off. All repo gates pass (56 tests, fmt, lint). Ready for merge review.
 ---
 <!-- COMMENTS:END -->
