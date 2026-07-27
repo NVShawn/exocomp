@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-125
 type: task
-status: In Progress
+status: In Review
 priority: 1
 title: Complete remaining M5 workload and soak qualification
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:42:37.317279Z'
+updated_at: '2026-07-27T18:43:02.716915Z'
 work_branch: null
 target_branch: null
 review_url: null
