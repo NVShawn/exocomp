@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:08:02.928216Z'
+updated_at: '2026-07-27T18:14:21.940698Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -178,5 +178,10 @@ author: oompah
 created: 2026-07-27 18:08
 ---
 Qualification restart: mixed polling on slow arm64 QEMU exposed that the qualification Registry's 1 ms due interval could re-enqueue completed nodes before a measured cycle drained. Commit 3bb10793afa60645b8dcc0cccd43d4e890b72483 defines each cycle explicitly with make_all_due/1, uses a 60 s registry interval, and gives orchestration (not performance) a 2 s deadline; local and emulated-arm focused M5 suites pass. Fresh clean exact-commit runs are active: amd64 PID 2934548 at /var/lib/exocomp-qualification/m5-3bb10793afa6-amd64 and arm64 PID 792868 at /var/lib/exocomp-qualification/m5-3bb10793afa6-arm64.
+---
+author: oompah
+created: 2026-07-27 18:14
+---
+Live qualification progress: exact-3bb1079 amd64 passed focused gates, artifact build, signed bundle, network-isolated install/readiness, llama crash/restart, mixed polling, and loaded recovery, then entered its 7200-second soak. Authenticated RPC into both shipped VMs confirms runtime probe state has no in-heap samples and is streaming to private spool files (node 107692 bytes, coordinator 171239 bytes at observation). arm64 remains healthy in the slower focused gate phase.
 ---
 <!-- COMMENTS:END -->
