@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:59:50.110945Z'
+updated_at: '2026-07-27T16:59:57.725373Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -226,5 +226,10 @@ author: oompah
 created: 2026-07-27 16:59
 ---
 Implementation: Hardened the committed A2A recovery path before review. Node recovery now derives its allow-list only from trusted node configuration, fails closed when no audit sink is configured, and correlates recovery episodes to A2A workflow context. Coordinator authorization now checks singular node_id recovery targets, forwards only target/evidence, propagates correlation, and returns nested node artifacts/history. Both routers pass task context to dispatchers. Added a full coordinator router -> DiagnosticClient -> node router acceptance test proving authenticated dispatch, one restricted execution, verification, nested artifacts/history, and audit correlation.
+---
+author: oompah
+created: 2026-07-27 16:59
+---
+Verification: Focused recovery suite passes: node 20/20 and coordinator 18/18, including the new authenticated coordinator-to-node A2A acceptance test. Forced compilation passes with warnings-as-errors. Both test releases build and smoke-start successfully. The canonical make test host-side builder/docs checks passed, but its container phase is unavailable because this sandbox blocks rootless Podman clone/runtime writes. Fallback Elixir 1.20.2/OTP 27 full run reached 1,366/1,368 passing; the only failure is the pre-existing X509 CSR test under OTP 27, while the project gate is pinned to OTP 28. git diff --check passes.
 ---
 <!-- COMMENTS:END -->
