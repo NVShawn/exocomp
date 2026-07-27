@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:45:09.134480Z'
+updated_at: '2026-07-27T16:46:11.038941Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -216,5 +216,10 @@ author: oompah
 created: 2026-07-27 16:45
 ---
 Understanding: The recovery workflow implementation is already committed as d3c4488 and prior verification reports 858 passing tests plus successful release builds. This run will inspect the branch and commit, revalidate the relevant quality state, ensure the branch is pushed, create the missing PR to main required by the orchestrator, and then close EXOCOMP-126.
+---
+author: oompah
+created: 2026-07-27 16:46
+---
+Discovery: Branch review confirmed the missing PR, but also found a release-blocking invariant violation in d3c4488: ServiceRecover accepts an A2A-supplied allow_list and ClusterRecover forwards it, allowing a caller to broaden the installation-time service allow-list. ActionCatalog documents that this list must come from installation-time configuration. The new handler also defaults audit to a no-op and refresh/verify to unconfigured errors, so I am tracing existing production collectors/audit wiring before opening the PR.
 ---
 <!-- COMMENTS:END -->
