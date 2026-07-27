@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T05:36:02.206876Z'
+updated_at: '2026-07-27T06:06:46.845812Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: f9c8c5f6-d8c0-41ac-b031-f78c787ba6e1
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 671610
-  total_output_tokens: 357226
+  total_input_tokens: 671909
+  total_output_tokens: 366885
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 671610
-      output_tokens: 357226
+      input_tokens: 671909
+      output_tokens: 366885
       cost_usd: 0.0
   runs:
   - profile: default
@@ -113,6 +113,12 @@ oompah.task_costs:
     output_tokens: 4964
     cost_usd: 0.0
     recorded_at: '2026-07-27T05:01:25.608381+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 299
+    output_tokens: 9659
+    cost_usd: 0.0
+    recorded_at: '2026-07-27T06:06:44.595353+00:00'
 ---
 ## Summary
 
@@ -1240,5 +1246,20 @@ author: oompah
 created: 2026-07-27 05:36
 ---
 Verification progress: rc.22 qualification active on both dedicated systemd guests from empty evidence roots. amd64: all 9 exact-tag repository/release gates passed (fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, test, test-release-matrix, test-m5-qualification); Phase 1 (Build 1/2) active at 05:35Z. arm64: pulling containers for lint gate under full-system QEMU. Changes from rc.21→rc.22: M5 baseline inventory assertion updated to 44 (atomically with new rc.22 baselines) to prevent release-check failure. rc.21 was rejected by its exact-tag release-check gate (count 40≠42). No candidate failure in rc.22 so far.
+---
+author: oompah
+created: 2026-07-27 06:06
+---
+Agent stalled 10 time(s) (3609s (9958 tokens)). Escalating from 'standard' to 'deep'. Retrying in 300s (attempt #10)
+---
+author: oompah
+created: 2026-07-27 06:06
+---
+Run #10 [attempt=10, profile=standard, role=standard -> Claude/default]
+- Turns: 289, Tool calls: 197
+- Tokens: 299 in / 9.7K out [10.0K total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 9s
+- Log: EXOCOMP-123__20260727T050637Z.jsonl
 ---
 <!-- COMMENTS:END -->
