@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T16:19:39.391358Z'
+updated_at: '2026-07-27T16:36:47.806322Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -103,5 +103,10 @@ author: oompah
 created: 2026-07-27 16:19
 ---
 Understanding (DevOps): implement and test the remaining shipped-artifact M5 qualification workloads for llama crash/restart, mixed coordinator polling, recovery observation-to-verification latency under inference load, and leak/soak analysis; integrate reproducible Make targets/reporting, qualify only architectures supported by real evidence, update M5 criteria, then commit/push and close or leave a precise focus handoff if external hardware remains.
+---
+author: oompah
+created: 2026-07-27 16:36
+---
+Discovery (DevOps): the shipped full gate already has authenticated OTP release RPC and separately owned llama-server, so the missing workloads can run inside the installed artifacts without linking source-tree coordinator code into the harness. Added opt-in runtime probes in exocomp_core, isolated real Registry/HealthPoller and RemediationLifecycle qualification probes in the coordinator, and pure harness-side soak analysis. Focused pinned-builder compile/tests pass (55 bench, 3 core probe, 2 coordinator probe).
 ---
 <!-- COMMENTS:END -->
