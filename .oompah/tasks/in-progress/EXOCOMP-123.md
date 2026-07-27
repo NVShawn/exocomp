@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T03:56:04.127231Z'
+updated_at: '2026-07-27T03:59:07.704615Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1184,5 +1184,10 @@ author: oompah
 created: 2026-07-27 03:56
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-27 03:59
+---
+Understanding (continuation attempt #8): Resuming rc.20 qualification at commit c9458ea. Both VMs are at the correct HEAD (c9458eabd202e5771c71a5fae297921ac60eb81b). The rc20-pretag runs on both VMs failed because pretag-rc20.sh calls plain 'make' without CONTAINER_ENGINE=podman — both VMs have podman but not docker. The fix is to export CONTAINER_ENGINE=podman in the pretag launcher. Previous rc.19 qualification scripts correctly did this (qualify-amd64-rc19.sh has CONTAINER_ENGINE=podman). I will create a fixed pretag launcher, run 3 consecutive test passes on both VMs, sign v0.1.0-rc.20, and launch full qualification from empty evidence roots.
 ---
 <!-- COMMENTS:END -->
