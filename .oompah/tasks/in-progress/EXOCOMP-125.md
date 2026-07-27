@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T17:06:38.865141Z'
+updated_at: '2026-07-27T17:19:28.478867Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -128,5 +128,20 @@ author: oompah
 created: 2026-07-27 17:06
 ---
 Qualification update: f92f02c passed amd64 offline install/readiness, then failed closed at the first sibling-release RPC because bench_harness inherited RELEASE_* launcher variables into the coordinator CLI; the installed coordinator's own RPC was verified healthy. Commit e2afa4b clears all caller release launcher variables while supplying only the protected sibling cookie, with a focused regression test (47 bench + probe suites pass). Fresh exact-e2afa4b runs are active on both guests.
+---
+author: oompah
+created: 2026-07-27 17:19
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 293
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 2s
+- Log: EXOCOMP-125__20260727T161926Z.jsonl
+---
+author: oompah
+created: 2026-07-27 17:19
+---
+Agent stalled 1 time(s) (3602s). Escalating from 'standard' to 'deep'. Retrying in 10s (attempt #1)
 ---
 <!-- COMMENTS:END -->
