@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-117
 type: epic
-status: Needs CI Fix
+status: In Progress
 priority: 0
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-27T11:09:32.174389Z'
+updated_at: '2026-07-27T11:09:56.499842Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -85,5 +85,10 @@ author: oompah
 created: 2026-07-27 11:09
 ---
 Implementation: Fixed ModuleNotFoundError for 'tomllib' in tests/test_m5_qualification.py. Added a try/except import at the top of the file: when tomllib is unavailable (Python <3.11), a minimal pure-Python TOML subset parser is provided as a class-based fallback. The fallback handles: (1) comment stripping, (2) [section.subsection] headers, (3) string, int, float, and bool values. No external dependencies added. All 28 Python tests pass locally.
+---
+author: oompah
+created: 2026-07-27 11:09
+---
+Verification: All 28 Python tests pass locally (python3 -m unittest discover -s tests -v). Fallback TOML parser verified against real baseline files — all values parsed correctly including floats, strings, and nested sections. Fix pushed to epic-EXOCOMP-117.
 ---
 <!-- COMMENTS:END -->
