@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:16:06.327227Z'
+updated_at: '2026-07-27T16:18:28.534619Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -46,5 +46,10 @@ author: oompah
 created: 2026-07-27 16:16
 ---
 Understanding: duplicate screening only. I will search tracker/docs for existing failed-service recovery and authenticated A2A workflow work, then inspect each plausible task's full description/comments before deciding whether EXOCOMP-126 duplicates prior scope. I will not implement code during this focus.
+---
+author: oompah
+created: 2026-07-27 16:18
+---
+Discovery: duplicate screening found no confirmed duplicate. Closest full records reviewed were EXOCOMP-27, 30, 31, 32, 34, 115, 123, 124, and parent EXOCOMP-4. EXOCOMP-31/115 delivered the direct FailedService engine; EXOCOMP-27 provides generic remediation lifecycle infrastructure; EXOCOMP-32 is the approval-required active/degraded flow; EXOCOMP-34 and 123 own milestone/release verification. EXOCOMP-124 explicitly created EXOCOMP-126 after finding M4-CRIT-2 still open. Current source corroborates the gap: the node A2A codec/dispatcher exposes only diagnose/propose skills, the coordinator codec/dispatcher/card intentionally excludes remediation, and m4_acceptance_test.exs calls FailedService.recover directly.
 ---
 <!-- COMMENTS:END -->
