@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T08:29:52.424705Z'
+updated_at: '2026-07-27T09:04:45.558546Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1361,5 +1361,16 @@ author: oompah
 created: 2026-07-27 08:29
 ---
 Discovery (continuation attempt #12): rc.23 qualification state confirmed. amd64: COMPLETE (QUALIFICATION_STATUS=pass, all 44 checks passed including repo gates, builds, bundles, live preflight, operational, M5 short/full, lifecycle). arm64: actively progressing on PID 639696 started 06:36Z. All 8 of 9 repo gates complete; test-m5-qualification started at 08:26Z (currently pulling container for focused M5 tests). Subsequent phases (2 builds ~45min each, bundle assembly, live, M5 full ~30min, lifecycle ~60min) will run automatically. arm64 qualification-status.txt will appear when all phases complete. Monitoring for completion.
+---
+author: oompah
+created: 2026-07-27 09:04
+---
+Verification progress (attempt #12): v0.1.0-rc.23 qualification actively running on both dedicated systemd guests.
+
+amd64 (192.168.122.136): COMPLETE — all 44 checks passed including repo gates (fmt/lint/release-check/packaging/installer/bundle/test/matrix/m5-qualification), double-build reproducibility, signed bundle (x2 byte-identical), strict no-network install, production PKI/enrollment/renewal, operational recovery/hardening, short and full shipped M5, and lifecycle (upgrade/rollback/backup/restore/uninstall). QUALIFICATION_STATUS=pass confirmed; all lifecycle transcripts end with [PASS].
+
+arm64 (192.168.122.171): Actively progressing under full-system QEMU (PID 639696, started 06:36Z). Current status at 09:03Z: all 9 repository gates passed; Build 1 PASS (08:28Z); Build 2 PASS + reproducibility PASS; bench_harness PASS (09:01Z); Phase 5 (bundle assembly) started 09:03Z. Remaining: bundle x2, live preflight, operational, M5 short/full, lifecycle. Estimated completion in 4-8 hours.
+
+Background finalization script (PID 1869233) is running, polling every 5 minutes. On arm64 QUALIFICATION_STATUS=pass it will: run scripts/qualify-rc23-evidence.sh, git commit, git push, and write docs/release-evidence/v0.1.0-rc.23/READY_TO_CLOSE. The script has been improved with a cleanup trap for FINALIZATION_FAILED marking. Candidate rc.23 at 902bee1 is unchanged; no rejected rc.3–rc.22 results are reused.
 ---
 <!-- COMMENTS:END -->
