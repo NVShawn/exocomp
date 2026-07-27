@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T03:48:31.520973Z'
+updated_at: '2026-07-27T03:50:55.827917Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1159,5 +1159,20 @@ author: oompah
 created: 2026-07-27 03:48
 ---
 Implementation: commit c9458ea moves the fake TCP llama workload suite out of ExUnit's async pool, matching the repository's other process/network-sensitive bench tests, and adds invariant amd64/arm64 rc.20 M5 baseline identities. Host structural M5 tests pass; container-backed host gates remain unavailable only because the rootless Podman runtime directory is read-only. Full amd64 and arm64 guest pretag gates will run before any rc.20 tag is signed.
+---
+author: oompah
+created: 2026-07-27 03:50
+---
+Run #8 [attempt=8, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 237
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 47s
+- Log: EXOCOMP-123__20260727T025008Z.jsonl
+---
+author: oompah
+created: 2026-07-27 03:50
+---
+Agent stalled 8 time(s) (3647s). Escalating from 'standard' to 'deep'. Retrying in 300s (attempt #8)
 ---
 <!-- COMMENTS:END -->
