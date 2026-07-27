@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T10:44:38.023136Z'
+updated_at: '2026-07-27T10:45:34.813014Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1485,5 +1485,10 @@ author: oompah
 created: 2026-07-27 10:44
 ---
 Understanding (continuation attempt #14): Resuming exact signed v0.1.0-rc.23 qualification at 902bee1. amd64 has a complete 44-check passing record; arm64 passed all repository/build/bundle/live/operational checks and shipped M5 short, with full M5 active when the prior run ended. I will reconcile the guest, finalizer, repository, and evidence states, complete arm64 full M5 and lifecycle, audit and sign the combined index, commit and push it, and close only after every M6-CRIT requirement passes.
+---
+author: oompah
+created: 2026-07-27 10:45
+---
+Discovery (continuation attempt #14): rc.23 remains healthy. amd64 is complete with QUALIFICATION_STATUS=pass. arm64 is actively running the authoritative shipped full M5 gate under full-system QEMU: qualify PID 639696, bench_harness and pinned b10107 no-OpenMP llama-server are active, and no failure/status marker exists. The previous background finalizer ended when its parent run was terminated and left neither repository evidence nor a failure marker; I will finish monitoring and finalize synchronously after arm64 passes.
 ---
 <!-- COMMENTS:END -->
