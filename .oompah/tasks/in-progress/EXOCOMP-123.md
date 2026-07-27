@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T10:24:04.551142Z'
+updated_at: '2026-07-27T10:39:11.848624Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: 8d949ab9-d29b-48b3-a8bc-849eed12cc5a
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 672151
-  total_output_tokens: 374728
+  total_input_tokens: 672492
+  total_output_tokens: 382906
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 672151
-      output_tokens: 374728
+      input_tokens: 672492
+      output_tokens: 382906
       cost_usd: 0.0
   runs:
   - profile: default
@@ -125,6 +125,12 @@ oompah.task_costs:
     output_tokens: 7843
     cost_usd: 0.0
     recorded_at: '2026-07-27T09:28:20.123037+00:00'
+  - profile: standard
+    model: unknown
+    input_tokens: 341
+    output_tokens: 8178
+    cost_usd: 0.0
+    recorded_at: '2026-07-27T10:39:08.858088+00:00'
 ---
 ## Summary
 
@@ -1449,5 +1455,20 @@ amd64 (192.168.122.136): COMPLETE — all 44 checks passed (QUALIFICATION_STATUS
 arm64 (192.168.122.171): Active under full-system QEMU (started 06:36Z). All 9 repository gates passed; reproducible double-build and double-bundle PASS; prelive, operational transcripts PASS; bench-short PASS (inference_timeout_ms=600000, CPU/RAM gates pass). Phase 9 (M5 bench full) actively running since 09:49Z — bench_harness BEAM at 9:25 CPU-min/28.5%CPU, llama-server at 225 CPU-min (7 CPUs averaged). Expected bench-full completion ~10:50Z, lifecycle ~11:15Z, task close by finalizer ~11:35Z UTC.
 
 Background finalizer (PID 1869233) running and polling every 5 minutes; will autonomously commit evidence, push, and close when arm64 qualification-status=pass.
+---
+author: oompah
+created: 2026-07-27 10:39
+---
+Agent stalled 14 time(s) (3942s (8519 tokens)). Escalating from 'standard' to 'deep'. Retrying in 300s (attempt #14)
+---
+author: oompah
+created: 2026-07-27 10:39
+---
+Run #14 [attempt=14, profile=standard, role=standard -> Claude/default]
+- Turns: 323, Tool calls: 181
+- Tokens: 341 in / 8.2K out [8.5K total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 5m 42s
+- Log: EXOCOMP-123__20260727T093328Z.jsonl
 ---
 <!-- COMMENTS:END -->
