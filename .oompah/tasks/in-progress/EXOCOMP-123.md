@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T11:02:10.185392Z'
+updated_at: '2026-07-27T11:02:17.742198Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1495,5 +1495,10 @@ author: oompah
 created: 2026-07-27 11:02
 ---
 Implementation: Collected the fresh rc.23 amd64 and arm64 guest records into docs/release-evidence/v0.1.0-rc.23/. The committed collector re-verified the signed tag/source identity, minisign bundle manifests, two-build and two-bundle reproducibility, no-libgomp runtime closure, SBOM/provenance/licenses, all repository gates, live/operational/lifecycle markers, and short/full shipped M5 results. It losslessly compressed the large sample streams, generated the PASS/publication-ready qualification result and README, and created an SSH-signed evidence index covering 182 payload files.
+---
+author: oompah
+created: 2026-07-27 11:02
+---
+Verification: exact signed v0.1.0-rc.23 (902bee1a) passed on amd64 KVM and arm64 full-system QEMU. Both records include 9/9 required Make gates, two byte-identical release builds, two byte-identical signed complete bundles, strict no-network verification/install, production PKI/enrollment/renewal, multi-node diagnostics, approved failed-service recovery, hardening, backup/restore, upgrade/automatic rollback, default+purge uninstall, and protected-state preservation. Full M5 passed: amd64 CPU 0.181% / RAM 4.090%; arm64 CPU 1.560% / RAM 4.073% (5% ceilings). All 184 collected files pass the signed SHA-256 index; SSH signature verification, xz integrity, JSON validation, git diff check, and secret scan pass.
 ---
 <!-- COMMENTS:END -->
