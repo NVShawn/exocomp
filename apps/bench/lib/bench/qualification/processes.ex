@@ -247,7 +247,7 @@ defmodule Bench.Qualification.Processes do
       case System.cmd(
              executable,
              ["rpc", RPC.frame_expression(expression)],
-             env: [{"RELEASE_COOKIE", cookie}],
+             env: RPC.release_environment(cookie),
              stderr_to_stdout: true
            ) do
         {output, 0} ->

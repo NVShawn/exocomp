@@ -30,4 +30,26 @@ defmodule Bench.Qualification.RPCTest do
     File.write!(path, "RELEASE_COOKIE=one\nRELEASE_COOKIE=two\n")
     assert {:error, {:invalid_release_cookie, ^path}} = RPC.read_cookie(path)
   end
+
+  test "isolates a sibling release CLI from the harness launcher environment" do
+    environment = RPC.release_environment("sibling-cookie")
+
+    assert {"RELEASE_COOKIE", "sibling-cookie"} in environment
+
+    for key <- ~w(
+      RELEASE_BOOT_SCRIPT
+      RELEASE_COMMAND
+      RELEASE_DISTRIBUTION
+      RELEASE_LIB
+      RELEASE_MODE
+      RELEASE_NAME
+      RELEASE_NODE
+      RELEASE_ROOT
+      RELEASE_SYS_CONFIG
+      RELEASE_VM_ARGS
+      RELEASE_VSN
+    ) do
+      assert {key, nil} in environment
+    end
+  end
 end

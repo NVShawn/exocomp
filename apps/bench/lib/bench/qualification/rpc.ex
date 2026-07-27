@@ -5,6 +5,23 @@ defmodule Bench.Qualification.RPC do
 
   @begin "EXOCOMP_BENCH_JSON_BEGIN"
   @finish "EXOCOMP_BENCH_JSON_END"
+  @release_environment_keys ~w(
+    RELEASE_BOOT_SCRIPT
+    RELEASE_BOOT_SCRIPT_CLEAN
+    RELEASE_COMMAND
+    RELEASE_DISTRIBUTION
+    RELEASE_LIB
+    RELEASE_MODE
+    RELEASE_NAME
+    RELEASE_NODE
+    RELEASE_PROG
+    RELEASE_REMOTE_VM_ARGS
+    RELEASE_ROOT
+    RELEASE_SYS_CONFIG
+    RELEASE_TMP
+    RELEASE_VM_ARGS
+    RELEASE_VSN
+  )
 
   @doc "Wraps an Elixir expression so release RPC emits one framed JSON value."
   @spec frame_expression(String.t()) :: String.t()
@@ -41,6 +58,18 @@ defmodule Bench.Qualification.RPC do
       values when is_list(values) -> {:error, {:invalid_release_cookie, path}}
       {:error, reason} -> {:error, {:release_cookie_read_failed, path, reason}}
     end
+  end
+
+  @doc """
+  Builds an environment overlay for invoking a sibling OTP release.
+
+  An OTP release exports its own `RELEASE_*` launcher variables. They must be
+  removed before starting another release's CLI or the sibling command can
+  target the caller's node, root, and VM arguments.
+  """
+  @spec release_environment(String.t()) :: [{String.t(), String.t() | nil}]
+  def release_environment(cookie) when is_binary(cookie) and cookie != "" do
+    Enum.map(@release_environment_keys, &{&1, nil}) ++ [{"RELEASE_COOKIE", cookie}]
   end
 
   defp cookie_values(contents) do
