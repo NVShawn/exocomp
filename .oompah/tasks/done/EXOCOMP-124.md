@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-27T16:07:00.355913Z'
-updated_at: '2026-07-27T16:09:57.497506Z'
+updated_at: '2026-07-27T16:10:00.385455Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -59,5 +59,10 @@ author: oompah
 created: 2026-07-27 16:09
 ---
 Audited all 48 M1-M6 acceptance criteria against code, tests, CI, and signed rc.23 qualification evidence on main. Marked 43 complete. Left M4-CRIT-2 and M5-CRIT-3 through M5-CRIT-6 unchecked because main lacks the complete A2A recovery path and the specified restart/mixed-node/recovery/soak benchmark evidence. Filed EXOCOMP-126 and EXOCOMP-125 for those gaps. make check-links and make compliance-check pass.
+---
+author: oompah
+created: 2026-07-27 16:10
+---
+Audited all 48 milestone acceptance criteria against main and pushed fa241b25. Checked 43 completed criteria; left M4-CRIT-2 and M5-CRIT-3 through M5-CRIT-6 open with follow-ups EXOCOMP-126 and EXOCOMP-125. Documentation link and compliance gates pass.
 ---
 <!-- COMMENTS:END -->
