@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T00:38:56.207481Z'
+updated_at: '2026-07-27T00:50:13.483813Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1048,5 +1048,10 @@ author: oompah
 created: 2026-07-27 00:38
 ---
 Understanding (continuation attempt #5): Resuming exact signed v0.1.0-rc.18 qualification at 28f8dc35. amd64 has a complete 44-check passing record. arm64 was restarted at 23:23 UTC after fixing the OpenMP runtime input and was at ~24% through test-installer. The arm64 run should now be significantly further along or complete. I will check guest state, advance or complete the arm64 matrix, assemble signed indexed evidence, commit and push it, then close only if every M6-CRIT requirement passes.
+---
+author: oompah
+created: 2026-07-27 00:50
+---
+Discovery (continuation attempt #5): Confirmed rc.18 arm64 qualification state. The clean rc18 run (started 23:26 UTC) completed all 9 repo gates (fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, test, test-release-matrix, test-m5-qualification) then failed at Phase 1 (make build-arm64) because package-releases.sh ran git without the safe.directory override in a context where it wasn't effective. Git now works correctly. Wrote arm64 rc18 continuation script that resumes from Phase 1 (Build 1/2) through Phase 10 (Lifecycle). amd64 evidence is fully complete (44 checks, qualification-status=pass). Launching arm64 continuation now.
 ---
 <!-- COMMENTS:END -->
