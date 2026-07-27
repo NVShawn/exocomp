@@ -54,6 +54,48 @@ defmodule Exocomp.Node.ConfigTest do
 
       assert cfg.listen.host == "127.0.0.1"
       assert cfg.listen.port == 4433
+      assert cfg.allowed_services == []
+      assert cfg.service_health_checks == %{}
+    end
+
+    test "loads allow-listed recovery targets with loopback application health checks" do
+      path =
+        write_config(%{
+          "actions" => %{
+            "allow_list" => ["fixture.service"],
+            "health_checks" => %{"fixture.service" => "http://127.0.0.1:8877/health"}
+          }
+        })
+
+      assert {:ok, config} = Config.load(path)
+      assert config.allowed_services == ["fixture.service"]
+
+      assert config.service_health_checks == %{
+               "fixture.service" => "http://127.0.0.1:8877/health"
+             }
+    end
+
+    test "rejects health endpoints that are remote or not allow-listed" do
+      remote =
+        write_config(%{
+          "actions" => %{
+            "allow_list" => ["fixture.service"],
+            "health_checks" => %{"fixture.service" => "https://example.com/health"}
+          }
+        })
+
+      assert {:error, {:type_errors, ["actions.health_checks"]}} = Config.load(remote)
+
+      unlisted =
+        write_config(%{
+          "actions" => %{
+            "allow_list" => [],
+            "health_checks" => %{"fixture.service" => "http://127.0.0.1:8877/health"}
+          }
+        })
+
+      assert {:error, {:health_check_not_allow_listed, ["fixture.service"]}} =
+               Config.load(unlisted)
     end
   end
 
@@ -141,5 +183,24 @@ defmodule Exocomp.Node.ConfigTest do
     test "Exocomp.Node.Redact.redact_value/2 passes through non-sensitive fields" do
       assert Exocomp.Node.Redact.redact_value("node_id", "my-node") == "my-node"
     end
+  end
+
+  defp write_config(extra) do
+    base =
+      @fixtures_dir
+      |> Path.join("config_valid.json")
+      |> File.read!()
+      |> Jason.decode!()
+      |> Map.merge(extra)
+
+    path =
+      Path.join(
+        System.tmp_dir!(),
+        "node_config_#{System.unique_integer([:positive])}.json"
+      )
+
+    File.write!(path, Jason.encode!(base))
+    on_exit(fn -> File.rm(path) end)
+    path
   end
 end

@@ -25,6 +25,7 @@ defmodule Exocomp.Node.Application do
       {ExecutorLock, name: ExecutorLock},
       Exocomp.Node.TaskRegistry,
       Exocomp.Node.Safety.ReplayLedger,
+      Exocomp.Node.Recovery.AuditLog,
       Exocomp.Node.VacuumState
       | llama_server_children()
     ] ++ listener_children()

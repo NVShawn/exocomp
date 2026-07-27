@@ -298,8 +298,10 @@ defmodule Exocomp.Node.Skills.ServiceRecoverTest do
     end
   end
 
-  test "fails closed when no durable audit callback is configured" do
-    Application.delete_env(:exocomp_node, :service_recover_audit_fun)
+  test "fails closed when the durable audit sink is unavailable" do
+    Application.put_env(:exocomp_node, :service_recover_audit_fun, fn _ ->
+      {:error, :audit_sink_not_configured}
+    end)
 
     assert {:error, {:recovery_failed, {:audit_unavailable, :audit_sink_not_configured}}} =
              ServiceRecover.execute(failed_params(), %{})

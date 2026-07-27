@@ -16,3 +16,12 @@ replay_ledger_path =
   end
 
 config :exocomp_node, :replay_ledger_path, replay_ledger_path
+
+recovery_audit_path =
+  if config_env() == :prod do
+    "/var/lib/exocomp-node/recovery-audit.jsonl"
+  else
+    Path.join(System.tmp_dir!(), "exocomp_recovery_audit_#{config_env()}.jsonl")
+  end
+
+config :exocomp_node, :recovery_audit_path, recovery_audit_path

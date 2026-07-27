@@ -271,7 +271,12 @@ defmodule Bench.Qualification.Processes do
     coordinator_marker = marker_root <> "-coordinator.ready"
     node_marker = marker_root <> "-node.ready"
 
-    temporary_paths = [node_marker, coordinator_marker, node_marker <> ".dets"]
+    temporary_paths = [
+      node_marker,
+      coordinator_marker,
+      node_marker <> ".dets",
+      node_marker <> ".audit.jsonl"
+    ]
 
     result =
       case start_direct_release(
@@ -502,6 +507,11 @@ defmodule Bench.Qualification.Processes do
       :exocomp_node,
       :replay_ledger_path,
       System.fetch_env!("BENCH_READY_FILE") <> ".dets"
+    )
+    Application.put_env(
+      :exocomp_node,
+      :recovery_audit_path,
+      System.fetch_env!("BENCH_READY_FILE") <> ".audit.jsonl"
     )
     case Application.ensure_all_started(:exocomp_node) do
       {:ok, _} ->

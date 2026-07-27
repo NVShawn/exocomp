@@ -16,6 +16,24 @@ sudo visudo -c -f /etc/sudoers.d/exocomp-node
 sudo -l -U exocomp-node
 ```
 
+Every automatically recoverable service also needs an operator-defined
+loopback application health endpoint. The node refuses to report recovery
+success from systemd state alone:
+
+```json
+{
+  "actions": {
+    "allow_list": ["example.service"],
+    "health_checks": {
+      "example.service": "http://127.0.0.1:8080/health"
+    }
+  }
+}
+```
+
+Only `http` endpoints on `127.0.0.1`, `localhost`, or `::1` are accepted.
+Reload or restart the node after editing its configuration.
+
 An empty recovery allow-list must contain no `systemctl restart` privilege.
 The only cleanup privilege is the installed, size-bounded journal vacuum
 command. Never grant a shell, arbitrary path deletion, generic `systemctl`, or

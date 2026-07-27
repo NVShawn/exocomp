@@ -19,6 +19,12 @@ defmodule Exocomp.Node.Config do
     "listen": {
       "host": "0.0.0.0",
       "port": 4433
+    },
+    "actions": {
+      "allow_list": ["example.service"],
+      "health_checks": {
+        "example.service": "http://127.0.0.1:8080/health"
+      }
     }
   }
   ```
@@ -83,13 +89,15 @@ defmodule Exocomp.Node.Config do
   end
 
   @enforce_keys [:version, :node_id, :tls, :listen]
-  defstruct [:version, :node_id, :tls, :listen]
+  defstruct [:version, :node_id, :tls, :listen, allowed_services: [], service_health_checks: %{}]
 
   @type t :: %__MODULE__{
           version: pos_integer(),
           node_id: String.t(),
           tls: TLS.t(),
-          listen: Listen.t()
+          listen: Listen.t(),
+          allowed_services: [String.t()],
+          service_health_checks: %{optional(String.t()) => String.t()}
         }
 
   # ── Public API ───────────────────────────────────────────────────────────────
@@ -116,7 +124,8 @@ defmodule Exocomp.Node.Config do
          :ok <- check_version(parsed),
          parsed <- apply_env_overrides(parsed),
          :ok <- validate_required_fields(parsed),
-         :ok <- validate_field_types(parsed) do
+         :ok <- validate_field_types(parsed),
+         :ok <- validate_actions(parsed) do
       {:ok, to_struct(parsed)}
     end
   end
@@ -273,6 +282,57 @@ defmodule Exocomp.Node.Config do
     end
   end
 
+  defp validate_actions(parsed) do
+    actions = Map.get(parsed, "actions", %{})
+
+    if is_map(actions) do
+      validate_action_values(
+        Map.get(actions, "allow_list", []),
+        Map.get(actions, "health_checks", %{})
+      )
+    else
+      {:error, {:type_errors, ["actions"]}}
+    end
+  end
+
+  defp validate_action_values(allow_list, health_checks) do
+    cond do
+      not (is_list(allow_list) and Enum.all?(allow_list, &valid_service?/1)) ->
+        {:error, {:type_errors, ["actions.allow_list"]}}
+
+      not (is_map(health_checks) and
+               Enum.all?(health_checks, fn {service, url} ->
+                 valid_service?(service) and valid_health_url?(url)
+               end)) ->
+        {:error, {:type_errors, ["actions.health_checks"]}}
+
+      Enum.any?(Map.keys(health_checks), &(&1 not in allow_list)) ->
+        {:error, {:health_check_not_allow_listed, Map.keys(health_checks) -- allow_list}}
+
+      true ->
+        :ok
+    end
+  end
+
+  defp valid_service?(service) when is_binary(service) do
+    Regex.match?(~r/\A[a-zA-Z0-9][a-zA-Z0-9_.@-]*\.service\z/, service)
+  end
+
+  defp valid_service?(_service), do: false
+
+  defp valid_health_url?(url) when is_binary(url) do
+    case URI.parse(url) do
+      %URI{scheme: "http", host: host, path: path}
+      when host in ["127.0.0.1", "localhost", "::1"] and is_binary(path) and path != "" ->
+        true
+
+      _ ->
+        false
+    end
+  end
+
+  defp valid_health_url?(_url), do: false
+
   defp check_type(errors, map, field, type_check, expected_type) do
     value = Map.get(map, field)
 
@@ -305,12 +365,14 @@ defmodule Exocomp.Node.Config do
 
   # ── Struct construction ──────────────────────────────────────────────────────
 
-  defp to_struct(%{
-         "version" => version,
-         "node_id" => node_id,
-         "tls" => tls,
-         "listen" => listen
-       }) do
+  defp to_struct(
+         %{
+           "version" => version,
+           "node_id" => node_id,
+           "tls" => tls,
+           "listen" => listen
+         } = parsed
+       ) do
     %__MODULE__{
       version: version,
       node_id: node_id,
@@ -322,7 +384,9 @@ defmodule Exocomp.Node.Config do
       listen: %Listen{
         host: listen["host"],
         port: listen["port"]
-      }
+      },
+      allowed_services: get_in(parsed, ["actions", "allow_list"]) || [],
+      service_health_checks: get_in(parsed, ["actions", "health_checks"]) || %{}
     }
   end
 end

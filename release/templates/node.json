@@ -30,7 +30,8 @@
   },
 
   "actions": {
-    "allow_list": []
+    "allow_list": [],
+    "health_checks": {}
   },
 
   "diagnostics": {

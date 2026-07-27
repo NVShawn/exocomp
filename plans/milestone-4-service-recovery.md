@@ -170,8 +170,14 @@ perspective.
 - [x] M4-CRIT-1: The fixture service supports reproducible active, failed,
       degraded, flapping, and restart-failure scenarios without touching
       non-fixture resources.
-- [ ] M4-CRIT-2: A failed fixture service is detected, diagnosed, restarted
+- [x] M4-CRIT-2: A failed fixture service is detected, diagnosed, restarted
       once, and verified healthy through a complete A2A workflow.
+      Evidence: `apps/exocomp_coordinator/test/integration/m4_a2a_recovery_test.exs`
+      enters through the authenticated coordinator router, crosses the
+      authenticated node A2A boundary, executes once, verifies stable health,
+      and returns the nested recovery artifact. Production defaults are
+      covered by
+      `apps/exocomp_node/test/exocomp/node/skills/service_recover_defaults_test.exs`.
 - [x] M4-CRIT-3: An active or degraded service cannot be restarted without a
       valid task-bound approval based on current preconditions.
 - [x] M4-CRIT-4: Duplicate, replayed, or concurrent recovery tasks cannot cause

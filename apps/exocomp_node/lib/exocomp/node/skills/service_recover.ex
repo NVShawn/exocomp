@@ -33,9 +33,12 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
 
   - `:allowed_services` — installation-time service allow-list. The A2A
     request cannot override this value.
-  - `:service_recover_audit_fun`   — `fn AuditEvent.t() -> :ok | {:error, term()} end`
-  - `:service_recover_refresh_fun` — `fn node_id, service -> {:ok, Evidence.t()} | {:error, term()} end`
-  - `:service_recover_verify_fun`  — `fn node_id, service -> {:ok, Evidence.t()} | {:error, term()} end`
+  - `:service_recover_audit_fun`   — durable audit callback (default:
+    `Exocomp.Node.Recovery.AuditLog.append/1`)
+  - `:service_recover_refresh_fun` — fresh evidence callback (default:
+    `Exocomp.Node.Recovery.ServiceEvidence.collect/2`)
+  - `:service_recover_verify_fun`  — verification callback (default:
+    `Exocomp.Node.Recovery.ServiceEvidence.collect/2`)
   - `:service_recover_executor`    — module or 3-arity function (default: `Exocomp.Node.Executor`)
   - `:service_recover_ledger`      — `ReplayLedger` server name (default: `Exocomp.Node.Safety.ReplayLedger`)
   """
@@ -43,7 +46,7 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
   @behaviour Exocomp.Node.Skills.Behaviour
 
   alias Exocomp.A2A.{Artifact, DataPart}
-  alias Exocomp.Node.Recovery.FailedService
+  alias Exocomp.Node.Recovery.{AuditLog, FailedService, ServiceEvidence}
   alias Exocomp.Recovery.Evidence
 
   @impl true
@@ -122,13 +125,21 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
 
   defp build_opts(task_id, correlation_id, node_id, allow_list) do
     audit_fun =
-      Application.get_env(:exocomp_node, :service_recover_audit_fun, &missing_audit/1)
+      Application.get_env(:exocomp_node, :service_recover_audit_fun, &AuditLog.append/1)
 
     refresh_fun =
-      Application.get_env(:exocomp_node, :service_recover_refresh_fun, &missing_evidence/2)
+      Application.get_env(
+        :exocomp_node,
+        :service_recover_refresh_fun,
+        &ServiceEvidence.collect/2
+      )
 
     verify_fun =
-      Application.get_env(:exocomp_node, :service_recover_verify_fun, &missing_evidence/2)
+      Application.get_env(
+        :exocomp_node,
+        :service_recover_verify_fun,
+        &ServiceEvidence.collect/2
+      )
 
     executor =
       Application.get_env(:exocomp_node, :service_recover_executor, Exocomp.Node.Executor)
@@ -149,7 +160,14 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
       refresh_fun: refresh_fun,
       verify_fun: verify_fun,
       executor: executor,
-      ledger: ledger
+      ledger: ledger,
+      wait_fun:
+        Application.get_env(:exocomp_node, :service_recover_wait_fun, fn ->
+          Process.sleep(1_000)
+        end),
+      verification_attempts:
+        Application.get_env(:exocomp_node, :service_recover_verification_attempts, 3),
+      stability_samples: Application.get_env(:exocomp_node, :service_recover_stability_samples, 2)
     ]
   end
 
@@ -158,11 +176,6 @@ defmodule Exocomp.Node.Skills.ServiceRecover do
   end
 
   defp context_value(_context, _key), do: nil
-
-  defp missing_audit(_event), do: {:error, :audit_sink_not_configured}
-
-  defp missing_evidence(_node_id, _service),
-    do: {:error, :evidence_collector_not_configured}
 
   # ---------------------------------------------------------------------------
   # Artifact construction

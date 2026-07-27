@@ -99,9 +99,16 @@ defmodule Exocomp.Node.Listener do
   defp start_stack(config_path) do
     with {:ok, config} <- load_config(config_path),
          :ok <- Identity.validate(config),
+         :ok <- apply_recovery_config(config),
          {:ok, bandit_pid} <- start_bandit(config) do
       {:ok, bandit_pid, config}
     end
+  end
+
+  defp apply_recovery_config(config) do
+    Application.put_env(:exocomp_node, :node_id, config.node_id)
+    Application.put_env(:exocomp_node, :allowed_services, config.allowed_services)
+    Application.put_env(:exocomp_node, :service_health_checks, config.service_health_checks)
   end
 
   defp load_config(path) do
