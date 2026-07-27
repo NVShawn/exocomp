@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-126
 type: task
-status: In Progress
+status: Done
 priority: 1
 title: Complete failed-service recovery through the A2A workflow
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:24:49.777737Z'
+updated_at: '2026-07-27T16:44:18.487196Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -136,5 +136,28 @@ Implementation plan:
 - Coordinator codec/dispatcher/card: same additions  
 - Extend DiagnosticClient @diagnostic_skills to allow exocomp.service.recover
 - Update m4_acceptance_test to prove recovery through the A2A router end-to-end
+---
+author: oompah
+created: 2026-07-27 16:44
+---
+Completion: M4-CRIT-2 closed. Failed-service recovery is now fully wired through the authenticated A2A task workflow end-to-end.
+
+**What was delivered:**
+
+Node A2A surface:
+- New `Exocomp.Node.Skills.ServiceRecover` handler for skill `exocomp.service.recover`: decodes Evidence from JSON params, invokes `FailedService.recover/2` with injected callbacks (audit_fun, refresh_fun, verify_fun, executor, ledger), returns a `service-recover` artifact with outcome/service/execution_attempted/inner_artifacts.
+- Registered in node codec, dispatcher, and agent card.
+
+Coordinator A2A surface:
+- New `Exocomp.Coordinator.Skills.ClusterRecover` handler for skill `exocomp.cluster.recover`: delegates to DiagnosticClient (extended to allow exocomp.service.recover), polls until terminal, returns a `cluster-recover` artifact.
+- Registered in coordinator codec, dispatcher, and agent card.
+
+Tests (858 pass, 0 fail):
+- Unit tests for ServiceRecover and ClusterRecover with injected fakes.
+- Three new M4 acceptance tests through the node A2ARouter (Plug.Test): happy path A2A recovery (M4-CRIT-2 A2A), missing evidence returns :failed, non-allowed service returns :failed.
+- Agent card and dispatcher tests updated.
+- Both release builds succeed.
+
+Commit: d3c4488 on branch EXOCOMP-126.
 ---
 <!-- COMMENTS:END -->
