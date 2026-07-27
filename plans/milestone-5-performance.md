@@ -153,9 +153,9 @@ hard gate fails.
 
 ## Acceptance Criteria
 
-- [ ] M5-CRIT-1: The pinned benchmark harness reproduces a run with complete
+- [x] M5-CRIT-1: The pinned benchmark harness reproduces a run with complete
       build, host, model, workload, and raw-sample metadata.
-- [ ] M5-CRIT-2: Idle node and coordinator control planes each remain below 5%
+- [x] M5-CRIT-2: Idle node and coordinator control planes each remain below 5%
       of one CPU core and 5% of host RAM on both reference architectures.
 - [ ] M5-CRIT-3: Model startup, RSS, inference latency, saturation, and restart
       results are reported separately and as part of total bundle usage.
@@ -165,8 +165,7 @@ hard gate fails.
       latency and preserve Milestone 4 safety behavior under load.
 - [ ] M5-CRIT-6: The soak workload finds no unbounded memory, process,
       mailbox, descriptor, or task-history growth.
-- [ ] M5-CRIT-7: Automated regression gates identify the exact failed metric
+- [x] M5-CRIT-7: Automated regression gates identify the exact failed metric
       and return non-zero.
-- [ ] M5-CRIT-8: Short CI benchmark and full release benchmark Make targets
+- [x] M5-CRIT-8: Short CI benchmark and full release benchmark Make targets
       pass or have documented hardware-only exceptions.
-

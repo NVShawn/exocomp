@@ -182,19 +182,18 @@ round trips and version negotiation.
 
 ## Acceptance Criteria
 
-- [ ] M1-CRIT-1: `make build`, `make test`, `make lint`, and `make fmt-check`
+- [x] M1-CRIT-1: `make build`, `make test`, `make lint`, and `make fmt-check`
       pass from a clean checkout using the pinned toolchain.
-- [ ] M1-CRIT-2: Both node and coordinator release skeletons build with ERTS
+- [x] M1-CRIT-2: Both node and coordinator release skeletons build with ERTS
       included, and the node release starts without development tooling.
-- [ ] M1-CRIT-3: An authenticated A2A 1.0 client retrieves the Agent Card and
+- [x] M1-CRIT-3: An authenticated A2A 1.0 client retrieves the Agent Card and
       receives a schema-valid system diagnostic artifact.
-- [ ] M1-CRIT-4: CPU, memory, disk, uptime, and allow-listed service
+- [x] M1-CRIT-4: CPU, memory, disk, uptime, and allow-listed service
       observations are unit-tested, use no shell, and return bounded structured
       failures.
-- [ ] M1-CRIT-5: llama.cpp timeout, invalid output, and process crashes cannot
+- [x] M1-CRIT-5: llama.cpp timeout, invalid output, and process crashes cannot
       produce an executable action or terminate the node agent.
-- [ ] M1-CRIT-6: Missing or invalid mTLS identity prevents the operational
+- [x] M1-CRIT-6: Missing or invalid mTLS identity prevents the operational
       listener from starting, and unauthenticated calls are rejected.
-- [ ] M1-CRIT-7: The end-to-end test proves the node agent makes no host state
+- [x] M1-CRIT-7: The end-to-end test proves the node agent makes no host state
       changes.
-

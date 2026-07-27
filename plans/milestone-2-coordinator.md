@@ -179,19 +179,18 @@ permissions.
 
 ## Acceptance Criteria
 
-- [ ] M2-CRIT-1: A versioned static inventory loads atomically, rejects
+- [x] M2-CRIT-1: A versioned static inventory loads atomically, rejects
       duplicate or invalid identities, and resolves configured DNS names.
-- [ ] M2-CRIT-2: The coordinator polls at least three nodes concurrently and
+- [x] M2-CRIT-2: The coordinator polls at least three nodes concurrently and
       accurately represents healthy, slow, stale, and unreachable states.
-- [ ] M2-CRIT-3: A new node enrolls with a node-bound one-time token and pinned
+- [x] M2-CRIT-3: A new node enrolls with a node-bound one-time token and pinned
       root, while replay, mismatch, expiry, and wrong-root cases fail.
-- [ ] M2-CRIT-4: A valid node renews its certificate without exporting its
+- [x] M2-CRIT-4: A valid node renews its certificate without exporting its
       private key or losing the old valid identity on interrupted installation.
-- [ ] M2-CRIT-5: An authenticated A2A caller requests a cluster diagnosis and
+- [x] M2-CRIT-5: An authenticated A2A caller requests a cluster diagnosis and
       receives correlated per-node results including explicit partial failures.
-- [ ] M2-CRIT-6: Coordinator restart reconstructs inventory and live state
+- [x] M2-CRIT-6: Coordinator restart reconstructs inventory and live state
       without a database, and durable audit events remain available.
-- [ ] M2-CRIT-7: No Milestone 2 path invokes a remediation executor.
-- [ ] M2-CRIT-8: All relevant Make quality gates and the multi-node integration
+- [x] M2-CRIT-7: No Milestone 2 path invokes a remediation executor.
+- [x] M2-CRIT-8: All relevant Make quality gates and the multi-node integration
       suite pass.
-

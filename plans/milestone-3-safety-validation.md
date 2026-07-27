@@ -189,20 +189,19 @@ or unknown data.
 
 ## Acceptance Criteria
 
-- [ ] M3-CRIT-1: All action proposals and evidence are schema-versioned,
+- [x] M3-CRIT-1: All action proposals and evidence are schema-versioned,
       bounded, and rejected when unknown, malformed, stale, or mismatched.
-- [ ] M3-CRIT-2: Policy tests prove deterministic least-impact ordering and
+- [x] M3-CRIT-2: Policy tests prove deterministic least-impact ordering and
       prevent escalation while a safer eligible action remains.
-- [ ] M3-CRIT-3: User and unknown data cannot be selected by any deletion
+- [x] M3-CRIT-3: User and unknown data cannot be selected by any deletion
       action, including with a valid approval.
-- [ ] M3-CRIT-4: Bounded system-log cleanup runs automatically only under
+- [x] M3-CRIT-4: Bounded system-log cleanup runs automatically only under
       validated disk pressure and cannot exceed installed limits.
-- [ ] M3-CRIT-5: Failed-service restart may be allowed automatically, while an
+- [x] M3-CRIT-5: Failed-service restart may be allowed automatically, while an
       active or degraded service produces `approval_required`.
-- [ ] M3-CRIT-6: Approval tampering, expiry, replay, binding mismatch, and
+- [x] M3-CRIT-6: Approval tampering, expiry, replay, binding mismatch, and
       changed preconditions all prevent execution.
-- [ ] M3-CRIT-7: The node runs unprivileged, uses exact sudoers rules and argv
+- [x] M3-CRIT-7: The node runs unprivileged, uses exact sudoers rules and argv
       execution, and exposes no arbitrary command or path.
-- [ ] M3-CRIT-8: Every state-changing test has a complete correlated audit
+- [x] M3-CRIT-8: Every state-changing test has a complete correlated audit
       trail and all relevant Make gates pass.
-

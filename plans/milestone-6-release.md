@@ -191,22 +191,21 @@ Failures block publication.
 
 ## Acceptance Criteria
 
-- [ ] M6-CRIT-1: Apache-2.0 project files, contribution/security policies, and
+- [x] M6-CRIT-1: Apache-2.0 project files, contribution/security policies, and
       compatible third-party/model notices are complete.
-- [ ] M6-CRIT-2: amd64 and arm64 OTP releases include ERTS and start on clean
+- [x] M6-CRIT-2: amd64 and arm64 OTP releases include ERTS and start on clean
       supported hosts without installed Elixir or Erlang.
-- [ ] M6-CRIT-3: Complete bundles install and qualify with network access
+- [x] M6-CRIT-3: Complete bundles install and qualify with network access
       disabled and all nested checksums verified.
-- [ ] M6-CRIT-4: Installers create hardened unprivileged services and only
+- [x] M6-CRIT-4: Installers create hardened unprivileged services and only
       exact configured privilege entries.
-- [ ] M6-CRIT-5: Upgrade failure rolls back to a healthy prior version without
+- [x] M6-CRIT-5: Upgrade failure rolls back to a healthy prior version without
       losing configuration, PKI, audit, or execution state.
-- [ ] M6-CRIT-6: Uninstall removes only Exocomp-owned system resources and
+- [x] M6-CRIT-6: Uninstall removes only Exocomp-owned system resources and
       never deletes user data.
-- [ ] M6-CRIT-7: User-facing guides have command-level validation against the
+- [x] M6-CRIT-7: User-facing guides have command-level validation against the
       shipped artifacts.
-- [ ] M6-CRIT-8: Every artifact has checksums, signature, SBOM, provenance,
+- [x] M6-CRIT-8: Every artifact has checksums, signature, SBOM, provenance,
       license inventory, and reproducible source/build identity.
-- [ ] M6-CRIT-9: Full clean-host qualification passes on amd64 and arm64 before
+- [x] M6-CRIT-9: Full clean-host qualification passes on amd64 and arm64 before
       publication.
-

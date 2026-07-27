@@ -167,21 +167,20 @@ perspective.
 
 ## Acceptance Criteria
 
-- [ ] M4-CRIT-1: The fixture service supports reproducible active, failed,
+- [x] M4-CRIT-1: The fixture service supports reproducible active, failed,
       degraded, flapping, and restart-failure scenarios without touching
       non-fixture resources.
 - [ ] M4-CRIT-2: A failed fixture service is detected, diagnosed, restarted
       once, and verified healthy through a complete A2A workflow.
-- [ ] M4-CRIT-3: An active or degraded service cannot be restarted without a
+- [x] M4-CRIT-3: An active or degraded service cannot be restarted without a
       valid task-bound approval based on current preconditions.
-- [ ] M4-CRIT-4: Duplicate, replayed, or concurrent recovery tasks cannot cause
+- [x] M4-CRIT-4: Duplicate, replayed, or concurrent recovery tasks cannot cause
       more than one execution.
-- [ ] M4-CRIT-5: Restart or verification failure enters cooldown and escalates
+- [x] M4-CRIT-5: Restart or verification failure enters cooldown and escalates
       without an autonomous retry loop.
-- [ ] M4-CRIT-6: Partition and process-restart fault tests reconcile action
+- [x] M4-CRIT-6: Partition and process-restart fault tests reconcile action
       outcome without blindly repeating the action.
-- [ ] M4-CRIT-7: The end-to-end audit reconstructs observation, proposal,
+- [x] M4-CRIT-7: The end-to-end audit reconstructs observation, proposal,
       validation, approval state, execution, verification, and outcome.
-- [ ] M4-CRIT-8: Tests prove no user data is modified or deleted and all
+- [x] M4-CRIT-8: Tests prove no user data is modified or deleted and all
       relevant Make gates pass.
-
