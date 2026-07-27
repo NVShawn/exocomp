@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T16:19:26.916421Z'
+updated_at: '2026-07-27T16:19:39.391358Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -98,5 +98,10 @@ author: oompah
 created: 2026-07-27 16:19
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-07-27 16:19
+---
+Understanding (DevOps): implement and test the remaining shipped-artifact M5 qualification workloads for llama crash/restart, mixed coordinator polling, recovery observation-to-verification latency under inference load, and leak/soak analysis; integrate reproducible Make targets/reporting, qualify only architectures supported by real evidence, update M5 criteria, then commit/push and close or leave a precise focus handoff if external hardware remains.
 ---
 <!-- COMMENTS:END -->
