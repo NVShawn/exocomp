@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: Done
+status: Merged
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -13,7 +13,7 @@ labels:
 - focus-complete:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-26T04:57:24.104051Z'
+updated_at: '2026-07-27T11:12:21.290867Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
