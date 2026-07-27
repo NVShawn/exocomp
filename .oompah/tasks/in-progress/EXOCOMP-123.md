@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T05:15:19.847412Z'
+updated_at: '2026-07-27T05:28:21.847279Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1230,5 +1230,10 @@ author: oompah
 created: 2026-07-27 05:15
 ---
 Understanding (continuation attempt #9): Resuming rc.20 qualification. amd64 rc.20 is COMPLETE with PASS (all phases 1-10 passed, full M5 at bench/summary.json, lifecycle, rollback, backup/restore, uninstall). arm64 rc.20 pretag FAILED: Bench.QualificationTest 'test uses the configured inference timeout for shipped workload requests' timed out at 2000ms on arm64 QEMU. Root cause: first httpc call triggers :pubkey_os_cacerts.get() → :pubkey_cert_records.decode_cert() lazy load via code_server.call, which takes >2000ms under full-system QEMU emulation. Fix: add :pubkey_os_cacerts.get() warmup to bench test_helper.exs after Application.ensure_all_started(:public_key). This preloads all transitive modules so subsequent httpc calls are fast. Plan: fix test_helper, add rc.21 M5 baselines, commit, sign rc.21, run 3x amd64 + 1x arm64 pretag, then launch both from empty roots.
+---
+author: oompah
+created: 2026-07-27 05:28
+---
+Implementation: commit 7bb6b06 adds :pubkey_os_cacerts.get() warmup to apps/bench/test/test_helper.exs. Under full-system arm64 QEMU, lazy code loading via code_server.call takes >2s, causing :httpc.ssl_verify_host_options/1 → :pubkey_os_cacerts.get/0 → :pubkey_cert_records.decode_cert/1 (code_server.call) to exceed the 2000ms per-test timeout in QualificationTest, rejecting rc.20. The warmup forces all transitive :public_key modules into memory before ExUnit.start(); it is a no-op on native hosts. Also adds invariant rc.21 amd64/arm64 M5 baselines. Signed tag v0.1.0-rc.21 at 7bb6b069 is verified and pushed. Fresh dual-architecture qualification is now active on both dedicated systemd guests (amd64 at 05:27Z, arm64 at 05:27Z) from empty evidence roots. All prior rc.3-rc.20 results remain rejected.
 ---
 <!-- COMMENTS:END -->
