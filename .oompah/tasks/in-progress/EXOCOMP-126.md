@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-126
 type: task
-status: Backlog
+status: In Progress
 priority: 1
 title: Complete failed-service recovery through the A2A workflow
 parent: null
@@ -10,12 +10,13 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:09:25.749059Z'
+updated_at: '2026-07-27T16:15:49.855243Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.agent_run_id: f4011013-6a4f-4a33-a9df-45d3fefea971
 ---
 ## Summary
 
@@ -29,3 +30,16 @@ Close M4-CRIT-2. The recovery engine, restricted systemd execution, live fixture
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-27 16:15
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-27 16:15
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
