@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T07:19:40.420086Z'
+updated_at: '2026-07-27T08:18:09.792586Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1326,5 +1326,20 @@ author: oompah
 created: 2026-07-27 07:19
 ---
 Discovery (continuation attempt #11): v0.1.0-rc.23 verifies and peels to 902bee1. The amd64 write-once record is complete with QUALIFICATION_STATUS=pass: all nine repository gates, two reproducible releases, two reproducible signed bundles, strict no-network install/PKI/enrollment, operational recovery/hardening, short/full shipped M5, and lifecycle passed. Arm64 is healthy under full-system QEMU in its fresh exact-tag make test gate; no failure or status marker exists, and the qualification service/process remains active. The committed collector and both orchestrators pass bash syntax and git diff checks.
+---
+author: oompah
+created: 2026-07-27 08:18
+---
+Run #12 [attempt=12, profile=standard, role=standard -> Codex/default]
+- Turns: 1, Tool calls: 78
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 31s
+- Log: EXOCOMP-123__20260727T071738Z.jsonl
+---
+author: oompah
+created: 2026-07-27 08:18
+---
+Agent stalled 12 time(s) (3631s). Escalating from 'standard' to 'deep'. Retrying in 300s (attempt #12)
 ---
 <!-- COMMENTS:END -->
