@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-27T16:07:00.355913Z'
-updated_at: '2026-07-27T16:09:03.949658Z'
+updated_at: '2026-07-27T16:09:36.087863Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -54,5 +54,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 23s
 - Log: EXOCOMP-124__20260727T160741Z.jsonl
+---
+author: oompah
+created: 2026-07-27 16:09
+---
+Audited all 48 M1-M6 acceptance criteria against code, tests, CI, and signed rc.23 qualification evidence on main. Marked 43 complete. Left M4-CRIT-2 and M5-CRIT-3 through M5-CRIT-6 unchecked because main lacks the complete A2A recovery path and the specified restart/mixed-node/recovery/soak benchmark evidence. Filed EXOCOMP-126 and EXOCOMP-125 for those gaps. make check-links and make compliance-check pass.
 ---
 <!-- COMMENTS:END -->
