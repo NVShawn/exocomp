@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:14:21.940698Z'
+updated_at: '2026-07-27T18:19:54.433786Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -183,5 +183,25 @@ author: oompah
 created: 2026-07-27 18:14
 ---
 Live qualification progress: exact-3bb1079 amd64 passed focused gates, artifact build, signed bundle, network-isolated install/readiness, llama crash/restart, mixed polling, and loaded recovery, then entered its 7200-second soak. Authenticated RPC into both shipped VMs confirms runtime probe state has no in-heap samples and is streaming to private spool files (node 107692 bytes, coordinator 171239 bytes at observation). arm64 remains healthy in the slower focused gate phase.
+---
+author: oompah
+created: 2026-07-27 18:19
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 230
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 2s
+- Log: EXOCOMP-125__20260727T171948Z.jsonl
+---
+author: oompah
+created: 2026-07-27 18:19
+---
+Issue has failed 2 time(s). Attempting auto-decomposition into smaller tasks.
+---
+author: oompah
+created: 2026-07-27 18:19
+---
+Auto-decomposition failed: No provider configured for decomposition. Falling back to normal retry.
 ---
 <!-- COMMENTS:END -->
