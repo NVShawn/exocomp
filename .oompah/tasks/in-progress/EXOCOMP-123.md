@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T05:28:21.847279Z'
+updated_at: '2026-07-27T05:36:02.206876Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1235,5 +1235,10 @@ author: oompah
 created: 2026-07-27 05:28
 ---
 Implementation: commit 7bb6b06 adds :pubkey_os_cacerts.get() warmup to apps/bench/test/test_helper.exs. Under full-system arm64 QEMU, lazy code loading via code_server.call takes >2s, causing :httpc.ssl_verify_host_options/1 → :pubkey_os_cacerts.get/0 → :pubkey_cert_records.decode_cert/1 (code_server.call) to exceed the 2000ms per-test timeout in QualificationTest, rejecting rc.20. The warmup forces all transitive :public_key modules into memory before ExUnit.start(); it is a no-op on native hosts. Also adds invariant rc.21 amd64/arm64 M5 baselines. Signed tag v0.1.0-rc.21 at 7bb6b069 is verified and pushed. Fresh dual-architecture qualification is now active on both dedicated systemd guests (amd64 at 05:27Z, arm64 at 05:27Z) from empty evidence roots. All prior rc.3-rc.20 results remain rejected.
+---
+author: oompah
+created: 2026-07-27 05:36
+---
+Verification progress: rc.22 qualification active on both dedicated systemd guests from empty evidence roots. amd64: all 9 exact-tag repository/release gates passed (fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, test, test-release-matrix, test-m5-qualification); Phase 1 (Build 1/2) active at 05:35Z. arm64: pulling containers for lint gate under full-system QEMU. Changes from rc.21→rc.22: M5 baseline inventory assertion updated to 44 (atomically with new rc.22 baselines) to prevent release-check failure. rc.21 was rejected by its exact-tag release-check gate (count 40≠42). No candidate failure in rc.22 so far.
 ---
 <!-- COMMENTS:END -->
