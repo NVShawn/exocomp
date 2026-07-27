@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T06:37:02.748536Z'
+updated_at: '2026-07-27T07:12:30.609226Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1291,5 +1291,20 @@ author: oompah
 created: 2026-07-27 06:37
 ---
 Verification (pretag): exact commit 902bee1 passed amd64 fmt-check, release-check, focused M5, and three consecutive full make test runs (845 passed, 10 excluded, bundled node/coordinator smoke passes). The full-system arm64 guest passed fmt-check, release-check, focused M5 (including the prior failing configured-timeout test), and complete make test (845 passed, 10 excluded, both bundled release smoke checks). Signed tag v0.1.0-rc.23 verifies and is pushed. Fresh write-once rc.23 qualification units are now active on both guests from empty roots.
+---
+author: oompah
+created: 2026-07-27 07:12
+---
+Agent stalled — no productive actions (writes/commands) for 10 consecutive turns (3638s). Retrying in 300s (attempt #11)
+---
+author: oompah
+created: 2026-07-27 07:12
+---
+Run #11 [attempt=11, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 146
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 38s
+- Log: EXOCOMP-123__20260727T061152Z.jsonl
 ---
 <!-- COMMENTS:END -->
