@@ -1,0 +1,3 @@
+audit_unavailable=state_change_denied
+audit_unavailable=health_degraded
+audit_after_restart=healthy

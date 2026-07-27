@@ -1,0 +1,20 @@
+--- /var/lib/exocomp-qualification/src/scripts/qualification-live-preflight.sh	2026-07-26 12:39:39.958288274 +0000
++++ /var/lib/exocomp-qualification/qualification-live-preflight-arm64-rc23.sh	2026-07-27 09:22:13.695706821 +0000
+@@ -120,7 +120,7 @@
+ fi
+ 
+ systemctl enable --now exocomp-coordinator.service
+-sleep 5
++sleep 30
+ 
+ coordinator_rpc() {
+     local expression="$1"
+@@ -252,7 +252,7 @@
+ chown exocomp-node:exocomp-node /opt/exocomp/node/config/node.json
+ 
+ systemctl enable --now exocomp-node.service
+-sleep 5
++sleep 30
+ systemctl is-active --quiet exocomp-node.service
+ pass "enrolled node starts from the shipped release"
+ 

@@ -1,0 +1,56 @@
+6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e  /var/lib/exocomp-qualification/inputs/qwen2.5-1.5b-instruct-q4_k_m.gguf
+c0bc8591e8815c63cb01dd3f051a8b0df02501c9
+b10107
+CMAKE_BUILD_TYPE:STRING=Release
+GGML_OPENMP:BOOL=OFF
+LLAMA_BUILD_SERVER:BOOL=ON
+e7bbec9b6686cf480b9e4fa82dfdc437d005571680cdfb4c3b90294e40c5b492  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libggml-base.so.0.17.0
+146021a9ed3f0836f0219bd470cafb447eca06bea817a3e91aa89e6141953773  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libggml-cpu.so.0.17.0
+021dbf611de10c4d9fb9e15094c576702050d8001aefb17f092a535d9465f271  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libggml.so.0.17.0
+05576d4115ba81d6695d49dc887abb52fdcb63c29ced33c688d5216160fbc628  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-batched-bench-impl.so
+1cd8e0ae5fd8ab00f08cb3362f541fa5d9d265320d0a18582e0fe4a38cd96f25  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-bench-impl.so
+14176f9043e40c607d3fe8667c4716c565c1f43e0efcbe38a26aa11df3faaa6f  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-cli-impl.so
+f624862610b2b0170e395136465c2c1c5067f7c2511d3608c1a71a0eeecc63f9  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-common.so.0.0.10107
+1d539f23414912e31b0649b9ce328b2c43b2441d2fe05803b7e335ade8a8604f  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-completion-impl.so
+65011e437e271f1fadc904ce75e36b220b9c9c4273236c35798f0a27bd157ead  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-fit-params-impl.so
+e41030cf1afddce8f12bd7f32b5c55bed6c39326d3a85977cecdef0d3fce0897  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-perplexity-impl.so
+89124e0b47b8b12c782e13904ad67b72af4f7eccc5feb4b44795f191eaa4e1d9  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-quantize-impl.so
+5d0a3454e31eba71f24d1e1f4a47f7827d691f37da0e24455130d466342f8e43  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-server-impl.so
+74a35730ca0b19169a6659c235073eb689fec488275b8b122d60f15b11f20029  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama.so.0.0.10107
+6aefa573d847e419f69d00ffbfa62e49b6ae935ea009d7513aa99bc6a6c6f3f0  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libmtmd.so.0.0.10107
+ee384925a9a27d32fc5b51ed1133405037d1f4afc66e051aab9acd1558e2300c  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-batched-bench
+9cce4ae4cc9ff07d536dc3de1c689c9a3e98b389f2ff5f88c96d4a1694a7e87f  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-bench
+11c5673fa72a963abd9b9fc2a54a1c3c68b29c126d1a9e42fce5a9e5029fabaa  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-cli
+01f5d869b2b953660db3f843d69ca7134311558936654cab19ca6ee55b1c3801  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-completion
+ab6e54f49b90ec9f16c8c3b8c85e9c4c4233fbf2c74e8af3efef9531474c9d37  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-cvector-generator
+ef6ef2c7906624e91491e1ebbafacaa8a303aa0674ea38998fe85ea1be1fb614  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-debug-template-parser
+d95faf9275d23911bbe6e4ab6a6cb4e8d21ff88651e09897c8c779c1be2bf990  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-export-lora
+e230dbb01a8ca875ed4c04a8fca06b206f4d55fecbdeb8a41e680ac0d954debc  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-fit-params
+e38a498102c5c8cf0d5cb4a08ab416510550baed3e7d23b154c0dd9328f352d9  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-gemma3-cli
+8476422db674d8da7d46e19a23d4ab666e9e778ae244489f05a06a5eb2eecbe4  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-gguf-split
+78100675a32396b19aef964786648a2f92884b2810c6381dd584bed5df9af953  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-imatrix
+e38a498102c5c8cf0d5cb4a08ab416510550baed3e7d23b154c0dd9328f352d9  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-llava-cli
+e38a498102c5c8cf0d5cb4a08ab416510550baed3e7d23b154c0dd9328f352d9  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-minicpmv-cli
+0ea8d1e53af17c3544e40021a9ee1cfb59a09462b047d6a6b08e21a42a7ab4b6  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-mtmd-cli
+9efe8d91a5ef3daaccf087ff494e0bbff445dbf28780acf7744e1ae6e7e45534  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-mtmd-debug
+7280ad7872d2966c1937f14145206225a1b9f0dd9f64873a8bd15345d98eda0c  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-perplexity
+6f7e36cae53e21cf1f913848e27c490a7d454a2014fe5ffe46ade266c17fedd5  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-quantize
+e38a498102c5c8cf0d5cb4a08ab416510550baed3e7d23b154c0dd9328f352d9  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-qwen2vl-cli
+6e274b7b1dcebd9e8519ac2a0e4c0984dd34f4238790e9c3e31cda35f839cde5  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-results
+abf9c65716fd9df1529c1458c8ec841fe61d145ec958a98cc76922866e423348  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-server
+6186f97b01795459bb14d7717c041c587b10db9d5d2dd1641f09b4e702276a8e  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-template-analysis
+475139e9ab12885568dde0e16d6d90d59141b05bc312779aa3f254a11c774d8a  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-tokenize
+c0894bd1562ddf0dd6a4b33547f5ddf011e2e39e18f55e4a8911cd6351b0377e  /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/llama-tts
+	linux-vdso.so.1 (0x0000f890fbfbe000)
+	libllama-server-impl.so => /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-server-impl.so (0x0000f890fb970000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000f890fb6e0000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000f890fb6a0000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000f890fb4e0000)
+	/lib/ld-linux-aarch64.so.1 (0x0000f890fbf70000)
+	libllama-common.so.0 => /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama-common.so.0 (0x0000f890fb0d0000)
+	libmtmd.so.0 => /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libmtmd.so.0 (0x0000f890faf90000)
+	libllama.so.0 => /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libllama.so.0 (0x0000f890fac60000)
+	libggml.so.0 => /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libggml.so.0 (0x0000f890fac30000)
+	libggml-base.so.0 => /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libggml-base.so.0 (0x0000f890fab60000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000f890faab0000)
+	libggml-cpu.so.0 => /var/lib/exocomp-qualification/inputs/llama-b10107-no-openmp/build/bin/libggml-cpu.so.0 (0x0000f890fa940000)

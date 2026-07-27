@@ -1,0 +1,3 @@
+renewal=after-restart:ok
+renewed_generation=generation-RWRZFXFXg-6wuFV0
+certificate_changed=true

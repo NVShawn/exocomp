@@ -1,0 +1,41 @@
+[install] ==> PREFLIGHT
+[install]   bundle:    /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-coordinator-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   version:   0.1.0-rc.23
+[install]   component: coordinator
+[install]   arch:      x86_64
+[install]   checksums: /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/manifest.sha256
+[install]   verifying checksums...
+[install]   checksum OK: d9dc440a231cb764e5a733e7fff1783434185a548dc13254364b20fcb9f114db
+[install]   preflight passed
+[install] ==> USERS AND DIRECTORIES
+[install]   user exists: exocomp-coordinator
+[install]   creating directories
+[install]   directories configured
+[install] ==> INSTALL RELEASE
+[install]   extracting /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-coordinator-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   staged protected-state backup utility
+[install]   release 0.1.0-rc.23 staged
+[install] ==> CONFIGURATION
+[install]   installing config template: /opt/exocomp/coordinator/config/coordinator.json
+[install] ==> RELEASE COOKIE
+[install]   protected release cookie provisioned
+[install] ==> CONFIG VALIDATION
+[install]   staged release accepted configuration
+[install] ==> CURRENT VERSION SWITCH
+[install]   current -> releases/0.1.0-rc.23
+[install] ==> SUDOERS POLICY
+[install]   validating with visudo...
+/etc/sudoers.d/exocomp-coordinator: parsed OK
+[install]   visudo check passed
+[install]   sudoers policy installed: /etc/sudoers.d/exocomp-coordinator
+[install] ==> SYSTEMD UNIT
+[install]   unit installed: /etc/systemd/system/exocomp-coordinator.service
+[install] ==> ACTIVATE
+[install]   --no-start set; skipping service start
+[install] ==> MANIFEST
+[install]   manifest written: /opt/exocomp/coordinator/manifest-0.1.0-rc.23.txt
+
+[install] ==> exocomp-coordinator 0.1.0-rc.23 installed successfully
+[install]     install: /opt/exocomp/coordinator
+[install]     config:  /opt/exocomp/coordinator/config/coordinator.json
+[install]     log:     /opt/exocomp/coordinator/log/

@@ -1,0 +1,1 @@
+/var/lib/exocomp-qualification/rc23/lifecycle-backups/amd64/coordinator-state.tar.gz: OK

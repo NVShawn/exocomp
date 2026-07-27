@@ -1,0 +1,29 @@
+● exocomp-coordinator.service - Exocomp Coordinator
+     Loaded: loaded (/etc/systemd/system/exocomp-coordinator.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-07-27 06:42:30 UTC; 12s ago
+       Docs: https://github.com/NVShawn/exocomp
+   Main PID: 2740852 (beam.smp)
+      Tasks: 33 (limit: 9482)
+     Memory: 125.0M (peak: 143.8M)
+        CPU: 2.316s
+     CGroup: /system.slice/exocomp-coordinator.service
+             ├─2740852 /opt/exocomp/coordinator/releases/0.1.0-rc.23/erts-16.4.0.3/bin/beam.smp -- -root /opt/exocomp/coordinator/releases/0.1.0-rc.23 -bindir /opt/exocomp/coordinator/releases/0.1.0-rc.23/erts-16.4.0.3/bin -progname erl -- -home /opt/exocomp/coordinator -- -noshell -s elixir start_cli -mode embedded -setcookie 70891e6c58d879a6576c3187739a411633c893473a85b2842687c4c2aecc4fb2 -sname exocomp_coordinator -config /opt/exocomp/coordinator/releases/0.1.0-rc.23/releases/0.1.0/sys -boot /opt/exocomp/coordinator/releases/0.1.0-rc.23/releases/0.1.0/start -boot_var RELEASE_LIB /opt/exocomp/coordinator/releases/0.1.0-rc.23/lib -- -- -extra --no-halt
+             └─2740890 erl_child_setup 65536
+
+Jul 27 06:42:30 exocomp-amd64 systemd[1]: Starting exocomp-coordinator.service - Exocomp Coordinator...
+Jul 27 06:42:30 exocomp-amd64 systemd[1]: Started exocomp-coordinator.service - Exocomp Coordinator.
+
+● exocomp-node.service - Exocomp Node Agent
+     Loaded: loaded (/etc/systemd/system/exocomp-node.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-07-27 06:42:37 UTC; 5s ago
+       Docs: https://github.com/NVShawn/exocomp
+   Main PID: 2741352 (beam.smp)
+      Tasks: 33 (limit: 9482)
+     Memory: 138.0M (peak: 146.9M)
+        CPU: 2.279s
+     CGroup: /system.slice/exocomp-node.service
+             ├─2741352 /opt/exocomp/node/releases/0.1.0-rc.23/erts-16.4.0.3/bin/beam.smp -- -root /opt/exocomp/node/releases/0.1.0-rc.23 -bindir /opt/exocomp/node/releases/0.1.0-rc.23/erts-16.4.0.3/bin -progname erl -- -home /opt/exocomp/node -- -noshell -s elixir start_cli -mode embedded -setcookie e65a5027dc5769ae78f4a7a14708c3e6fffc68dcb208ba0b9ef0c11a5c68794a -sname exocomp_node -config /opt/exocomp/node/releases/0.1.0-rc.23/releases/0.1.0/sys -boot /opt/exocomp/node/releases/0.1.0-rc.23/releases/0.1.0/start -boot_var RELEASE_LIB /opt/exocomp/node/releases/0.1.0-rc.23/lib -- -- -extra --no-halt
+             └─2741390 erl_child_setup 65536
+
+Jul 27 06:42:37 exocomp-amd64 systemd[1]: Starting exocomp-node.service - Exocomp Node Agent...
+Jul 27 06:42:37 exocomp-amd64 systemd[1]: Started exocomp-node.service - Exocomp Node Agent.

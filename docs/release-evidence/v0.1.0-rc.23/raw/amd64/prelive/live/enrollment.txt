@@ -1,0 +1,2 @@
+enrollment=ok
+generation=generation-LO6IOG3jbngYG45l

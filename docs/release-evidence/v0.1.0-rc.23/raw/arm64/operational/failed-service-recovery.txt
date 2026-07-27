@@ -1,0 +1,5 @@
+
+09:34:58.133 [debug] [Executor] action=restart_service target="exocomp-fixture.service" exec=/usr/bin/sudo argv=["/usr/bin/systemctl", "restart", "exocomp-fixture.service"]
+recovery_state=completed
+recovery_audit_events=6
+recovery_execution=one_restricted_restart

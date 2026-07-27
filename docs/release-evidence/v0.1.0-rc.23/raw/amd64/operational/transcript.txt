@@ -1,0 +1,114 @@
+candidate=0.1.0-rc.23 architecture=amd64 commit=902bee1a52bf037fdaab50bd0c71ba82fa51a8d6
+
+06:42:44.127 [notice] TLS :client: In state :wait_cert at ssl_handshake.erl:2213 generated CLIENT ALERT: Fatal - Unknown CA
+
+untrusted_root=denied
+wrong_node_token=denied
+single_use_first_request=accepted
+single_use_replay=denied
+[PASS] enrollment rejects wrong-node, replayed, and untrusted requests
+renewal_without_client_cert=denied
+renewal=before-restart:ok
+renewed_generation=generation-obfVOG5sPzHHV9Gb
+certificate_changed=true
+[PASS] mTLS renewal succeeds and missing-client-certificate renewal fails
+coordinator_after_restart=healthy
+renewal=after-restart:ok
+renewed_generation=generation-dkmGISMi1zLMKNAU
+certificate_changed=true
+[PASS] PKI and enrollment state survive service restarts and repeated renewal
+inventory=restored
+audit_unavailable=state_change_denied
+audit_unavailable=health_degraded
+audit_after_restart=healthy
+[PASS] audit failure blocks mutation and degrades health
+multi_node_goal=completed
+reachable_node=succeeded
+unreachable_node=explicit
+partial_artifact_preserved=true
+correlation_id=b039e62a-fb97-4a2a-91e7-4d700475f446
+[PASS] multi-node diagnostics preserve reachable and explicit partial outcomes
+make: Entering directory '/var/lib/exocomp-qualification/rc11-preflight'
+bash test/fixtures/exocomp_fixture/install.sh
+Installing exocomp-fixture fixture service...
+  → /usr/local/bin/exocomp-fixture
+  → /etc/systemd/system/exocomp-fixture.service
+  → systemctl daemon-reload
+  → systemctl enable exocomp-fixture
+Created symlink /etc/systemd/system/multi-user.target.wants/exocomp-fixture.service → /etc/systemd/system/exocomp-fixture.service.
+  → systemctl start exocomp-fixture
+
+exocomp-fixture fixture service installed and started successfully.
+● exocomp-fixture.service - Exocomp Integration Test Fixture Service
+     Loaded: loaded (/etc/systemd/system/exocomp-fixture.service; enabled; preset: enabled)
+    Drop-In: /etc/systemd/system/exocomp-fixture.service.d
+             └─qualification.conf
+     Active: active (running) since Mon 2026-07-27 06:43:13 UTC; 9ms ago
+       Docs: file:/usr/local/bin/exocomp-fixture
+    Process: 2743115 ExecStartPost=/bin/sh -c     for i in $(seq 1 10); do      if curl -sf http://127.0.0.1:8877/health >/dev/null 2>&1; then        exit 0;      fi;      sleep 0.5;    done;    echo "exocomp-fixture: health probe failed after 5s" >&2;    exit 1 (code=exited, status=0/SUCCESS)
+   Main PID: 2743114 (python3)
+      Tasks: 2 (limit: 9482)
+     Memory: 11.5M (peak: 13.7M)
+        CPU: 102ms
+     CGroup: /system.slice/exocomp-fixture.service
+             └─2743114 python3 /usr/local/bin/exocomp-fixture
+
+Jul 27 06:43:12 exocomp-amd64 systemd[1]: Starting exocomp-fixture.service - Exocomp Integration Test Fixture Service...
+Jul 27 06:43:12 exocomp-amd64 exocomp-fixture[2743114]: 2026-07-27 06:43:12,629 exocomp-fixture [INFO] starting with mode=active
+Jul 27 06:43:12 exocomp-amd64 exocomp-fixture[2743114]: 2026-07-27 06:43:12,631 exocomp-fixture [INFO] health endpoint: http://127.0.0.1:8877/health  marker: /run/exocomp-fixture/workload.marker
+Jul 27 06:43:13 exocomp-amd64 systemd[1]: Started exocomp-fixture.service - Exocomp Integration Test Fixture Service.
+make: Leaving directory '/var/lib/exocomp-qualification/rc11-preflight'
+
+06:43:16.130 [info] [ApprovalGate] start correlation_id=6f08b258eb4b3521ccd71c8082275817 action=restart_service target=exocomp-fixture.service
+
+06:43:16.130 [info] [ApprovalGate] token_valid correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.136 [info] [ApprovalGate] preconditions_ok correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.160 [info] [ApprovalGate] replay_claimed correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.160 [debug] [Executor] action=restart_service target="exocomp-fixture.service" exec=/usr/bin/sudo argv=["/usr/bin/systemctl", "restart", "exocomp-fixture.service"]
+
+06:43:16.919 [info] [ApprovalGate] execution_success correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.952 [info] [ApprovalGate] start correlation_id=6f08b258eb4b3521ccd71c8082275817 action=restart_service target=exocomp-fixture.service
+
+06:43:16.953 [info] [ApprovalGate] token_valid correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.957 [info] [ApprovalGate] preconditions_ok correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+active_service_approval=completed
+
+06:43:16.957 [info] [ApprovalGate] replay_already_executed correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+approval_execution=one_restricted_restart
+approval_replay=denied
+[PASS] active-service restart requires a valid bound approval and rejects replay
+
+06:43:18.330 [debug] [Executor] action=restart_service target="exocomp-fixture.service" exec=/usr/bin/sudo argv=["/usr/bin/systemctl", "restart", "exocomp-fixture.service"]
+recovery_state=completed
+recovery_audit_events=6
+recovery_execution=one_restricted_restart
+[PASS] failed fixture recovers exactly once through shipped restricted executor
+
+06:43:19.787 [debug] [Executor] action=vacuum_logs target=nil exec=/usr/bin/sudo argv=["/usr/bin/journalctl", "--vacuum-size=100M"]
+bounded_journal_cleanup=completed
+user_data_cleanup=denied
+unknown_action=denied
+unlisted_service_sudo=denied
+shell_sudo=denied
+[PASS] bounded cleanup succeeds while unsafe action modes fail closed
+[PASS] systemd hardening, exact sudoers, ownership, and key modes inspected
+make: Entering directory '/var/lib/exocomp-qualification/rc11-preflight'
+bash test/fixtures/exocomp_fixture/cleanup.sh
+Removing exocomp-fixture fixture service...
+  → systemctl stop exocomp-fixture
+  → systemctl disable exocomp-fixture
+Removed "/etc/systemd/system/multi-user.target.wants/exocomp-fixture.service".
+  → rm -f /etc/systemd/system/exocomp-fixture.service
+  → rm -f /usr/local/bin/exocomp-fixture
+  → /run/exocomp-fixture not present (skip)
+  → systemctl daemon-reload
+
+exocomp-fixture fixture service removed.
+make: Leaving directory '/var/lib/exocomp-qualification/rc11-preflight'
+[PASS] documented systemd fixture cleanup removes all fixture-owned paths
+[PASS] operational live qualification complete

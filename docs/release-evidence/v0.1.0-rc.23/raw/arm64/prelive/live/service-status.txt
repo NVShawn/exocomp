@@ -1,0 +1,32 @@
+● exocomp-coordinator.service - Exocomp Coordinator
+     Loaded: loaded (/etc/systemd/system/exocomp-coordinator.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-07-27 09:26:37 UTC; 2min 14s ago
+       Docs: https://github.com/NVShawn/exocomp
+   Main PID: 740957 (beam.smp)
+      Tasks: 36 (limit: 9412)
+     Memory: 127.6M (peak: 134.4M)
+        CPU: 1min 18.755s
+     CGroup: /system.slice/exocomp-coordinator.service
+             ├─740957 /opt/exocomp/coordinator/releases/0.1.0-rc.23/erts-16.4.0.3/bin/beam.smp -- -root /opt/exocomp/coordinator/releases/0.1.0-rc.23 -bindir /opt/exocomp/coordinator/releases/0.1.0-rc.23/erts-16.4.0.3/bin -progname erl -- -home /opt/exocomp/coordinator -- -noshell -s elixir start_cli -mode embedded -setcookie 44786ff02432e3228251a4820e2b76caa460a4b5240be1539c58f66d76c10450 -sname exocomp_coordinator -config /opt/exocomp/coordinator/releases/0.1.0-rc.23/releases/0.1.0/sys -boot /opt/exocomp/coordinator/releases/0.1.0-rc.23/releases/0.1.0/start -boot_var RELEASE_LIB /opt/exocomp/coordinator/releases/0.1.0-rc.23/lib -- -- -extra --no-halt
+             ├─740991 /opt/exocomp/coordinator/releases/0.1.0-rc.23/erts-16.4.0.3/bin/epmd -daemon
+             ├─740995 erl_child_setup 65536
+             ├─741193 /opt/exocomp/coordinator/releases/0.1.0-rc.23/erts-16.4.0.3/bin/inet_gethost 4
+             └─741194 /opt/exocomp/coordinator/releases/0.1.0-rc.23/erts-16.4.0.3/bin/inet_gethost 4
+
+Jul 27 09:26:35 exocomp-arm64 systemd[1]: Starting exocomp-coordinator.service - Exocomp Coordinator...
+Jul 27 09:26:37 exocomp-arm64 systemd[1]: Started exocomp-coordinator.service - Exocomp Coordinator.
+
+● exocomp-node.service - Exocomp Node Agent
+     Loaded: loaded (/etc/systemd/system/exocomp-node.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-07-27 09:28:20 UTC; 31s ago
+       Docs: https://github.com/NVShawn/exocomp
+   Main PID: 741544 (beam.smp)
+      Tasks: 33 (limit: 9412)
+     Memory: 124.9M (peak: 131.5M)
+        CPU: 1min 13.135s
+     CGroup: /system.slice/exocomp-node.service
+             ├─741544 /opt/exocomp/node/releases/0.1.0-rc.23/erts-16.4.0.3/bin/beam.smp -- -root /opt/exocomp/node/releases/0.1.0-rc.23 -bindir /opt/exocomp/node/releases/0.1.0-rc.23/erts-16.4.0.3/bin -progname erl -- -home /opt/exocomp/node -- -noshell -s elixir start_cli -mode embedded -setcookie b8bd44774f81d134a526509ae7671c8a472258225e57d832cd5d74e3b4b7b7cc -sname exocomp_node -config /opt/exocomp/node/releases/0.1.0-rc.23/releases/0.1.0/sys -boot /opt/exocomp/node/releases/0.1.0-rc.23/releases/0.1.0/start -boot_var RELEASE_LIB /opt/exocomp/node/releases/0.1.0-rc.23/lib -- -- -extra --no-halt
+             └─741582 erl_child_setup 65536
+
+Jul 27 09:28:19 exocomp-arm64 systemd[1]: Starting exocomp-node.service - Exocomp Node Agent...
+Jul 27 09:28:20 exocomp-arm64 systemd[1]: Started exocomp-node.service - Exocomp Node Agent.

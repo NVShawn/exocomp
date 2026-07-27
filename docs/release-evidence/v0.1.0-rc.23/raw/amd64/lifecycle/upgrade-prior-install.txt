@@ -1,0 +1,62 @@
+[install] ==> PREFLIGHT
+[install]   bundle:    /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-node-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   version:   0.1.0-rc.23-qualification-previous
+[install]   component: node
+[install]   peer:      coordinator 0.1.0-rc.23 (compatible major version)
+[install]   arch:      x86_64
+[install]   checksums: /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/manifest.sha256
+[install]   verifying checksums...
+[install]   checksum OK: fb3b24414ab24d44690e82819783d7ff3a4144424597534830afa66c236a09e8
+[install]   preflight passed
+[install] ==> USERS AND DIRECTORIES
+[install]   user exists: exocomp-node
+[install]   creating directories
+[install]   directories configured
+[install] ==> INSTALL RELEASE
+[install]   previous current target: releases/0.1.0-rc.23
+[install]   extracting /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-node-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   staged bundled llama-server runtime
+[install]   staged protected-state backup utility
+[install]   release 0.1.0-rc.23-qualification-previous staged
+[install] ==> CONFIGURATION
+[install]   config exists; preserving (not overwriting): /opt/exocomp/node/config/node.json
+[install] ==> RELEASE COOKIE
+[install]   release cookie exists; preserving across upgrade
+[install] ==> CONFIG VALIDATION
+[install]   staged release accepted configuration
+[install] ==> CURRENT VERSION SWITCH
+[install]   current -> releases/0.1.0-rc.23-qualification-previous
+[install] ==> SUDOERS POLICY
+[install]   validating with visudo...
+/etc/sudoers.d/exocomp-node: parsed OK
+[install]   visudo check passed
+[install]   sudoers policy installed: /etc/sudoers.d/exocomp-node
+[install] ==> SYSTEMD UNIT
+[install]   unit installed: /etc/systemd/system/exocomp-node.service
+[install] ==> ACTIVATE
+[install]   systemctl daemon-reload
+[install]   systemctl enable exocomp-node
+[install]   systemctl restart exocomp-node  (already running)
+[install]   service passed systemd and application health gate
+● exocomp-node.service - Exocomp Node Agent
+     Loaded: loaded (/etc/systemd/system/exocomp-node.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-07-27 07:16:10 UTC; 2s ago
+       Docs: https://github.com/NVShawn/exocomp
+   Main PID: 2764201 (beam.smp)
+      Tasks: 33 (limit: 9482)
+     Memory: 148.7M (peak: 153.7M)
+        CPU: 2.041s
+     CGroup: /system.slice/exocomp-node.service
+             ├─2764201 /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/erts-16.4.0.3/bin/beam.smp -- -root /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous -bindir /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/erts-16.4.0.3/bin -progname erl -- -home /opt/exocomp/node -- -noshell -s elixir start_cli -mode embedded -setcookie e65a5027dc5769ae78f4a7a14708c3e6fffc68dcb208ba0b9ef0c11a5c68794a -sname exocomp_node -config /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/releases/0.1.0/sys -boot /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/releases/0.1.0/start -boot_var RELEASE_LIB /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/lib -- -- -extra --no-halt
+             └─2764277 erl_child_setup 65536
+
+Jul 27 07:16:10 exocomp-amd64 systemd[1]: Starting exocomp-node.service - Exocomp Node Agent...
+Jul 27 07:16:10 exocomp-amd64 systemd[1]: Started exocomp-node.service - Exocomp Node Agent.
+[install] ==> MANIFEST
+[install]   manifest written: /opt/exocomp/node/manifest-0.1.0-rc.23-qualification-previous.txt
+
+[install] ==> exocomp-node 0.1.0-rc.23-qualification-previous installed successfully
+[install]     service: exocomp-node.service (active)
+[install]     install: /opt/exocomp/node
+[install]     config:  /opt/exocomp/node/config/node.json
+[install]     log:     /opt/exocomp/node/log/

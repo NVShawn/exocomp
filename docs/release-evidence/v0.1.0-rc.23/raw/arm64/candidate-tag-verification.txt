@@ -1,0 +1,20 @@
+tag v0.1.0-rc.23
+Tagger: NVShawn <shedwards@nvidia.com>
+
+v0.1.0-rc.23 — M6 requalification candidate 23
+
+Bound the configured-inference-timeout regression watchdog for full-system arm64 emulation while retaining the 20 ms functional request deadline. Add atomic rc.23 M5 baseline identities.
+
+Previous rc.3 through rc.22 are rejected release candidates; none of their results are reused for acceptance under this qualification.
+
+Qualified source commit: 902bee1a52bf037fdaab50bd0c71ba82fa51a8d6
+
+Qualification identities recorded in docs/release-evidence/v0.1.0-rc.23/
+-----BEGIN SSH SIGNATURE-----
+U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrqdN0/bztzFN1Ac2CbK4fb9qZ3
+ra5oxJtBL5+4bvFCcAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5
+AAAAQCzi6cLJJd9OVLAI5lyNrPHkUOFih8CF4T0FHUtXFllR6I45Mz35NiEYtG+w3tKLNE
+FILx2CVrNYVtLnAdVRmAM=
+-----END SSH SIGNATURE-----
+902bee1a52bf037fdaab50bd0c71ba82fa51a8d6 EXOCOMP-123: bound emulated inference timeout test
+Good "git" signature for shedwards@nvidia.com with ED25519 key SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw

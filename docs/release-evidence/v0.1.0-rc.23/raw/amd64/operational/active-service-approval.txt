@@ -1,0 +1,23 @@
+
+06:43:16.130 [info] [ApprovalGate] start correlation_id=6f08b258eb4b3521ccd71c8082275817 action=restart_service target=exocomp-fixture.service
+
+06:43:16.130 [info] [ApprovalGate] token_valid correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.136 [info] [ApprovalGate] preconditions_ok correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.160 [info] [ApprovalGate] replay_claimed correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.160 [debug] [Executor] action=restart_service target="exocomp-fixture.service" exec=/usr/bin/sudo argv=["/usr/bin/systemctl", "restart", "exocomp-fixture.service"]
+
+06:43:16.919 [info] [ApprovalGate] execution_success correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.952 [info] [ApprovalGate] start correlation_id=6f08b258eb4b3521ccd71c8082275817 action=restart_service target=exocomp-fixture.service
+
+06:43:16.953 [info] [ApprovalGate] token_valid correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+
+06:43:16.957 [info] [ApprovalGate] preconditions_ok correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+active_service_approval=completed
+
+06:43:16.957 [info] [ApprovalGate] replay_already_executed correlation_id=6f08b258eb4b3521ccd71c8082275817 nonce=b0ZN5zV1... action=restart_service
+approval_execution=one_restricted_restart
+approval_replay=denied
