@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: Done
+status: Merged
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-26T04:22:46.634173Z'
+updated_at: '2026-07-27T11:12:18.569126Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
