@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T17:01:02.052377Z'
+updated_at: '2026-07-27T17:01:17.455474Z'
 work_branch: EXOCOMP-126
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/19
@@ -240,5 +240,15 @@ author: oompah
 created: 2026-07-27 17:00
 ---
 Verification correction: the fallback full umbrella run totaled 1,671/1,673 passing (113 bench + 192 core + 858/859 node + 508/509 coordinator). The two failures were the existing OTP-27-sensitive X509 CSR test and the new A2A test before its Plug.Test peer-data fix; the new test was then fixed and passes in both focused runs. All changed-code tests pass.
+---
+author: oompah
+created: 2026-07-27 17:01
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
+- Turns: 0, Tool calls: 94
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 16m 34s
+- Log: EXOCOMP-126__20260727T164445Z.jsonl
 ---
 <!-- COMMENTS:END -->
