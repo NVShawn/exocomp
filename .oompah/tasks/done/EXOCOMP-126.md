@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:44:18.487196Z'
+updated_at: '2026-07-27T16:44:21.407516Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ Tests (858 pass, 0 fail):
 - Both release builds succeed.
 
 Commit: d3c4488 on branch EXOCOMP-126.
+---
+author: oompah
+created: 2026-07-27 16:44
+---
+Wired failed-service recovery through complete authenticated A2A workflow. Added exocomp.service.recover node skill and exocomp.cluster.recover coordinator skill; extended codec/dispatcher/agent card on both sides; added end-to-end A2A router tests through Plug.Test. All 858 tests pass, both release builds succeed. M4-CRIT-2 closed.
 ---
 <!-- COMMENTS:END -->
