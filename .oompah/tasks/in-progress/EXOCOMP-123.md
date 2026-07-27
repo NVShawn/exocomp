@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T03:14:18.091748Z'
+updated_at: '2026-07-27T03:48:31.520973Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1149,5 +1149,15 @@ author: oompah
 created: 2026-07-27 03:14
 ---
 Verification progress: fresh rc.19 amd64 has passed all nine repository/release gates, two byte-identical release builds, two byte-identical signed complete bundles, strict no-network verification/install, production PKI/enrollment/renewal, restart/audit durability, multi-node diagnostics, approved recovery, hardening, and the shipped short M5 gate. Its mandatory full M5 gate is active. arm64 has passed fmt/lint and is advancing through release-check under full-system QEMU. No candidate failure is present.
+---
+author: oompah
+created: 2026-07-27 03:48
+---
+Discovery: signed rc.19 is rejected and none of its results will count. Its fresh arm64 make test gate failed in Bench.Workload.LlamaInferenceTest: the only fake-TCP bench suite still running async was CPU-starved under 16-way full-system QEMU test concurrency, so an immediate HTTP 500 response exceeded the workload's 2-second collector budget. Production deadline propagation behaved correctly; this is an emulation-sensitive test-isolation defect exposed by the required exact-tag gate.
+---
+author: oompah
+created: 2026-07-27 03:48
+---
+Implementation: commit c9458ea moves the fake TCP llama workload suite out of ExUnit's async pool, matching the repository's other process/network-sensitive bench tests, and adds invariant amd64/arm64 rc.20 M5 baseline identities. Host structural M5 tests pass; container-backed host gates remain unavailable only because the rootless Podman runtime directory is read-only. Full amd64 and arm64 guest pretag gates will run before any rc.20 tag is signed.
 ---
 <!-- COMMENTS:END -->
