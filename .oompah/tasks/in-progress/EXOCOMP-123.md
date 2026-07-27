@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T02:50:08.603099Z'
+updated_at: '2026-07-27T02:50:23.088938Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1129,5 +1129,10 @@ author: oompah
 created: 2026-07-27 02:50
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-27 02:50
+---
+Understanding (continuation attempt #7): Resuming exact signed v0.1.0-rc.18 qualification at 28f8dc35. amd64 has a complete passing 44-check record; arm64 has passed repository gates, reproducible builds/bundles, strict live preflight and operational scenarios, while its QEMU-only short M5 CPU sample was documented as inconclusive and the authoritative full M5 gate was launched. I will reconcile the active guest/evidence state, complete full M5 and lifecycle, audit and sign the combined evidence index, commit/push it, then close only if every M6-CRIT requirement passes.
 ---
 <!-- COMMENTS:END -->
