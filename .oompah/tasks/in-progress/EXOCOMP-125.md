@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T16:36:47.806322Z'
+updated_at: '2026-07-27T16:45:45.233833Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -108,5 +108,10 @@ author: oompah
 created: 2026-07-27 16:36
 ---
 Discovery (DevOps): the shipped full gate already has authenticated OTP release RPC and separately owned llama-server, so the missing workloads can run inside the installed artifacts without linking source-tree coordinator code into the harness. Added opt-in runtime probes in exocomp_core, isolated real Registry/HealthPoller and RemediationLifecycle qualification probes in the coordinator, and pure harness-side soak analysis. Focused pinned-builder compile/tests pass (55 bench, 3 core probe, 2 coordinator probe).
+---
+author: oompah
+created: 2026-07-27 16:45
+---
+Implementation: added opt-in shipped-VM telemetry probes; real llama crash/restart with PID retargeting and diagnostics; isolated healthy/slow/unreachable coordinator polling; M4 remediation observation-to-verification timing under concurrent inference with fail-closed safety validation; bounded two-hour inference soak with slope/window analysis for RSS, BEAM processes, named mailboxes, descriptors, and task/goal histories; hard summary gates, Make controls, focused tests, a pinned dual-architecture qualification runner with rollback capture, and operator documentation.
 ---
 <!-- COMMENTS:END -->
