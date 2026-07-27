@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T11:02:17.742198Z'
+updated_at: '2026-07-27T11:03:17.508285Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1500,5 +1500,10 @@ author: oompah
 created: 2026-07-27 11:02
 ---
 Verification: exact signed v0.1.0-rc.23 (902bee1a) passed on amd64 KVM and arm64 full-system QEMU. Both records include 9/9 required Make gates, two byte-identical release builds, two byte-identical signed complete bundles, strict no-network verification/install, production PKI/enrollment/renewal, multi-node diagnostics, approved failed-service recovery, hardening, backup/restore, upgrade/automatic rollback, default+purge uninstall, and protected-state preservation. Full M5 passed: amd64 CPU 0.181% / RAM 4.090%; arm64 CPU 1.560% / RAM 4.073% (5% ceilings). All 184 collected files pass the signed SHA-256 index; SSH signature verification, xz integrity, JSON validation, git diff check, and secret scan pass.
+---
+author: oompah
+created: 2026-07-27 11:03
+---
+Completion: v0.1.0-rc.23 is the accepted publication-ready qualification identity (signed tag at 902bee1a52bf037fdaab50bd0c71ba82fa51a8d6). Both amd64 KVM and arm64 full-system QEMU passed every M6-CRIT item and all shipped-artifact live scenarios. The complete 184-file signed evidence set is committed at a62f128 under docs/release-evidence/v0.1.0-rc.23/ and pushed to origin/epic-EXOCOMP-117. The worktree is clean and up to date; no rejected rc.3-rc.22 results were reused.
 ---
 <!-- COMMENTS:END -->
