@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-126
 type: task
-status: Done
+status: In Progress
 priority: 1
 title: Complete failed-service recovery through the A2A workflow
 parent: null
@@ -11,21 +11,21 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:44:21.407516Z'
+updated_at: '2026-07-27T16:44:45.576599Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
-oompah.agent_run_id: 0822dc44-8a71-49e9-a76c-08b077dcf419
+oompah.agent_run_id: 2ae64b35-e3c6-4a12-b411-a74f77f8afd0
 oompah.task_costs:
-  total_input_tokens: 1984473
-  total_output_tokens: 6448
+  total_input_tokens: 1984582
+  total_output_tokens: 65276
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1984473
-      output_tokens: 6448
+      input_tokens: 1984582
+      output_tokens: 65276
       cost_usd: 0.0
   runs:
   - profile: default
@@ -34,6 +34,12 @@ oompah.task_costs:
     output_tokens: 6448
     cost_usd: 0.0
     recorded_at: '2026-07-27T16:18:55.563667+00:00'
+  - profile: default
+    model: unknown
+    input_tokens: 109
+    output_tokens: 58828
+    cost_usd: 0.0
+    recorded_at: '2026-07-27T16:44:33.067941+00:00'
 ---
 ## Summary
 
@@ -164,5 +170,46 @@ author: oompah
 created: 2026-07-27 16:44
 ---
 Wired failed-service recovery through complete authenticated A2A workflow. Added exocomp.service.recover node skill and exocomp.cluster.recover coordinator skill; extended codec/dispatcher/agent card on both sides; added end-to-end A2A router tests through Plug.Test. All 858 tests pass, both release builds succeed. M4-CRIT-2 closed.
+---
+author: oompah
+created: 2026-07-27 16:44
+---
+Agent completed successfully in 1528s (58937 tokens)
+---
+author: oompah
+created: 2026-07-27 16:44
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
+- Turns: 191, Tool calls: 127
+- Tokens: 109 in / 58.8K out [58.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 25m 28s
+- Log: EXOCOMP-126__20260727T161910Z.jsonl
+---
+author: oompah
+created: 2026-07-27 16:44
+---
+Close refused by orchestrator: branch `EXOCOMP-126` has 1 commit not on `main` and no open PR targets `main` from this branch.
+
+Diagnostic:
+  Unmerged commits: 1
+    d3c4488 EXOCOMP-126: Wire failed-service recovery through node and coordinator A2A workflow
+  Open PRs from this branch: 0
+  Merged PRs from this branch: 0
+
+Required: open a PR before closing.
+  gh pr create --base main --head EXOCOMP-126 --title "EXOCOMP-126: Complete failed-service recovery through the A2A workflow" --body "..."
+
+Task reopened. Re-dispatch on the next tick will see this comment in its prompt context.
+---
+author: oompah
+created: 2026-07-27 16:44
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-07-27 16:44
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
