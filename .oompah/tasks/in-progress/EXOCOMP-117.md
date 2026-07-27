@@ -2,7 +2,7 @@
 id: EXOCOMP-117
 type: epic
 status: In Progress
-priority: 1
+priority: 0
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
 children:
@@ -13,10 +13,11 @@ children:
 - EXOCOMP-122
 - EXOCOMP-123
 blocked_by: []
-labels: []
+labels:
+- ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-26T04:56:29.076075Z'
+updated_at: '2026-07-27T11:04:17.451011Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -52,3 +53,11 @@ Acceptance Criteria
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-27 11:04
+---
+YOLO: CI tests failed on MR #18. Fix the failing tests so this MR can merge. Do NOT rewrite the feature — only fix test failures. IMPORTANT: Paths in CI logs are not trustworthy. Run tests locally to get accurate paths and errors.
+---
+<!-- COMMENTS:END -->
