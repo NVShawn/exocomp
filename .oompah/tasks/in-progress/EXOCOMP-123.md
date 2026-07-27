@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T03:06:54.222606Z'
+updated_at: '2026-07-27T03:14:18.091748Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1144,5 +1144,10 @@ author: oompah
 created: 2026-07-27 03:06
 ---
 Implementation: rc.18 was rejected because its shipped full M5 harness hard-coded a 120-second inference deadline; full-system arm64 QEMU completed concurrency 1/2 but three of four concurrency-4 requests timed out. Commit 4f7e50a adds recorded BENCH_INFERENCE_TIMEOUT_MS configuration (default remains 120s), wires it through sequential/concurrent shipped workloads and Make targets, documents its emulation-only use, adds a behavioral timeout regression, and adds invariant rc.19 baselines without relaxing CPU/RAM ceilings. Signed tag v0.1.0-rc.19 is verified and pushed. Fresh write-once amd64/arm64 qualification services are active.
+---
+author: oompah
+created: 2026-07-27 03:14
+---
+Verification progress: fresh rc.19 amd64 has passed all nine repository/release gates, two byte-identical release builds, two byte-identical signed complete bundles, strict no-network verification/install, production PKI/enrollment/renewal, restart/audit durability, multi-node diagnostics, approved recovery, hardening, and the shipped short M5 gate. Its mandatory full M5 gate is active. arm64 has passed fmt/lint and is advancing through release-check under full-system QEMU. No candidate failure is present.
 ---
 <!-- COMMENTS:END -->
