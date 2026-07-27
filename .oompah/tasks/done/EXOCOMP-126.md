@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T17:01:32.977647Z'
+updated_at: '2026-07-27T17:01:36.032274Z'
 work_branch: EXOCOMP-126
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/19
@@ -255,5 +255,10 @@ author: oompah
 created: 2026-07-27 17:01
 ---
 Completion: Delivered authenticated failed-service recovery across both A2A surfaces and opened PR #19 to main: https://github.com/NVShawn/exocomp/pull/19. Commits d3c4488 and eabc4e1 add node/coordinator recovery skills, trusted node-local authorization, fail-closed audit behavior, cross-router correlation, nested evidence, and full coordinator-to-node A2A acceptance coverage. Branch is clean, pushed, and up to date; the PR's short llama harness check is currently pending.
+---
+author: oompah
+created: 2026-07-27 17:01
+---
+Completed authenticated failed-service recovery across coordinator and node A2A workflows with trusted allow-list enforcement, fail-closed audit behavior, workflow correlation, nested recovery evidence, and end-to-end coverage. Pushed commits d3c4488 and eabc4e1; opened PR #19 to main.
 ---
 <!-- COMMENTS:END -->
