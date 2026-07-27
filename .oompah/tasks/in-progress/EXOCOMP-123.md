@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T09:45:31.165521Z'
+updated_at: '2026-07-27T09:49:53.458955Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1424,5 +1424,19 @@ amd64 (192.168.122.136): COMPLETE — QUALIFICATION_STATUS=pass, all 44 checks p
 arm64 (192.168.122.171): Actively progressing under full-system QEMU (PID 639696, started 06:36Z). All 9 repository gates PASSED (fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, test, test-release-matrix, test-m5-qualification); two reproducible release builds PASSED; two reproducible signed bundle assemblies PASSED; bench_harness built and installed; live preflight PASSED; operational scenarios PASSED (enrollment, renewal, multi-node, recovery, hardening). Phase 8 (M5 bench short, BENCH_INFERENCE_TIMEOUT_MS=600000) started at 09:38Z and is actively running (bench_harness PID 745368 at 60% CPU). Remaining: M5 bench full (~3-6h QEMU), lifecycle (~1-2h). Estimated completion: 4-8 hours.
 
 Background finalize script (PID 1869233) polling every 5 minutes; will autonomously collect evidence, commit, push, and close EXOCOMP-123 upon arm64 QUALIFICATION_STATUS=pass.
+---
+author: oompah
+created: 2026-07-27 09:49
+---
+Verification progress: v0.1.0-rc.23 arm64 M5 bench short PASSED.
+
+arm64 bench-short result:
+- mode: short, inference_timeout_ms: 600000 ✓
+- beam_cpu_percent: PASS (observed=2.73%, budget=5%)
+- beam_ram_percent: PASS (observed=1.71%, budget=5%)
+
+Phase 9 (M5 bench full) now building bench_harness via podman at 09:48Z. The full gate runs at least 30 minutes (FULL_MINIMUM_SECONDS=1800) with 20 proposals × [1,2,4] concurrency levels under full-system QEMU emulation (BENCH_INFERENCE_TIMEOUT_MS=600000). Estimated completion: 3-6 hours from now.
+
+Background finalizer (PID 1869233) remains healthy, polling every 5 minutes. amd64 record is complete. Will close EXOCOMP-123 automatically upon arm64 QUALIFICATION_STATUS=pass.
 ---
 <!-- COMMENTS:END -->
