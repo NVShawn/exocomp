@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:19:09.193375Z'
+updated_at: '2026-07-27T16:20:06.098205Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -111,5 +111,16 @@ author: oompah
 created: 2026-07-27 16:19
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-07-27 16:20
+---
+Understanding: The task requires wiring the failed-service recovery through the complete A2A task workflow (node + coordinator) rather than calling FailedService.recover directly as in m4_acceptance_test.exs. The gap: (1) node A2A codec/dispatcher only exposes diagnose/propose skills, not a recovery skill; (2) coordinator codec/dispatcher only exposes cluster health/diagnose; (3) m4_acceptance_test.exs calls FailedService.recover directly, bypassing the A2A HTTP surface.
+
+Plan:
+1. Add exocomp.service.recover skill to node: codec, dispatcher, agent card, new skill handler
+2. Add exocomp.cluster.recover skill to coordinator: codec, dispatcher, agent card, new skill handler that routes to node via DiagnosticClient pattern  
+3. Update the m4_acceptance_test to call through the A2A router (or write a new end-to-end test proving the full flow)
+4. Run relevant make gates
 ---
 <!-- COMMENTS:END -->
