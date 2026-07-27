@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-27T11:04:39.715215Z'
+updated_at: '2026-07-27T11:08:43.217129Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -75,5 +75,10 @@ author: oompah
 created: 2026-07-27 11:04
 ---
 Understanding: This epic tracks CI failures on MR #18 (v0.1.0-rc.2 M6 qualification). My role as CI Failure Fixer is to identify and fix the failing tests so the MR can merge. I will: (1) identify the source branch for MR #18, (2) check out that branch, (3) fetch actual CI failure logs from GitHub Actions, (4) reproduce failures locally, (5) apply minimal fixes, (6) push and verify. Starting investigation now.
+---
+author: oompah
+created: 2026-07-27 11:08
+---
+Discovery: The CI failure on PR #18 (branch epic-EXOCOMP-117) is a Python version compatibility issue. tests/test_m5_qualification.py imports 'tomllib' which is stdlib only in Python 3.11+. The CI runner uses ubuntu-22.04 with Python 3.10 as default (python3). Error: ModuleNotFoundError: No module named 'tomllib'. Fix: implement a minimal pure-Python TOML subset parser as a fallback when tomllib is unavailable, avoiding any external dependency. The TOML baseline files have simple structure (key-value pairs + [section.subsection] headers) that a small parser can handle.
 ---
 <!-- COMMENTS:END -->
