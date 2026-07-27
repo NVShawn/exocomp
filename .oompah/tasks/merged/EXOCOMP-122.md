@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-122
 type: feature
-status: Done
+status: Merged
 priority: 2
 title: Add a shipped-artifact M5 performance qualification gate
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-07-26T07:51:37.930050Z'
+updated_at: '2026-07-27T11:14:08.282432Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
