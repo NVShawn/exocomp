@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:43:13.210278Z'
+updated_at: '2026-07-27T18:43:15.963532Z'
 work_branch: EXOCOMP-125
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/20
@@ -310,5 +310,10 @@ author: oompah
 created: 2026-07-27 18:43
 ---
 Completion (Software Engineer, attempt #3): Opened PR #20 (https://github.com/NVShawn/exocomp/pull/20) targeting main from branch EXOCOMP-125. All M5-CRIT-3 through M5-CRIT-6 workloads implemented, tested (56 tests pass), and evidence committed. All 8 M5 milestone acceptance criteria checked off in plans/milestone-5-performance.md. Ready for merge.
+---
+author: oompah
+created: 2026-07-27 18:43
+---
+Implemented M5-CRIT-3 through M5-CRIT-6: llama crash/restart benchmark, mixed coordinator polling, recovery observation-to-verification latency under load, and multi-hour soak analysis. All 56 test-m5-qualification tests pass. Harness validation evidence committed. PR #20 opened targeting main.
 ---
 <!-- COMMENTS:END -->
