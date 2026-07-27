@@ -338,6 +338,9 @@ qualification probes inside the shipped node and coordinator VMs. The probes
 are not part of either supervision tree and are stopped after exporting their
 samples. They capture VM memory, BEAM process count and run queue, every named
 process mailbox, task and goal history counts, and coordinator task history.
+Raw observations stream to mode-0600 temporary spools that are removed after
+export; retaining the multi-hour series in the measured BEAM heap would create
+an observer-induced memory slope.
 Host sampling separately captures RSS, CPU, and file-descriptor count for the
 node, coordinator, and current llama PID, including the new PID after restart.
 
