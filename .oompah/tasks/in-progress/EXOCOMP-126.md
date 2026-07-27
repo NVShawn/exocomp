@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:20:06.098205Z'
+updated_at: '2026-07-27T16:24:49.777737Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -122,5 +122,19 @@ Plan:
 2. Add exocomp.cluster.recover skill to coordinator: codec, dispatcher, agent card, new skill handler that routes to node via DiagnosticClient pattern  
 3. Update the m4_acceptance_test to call through the A2A router (or write a new end-to-end test proving the full flow)
 4. Run relevant make gates
+---
+author: oompah
+created: 2026-07-27 16:24
+---
+Discovery: Confirmed the gap. The node A2A codec allows only exocomp.{system,service}.diagnose and exocomp.remediation.propose. The coordinator allows only exocomp.cluster.{health,diagnose}. Neither surface exposes a recovery skill. The DiagnosticClient explicitly blocks non-diagnostic skills. FailedService.recover is called directly in m4_acceptance_test.exs bypassing all A2A machinery.
+
+Implementation plan:
+- New node skill: exocomp.service.recover (service_recover.ex) — decodes evidence from params, uses injectable callbacks, calls FailedService.recover, returns outcome artifact
+- Node codec: add exocomp.service.recover to @supported_skills  
+- Node dispatcher/card: add mapping and advertise skill
+- New coordinator skill: exocomp.cluster.recover (cluster_recover.ex) — delegates to injectable node-adapter that sends exocomp.service.recover to the target node via DiagnosticClient
+- Coordinator codec/dispatcher/card: same additions  
+- Extend DiagnosticClient @diagnostic_skills to allow exocomp.service.recover
+- Update m4_acceptance_test to prove recovery through the A2A router end-to-end
 ---
 <!-- COMMENTS:END -->
