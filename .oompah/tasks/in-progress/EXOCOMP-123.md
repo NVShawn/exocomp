@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T02:54:14.488342Z'
+updated_at: '2026-07-27T03:06:54.222606Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1139,5 +1139,10 @@ author: oompah
 created: 2026-07-27 02:54
 ---
 Discovery (continuation attempt #7): signed rc.18 is not yet acceptable. The arm64 short M5 run completed every inference but had a QEMU-only CPU ceiling miss; the authoritative full M5 run then failed before evidence publication with {:workload_failed, "llama.concurrent", [0, 0, 3]} at its highest concurrency. docs/clean-host-qualification.md permits only performance-only emulation misses to be inconclusive and says functional failures remain failures, so I will not sign or accept the record. I am diagnosing whether the three errors are the shipped harness's fixed inference timeout under full-system emulation or a candidate runtime defect.
+---
+author: oompah
+created: 2026-07-27 03:06
+---
+Implementation: rc.18 was rejected because its shipped full M5 harness hard-coded a 120-second inference deadline; full-system arm64 QEMU completed concurrency 1/2 but three of four concurrency-4 requests timed out. Commit 4f7e50a adds recorded BENCH_INFERENCE_TIMEOUT_MS configuration (default remains 120s), wires it through sequential/concurrent shipped workloads and Make targets, documents its emulation-only use, adds a behavioral timeout regression, and adds invariant rc.19 baselines without relaxing CPU/RAM ceilings. Signed tag v0.1.0-rc.19 is verified and pushed. Fresh write-once amd64/arm64 qualification services are active.
 ---
 <!-- COMMENTS:END -->
