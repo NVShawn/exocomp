@@ -316,16 +316,8 @@ defmodule Bench.Workload.LlamaInferenceTest do
       fake = start_fake(health_mode: :ok)
       url = base_url(fake)
 
-      # The crash_fn switches health to :error_503, then after a short delay
-      # restores it to :ok (simulating a self-healing restart).
       crash_fn = fn ->
-        FakeLlamaServer.set_health_mode(fake, :error_503)
-
-        spawn(fn ->
-          Process.sleep(200)
-          FakeLlamaServer.set_health_mode(fake, :ok)
-        end)
-
+        FakeLlamaServer.set_health_mode(fake, :error_503_once)
         :ok
       end
 
@@ -389,6 +381,15 @@ defmodule Bench.Workload.LlamaInferenceTest do
         assert is_binary(s.metric_name)
         assert is_number(s.value)
       end
+    end
+
+    test "fails when the crash trigger never makes the server unavailable" do
+      fake = start_fake(health_mode: :ok)
+
+      assert {:error, :shutdown_timeout} =
+               LlamaInference.measure_restart(base_url(fake), fn -> :ok end,
+                 restart_timeout_ms: 100
+               )
     end
   end
 

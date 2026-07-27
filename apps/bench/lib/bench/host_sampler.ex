@@ -47,6 +47,12 @@ defmodule Bench.HostSampler do
   @spec flush(GenServer.server()) :: [Sample.t()]
   def flush(server), do: GenServer.call(server, :flush)
 
+  @doc "Replaces one sampled OS PID, resetting its CPU delta baseline."
+  @spec set_target(GenServer.server(), target(), os_pid()) :: :ok
+  def set_target(server, target, pid) when target in @targets do
+    GenServer.call(server, {:set_target, target, pid})
+  end
+
   @impl true
   def init(opts) do
     interval = Keyword.get(opts, :interval, @default_interval)
@@ -79,6 +85,13 @@ defmodule Bench.HostSampler do
   def handle_call(:flush, _from, state) do
     state = collect(state)
     {:reply, Enum.reverse(state.samples), %{state | samples: []}}
+  end
+
+  def handle_call({:set_target, target, pid}, _from, state) do
+    targets = Keyword.replace!(state.targets, target, pid)
+
+    {:reply, :ok,
+     %{state | targets: targets, previous_cpu: Map.delete(state.previous_cpu, target)}}
   end
 
   @impl true

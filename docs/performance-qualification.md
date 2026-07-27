@@ -13,7 +13,7 @@ The M5 gate has three tiers:
 |--------|---------|-------------|----------|
 | `bench-llama-short` | CI smoke test; validates the harness itself | Fake in-process server | Seconds |
 | `bench-llama-short-shipped` | CI verification against real shipped binaries | Real shipped `llama-server` | Minutes |
-| `bench-llama-full` | Release qualification against shipped artifacts | Real shipped `llama-server` | 30 min+ per arch |
+| `bench-llama-full` | Release qualification against shipped artifacts | Real shipped `llama-server` | 2 hours+ per arch |
 
 `bench-llama-short` runs without any installed Exocomp processes and is
 suitable for every CI push. `bench-llama-short-shipped` and
@@ -42,11 +42,18 @@ both thresholds on each qualification host:
 | BEAM control plane (node + coordinator, excluding llama.cpp) | Average CPU | < 5% of one core |
 | BEAM control plane (node + coordinator, excluding llama.cpp) | RSS | < 5% of host RAM |
 
-Model startup time, model RSS, inference latency, and concurrent throughput
-are **reported separately** and are not hidden inside the control-plane
-budget. They must be recorded and attached to release evidence but do not have
-fixed thresholds — hardware-specific results require an explicit rationale if
-they differ materially from the versioned baseline.
+Model startup time, model RSS, inference latency, concurrent throughput, and
+crash-to-readiness restart time are **reported separately** and are not hidden
+inside the control-plane budget. The summary also reports whole-bundle CPU and
+RSS totals. These measurements must be attached to release evidence but do not
+have fixed thresholds — hardware-specific results require an explicit
+rationale if they differ materially from the versioned baseline.
+
+The full gate also enforces workload correctness. It polls a healthy, a slow,
+and an unreachable coordinator target; times recovery from observation through
+verification while inference is active; verifies that a failed durable-intent
+write prevents execution; and rejects sustained post-warm-up growth during the
+soak.
 
 ## Prerequisites
 
@@ -139,20 +146,39 @@ make bench-llama-full \
   MODEL_SHA256=<sha256>
 ```
 
-Starts the installed `exocomp-node` and `exocomp-coordinator` units,
-launches the real `llama-server`, records model readiness and
-sequential/concurrent inference, then measures steady-idle control-plane usage
-for at least 30 minutes after warm-up. It must be run on a clean amd64 host
-**and** on a clean arm64 host independently. Each run produces a JSONL evidence
-file and a summary report. Exits non-zero when any hard gate fails.
+Starts the installed `exocomp-node` and `exocomp-coordinator` units and the
+real `llama-server`. It records model readiness, sequential/concurrent
+inference and saturation, kills and restarts the owned llama process, exercises
+mixed coordinator polling and recovery under concurrent inference, then runs
+a bounded inference load and samples the system for at least two hours after
+warm-up. It must be run on a clean amd64 host **and** on a clean arm64 host
+independently. Each run produces a JSONL evidence file and a summary report.
+It exits non-zero when any resource or correctness gate fails.
 
-The harness allows the per-inference deadline to be increased from its
-120-second default with `BENCH_INFERENCE_TIMEOUT_MS`. This is intended for
-full-system CPU emulation where a healthy native `llama-server` may need more
-than 120 seconds at the highest concurrency. Record any override in the
-qualification transcript. It changes only the request deadline: every
-sequential and concurrent inference must still succeed, and the CPU/RAM
-budgets remain unchanged.
+The harness supports the following bounded workload controls:
+
+| Variable | Default in full mode | Purpose |
+|----------|----------------------|---------|
+| `BENCH_INFERENCE_TIMEOUT_MS` | 120000 | Deadline for each real inference |
+| `BENCH_RESTART_TIMEOUT_MS` | 120000 | Deadline for llama exit and subsequent readiness |
+| `BENCH_RUN_SECONDS` | 7200 | Post-warm-up soak duration; values below 7200 are rejected |
+| `BENCH_SOAK_LOAD_INTERVAL_SECONDS` | 60 | Delay between bounded inference requests during soak |
+| `BENCH_POLL_CYCLES` | 20 | Mixed-node coordinator polling cycles |
+| `BENCH_POLL_CONCURRENCY` | 3 | Maximum concurrent coordinator polls |
+
+The inference and restart deadlines may need to be raised on full-system CPU
+emulation. Record overrides in the qualification transcript. They do not
+weaken success requirements: all inferences and restart diagnostics must
+succeed, and the CPU, RAM, polling, recovery-safety, and soak gates remain
+unchanged.
+
+For a reproducible dedicated-guest run, use
+`scripts/qualify-m5-workloads.sh`. The script requires an exact clean commit,
+the digest-pinned builder, pinned model and llama paths, and
+`M5_DEDICATED_GUEST=1`. It builds and signs the candidate, records a local
+rollback archive outside the evidence directory, performs the existing
+live-install preflight, and runs the two-hour full gate. Run it independently
+with `M5_ARCH=amd64` and `M5_ARCH=arm64`.
 
 ## Host Profiles
 
@@ -307,6 +333,39 @@ The control-plane gates use only the `:node` and `:coordinator` CPU and RAM
 samples. The `:llama` samples are always recorded and written to evidence but
 never included in the BEAM control-plane budget.
 
+For full runs, an authenticated release RPC starts temporary, unlinked
+qualification probes inside the shipped node and coordinator VMs. The probes
+are not part of either supervision tree and are stopped after exporting their
+samples. They capture VM memory, BEAM process count and run queue, every named
+process mailbox, task and goal history counts, and coordinator task history.
+Raw observations stream to mode-0600 temporary spools that are removed after
+export; retaining the multi-hour series in the measured BEAM heap would create
+an observer-induced memory slope.
+Host sampling separately captures RSS, CPU, and file-descriptor count for the
+node, coordinator, and current llama PID, including the new PID after restart.
+
+## Full Workload Correctness Gates
+
+The full summary includes hard correctness gates in addition to the
+versioned CPU/RAM budgets:
+
+- `llama.restart_ms` must be present and restart diagnostics must report the
+  old process down and the replacement healthy.
+- `coordinator.poll.*` must contain successful healthy, slow, and unreachable
+  observations, and the poller mailbox may not grow from its initial depth.
+- `recovery.observation_to_verification_ms` must be present, the verified
+  lifecycle must complete, and the durable-intent failure scenario must show
+  zero executions.
+- `soak.pass` requires every resource series below to be present and stable.
+
+Soak analysis discards warm-up samples and fits a least-squares slope to each
+post-warm-up series. It also compares the median of the initial and final
+windows so a flat ending cannot conceal earlier retained growth. VM and llama
+RSS permit only a bounded cache allowance of the greater of 4 MiB or 2% of
+the starting value. Process counts, named mailboxes, file descriptors, and
+task histories permit no sustained positive growth. Missing series fail the
+gate.
+
 ## Artifact Identity
 
 Every evidence file records a complete artifact identity snapshot:
@@ -356,7 +415,7 @@ Each run writes two files to the evidence output directory
 | File | Description |
 |------|-------------|
 | `samples.jsonl` | Raw samples in JSON Lines format, one record per line |
-| `summary.json` | Aggregated statistics, gate results, artifact identity, and host profile |
+| `summary.json` | Aggregated statistics, workload correctness, soak analysis, gate results, artifact identity, and host profile |
 
 A run ID is generated from the artifact version, architecture, and a
 timestamp:

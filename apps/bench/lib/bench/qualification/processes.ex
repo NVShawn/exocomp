@@ -8,7 +8,7 @@ defmodule Bench.Qualification.Processes do
   state of installed systemd units and stops only units it started.
   """
 
-  alias Bench.{ArtifactIdentity, Qualification.Config}
+  alias Bench.{ArtifactIdentity, Qualification.Config, Qualification.RPC, Sample}
 
   @units ["exocomp-coordinator.service", "exocomp-node.service"]
   @ready_timeout_ms 30_000
@@ -55,6 +55,210 @@ defmodule Bench.Qualification.Processes do
 
     Enum.each(processes.temporary_paths, &File.rm/1)
     :ok
+  end
+
+  @doc "Replaces the harness-owned llama-server process and returns its new PID."
+  @spec restart_llama(Config.t(), ArtifactIdentity.t(), t()) :: {:ok, t()} | {:error, term()}
+  def restart_llama(
+        %Config{} = config,
+        %ArtifactIdentity{} = identity,
+        %__MODULE__{ports: [llama_owner | remaining]} = processes
+      ) do
+    :ok = terminate_owned_process(llama_owner)
+
+    case start_llama(config, identity) do
+      {:ok, new_owner, new_pid} ->
+        {:ok, %{processes | llama_pid: new_pid, ports: [new_owner | remaining]}}
+
+      {:error, reason, owners} ->
+        Enum.each(owners, &terminate_owned_process/1)
+        {:error, reason}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  def restart_llama(_config, _identity, _processes), do: {:error, :llama_process_not_owned}
+
+  @doc "Checks that the shipped node process remains present during llama restart."
+  @spec diagnostics_available(t()) :: :ok | {:error, :node_unavailable}
+  def diagnostics_available(%__MODULE__{node_pid: pid}) do
+    if File.dir?("/proc/#{pid}"), do: :ok, else: {:error, :node_unavailable}
+  end
+
+  @doc "Starts internal VM samplers over authenticated release RPC for a full run."
+  @spec start_runtime_samplers(Config.t(), t()) :: :ok | {:error, term()}
+  def start_runtime_samplers(%Config{mode: :short}, _processes), do: :ok
+
+  def start_runtime_samplers(%Config{mode: :full} = config, _processes) do
+    node_expression = """
+    case Exocomp.QualificationProbe.start(
+           source: :node,
+           interval_ms: #{config.sample_interval_ms},
+           named_processes: [
+             {"executor_lock", Exocomp.Node.ExecutorLock},
+             {"task_registry", Exocomp.Node.TaskRegistry},
+             {"replay_ledger", Exocomp.Node.Safety.ReplayLedger},
+             {"vacuum_state", Exocomp.Node.VacuumState}
+           ],
+           history: [
+             {"node.task_history", fn -> length(Exocomp.Node.TaskRegistry.list()) end}
+           ]
+         ) do
+      :ok -> %{"ok" => true}
+      {:error, reason} -> %{"ok" => false, "error" => inspect(reason)}
+    end
+    """
+
+    coordinator_expression = """
+    case Exocomp.QualificationProbe.start(
+           source: :coordinator,
+           interval_ms: #{config.sample_interval_ms},
+           named_processes: [
+             {"registry", Exocomp.Coordinator.Registry},
+             {"health_poller", Exocomp.Coordinator.HealthPoller},
+             {"goal_store", Exocomp.Coordinator.GoalStore},
+             {"task_registry", Exocomp.Coordinator.TaskRegistry},
+             {"orchestrator", Exocomp.Coordinator.Orchestrator},
+             {"remediation", Exocomp.Coordinator.RemediationLifecycle},
+             {"audit", Exocomp.Coordinator.Audit}
+           ],
+           history: [
+             {"coordinator.task_history", fn -> length(Exocomp.Coordinator.TaskRegistry.list()) end},
+             {"coordinator.goal_history", fn -> length(Exocomp.Coordinator.GoalStore.list()) end}
+           ]
+         ) do
+      :ok -> %{"ok" => true}
+      {:error, reason} -> %{"ok" => false, "error" => inspect(reason)}
+    end
+    """
+
+    with {:ok, %{"ok" => true}} <- release_rpc(config, :node, node_expression),
+         {:ok, %{"ok" => true}} <-
+           release_rpc(config, :coordinator, coordinator_expression) do
+      :ok
+    else
+      {:ok, %{"error" => reason}} -> {:error, {:runtime_sampler_start_failed, reason}}
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  @doc "Flushes and stops internal runtime samplers, returning Bench samples."
+  @spec runtime_samples(Config.t(), t()) :: {:ok, [Sample.t()]} | {:error, term()}
+  def runtime_samples(%Config{mode: :short}, _processes), do: {:ok, []}
+
+  def runtime_samples(%Config{mode: :full} = config, _processes) do
+    expression = """
+    case Exocomp.QualificationProbe.export_and_stop() do
+      {:ok, json} -> %{"ok" => true, "samples" => Jason.decode!(json)}
+      {:error, reason} -> %{"ok" => false, "error" => inspect(reason)}
+    end
+    """
+
+    with {:ok, %{"ok" => true, "samples" => node}} <- release_rpc(config, :node, expression),
+         {:ok, %{"ok" => true, "samples" => coordinator}} <-
+           release_rpc(config, :coordinator, expression),
+         {:ok, samples} <- decode_samples(node ++ coordinator) do
+      {:ok, samples}
+    else
+      {:ok, %{"error" => reason}} -> {:error, {:runtime_sampler_export_failed, reason}}
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  @doc "Runs the shipped coordinator mixed-polling workload over release RPC."
+  @spec coordinator_polling(Config.t(), t()) :: {:ok, [Sample.t()]} | {:error, term()}
+  def coordinator_polling(%Config{mode: :short}, _processes), do: {:ok, []}
+
+  def coordinator_polling(%Config{mode: :full} = config, _processes) do
+    expression = """
+    case Exocomp.Coordinator.QualificationProbe.polling(
+           cycles: #{config.poll_cycles},
+           concurrency: #{config.poll_concurrency}
+         ) do
+      {:ok, samples} -> %{"ok" => true, "samples" => samples}
+      {:error, reason} -> %{"ok" => false, "error" => inspect(reason)}
+    end
+    """
+
+    workload_samples(config, expression, :coordinator_polling)
+  end
+
+  @doc "Runs the shipped coordinator recovery workload over release RPC."
+  @spec recovery(Config.t(), t()) :: {:ok, [Sample.t()]} | {:error, term()}
+  def recovery(%Config{mode: :short}, _processes), do: {:ok, []}
+
+  def recovery(%Config{mode: :full} = config, _processes) do
+    expression = """
+    case Exocomp.Coordinator.QualificationProbe.recovery() do
+      {:ok, samples} -> %{"ok" => true, "samples" => samples}
+      {:error, reason} -> %{"ok" => false, "error" => inspect(reason)}
+    end
+    """
+
+    workload_samples(config, expression, :recovery)
+  end
+
+  defp workload_samples(config, expression, workload) do
+    with {:ok, %{"ok" => true, "samples" => samples}} <-
+           release_rpc(config, :coordinator, expression),
+         {:ok, decoded} <- decode_samples(samples) do
+      {:ok, decoded}
+    else
+      {:ok, %{"error" => reason}} -> {:error, {workload, reason}}
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  defp decode_samples(samples) when is_list(samples) do
+    samples
+    |> Enum.reduce_while({:ok, []}, fn map, {:ok, decoded} ->
+      case Sample.from_map(map) do
+        {:ok, sample} -> {:cont, {:ok, [sample | decoded]}}
+        {:error, reason} -> {:halt, {:error, {:invalid_runtime_sample, reason}}}
+      end
+    end)
+    |> case do
+      {:ok, decoded} -> {:ok, Enum.reverse(decoded)}
+      error -> error
+    end
+  end
+
+  defp decode_samples(_samples), do: {:error, :invalid_runtime_samples}
+
+  defp release_rpc(config, component, expression) do
+    release =
+      case component do
+        :node -> config.node_release
+        :coordinator -> config.coordinator_release
+      end
+
+    product =
+      case component do
+        :node -> "exocomp_node"
+        :coordinator -> "exocomp_coordinator"
+      end
+
+    executable = Path.join([release, "bin", product])
+    cookie_path = Path.expand(Path.join([release, "..", "config", "release-cookie.env"]))
+
+    with {:ok, cookie} <- RPC.read_cookie(cookie_path) do
+      case System.cmd(
+             executable,
+             ["rpc", RPC.frame_expression(expression)],
+             env: RPC.release_environment(cookie),
+             stderr_to_stdout: true
+           ) do
+        {output, 0} ->
+          RPC.decode_output(output)
+
+        {output, status} ->
+          {:error, {:release_rpc_failed, component, status, String.slice(output, 0, 500)}}
+      end
+    end
+  rescue
+    error -> {:error, {:release_rpc_exception, component, Exception.message(error)}}
   end
 
   defp start_short(config, identity) do

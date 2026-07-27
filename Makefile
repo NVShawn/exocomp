@@ -85,7 +85,12 @@ BENCH_LLAMA_PORT ?=
 BENCH_WARM_UP_SECONDS ?=
 BENCH_RUN_SECONDS ?=
 BENCH_SAMPLE_INTERVAL_MS ?=
+BENCH_INFERENCE_TIMEOUT_MS ?=
+BENCH_RESTART_TIMEOUT_MS ?=
 BENCH_PROPOSAL_COUNT ?=
+BENCH_SOAK_LOAD_INTERVAL_SECONDS ?=
+BENCH_POLL_CYCLES ?=
+BENCH_POLL_CONCURRENCY ?=
 BENCH_HARNESS := _build/prod/rel/bench_harness/bin/bench_harness
 
 help: ## Show this help.
@@ -218,10 +223,14 @@ bench-llama-short-shipped: bench-harness ## Run the short M5 gate against real s
 		$(if $(BENCH_RUN_SECONDS),BENCH_RUN_SECONDS="$(BENCH_RUN_SECONDS)") \
 		$(if $(BENCH_SAMPLE_INTERVAL_MS),BENCH_SAMPLE_INTERVAL_MS="$(BENCH_SAMPLE_INTERVAL_MS)") \
 		$(if $(BENCH_INFERENCE_TIMEOUT_MS),BENCH_INFERENCE_TIMEOUT_MS="$(BENCH_INFERENCE_TIMEOUT_MS)") \
+		$(if $(BENCH_RESTART_TIMEOUT_MS),BENCH_RESTART_TIMEOUT_MS="$(BENCH_RESTART_TIMEOUT_MS)") \
 		$(if $(BENCH_PROPOSAL_COUNT),BENCH_PROPOSAL_COUNT="$(BENCH_PROPOSAL_COUNT)") \
+		$(if $(BENCH_SOAK_LOAD_INTERVAL_SECONDS),BENCH_SOAK_LOAD_INTERVAL_SECONDS="$(BENCH_SOAK_LOAD_INTERVAL_SECONDS)") \
+		$(if $(BENCH_POLL_CYCLES),BENCH_POLL_CYCLES="$(BENCH_POLL_CYCLES)") \
+		$(if $(BENCH_POLL_CONCURRENCY),BENCH_POLL_CONCURRENCY="$(BENCH_POLL_CONCURRENCY)") \
 		"$(BENCH_HARNESS)" eval 'System.halt(Bench.Qualification.CLI.main())'
 
-bench-llama-full: bench-harness ## Run the full M5 release gate against installed shipped processes (minimum 30 minutes).
+bench-llama-full: bench-harness ## Run the full M5 release gate against installed shipped processes (minimum two-hour soak).
 	env \
 		BENCH_MODE=full \
 		LLAMA_SERVER="$(LLAMA_SERVER)" \
@@ -236,18 +245,29 @@ bench-llama-full: bench-harness ## Run the full M5 release gate against installe
 		$(if $(BENCH_RUN_SECONDS),BENCH_RUN_SECONDS="$(BENCH_RUN_SECONDS)") \
 		$(if $(BENCH_SAMPLE_INTERVAL_MS),BENCH_SAMPLE_INTERVAL_MS="$(BENCH_SAMPLE_INTERVAL_MS)") \
 		$(if $(BENCH_INFERENCE_TIMEOUT_MS),BENCH_INFERENCE_TIMEOUT_MS="$(BENCH_INFERENCE_TIMEOUT_MS)") \
+		$(if $(BENCH_RESTART_TIMEOUT_MS),BENCH_RESTART_TIMEOUT_MS="$(BENCH_RESTART_TIMEOUT_MS)") \
 		$(if $(BENCH_PROPOSAL_COUNT),BENCH_PROPOSAL_COUNT="$(BENCH_PROPOSAL_COUNT)") \
+		$(if $(BENCH_SOAK_LOAD_INTERVAL_SECONDS),BENCH_SOAK_LOAD_INTERVAL_SECONDS="$(BENCH_SOAK_LOAD_INTERVAL_SECONDS)") \
+		$(if $(BENCH_POLL_CYCLES),BENCH_POLL_CYCLES="$(BENCH_POLL_CYCLES)") \
+		$(if $(BENCH_POLL_CONCURRENCY),BENCH_POLL_CONCURRENCY="$(BENCH_POLL_CONCURRENCY)") \
 		"$(BENCH_HARNESS)" eval 'System.halt(Bench.Qualification.CLI.main())'
 
 test-m5-qualification: ## Run focused M5 shipped-artifact configuration, identity, baseline, gate, and evidence tests.
 	$(PYTHON) -m unittest discover -s tests -p 'test_m5_qualification.py' -v
 	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
 		MIX_ENV=test mix do --app bench cmd mix test \
+		test/bench/analysis/soak_test.exs \
 		test/bench/artifact_identity_test.exs \
 		test/bench/baseline_test.exs \
 		test/bench/qualification/config_test.exs \
+		test/bench/qualification/rpc_test.exs \
 		test/bench/qualification_test.exs \
-		test/bench/report/summary_test.exs'
+		test/bench/report/summary_test.exs \
+		test/bench/workload/soak_test.exs && \
+		MIX_ENV=test mix do --app exocomp_core cmd mix test \
+		test/exocomp/qualification_probe_test.exs && \
+		MIX_ENV=test mix do --app exocomp_coordinator cmd mix test \
+		test/exocomp/coordinator/qualification_probe_test.exs'
 
 test-installer: ## Run hardened installer/uninstaller tests (requires Python 3.11+, no systemd or root needed).
 	python3 -m pytest test/installer/test_installer.py -v

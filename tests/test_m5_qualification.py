@@ -64,6 +64,7 @@ except ModuleNotFoundError:
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = REPO_ROOT / ".github" / "workflows" / "m5-harness.yml"
 BASELINES = REPO_ROOT / "apps" / "bench" / "priv" / "bench" / "baselines"
+WORKLOAD_SCRIPT = REPO_ROOT / "scripts" / "qualify-m5-workloads.sh"
 
 
 class M5QualificationWorkflowTest(unittest.TestCase):
@@ -124,6 +125,32 @@ class M5QualificationWorkflowTest(unittest.TestCase):
         for action in actions:
             with self.subTest(action=action):
                 self.assertRegex(action, r"^[^@]+@[0-9a-f]{40}$")
+
+    def test_full_workload_qualification_is_bounded_reproducible_and_reversible(
+        self,
+    ) -> None:
+        script = WORKLOAD_SCRIPT.read_text(encoding="utf-8")
+
+        required_fragments = (
+            "M5_DEDICATED_GUEST",
+            "status --porcelain=v1 --untracked-files=all",
+            "release/builders.lock",
+            "make bench-llama-full",
+            "BENCH_RESTART_TIMEOUT_MS",
+            "qualification-live-preflight.sh",
+            "exocomp-state.tar.gz",
+            "umask 022",
+            "source_tag=untagged",
+            '"soak.pass"',
+            "QUALIFICATION_STATUS=pass",
+        )
+
+        for fragment in required_fragments:
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, script)
+
+        self.assertNotIn(":latest", script)
+        self.assertIn('summary["config"]["run_seconds"] >= 7200', script)
 
 
 if __name__ == "__main__":

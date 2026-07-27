@@ -157,14 +157,26 @@ hard gate fails.
       build, host, model, workload, and raw-sample metadata.
 - [x] M5-CRIT-2: Idle node and coordinator control planes each remain below 5%
       of one CPU core and 5% of host RAM on both reference architectures.
-- [ ] M5-CRIT-3: Model startup, RSS, inference latency, saturation, and restart
+- [x] M5-CRIT-3: Model startup, RSS, inference latency, saturation, and restart
       results are reported separately and as part of total bundle usage.
-- [ ] M5-CRIT-4: Coordinator polling and task benchmarks include healthy,
+      Evidence: `docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/`
+      (llama.restart.{down_ms,recovery_ms,total_ms,diagnostics_available};
+      gate `llama_restart_diagnostics` pass). Implemented in EXOCOMP-125.
+- [x] M5-CRIT-4: Coordinator polling and task benchmarks include healthy,
       slow, and unreachable nodes without unbounded mailbox growth.
-- [ ] M5-CRIT-5: Recovery benchmarks report observation-to-verification
+      Evidence: `docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/`
+      (coordinator.poll.{healthy,slow,unreachable}.count, mailbox.growth;
+      gates `coordinator_poll_*` all pass). Implemented in EXOCOMP-125.
+- [x] M5-CRIT-5: Recovery benchmarks report observation-to-verification
       latency and preserve Milestone 4 safety behavior under load.
-- [ ] M5-CRIT-6: The soak workload finds no unbounded memory, process,
+      Evidence: `docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/`
+      (recovery.observation_to_verification_ms=8, recovery.safety_pass=1;
+      gate `recovery_safety` pass). Implemented in EXOCOMP-125.
+- [x] M5-CRIT-6: The soak workload finds no unbounded memory, process,
       mailbox, descriptor, or task-history growth.
+      Evidence: `docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/`
+      (12 series analyzed: RSS, process count, mailboxes, FDs, task/goal history;
+      all slopes near 0; gate `soak_stability` pass). Implemented in EXOCOMP-125.
 - [x] M5-CRIT-7: Automated regression gates identify the exact failed metric
       and return non-zero.
 - [x] M5-CRIT-8: Short CI benchmark and full release benchmark Make targets
