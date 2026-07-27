@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-125
 type: task
-status: Done
+status: Merged
 priority: 1
 title: Complete remaining M5 workload and soak qualification
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:43:24.242420Z'
+updated_at: '2026-07-27T18:45:08.581690Z'
 work_branch: EXOCOMP-125
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/20
