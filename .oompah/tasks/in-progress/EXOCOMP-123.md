@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T02:22:44.027663Z'
+updated_at: '2026-07-27T02:45:02.435588Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1104,5 +1104,20 @@ author: oompah
 created: 2026-07-27 02:22
 ---
 Discovery (arm64 M5): the shipped short M5 workload completed startup and every sequential/concurrent inference with zero errors, but its 5-second post-workload CPU sample measured 7.091% against the 5.0% ceiling under full-system QEMU. This is a performance-only emulation miss; docs/clean-host-qualification.md classifies it as inconclusive rather than a functional candidate failure and requires the architecture qualification gate to be established separately. I am preserving the signed-candidate short record transparently and will run the authoritative 30-minute full arm64 gate. rc.18 will be accepted only if full M5 passes and lifecycle completes.
+---
+author: oompah
+created: 2026-07-27 02:45
+---
+Agent stalled — no productive actions (writes/commands) for 10 consecutive turns (3657s). Retrying in 300s (attempt #7)
+---
+author: oompah
+created: 2026-07-27 02:45
+---
+Run #7 [attempt=7, profile=deep, role=deep -> Codex/default]
+- Turns: 1, Tool calls: 146
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: stalled, Duration: 1h 0m 57s
+- Log: EXOCOMP-123__20260727T014404Z.jsonl
 ---
 <!-- COMMENTS:END -->
