@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-126
 type: task
-status: In Progress
+status: In Review
 priority: 1
 title: Complete failed-service recovery through the A2A workflow
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T17:00:06.312186Z'
+updated_at: '2026-07-27T17:00:57.565256Z'
 work_branch: null
 target_branch: null
 review_url: null
