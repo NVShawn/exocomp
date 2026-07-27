@@ -100,12 +100,14 @@ for path in \
 done
 if ((${#rollback_paths[@]} > 0)); then
     tar --acls --xattrs -C / -czf "${rollback_dir}/exocomp-state.tar.gz" "${rollback_paths[@]}"
+    chmod 0600 "${rollback_dir}/exocomp-state.tar.gz"
 fi
 cat > "${rollback_dir}/README.txt" <<EOF
 This archive is local-only because it may contain protected release state.
 Stop Exocomp services, remove the replacement paths, extract from /, run
 systemctl daemon-reload, and start the restored services to roll back.
 EOF
+chmod 0600 "${rollback_dir}/README.txt"
 
 cd "${source_dir}"
 
@@ -165,12 +167,17 @@ else
 fi
 
 echo "=== $(timestamp) offline install and readiness preflight ==="
-QUALIFICATION_VERSION="${version}" \
-QUALIFICATION_ARCH="${architecture}" \
-QUALIFICATION_ROOT="${qualification_root}" \
-QUALIFICATION_DIST="${dist_dir}" \
-QUALIFICATION_EVIDENCE="${evidence_dir}/preflight" \
-bash "${source_dir}/scripts/qualification-live-preflight.sh"
+(
+    # The installer intentionally creates service-account-readable roots.
+    # Do not propagate the runner's private evidence umask into installation.
+    umask 022
+    QUALIFICATION_VERSION="${version}" \
+    QUALIFICATION_ARCH="${architecture}" \
+    QUALIFICATION_ROOT="${qualification_root}" \
+    QUALIFICATION_DIST="${dist_dir}" \
+    QUALIFICATION_EVIDENCE="${evidence_dir}/preflight" \
+    bash "${source_dir}/scripts/qualification-live-preflight.sh"
+)
 
 echo "=== $(timestamp) two-hour shipped-artifact workload and soak gate ==="
 BENCH_HARNESS="${bench_harness}" \

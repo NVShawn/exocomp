@@ -139,6 +139,7 @@ class M5QualificationWorkflowTest(unittest.TestCase):
             "BENCH_RESTART_TIMEOUT_MS",
             "qualification-live-preflight.sh",
             "exocomp-state.tar.gz",
+            "umask 022",
             "source_tag=untagged",
             '"soak.pass"',
             "QUALIFICATION_STATUS=pass",
