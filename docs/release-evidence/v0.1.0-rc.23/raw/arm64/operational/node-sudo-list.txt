@@ -1,0 +1,8 @@
+Matching Defaults entries for exocomp-node on exocomp-arm64:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+    use_pty, !pam_session
+
+User exocomp-node may run the following commands on exocomp-arm64:
+    (root) NOPASSWD: /usr/bin/systemctl restart exocomp-fixture.service
+    (root) NOPASSWD: /usr/bin/journalctl --vacuum-size\=100M

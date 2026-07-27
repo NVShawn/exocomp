@@ -58,6 +58,7 @@ defmodule Exocomp.Node.ActionCatalog do
         }
 
   # Absolute executable paths — never caller-supplied.
+  @sudo "/usr/bin/sudo"
   @systemctl "/usr/bin/systemctl"
   @journalctl "/usr/bin/journalctl"
 
@@ -172,8 +173,8 @@ defmodule Exocomp.Node.ActionCatalog do
     # at this point.  It is captured in a closure and evaluated at execution time
     # — no further transformation is applied.
     %{
-      executable: @systemctl,
-      build_argv: fn -> ["restart", target] end,
+      executable: @sudo,
+      build_argv: fn -> [@systemctl, "restart", target] end,
       env: [],
       timeout_ms: @restart_timeout_ms,
       output_limit_bytes: @default_output_limit_bytes
@@ -184,8 +185,8 @@ defmodule Exocomp.Node.ActionCatalog do
     # The vacuum size is fixed at installation time via application config.
     # No caller-supplied value can influence the argv.
     %{
-      executable: @journalctl,
-      build_argv: fn -> ["--vacuum-size=#{vacuum_size()}"] end,
+      executable: @sudo,
+      build_argv: fn -> [@journalctl, "--vacuum-size=#{vacuum_size()}"] end,
       env: [],
       timeout_ms: @vacuum_timeout_ms,
       output_limit_bytes: @default_output_limit_bytes

@@ -4,6 +4,11 @@ Documentation=https://github.com/NVShawn/exocomp
 After=network-online.target
 Wants=network-online.target
 
+# Bound automatic restart churn. Start-limit directives belong to this unit
+# section; systemd ignores them when placed in the service section.
+StartLimitIntervalSec=120s
+StartLimitBurst=4
+
 # ── Ordering and dependency ────────────────────────────────────────────────────
 # Require network before starting.  Node connections are accepted after start.
 
@@ -18,13 +23,21 @@ Group=@ACCOUNT@
 
 # ── Executable ────────────────────────────────────────────────────────────────
 ExecStart=@INSTALL_DIR@/current/bin/exocomp_coordinator start
-ExecStop=@INSTALL_DIR@/current/bin/exocomp_coordinator stop
+# The release stop command requires distributed Erlang RPC, which may not be
+# ready during a failed upgrade. The BEAM handles SIGTERM gracefully.
+ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
 
 WorkingDirectory=@INSTALL_DIR@
 
 # ── Environment ───────────────────────────────────────────────────────────────
 Environment=EXOCOMP_COORDINATOR_CONFIG_FILE=@INSTALL_DIR@/config/coordinator.json
+Environment=EXOCOMP_PKI_ONLINE_STATE=@STATE_DIR@/pki
+Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE=@STATE_DIR@/enrollment-tokens
+Environment=EXOCOMP_TLS_CA_PATH=@STATE_DIR@/pki/root_ca.pem
+Environment=EXOCOMP_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator.pem
+Environment=EXOCOMP_A2A_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator_chain.pem
+Environment=EXOCOMP_TLS_KEY_PATH=@STATE_DIR@/pki/coordinator_key.pem
 Environment=EXOCOMP_LOG_DIR=@INSTALL_DIR@/log
 Environment=ERL_CRASH_DUMP=@INSTALL_DIR@/log/erl_crash.dump
 EnvironmentFile=-@INSTALL_DIR@/config/release-cookie.env
@@ -40,8 +53,6 @@ StateDirectoryMode=0750
 # ── Restart policy ───────────────────────────────────────────────────────────
 Restart=on-failure
 RestartSec=5s
-StartLimitIntervalSec=120s
-StartLimitBurst=4
 TimeoutStartSec=60s
 TimeoutStopSec=60s
 
@@ -61,7 +72,7 @@ SecureBits=noroot noroot-locked
 # ── Filesystem access ─────────────────────────────────────────────────────────
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config
+ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config @STATE_DIR@
 
 PrivateTmp=true
 

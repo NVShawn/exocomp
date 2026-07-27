@@ -12,7 +12,7 @@
 #   --bundle     PATH                     release archive (.tar.gz)
 #                                         default: auto-detect from bundle directory
 #   --checksums  PATH                     SHA-256 checksums file
-#                                         default: <bundle-dir>/checksums.sha256
+#                                         default: <bundle-dir>/manifest.sha256
 #   --version    VERSION                  override version detected from archive
 #   --allow-list SVC1,SVC2,...            comma-separated systemd service names
 #                                         granted in the sudoers policy
@@ -32,6 +32,10 @@
 #   EXOCOMP_HEALTHCHECK_COMMAND
 #                        Optional operator health command. It must exit zero
 #                        only when application health is ready.
+#   EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS
+#                        Restored-release probe attempts (default: 10).
+#   EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL
+#                        Seconds between restored-release probes (default: 2).
 #   EXOCOMP_CONFIG_VALIDATOR_COMMAND
 #                        Optional config validator used by qualification tests.
 
@@ -55,6 +59,8 @@ EXOCOMP_HEALTHCHECK_COMMAND="${EXOCOMP_HEALTHCHECK_COMMAND:-}"
 EXOCOMP_CONFIG_VALIDATOR_COMMAND="${EXOCOMP_CONFIG_VALIDATOR_COMMAND:-}"
 EXOCOMP_HEALTHCHECK_ATTEMPTS="${EXOCOMP_HEALTHCHECK_ATTEMPTS:-10}"
 EXOCOMP_HEALTHCHECK_INTERVAL="${EXOCOMP_HEALTHCHECK_INTERVAL:-2}"
+EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS="${EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS:-10}"
+EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL="${EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL:-2}"
 # When EXOCOMP_ROOT is non-empty we are in a test/sandbox environment; skip
 # operations that require real root: useradd, chown.
 EXOCOMP_SKIP_USERADD="${EXOCOMP_SKIP_USERADD:-${EXOCOMP_ROOT:+1}}"
@@ -162,6 +168,9 @@ render_sudoers() {
 # Generated for account: ${account}
 # DO NOT EDIT — regenerate from the installed action catalog.
 # Validate with: visudo -c -f ${EXOCOMP_SUDOERS_DIR}/${account}
+# The hardened service has no login session.  Keep command authorization and
+# sudo auditing enabled while avoiding PAM session setup from that sandbox.
+Defaults:${account} !pam_session
 SUDOERS_HEADER
 
     for entry in "${entries[@]}"; do
@@ -198,9 +207,13 @@ preflight() {
 
     # 1b. Determine release archive
     if [[ -z "${BUNDLE}" ]]; then
-        # Auto-detect: look for exocomp-<component>-*.tar.gz in bundle root
+        # Auto-detect: look in the delivered releases/ directory first, then
+        # retain compatibility with older development bundle roots.
         local matches
-        matches=("${BUNDLE_ROOT}"/exocomp-"${COMPONENT}"-*.tar.gz)
+        matches=("${BUNDLE_ROOT}"/releases/exocomp-"${COMPONENT}"-*.tar.gz)
+        if [[ ${#matches[@]} -eq 0 ]] || [[ ! -f "${matches[0]}" ]]; then
+            matches=("${BUNDLE_ROOT}"/exocomp-"${COMPONENT}"-*.tar.gz)
+        fi
         if [[ ${#matches[@]} -eq 0 ]] || [[ ! -f "${matches[0]}" ]]; then
             die "no release archive found in ${BUNDLE_ROOT}; pass --bundle PATH"
         fi
@@ -216,7 +229,7 @@ preflight() {
 
     # 1c. Determine version from archive name if not given
     if [[ -z "${VERSION}" ]]; then
-        VERSION="$(basename "${BUNDLE}" | sed -E 's/^exocomp-[^-]+-([0-9]+\.[0-9]+\.[0-9]+[^.]*)-.*\.tar\.gz$/\1/' 2>/dev/null || true)"
+        VERSION="$(basename "${BUNDLE}" | sed -E 's/^exocomp-[^-]+-(.+)-linux-(amd64|arm64)\.tar\.gz$/\1/' 2>/dev/null || true)"
         if [[ -z "${VERSION}" ]]; then
             die "cannot determine version from archive name; pass --version VERSION"
         fi
@@ -240,7 +253,7 @@ preflight() {
 
     # 1e. Validate checksums
     if [[ -z "${CHECKSUMS_FILE}" ]]; then
-        CHECKSUMS_FILE="${BUNDLE_ROOT}/checksums.sha256"
+        CHECKSUMS_FILE="${BUNDLE_ROOT}/manifest.sha256"
     fi
     if [[ ! -f "${CHECKSUMS_FILE}" ]]; then
         # Warn but allow if no checksums file (e.g. dev install)
@@ -272,6 +285,17 @@ preflight() {
     local unit_template="${BUNDLE_ROOT}/release/${COMPONENT}/exocomp-${COMPONENT}.service"
     if [[ ! -f "${unit_template}" ]]; then
         die "systemd unit template not found in bundle: ${unit_template}"
+    fi
+    [[ -x "${BUNDLE_ROOT}/scripts/state-backup.sh" ]] ||
+        die "state backup utility not found in bundle: ${BUNDLE_ROOT}/scripts/state-backup.sh"
+
+    # 1i. A delivered node llama runtime is an atomic payload: the relocatable
+    # launcher and its executable must both be present before host mutation.
+    if [[ "${COMPONENT}" == "node" && -e "${BUNDLE_ROOT}/llama-server" ]]; then
+        [[ -x "${BUNDLE_ROOT}/llama-server" ]] ||
+            die "bundled llama-server launcher is not executable"
+        [[ -x "${BUNDLE_ROOT}/llama-server.bin" ]] ||
+            die "bundled llama-server executable is missing: ${BUNDLE_ROOT}/llama-server.bin"
     fi
 
     log "  preflight passed"
@@ -387,9 +411,11 @@ setup_users_and_dirs() {
     mkdir -p "${pki_dir}"
     mkdir -p "${var_dir}"
 
-    # Set ownership and permissions
-    # Releases dir: owned by root, readable by service account
-    do_chown -R root:root "${install_dir}"
+    # Set ownership and permissions. Do not recursively chown install_dir:
+    # config/ and log/ contain protected service-owned state that must retain
+    # its ownership across upgrades.
+    do_chown root:root "${install_dir}"
+    do_chown root:root "${releases_dir}"
     do_chown "${account}:${account}" "${config_dir}"
     do_chown "${account}:${account}" "${log_dir}"
     do_chown "${account}:${account}" "${pki_dir}"
@@ -444,6 +470,30 @@ install_release() {
         rm -rf "${staging_dir}"
         die "release extraction failed; current version was not changed"
     fi
+
+    # The llama runtime is delivered alongside the OTP archives because it is
+    # shared release input, but a node must receive it in the same versioned
+    # directory as the release. Keeping this copy in staging preserves the
+    # installer's atomic rollback boundary.
+    if [[ "${COMPONENT}" == "node" && -x "${BUNDLE_ROOT}/llama-server" ]]; then
+        mkdir -p "${staging_dir}/bin" "${staging_dir}/lib/llama"
+        cp -f "${BUNDLE_ROOT}/llama-server" "${staging_dir}/bin/llama-server"
+        cp -f "${BUNDLE_ROOT}/llama-server.bin" "${staging_dir}/bin/llama-server.bin"
+        if [[ -d "${BUNDLE_ROOT}/lib/llama" ]]; then
+            cp -a "${BUNDLE_ROOT}/lib/llama/." "${staging_dir}/lib/llama/"
+        fi
+        chmod 755 \
+            "${staging_dir}/bin/llama-server" \
+            "${staging_dir}/bin/llama-server.bin"
+        log "  staged bundled llama-server runtime"
+    fi
+
+    cp -f \
+        "${BUNDLE_ROOT}/scripts/state-backup.sh" \
+        "${staging_dir}/bin/exocomp-state-backup"
+    chmod 755 "${staging_dir}/bin/exocomp-state-backup"
+    log "  staged protected-state backup utility"
+
     mv -f "${staging_dir}" "${versioned_dir}"
 
     # Set ownership: root owns the release; service account has read access
@@ -662,8 +712,10 @@ install_systemd_unit() {
 
     # Substitute install path in unit file
     local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local state_dir="${EXOCOMP_ROOT}/var/lib/exocomp-${COMPONENT}"
     sed \
         -e "s|@INSTALL_DIR@|${install_dir}|g" \
+        -e "s|@STATE_DIR@|${state_dir}|g" \
         -e "s|@COMPONENT@|${COMPONENT}|g" \
         -e "s|@ACCOUNT@|exocomp-${COMPONENT}|g" \
         -e "s|@VERSION@|${VERSION}|g" \
@@ -769,16 +821,20 @@ application_healthcheck() {
         "${release_bin}" rpc '
           case Process.whereis(Exocomp.Node.Listener) do
             pid when is_pid(pid) ->
-              if Process.alive?(pid), do: System.halt(0), else: System.halt(1)
+              if Process.alive?(pid) do
+                :ok
+              else
+                raise "node listener is not alive"
+              end
             _other ->
-              System.halt(1)
+              raise "node listener is not running"
           end
         '
     else
         "${release_bin}" rpc '
           case Exocomp.Coordinator.Health.check() do
-            %{status: :healthy} -> System.halt(0)
-            _other -> System.halt(1)
+            %{status: :healthy} -> :ok
+            other -> raise "coordinator is unhealthy: #{inspect(other)}"
           end
         '
     fi
@@ -793,6 +849,19 @@ rollback_upgrade() {
         return
     fi
 
+    # Stop the failed release while current still points to its own control
+    # script. Switching the link first makes systemd run the prior release's
+    # ExecStop against the failed node, which can block until TimeoutStopSec.
+    if [[ "${EXOCOMP_SKIP_SYSTEMD}" != "1" ]]; then
+        log "  stopping failed ${unit_name} before rollback"
+        if ! systemctl stop "${unit_name}"; then
+            warn "systemctl stop reported failure during rollback"
+        fi
+        if systemctl is-active --quiet "${unit_name}" 2>/dev/null; then
+            die "automatic rollback could not stop failed ${unit_name}"
+        fi
+    fi
+
     if [[ -n "${PREVIOUS_TARGET}" ]]; then
         local tmp_link="${current_link}.rollback.$$"
         ln -sf "${PREVIOUS_TARGET}" "${tmp_link}"
@@ -801,7 +870,21 @@ rollback_upgrade() {
 
         if [[ "${EXOCOMP_SKIP_SYSTEMD}" != "1" ]]; then
             systemctl daemon-reload
-            systemctl restart "${unit_name}"
+            systemctl reset-failed "${unit_name}"
+            systemctl start "${unit_name}"
+
+            # A deliberately failing operator health command may have
+            # triggered this rollback. Validate the restored release with the
+            # built-in application probe so the installer cannot return while
+            # the prior release is merely starting.
+            if EXOCOMP_HEALTHCHECK_COMMAND="" \
+                EXOCOMP_HEALTHCHECK_ATTEMPTS="${EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS}" \
+                EXOCOMP_HEALTHCHECK_INTERVAL="${EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL}" \
+                verify_health_gate; then
+                log "  prior release passed systemd and application health gate"
+            else
+                die "prior release failed health gate after automatic rollback"
+            fi
         fi
     else
         rm -f "${current_link}"

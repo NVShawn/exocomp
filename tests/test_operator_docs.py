@@ -89,6 +89,35 @@ class OperatorDocumentationTest(unittest.TestCase):
             self.assertIn(token, backup)
         self.assertIn("--bundle-dir", verify)
 
+    def test_install_commands_match_the_delivered_bundle_layout(self):
+        installation = DOCS["installation"].read_text()
+        lifecycle = DOCS["lifecycle"].read_text()
+
+        for token in (
+            "exocomp-complete-0.1.0-linux-amd64.tar.gz.sha256",
+            "cd exocomp-complete-0.1.0-linux-amd64",
+            "./releases/exocomp-coordinator-0.1.0-linux-amd64.tar.gz",
+            "./releases/exocomp-node-0.1.0-linux-amd64.tar.gz",
+            "--checksums ./manifest.sha256",
+        ):
+            self.assertIn(token, installation)
+        self.assertNotIn("checksums.sha256", installation)
+        self.assertIn(
+            "/opt/exocomp/node/current/bin/exocomp-state-backup",
+            lifecycle,
+        )
+        self.assertNotIn("checksums.sha256", lifecycle)
+
+    def test_pki_ceremony_uses_installed_working_directory_and_cookie(self):
+        pki = DOCS["pki"].read_text()
+
+        self.assertIn("cd /opt/exocomp/coordinator", pki)
+        self.assertIn(". ./config/release-cookie.env", pki)
+        self.assertIn(
+            'exec ./current/bin/exocomp_coordinator eval "$1"',
+            pki,
+        )
+
     def test_qualification_accepts_full_system_vms_and_discloses_emulation(self):
         qualification = " ".join(DOCS["qualification"].read_text().lower().split())
 

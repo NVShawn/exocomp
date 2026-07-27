@@ -13,13 +13,14 @@ defmodule Bench.MixProject do
       lockfile: "../../mix.lock",
       elixir: "1.20.2",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      releases: releases()
     ]
   end
 
   def application do
     [
-      extra_applications: [:logger, :inets],
+      extra_applications: [:crypto, :logger, :inets, :public_key],
       mod: {Bench.Application, []}
     ]
   end
@@ -28,6 +29,16 @@ defmodule Bench.MixProject do
     [
       {:jason, "~> 1.4"},
       {:nimble_options, "~> 1.1"}
+    ]
+  end
+
+  defp releases do
+    [
+      bench_harness: [
+        applications: [bench: :permanent],
+        include_erts: true,
+        include_executables_for: [:unix]
+      ]
     ]
   end
 end

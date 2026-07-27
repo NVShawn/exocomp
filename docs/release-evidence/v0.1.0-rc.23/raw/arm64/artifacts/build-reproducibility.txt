@@ -1,0 +1,2 @@
+[PASS] Reproducible: exocomp-coordinator-0.1.0-rc.23-linux-arm64.tar.gz sha256=55b9a8d3acb0eb24a118a1fed199c202c438656020a7606f3d01d35bc9ccd94b
+[PASS] Reproducible: exocomp-node-0.1.0-rc.23-linux-arm64.tar.gz sha256=668ecc3eeec82c0f25af82280f0b0d7c2bd85b19633e666aaeb7154276d5121a

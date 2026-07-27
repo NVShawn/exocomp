@@ -498,7 +498,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
         restore_env(:vacuum_cooldown_secs, prev_cooldown)
         restore_env(:vacuum_max_retries, prev_retries)
         restore_env(:vacuum_state_server, prev_state_server)
-        if Process.alive?(state_pid), do: GenServer.stop(state_pid)
+        stop_server(state_pid)
       end)
 
       :ok
@@ -537,6 +537,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
       #
       # The public API has no 2-arity or 3-arity variant. Callers cannot pass
       # additional parameters to widen the allowed vacuum limits.
+      assert Code.ensure_loaded?(VacuumBounds)
       assert function_exported?(VacuumBounds, :check_eligible, 1)
       refute function_exported?(VacuumBounds, :check_eligible, 2)
       refute function_exported?(VacuumBounds, :check_eligible, 3)
@@ -907,7 +908,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
           else: Application.delete_env(:exocomp_node, :os_commander)
 
         MockCommander.stop(mock)
-        if Process.alive?(lock), do: GenServer.stop(lock)
+        stop_server(lock)
       end)
 
       %{mock: mock, lock: lock}
@@ -996,8 +997,8 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
     } do
       # [PASS/FAIL evidence for M3-CRIT-7]
       #
-      # The argv sent to the OS commander must be exactly ["restart", target]
-      # as defined by the catalog. No caller-supplied field can modify it.
+      # The argv sent to sudo must be the fixed systemctl path followed by
+      # exactly ["restart", target]. No caller-supplied field can modify it.
       MockCommander.push(mock, {:ok, "", 0})
       MockCommander.push(mock, {:ok, "", 0})
 
@@ -1005,8 +1006,8 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
 
       [{executable, argv, opts} | _] = MockCommander.calls(mock)
 
-      assert executable == "/usr/bin/systemctl"
-      assert argv == ["restart", "myapp.service"]
+      assert executable == "/usr/bin/sudo"
+      assert argv == ["/usr/bin/systemctl", "restart", "myapp.service"]
       assert Keyword.get(opts, :env) == []
 
       for arg <- argv do
@@ -1075,9 +1076,7 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
           path: path
         )
 
-      on_exit(fn ->
-        if Process.alive?(ledger), do: GenServer.stop(ledger)
-      end)
+      on_exit(fn -> stop_server(ledger) end)
 
       %{ledger: ledger}
     end
@@ -1333,6 +1332,12 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
   defp restore_env(key, nil), do: Application.delete_env(:exocomp_node, key)
   defp restore_env(key, val), do: Application.put_env(:exocomp_node, key, val)
 
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
+  end
+
   # ── M3-CRIT-6 helpers ─────────────────────────────────────────────────────
 
   defp setup_approval_integration(tmp_dir) do
@@ -1382,8 +1387,8 @@ defmodule Exocomp.Integration.M3AcceptanceTest do
         else: Application.delete_env(:exocomp_node, :os_commander)
 
       MockCommander.stop(mock)
-      if Process.alive?(lock), do: GenServer.stop(lock)
-      if Process.alive?(ledger), do: GenServer.stop(ledger)
+      stop_server(lock)
+      stop_server(ledger)
     end)
 
     %{

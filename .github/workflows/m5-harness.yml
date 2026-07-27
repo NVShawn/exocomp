@@ -1,0 +1,161 @@
+name: M5 benchmark harness
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      bundle_url:
+        description: HTTPS URL of the exact complete amd64 candidate bundle
+        required: true
+        type: string
+      bundle_sha256:
+        description: SHA-256 of the candidate bundle archive
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  short-harness:
+    name: Short llama harness self-test
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Exercise short M5 harness target
+        run: make bench-llama-short
+
+      - name: Verify shipped-artifact qualification behavior
+        run: make test-m5-qualification
+
+  shipped-short:
+    name: Exact candidate shipped-artifact gate
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-22.04
+    env:
+      BUNDLE_URL: ${{ inputs.bundle_url }}
+      BUNDLE_SHA256: ${{ inputs.bundle_sha256 }}
+    steps:
+      - name: Check out candidate source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Verify and exercise exact shipped artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          work="${RUNNER_TEMP}/m5-candidate"
+          archive="${work}/candidate.tar.gz"
+          extracted="${work}/extracted"
+          mkdir -p "${extracted}"
+
+          if [[ ! "${BUNDLE_SHA256}" =~ ^[0-9a-fA-F]{64}$ ]]; then
+            echo "bundle_sha256 must be exactly 64 hexadecimal characters" >&2
+            exit 2
+          fi
+
+          curl \
+            --fail \
+            --location \
+            --retry 3 \
+            --retry-all-errors \
+            --output "${archive}" \
+            "${BUNDLE_URL}"
+          printf '%s  %s\n' "${BUNDLE_SHA256,,}" "${archive}" | sha256sum --check -
+
+          tar -tzf "${archive}" > "${work}/outer-files.txt"
+          if grep -Eq '(^/|(^|/)\.\.(/|$))' "${work}/outer-files.txt"; then
+            echo "candidate bundle contains an unsafe archive path" >&2
+            exit 2
+          fi
+          tar -xzf "${archive}" -C "${extracted}"
+
+          mapfile -t roots < <(
+            find "${extracted}" \
+              -mindepth 1 \
+              -maxdepth 1 \
+              -type d \
+              -name 'exocomp-complete-*-linux-amd64' \
+              -print
+          )
+          if [[ "${#roots[@]}" -ne 1 ]]; then
+            echo "candidate archive must contain exactly one complete amd64 bundle" >&2
+            exit 2
+          fi
+          bundle_root="${roots[0]}"
+
+          bash "${bundle_root}/scripts/verify-bundle.sh" --bundle-dir "${bundle_root}"
+
+          node_component="$(jq -er '.components.node_archive' "${bundle_root}/manifest.json")"
+          coordinator_component="$(
+            jq -er '.components.coordinator_archive' "${bundle_root}/manifest.json"
+          )"
+          model_component="$(jq -er '.components.model' "${bundle_root}/manifest.json")"
+
+          for component in "${node_component}" "${coordinator_component}"; do
+            if [[ ! "${component}" =~ ^releases/[A-Za-z0-9._+-]+\.tar\.gz$ ]]; then
+              echo "candidate manifest contains an unsafe release path: ${component}" >&2
+              exit 2
+            fi
+          done
+          if [[ ! "${model_component}" =~ ^models/[A-Za-z0-9._+-]+\.gguf$ ]]; then
+            echo "candidate manifest contains an unsafe model path: ${model_component}" >&2
+            exit 2
+          fi
+
+          mkdir -p "${work}/node" "${work}/coordinator"
+          tar -tzf "${bundle_root}/${node_component}" > "${work}/node-files.txt"
+          tar -tzf "${bundle_root}/${coordinator_component}" > "${work}/coordinator-files.txt"
+          if grep -Eq '(^/|(^|/)\.\.(/|$))' \
+            "${work}/node-files.txt" "${work}/coordinator-files.txt"; then
+            echo "candidate release archive contains an unsafe path" >&2
+            exit 2
+          fi
+          tar -xzf "${bundle_root}/${node_component}" -C "${work}/node"
+          tar -xzf "${bundle_root}/${coordinator_component}" -C "${work}/coordinator"
+
+          mapfile -t node_roots < <(
+            find "${work}/node" -mindepth 1 -maxdepth 1 -type d -print
+          )
+          mapfile -t coordinator_roots < <(
+            find "${work}/coordinator" -mindepth 1 -maxdepth 1 -type d -print
+          )
+          if [[ "${#node_roots[@]}" -ne 1 || "${#coordinator_roots[@]}" -ne 1 ]]; then
+            echo "each release archive must contain exactly one release root" >&2
+            exit 2
+          fi
+
+          for identity in \
+            "${node_roots[0]}/build-identity.json" \
+            "${coordinator_roots[0]}/build-identity.json"; do
+            jq -e \
+              --arg commit "${GITHUB_SHA}" \
+              '.architecture == "amd64" and .source_commit == $commit' \
+              "${identity}" >/dev/null
+          done
+
+          model_path="${bundle_root}/${model_component}"
+          model_sha256="$(sha256sum "${model_path}" | awk '{print $1}')"
+
+          make bench-llama-short-shipped \
+            LLAMA_SERVER="${bundle_root}/llama-server" \
+            LLAMA_LIB_DIR="${bundle_root}/lib/llama" \
+            NODE_RELEASE="${node_roots[0]}" \
+            COORD_RELEASE="${coordinator_roots[0]}" \
+            MODEL_PATH="${model_path}" \
+            MODEL_SHA256="${model_sha256}" \
+            BENCH_EVIDENCE_DIR="${work}/evidence"
+
+      - name: Preserve shipped-artifact evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: m5-shipped-short-${{ github.sha }}
+          path: ${{ runner.temp }}/m5-candidate/evidence
+          if-no-files-found: warn
+          retention-days: 14

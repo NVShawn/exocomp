@@ -1,0 +1,9 @@
+
+09:35:15.666 [debug] [Executor] action=vacuum_logs target=nil exec=/usr/bin/sudo argv=["/usr/bin/journalctl", "--vacuum-size=100M"]
+bounded_journal_cleanup=completed
+user_data_cleanup=denied
+unknown_action=denied
+sudo: a password is required
+sudo: a password is required
+unlisted_service_sudo=denied
+shell_sudo=denied

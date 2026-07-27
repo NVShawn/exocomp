@@ -1,0 +1,3 @@
+/var/lib/exocomp-qualification/rc23/lifecycle-backups/arm64/coordinator-state.tar.gz: OK
+[state-backup] restored protected state from /var/lib/exocomp-qualification/rc23/lifecycle-backups/arm64/coordinator-state.tar.gz
+[state-backup] validate permissions and service health before starting exocomp-coordinator

@@ -334,6 +334,10 @@ fi
     )
 
   Application.put_env(:exocomp_node, :replay_ledger_path, smoke_ledger)
+  # The clean-container probe validates the bundled ERTS and declared host
+  # dependencies. Production PKI is qualified separately with initialized
+  # state on the clean systemd guests.
+  Application.put_env(:exocomp_coordinator, :require_pki, false)
 
   case Application.ensure_all_started(:${product}) do
     {:ok, _apps} ->

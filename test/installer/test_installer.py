@@ -50,6 +50,7 @@ INSTALL_SH = REPO_ROOT / "scripts" / "install.sh"
 UNINSTALL_SH = REPO_ROOT / "scripts" / "uninstall.sh"
 STATE_BACKUP_SH = REPO_ROOT / "scripts" / "state-backup.sh"
 RELEASE_DIR = REPO_ROOT / "release"
+CONFIG_EXS = REPO_ROOT / "config" / "config.exs"
 
 
 # ── systemd availability ────────────────────────────────────────────────────────
@@ -175,6 +176,9 @@ def _make_bundle_tree(
     bundle_scripts.mkdir(exist_ok=True)
     shutil.copy(INSTALL_SH, bundle_scripts / "install.sh")
     shutil.copy(UNINSTALL_SH, bundle_scripts / "uninstall.sh")
+    shutil.copy(STATE_BACKUP_SH, bundle_scripts / "state-backup.sh")
+    for script in bundle_scripts.glob("*.sh"):
+        script.chmod(0o755)
 
     bundle_path, checksums_path = _make_mock_bundle(
         bundle_dir, component, version, contents=contents
@@ -186,6 +190,7 @@ def _make_bundle_tree(
         "checksums_path": checksums_path,
         "install_sh": bundle_scripts / "install.sh",
         "uninstall_sh": bundle_scripts / "uninstall.sh",
+        "state_backup_sh": bundle_scripts / "state-backup.sh",
     }
 
 
@@ -326,14 +331,18 @@ class TestCleanInstall:
         )
         assert unit.exists(), f"systemd unit not found: {unit}"
         content = unit.read_text()
-        assert "NoNewPrivileges=true" in content, "unit missing NoNewPrivileges=true"
+        assert "NoNewPrivileges=false" in content, (
+            "node unit must permit only the exact sudo transition"
+        )
         assert "ProtectSystem=strict" in content, "unit missing ProtectSystem=strict"
-        assert "CapabilityBoundingSet=" in content, "unit missing CapabilityBoundingSet="
+        assert "CapabilityBoundingSet=CAP_SETGID CAP_SETUID" in content
+        assert "AmbientCapabilities=" in content
 
     def test_sudoers_installed_with_exact_entries(self):
         sudoers = self.tmp / "sudoers" / f"exocomp-{self.component}"
         assert sudoers.exists(), f"sudoers file not found: {sudoers}"
         content = sudoers.read_text()
+        assert "Defaults:exocomp-node !pam_session" in content
         # Exact restart entries
         assert "NOPASSWD: /usr/bin/systemctl restart myapp.service" in content
         assert "NOPASSWD: /usr/bin/systemctl restart other.service" in content
@@ -375,6 +384,32 @@ class TestCleanInstall:
         )
         assert log_dir.is_dir()
 
+    def test_durable_state_directory_is_writable_and_matches_runtime_config(self):
+        state_dir = self.root / "var" / "lib" / "exocomp-node"
+        assert state_dir.is_dir()
+        assert state_dir.stat().st_mode & 0o777 == 0o750
+        assert os.access(state_dir, os.W_OK)
+
+        runtime_config = CONFIG_EXS.read_text()
+        assert '"/var/lib/exocomp-node/replay_ledger.dets"' in runtime_config
+        assert '"/var/lib/exocomp/replay_ledger.dets"' not in runtime_config
+
+    def test_systemd_unit_grants_only_the_installer_owned_state_path(self):
+        unit = self.tmp / "systemd" / "exocomp-node.service"
+        content = unit.read_text()
+        state_dir = self.root / "var" / "lib" / "exocomp-node"
+        assert f"ReadWritePaths={self.root}/opt/exocomp/node/log " in content
+        assert str(state_dir) in content
+        assert "@STATE_DIR@" not in content
+
+    def test_backup_utility_is_installed_in_the_versioned_release(self):
+        backup = (
+            self.root / "opt" / "exocomp" / "node" / "current"
+            / "bin" / "exocomp-state-backup"
+        )
+        assert backup.is_file()
+        assert backup.stat().st_mode & stat.S_IXUSR
+
     def test_release_cookie_is_random_protected_and_not_in_release_payload(self):
         cookie_file = (
             self.root / "opt" / "exocomp" / self.component
@@ -408,6 +443,78 @@ class TestCleanInstall:
             / "config" / "release-cookie.env"
         ).read_text().strip()
         assert second_cookie != content
+
+
+class TestBundledLlamaRuntimeInstall:
+    def test_node_install_copies_the_shipped_runtime_into_the_atomic_release(self, tmp_path):
+        version = "1.0.0"
+        info = _make_bundle_tree(tmp_path, "node", version)
+        bundle_dir = info["bundle_dir"]
+
+        launcher = bundle_dir / "llama-server"
+        launcher.write_text(
+            '#!/bin/sh\nexec "$(dirname "$0")/llama-server.bin" "$@"\n'
+        )
+        launcher.chmod(0o755)
+        executable = bundle_dir / "llama-server.bin"
+        executable.write_text("#!/bin/sh\nprintf 'bundled llama runtime\\n'\n")
+        executable.chmod(0o755)
+        libraries = bundle_dir / "lib" / "llama"
+        libraries.mkdir(parents=True)
+        (libraries / "libllama-server-impl.so").write_bytes(b"shipped-runtime-lib")
+
+        _run_install(info, "node", version, env=_make_env(tmp_path))
+
+        current = tmp_path / "root" / "opt" / "exocomp" / "node" / "current"
+        installed_launcher = current / "bin" / "llama-server"
+        installed_executable = current / "bin" / "llama-server.bin"
+        installed_library = current / "lib" / "llama" / "libllama-server-impl.so"
+        assert installed_launcher.is_file()
+        assert installed_executable.is_file()
+        assert installed_library.read_bytes() == b"shipped-runtime-lib"
+
+        result = subprocess.run(
+            [str(installed_launcher), "--version"],
+            capture_output=True,
+            text=True,
+            check=True,
+            env={"PATH": os.environ["PATH"]},
+        )
+        assert result.stdout == "bundled llama runtime\n"
+
+
+class TestRuntimePayloadPreflight:
+    def test_missing_backup_utility_is_rejected_before_host_mutation(self, tmp_path):
+        info = _make_bundle_tree(tmp_path, "node", "1.0.0")
+        info["state_backup_sh"].unlink()
+
+        result = _run_install(
+            info,
+            "node",
+            "1.0.0",
+            env=_make_env(tmp_path),
+            expect_exit=1,
+        )
+
+        assert "state backup utility not found" in result.stderr
+        assert not (tmp_path / "root" / "opt" / "exocomp").exists()
+
+    def test_incomplete_llama_runtime_is_rejected_before_host_mutation(self, tmp_path):
+        info = _make_bundle_tree(tmp_path, "node", "1.0.0")
+        launcher = info["bundle_dir"] / "llama-server"
+        launcher.write_text("#!/bin/sh\nexit 0\n")
+        launcher.chmod(0o755)
+
+        result = _run_install(
+            info,
+            "node",
+            "1.0.0",
+            env=_make_env(tmp_path),
+            expect_exit=1,
+        )
+
+        assert "llama-server executable is missing" in result.stderr
+        assert not (tmp_path / "root" / "opt" / "exocomp").exists()
 
 
 class TestRepeatInstall:
@@ -480,6 +587,21 @@ class TestPermissions:
         assert unit.exists()
         mode = unit.stat().st_mode & 0o777
         assert mode == 0o644, f"unit file mode should be 0644; got {oct(mode)}"
+
+    def test_coordinator_unit_uses_bootstrap_managed_pki_state(self):
+        unit = self.tmp / "systemd" / "exocomp-coordinator.service"
+        content = unit.read_text()
+        state = self.root / "var" / "lib" / "exocomp-coordinator"
+        expected = {
+            f"Environment=EXOCOMP_PKI_ONLINE_STATE={state}/pki",
+            f"Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE={state}/enrollment-tokens",
+            f"Environment=EXOCOMP_TLS_CA_PATH={state}/pki/root_ca.pem",
+            f"Environment=EXOCOMP_TLS_CERT_PATH={state}/pki/coordinator.pem",
+            f"Environment=EXOCOMP_A2A_TLS_CERT_PATH={state}/pki/coordinator_chain.pem",
+            f"Environment=EXOCOMP_TLS_KEY_PATH={state}/pki/coordinator_key.pem",
+        }
+        assert expected <= set(content.splitlines())
+        assert "@STATE_DIR@" not in content
 
     def test_sudoers_mode_440_when_installed(self):
         # Install with allow-list to get a sudoers file
@@ -741,6 +863,33 @@ class TestUpgradePreparation:
         _run_install(info2, self.component, self.v2, env=self.env)
         assert cookie.read_text() == original
 
+    def test_protected_file_ownership_is_preserved_across_upgrade(self):
+        info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
+        info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
+        _run_install(info1, self.component, self.v1, env=self.env)
+
+        config_dir = (
+            self.root / "opt" / "exocomp" / self.component / "config"
+        )
+        protected_paths = [
+            config_dir / f"{self.component}.json",
+            config_dir / "release-cookie.env",
+        ]
+        owners_before = {
+            path: (path.stat().st_uid, path.stat().st_gid)
+            for path in protected_paths
+        }
+
+        _run_install(info2, self.component, self.v2, env=self.env)
+
+        owners_after = {
+            path: (path.stat().st_uid, path.stat().st_gid)
+            for path in protected_paths
+        }
+        assert owners_after == owners_before, (
+            "upgrade must not replace service ownership of protected config"
+        )
+
     def test_failed_health_gate_rolls_back_to_prior_healthy_version(self):
         info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
         info2 = _make_bundle_tree(self.tmp / "b2", self.component, self.v2)
@@ -766,6 +915,135 @@ class TestUpgradePreparation:
         current = self.root / "opt" / "exocomp" / self.component / "current"
         assert os.readlink(current) == f"releases/{self.v1}"
         assert (current / "bin" / f"exocomp_{self.component}").exists()
+
+    def test_rollback_stops_failed_release_then_waits_for_prior_health(self):
+        release_log = self.tmp / "release.log"
+        release_script = """#!/bin/sh
+printf '%s:%s\\n' '@VERSION@' "$*" >> "$EXOCOMP_FAKE_RELEASE_LOG"
+if [ -f "${EXOCOMP_FAKE_PRIOR_FAILURES:-}" ]; then
+    remaining=$(cat "$EXOCOMP_FAKE_PRIOR_FAILURES")
+    if [ "$remaining" -gt 0 ]; then
+        printf '%s\\n' "$((remaining - 1))" > "$EXOCOMP_FAKE_PRIOR_FAILURES"
+        exit 1
+    fi
+fi
+exit 0
+"""
+        candidate_release_script = """#!/bin/sh
+printf '%s:%s\\n' '@VERSION@' "$*" >> "$EXOCOMP_FAKE_RELEASE_LOG"
+exit 0
+"""
+        info1 = _make_bundle_tree(
+            self.tmp / "b1",
+            self.component,
+            self.v1,
+            contents={
+                "bin/exocomp_node": release_script.replace(
+                    "@VERSION@", self.v1
+                )
+            },
+        )
+        info2 = _make_bundle_tree(
+            self.tmp / "b2",
+            self.component,
+            self.v2,
+            contents={
+                "bin/exocomp_node": candidate_release_script.replace(
+                    "@VERSION@", self.v2
+                )
+            },
+        )
+
+        fake_bin = self.tmp / "fake-bin"
+        fake_bin.mkdir()
+        systemctl = fake_bin / "systemctl"
+        systemctl.write_text(
+            """#!/bin/sh
+set -eu
+command=$1
+unit=${2:-}
+if [ "$command" = "is-active" ]; then
+    unit=${3:-}
+fi
+printf '%s %s\\n' "$command" "$unit" >> "$EXOCOMP_FAKE_SYSTEMD_LOG"
+case "$command" in
+    start|restart)
+        touch "$EXOCOMP_FAKE_SYSTEMD_STATE/$unit"
+        ;;
+    stop)
+        rm -f "$EXOCOMP_FAKE_SYSTEMD_STATE/$unit"
+        ;;
+    is-active)
+        test -f "$EXOCOMP_FAKE_SYSTEMD_STATE/$unit"
+        ;;
+    daemon-reload|enable|reset-failed|status)
+        ;;
+    *)
+        echo "unexpected systemctl command: $command" >&2
+        exit 2
+        ;;
+esac
+"""
+        )
+        systemctl.chmod(0o755)
+
+        systemd_state = self.tmp / "systemd-state"
+        systemd_state.mkdir()
+        systemd_log = self.tmp / "systemd.log"
+        prior_failures = self.tmp / "prior-health-failures"
+        live_env = {
+            **self.env,
+            "PATH": f"{fake_bin}:{os.environ['PATH']}",
+            "EXOCOMP_SKIP_SYSTEMD": "0",
+            "EXOCOMP_FAKE_SYSTEMD_STATE": str(systemd_state),
+            "EXOCOMP_FAKE_SYSTEMD_LOG": str(systemd_log),
+            "EXOCOMP_FAKE_RELEASE_LOG": str(release_log),
+            "EXOCOMP_FAKE_PRIOR_FAILURES": str(prior_failures),
+            "EXOCOMP_HEALTHCHECK_ATTEMPTS": "1",
+            "EXOCOMP_HEALTHCHECK_INTERVAL": "0",
+            "EXOCOMP_ROLLBACK_HEALTHCHECK_ATTEMPTS": "3",
+            "EXOCOMP_ROLLBACK_HEALTHCHECK_INTERVAL": "0",
+        }
+        _run_install(info1, self.component, self.v1, env=live_env)
+        first_systemd_call_count = len(systemd_log.read_text().splitlines())
+        prior_failures.write_text("2\n")
+
+        failing_env = {
+            **live_env,
+            "EXOCOMP_HEALTHCHECK_COMMAND": "/bin/false",
+        }
+        result = _run_install(
+            info2,
+            self.component,
+            self.v2,
+            env=failing_env,
+            expect_exit=1,
+        )
+
+        current = self.root / "opt" / "exocomp" / self.component / "current"
+        assert os.readlink(current) == f"releases/{self.v1}"
+        rollback_calls = systemd_log.read_text().splitlines()[
+            first_systemd_call_count:
+        ]
+        stop_index = rollback_calls.index("stop exocomp-node")
+        reset_index = rollback_calls.index("reset-failed exocomp-node")
+        start_index = rollback_calls.index("start exocomp-node")
+        assert stop_index < reset_index < start_index
+        assert rollback_calls[-1] == "is-active exocomp-node"
+        release_calls = [
+            line
+            for line in release_log.read_text().splitlines()
+            if line.startswith((f"{self.v1}:", f"{self.v2}:"))
+        ]
+        assert release_calls[-1].startswith(f"{self.v1}:rpc ")
+        assert len(
+            [call for call in release_calls if call.startswith(f"{self.v1}:rpc ")]
+        ) == 4
+        assert prior_failures.read_text() == "0\n"
+        assert (
+            "prior release passed systemd and application health gate"
+            in result.stdout
+        )
 
     def test_invalid_existing_config_blocks_switch(self):
         info1 = _make_bundle_tree(self.tmp / "b1", self.component, self.v1)
@@ -854,7 +1132,7 @@ class TestProtectedStateBackupRestore:
         subprocess.run(
             [
                 "bash",
-                str(STATE_BACKUP_SH),
+                str(info["state_backup_sh"]),
                 "create",
                 "--component",
                 component,
@@ -875,7 +1153,7 @@ class TestProtectedStateBackupRestore:
         subprocess.run(
             [
                 "bash",
-                str(STATE_BACKUP_SH),
+                str(info["state_backup_sh"]),
                 "restore",
                 "--component",
                 component,
@@ -1185,12 +1463,57 @@ class TestVersionValidation:
 
         assert not (tmp_path / "root" / "opt" / "exocomp").exists()
 
+    @pytest.mark.parametrize(
+        "version",
+        ["0.1.0", "1.2.3", "0.1.0-rc.7", "1.0.0-beta.1", "2.3.4-alpha.12"],
+    )
+    def test_version_detected_from_archive_name(self, tmp_path, version):
+        """install.sh must correctly parse semver pre-release versions with dots from
+        the archive filename when --version is not supplied.  Regression for:
+        ``exocomp-coordinator-0.1.0-rc.7-linux-amd64.tar.gz`` extracting as ``0.1.0``
+        instead of ``0.1.0-rc.7`` due to ``[^.]*`` stopping at the dot in the
+        pre-release segment."""
+        component = "node"
+        info = _make_bundle_tree(tmp_path, component, version)
+        env = _make_env(tmp_path)
+
+        # Run install WITHOUT --version so the script must detect it from the
+        # archive filename.
+        cmd = [
+            "bash",
+            str(info["install_sh"]),
+            "--component", component,
+            "--bundle", str(info["bundle_path"]),
+            "--checksums", str(info["checksums_path"]),
+            "--non-interactive",
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True, env=env)
+        assert result.returncode == 0, (
+            f"install.sh failed to detect version '{version}' from archive name\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+
+        # Verify the versioned release directory uses the full version string.
+        root = tmp_path / "root"
+        versioned = root / "opt" / "exocomp" / component / "releases" / version
+        assert versioned.is_dir(), (
+            f"versioned release dir '{version}' not found; "
+            f"version was likely truncated by the archive-name parser"
+        )
+
+        # Verify the current symlink also points to the correct version.
+        current = root / "opt" / "exocomp" / component / "current"
+        assert current.is_symlink(), "current symlink not created"
+        assert current.readlink() == Path(f"releases/{version}"), (
+            f"current symlink points to {current.readlink()!r}; "
+            f"expected releases/{version}"
+        )
+
 
 class TestUnitHardeningDirectives:
     """Verify all required hardening directives are present in both unit files."""
 
     REQUIRED_DIRECTIVES = [
-        "NoNewPrivileges=true",
         "ProtectSystem=strict",
         "ProtectHome=true",
         "CapabilityBoundingSet=",
@@ -1218,6 +1541,13 @@ class TestUnitHardeningDirectives:
             f"Missing hardening directives in exocomp-{component}.service:\n"
             + "\n".join(f"  {d}" for d in missing)
         )
+        if component == "node":
+            assert "NoNewPrivileges=false" in content
+            assert "CapabilityBoundingSet=CAP_SETGID CAP_SETUID" in content
+            assert not re.search(r"^SecureBits=noroot", content, re.MULTILINE)
+        else:
+            assert "NoNewPrivileges=true" in content
+            assert re.search(r"^CapabilityBoundingSet=$", content, re.MULTILINE)
 
     @pytest.mark.parametrize("component", ["node", "coordinator"])
     def test_unit_runs_as_dedicated_user(self, component):
@@ -1243,6 +1573,19 @@ class TestUnitHardeningDirectives:
         unit_path = RELEASE_DIR / component / f"exocomp-{component}.service"
         content = unit_path.read_text()
         assert f"Environment={environment}=" in content
+
+    def test_coordinator_unit_passes_bootstrap_managed_pki_paths(self):
+        unit_path = RELEASE_DIR / "coordinator" / "exocomp-coordinator.service"
+        content = unit_path.read_text()
+        expected = {
+            "Environment=EXOCOMP_PKI_ONLINE_STATE=@STATE_DIR@/pki",
+            "Environment=EXOCOMP_ENROLLMENT_TOKEN_STORE=@STATE_DIR@/enrollment-tokens",
+            "Environment=EXOCOMP_TLS_CA_PATH=@STATE_DIR@/pki/root_ca.pem",
+            "Environment=EXOCOMP_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator.pem",
+            "Environment=EXOCOMP_A2A_TLS_CERT_PATH=@STATE_DIR@/pki/coordinator_chain.pem",
+            "Environment=EXOCOMP_TLS_KEY_PATH=@STATE_DIR@/pki/coordinator_key.pem",
+        }
+        assert expected <= set(content.splitlines())
 
 
 class TestConfigTemplates:

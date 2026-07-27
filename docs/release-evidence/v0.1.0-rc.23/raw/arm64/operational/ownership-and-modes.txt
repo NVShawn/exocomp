@@ -1,0 +1,9 @@
+644 root:root /etc/systemd/system/exocomp-coordinator.service
+644 root:root /etc/systemd/system/exocomp-node.service
+440 root:root /etc/sudoers.d/exocomp-node
+600 exocomp-coordinator:exocomp-coordinator /opt/exocomp/coordinator/config/release-cookie.env
+600 exocomp-node:exocomp-node /opt/exocomp/node/config/release-cookie.env
+600 exocomp-coordinator:exocomp-coordinator /var/lib/exocomp-coordinator/pki/intermediate_ca_key.pem
+600 exocomp-coordinator:exocomp-coordinator /var/lib/exocomp-coordinator/pki/coordinator_key.pem
+600 exocomp-node:exocomp-node /var/lib/exocomp-node/credentials/current/key.pem
+world-writable-files=0

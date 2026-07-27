@@ -1,0 +1,11 @@
+candidate=0.1.0-rc.23
+commit=902bee1a52bf037fdaab50bd0c71ba82fa51a8d6
+architecture=aarch64
+hostname=exocomp-arm64
+kernel=6.8.0-136-generic
+virtualization=qemu
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+8
+               total        used        free      shared  buff/cache   available
+Mem:      8300584960   729337856  1040490496    49061888  6792155136  7571247104
+Swap:              0           0           0

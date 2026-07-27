@@ -29,7 +29,8 @@ defmodule Exocomp.Node.ActionCatalogTest do
     test "returns action def for a service in the allow-list" do
       assert {:ok, def_} = ActionCatalog.lookup(:restart_service, "myapp.service", @allow_list)
       assert is_map(def_)
-      assert def_.executable == "/usr/bin/systemctl"
+      assert def_.executable == "/usr/bin/sudo"
+      assert def_.build_argv.() == ["/usr/bin/systemctl", "restart", "myapp.service"]
     end
 
     test "returns {:error, :not_allowed} for a valid name NOT in the allow-list" do
@@ -140,14 +141,15 @@ defmodule Exocomp.Node.ActionCatalogTest do
       %{def_: def_}
     end
 
-    test "executable is the absolute systemctl path", %{def_: def_} do
-      assert def_.executable == "/usr/bin/systemctl"
+    test "executable is sudo with the exact privileged command in argv", %{def_: def_} do
+      assert def_.executable == "/usr/bin/sudo"
+      assert def_.build_argv.() == ["/usr/bin/systemctl", "restart", "myapp.service"]
     end
 
-    test "build_argv returns a list starting with 'restart'", %{def_: def_} do
+    test "build_argv returns a list starting with the fixed systemctl path", %{def_: def_} do
       argv = def_.build_argv.()
       assert is_list(argv)
-      assert hd(argv) == "restart"
+      assert hd(argv) == "/usr/bin/systemctl"
     end
 
     test "build_argv includes the validated service name without modification", %{def_: def_} do
@@ -183,8 +185,9 @@ defmodule Exocomp.Node.ActionCatalogTest do
       %{def_: def_}
     end
 
-    test "executable is the absolute journalctl path", %{def_: def_} do
-      assert def_.executable == "/usr/bin/journalctl"
+    test "executable is sudo with the exact privileged command in argv", %{def_: def_} do
+      assert def_.executable == "/usr/bin/sudo"
+      assert hd(def_.build_argv.()) == "/usr/bin/journalctl"
     end
 
     test "allow-list is not required (nil target accepted)", %{def_: def_} do
@@ -213,16 +216,19 @@ defmodule Exocomp.Node.ActionCatalogTest do
   describe "executable path" do
     test "restart_service executable cannot be changed by injecting a different path" do
       # Even if a caller tried to craft a target that looks like a path argument,
-      # the executable path is always /usr/bin/systemctl.
+      # the executable path is always sudo and argv always starts with the
+      # fixed systemctl path.
       {:ok, def_} = ActionCatalog.lookup(:restart_service, "myapp.service", @allow_list)
-      assert def_.executable == "/usr/bin/systemctl"
+      assert def_.executable == "/usr/bin/sudo"
+      assert hd(def_.build_argv.()) == "/usr/bin/systemctl"
       refute String.contains?(def_.executable, "..")
       assert String.starts_with?(def_.executable, "/")
     end
 
     test "vacuum_logs executable cannot be changed by caller input" do
       {:ok, def_} = ActionCatalog.lookup(:vacuum_logs, nil, [])
-      assert def_.executable == "/usr/bin/journalctl"
+      assert def_.executable == "/usr/bin/sudo"
+      assert hd(def_.build_argv.()) == "/usr/bin/journalctl"
       assert String.starts_with?(def_.executable, "/")
     end
   end

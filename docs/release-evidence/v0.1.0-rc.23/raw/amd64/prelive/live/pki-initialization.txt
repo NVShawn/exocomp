@@ -1,0 +1,2 @@
+disposition=initialized
+root_fingerprint=93:AA:E8:F2:21:E6:CA:00:23:B5:87:C2:1E:99:73:56:20:08:43:88:F7:FE:B5:A0:7D:D7:C4:40:0F:BE:53:A5

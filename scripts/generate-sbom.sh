@@ -16,6 +16,8 @@
 #   --source-commit  COMMIT                   source git commit SHA
 #   --builder-image  IMAGE@DIGEST             builder container image
 #   --bundle-dir     PATH                     staged bundle directory
+#   --timestamp      ISO8601                  creation timestamp (uses SOURCE_DATE_EPOCH or
+#                                             current time if absent)
 #   --output         PATH                     output SBOM file (default: sbom.spdx.json)
 
 set -euo pipefail
@@ -26,6 +28,7 @@ KIND=""
 SOURCE_COMMIT=""
 BUILDER_IMAGE=""
 BUNDLE_DIR=""
+TIMESTAMP_ARG=""
 OUTPUT="sbom.spdx.json"
 
 while [[ $# -gt 0 ]]; do
@@ -36,6 +39,7 @@ while [[ $# -gt 0 ]]; do
         --source-commit)  SOURCE_COMMIT="$2";  shift 2 ;;
         --builder-image)  BUILDER_IMAGE="$2";  shift 2 ;;
         --bundle-dir)     BUNDLE_DIR="$2";     shift 2 ;;
+        --timestamp)      TIMESTAMP_ARG="$2";  shift 2 ;;
         --output)         OUTPUT="$2";         shift 2 ;;
         *) echo "ERROR: unknown option: $1" >&2; exit 1 ;;
     esac
@@ -45,8 +49,18 @@ done
 [[ -n "${VERSION}" ]] || { echo "ERROR: --version is required" >&2; exit 1; }
 [[ -n "${KIND}" ]]    || { echo "ERROR: --kind is required" >&2; exit 1; }
 
-TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-DOC_NAMESPACE="https://github.com/NVShawn/exocomp/sbom/exocomp-${KIND}-${VERSION}-linux-${ARCH}-${TIMESTAMP}"
+# Derive a reproducible timestamp: prefer explicit --timestamp, then SOURCE_DATE_EPOCH, then now.
+if [[ -n "${TIMESTAMP_ARG}" ]]; then
+    TIMESTAMP="${TIMESTAMP_ARG}"
+elif [[ -n "${SOURCE_DATE_EPOCH:-}" ]]; then
+    TIMESTAMP="$(date -u -d "@${SOURCE_DATE_EPOCH}" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null \
+        || date -u -r "${SOURCE_DATE_EPOCH}" +%Y-%m-%dT%H:%M:%SZ)"
+else
+    TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+fi
+
+# Namespace uses version+arch only (no timestamp) so it is stable across identical builds.
+DOC_NAMESPACE="https://github.com/NVShawn/exocomp/sbom/exocomp-${KIND}-${VERSION}-linux-${ARCH}"
 BUNDLE_NAME="exocomp-${KIND}-${VERSION}-linux-${ARCH}"
 
 # ── Compute SHA-256 of the bundle's manifest.sha256 for SBOM reference ────────

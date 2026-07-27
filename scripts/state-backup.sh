@@ -86,7 +86,12 @@ validate_archive() {
         esac
     done < <(tar -tzf "${ARCHIVE}")
 
-    tar -xzf "${ARCHIVE}" -C "${tmp_dir}" --no-same-owner
+    # Preserve original file ownership during extraction so that restore_category
+    # (which uses cp -a) propagates correct ownership to the destination.
+    # Path safety is enforced by the entry-validation loop above; symlink
+    # escape is enforced by the loop below.  The script requires root, so
+    # --same-owner is always effective when needed.
+    tar -xzf "${ARCHIVE}" -C "${tmp_dir}" --same-owner
     [[ -f "${stage}/metadata" ]] || die "backup metadata is missing"
     grep -qFx "schema_version=1" "${stage}/metadata" ||
         die "unsupported backup schema"

@@ -1,0 +1,269 @@
+candidate=0.1.0-rc.23 architecture=amd64 commit=902bee1a52bf037fdaab50bd0c71ba82fa51a8d6
+[state-backup] created protected state backup: /var/lib/exocomp-qualification/rc23/lifecycle-backups/amd64/coordinator-state.tar.gz
+[state-backup] store this archive encrypted; it may contain private keys and release credentials
+/var/lib/exocomp-qualification/rc23/lifecycle-backups/amd64/coordinator-state.tar.gz: OK
+/var/lib/exocomp-qualification/rc23/lifecycle-backups/amd64/coordinator-state.tar.gz: OK
+[state-backup] restored protected state from /var/lib/exocomp-qualification/rc23/lifecycle-backups/amd64/coordinator-state.tar.gz
+[state-backup] validate permissions and service health before starting exocomp-coordinator
+[PASS] installed backup utility restores protected coordinator PKI and state
+coordinator_after_restore=healthy
+[install] ==> PREFLIGHT
+[install]   bundle:    /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-node-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   version:   0.1.0-rc.23-qualification-previous
+[install]   component: node
+[install]   peer:      coordinator 0.1.0-rc.23 (compatible major version)
+[install]   arch:      x86_64
+[install]   checksums: /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/manifest.sha256
+[install]   verifying checksums...
+[install]   checksum OK: fb3b24414ab24d44690e82819783d7ff3a4144424597534830afa66c236a09e8
+[install]   preflight passed
+[install] ==> USERS AND DIRECTORIES
+[install]   user exists: exocomp-node
+[install]   creating directories
+[install]   directories configured
+[install] ==> INSTALL RELEASE
+[install]   previous current target: releases/0.1.0-rc.23
+[install]   extracting /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-node-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   staged bundled llama-server runtime
+[install]   staged protected-state backup utility
+[install]   release 0.1.0-rc.23-qualification-previous staged
+[install] ==> CONFIGURATION
+[install]   config exists; preserving (not overwriting): /opt/exocomp/node/config/node.json
+[install] ==> RELEASE COOKIE
+[install]   release cookie exists; preserving across upgrade
+[install] ==> CONFIG VALIDATION
+[install]   staged release accepted configuration
+[install] ==> CURRENT VERSION SWITCH
+[install]   current -> releases/0.1.0-rc.23-qualification-previous
+[install] ==> SUDOERS POLICY
+[install]   validating with visudo...
+/etc/sudoers.d/exocomp-node: parsed OK
+[install]   visudo check passed
+[install]   sudoers policy installed: /etc/sudoers.d/exocomp-node
+[install] ==> SYSTEMD UNIT
+[install]   unit installed: /etc/systemd/system/exocomp-node.service
+[install] ==> ACTIVATE
+[install]   systemctl daemon-reload
+[install]   systemctl enable exocomp-node
+[install]   systemctl restart exocomp-node  (already running)
+--rpc-eval : RPC failed with reason :noconnection
+[install]   service passed systemd and application health gate
+● exocomp-node.service - Exocomp Node Agent
+     Loaded: loaded (/etc/systemd/system/exocomp-node.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-07-27 07:16:10 UTC; 2s ago
+       Docs: https://github.com/NVShawn/exocomp
+   Main PID: 2764201 (beam.smp)
+      Tasks: 33 (limit: 9482)
+     Memory: 148.7M (peak: 153.7M)
+        CPU: 2.041s
+     CGroup: /system.slice/exocomp-node.service
+             ├─2764201 /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/erts-16.4.0.3/bin/beam.smp -- -root /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous -bindir /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/erts-16.4.0.3/bin -progname erl -- -home /opt/exocomp/node -- -noshell -s elixir start_cli -mode embedded -setcookie e65a5027dc5769ae78f4a7a14708c3e6fffc68dcb208ba0b9ef0c11a5c68794a -sname exocomp_node -config /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/releases/0.1.0/sys -boot /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/releases/0.1.0/start -boot_var RELEASE_LIB /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous/lib -- -- -extra --no-halt
+             └─2764277 erl_child_setup 65536
+
+Jul 27 07:16:10 exocomp-amd64 systemd[1]: Starting exocomp-node.service - Exocomp Node Agent...
+Jul 27 07:16:10 exocomp-amd64 systemd[1]: Started exocomp-node.service - Exocomp Node Agent.
+[install] ==> MANIFEST
+[install]   manifest written: /opt/exocomp/node/manifest-0.1.0-rc.23-qualification-previous.txt
+
+[install] ==> exocomp-node 0.1.0-rc.23-qualification-previous installed successfully
+[install]     service: exocomp-node.service (active)
+[install]     install: /opt/exocomp/node
+[install]     config:  /opt/exocomp/node/config/node.json
+[install]     log:     /opt/exocomp/node/log/
+rolled_back_node=healthy
+[PASS] failed candidate health gate automatically restores the prior release
+[PASS] upgrade and rollback preserve credentials, PKI, config, and durable state
+[uninstall] ==> VALIDATION
+[uninstall]   component: node
+[uninstall]   purge:     none
+[uninstall]   dry-run:   0
+[uninstall] ==> DISCOVER VERSION
+[uninstall]   current version: 0.1.0-rc.23-qualification-previous
+[uninstall] ==> STOP SERVICE
+[uninstall]   systemctl stop exocomp-node
+[uninstall]   systemctl disable exocomp-node
+Removed "/etc/systemd/system/multi-user.target.wants/exocomp-node.service".
+[uninstall] ==> REMOVE INSTALLED FILES
+[uninstall]   rm -f /etc/systemd/system/exocomp-node.service
+[uninstall]   rm -f /etc/sudoers.d/exocomp-node
+[uninstall]   rm -f /opt/exocomp/node/current  (symlink)
+[uninstall]   rm -rf /opt/exocomp/node/releases/0.1.0-rc.23-qualification-previous
+[uninstall]   rm -f /opt/exocomp/node/manifest-0.1.0-rc.23-qualification-previous.txt
+[uninstall] ==> RELOAD SYSTEMD
+[uninstall]   systemctl daemon-reload
+[uninstall] ==> PRESERVED (operator state — NOT removed)
+[uninstall]   /opt/exocomp/node/config
+[uninstall]   /opt/exocomp/node/log
+[uninstall]   /var/lib/exocomp-node
+[uninstall]   (use --purge categories to remove specific data classes)
+
+[uninstall] ==> exocomp-node uninstalled
+[uninstall]     operator state preserved in /opt/exocomp/node/config/
+[uninstall] ==> VALIDATION
+[uninstall]   component: coordinator
+[uninstall]   purge:     none
+[uninstall]   dry-run:   0
+[uninstall] ==> DISCOVER VERSION
+[uninstall]   current version: 0.1.0-rc.23
+[uninstall] ==> STOP SERVICE
+[uninstall]   systemctl stop exocomp-coordinator
+[uninstall]   systemctl disable exocomp-coordinator
+Removed "/etc/systemd/system/multi-user.target.wants/exocomp-coordinator.service".
+[uninstall] ==> REMOVE INSTALLED FILES
+[uninstall]   rm -f /etc/systemd/system/exocomp-coordinator.service
+[uninstall]   rm -f /etc/sudoers.d/exocomp-coordinator
+[uninstall]   rm -f /opt/exocomp/coordinator/current  (symlink)
+[uninstall]   rm -rf /opt/exocomp/coordinator/releases/0.1.0-rc.23
+[uninstall]   rm -f /opt/exocomp/coordinator/manifest-0.1.0-rc.23.txt
+[uninstall] ==> RELOAD SYSTEMD
+[uninstall]   systemctl daemon-reload
+[uninstall] ==> PRESERVED (operator state — NOT removed)
+[uninstall]   /opt/exocomp/coordinator/config
+[uninstall]   /opt/exocomp/coordinator/log
+[uninstall]   /var/lib/exocomp-coordinator
+[uninstall]   (use --purge categories to remove specific data classes)
+
+[uninstall] ==> exocomp-coordinator uninstalled
+[uninstall]     operator state preserved in /opt/exocomp/coordinator/config/
+[PASS] default uninstall preserves protected and unrelated state
+[install] ==> PREFLIGHT
+[install]   bundle:    /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-node-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   version:   0.1.0-rc.23
+[install]   component: node
+[install]   arch:      x86_64
+[install]   checksums: /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/manifest.sha256
+[install]   verifying checksums...
+[install]   checksum OK: fb3b24414ab24d44690e82819783d7ff3a4144424597534830afa66c236a09e8
+[install]   preflight passed
+[install] ==> USERS AND DIRECTORIES
+[install]   user exists: exocomp-node
+[install]   creating directories
+[install]   directories configured
+[install] ==> INSTALL RELEASE
+[install]   version 0.1.0-rc.23 already installed; overwriting
+[install]   extracting /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-node-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   staged bundled llama-server runtime
+[install]   staged protected-state backup utility
+[install]   release 0.1.0-rc.23 staged
+[install] ==> CONFIGURATION
+[install]   config exists; preserving (not overwriting): /opt/exocomp/node/config/node.json
+[install] ==> RELEASE COOKIE
+[install]   release cookie exists; preserving across upgrade
+[install] ==> CONFIG VALIDATION
+[install]   staged release accepted configuration
+[install] ==> CURRENT VERSION SWITCH
+[install]   current -> releases/0.1.0-rc.23
+[install] ==> SUDOERS POLICY
+[install]   validating with visudo...
+/etc/sudoers.d/exocomp-node: parsed OK
+[install]   visudo check passed
+[install]   sudoers policy installed: /etc/sudoers.d/exocomp-node
+[install] ==> SYSTEMD UNIT
+[install]   unit installed: /etc/systemd/system/exocomp-node.service
+[install] ==> ACTIVATE
+[install]   --no-start set; skipping service start
+[install] ==> MANIFEST
+[install]   manifest written: /opt/exocomp/node/manifest-0.1.0-rc.23.txt
+
+[install] ==> exocomp-node 0.1.0-rc.23 installed successfully
+[install]     install: /opt/exocomp/node
+[install]     config:  /opt/exocomp/node/config/node.json
+[install]     log:     /opt/exocomp/node/log/
+[install] ==> PREFLIGHT
+[install]   bundle:    /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-coordinator-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   version:   0.1.0-rc.23
+[install]   component: coordinator
+[install]   peer:      node 0.1.0-rc.23 (compatible major version)
+[install]   arch:      x86_64
+[install]   checksums: /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/manifest.sha256
+[install]   verifying checksums...
+[install]   checksum OK: d9dc440a231cb764e5a733e7fff1783434185a548dc13254364b20fcb9f114db
+[install]   preflight passed
+[install] ==> USERS AND DIRECTORIES
+[install]   user exists: exocomp-coordinator
+[install]   creating directories
+[install]   directories configured
+[install] ==> INSTALL RELEASE
+[install]   extracting /var/lib/exocomp-qualification/rc23/final-dist/exocomp-complete-0.1.0-rc.23-linux-amd64/releases/exocomp-coordinator-0.1.0-rc.23-linux-amd64.tar.gz
+[install]   staged protected-state backup utility
+[install]   release 0.1.0-rc.23 staged
+[install] ==> CONFIGURATION
+[install]   config exists; preserving (not overwriting): /opt/exocomp/coordinator/config/coordinator.json
+[install] ==> RELEASE COOKIE
+[install]   release cookie exists; preserving across upgrade
+[install] ==> CONFIG VALIDATION
+[install]   staged release accepted configuration
+[install] ==> CURRENT VERSION SWITCH
+[install]   current -> releases/0.1.0-rc.23
+[install] ==> SUDOERS POLICY
+[install]   validating with visudo...
+/etc/sudoers.d/exocomp-coordinator: parsed OK
+[install]   visudo check passed
+[install]   sudoers policy installed: /etc/sudoers.d/exocomp-coordinator
+[install] ==> SYSTEMD UNIT
+[install]   unit installed: /etc/systemd/system/exocomp-coordinator.service
+[install] ==> ACTIVATE
+[install]   --no-start set; skipping service start
+[install] ==> MANIFEST
+[install]   manifest written: /opt/exocomp/coordinator/manifest-0.1.0-rc.23.txt
+
+[install] ==> exocomp-coordinator 0.1.0-rc.23 installed successfully
+[install]     install: /opt/exocomp/coordinator
+[install]     config:  /opt/exocomp/coordinator/config/coordinator.json
+[install]     log:     /opt/exocomp/coordinator/log/
+[uninstall] ==> VALIDATION
+[uninstall]   component: node
+[uninstall]   purge:     system-cache
+[uninstall]   dry-run:   0
+[uninstall] ==> DISCOVER VERSION
+[uninstall]   current version: 0.1.0-rc.23
+[uninstall] ==> STOP SERVICE
+[uninstall]   exocomp-node is not running (skip stop)
+[uninstall]   exocomp-node is not enabled (skip disable)
+[uninstall] ==> REMOVE INSTALLED FILES
+[uninstall]   rm -f /etc/systemd/system/exocomp-node.service
+[uninstall]   rm -f /etc/sudoers.d/exocomp-node
+[uninstall]   rm -f /opt/exocomp/node/current  (symlink)
+[uninstall]   rm -rf /opt/exocomp/node/releases/0.1.0-rc.23
+[uninstall]   rm -f /opt/exocomp/node/manifest-0.1.0-rc.23.txt
+[uninstall] ==> PURGE SYSTEM CACHE
+[uninstall]   system cache purged
+[uninstall] ==> RELOAD SYSTEMD
+[uninstall]   systemctl daemon-reload
+[uninstall] ==> PRESERVED (operator state — NOT removed)
+[uninstall]   /opt/exocomp/node/config
+[uninstall]   /opt/exocomp/node/log
+[uninstall]   /var/lib/exocomp-node
+
+[uninstall] ==> exocomp-node uninstalled
+[uninstall]     operator state preserved in /opt/exocomp/node/config/
+[uninstall] ==> VALIDATION
+[uninstall]   component: coordinator
+[uninstall]   purge:     system-cache
+[uninstall]   dry-run:   0
+[uninstall] ==> DISCOVER VERSION
+[uninstall]   current version: 0.1.0-rc.23
+[uninstall] ==> STOP SERVICE
+[uninstall]   exocomp-coordinator is not running (skip stop)
+[uninstall]   exocomp-coordinator is not enabled (skip disable)
+[uninstall] ==> REMOVE INSTALLED FILES
+[uninstall]   rm -f /etc/systemd/system/exocomp-coordinator.service
+[uninstall]   rm -f /etc/sudoers.d/exocomp-coordinator
+[uninstall]   rm -f /opt/exocomp/coordinator/current  (symlink)
+[uninstall]   rm -rf /opt/exocomp/coordinator/releases/0.1.0-rc.23
+[uninstall]   rm -f /opt/exocomp/coordinator/manifest-0.1.0-rc.23.txt
+[uninstall] ==> PURGE SYSTEM CACHE
+[uninstall]   system cache purged
+[uninstall] ==> RELOAD SYSTEMD
+[uninstall]   systemctl daemon-reload
+[uninstall] ==> PRESERVED (operator state — NOT removed)
+[uninstall]   /opt/exocomp/coordinator/config
+[uninstall]   /opt/exocomp/coordinator/log
+[uninstall]   /var/lib/exocomp-coordinator
+
+[uninstall] ==> exocomp-coordinator uninstalled
+[uninstall]     operator state preserved in /opt/exocomp/coordinator/config/
+find: ‘/opt/exocomp/node/releases’: No such file or directory
+find: ‘/opt/exocomp/coordinator/releases’: No such file or directory
+[PASS] system-cache purge removes releases and preserves all protected state
+[PASS] lifecycle qualification complete

@@ -61,8 +61,8 @@ defmodule Exocomp.Node.ProposalClientTest do
     {:ok, mock_pid} = MockLlamaServer.start_link(url)
 
     on_exit(fn ->
-      if Process.alive?(fake), do: GenServer.stop(fake, :normal)
-      if Process.alive?(mock_pid), do: GenServer.stop(mock_pid, :normal)
+      stop_server(fake)
+      stop_server(mock_pid)
     end)
 
     {fake, url}
@@ -193,7 +193,7 @@ defmodule Exocomp.Node.ProposalClientTest do
     {:ok, mock_pid} = MockLlamaServerDegraded.start_link([])
 
     on_exit(fn ->
-      if Process.alive?(mock_pid), do: GenServer.stop(mock_pid, :normal)
+      stop_server(mock_pid)
     end)
 
     t_start = System.monotonic_time(:millisecond)
@@ -310,7 +310,7 @@ defmodule Exocomp.Node.ProposalClientTest do
       {:ok, pid} = MockLlamaServer.start_link("http://127.0.0.1:19_999")
 
       on_exit(fn ->
-        if Process.alive?(pid), do: GenServer.stop(pid)
+        stop_server(pid)
       end)
 
       :ok
@@ -325,5 +325,11 @@ defmodule Exocomp.Node.ProposalClientTest do
              ],
              "expected a structured error, got: #{inspect(result)}"
     end
+  end
+
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
   end
 end

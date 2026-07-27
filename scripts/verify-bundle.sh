@@ -126,7 +126,58 @@ grep -q '"toolchain"' "${PROV}"           || die "provenance.json missing toolch
 
 log "  provenance structure OK"
 
-# ── Check 6: Signature verification (optional) ────────────────────────────────
+# ── Check 6: Metadata files must be covered by manifest.sha256 ───────────────
+#
+# manifest.sha256 must list manifest.json, sbom.spdx.json, and provenance.json
+# so that the signature transitively authenticates all structured metadata.
+# In strict mode, any uncovered metadata file is a hard failure.
+
+log "==> Verifying metadata coverage in manifest.sha256..."
+
+METADATA_UNCOVERED=0
+for meta in manifest.json sbom.spdx.json provenance.json; do
+    abs_meta="${BUNDLE_DIR}/${meta}"
+    [[ -f "${abs_meta}" ]] || continue  # absence already caught by structure checks above
+    if ! grep -q "${meta}" "${MANIFEST}"; then
+        if [[ "${STRICT}" -eq 1 ]]; then
+            echo "[verify-bundle] ERROR: ${meta} is not covered by manifest.sha256 — strict mode rejects unsigned metadata" >&2
+            METADATA_UNCOVERED=$(( METADATA_UNCOVERED + 1 ))
+        else
+            warn "${meta} is not listed in manifest.sha256 (bundle was assembled without full metadata coverage)"
+        fi
+    fi
+done
+
+if [[ "${METADATA_UNCOVERED}" -gt 0 ]]; then
+    die "${METADATA_UNCOVERED} metadata file(s) not covered by the signed manifest"
+fi
+log "  metadata coverage OK"
+
+# ── Check 7: LICENSES directory must be present and non-empty ────────────────
+
+log "==> Verifying LICENSES directory..."
+
+LICENSES_DIR="${BUNDLE_DIR}/LICENSES"
+if [[ ! -d "${LICENSES_DIR}" ]]; then
+    if [[ "${STRICT}" -eq 1 ]]; then
+        die "--strict mode: LICENSES/ directory absent from bundle"
+    else
+        warn "LICENSES/ directory not found in bundle"
+    fi
+else
+    LICENSE_COUNT="$(find "${LICENSES_DIR}" -type f | wc -l)"
+    if [[ "${LICENSE_COUNT}" -eq 0 ]]; then
+        if [[ "${STRICT}" -eq 1 ]]; then
+            die "--strict mode: LICENSES/ directory is empty — required license texts are missing"
+        else
+            warn "LICENSES/ directory is empty — required license texts are missing"
+        fi
+    else
+        log "  LICENSES/: ${LICENSE_COUNT} file(s)"
+    fi
+fi
+
+# ── Check 8: Signature verification (optional) ────────────────────────────────
 
 SIGFILE="${BUNDLE_DIR}/bundle.minisig"
 

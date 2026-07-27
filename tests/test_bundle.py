@@ -44,6 +44,7 @@ VERIFY_SH = SCRIPTS_DIR / "verify-bundle.sh"
 GEN_SBOM_SH = SCRIPTS_DIR / "generate-sbom.sh"
 GEN_PROV_SH = SCRIPTS_DIR / "generate-provenance.sh"
 SIGN_SH = SCRIPTS_DIR / "sign-bundle.sh"
+INSTALLATION_DOC = REPO_ROOT / "docs" / "installation.md"
 
 
 # ── Mock artifact builders ─────────────────────────────────────────────────────
@@ -60,8 +61,30 @@ def _make_otp_archive(dest_dir: Path, component: str, version: str, arch: str) -
     inner.mkdir()
     (inner / "bin").mkdir()
     stub = inner / "bin" / f"exocomp_{component}"
-    stub.write_text("#!/bin/sh\necho stub\n")
+    stub.write_text(
+        "#!/bin/sh\n"
+        'release_root="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"\n'
+        'exec "${release_root}/erts-28.5.0.3/bin/beam.smp" "$@"\n'
+    )
     stub.chmod(0o755)
+
+    beam_dir = inner / "erts-28.5.0.3" / "bin"
+    beam_dir.mkdir(parents=True)
+    beam = beam_dir / "beam.smp"
+    beam.write_text(
+        "#!/bin/sh\n"
+        'if [ -n "${EXOCOMP_FAKE_RELEASE_LOG:-}" ]; then\n'
+        '    printf "%s\\n" "$*" >> "${EXOCOMP_FAKE_RELEASE_LOG}"\n'
+        "fi\n"
+        'case "$*" in\n'
+        '    rpc*"System.halt"*)\n'
+        '        echo "health RPC must not halt the service node" >&2\n'
+        "        exit 86\n"
+        "        ;;\n"
+        "esac\n"
+        "exit 0\n"
+    )
+    beam.chmod(0o755)
 
     rel_dir = inner / "releases" / version
     rel_dir.mkdir(parents=True)
@@ -78,10 +101,11 @@ def _make_otp_archive(dest_dir: Path, component: str, version: str, arch: str) -
 
 
 def _make_llama_server(dest_dir: Path) -> Path:
-    """Create a stub llama-server binary."""
+    """Create a stub llama-server binary with a representative companion library."""
     p = dest_dir / "llama-server-stub"
     p.write_bytes(b"#!/bin/sh\necho llama-server-stub\n")
     p.chmod(0o755)
+    (dest_dir / "libllama-server-impl.so").write_bytes(b"fake llama runtime library")
     return p
 
 
@@ -112,6 +136,7 @@ def _run_assemble(
     node_archive: Path | None = None,
     coord_archive: Path | None = None,
     llama_server: Path | None = None,
+    llama_lib_dir: Path | None = None,
     model: Path | None = None,
     model_sha256: str = "",
     source_commit: str = "abc1234def5678",
@@ -138,6 +163,8 @@ def _run_assemble(
         cmd += ["--coord-archive", str(coord_archive)]
     if llama_server:
         cmd += ["--llama-server", str(llama_server)]
+    if llama_lib_dir:
+        cmd += ["--llama-lib-dir", str(llama_lib_dir)]
     if model:
         cmd += ["--model", str(model)]
     if model_sha256:
@@ -287,12 +314,50 @@ class TestCompleteBundleAssembly:
     def test_verify_bundle_sh_present(self):
         assert (self.bundle_dir / "scripts" / "verify-bundle.sh").exists()
 
+    def test_state_backup_sh_present(self):
+        backup = self.bundle_dir / "scripts" / "state-backup.sh"
+        assert backup.exists()
+        assert backup.stat().st_mode & stat.S_IXUSR
+
+    def test_state_backup_restore_uses_same_owner(self):
+        """Verify restore extraction preserves ownership (--same-owner, not --no-same-owner).
+
+        The restore path must propagate original file ownership from the archive
+        so that cp -a in restore_category sets the correct owner on the destination.
+        Using --no-same-owner discards owner metadata, causing coordinator config
+        files to be restored as root:root instead of exocomp-coordinator:exocomp-coordinator.
+        """
+        backup_sh = self.bundle_dir / "scripts" / "state-backup.sh"
+        text = backup_sh.read_text()
+        # The extraction inside validate_archive must not strip owner info.
+        assert "--no-same-owner" not in text, (
+            "state-backup.sh must not use --no-same-owner during restore extraction; "
+            "use --same-owner so that cp -a propagates original file ownership to the destination"
+        )
+
     def test_llama_server_present(self):
         assert (self.bundle_dir / "llama-server").exists()
 
     def test_llama_server_is_executable(self):
         ls = self.bundle_dir / "llama-server"
         assert ls.stat().st_mode & stat.S_IXUSR, "llama-server must be executable"
+
+    def test_llama_server_executable_and_runtime_libraries_present(self):
+        assert (self.bundle_dir / "llama-server.bin").is_file()
+        assert (
+            self.bundle_dir / "lib" / "llama" / "libllama-server-impl.so"
+        ).is_file()
+
+    def test_llama_launcher_starts_using_only_the_shipped_runtime(self):
+        env = {"PATH": os.environ["PATH"], "LD_LIBRARY_PATH": ""}
+        result = subprocess.run(
+            [str(self.bundle_dir / "llama-server"), "--version"],
+            capture_output=True,
+            text=True,
+            check=True,
+            env=env,
+        )
+        assert result.stdout == "llama-server-stub\n"
 
     def test_model_present_in_complete_bundle(self):
         model_files = list((self.bundle_dir / "models").glob("*.gguf"))
@@ -312,6 +377,31 @@ class TestCompleteBundleAssembly:
     def test_systemd_coordinator_unit_present(self):
         assert (self.bundle_dir / "release" / "coordinator" / "exocomp-coordinator.service").exists()
 
+    @pytest.mark.parametrize("component", ("node", "coordinator"))
+    def test_systemd_start_limits_are_in_unit_section(self, component):
+        unit = (
+            self.bundle_dir
+            / "release"
+            / component
+            / f"exocomp-{component}.service"
+        ).read_text()
+        unit_section, service_section = unit.split("[Service]", maxsplit=1)
+        assert "StartLimitIntervalSec=120s" in unit_section
+        assert "StartLimitBurst=4" in unit_section
+        assert "StartLimitIntervalSec" not in service_section
+        assert "StartLimitBurst" not in service_section
+
+    @pytest.mark.parametrize("component", ("node", "coordinator"))
+    def test_systemd_stop_does_not_depend_on_release_rpc(self, component):
+        unit = (
+            self.bundle_dir
+            / "release"
+            / component
+            / f"exocomp-{component}.service"
+        ).read_text()
+        assert "ExecStop=/bin/kill -TERM $MAINPID" in unit
+        assert f"current/bin/exocomp_{component} stop" not in unit
+
     def test_license_file_present_when_repo_has_license(self):
         """LICENSE is included in the bundle when it exists in the repo root.
 
@@ -326,6 +416,188 @@ class TestCompleteBundleAssembly:
 
     def test_verify_bundle_passes(self):
         _run_verify(bundle_dir=self.bundle_dir, expect_exit=0)
+
+
+class TestDocumentedCleanRootWorkflow:
+    def test_verbatim_install_commands_and_shipped_backup_restore(self, tmp_path):
+        artifacts_dir = tmp_path / "artifacts"
+        artifacts_dir.mkdir()
+        node_archive = _make_otp_archive(artifacts_dir, "node", "0.1.0", "amd64")
+        coord_archive = _make_otp_archive(
+            artifacts_dir, "coordinator", "0.1.0", "amd64"
+        )
+        llama_server = _make_llama_server(artifacts_dir)
+        model, model_sha256 = _make_model(artifacts_dir)
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch="amd64",
+            version="0.1.0",
+            kind="complete",
+            node_archive=node_archive,
+            coord_archive=coord_archive,
+            llama_server=llama_server,
+            model=model,
+            model_sha256=model_sha256,
+            dist_dir=dist,
+        )
+
+        command_blocks = re.findall(
+            r"```sh\n(.*?)```", INSTALLATION_DOC.read_text(), re.DOTALL
+        )
+        assert len(command_blocks) >= 2
+
+        tool_guard = tmp_path / "guarded-bin"
+        tool_guard.mkdir()
+        sudo = tool_guard / "sudo"
+        sudo.write_text('#!/bin/sh\nexec "$@"\n')
+        sudo.chmod(0o755)
+        for forbidden in ("erl", "elixir", "mix", "curl", "wget"):
+            guard = tool_guard / forbidden
+            guard.write_text(
+                f"#!/bin/sh\necho '{forbidden} must not be used' >&2\nexit 99\n"
+            )
+            guard.chmod(0o755)
+        systemctl = tool_guard / "systemctl"
+        systemctl.write_text(
+            """#!/bin/sh
+set -eu
+command="$1"
+shift
+unit=""
+for argument in "$@"; do
+    unit="$argument"
+done
+case "${command}" in
+    start|restart|stop|is-active)
+        unit="${unit%.service}"
+        ;;
+esac
+printf '%s %s\n' "${command}" "${unit}" >> "${EXOCOMP_FAKE_SYSTEMD_LOG}"
+case "${command}" in
+    is-system-running|enable|daemon-reload|status)
+        exit 0
+        ;;
+    start|restart)
+        component="${unit#exocomp-}"
+        "${EXOCOMP_ROOT}/opt/exocomp/${component}/current/bin/exocomp_${component}" start
+        : > "${EXOCOMP_FAKE_SYSTEMD_STATE}/${unit}"
+        exit 0
+        ;;
+    stop)
+        rm -f "${EXOCOMP_FAKE_SYSTEMD_STATE}/${unit}"
+        exit 0
+        ;;
+    is-active)
+        test -f "${EXOCOMP_FAKE_SYSTEMD_STATE}/${unit}"
+        ;;
+    *)
+        echo "unexpected systemctl command: ${command}" >&2
+        exit 2
+        ;;
+esac
+"""
+        )
+        systemctl.chmod(0o755)
+
+        clean_root = tmp_path / "clean-root"
+        fake_systemd_state = tmp_path / "fake-systemd-state"
+        fake_systemd_state.mkdir()
+        fake_systemd_log = tmp_path / "fake-systemd.log"
+        fake_release_log = tmp_path / "fake-release.log"
+        env = {
+            **os.environ,
+            "PATH": f"{tool_guard}:{os.environ['PATH']}",
+            "EXOCOMP_ROOT": str(clean_root),
+            "EXOCOMP_SYSTEMD_DIR": str(tmp_path / "systemd"),
+            "EXOCOMP_SUDOERS_DIR": str(tmp_path / "sudoers"),
+            "EXOCOMP_SKIP_SYSTEMD": "0",
+            "EXOCOMP_SKIP_VISUDO": "1",
+            "EXOCOMP_CONFIG_VALIDATOR_COMMAND": "true",
+            "EXOCOMP_FAKE_SYSTEMD_STATE": str(fake_systemd_state),
+            "EXOCOMP_FAKE_SYSTEMD_LOG": str(fake_systemd_log),
+            "EXOCOMP_FAKE_RELEASE_LOG": str(fake_release_log),
+        }
+
+        subprocess.run(
+            ["bash", "-euo", "pipefail", "-c", command_blocks[0]],
+            cwd=dist,
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        bundle_dir = dist / "exocomp-complete-0.1.0-linux-amd64"
+        subprocess.run(
+            ["bash", "-euo", "pipefail", "-c", command_blocks[1]],
+            cwd=bundle_dir,
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        node_current = clean_root / "opt" / "exocomp" / "node" / "current"
+        assert (node_current / "bin" / "exocomp_node").is_file()
+        assert (node_current / "erts-28.5.0.3" / "bin" / "beam.smp").is_file()
+        assert (node_current / "bin" / "llama-server").is_file()
+        assert (node_current / "bin" / "exocomp-state-backup").is_file()
+        assert Path(shutil.which("erl", path=str(tool_guard))) == tool_guard / "erl"
+        assert (fake_systemd_state / "exocomp-node").is_file()
+        systemd_calls = fake_systemd_log.read_text()
+        assert "start exocomp-node" in systemd_calls
+        assert "is-active exocomp-node" in systemd_calls
+        release_calls = fake_release_log.read_text().splitlines()
+        assert "start" in release_calls
+        health_rpc_calls = [
+            call for call in release_calls if call.startswith("rpc ")
+        ]
+        assert health_rpc_calls
+        assert all("System.halt" not in call for call in health_rpc_calls)
+
+        install_dir = clean_root / "opt" / "exocomp" / "node"
+        state_dir = clean_root / "var" / "lib" / "exocomp-node"
+        pki = install_dir / "config" / "pki" / "identity.pem"
+        audit = install_dir / "log" / "audit.jsonl"
+        ledger = state_dir / "replay_ledger.dets"
+        pki.write_text("protected identity")
+        audit.write_text('{"event":"installed"}\n')
+        ledger.write_text("durable replay ledger")
+
+        backup = tmp_path / "backups" / "node-state.tar.gz"
+        installed_backup = node_current / "bin" / "exocomp-state-backup"
+        subprocess.run(
+            [
+                str(installed_backup),
+                "create",
+                "--component", "node",
+                "--output", str(backup),
+            ],
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        shutil.rmtree(install_dir / "config")
+        shutil.rmtree(install_dir / "log")
+        shutil.rmtree(state_dir)
+        subprocess.run(
+            [
+                str(installed_backup),
+                "restore",
+                "--component", "node",
+                "--archive", str(backup),
+            ],
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        assert pki.read_text() == "protected identity"
+        assert audit.read_text() == '{"event":"installed"}\n'
+        assert ledger.read_text() == "durable replay ledger"
+        assert not (fake_systemd_state / "exocomp-node").exists()
 
 
 # ── Test 2: Manifest covers every file ────────────────────────────────────────
@@ -722,6 +994,116 @@ class TestChecksumConsistency:
         )
 
 
+@pytest.mark.skipif(
+    shutil.which("cc") is None or shutil.which("readelf") is None,
+    reason="C compiler and readelf are required for native loader coverage",
+)
+class TestLlamaRuntimeClosure:
+    @staticmethod
+    def _build_dynamic_runtime(tmp_path: Path) -> tuple[Path, Path]:
+        source = tmp_path / "source"
+        libraries = tmp_path / "llama-libs"
+        source.mkdir()
+        libraries.mkdir()
+
+        (source / "ggml.c").write_text(
+            'const char *ggml_message(void) { return "runtime closure ok"; }\n'
+        )
+        (source / "impl.c").write_text(
+            "extern const char *ggml_message(void);\n"
+            "const char *server_message(void) { return ggml_message(); }\n"
+        )
+        (source / "server.c").write_text(
+            "#include <stdio.h>\n"
+            "extern const char *server_message(void);\n"
+            "int main(void) { puts(server_message()); return 0; }\n"
+        )
+
+        subprocess.run(
+            [
+                "cc", "-fPIC", "-shared",
+                "-Wl,-soname,libggml-base.so",
+                "-o", str(libraries / "libggml-base.so"),
+                str(source / "ggml.c"),
+            ],
+            check=True,
+        )
+        subprocess.run(
+            [
+                "cc", "-fPIC", "-shared",
+                "-Wl,-soname,libllama-server-impl.so",
+                "-o", str(libraries / "libllama-server-impl.so"),
+                str(source / "impl.c"),
+                "-L", str(libraries),
+                "-Wl,--no-as-needed",
+                "-l:libggml-base.so",
+            ],
+            check=True,
+        )
+        server = tmp_path / "llama-server"
+        subprocess.run(
+            [
+                "cc",
+                "-o", str(server),
+                str(source / "server.c"),
+                "-L", str(libraries),
+                f"-Wl,-rpath-link,{libraries}",
+                "-Wl,--no-as-needed",
+                "-l:libllama-server-impl.so",
+            ],
+            check=True,
+        )
+        return server, libraries
+
+    def test_dynamic_server_starts_with_transitive_shipped_libraries(self, tmp_path):
+        server, libraries = self._build_dynamic_runtime(tmp_path)
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch="amd64",
+            version="1.0.0",
+            kind="runtime",
+            llama_server=server,
+            llama_lib_dir=libraries,
+            dist_dir=dist,
+        )
+        archive = dist / "exocomp-runtime-1.0.0-linux-amd64.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        bundle_dir = _extract_bundle(archive, extract_dir)
+
+        result = subprocess.run(
+            [str(bundle_dir / "llama-server"), "--version"],
+            capture_output=True,
+            text=True,
+            check=True,
+            env={"PATH": os.environ["PATH"], "LD_LIBRARY_PATH": ""},
+        )
+        assert result.stdout == "runtime closure ok\n"
+        assert (bundle_dir / "lib" / "llama" / "libggml-base.so").is_file()
+        assert (
+            bundle_dir / "lib" / "llama" / "libllama-server-impl.so"
+        ).is_file()
+
+    def test_assembly_rejects_an_incomplete_dynamic_runtime(self, tmp_path):
+        server, _libraries = self._build_dynamic_runtime(tmp_path)
+        empty_libraries = tmp_path / "empty-libs"
+        empty_libraries.mkdir()
+
+        result = _run_assemble(
+            tmp=tmp_path,
+            arch="amd64",
+            version="1.0.0",
+            kind="runtime",
+            llama_server=server,
+            llama_lib_dir=empty_libraries,
+            dist_dir=tmp_path / "dist",
+            expect_exit=1,
+        )
+        assert "libllama-server-impl.so" in result.stderr
+        assert "not bundled" in result.stderr
+
+
 # ── Test 8: Runtime-only bundle — model absent ────────────────────────────────
 
 
@@ -1083,4 +1465,429 @@ class TestGenerateProvenanceStandalone:
         ]
         assert source_commit in sha1_values, (
             f"source commit {source_commit!r} not found in provenance materials: {sha1_values}"
+        )
+
+
+# ── Test 15: Double-build byte-identity (reproducibility) ─────────────────────
+
+
+class TestDoubleBuildReproducibility:
+    """Test 15: Two complete-bundle assemblies with the same SOURCE_DATE_EPOCH
+    must produce byte-identical .tar.gz archives.
+
+    This catches any nondeterministic input: filesystem mtimes, SBOM timestamps,
+    provenance build timestamps, manifest.json timestamps, archive metadata.
+    """
+
+    def _assemble_once(self, *, tmp: Path, artifacts: dict, epoch: str) -> bytes:
+        """Run one assembly and return the archive bytes."""
+        dist = tmp / "dist"
+        env = {**os.environ, "SOURCE_DATE_EPOCH": epoch}
+        result = subprocess.run(
+            [
+                "bash", str(ASSEMBLE_SH),
+                "--arch", artifacts["arch"],
+                "--version", artifacts["version"],
+                "--kind", "complete",
+                "--node-archive", str(artifacts["node_archive"]),
+                "--coord-archive", str(artifacts["coord_archive"]),
+                "--llama-server", str(artifacts["llama_server"]),
+                "--model", str(artifacts["model"]),
+                "--model-sha256", artifacts["model_sha256"],
+                "--source-commit", "abc1234def5678",
+                "--builder-image", "docker.io/hexpm/elixir:test@sha256:000",
+                "--dist-dir", str(dist),
+            ],
+            capture_output=True, text=True, env=env,
+        )
+        assert result.returncode == 0, (
+            f"assemble-bundle.sh failed:\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        assert archive.exists(), f"archive not found: {archive}"
+        return archive.read_bytes()
+
+    def test_identical_inputs_produce_byte_identical_archive(self, tmp_path, artifacts):
+        """Two assemblies from identical inputs must be byte-identical."""
+        epoch = "1700000000"
+        tmp1 = tmp_path / "build1"
+        tmp2 = tmp_path / "build2"
+        tmp1.mkdir()
+        tmp2.mkdir()
+
+        bytes1 = self._assemble_once(tmp=tmp1, artifacts=artifacts, epoch=epoch)
+        bytes2 = self._assemble_once(tmp=tmp2, artifacts=artifacts, epoch=epoch)
+
+        assert bytes1 == bytes2, (
+            f"Double build produced non-identical archives: "
+            f"size1={len(bytes1)}, size2={len(bytes2)}"
+        )
+
+    def test_different_epoch_produces_different_archive(self, tmp_path, artifacts):
+        """Bundles built with different SOURCE_DATE_EPOCH values must differ."""
+        tmp1 = tmp_path / "build1"
+        tmp2 = tmp_path / "build2"
+        tmp1.mkdir()
+        tmp2.mkdir()
+
+        bytes1 = self._assemble_once(tmp=tmp1, artifacts=artifacts, epoch="1700000000")
+        bytes2 = self._assemble_once(tmp=tmp2, artifacts=artifacts, epoch="1800000000")
+
+        assert bytes1 != bytes2, "Different SOURCE_DATE_EPOCH must produce different archives"
+
+    def test_sbom_timestamp_is_deterministic(self, tmp_path, artifacts):
+        """SBOM creationInfo.created must match the SOURCE_DATE_EPOCH, not wall-clock time."""
+        epoch = "1700000000"
+        dist = tmp_path / "dist"
+        env = {**os.environ, "SOURCE_DATE_EPOCH": epoch}
+        subprocess.run(
+            [
+                "bash", str(ASSEMBLE_SH),
+                "--arch", artifacts["arch"],
+                "--version", artifacts["version"],
+                "--kind", "complete",
+                "--node-archive", str(artifacts["node_archive"]),
+                "--coord-archive", str(artifacts["coord_archive"]),
+                "--llama-server", str(artifacts["llama_server"]),
+                "--model", str(artifacts["model"]),
+                "--model-sha256", artifacts["model_sha256"],
+                "--source-commit", "abc1234",
+                "--dist-dir", str(dist),
+            ],
+            capture_output=True, text=True, env=env, check=True,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        bundle_dir = _extract_bundle(archive, extract_dir)
+
+        sbom = json.loads((bundle_dir / "sbom.spdx.json").read_text())
+        created = sbom["creationInfo"]["created"]
+        # Must be exactly the ISO-8601 representation of epoch 1700000000
+        assert created == "2023-11-14T22:13:20Z", (
+            f"SBOM creation timestamp {created!r} does not match SOURCE_DATE_EPOCH={epoch}"
+        )
+
+    def test_sbom_namespace_stable_across_builds(self, tmp_path, artifacts):
+        """SBOM documentNamespace must not embed a per-build timestamp."""
+        epoch = "1700000000"
+        dist1 = tmp_path / "dist1"
+        dist2 = tmp_path / "dist2"
+        env = {**os.environ, "SOURCE_DATE_EPOCH": epoch}
+
+        for dist in (dist1, dist2):
+            subprocess.run(
+                [
+                    "bash", str(ASSEMBLE_SH),
+                    "--arch", artifacts["arch"],
+                    "--version", artifacts["version"],
+                    "--kind", "complete",
+                    "--node-archive", str(artifacts["node_archive"]),
+                    "--coord-archive", str(artifacts["coord_archive"]),
+                    "--llama-server", str(artifacts["llama_server"]),
+                    "--model", str(artifacts["model"]),
+                    "--model-sha256", artifacts["model_sha256"],
+                    "--source-commit", "abc1234",
+                    "--dist-dir", str(dist),
+                ],
+                capture_output=True, text=True, env=env, check=True,
+            )
+
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+
+        e1 = tmp_path / "e1"
+        e2 = tmp_path / "e2"
+        e1.mkdir()
+        e2.mkdir()
+        sbom1 = json.loads(_extract_bundle(dist1 / f"{bundle_name}.tar.gz", e1).joinpath("sbom.spdx.json").read_text())
+        sbom2 = json.loads(_extract_bundle(dist2 / f"{bundle_name}.tar.gz", e2).joinpath("sbom.spdx.json").read_text())
+
+        assert sbom1["documentNamespace"] == sbom2["documentNamespace"], (
+            f"SBOM documentNamespace differs between builds:\n"
+            f"  build1: {sbom1['documentNamespace']}\n"
+            f"  build2: {sbom2['documentNamespace']}"
+        )
+
+
+# ── Test 16: Signed-metadata tamper detection ─────────────────────────────────
+
+
+class TestSignedMetadataTamperDetection:
+    """Test 16: verify-bundle.sh must reject tampering of manifest.json,
+    sbom.spdx.json, and provenance.json because those files are now listed
+    in manifest.sha256 (and the signature covers manifest.sha256).
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self, tmp_path, artifacts):
+        self.tmp = tmp_path
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            dist_dir=dist,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        self.bundle_dir = _extract_bundle(archive, extract_dir)
+
+    def _tamper_and_verify(self, rel_path: str) -> subprocess.CompletedProcess:
+        """Append a byte to `rel_path` inside the bundle and run verify-bundle."""
+        target = self.bundle_dir / rel_path
+        assert target.exists(), f"Expected file not found in bundle: {rel_path}"
+        target.write_bytes(target.read_bytes() + b"\n# TAMPERED\n")
+        return _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+
+    def test_tampered_manifest_json_fails_verification(self):
+        """Tampering manifest.json must cause verify-bundle.sh to fail."""
+        result = self._tamper_and_verify("manifest.json")
+        combined = result.stdout + result.stderr
+        assert "TAMPERED" in combined or "tampered" in combined.lower() or "mismatch" in combined.lower(), (
+            f"Expected tamper message; got:\n{combined}"
+        )
+
+    def test_tampered_sbom_fails_verification(self):
+        """Tampering sbom.spdx.json must cause verify-bundle.sh to fail."""
+        result = self._tamper_and_verify("sbom.spdx.json")
+        assert result.returncode == 1
+
+    def test_tampered_provenance_fails_verification(self):
+        """Tampering provenance.json must cause verify-bundle.sh to fail."""
+        result = self._tamper_and_verify("provenance.json")
+        assert result.returncode == 1
+
+    def test_deleted_manifest_json_fails_verification(self):
+        """Deleting manifest.json must cause verify-bundle.sh to fail."""
+        (self.bundle_dir / "manifest.json").unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+        assert result.returncode == 1
+
+    def test_deleted_sbom_fails_verification(self):
+        """Deleting sbom.spdx.json must cause verify-bundle.sh to fail."""
+        (self.bundle_dir / "sbom.spdx.json").unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+        assert result.returncode == 1
+
+    def test_deleted_provenance_fails_verification(self):
+        """Deleting provenance.json must cause verify-bundle.sh to fail."""
+        (self.bundle_dir / "provenance.json").unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+        assert result.returncode == 1
+
+    def test_metadata_files_listed_in_manifest_sha256(self):
+        """manifest.sha256 must list manifest.json, sbom.spdx.json, and provenance.json."""
+        manifest_text = (self.bundle_dir / "manifest.sha256").read_text()
+        for meta in ("manifest.json", "sbom.spdx.json", "provenance.json"):
+            assert meta in manifest_text, (
+                f"{meta} must be listed in manifest.sha256 to be covered by the signature"
+            )
+
+
+# ── Test 17: License completeness ─────────────────────────────────────────────
+
+
+class TestLicenseCompleteness:
+    """Test 17: Assembled bundles must contain a populated LICENSES/ directory
+    with all required license texts for governed third-party components.
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self, tmp_path, artifacts):
+        self.tmp = tmp_path
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            dist_dir=dist,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        self.bundle_dir = _extract_bundle(archive, extract_dir)
+
+    def test_licenses_directory_present(self):
+        """LICENSES/ directory must exist in the assembled bundle."""
+        licenses_dir = self.bundle_dir / "LICENSES"
+        assert licenses_dir.is_dir(), "LICENSES/ directory must be present in bundle"
+
+    def test_licenses_directory_non_empty(self):
+        """LICENSES/ directory must contain at least one license file."""
+        licenses_dir = self.bundle_dir / "LICENSES"
+        files = list(licenses_dir.iterdir())
+        assert len(files) > 0, "LICENSES/ directory must not be empty"
+
+    def test_apache_2_license_present(self):
+        """Apache-2.0.txt must be present for Erlang/OTP, Elixir, and Hex package components."""
+        assert (self.bundle_dir / "LICENSES" / "Apache-2.0.txt").exists(), (
+            "LICENSES/Apache-2.0.txt must be present (required by Erlang/OTP, Elixir, and others)"
+        )
+
+    def test_mit_license_present(self):
+        """MIT.txt must be present for llama.cpp and MIT-licensed Hex packages."""
+        assert (self.bundle_dir / "LICENSES" / "MIT.txt").exists(), (
+            "LICENSES/MIT.txt must be present (required by llama.cpp, Bandit, etc.)"
+        )
+
+    def test_bsd_3_clause_license_present(self):
+        """BSD-3-Clause.txt must be present for x509 and other BSD-licensed components."""
+        assert (self.bundle_dir / "LICENSES" / "BSD-3-Clause.txt").exists(), (
+            "LICENSES/BSD-3-Clause.txt must be present (required by x509)"
+        )
+
+    def test_licenses_covered_by_manifest(self):
+        """LICENSES/ files must appear in manifest.sha256 to be signature-authenticated."""
+        manifest_text = (self.bundle_dir / "manifest.sha256").read_text()
+        licenses_dir = self.bundle_dir / "LICENSES"
+        for lic_file in sorted(licenses_dir.iterdir()):
+            rel = f"LICENSES/{lic_file.name}"
+            assert rel in manifest_text, (
+                f"{rel} must be listed in manifest.sha256"
+            )
+
+    def test_non_strict_verification_passes_with_populated_licenses(self):
+        """Non-strict verification must pass when LICENSES/ is populated."""
+        _run_verify(bundle_dir=self.bundle_dir, strict=False, expect_exit=0)
+
+
+# ── Test 18: Assembly fails closed on missing LICENSES ────────────────────────
+
+
+class TestAssemblyFailsOnMissingLicenses:
+    """Test 18: assemble-bundle.sh must fail (not warn) when the LICENSES
+    source directory is absent or when required license files are missing.
+    """
+
+    def test_assembly_fails_when_licenses_dir_absent(self, tmp_path, artifacts):
+        """Assembly must fail when --licenses-dir points to a non-existent path."""
+        missing_dir = tmp_path / "nonexistent_licenses"
+        result = _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            extra_args=["--licenses-dir", str(missing_dir)],
+            expect_exit=1,
+        )
+        combined = result.stdout + result.stderr
+        assert "licenses" in combined.lower() or "LICENSES" in combined, (
+            f"Expected LICENSES error; got:\n{combined}"
+        )
+
+    def test_assembly_fails_when_required_license_file_missing(self, tmp_path, artifacts):
+        """Assembly must fail when a required license SPDX file is absent from LICENSES/."""
+        # Create a LICENSES dir with only Apache-2.0, omit MIT and BSD-3-Clause.
+        incomplete_licenses = tmp_path / "incomplete_licenses"
+        incomplete_licenses.mkdir()
+        (incomplete_licenses / "Apache-2.0.txt").write_text("Apache License placeholder\n")
+        # MIT.txt and BSD-3-Clause.txt are absent — assembly must fail.
+        result = _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            extra_args=["--licenses-dir", str(incomplete_licenses)],
+            expect_exit=1,
+        )
+        combined = result.stdout + result.stderr
+        assert "MIT" in combined or "license" in combined.lower(), (
+            f"Expected missing license error; got:\n{combined}"
+        )
+
+
+# ── Test 19: Strict verification rejects unauthenticated metadata ─────────────
+
+
+class TestStrictVerificationRejectsUnauthenticatedMetadata:
+    """Test 19: In strict mode, verify-bundle.sh must reject a bundle where
+    metadata files (manifest.json, sbom.spdx.json, provenance.json) are not
+    listed in manifest.sha256.
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self, tmp_path, artifacts):
+        self.tmp = tmp_path
+        # Assemble and extract a normal bundle.
+        dist = tmp_path / "dist"
+        _run_assemble(
+            tmp=tmp_path,
+            arch=artifacts["arch"],
+            version=artifacts["version"],
+            kind="complete",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            llama_server=artifacts["llama_server"],
+            model=artifacts["model"],
+            model_sha256=artifacts["model_sha256"],
+            dist_dir=dist,
+        )
+        bundle_name = f"exocomp-complete-{artifacts['version']}-linux-{artifacts['arch']}"
+        archive = dist / f"{bundle_name}.tar.gz"
+        extract_dir = tmp_path / "extracted"
+        extract_dir.mkdir()
+        self.bundle_dir = _extract_bundle(archive, extract_dir)
+
+    def test_metadata_in_manifest_non_strict_passes(self):
+        """A correctly assembled bundle has metadata in manifest.sha256; non-strict passes."""
+        manifest_text = (self.bundle_dir / "manifest.sha256").read_text()
+        for meta in ("manifest.json", "sbom.spdx.json", "provenance.json"):
+            assert meta in manifest_text, f"{meta} must be in manifest.sha256 after assembly"
+        # non-strict verification does not require a signature
+        _run_verify(bundle_dir=self.bundle_dir, strict=False, expect_exit=0)
+
+    def test_strict_fails_when_manifest_json_removed_from_manifest(self):
+        """Removing manifest.json's entry from manifest.sha256 and then tampering
+        the file must be detectable: the strict verifier rejects uncovered metadata.
+        """
+        manifest_path = self.bundle_dir / "manifest.sha256"
+        lines = manifest_path.read_text().splitlines(keepends=True)
+        # Strip the manifest.json entry to simulate an old-style bundle.
+        stripped = [l for l in lines if "manifest.json" not in l]
+        manifest_path.write_text("".join(stripped))
+
+        # Strict mode must reject because manifest.json is not covered.
+        result = _run_verify(bundle_dir=self.bundle_dir, strict=True, expect_exit=1)
+        combined = result.stdout + result.stderr
+        assert "manifest.json" in combined or "metadata" in combined.lower(), (
+            f"Expected manifest.json coverage error; got:\n{combined}"
+        )
+
+    def test_strict_fails_when_licenses_dir_empty(self):
+        """Strict mode must fail when the LICENSES directory is empty."""
+        licenses_dir = self.bundle_dir / "LICENSES"
+        # Remove all license files to simulate an old empty-LICENSES bundle.
+        for f in list(licenses_dir.iterdir()):
+            f.unlink()
+        result = _run_verify(bundle_dir=self.bundle_dir, strict=True, expect_exit=1)
+        combined = result.stdout + result.stderr
+        assert "license" in combined.lower() or "LICENSES" in combined, (
+            f"Expected LICENSES error; got:\n{combined}"
         )

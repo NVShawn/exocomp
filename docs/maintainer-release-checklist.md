@@ -12,6 +12,14 @@ record or CI system, not only in a local shell history.
       documentation, and qualification gate affected by the release.
 - [ ] Resolve every `Unreleased` changelog entry and prepare release notes from
       the [template](release-notes-template.md).
+- [ ] Point `LLAMA_SERVER_<ARCH>` at the pinned executable and
+      `LLAMA_LIB_DIR_<ARCH>` at its matching companion libraries. Bundle
+      assembly must reject any non-baseline ELF dependency missing from that
+      directory.
+- [ ] Set `BUNDLE_BUILDER_IMAGE` to the immutable architecture-specific
+      builder image with digest and `BUNDLE_SIGN_KEY` to the release minisign
+      key when invoking a bundle Make target. Confirm the resulting archive
+      contains `bundle.minisig` before qualification.
 
 ## License and supply chain
 
@@ -33,7 +41,36 @@ record or CI system, not only in a local shell history.
       upgrade, rollback, and safe uninstall.
 - [ ] Confirm systemd hardening, ownership, permissions, privilege policy, and
       protected-state retention.
+- [ ] Start both the extracted and installed `llama-server` launchers, then
+      complete backup and restore with the installed `exocomp-state-backup`.
 - [ ] Verify user-facing commands against the final artifacts.
+
+## M5 performance gate
+
+Run the full shipped-artifact performance qualification on clean amd64 and
+arm64 guests independently. Both architecture runs must pass before
+publication.
+
+```sh
+# On each qualification guest (amd64 and arm64):
+make bench-llama-full \
+  LLAMA_SERVER=/path/to/llama-server \
+  LLAMA_LIB_DIR=/path/to/llama-libs \
+  NODE_RELEASE=/opt/exocomp/node/current \
+  COORD_RELEASE=/opt/exocomp/coordinator/current \
+  MODEL_PATH=/path/to/model.gguf \
+  MODEL_SHA256=<sha256>
+```
+
+- [ ] `bench-llama-full` exits zero on the clean amd64 qualification guest.
+- [ ] `bench-llama-full` exits zero on the clean arm64 qualification guest.
+- [ ] Evidence files from both runs are copied into
+      `docs/release-evidence/<tag>/raw/amd64/bench/` and
+      `docs/release-evidence/<tag>/raw/arm64/bench/` and included in the
+      signed `evidence-index.sha256`.
+
+For baseline management, gate failure interpretation, and evidence collection
+details, see [Performance Qualification](performance-qualification.md).
 
 ## Publish and follow up
 

@@ -47,6 +47,15 @@ for architecture in amd64 arm64; do
     fail "Makefile is missing build-${architecture}"
 done
 
+grep -Eq '^BUNDLE_BUILDER_IMAGE[[:space:]]*\?=' Makefile ||
+  fail "Makefile does not expose the immutable bundle builder identity"
+grep -Eq '^BUNDLE_SIGN_KEY[[:space:]]*\?=' Makefile ||
+  fail "Makefile does not expose the bundle signing key"
+[ "$(grep -Fc -- '--builder-image "$(BUNDLE_BUILDER_IMAGE)"' Makefile)" -eq 4 ] ||
+  fail "every bundle target must pass the builder identity to the assembler"
+[ "$(grep -Fc -- '--sign-key "$(BUNDLE_SIGN_KEY)"' Makefile)" -eq 4 ] ||
+  fail "every bundle target must pass the signing key to the assembler"
+
 grep -Fq -- "--platform \"\${target_platform}\"" scripts/check-builder-capability.sh ||
   fail "capability check does not select an explicit platform"
 grep -Fq -- "--platform \"\${target_platform}\"" scripts/build-releases.sh ||
@@ -75,8 +84,50 @@ if grep -Eq '^[[:space:]]+--user([=[:space:]]|\\)' scripts/build-releases.sh; th
 fi
 grep -Fq "scripts/smoke-releases.sh prod" scripts/build-releases.sh ||
   fail "built releases are not checked for bundled ERTS"
+[ -f "config/runtime.exs" ] ||
+  fail "production release runtime configuration is missing"
+for runtime_env in \
+  EXOCOMP_PKI_ONLINE_STATE \
+  EXOCOMP_PKI_OFFLINE_ROOT_BACKUP \
+  EXOCOMP_ENROLLMENT_TOKEN_STORE \
+  EXOCOMP_TLS_CA_PATH \
+  EXOCOMP_A2A_TLS_CERT_PATH \
+  EXOCOMP_TLS_KEY_PATH; do
+  grep -Fq "System.get_env(\"${runtime_env}\")" config/runtime.exs ||
+    fail "production runtime configuration does not read ${runtime_env} at boot"
+done
+grep -Fq "a2a_tls: a2a_tls" config/runtime.exs ||
+  fail "production runtime configuration does not wire outbound coordinator A2A TLS"
+for qualification_script in \
+  scripts/qualification-live-preflight.sh \
+  scripts/qualification-live-operational.sh \
+  scripts/qualification-live-lifecycle.sh; do
+  [ -x "${qualification_script}" ] ||
+    fail "${qualification_script} is missing or not executable"
+  bash -n "${qualification_script}" ||
+    fail "${qualification_script} does not parse"
+done
+for live_marker in \
+  "strict verification succeeds with no network namespace" \
+  "active-service restart requires a valid bound approval" \
+  "multi-node diagnostics preserve reachable" \
+  "failed fixture recovers exactly once" \
+  "bounded cleanup succeeds while unsafe action modes fail closed" \
+  "installed backup utility restores protected coordinator PKI and state" \
+  "failed candidate health gate automatically restores the prior release" \
+  "default uninstall preserves protected and unrelated state" \
+  "system-cache purge removes releases and preserves all protected state"; do
+  grep -Fq "${live_marker}" scripts/qualification-live-*.sh ||
+    fail "live qualification helpers do not cover: ${live_marker}"
+done
 grep -Fq "replay_ledger_path" scripts/smoke-releases.sh ||
   fail "production smoke test does not isolate replay ledger state"
+grep -Fq "Application.put_env(:exocomp_coordinator, :require_pki, false)" \
+  scripts/smoke-releases.sh ||
+  fail "production smoke test does not isolate the ERTS probe from operator PKI state"
+grep -Fq "Application.put_env(:exocomp_coordinator, :require_pki, false)" \
+  scripts/test-clean-container.sh ||
+  fail "clean-container ERTS probe does not isolate operator PKI state"
 grep -Fq "inspect-release-deps.sh" scripts/build-releases.sh ||
   fail "build script does not invoke dependency inspection"
 grep -Fq "package-releases.sh" scripts/build-releases.sh ||

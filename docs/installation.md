@@ -13,30 +13,43 @@ operator-verified GGUF file; the installer never downloads a model.
 
 ## Verify and install
 
-Copy the release bundle, its checksum file, manifest, and signature to the
-target. For an offline install, transfer them on controlled media and disable
-network access before verification. Verify the outer bundle before extracting
-it, then run the non-interactive installer from the extracted directory:
+Copy the release bundle and its adjacent `.sha256` file to the target. For an
+offline install, transfer them on controlled media and disable network access
+before verification. The following commands match the delivered archive layout:
+verify the outer archive, extract its single top-level directory, verify the
+nested manifest, confirm the bundled inference runtime loads, and install from
+the embedded `releases/` directory:
 
 ```sh
-sha256sum -c checksums.sha256
+sha256sum -c exocomp-complete-0.1.0-linux-amd64.tar.gz.sha256
+tar -xzf exocomp-complete-0.1.0-linux-amd64.tar.gz
+cd exocomp-complete-0.1.0-linux-amd64
 ./scripts/verify-bundle.sh --bundle-dir .
+./llama-server --version
 sudo ./scripts/install.sh \
   --component coordinator \
-  --bundle ./exocomp-coordinator-0.1.0-linux-amd64.tar.gz \
-  --checksums ./checksums.sha256 \
+  --bundle ./releases/exocomp-coordinator-0.1.0-linux-amd64.tar.gz \
+  --checksums ./manifest.sha256 \
   --version 0.1.0 \
+  --no-start \
   --non-interactive
 ```
 
-Install a node the same way with `--component node`. Supply an exact
+Use `--no-start` for the first coordinator install so the service cannot
+accept traffic before its PKI ceremony. Initialize the PKI, verify the root
+fingerprint, and start the coordinator by following
+[PKI operations](pki-operations.md). A later upgrade should omit
+`--no-start`; the installer then health-gates the candidate and rolls back on
+failure.
+
+Install a node with `--component node`. Supply an exact
 comma-separated action allow-list only when recovery actions are intended:
 
 ```sh
 sudo ./scripts/install.sh \
   --component node \
-  --bundle ./exocomp-node-0.1.0-linux-amd64.tar.gz \
-  --checksums ./checksums.sha256 \
+  --bundle ./releases/exocomp-node-0.1.0-linux-amd64.tar.gz \
+  --checksums ./manifest.sha256 \
   --version 0.1.0 \
   --allow-list exocomp-fixture.service \
   --non-interactive
@@ -49,15 +62,36 @@ versions side by side and health-gates an upgrade. It also creates
 `RELEASE_COOKIE`, mode `0600`. Published archives contain no reusable Erlang
 cookie.
 
+`verify-bundle.sh` checks every file listed in `manifest.sha256` — including
+`manifest.json`, `sbom.spdx.json`, `provenance.json`, and all `LICENSES/`
+license texts — against their recorded SHA-256 digest. This ensures that the
+structured metadata and license inventory cannot be silently tampered after a
+signed bundle is distributed. When a release signing key is available, pass
+`--public-key <path>` to authenticate the signature and `--strict` to require
+it; strict mode also rejects bundles where any metadata file is not listed in
+the signed manifest, or where the `LICENSES/` directory is absent or empty:
+
+    ./scripts/verify-bundle.sh --bundle-dir . \
+      --public-key /path/to/exocomp-release.pub \
+      --strict
+
 Configuration is under `/opt/exocomp/<component>/config`; logs are under the
 adjacent `log` directory; durable state is under
 `/var/lib/exocomp-<component>`. Replace template node identity, coordinator
 address, TLS paths, model path, and resource values before production use.
 Never make a key or cookie group/world-readable.
 
+The node replay ledger is `/var/lib/exocomp-node/replay_ledger.dets`. Both the
+installer and systemd assign `/var/lib/exocomp-node` to the `exocomp-node`
+service account, and the service unit grants no other durable write path.
+The installed inference launcher is
+`/opt/exocomp/node/current/bin/llama-server`; it resolves only the companion
+libraries shipped in `/opt/exocomp/node/current/lib/llama`.
+
 ## First-node sequence
 
-1. Install and initialize the coordinator PKI as described in
+1. Install the coordinator with `--no-start`, initialize its PKI, and verify
+   production readiness as described in
    [PKI operations](pki-operations.md).
 2. Distribute the root fingerprint over a separate authenticated channel.
 3. Add the node ID/DNS identity to the coordinator inventory.

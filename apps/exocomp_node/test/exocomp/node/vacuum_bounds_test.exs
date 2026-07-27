@@ -69,7 +69,7 @@ defmodule Exocomp.Node.VacuumBoundsTest do
       restore_env(:vacuum_state_server, prev_state_server)
 
       # Stop the isolated VacuumState process if it's still alive.
-      if Process.alive?(state_pid), do: GenServer.stop(state_pid)
+      stop_server(state_pid)
     end)
 
     %{state_pid: state_pid}
@@ -102,6 +102,12 @@ defmodule Exocomp.Node.VacuumBoundsTest do
 
   defp restore_env(key, nil), do: Application.delete_env(:exocomp_node, key)
   defp restore_env(key, val), do: Application.put_env(:exocomp_node, key, val)
+
+  defp stop_server(server) do
+    GenServer.stop(server)
+  catch
+    :exit, _reason -> :ok
+  end
 
   # ── Threshold gate ────────────────────────────────────────────────────────
 
@@ -196,6 +202,7 @@ defmodule Exocomp.Node.VacuumBoundsTest do
   describe "caller path rejection" do
     test "check_eligible/1 accepts no path argument — callers cannot supply a path" do
       # The public arity is exactly 1.  There is no 2-arity variant.
+      assert Code.ensure_loaded?(VacuumBounds)
       assert function_exported?(VacuumBounds, :check_eligible, 1)
       refute function_exported?(VacuumBounds, :check_eligible, 2)
     end
@@ -219,6 +226,7 @@ defmodule Exocomp.Node.VacuumBoundsTest do
 
   describe "caller limit rejection (bounds cannot be widened)" do
     test "check_eligible/1 accepts no limit arguments — arity is exactly 1" do
+      assert Code.ensure_loaded?(VacuumBounds)
       assert function_exported?(VacuumBounds, :check_eligible, 1)
       refute function_exported?(VacuumBounds, :check_eligible, 2)
     end

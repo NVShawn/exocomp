@@ -120,6 +120,81 @@ defmodule Exocomp.Node.IdentityTest do
 
       assert {:error, {:invalid_chain, _}} = Identity.validate(config)
     end
+
+    test "leaf plus intermediate validates against the production root" do
+      directory =
+        Path.join(
+          System.tmp_dir!(),
+          "identity-production-chain-#{System.unique_integer([:positive])}"
+        )
+
+      File.mkdir_p!(directory)
+      on_exit(fn -> File.rm_rf!(directory) end)
+
+      root_key = X509.PrivateKey.new_ec(:secp384r1)
+
+      root_cert =
+        X509.Certificate.self_signed(root_key, "/O=Exocomp/CN=Root",
+          template: :root_ca,
+          validity: 365
+        )
+
+      intermediate_key = X509.PrivateKey.new_ec(:secp384r1)
+
+      intermediate_cert =
+        intermediate_key
+        |> X509.PublicKey.derive()
+        |> X509.Certificate.new(
+          "/O=Exocomp/CN=Intermediate",
+          root_cert,
+          root_key,
+          template: :ca,
+          validity: 180
+        )
+
+      node_key = X509.PrivateKey.new_ec(:secp256r1)
+
+      node_cert =
+        node_key
+        |> X509.PublicKey.derive()
+        |> X509.Certificate.new(
+          "/O=Exocomp/CN=production-node",
+          intermediate_cert,
+          intermediate_key,
+          template: :server,
+          validity: 30,
+          extensions: [
+            subject_alt_name: X509.Certificate.Extension.subject_alt_name(["production-node"])
+          ]
+        )
+
+      ca_path = Path.join(directory, "root.pem")
+      chain_path = Path.join(directory, "chain.pem")
+      key_path = Path.join(directory, "key.pem")
+
+      File.write!(ca_path, X509.Certificate.to_pem(root_cert))
+
+      File.write!(
+        chain_path,
+        X509.Certificate.to_pem(node_cert) <> X509.Certificate.to_pem(intermediate_cert)
+      )
+
+      File.write!(key_path, X509.PrivateKey.to_pem(node_key))
+      File.chmod!(key_path, 0o600)
+
+      config =
+        make_config(
+          cert: chain_path,
+          key: key_path,
+          ca: ca_path,
+          node_id: "production-node"
+        )
+
+      assert :ok = Identity.validate(config)
+
+      File.write!(chain_path, X509.Certificate.to_pem(node_cert))
+      assert {:error, {:invalid_chain, _}} = Identity.validate(config)
+    end
   end
 
   # ── SAN mismatch tests ────────────────────────────────────────────────────────

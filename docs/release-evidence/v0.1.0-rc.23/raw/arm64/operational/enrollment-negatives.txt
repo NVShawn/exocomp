@@ -1,0 +1,7 @@
+
+09:29:46.998 [notice] TLS :client: In state :wait_cert at ssl_handshake.erl:2213 generated CLIENT ALERT: Fatal - Unknown CA
+
+untrusted_root=denied
+wrong_node_token=denied
+single_use_first_request=accepted
+single_use_replay=denied

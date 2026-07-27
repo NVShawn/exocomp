@@ -16,6 +16,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     "intermediate_ca.pem" => 0o644,
     "intermediate_ca_key.pem" => 0o600,
     "coordinator.pem" => 0o644,
+    "coordinator_chain.pem" => 0o644,
     "coordinator_key.pem" => 0o600,
     "approval_signing.key" => 0o600,
     "approval_signing.pub" => 0o644,
@@ -29,6 +30,64 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
           offline_backup: String.t(),
           root_fingerprint: String.t()
         }
+
+  @doc """
+  Loads and validates the coordinator's online PKI state without requiring
+  the offline root backup.
+
+  Use this during production service restarts after the initial PKI ceremony,
+  when the offline root backup has been removed from service per the operator
+  security contract. The offline backup path is read from the online manifest
+  and stored in the returned metadata without being accessed.
+
+  Validates the online directory structure, permissions, certificate chain,
+  online key pairs, and approval key without reading or requiring the
+  offline root key.
+
+  Returns `{:ok, metadata}` on success. Returns `{:error, Error.t()}` if the
+  online state is absent, structurally invalid, or its certificate chain
+  cannot be verified.
+  """
+  @spec load_online_state(keyword()) :: {:ok, metadata()} | {:error, Error.t()}
+  def load_online_state(options) when is_list(options) do
+    online_raw = Keyword.get(options, :online_state)
+
+    with :ok <- absolute_path(online_raw, "online_state") do
+      online = Path.expand(online_raw)
+
+      try do
+        with :ok <- validate_tree(online, @online_files),
+             {:ok, online_manifest} <- read_manifest(online),
+             {:ok, certificates} <- read_online_certs(online),
+             {:ok, online_keys} <- read_online_private_keys(online),
+             :ok <- validate_online_material(certificates, online_keys),
+             :ok <- validate_coordinator_chain(online, certificates),
+             :ok <- validate_approval_key(online),
+             fingerprint = fingerprint(certificates.root),
+             :ok <- validate_fingerprint(online_manifest, fingerprint) do
+          metadata(online, online_manifest.backup, fingerprint, :already_initialized)
+        end
+      rescue
+        _exception ->
+          {:error,
+           Error.new(
+             :pki_operation_failed,
+             "PKI state load failed; no secret details were retained"
+           )}
+      catch
+        _kind, _reason ->
+          {:error,
+           Error.new(
+             :pki_operation_failed,
+             "PKI state load failed; no secret details were retained"
+           )}
+      end
+    end
+  end
+
+  def load_online_state(_options) do
+    {:error, Error.new(:invalid_pki_options, "PKI load options must be a keyword list")}
+  end
 
   @spec initialize(keyword()) :: {:ok, metadata()} | {:error, Error.t()}
   def initialize(options) when is_list(options) do
@@ -58,6 +117,52 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
   def initialize(_options) do
     {:error, Error.new(:invalid_pki_options, "PKI initialization options must be a keyword list")}
   end
+
+  # ── Online-only validation helpers (for load_online_state/1) ─────────────────
+
+  # Reads only the three online certificates (root, intermediate, coordinator)
+  # without comparing against the offline backup root cert.
+  defp read_online_certs(online) do
+    with {:ok, root} <- read_certificate(Path.join(online, "root_ca.pem")),
+         {:ok, intermediate} <- read_certificate(Path.join(online, "intermediate_ca.pem")),
+         {:ok, coordinator} <- read_certificate(Path.join(online, "coordinator.pem")) do
+      {:ok, %{root: root, intermediate: intermediate, coordinator: coordinator}}
+    else
+      _failure -> invalid_state("PKI online certificates are corrupt or missing")
+    end
+  end
+
+  # Reads only the online private keys (intermediate and coordinator).
+  # The root private key is not required and is not read.
+  defp read_online_private_keys(online) do
+    with {:ok, intermediate} <-
+           read_private_key(Path.join(online, "intermediate_ca_key.pem"), []),
+         {:ok, coordinator} <- read_private_key(Path.join(online, "coordinator_key.pem"), []) do
+      {:ok, %{intermediate: intermediate, coordinator: coordinator}}
+    else
+      _failure ->
+        invalid_state("PKI online private material is corrupt or cannot be read")
+    end
+  end
+
+  # Validates the online key pairs (intermediate and coordinator) and the
+  # full certificate chain without requiring the offline root key.
+  defp validate_online_material(certificates, online_keys) do
+    with :ok <- key_matches(certificates.intermediate, online_keys.intermediate, "intermediate"),
+         :ok <- key_matches(certificates.coordinator, online_keys.coordinator, "coordinator"),
+         :ok <- require_ca(certificates.root, true, "root"),
+         :ok <- require_ca(certificates.intermediate, true, "intermediate"),
+         :ok <- require_ca(certificates.coordinator, false, "coordinator"),
+         :ok <- require_key_usage(certificates.root, :keyCertSign, "root"),
+         :ok <- require_key_usage(certificates.intermediate, :keyCertSign, "intermediate"),
+         :ok <- require_key_usage(certificates.coordinator, :digitalSignature, "coordinator"),
+         :ok <- verify_signature(certificates.root, certificates.root, "root"),
+         :ok <- validate_path(certificates) do
+      :ok
+    end
+  end
+
+  # ── Initialization helpers ────────────────────────────────────────────────────
 
   defp validate_options(options) do
     online = Keyword.get(options, :online_state)
@@ -228,6 +333,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
       "intermediate_ca.pem" => material.intermediate_cert,
       "intermediate_ca_key.pem" => material.intermediate_key,
       "coordinator.pem" => material.coordinator_cert,
+      "coordinator_chain.pem" => material.coordinator_cert <> material.intermediate_cert,
       "coordinator_key.pem" => material.coordinator_key,
       "approval_signing.key" => material.approval_private,
       "approval_signing.pub" => material.approval_public,
@@ -288,6 +394,7 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
          {:ok, certificates} <- read_certificates(online, backup),
          {:ok, keys} <- read_keys(online, backup, passphrase),
          :ok <- validate_certificates(certificates, keys),
+         :ok <- validate_coordinator_chain(online, certificates),
          :ok <- validate_approval_key(online),
          fingerprint = fingerprint(certificates.root),
          :ok <- validate_fingerprint(online_manifest, fingerprint) do
@@ -495,6 +602,20 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
     case :public_key.pkix_path_validation(root, chain, max_path_length: 1) do
       {:ok, _validation} -> :ok
       {:error, _reason} -> invalid_state("The coordinator certificate chain is invalid")
+    end
+  end
+
+  defp validate_coordinator_chain(online, certificates) do
+    expected =
+      X509.Certificate.to_pem(certificates.coordinator) <>
+        X509.Certificate.to_pem(certificates.intermediate)
+
+    case File.read(Path.join(online, "coordinator_chain.pem")) do
+      {:ok, ^expected} ->
+        :ok
+
+      _error ->
+        invalid_state("The coordinator certificate chain file is corrupt or inconsistent")
     end
   end
 

@@ -1,0 +1,2 @@
+disposition=initialized
+root_fingerprint=4A:F2:79:BC:24:59:DE:B8:48:FE:CD:3E:EC:8A:31:B4:78:C8:43:E1:10:B2:66:1F:D6:E7:35:36:79:36:6A:C7

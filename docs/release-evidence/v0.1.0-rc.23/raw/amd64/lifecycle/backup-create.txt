@@ -1,0 +1,2 @@
+[state-backup] created protected state backup: /var/lib/exocomp-qualification/rc23/lifecycle-backups/amd64/coordinator-state.tar.gz
+[state-backup] store this archive encrypted; it may contain private keys and release credentials

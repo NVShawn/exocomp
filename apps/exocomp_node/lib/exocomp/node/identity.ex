@@ -70,8 +70,8 @@ defmodule Exocomp.Node.Identity do
   def validate(%Config{} = config) do
     with :ok <- check_key_permissions(config.tls.node_key),
          {:ok, ca_der} <- load_pem_cert(config.tls.ca_cert),
-         {:ok, leaf_der} <- load_pem_cert(config.tls.node_cert),
-         :ok <- verify_chain(ca_der, leaf_der),
+         {:ok, [leaf_der | _] = chain} <- load_pem_certs(config.tls.node_cert),
+         :ok <- verify_chain(ca_der, chain),
          :ok <- verify_san(leaf_der, config.node_id) do
       :ok
     end
@@ -98,17 +98,25 @@ defmodule Exocomp.Node.Identity do
   # ── PEM loading ──────────────────────────────────────────────────────────────
 
   defp load_pem_cert(path) do
+    with {:ok, [certificate | _]} <- load_pem_certs(path) do
+      {:ok, certificate}
+    end
+  end
+
+  defp load_pem_certs(path) do
     case File.read(path) do
       {:ok, pem} ->
-        pem_entries = :public_key.pem_decode(pem)
+        certificates =
+          pem
+          |> :public_key.pem_decode()
+          |> Enum.flat_map(fn
+            {:Certificate, der, _} -> [der]
+            _other -> []
+          end)
 
-        case Enum.find(pem_entries, fn {type, _, _} -> type == :Certificate end) do
-          nil ->
-            {:error, {:invalid_pem, :no_certs}}
-
-          {:Certificate, der, _} ->
-            {:ok, der}
-        end
+        if certificates == [],
+          do: {:error, {:invalid_pem, :no_certs}},
+          else: {:ok, certificates}
 
       {:error, reason} ->
         {:error, {:cert_read, reason}}
@@ -117,8 +125,8 @@ defmodule Exocomp.Node.Identity do
 
   # ── Chain validation ─────────────────────────────────────────────────────────
 
-  defp verify_chain(ca_der, leaf_der) do
-    case :public_key.pkix_path_validation(ca_der, [leaf_der], []) do
+  defp verify_chain(ca_der, leaf_first_chain) do
+    case :public_key.pkix_path_validation(ca_der, Enum.reverse(leaf_first_chain), []) do
       {:ok, _} ->
         :ok
 

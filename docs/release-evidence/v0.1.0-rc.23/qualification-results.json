@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "candidate": {
+    "tag": "v0.1.0-rc.23",
+    "commit": "902bee1a52bf037fdaab50bd0c71ba82fa51a8d6",
+    "tag_signature_verified": true
+  },
+  "decision": "pass",
+  "publication_ready": true,
+  "qualification_timestamp": "2026-07-27T11:01:14Z",
+  "hosts": {
+    "amd64": {
+      "guest_architecture": "x86_64",
+      "systemd": true,
+      "virtualization": "kvm",
+      "cpu_execution": "host-passthrough"
+    },
+    "arm64": {
+      "guest_architecture": "aarch64",
+      "systemd": true,
+      "virtualization": "qemu-full-system",
+      "cpu_execution": "emulated-cortex-a57"
+    }
+  },
+  "criteria": {
+    "M6-CRIT-1": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-2": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-3": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-4": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-5": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-6": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-7": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-8": {"amd64": "pass", "arm64": "pass"},
+    "M6-CRIT-9": {"amd64": "pass", "arm64": "pass"}
+  },
+  "scenario_results": {
+    "offline_artifact_verification_and_install": "pass",
+    "pki_initialization_enrollment_renewal": "pass",
+    "multi_node_diagnostics": "pass",
+    "failed_service_recovery": "pass",
+    "m5_shipped_artifact_full": "pass",
+    "m5_shipped_artifact_short_amd64": "pass",
+    "m5_shipped_artifact_short_arm64": "pass",
+    "systemd_hardening": "pass",
+    "upgrade_automatic_rollback": "pass",
+    "backup_restore": "pass",
+    "default_and_purge_uninstall": "pass"
+  }
+}

@@ -521,6 +521,7 @@ defmodule Exocomp.Coordinator.IntegrationTest do
       "approval_signing.key",
       "approval_signing.pub",
       "coordinator.pem",
+      "coordinator_chain.pem",
       "coordinator_key.pem",
       "intermediate_ca.pem",
       "intermediate_ca_key.pem",

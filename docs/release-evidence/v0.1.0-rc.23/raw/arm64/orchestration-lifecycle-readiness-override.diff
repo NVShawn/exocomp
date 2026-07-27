@@ -1,0 +1,11 @@
+--- /var/lib/exocomp-qualification/src/scripts/qualification-live-lifecycle.sh	2026-07-26 12:39:39.953288276 +0000
++++ /var/lib/exocomp-qualification/qualification-live-lifecycle-arm64-rc23.sh	2026-07-27 10:53:44.697070860 +0000
+@@ -117,7 +117,7 @@
+ 
+ systemctl start exocomp-coordinator.service
+ systemctl start exocomp-node.service
+-sleep 5
++sleep 30
+ installed_rpc coordinator '
+   %{status: :healthy} = Exocomp.Coordinator.Health.check()
+   IO.puts("coordinator_after_restore=healthy")

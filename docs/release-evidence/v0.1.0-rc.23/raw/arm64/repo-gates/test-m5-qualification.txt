@@ -1,0 +1,48 @@
+python3 -m unittest discover -s tests -p 'test_m5_qualification.py' -v
+test_checked_in_baselines_pin_identity_and_both_hard_gates (test_m5_qualification.M5QualificationWorkflowTest.test_checked_in_baselines_pin_identity_and_both_hard_gates) ... ok
+test_workflow_actions_are_commit_pinned (test_m5_qualification.M5QualificationWorkflowTest.test_workflow_actions_are_commit_pinned) ... ok
+test_workflow_runs_the_real_short_gate_for_an_exact_candidate (test_m5_qualification.M5QualificationWorkflowTest.test_workflow_runs_the_real_short_gate_for_an_exact_candidate) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.305s
+
+OK
+podman run --rm --init --user "$(id -u):$(id -g)" --platform linux/arm64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/var/lib/exocomp-qualification/src:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc sh -c 'mix local.hex --force --quiet && MIX_ENV=test mix deps.get && \
+	MIX_ENV=test mix do --app bench cmd mix test \
+	test/bench/artifact_identity_test.exs \
+	test/bench/baseline_test.exs \
+	test/bench/qualification/config_test.exs \
+	test/bench/qualification_test.exs \
+	test/bench/report/summary_test.exs'
+Trying to pull docker.io/hexpm/elixir@sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc...
+Getting image source signatures
+Copying blob sha256:53bb9e501f1803aca595be8d902a62cea6bf4d996ce6f7dfe16c1c97be343e6c
+Copying blob sha256:d7cbca7f530ec625da4a84bf5be022d12f6c0dd615d1244f6b36641513cec5a7
+Copying blob sha256:3e10193b55e9f0e98961d4bc9ba1d3f8bedcd5bf9a78d75914edf319ecd6cc2d
+Copying blob sha256:ff4ac08643b061cc0f2eed153ff4d36745423880e135b84f6a904c288bb9fb3b
+Copying config sha256:5d634838ce321f25a6e2fba1487e55a96529beb7bf783f423cc5e2829baf7cdd
+Writing manifest to image destination
+* creating .mix-home/archives/hex-2.5.1
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+Resolving Hex dependencies...
+Resolution completed in 1.205s
+Unchanged:
+  bandit 1.12.1
+  hpax 1.0.4
+  jason 1.4.5
+  mime 2.0.7
+  nimble_options 1.1.1
+  plug 1.20.3
+  plug_crypto 2.2.0
+  telemetry 1.4.2
+  thousand_island 1.5.0
+  websock 0.5.3
+  x509 0.9.2
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the ":apps" key in your umbrella configuration with all relevant apps names as atoms
+==> bench
+Running ExUnit with seed: 387443, max_cases: 16
+
+..................................
+Finished in 22.9 seconds (8.9s async, 14.0s sync)
+
+Result: 34 passed

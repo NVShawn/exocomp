@@ -1,0 +1,38 @@
+make[1]: Entering directory '/var/lib/exocomp-qualification/src'
+compliance: all checks passed
+make[1]: Leaving directory '/var/lib/exocomp-qualification/src'
+make[1]: Entering directory '/var/lib/exocomp-qualification/src'
+test_broken_documentation_link_is_rejected (test_check_compliance.ComplianceChecksTest.test_broken_documentation_link_is_rejected) ... ok
+test_incompatible_license_is_rejected (test_check_compliance.ComplianceChecksTest.test_incompatible_license_is_rejected) ... ok
+test_missing_governance_file_is_rejected (test_check_compliance.ComplianceChecksTest.test_missing_governance_file_is_rejected) ... ok
+test_missing_human_notice_is_rejected (test_check_compliance.ComplianceChecksTest.test_missing_human_notice_is_rejected) ... ok
+test_missing_notice_inventory_entry_is_rejected (test_check_compliance.ComplianceChecksTest.test_missing_notice_inventory_entry_is_rejected) ... ok
+test_missing_source_header_is_rejected (test_check_compliance.ComplianceChecksTest.test_missing_source_header_is_rejected) ... ok
+test_modified_apache_license_is_rejected (test_check_compliance.ComplianceChecksTest.test_modified_apache_license_is_rejected) ... ok
+test_repository_passes_all_checks (test_check_compliance.ComplianceChecksTest.test_repository_passes_all_checks) ... ok
+test_uninventoried_locked_dependency_is_rejected (test_check_compliance.ComplianceChecksTest.test_uninventoried_locked_dependency_is_rejected) ... ok
+test_checked_in_baselines_pin_identity_and_both_hard_gates (test_m5_qualification.M5QualificationWorkflowTest.test_checked_in_baselines_pin_identity_and_both_hard_gates) ... ok
+test_workflow_actions_are_commit_pinned (test_m5_qualification.M5QualificationWorkflowTest.test_workflow_actions_are_commit_pinned) ... ok
+test_workflow_runs_the_real_short_gate_for_an_exact_candidate (test_m5_qualification.M5QualificationWorkflowTest.test_workflow_runs_the_real_short_gate_for_an_exact_candidate) ... ok
+test_all_shell_command_blocks_parse (test_operator_docs.OperatorDocumentationTest.test_all_shell_command_blocks_parse) ... ok
+test_documented_lifecycle_flags_exist_in_shipped_scripts (test_operator_docs.OperatorDocumentationTest.test_documented_lifecycle_flags_exist_in_shipped_scripts) ... ok
+test_guides_cover_required_safety_and_lifecycle_topics (test_operator_docs.OperatorDocumentationTest.test_guides_cover_required_safety_and_lifecycle_topics) ... ok
+test_install_commands_match_the_delivered_bundle_layout (test_operator_docs.OperatorDocumentationTest.test_install_commands_match_the_delivered_bundle_layout) ... ok
+test_pki_ceremony_uses_installed_working_directory_and_cookie (test_operator_docs.OperatorDocumentationTest.test_pki_ceremony_uses_installed_working_directory_and_cookie) ... ok
+test_qualification_accepts_full_system_vms_and_discloses_emulation (test_operator_docs.OperatorDocumentationTest.test_qualification_accepts_full_system_vms_and_discloses_emulation) ... ok
+test_required_guides_are_linked_from_index (test_operator_docs.OperatorDocumentationTest.test_required_guides_are_linked_from_index) ... ok
+test_archive_metadata_is_normalized_to_source_epoch (test_package_release.PackageReleaseTest.test_archive_metadata_is_normalized_to_source_epoch) ... ok
+test_archive_omits_cookie_and_embeds_identity (test_package_release.PackageReleaseTest.test_archive_omits_cookie_and_embeds_identity) ... ok
+test_equivalent_inputs_produce_byte_identical_archives (test_package_release.PackageReleaseTest.test_equivalent_inputs_produce_byte_identical_archives) ... ok
+test_manifest_records_identity_archive_hash_and_complete_payload (test_package_release.PackageReleaseTest.test_manifest_records_identity_archive_hash_and_complete_payload) ... ok
+test_product_and_architecture_naming_matrix (test_package_release.PackageReleaseTest.test_product_and_architecture_naming_matrix) ... ok
+test_annotated_tag_uses_peeled_commit_timestamp (test_package_release.PackageReleasesScriptTest.test_annotated_tag_uses_peeled_commit_timestamp) ... ok
+test_adds_stable_sort_and_is_idempotent (test_release_input_normalizer.ReleaseInputNormalizerTest.test_adds_stable_sort_and_is_idempotent) ... ok
+test_changed_lock_identity_fails_closed_without_editing_source (test_release_input_normalizer.ReleaseInputNormalizerTest.test_changed_lock_identity_fails_closed_without_editing_source) ... ok
+test_changed_source_shape_fails_closed (test_release_input_normalizer.ReleaseInputNormalizerTest.test_changed_source_shape_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 208.381s
+
+OK
+make[1]: Leaving directory '/var/lib/exocomp-qualification/src'

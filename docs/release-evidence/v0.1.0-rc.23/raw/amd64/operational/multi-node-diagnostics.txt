@@ -1,0 +1,5 @@
+multi_node_goal=completed
+reachable_node=succeeded
+unreachable_node=explicit
+partial_artifact_preserved=true
+correlation_id=b039e62a-fb97-4a2a-91e7-4d700475f446

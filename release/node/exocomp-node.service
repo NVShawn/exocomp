@@ -4,6 +4,11 @@ Documentation=https://github.com/NVShawn/exocomp
 After=network-online.target
 Wants=network-online.target
 
+# Bound automatic restart churn. Start-limit directives belong to this unit
+# section; systemd ignores them when placed in the service section.
+StartLimitIntervalSec=120s
+StartLimitBurst=4
+
 # ── Ordering and dependency ────────────────────────────────────────────────────
 # Require network connectivity before starting.  The coordinator connection is
 # established after start, not as a hard systemd dependency, because the node
@@ -20,7 +25,9 @@ Group=@ACCOUNT@
 
 # ── Executable ────────────────────────────────────────────────────────────────
 ExecStart=@INSTALL_DIR@/current/bin/exocomp_node start
-ExecStop=@INSTALL_DIR@/current/bin/exocomp_node stop
+# The release stop command requires distributed Erlang RPC, which may not be
+# ready during a failed upgrade. The BEAM handles SIGTERM gracefully.
+ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
 
 WorkingDirectory=@INSTALL_DIR@
@@ -49,8 +56,6 @@ StateDirectoryMode=0750
 # ── Restart policy ───────────────────────────────────────────────────────────
 Restart=on-failure
 RestartSec=5s
-StartLimitIntervalSec=120s
-StartLimitBurst=4
 TimeoutStartSec=30s
 TimeoutStopSec=30s
 
@@ -60,20 +65,24 @@ StandardError=journal
 SyslogIdentifier=exocomp-node
 
 # ── Capability hardening ──────────────────────────────────────────────────────
-# Drop all capabilities.  The service never needs root privileges.
-CapabilityBoundingSet=
+# The service itself starts without effective or ambient capabilities.  Keep
+# only setuid/setgid in the bounding set so the fixed /usr/bin/sudo actions can
+# cross to the exact root commands installed in /etc/sudoers.d/exocomp-node.
+CapabilityBoundingSet=CAP_SETGID CAP_SETUID
 AmbientCapabilities=
 
 # ── Privilege escalation prevention ──────────────────────────────────────────
-NoNewPrivileges=true
-SecureBits=noroot noroot-locked
+# NoNewPrivileges and SecureBits=noroot would make the exact sudo action
+# catalog impossible to execute.  Privilege remains bounded by the generated
+# argument-exact NOPASSWD policy; no generic sudo or systemctl grant exists.
+NoNewPrivileges=false
 
 # ── Filesystem access ─────────────────────────────────────────────────────────
 # Mount the system namespace read-only and grant write access only to the
 # directories the service legitimately needs.
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config
+ReadWritePaths=@INSTALL_DIR@/log @INSTALL_DIR@/config @STATE_DIR@
 
 # Private /tmp prevents the service from accessing /tmp state written by other
 # processes.

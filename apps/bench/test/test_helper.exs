@@ -31,4 +31,17 @@ end
 
 Application.ensure_all_started(:public_key)
 
+# Warm up the OS CA cert cache to force-load :pubkey_cert_records and all other
+# transitive :public_key modules before any test starts. Under full-system arm64
+# QEMU emulation, lazy code loading via code_server is slow enough (>2 s) that
+# the first call to :httpc.ssl_verify_host_options/1 — which triggers
+# :pubkey_os_cacerts.get/0 → :pubkey_cert_records.decode_cert/1 via
+# code_server.call — can exceed the per-test timeout and cause spurious failures.
+# This warmup is a no-op on native hosts where the modules are already loaded.
+try do
+  :pubkey_os_cacerts.get()
+rescue
+  _ -> :ok
+end
+
 ExUnit.start()

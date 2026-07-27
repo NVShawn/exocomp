@@ -49,7 +49,8 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	inspect-deps-amd64 inspect-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
-	test-integration bench-llama-short test-installer test-bundle \
+	test-integration bench-llama-short bench-harness bench-llama-short-shipped \
+	bench-llama-full test-m5-qualification test-installer test-bundle \
 	bundle-amd64 bundle-arm64 bundle-runtime-amd64 bundle-runtime-arm64 \
 	verify-bundle
 
@@ -57,17 +58,35 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 BUNDLE_VERSION ?= $(shell git describe --tags --exact-match 2>/dev/null | sed 's/^v//' || echo "dev")
 BUNDLE_SOURCE_COMMIT ?= $(shell git rev-parse HEAD 2>/dev/null || echo "unknown")
 BUNDLE_DIST ?= dist
+# Release bundles must carry the immutable builder identity and a manifest
+# signature.  Leave these empty only for local fixture/development assembly.
+BUNDLE_BUILDER_IMAGE ?=
+BUNDLE_SIGN_KEY ?=
 # Paths to pre-built OTP archives (set these when calling bundle targets)
 NODE_ARCHIVE_AMD64 ?= _build/release/amd64/rel/exocomp_node
 NODE_ARCHIVE_ARM64 ?= _build/release/arm64/rel/exocomp_node
 COORD_ARCHIVE_AMD64 ?= _build/release/amd64/rel/exocomp_coordinator
 COORD_ARCHIVE_ARM64 ?= _build/release/arm64/rel/exocomp_coordinator
-# Path to llama-server binary (set to the pinned binary for the target arch)
+# Paths to the pinned llama-server executable and its companion shared libraries.
 LLAMA_SERVER_AMD64 ?=
 LLAMA_SERVER_ARM64 ?=
+LLAMA_LIB_DIR_AMD64 ?=
+LLAMA_LIB_DIR_ARM64 ?=
 # Path to verified Qwen GGUF model and its SHA-256 (complete bundle only)
 MODEL_PATH ?=
 MODEL_SHA256 ?=
+# Shipped-artifact M5 qualification inputs.
+LLAMA_SERVER ?=
+LLAMA_LIB_DIR ?=
+NODE_RELEASE ?=
+COORD_RELEASE ?=
+BENCH_EVIDENCE_DIR ?=
+BENCH_LLAMA_PORT ?=
+BENCH_WARM_UP_SECONDS ?=
+BENCH_RUN_SECONDS ?=
+BENCH_SAMPLE_INTERVAL_MS ?=
+BENCH_PROPOSAL_COUNT ?=
+BENCH_HARNESS := _build/prod/rel/bench_harness/bin/bench_harness
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -180,13 +199,63 @@ bench-llama-short: ## Run focused llama.cpp inference benchmark tests (CI short 
 	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix deps.get && \
 		MIX_ENV=test mix test --only bench_llama apps/bench/test/bench/workload/llama_inference_test.exs'
 
+bench-harness: ## Build the standalone M5 harness with the pinned native-architecture builder.
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=prod mix deps.get && \
+		MIX_ENV=prod mix do --app bench cmd mix release bench_harness --overwrite'
+
+bench-llama-short-shipped: bench-harness ## Run the short M5 gate against real shipped node, coordinator, and llama-server artifacts.
+	env \
+		BENCH_MODE=short \
+		LLAMA_SERVER="$(LLAMA_SERVER)" \
+		LLAMA_LIB_DIR="$(LLAMA_LIB_DIR)" \
+		NODE_RELEASE="$(NODE_RELEASE)" \
+		COORD_RELEASE="$(COORD_RELEASE)" \
+		MODEL_PATH="$(MODEL_PATH)" \
+		MODEL_SHA256="$(MODEL_SHA256)" \
+		$(if $(BENCH_EVIDENCE_DIR),BENCH_EVIDENCE_DIR="$(BENCH_EVIDENCE_DIR)") \
+		$(if $(BENCH_LLAMA_PORT),BENCH_LLAMA_PORT="$(BENCH_LLAMA_PORT)") \
+		$(if $(BENCH_WARM_UP_SECONDS),BENCH_WARM_UP_SECONDS="$(BENCH_WARM_UP_SECONDS)") \
+		$(if $(BENCH_RUN_SECONDS),BENCH_RUN_SECONDS="$(BENCH_RUN_SECONDS)") \
+		$(if $(BENCH_SAMPLE_INTERVAL_MS),BENCH_SAMPLE_INTERVAL_MS="$(BENCH_SAMPLE_INTERVAL_MS)") \
+		$(if $(BENCH_INFERENCE_TIMEOUT_MS),BENCH_INFERENCE_TIMEOUT_MS="$(BENCH_INFERENCE_TIMEOUT_MS)") \
+		$(if $(BENCH_PROPOSAL_COUNT),BENCH_PROPOSAL_COUNT="$(BENCH_PROPOSAL_COUNT)") \
+		"$(BENCH_HARNESS)" eval 'System.halt(Bench.Qualification.CLI.main())'
+
+bench-llama-full: bench-harness ## Run the full M5 release gate against installed shipped processes (minimum 30 minutes).
+	env \
+		BENCH_MODE=full \
+		LLAMA_SERVER="$(LLAMA_SERVER)" \
+		LLAMA_LIB_DIR="$(LLAMA_LIB_DIR)" \
+		NODE_RELEASE="$(NODE_RELEASE)" \
+		COORD_RELEASE="$(COORD_RELEASE)" \
+		MODEL_PATH="$(MODEL_PATH)" \
+		MODEL_SHA256="$(MODEL_SHA256)" \
+		$(if $(BENCH_EVIDENCE_DIR),BENCH_EVIDENCE_DIR="$(BENCH_EVIDENCE_DIR)") \
+		$(if $(BENCH_LLAMA_PORT),BENCH_LLAMA_PORT="$(BENCH_LLAMA_PORT)") \
+		$(if $(BENCH_WARM_UP_SECONDS),BENCH_WARM_UP_SECONDS="$(BENCH_WARM_UP_SECONDS)") \
+		$(if $(BENCH_RUN_SECONDS),BENCH_RUN_SECONDS="$(BENCH_RUN_SECONDS)") \
+		$(if $(BENCH_SAMPLE_INTERVAL_MS),BENCH_SAMPLE_INTERVAL_MS="$(BENCH_SAMPLE_INTERVAL_MS)") \
+		$(if $(BENCH_INFERENCE_TIMEOUT_MS),BENCH_INFERENCE_TIMEOUT_MS="$(BENCH_INFERENCE_TIMEOUT_MS)") \
+		$(if $(BENCH_PROPOSAL_COUNT),BENCH_PROPOSAL_COUNT="$(BENCH_PROPOSAL_COUNT)") \
+		"$(BENCH_HARNESS)" eval 'System.halt(Bench.Qualification.CLI.main())'
+
+test-m5-qualification: ## Run focused M5 shipped-artifact configuration, identity, baseline, gate, and evidence tests.
+	$(PYTHON) -m unittest discover -s tests -p 'test_m5_qualification.py' -v
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
+		MIX_ENV=test mix do --app bench cmd mix test \
+		test/bench/artifact_identity_test.exs \
+		test/bench/baseline_test.exs \
+		test/bench/qualification/config_test.exs \
+		test/bench/qualification_test.exs \
+		test/bench/report/summary_test.exs'
+
 test-installer: ## Run hardened installer/uninstaller tests (requires Python 3.11+, no systemd or root needed).
 	python3 -m pytest test/installer/test_installer.py -v
 
 test-bundle: ## Run offline bundle assembly, SBOM, provenance, and tamper-detection tests (requires Python 3.11+).
 	python3 -m pytest tests/test_bundle.py -v
 
-bundle-amd64: ## Assemble complete offline bundle for amd64. Set NODE_ARCHIVE_AMD64, COORD_ARCHIVE_AMD64, LLAMA_SERVER_AMD64, MODEL_PATH, MODEL_SHA256.
+bundle-amd64: ## Assemble complete offline bundle for amd64. Set release archives, LLAMA_SERVER_AMD64, LLAMA_LIB_DIR_AMD64, MODEL_PATH, MODEL_SHA256.
 	bash scripts/assemble-bundle.sh \
 		--arch amd64 \
 		--version "$(BUNDLE_VERSION)" \
@@ -194,12 +263,15 @@ bundle-amd64: ## Assemble complete offline bundle for amd64. Set NODE_ARCHIVE_AM
 		$(if $(NODE_ARCHIVE_AMD64),--node-archive "$(NODE_ARCHIVE_AMD64)") \
 		$(if $(COORD_ARCHIVE_AMD64),--coord-archive "$(COORD_ARCHIVE_AMD64)") \
 		$(if $(LLAMA_SERVER_AMD64),--llama-server "$(LLAMA_SERVER_AMD64)") \
+		$(if $(LLAMA_LIB_DIR_AMD64),--llama-lib-dir "$(LLAMA_LIB_DIR_AMD64)") \
 		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
 		$(if $(MODEL_SHA256),--model-sha256 "$(MODEL_SHA256)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
-bundle-arm64: ## Assemble complete offline bundle for arm64. Set NODE_ARCHIVE_ARM64, COORD_ARCHIVE_ARM64, LLAMA_SERVER_ARM64, MODEL_PATH, MODEL_SHA256.
+bundle-arm64: ## Assemble complete offline bundle for arm64. Set release archives, LLAMA_SERVER_ARM64, LLAMA_LIB_DIR_ARM64, MODEL_PATH, MODEL_SHA256.
 	bash scripts/assemble-bundle.sh \
 		--arch arm64 \
 		--version "$(BUNDLE_VERSION)" \
@@ -207,12 +279,15 @@ bundle-arm64: ## Assemble complete offline bundle for arm64. Set NODE_ARCHIVE_AR
 		$(if $(NODE_ARCHIVE_ARM64),--node-archive "$(NODE_ARCHIVE_ARM64)") \
 		$(if $(COORD_ARCHIVE_ARM64),--coord-archive "$(COORD_ARCHIVE_ARM64)") \
 		$(if $(LLAMA_SERVER_ARM64),--llama-server "$(LLAMA_SERVER_ARM64)") \
+		$(if $(LLAMA_LIB_DIR_ARM64),--llama-lib-dir "$(LLAMA_LIB_DIR_ARM64)") \
 		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
 		$(if $(MODEL_SHA256),--model-sha256 "$(MODEL_SHA256)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
-bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64 (no model). Set NODE_ARCHIVE_AMD64, COORD_ARCHIVE_AMD64, LLAMA_SERVER_AMD64.
+bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64. Set release archives, LLAMA_SERVER_AMD64, LLAMA_LIB_DIR_AMD64.
 	bash scripts/assemble-bundle.sh \
 		--arch amd64 \
 		--version "$(BUNDLE_VERSION)" \
@@ -220,10 +295,13 @@ bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64 (no model). Set 
 		$(if $(NODE_ARCHIVE_AMD64),--node-archive "$(NODE_ARCHIVE_AMD64)") \
 		$(if $(COORD_ARCHIVE_AMD64),--coord-archive "$(COORD_ARCHIVE_AMD64)") \
 		$(if $(LLAMA_SERVER_AMD64),--llama-server "$(LLAMA_SERVER_AMD64)") \
+		$(if $(LLAMA_LIB_DIR_AMD64),--llama-lib-dir "$(LLAMA_LIB_DIR_AMD64)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
-bundle-runtime-arm64: ## Assemble runtime-only bundle for arm64 (no model). Set NODE_ARCHIVE_ARM64, COORD_ARCHIVE_ARM64, LLAMA_SERVER_ARM64.
+bundle-runtime-arm64: ## Assemble runtime-only bundle for arm64. Set release archives, LLAMA_SERVER_ARM64, LLAMA_LIB_DIR_ARM64.
 	bash scripts/assemble-bundle.sh \
 		--arch arm64 \
 		--version "$(BUNDLE_VERSION)" \
@@ -231,6 +309,9 @@ bundle-runtime-arm64: ## Assemble runtime-only bundle for arm64 (no model). Set 
 		$(if $(NODE_ARCHIVE_ARM64),--node-archive "$(NODE_ARCHIVE_ARM64)") \
 		$(if $(COORD_ARCHIVE_ARM64),--coord-archive "$(COORD_ARCHIVE_ARM64)") \
 		$(if $(LLAMA_SERVER_ARM64),--llama-server "$(LLAMA_SERVER_ARM64)") \
+		$(if $(LLAMA_LIB_DIR_ARM64),--llama-lib-dir "$(LLAMA_LIB_DIR_ARM64)") \
+		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
+		$(if $(BUNDLE_SIGN_KEY),--sign-key "$(BUNDLE_SIGN_KEY)") \
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 

@@ -1,0 +1,26 @@
+[uninstall] ==> VALIDATION
+[uninstall]   component: coordinator
+[uninstall]   purge:     system-cache
+[uninstall]   dry-run:   0
+[uninstall] ==> DISCOVER VERSION
+[uninstall]   current version: 0.1.0-rc.23
+[uninstall] ==> STOP SERVICE
+[uninstall]   exocomp-coordinator is not running (skip stop)
+[uninstall]   exocomp-coordinator is not enabled (skip disable)
+[uninstall] ==> REMOVE INSTALLED FILES
+[uninstall]   rm -f /etc/systemd/system/exocomp-coordinator.service
+[uninstall]   rm -f /etc/sudoers.d/exocomp-coordinator
+[uninstall]   rm -f /opt/exocomp/coordinator/current  (symlink)
+[uninstall]   rm -rf /opt/exocomp/coordinator/releases/0.1.0-rc.23
+[uninstall]   rm -f /opt/exocomp/coordinator/manifest-0.1.0-rc.23.txt
+[uninstall] ==> PURGE SYSTEM CACHE
+[uninstall]   system cache purged
+[uninstall] ==> RELOAD SYSTEMD
+[uninstall]   systemctl daemon-reload
+[uninstall] ==> PRESERVED (operator state — NOT removed)
+[uninstall]   /opt/exocomp/coordinator/config
+[uninstall]   /opt/exocomp/coordinator/log
+[uninstall]   /var/lib/exocomp-coordinator
+
+[uninstall] ==> exocomp-coordinator uninstalled
+[uninstall]     operator state preserved in /opt/exocomp/coordinator/config/
