@@ -10,16 +10,18 @@ defmodule Exocomp.Coordinator.Skills.Dispatcher do
   |-------------------------------|---------------------------------------------------|
   | `"exocomp.cluster.health"`    | `Exocomp.Coordinator.Skills.ClusterHealth`        |
   | `"exocomp.cluster.diagnose"`  | `Exocomp.Coordinator.Skills.ClusterDiagnose`      |
+  | `"exocomp.cluster.recover"`   | `Exocomp.Coordinator.Skills.ClusterRecover`       |
 
-  Remediation execution skills are intentionally absent. Any unknown or
-  remediation skill ID returns `{:error, :unknown_skill}`.
+  Arbitrary remediation execution skills are intentionally absent. Any unknown
+  skill ID returns `{:error, :unknown_skill}`.
   """
 
-  alias Exocomp.Coordinator.Skills.{ClusterHealth, ClusterDiagnose}
+  alias Exocomp.Coordinator.Skills.{ClusterHealth, ClusterDiagnose, ClusterRecover}
 
   @skill_map %{
     "exocomp.cluster.health" => ClusterHealth,
-    "exocomp.cluster.diagnose" => ClusterDiagnose
+    "exocomp.cluster.diagnose" => ClusterDiagnose,
+    "exocomp.cluster.recover" => ClusterRecover
   }
 
   @doc """

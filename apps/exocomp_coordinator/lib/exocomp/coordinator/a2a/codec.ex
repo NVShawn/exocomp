@@ -16,8 +16,9 @@ defmodule Exocomp.Coordinator.A2A.Codec do
   Supported cluster skills:
   - `exocomp.cluster.health`
   - `exocomp.cluster.diagnose`
+  - `exocomp.cluster.recover`
 
-  Remediation execution skills are intentionally absent from this codec.
+  Arbitrary remediation execution skills are intentionally absent from this codec.
   """
 
   alias Exocomp.A2A.{
@@ -36,6 +37,7 @@ defmodule Exocomp.Coordinator.A2A.Codec do
   @supported_skills ~w[
     exocomp.cluster.health
     exocomp.cluster.diagnose
+    exocomp.cluster.recover
   ]
 
   # ---------------------------------------------------------------------------
@@ -50,6 +52,17 @@ defmodule Exocomp.Coordinator.A2A.Codec do
       "contextId" => context_id,
       "parts" => [%{"type" => "data", "data" => Map.put(params, "skill", skill_id)}]
     }
+  end
+
+  @doc """
+  Encode an outbound `exocomp.service.recover` message for a node agent.
+
+  The `params` map must include at minimum `"service"`, `"node_id"`, and
+  `"evidence"`.
+  """
+  @spec encode_recovery(map(), String.t(), String.t() | nil) :: map()
+  def encode_recovery(params, message_id, context_id) do
+    encode_diagnostic("exocomp.service.recover", params, message_id, context_id)
   end
 
   @spec decode_task(term()) :: {:ok, Task.t()} | {:error, term()}

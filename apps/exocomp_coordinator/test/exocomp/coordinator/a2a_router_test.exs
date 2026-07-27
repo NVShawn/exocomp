@@ -121,8 +121,9 @@ defmodule Exocomp.Coordinator.A2ARouterTest do
     skill_ids = Enum.map(card["skills"], & &1["id"])
     assert "exocomp.cluster.health" in skill_ids
     assert "exocomp.cluster.diagnose" in skill_ids
+    assert "exocomp.cluster.recover" in skill_ids
 
-    # No remediation skill should be present
+    # No arbitrary remediation execution skills should be present
     refute "exocomp.remediation.propose" in skill_ids
     refute "exocomp.remediation.execute" in skill_ids
   end

@@ -4,8 +4,8 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
   @moduledoc """
   Serves the coordinator cluster Agent Card.
 
-  Exposes only diagnostic cluster skills. Remediation execution skills are
-  intentionally absent per milestone-2-coordinator.md Non-Goals.
+  Exposes diagnostic cluster skills and the authenticated cluster recovery
+  skill. Arbitrary remediation execution skills are intentionally absent.
   """
 
   import Plug.Conn
@@ -25,6 +25,12 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
       name: "Cluster Diagnose",
       description:
         "Collect correlated diagnostic observations from all or selected cluster nodes."
+    },
+    %AgentSkill{
+      id: "exocomp.cluster.recover",
+      name: "Cluster Recover",
+      description:
+        "Execute one audited, idempotent automatic restart of an allow-listed failed service on a target cluster node."
     }
   ]
 
@@ -35,7 +41,7 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
     card = %AgentCard{
       name: "Exocomp Coordinator Agent",
       description:
-        "Diagnostic-only Exocomp coordinator. Aggregates cluster node results. Cannot execute remediation.",
+        "Exocomp coordinator. Aggregates cluster node diagnostics and orchestrates authenticated failed-service recovery.",
       url: "https://#{coordinator_id}/",
       version: "0.1.0",
       capabilities: %AgentCapabilities{},
