@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-117
 type: epic
-status: In Review
+status: Needs CI Fix
 priority: 0
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-27T11:08:43.217129Z'
+updated_at: '2026-07-27T11:09:13.347649Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
