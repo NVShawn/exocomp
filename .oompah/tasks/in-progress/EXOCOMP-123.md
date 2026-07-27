@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T09:49:53.458955Z'
+updated_at: '2026-07-27T10:24:04.551142Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1438,5 +1438,16 @@ arm64 bench-short result:
 Phase 9 (M5 bench full) now building bench_harness via podman at 09:48Z. The full gate runs at least 30 minutes (FULL_MINIMUM_SECONDS=1800) with 20 proposals × [1,2,4] concurrency levels under full-system QEMU emulation (BENCH_INFERENCE_TIMEOUT_MS=600000). Estimated completion: 3-6 hours from now.
 
 Background finalizer (PID 1869233) remains healthy, polling every 5 minutes. amd64 record is complete. Will close EXOCOMP-123 automatically upon arm64 QUALIFICATION_STATUS=pass.
+---
+author: oompah
+created: 2026-07-27 10:24
+---
+Verification progress (attempt #13): v0.1.0-rc.23 (commit 902bee1a) qualification in final phase.
+
+amd64 (192.168.122.136): COMPLETE — all 44 checks passed (QUALIFICATION_STATUS=pass) including repo gates, double-build reproducibility, signed bundles, strict no-network install/PKI/enrollment, operational recovery/hardening, short and full shipped M5, and lifecycle (upgrade/rollback/backup/restore/uninstall). amd64 evidence fully assembled and pre-validated by Python3 checks.
+
+arm64 (192.168.122.171): Active under full-system QEMU (started 06:36Z). All 9 repository gates passed; reproducible double-build and double-bundle PASS; prelive, operational transcripts PASS; bench-short PASS (inference_timeout_ms=600000, CPU/RAM gates pass). Phase 9 (M5 bench full) actively running since 09:49Z — bench_harness BEAM at 9:25 CPU-min/28.5%CPU, llama-server at 225 CPU-min (7 CPUs averaged). Expected bench-full completion ~10:50Z, lifecycle ~11:15Z, task close by finalizer ~11:35Z UTC.
+
+Background finalizer (PID 1869233) running and polling every 5 minutes; will autonomously commit evidence, push, and close when arm64 qualification-status=pass.
 ---
 <!-- COMMENTS:END -->
