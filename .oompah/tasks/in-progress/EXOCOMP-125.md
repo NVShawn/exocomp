@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T16:45:45.233833Z'
+updated_at: '2026-07-27T16:48:29.991414Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -113,5 +113,10 @@ author: oompah
 created: 2026-07-27 16:45
 ---
 Implementation: added opt-in shipped-VM telemetry probes; real llama crash/restart with PID retargeting and diagnostics; isolated healthy/slow/unreachable coordinator polling; M4 remediation observation-to-verification timing under concurrent inference with fail-closed safety validation; bounded two-hour inference soak with slope/window analysis for RSS, BEAM processes, named mailboxes, descriptors, and task/goal histories; hard summary gates, Make controls, focused tests, a pinned dual-architecture qualification runner with rollback capture, and operator documentation.
+---
+author: oompah
+created: 2026-07-27 16:48
+---
+Verification (implementation): pinned-builder make fmt-check and make lint passed; make test-m5-qualification passed (4 workflow tests, 46 bench tests, 3 core probe tests, 2 coordinator workload tests); full make test passed (127 bench, 195 core, 502 coordinator, 845 node with 10 expected exclusions) and both OTP release smoke checks passed. Dual-architecture two-hour artifact qualification is the remaining verification stage.
 ---
 <!-- COMMENTS:END -->
