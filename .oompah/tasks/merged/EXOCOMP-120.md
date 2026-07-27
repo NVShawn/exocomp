@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-120
 type: bug
-status: Done
+status: Merged
 priority: 1
 title: Make offline bundles reproducible and cryptographically complete
 parent: EXOCOMP-117
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-26T05:19:37.942941Z'
+updated_at: '2026-07-27T11:12:23.800552Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
