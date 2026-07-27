@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T08:23:40.242019Z'
+updated_at: '2026-07-27T08:29:52.424705Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1356,5 +1356,10 @@ author: oompah
 created: 2026-07-27 08:23
 ---
 Understanding (continuation attempt #12): Resuming exact signed v0.1.0-rc.23 qualification at 902bee1. amd64 has a complete passing 44-check record (QUALIFICATION_STATUS=pass). arm64 was running make test under full-system QEMU when the prior agent stalled (~07:19Z to ~08:18Z). I will reconcile both guest and evidence states, finish any remaining arm64 phases (test, release-matrix, m5-qualification, builds, bundle, live, M5, lifecycle), assemble and verify signed indexed evidence, commit/push, and close only if every M6-CRIT requirement passes.
+---
+author: oompah
+created: 2026-07-27 08:29
+---
+Discovery (continuation attempt #12): rc.23 qualification state confirmed. amd64: COMPLETE (QUALIFICATION_STATUS=pass, all 44 checks passed including repo gates, builds, bundles, live preflight, operational, M5 short/full, lifecycle). arm64: actively progressing on PID 639696 started 06:36Z. All 8 of 9 repo gates complete; test-m5-qualification started at 08:26Z (currently pulling container for focused M5 tests). Subsequent phases (2 builds ~45min each, bundle assembly, live, M5 full ~30min, lifecycle ~60min) will run automatically. arm64 qualification-status.txt will appear when all phases complete. Monitoring for completion.
 ---
 <!-- COMMENTS:END -->
