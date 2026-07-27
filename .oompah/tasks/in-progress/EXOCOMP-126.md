@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-07-27T16:46:11.038941Z'
+updated_at: '2026-07-27T16:59:50.110945Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -221,5 +221,10 @@ author: oompah
 created: 2026-07-27 16:46
 ---
 Discovery: Branch review confirmed the missing PR, but also found a release-blocking invariant violation in d3c4488: ServiceRecover accepts an A2A-supplied allow_list and ClusterRecover forwards it, allowing a caller to broaden the installation-time service allow-list. ActionCatalog documents that this list must come from installation-time configuration. The new handler also defaults audit to a no-op and refresh/verify to unconfigured errors, so I am tracing existing production collectors/audit wiring before opening the PR.
+---
+author: oompah
+created: 2026-07-27 16:59
+---
+Implementation: Hardened the committed A2A recovery path before review. Node recovery now derives its allow-list only from trusted node configuration, fails closed when no audit sink is configured, and correlates recovery episodes to A2A workflow context. Coordinator authorization now checks singular node_id recovery targets, forwards only target/evidence, propagates correlation, and returns nested node artifacts/history. Both routers pass task context to dispatchers. Added a full coordinator router -> DiagnosticClient -> node router acceptance test proving authenticated dispatch, one restricted execution, verification, nested artifacts/history, and audit correlation.
 ---
 <!-- COMMENTS:END -->
