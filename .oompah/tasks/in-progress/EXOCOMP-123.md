@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T06:15:22.659988Z'
+updated_at: '2026-07-27T06:20:39.849250Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1281,5 +1281,10 @@ author: oompah
 created: 2026-07-27 06:15
 ---
 Discovery: signed rc.22 is rejected and none of its results will count for acceptance. amd64 completed all 44 checks, but the fresh arm64 exact-tag make test gate failed 112/113 in Bench.QualificationTest 'uses the configured inference timeout for shipped workload requests'. The rc.21 :pubkey_os_cacerts warmup did not eliminate all full-system-QEMU lazy code-loading/setup latency; the test's 2-second whole-test timeout expired even though the behavior under test uses a 20 ms request deadline. The candidate runtime was not reached on arm64. I will replace the emulator-sensitive watchdog with a bounded but emulation-safe timeout while retaining the 20 ms functional assertion, add atomic rc.23 baseline inventory, and require fresh dual-architecture qualification.
+---
+author: oompah
+created: 2026-07-27 06:20
+---
+Implementation: commit 902bee1 keeps the functional BENCH_INFERENCE_TIMEOUT_MS=20 assertion but raises only the surrounding ExUnit watchdog from 2 seconds to 30 seconds—still well below the 120-second production default—so full-system arm64 OTP code loading cannot create a false failure. Added invariant rc.23 amd64/arm64 M5 baselines and atomically updated the inventory assertion to 46. Host structural M5 tests pass; host container execution remains unavailable because the rootless Podman runtime path is read-only. Exact-source guest pretag gates are active before any rc.23 tag is created.
 ---
 <!-- COMMENTS:END -->
