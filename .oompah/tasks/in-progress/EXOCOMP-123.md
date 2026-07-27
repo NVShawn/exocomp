@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T09:36:34.737241Z'
+updated_at: '2026-07-27T09:45:31.165521Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -1413,5 +1413,16 @@ author: oompah
 created: 2026-07-27 09:36
 ---
 Discovery (attempt #13): rc.23 arm64 qualification is actively progressing and healthy — all operational scenarios passed at 09:35Z (approval, recovery, diagnostics, hardening, bounded cleanup all [PASS]). Phase 8 (M5 bench short) started at 09:35Z with bench_harness container build underway. amd64 is COMPLETE (QUALIFICATION_STATUS=pass). Remaining arm64 work: bench_harness build (~15-30 min QEMU), short bench run, full bench (~30-60 min QEMU), lifecycle (~60-120 min QEMU). Estimated arm64 completion 12:00-14:00Z. Setting up monitor to capture completion and run evidence collector.
+---
+author: oompah
+created: 2026-07-27 09:45
+---
+Verification progress (attempt #13): v0.1.0-rc.23 qualification is actively running.
+
+amd64 (192.168.122.136): COMPLETE — QUALIFICATION_STATUS=pass, all 44 checks passed including repo gates, double-build reproducibility, signed bundles, live preflight/PKI/enrollment, operational scenarios, M5 bench short/full, and lifecycle (upgrade/rollback/backup/restore/uninstall).
+
+arm64 (192.168.122.171): Actively progressing under full-system QEMU (PID 639696, started 06:36Z). All 9 repository gates PASSED (fmt-check, lint, release-check, test-release-packaging, test-installer, test-bundle, test, test-release-matrix, test-m5-qualification); two reproducible release builds PASSED; two reproducible signed bundle assemblies PASSED; bench_harness built and installed; live preflight PASSED; operational scenarios PASSED (enrollment, renewal, multi-node, recovery, hardening). Phase 8 (M5 bench short, BENCH_INFERENCE_TIMEOUT_MS=600000) started at 09:38Z and is actively running (bench_harness PID 745368 at 60% CPU). Remaining: M5 bench full (~3-6h QEMU), lifecycle (~1-2h). Estimated completion: 4-8 hours.
+
+Background finalize script (PID 1869233) polling every 5 minutes; will autonomously collect evidence, commit, push, and close EXOCOMP-123 upon arm64 QUALIFICATION_STATUS=pass.
 ---
 <!-- COMMENTS:END -->
