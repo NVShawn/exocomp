@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-124
 type: chore
-status: Done
+status: Merged
 priority: 2
 title: Reconcile milestone plan acceptance checkboxes with main
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:07:00.355913Z'
-updated_at: '2026-07-27T16:11:08.621696Z'
+updated_at: '2026-07-27T16:14:13.079262Z'
 work_branch: null
 target_branch: null
 review_url: null
