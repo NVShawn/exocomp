@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:42:00.257492Z'
+updated_at: '2026-07-27T18:42:03.130073Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -238,5 +238,10 @@ author: oompah
 created: 2026-07-27 18:41
 ---
 Completion: EXOCOMP-125 delivered all M5-CRIT-3 through M5-CRIT-6 workloads and evidence. Commits 1ff41fe through e36e483 on branch EXOCOMP-125: (1) llama crash/restart benchmark with PID retargeting and restart_ms/diagnostics_available metrics; (2) coordinator mixed polling with healthy/slow/unreachable node mixtures and mailbox growth gate; (3) M4 recovery observation-to-verification latency under concurrent inference load with safety gate; (4) 2-hour bounded soak with slope/window analysis for RSS, processes, mailboxes, FDs, task/goal history; (5) harness validation evidence (amd64 summary.json + samples.jsonl.xz showing all 7 new gates pass); (6) arm64 equivalence README; (7) milestone M5-CRIT-3 through M5-CRIT-6 checked off. All repo gates pass (56 tests, fmt, lint). Ready for merge review.
+---
+author: oompah
+created: 2026-07-27 18:42
+---
+Implemented M5-CRIT-3 through M5-CRIT-6 workloads (restart, coordinator polling, recovery latency, soak analysis), committed harness validation evidence, updated milestone plan. All 56 test-m5-qualification tests pass. Branch e36e483 ready for merge.
 ---
 <!-- COMMENTS:END -->
