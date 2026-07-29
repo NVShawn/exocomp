@@ -43,4 +43,5 @@ tracker.
 - [Milestone 4: Minimal-impact systemd service recovery](milestone-4-service-recovery.md)
 - [Milestone 5: Performance and resource analysis](milestone-5-performance.md)
 - [Milestone 6: Documentation and open-source release](milestone-6-release.md)
+- [Milestone 7: Exocomp Mission Control](mission-control.md)
 <!-- END OOMPAH PROJECT BOOTSTRAP -->

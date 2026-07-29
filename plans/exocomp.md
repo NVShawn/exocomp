@@ -11,6 +11,11 @@ diagnostic and tightly controlled remediation tasks using the Agent2Agent
 The model proposes structured intents. Deterministic code owns authorization,
 least-impact selection, execution, verification, and audit.
 
+An optional post-release Mission Control plane connects multiple Exocomp
+clusters through their coordinators. It provides fleet status, durable alerts,
+cluster-local incident conversations, and operator approval of typed remedies
+without moving policy authority or execution credentials out of a cluster.
+
 ## Objectives
 
 - Ship self-contained node and coordinator OTP releases with bundled ERTS for
@@ -25,24 +30,33 @@ least-impact selection, execution, verification, and audit.
 - Never delete user or unknown data.
 - Permit only bounded, allow-listed system-data maintenance when deterministic
   checks prove it is necessary.
+- Connect multiple clusters to a self-hosted Mission Control plane through
+  outbound authenticated channels.
+- Let operators investigate fleet incidents with cluster-local reasoning and
+  approve only typed remedies that still pass cluster-local policy.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    Coordinator[Coordinator OTP release] <-->|A2A 1.0 over mTLS| Node[Node OTP release]
+    Operator[Operator] -->|OIDC + HTTPS| Mission[Mission Control]
+    Mission <-->|outbound mTLS control channel| Coordinator[Coordinator OTP release]
+    Coordinator <-->|A2A 1.0 over mTLS| Node[Node OTP release]
     Node --> Diagnostics[Linux and systemd diagnostics]
     Node --> Policy[Deterministic policy]
     Policy --> Executor[Restricted action executor]
     Node -->|loopback HTTP| Llama[llama-server and GGUF model]
     Coordinator --> Inventory[Static inventory and DNS]
     Coordinator --> Audit[Durable audit sink]
+    Coordinator -->|local API| ClusterModel[Cluster conversation model]
 ```
 
 The repository will use an Elixir umbrella with shared protocol and policy
 libraries and separate node and coordinator releases. Agents run under systemd
 as dedicated unprivileged users. Exact per-service sudoers rules grant only
-installed, allow-listed actions.
+installed, allow-listed actions. Mission Control is a separate, optional
+Phoenix LiveView release with PostgreSQL-backed fleet, incident, conversation,
+approval, and audit state.
 
 ## Protocol and Identity
 
@@ -81,10 +95,16 @@ events are durable through journald or a configured JSON-lines sink.
 | M4 | [Minimal-impact systemd service recovery](milestone-4-service-recovery.md) | 2026-09-30 |
 | M5 | [Performance and resource analysis](milestone-5-performance.md) | 2026-10-15 |
 | M6 | [Documentation and open-source release](milestone-6-release.md) | 2026-10-31 |
+| M7 | [Exocomp Mission Control](mission-control.md) | TBD |
 
 Milestone completion is ordered, but shared foundations, test fixtures,
 benchmark infrastructure, governance, and release automation may proceed in
 parallel when their concrete dependencies are satisfied.
+
+Milestone 7 is a post-release extension. Node and coordinator operation remains
+complete without Mission Control configuration, and loss of Mission Control
+connectivity cannot disable cluster-local diagnostics or safe automatic
+failed-service recovery.
 
 ## Shared Acceptance
 
@@ -95,6 +115,8 @@ parallel when their concrete dependencies are satisfied.
 - Security-sensitive failures are fail-closed and auditable.
 - The release qualification runs the full failed-service recovery flow using
   shipped artifacts.
+- Mission Control remains optional, keeps reasoning and policy authority in
+  each cluster, and cannot introduce an arbitrary remote execution path.
 
 ---
 
