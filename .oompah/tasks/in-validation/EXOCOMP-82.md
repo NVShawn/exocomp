@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-82
 type: task
-status: Merged
+status: In Validation
 priority: 0
 title: Rebase epic-EXOCOMP-6 onto main
 parent: EXOCOMP-6
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:19:00.042579Z'
-updated_at: '2026-07-23T23:31:18.143822Z'
+updated_at: '2026-07-30T23:50:05.359080Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -34,6 +34,28 @@ oompah.task_costs:
     output_tokens: 16083
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:26:03.435913+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-91bbc0edd2ba
+    project_id: proj-c260b117
+    task_id: EXOCOMP-82
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 676909df26495fba60b6ead51918e7eb4029395fe184c2d7ebd7302e180de8b0
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:50:03.194435+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -103,5 +125,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 5m 17s
 - Log: EXOCOMP-82__20260723T232053Z.jsonl
+---
+author: oompah
+created: 2026-07-30 23:50
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
