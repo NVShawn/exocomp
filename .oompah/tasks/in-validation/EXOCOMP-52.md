@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-52
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement versioned benchmark configuration schema and validation
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-23T23:16:30.166999Z'
+updated_at: '2026-07-30T23:49:53.630486Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -41,6 +41,28 @@ oompah.task_costs:
     output_tokens: 51894
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:22:24.001713+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-9be9ee29be6a
+    project_id: proj-c260b117
+    task_id: EXOCOMP-52
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7c24197e944dc746ff269047b080983b23f03ac9a89e71aa27e82e7090dba39f
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:51.603099+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -184,5 +206,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 16m 47s
 - Log: EXOCOMP-52__20260723T210541Z.jsonl
+---
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
