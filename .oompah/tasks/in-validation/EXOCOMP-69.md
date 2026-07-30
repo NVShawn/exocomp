@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-69
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Create crashable fixture service script with health endpoint and state controls
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-23T21:25:20.782725Z'
+updated_at: '2026-07-30T21:55:33.764530Z'
 work_branch: EXOCOMP-69
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/2
@@ -44,6 +44,28 @@ oompah.task_costs:
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/2
 oompah.review_number: '2'
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8abde71876bf
+    project_id: proj-c260b117
+    task_id: EXOCOMP-69
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2343759dacf730a14ecb9fe938edb67b8772ef93899e948f422ad76993b00c80
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T21:55:31.793076+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -224,5 +246,10 @@ author: oompah
 created: 2026-07-23 21:25
 ---
 YOLO: merged PR #2.
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
