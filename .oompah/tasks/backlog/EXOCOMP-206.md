@@ -7,16 +7,22 @@ title: Qualify three-path monitoring and Ceph safe restart in VMs
 parent: EXOCOMP-186
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-194
+- EXOCOMP-204
+- EXOCOMP-205
+- EXOCOMP-155
+- EXOCOMP-166
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:38.730648Z'
-updated_at: '2026-07-30T21:38:38.730648Z'
+updated_at: '2026-07-30T21:40:33.312963Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

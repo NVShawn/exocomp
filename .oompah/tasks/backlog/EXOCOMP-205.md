@@ -7,16 +7,20 @@ title: Document desired-state modes and Ceph profile operations
 parent: EXOCOMP-186
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-188
+- EXOCOMP-195
+- EXOCOMP-204
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-07-30T21:38:37.688511Z'
+updated_at: '2026-07-30T21:40:26.467377Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 
