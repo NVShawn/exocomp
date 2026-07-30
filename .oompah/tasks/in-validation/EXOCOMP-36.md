@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:18.592456Z'
-updated_at: '2026-07-30T23:49:21.577683Z'
+updated_at: '2026-07-30T23:49:28.883321Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -27,19 +27,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-36
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 8420cb55a70aad5dceab0d7f9e34c491c08d4d2108c8c07a60dbf02b3822089b
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-7f77f29ff575
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 8420cb55a70aad5dceab0d7f9e34c491c08d4d2108c8c07a60dbf02b3822089b
+      created_at: '2026-07-30T23:49:27.394147+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-07-30T23:49:27.394147+00:00'
+      branch_key: EXOCOMP-36
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:19.465316+00:00'
-  attempt_history: []
+    updated_at: '2026-07-30T23:49:27.394147+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-7f77f29ff575
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 8420cb55a70aad5dceab0d7f9e34c491c08d4d2108c8c07a60dbf02b3822089b
+    created_at: '2026-07-30T23:49:27.394147+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-07-30T23:49:27.394147+00:00'
+    branch_key: EXOCOMP-36
 ---
 ## Summary
 
@@ -75,5 +102,10 @@ author: oompah
 created: 2026-07-30 23:49
 ---
 Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+author: oompah
+created: 2026-07-30 23:49
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
 ---
 <!-- COMMENTS:END -->

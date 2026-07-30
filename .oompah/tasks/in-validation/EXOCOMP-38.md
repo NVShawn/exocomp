@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-23T23:26:54.710929Z'
+updated_at: '2026-07-30T23:49:30.848596Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -67,6 +67,28 @@ oompah.task_costs:
     output_tokens: 2898
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:08:58.865775+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-717e2b876bbf
+    project_id: proj-c260b117
+    task_id: EXOCOMP-38
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 49adea3be0dd29705b0b33c33c4f5a16d6f56ea130ee3de2b4d44a28dbb95622
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:28.305764+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -348,5 +370,10 @@ Run #2 [attempt=2, profile=quick, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 14s
 - Log: EXOCOMP-38__20260723T230746Z.jsonl
+---
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
