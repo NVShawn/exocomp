@@ -6,12 +6,15 @@ priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-138
+- EXOCOMP-141
+- EXOCOMP-139
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-07-30T14:17:34.779256Z'
+updated_at: '2026-07-30T14:20:02.291598Z'
 work_branch: null
 target_branch: null
 review_url: null

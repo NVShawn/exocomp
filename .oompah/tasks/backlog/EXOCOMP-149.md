@@ -6,12 +6,16 @@ priority: 1
 title: Ingest cluster events idempotently and acknowledge sequences
 parent: EXOCOMP-130
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-138
+- EXOCOMP-139
+- EXOCOMP-146
+- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-07-30T14:15:06.077566Z'
+updated_at: '2026-07-30T14:20:27.051674Z'
 work_branch: null
 target_branch: null
 review_url: null

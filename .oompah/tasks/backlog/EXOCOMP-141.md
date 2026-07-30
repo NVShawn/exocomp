@@ -8,11 +8,12 @@ parent: EXOCOMP-129
 children: []
 blocked_by:
 - EXOCOMP-140
+- EXOCOMP-138
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-07-30T14:19:46.339533Z'
+updated_at: '2026-07-30T14:19:57.678751Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,12 +6,14 @@ priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-145
+- EXOCOMP-144
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-07-30T14:15:02.496448Z'
+updated_at: '2026-07-30T14:20:12.988811Z'
 work_branch: null
 target_branch: null
 review_url: null

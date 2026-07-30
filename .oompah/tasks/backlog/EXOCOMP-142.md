@@ -6,12 +6,14 @@ priority: 1
 title: Create one-use cluster invitations
 parent: EXOCOMP-129
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-141
+- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-07-30T14:14:24.463171Z'
+updated_at: '2026-07-30T14:20:04.316732Z'
 work_branch: null
 target_branch: null
 review_url: null
