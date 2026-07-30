@@ -6,12 +6,14 @@ priority: 1
 title: Package the Mission Control release and OCI image
 parent: EXOCOMP-135
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-136
+- EXOCOMP-137
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-07-30T14:18:27.819781Z'
+updated_at: '2026-07-30T14:22:57.622449Z'
 work_branch: null
 target_branch: null
 review_url: null

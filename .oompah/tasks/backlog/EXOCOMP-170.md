@@ -6,12 +6,18 @@ priority: 2
 title: Build Mission Control administration LiveViews
 parent: EXOCOMP-133
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-164
+- EXOCOMP-142
+- EXOCOMP-144
+- EXOCOMP-172
+- EXOCOMP-174
+- EXOCOMP-175
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-07-30T14:17:05.961611Z'
+updated_at: '2026-07-30T14:22:55.006475Z'
 work_branch: null
 target_branch: null
 review_url: null

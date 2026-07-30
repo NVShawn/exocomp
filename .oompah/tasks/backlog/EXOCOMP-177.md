@@ -6,12 +6,20 @@ priority: 2
 title: Expose Mission Control health and Prometheus metrics
 parent: EXOCOMP-135
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-147
+- EXOCOMP-152
+- EXOCOMP-154
+- EXOCOMP-160
+- EXOCOMP-150
+- EXOCOMP-173
+- EXOCOMP-174
+- EXOCOMP-175
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-07-30T14:18:30.240380Z'
+updated_at: '2026-07-30T14:23:06.825789Z'
 work_branch: null
 target_branch: null
 review_url: null
