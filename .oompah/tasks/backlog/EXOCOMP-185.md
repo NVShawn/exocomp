@@ -5,13 +5,21 @@ status: Backlog
 priority: 1
 title: 'M7I: Host service desired state'
 parent: EXOCOMP-127
-children: []
+children:
+- EXOCOMP-187
+- EXOCOMP-188
+- EXOCOMP-189
+- EXOCOMP-190
+- EXOCOMP-191
+- EXOCOMP-192
+- EXOCOMP-193
+- EXOCOMP-194
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-07-30T21:35:54.447822Z'
+updated_at: '2026-07-30T21:37:04.156303Z'
 work_branch: null
 target_branch: null
 review_url: null
