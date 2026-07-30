@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:14.308143Z'
-updated_at: '2026-07-30T14:12:53.153125Z'
+updated_at: '2026-07-30T14:25:16.357937Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -47,3 +47,19 @@ Implementation is decomposed into area epics. Each child task is sized as one fo
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 14:25
+---
+Mission Control implementation graph created from plans/mission-control.md.
+
+Structure:
+- 1 umbrella epic (EXOCOMP-127)
+- 8 area epics (EXOCOMP-128 through EXOCOMP-135)
+- 49 junior-scoped implementation tasks (EXOCOMP-136 through EXOCOMP-184)
+- 139 explicit dependency edges
+
+Each implementation task defines one focused deliverable, acceptance tests, out-of-scope boundaries, and Make quality gates. The graph was validated for complete parentage, existing dependency targets, required task sections, and cycles; validation reported zero errors. All items remain in Backlog so implementation does not start automatically. The first implementation task is EXOCOMP-136, which scaffolds the isolated Mission Control Phoenix application.
+---
+<!-- COMMENTS:END -->
