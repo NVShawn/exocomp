@@ -5,13 +5,18 @@ status: Backlog
 priority: 2
 title: 'M7G: Webhooks, audit, and data lifecycle'
 parent: EXOCOMP-127
-children: []
+children:
+- EXOCOMP-171
+- EXOCOMP-172
+- EXOCOMP-173
+- EXOCOMP-174
+- EXOCOMP-175
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:51.983189Z'
-updated_at: '2026-07-30T14:12:51.983189Z'
+updated_at: '2026-07-30T14:17:39.579146Z'
 work_branch: null
 target_branch: null
 review_url: null
