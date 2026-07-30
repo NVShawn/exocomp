@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-39
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Run recovery and multi-hour soak benchmarks
 parent: EXOCOMP-5
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:21.493438Z'
-updated_at: '2026-07-30T23:50:27.624473Z'
+updated_at: '2026-07-30T23:52:24.356001Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -20,6 +20,8 @@ review_number: null
 merged_at: null
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-616e4068fcaf: '2026-07-30T23:52:22.232689+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -27,7 +29,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-39
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -36,7 +38,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-616e4068fcaf
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -46,13 +48,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T23:50:22.111244+00:00'
       branch_key: EXOCOMP-39
+      verdict: pass
+      completed_at: '2026-07-30T23:52:22.232593+00:00'
+      ended_at: '2026-07-30T23:52:22.232593+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:34.640516+00:00'
-    updated_at: '2026-07-30T23:50:22.111244+00:00'
+    updated_at: '2026-07-30T23:52:22.232593+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-616e4068fcaf
@@ -112,5 +117,25 @@ author: oompah
 created: 2026-07-30 23:50
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-30 23:52
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merged_transition_commit: df7b80d
+- merged_transition_date: 2026-07-23T23:30:00Z
+- audit_queue_comment_date: 2026-07-30T23:49Z
+- retention_days_observed: 7
+- task_pending_chain_audit_id: audit-b4a7172b47d0
+- task_pending_chain_target: Archived
+- task_pending_chain_previous_state: Merged
+- task_pending_chain_fingerprint: 6eb71a37dd880fc455b37e8b1bad61692082b5cfa1f14f962ea34ad8518ebc17
+- task_pending_chain_source: auto_archive
+- current_file_path: .oompah/tasks/in-validation/EXOCOMP-39.md
+- current_file_commit: 5c21c2d
 ---
 <!-- COMMENTS:END -->
