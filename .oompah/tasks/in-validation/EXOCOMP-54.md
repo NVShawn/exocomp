@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-23T23:20:27.206286Z'
+updated_at: '2026-07-30T23:49:57.695859Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -53,6 +53,28 @@ oompah.task_costs:
     output_tokens: 1431
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:55:36.533136+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-1eda91227fb6
+    project_id: proj-c260b117
+    task_id: EXOCOMP-54
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e41b9002960bb0c6e10e1f5c05fdc833d3d6546c3bb4a20c75f0133ab576f170
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:55.715185+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -223,5 +245,10 @@ Run #3 [attempt=3, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 54s
 - Log: EXOCOMP-54__20260723T215343Z.jsonl
+---
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
