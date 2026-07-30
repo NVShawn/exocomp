@@ -6,12 +6,17 @@ priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-176
+- EXOCOMP-178
+- EXOCOMP-181
+- EXOCOMP-182
+- EXOCOMP-183
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-07-30T14:18:58.209388Z'
+updated_at: '2026-07-30T14:24:10.271405Z'
 work_branch: null
 target_branch: null
 review_url: null

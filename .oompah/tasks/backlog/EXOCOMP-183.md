@@ -6,12 +6,16 @@ priority: 2
 title: Add the Mission Control scale and soak qualification
 parent: EXOCOMP-135
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-165
+- EXOCOMP-177
+- EXOCOMP-180
+- EXOCOMP-182
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:53.481557Z'
-updated_at: '2026-07-30T14:18:53.481557Z'
+updated_at: '2026-07-30T14:24:00.453930Z'
 work_branch: null
 target_branch: null
 review_url: null
