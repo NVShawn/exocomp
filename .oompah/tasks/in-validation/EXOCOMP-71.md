@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-30T21:57:25.116706Z'
+updated_at: '2026-07-30T21:57:27.639765Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-71
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/4
@@ -548,5 +548,10 @@ Run #3 [attempt=3, profile=auditor, role=— -> unknown/unknown]
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
 - Exit: error, Duration: 4s
+---
+author: oompah
+created: 2026-07-30 21:57
+---
+Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-4. A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
