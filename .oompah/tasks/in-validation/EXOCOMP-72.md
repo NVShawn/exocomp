@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-07-23T21:26:37.482013Z'
+updated_at: '2026-07-30T21:55:48.564782Z'
 work_branch: EXOCOMP-72
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/3
@@ -50,6 +50,28 @@ oompah.task_costs:
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/3
 oompah.review_number: '3'
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-03be0d4ba4e2
+    project_id: proj-c260b117
+    task_id: EXOCOMP-72
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 36164938888808e05659f33af7ff33b043f8b1922cae2856e89e1cfa5a11273d
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T21:55:45.452582+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -265,5 +287,10 @@ author: oompah
 created: 2026-07-23 21:26
 ---
 YOLO: merged PR #3.
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->

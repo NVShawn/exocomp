@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-30T21:55:33.764530Z'
+updated_at: '2026-07-30T21:55:46.392278Z'
 work_branch: EXOCOMP-69
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/2
@@ -53,19 +53,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-69
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 2343759dacf730a14ecb9fe938edb67b8772ef93899e948f422ad76993b00c80
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-f99653616be9
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 2343759dacf730a14ecb9fe938edb67b8772ef93899e948f422ad76993b00c80
+      created_at: '2026-07-30T21:55:38.642997+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-07-30T21:55:38.642997+00:00'
+      branch_key: EXOCOMP-69
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T21:55:31.793076+00:00'
-  attempt_history: []
+    updated_at: '2026-07-30T21:55:38.642997+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-f99653616be9
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2343759dacf730a14ecb9fe938edb67b8772ef93899e948f422ad76993b00c80
+    created_at: '2026-07-30T21:55:38.642997+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-07-30T21:55:38.642997+00:00'
+    branch_key: EXOCOMP-69
 ---
 ## Summary
 
@@ -251,5 +278,10 @@ author: oompah
 created: 2026-07-30 21:55
 ---
 Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
 ---
 <!-- COMMENTS:END -->
