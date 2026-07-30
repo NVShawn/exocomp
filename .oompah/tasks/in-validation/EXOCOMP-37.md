@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-37
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Benchmark coordinator polling and A2A concurrency
 parent: EXOCOMP-5
@@ -12,12 +12,34 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:19.549341Z'
-updated_at: '2026-07-23T23:25:40.718716Z'
+updated_at: '2026-07-30T23:49:25.732891Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-f10a6914cdff
+    project_id: proj-c260b117
+    task_id: EXOCOMP-37
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 3fe69971c518597ee602522cf07c6b4e2416470fa40e08009aa5d17f86463367
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:23.790708+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -47,3 +69,11 @@ Run the focused benchmark tests and all repository Make targets affected by this
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+<!-- COMMENTS:END -->
