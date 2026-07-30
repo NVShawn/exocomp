@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:19.549341Z'
-updated_at: '2026-07-30T23:53:19.349112Z'
+updated_at: '2026-07-30T23:53:36.231729Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -72,6 +72,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-30T23:49:29.778093+00:00'
     branch_key: EXOCOMP-37
+oompah.task_costs:
+  total_input_tokens: 65
+  total_output_tokens: 2320
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 65
+      output_tokens: 2320
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 65
+    output_tokens: 2320
+    cost_usd: 0.0
+    recorded_at: '2026-07-30T23:53:34.954685+00:00'
 ---
 ## Summary
 
@@ -135,5 +151,15 @@ Safe evidence:
 - audit_attempt_id: attempt-21c8a706be14
 - audit_chain_state: in_progress attempt #1
 - task_status_field: In Validation (audit-pending; scheduler previous_state=Merged)
+---
+author: oompah
+created: 2026-07-30 23:53
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 42
+- Tokens: 65 in / 2.3K out [2.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 0s
+- Log: EXOCOMP-37__20260730T234940Z.jsonl
 ---
 <!-- COMMENTS:END -->
