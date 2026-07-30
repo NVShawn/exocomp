@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-55
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement BEAM telemetry sampler
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-23T23:23:32.386267Z'
+updated_at: '2026-07-30T23:50:01.420085Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -65,6 +65,28 @@ oompah.task_costs:
     output_tokens: 5233
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:39:09.592923+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3f281cf2909d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-55
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b36567feaa8a52c05b34177a4e13a97f4f6c37b8b16be9c7b847aa12531b4e29
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:59.575765+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -354,5 +376,10 @@ author: oompah
 created: 2026-07-23 22:40
 ---
 Implemented Bench.BeamSampler GenServer in apps/bench collecting BEAM runtime metrics (scheduler utilisation, process count, run queue, memory, mailbox depths, task-registry size) with start_link/1, stop/1, flush/1 API. 33/33 tests pass. Committed f8e586a on epic-EXOCOMP-35 and pushed.
+---
+author: oompah
+created: 2026-07-30 23:50
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
