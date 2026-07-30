@@ -14,12 +14,14 @@ children:
 - EXOCOMP-133
 - EXOCOMP-134
 - EXOCOMP-135
+- EXOCOMP-185
+- EXOCOMP-186
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:14.308143Z'
-updated_at: '2026-07-30T14:25:16.357937Z'
+updated_at: '2026-07-30T21:35:55.686265Z'
 work_branch: null
 target_branch: null
 review_url: null
