@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-23T21:11:50.503827Z'
+updated_at: '2026-07-30T21:55:29.983673Z'
 work_branch: EXOCOMP-57
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/1
@@ -56,6 +56,28 @@ oompah.task_costs:
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/1
 oompah.review_number: '1'
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-b91028ba3205
+    project_id: proj-c260b117
+    task_id: EXOCOMP-57
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 24f26d374e1f374710c11df3ee89b4b0fe358c563f38927a8aecd62831e9367c
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T21:55:28.205505+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -372,5 +394,10 @@ author: oompah
 created: 2026-07-23 21:11
 ---
 YOLO: merged PR #1.
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
