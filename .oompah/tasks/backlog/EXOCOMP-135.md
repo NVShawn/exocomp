@@ -5,13 +5,19 @@ status: Backlog
 priority: 2
 title: 'M7H: Packaging, operations, and qualification'
 parent: EXOCOMP-127
-children: []
+children:
+- EXOCOMP-176
+- EXOCOMP-177
+- EXOCOMP-178
+- EXOCOMP-179
+- EXOCOMP-180
+- EXOCOMP-181
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:52.998247Z'
-updated_at: '2026-07-30T14:12:52.998247Z'
+updated_at: '2026-07-30T14:18:42.874599Z'
 work_branch: null
 target_branch: null
 review_url: null
