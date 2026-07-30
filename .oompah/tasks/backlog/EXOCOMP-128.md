@@ -5,13 +5,17 @@ status: Backlog
 priority: 1
 title: 'M7A: Mission Control foundation and persistence'
 parent: EXOCOMP-127
-children: []
+children:
+- EXOCOMP-136
+- EXOCOMP-137
+- EXOCOMP-138
+- EXOCOMP-139
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-07-30T14:12:16.107664Z'
+updated_at: '2026-07-30T14:13:53.993965Z'
 work_branch: null
 target_branch: null
 review_url: null
