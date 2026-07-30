@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-50
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Scaffold the bench Mix app within the Elixir umbrella
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-30T23:50:22.709957Z'
+updated_at: '2026-07-30T23:52:20.437593Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -56,6 +56,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:30:54.309415+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-fe3449e78a1b: '2026-07-30T23:52:18.191455+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -63,7 +65,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-50
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -72,7 +74,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-fe3449e78a1b
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -82,13 +84,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T23:50:17.755560+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-07-30T23:52:18.191316+00:00'
+      ended_at: '2026-07-30T23:52:18.191316+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:47.736468+00:00'
-    updated_at: '2026-07-30T23:50:17.755560+00:00'
+    updated_at: '2026-07-30T23:52:18.191316+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-fe3449e78a1b
@@ -389,5 +394,21 @@ author: oompah
 created: 2026-07-30 23:50
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-30 23:52
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- scaffold_commit: 812a83d EXOCOMP-50: scaffold the bench Mix app within the Elixir umbrella
+- main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- bench_present_on_main: apps/bench/mix.exs, lib/bench.ex, lib/bench/application.ex, config.ex, sample.ex, driver.ex, sampler/behaviour.ex, report/summary.ex all resolve via git show origin/main
+- downstream_dependents_landed: EXOCOMP-52, EXOCOMP-38, EXOCOMP-114, EXOCOMP-122, EXOCOMP-123 all modify apps/bench/mix.exs
+- previous_state: Merged
+- requested_target: Archived
+- aging_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
