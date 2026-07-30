@@ -6,12 +6,14 @@ priority: 1
 title: Add incident records and deterministic fingerprints
 parent: EXOCOMP-131
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-152
+- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:38.872090Z'
-updated_at: '2026-07-30T14:15:38.872090Z'
+updated_at: '2026-07-30T14:20:59.205776Z'
 work_branch: null
 target_branch: null
 review_url: null

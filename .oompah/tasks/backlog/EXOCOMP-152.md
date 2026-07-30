@@ -6,12 +6,13 @@ priority: 1
 title: Persist current cluster and node status
 parent: EXOCOMP-131
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-149
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-07-30T14:15:36.397265Z'
+updated_at: '2026-07-30T14:20:54.257381Z'
 work_branch: null
 target_branch: null
 review_url: null

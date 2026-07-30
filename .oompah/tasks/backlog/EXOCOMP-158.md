@@ -6,12 +6,14 @@ priority: 1
 title: Store bounded conversations, messages, and evidence references
 parent: EXOCOMP-132
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-138
+- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-07-30T14:16:16.513296Z'
+updated_at: '2026-07-30T14:21:13.135155Z'
 work_branch: null
 target_branch: null
 review_url: null
