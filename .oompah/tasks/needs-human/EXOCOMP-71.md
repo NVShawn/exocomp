@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: In Validation
+status: Needs Human
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-30T21:57:27.639765Z'
+updated_at: '2026-07-30T21:58:09.707940Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-71
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/4
@@ -60,6 +60,8 @@ oompah.review_number: '4'
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    no-auditor-audit-7aa9b99b1cdd-3: '2026-07-30T21:58:07.631377+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -67,7 +69,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-71
     target_state: Archived
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -123,13 +125,25 @@ oompah.terminal_audit:
       ended_at: '2026-07-30T21:57:23.093369+00:00'
       failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-4'
       next_retry_at: '2026-07-30T21:58:03.093347+00:00'
+    - version: 1
+      attempt_id: no-auditor-audit-7aa9b99b1cdd-3
+      target_state: Archived
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 7c44f33cb76a51c32c6f4440dba16d362a74cd96c653cec1fbe50c3ef7fa344b
+      verdict: fail
+      failure_classification: no_auditor
+      created_at: '2026-07-30T21:58:07.631298+00:00'
+      completed_at: '2026-07-30T21:58:07.631298+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T21:55:35.388678+00:00'
-    updated_at: '2026-07-30T21:57:23.093369+00:00'
+    updated_at: '2026-07-30T21:58:07.631298+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-26fe706cea4e
@@ -553,5 +567,12 @@ author: oompah
 created: 2026-07-30 21:57
 ---
 Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-4. A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-07-30 21:58
+---
+Needs Human — Archived audit requires operator input.
+
+No independent auditor candidate is available for this audit (Audit reached the maximum of 3 attempts.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then move the task back to Open to retry.
 ---
 <!-- COMMENTS:END -->
