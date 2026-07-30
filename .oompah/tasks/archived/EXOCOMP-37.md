@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-37
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Benchmark coordinator polling and A2A concurrency
 parent: EXOCOMP-5
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:19.549341Z'
-updated_at: '2026-07-30T23:49:40.603410Z'
+updated_at: '2026-07-30T23:53:19.349112Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -20,6 +20,8 @@ review_number: null
 merged_at: null
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-21c8a706be14: '2026-07-30T23:53:17.088948+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -27,7 +29,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-37
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -36,7 +38,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-21c8a706be14
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -46,13 +48,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T23:49:29.778093+00:00'
       branch_key: EXOCOMP-37
+      verdict: pass
+      completed_at: '2026-07-30T23:53:17.088799+00:00'
+      ended_at: '2026-07-30T23:53:17.088799+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:23.790708+00:00'
-    updated_at: '2026-07-30T23:49:29.778093+00:00'
+    updated_at: '2026-07-30T23:53:17.088799+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-21c8a706be14
@@ -112,5 +117,23 @@ author: oompah
 created: 2026-07-30 23:49
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-30 23:53
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- unpushed_commits_from_task_branch: 0
+- sibling_task_delivering_m5_polling_work: EXOCOMP-125 via PR #20 merged 2026-07-27
+- coordinator_polling_probe_path: apps/exocomp_coordinator/lib/exocomp/coordinator/qualification_probe.ex
+- gates_in_summary_module: coordinator_poll_healthy, coordinator_poll_slow, coordinator_poll_unreachable, coordinator_poll_mailbox_growth
+- audit_attempt_id: attempt-21c8a706be14
+- audit_chain_state: in_progress attempt #1
+- task_status_field: In Validation (audit-pending; scheduler previous_state=Merged)
 ---
 <!-- COMMENTS:END -->
