@@ -11,14 +11,14 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-07-30T21:55:46.392278Z'
-work_branch: EXOCOMP-69
+updated_at: '2026-07-30T21:55:58.521150Z'
+work_branch: epic-EXOCOMP-29--task-EXOCOMP-69
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/2
 review_number: '2'
 merged_at: null
 oompah.agent_run_id: 35fb83c8-dbf7-4c39-96ce-869fe1ae86c7
-oompah.work_branch: EXOCOMP-69
+oompah.work_branch: epic-EXOCOMP-29--task-EXOCOMP-69
 oompah.task_costs:
   total_input_tokens: 456541
   total_output_tokens: 22578
@@ -53,7 +53,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-69
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -62,7 +62,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-f99653616be9
       target_state: Archived
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -72,18 +72,21 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T21:55:38.642997+00:00'
       branch_key: EXOCOMP-69
+      ended_at: '2026-07-30T21:55:55.247824+00:00'
+      failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-4'
+      next_retry_at: '2026-07-30T21:56:05.247800+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T21:55:31.793076+00:00'
-    updated_at: '2026-07-30T21:55:38.642997+00:00'
+    updated_at: '2026-07-30T21:55:55.247824+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f99653616be9
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -93,6 +96,17 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-30T21:55:38.642997+00:00'
     branch_key: EXOCOMP-69
+    ended_at: '2026-07-30T21:55:55.247824+00:00'
+    failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-4'
+    next_retry_at: '2026-07-30T21:56:05.247800+00:00'
+oompah.integration:
+  version: 1
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-29--task-EXOCOMP-69
+  base_branch: epic-EXOCOMP-4
+  base_sha: 1db113533285bdbf2983576d9a77b0bd0352d421
+  updated_at: '2026-07-30T21:55:51.531913+00:00'
 ---
 ## Summary
 
@@ -283,5 +297,19 @@ author: oompah
 created: 2026-07-30 21:55
 ---
 Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 7s
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-4. A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->

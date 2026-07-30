@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-30T21:55:44.467274Z'
+updated_at: '2026-07-30T21:55:54.421717Z'
 work_branch: epic-EXOCOMP-9--task-EXOCOMP-57
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/1
@@ -65,7 +65,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-57
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -74,7 +74,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-a965b4684476
       target_state: Archived
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -84,18 +84,21 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T21:55:37.130303+00:00'
       branch_key: EXOCOMP-57
+      ended_at: '2026-07-30T21:55:47.237655+00:00'
+      failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-1'
+      next_retry_at: '2026-07-30T21:55:57.237632+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T21:55:28.205505+00:00'
-    updated_at: '2026-07-30T21:55:37.130303+00:00'
+    updated_at: '2026-07-30T21:55:47.237655+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a965b4684476
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -105,6 +108,9 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-30T21:55:37.130303+00:00'
     branch_key: EXOCOMP-57
+    ended_at: '2026-07-30T21:55:47.237655+00:00'
+    failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-1'
+    next_retry_at: '2026-07-30T21:55:57.237632+00:00'
 oompah.integration:
   version: 1
   state: working
@@ -448,5 +454,10 @@ Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
 - Exit: error, Duration: 5s
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-1. A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
