@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:18.592456Z'
-updated_at: '2026-07-30T23:51:14.147313Z'
+updated_at: '2026-07-30T23:51:29.030492Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -72,6 +72,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-30T23:49:27.394147+00:00'
     branch_key: EXOCOMP-36
+oompah.task_costs:
+  total_input_tokens: 48
+  total_output_tokens: 1692
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 48
+      output_tokens: 1692
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 48
+    output_tokens: 1692
+    cost_usd: 0.0
+    recorded_at: '2026-07-30T23:51:27.938935+00:00'
 ---
 ## Summary
 
@@ -134,5 +150,15 @@ Safe evidence:
 - bench_harness_present: apps/bench/ with idle-node scenario
 - baselines_present: priv/bench/baselines/v0.1.0-rc.23/{amd64,arm64}.toml
 - history_note: Task file moved backlog->open->merged->in-validation (in-validation transition is standard terminal-audit staging)
+---
+author: oompah
+created: 2026-07-30 23:51
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 31
+- Tokens: 48 in / 1.7K out [1.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 0s
+- Log: EXOCOMP-36__20260730T234933Z.jsonl
 ---
 <!-- COMMENTS:END -->
