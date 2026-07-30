@@ -6,12 +6,14 @@ priority: 1
 title: Store and validate typed remedy proposals
 parent: EXOCOMP-132
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-158
+- EXOCOMP-160
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:19.626537Z'
-updated_at: '2026-07-30T14:16:19.626537Z'
+updated_at: '2026-07-30T14:21:30.671760Z'
 work_branch: null
 target_branch: null
 review_url: null

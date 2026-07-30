@@ -6,12 +6,15 @@ priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-172
+- EXOCOMP-171
+- EXOCOMP-139
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-07-30T14:17:37.354425Z'
+updated_at: '2026-07-30T14:21:48.505483Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,12 +6,14 @@ priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-141
+- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-07-30T14:17:36.185587Z'
+updated_at: '2026-07-30T14:21:43.225568Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -6,12 +6,15 @@ priority: 1
 title: Revalidate and execute approved remedies inside the cluster
 parent: EXOCOMP-132
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-162
+- EXOCOMP-151
+- EXOCOMP-145
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:22.081454Z'
-updated_at: '2026-07-30T14:16:22.081454Z'
+updated_at: '2026-07-30T14:21:41.193727Z'
 work_branch: null
 target_branch: null
 review_url: null

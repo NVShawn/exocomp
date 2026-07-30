@@ -6,12 +6,14 @@ priority: 2
 title: Delete status history with bounded retention jobs
 parent: EXOCOMP-134
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-153
+- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:38.421513Z'
-updated_at: '2026-07-30T14:17:38.421513Z'
+updated_at: '2026-07-30T14:21:50.406068Z'
 work_branch: null
 target_branch: null
 review_url: null
