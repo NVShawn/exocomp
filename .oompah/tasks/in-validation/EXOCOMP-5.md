@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-5
 type: epic
-status: Merged
+status: In Validation
 priority: 1
 title: 'M5: Performance and resource analysis'
 parent: null
@@ -17,7 +17,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:11.554597Z'
-updated_at: '2026-07-23T23:30:00.004229Z'
+updated_at: '2026-07-30T23:49:46.007452Z'
 work_branch: epic-EXOCOMP-5
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/5
@@ -27,6 +27,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/5
 oompah.review_number: '5'
 oompah.work_branch: epic-EXOCOMP-5
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-f5104ce58e4c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-5
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d6194da153b89bc288912d1728bb89996f710d779f45d72439e6f9ad8edda6b7
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:44.179008+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -59,5 +81,10 @@ author: oompah
 created: 2026-07-23 23:06
 ---
 YOLO: merged PR #5.
+---
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
