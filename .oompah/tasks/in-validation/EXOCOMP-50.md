@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-50
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Scaffold the bench Mix app within the Elixir umbrella
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T20:36:33.686028Z'
-updated_at: '2026-07-23T23:09:19.255764Z'
+updated_at: '2026-07-30T23:49:49.640002Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -54,6 +54,28 @@ oompah.task_costs:
     output_tokens: 66248
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:30:54.309415+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-9284a1a9b4f4
+    project_id: proj-c260b117
+    task_id: EXOCOMP-50
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a4c5aad8ee18b7cf36c70e14ccd01eb017c7ca3040b39ce34a404946814f29ba
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:47.736468+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -325,5 +347,10 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 25m 18s
 - Log: EXOCOMP-50__20260723T210539Z.jsonl
+---
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
