@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-82
 type: task
-status: In Validation
+status: Archived
 priority: 0
 title: Rebase epic-EXOCOMP-6 onto main
 parent: EXOCOMP-6
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-23T23:19:00.042579Z'
-updated_at: '2026-07-30T23:50:43.711654Z'
+updated_at: '2026-07-30T23:51:39.104377Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -36,6 +36,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T23:26:03.435913+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-2acff16661c0: '2026-07-30T23:51:37.207868+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -43,7 +45,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-82
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -52,7 +54,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-2acff16661c0
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -62,13 +64,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T23:50:34.525686+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-07-30T23:51:37.207760+00:00'
+      ended_at: '2026-07-30T23:51:37.207760+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:50:03.194435+00:00'
-    updated_at: '2026-07-30T23:50:34.525686+00:00'
+    updated_at: '2026-07-30T23:51:37.207760+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-2acff16661c0
@@ -167,5 +172,20 @@ author: oompah
 created: 2026-07-30 23:50
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-30 23:51
+---
+Audit PASS — Archived
+
+Archival is safe. The task's stated goal (rebase epic-EXOCOMP-6 onto origin/main and force-push) is verifiably complete: origin/epic-EXOCOMP-6 and origin/main both point to 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef, with zero commits diverging in either direction. Task reached Merged on 2026-07-23 and has aged the required 7 days; no lingering work or blockers observed.
+
+Safe evidence:
+- origin_main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- origin_epic_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- main_ahead_of_epic: 0 commits
+- epic_ahead_of_main: 0 commits
+- aged_merged_days: 7
+- trigger: Aged Merged auto-archive
 ---
 <!-- COMMENTS:END -->
