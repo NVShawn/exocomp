@@ -6,12 +6,13 @@ priority: 2
 title: Define Mission Control protocol envelopes and fixtures
 parent: EXOCOMP-128
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-136
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-07-30T14:13:53.920011Z'
+updated_at: '2026-07-30T14:19:42.420733Z'
 work_branch: null
 target_branch: null
 review_url: null

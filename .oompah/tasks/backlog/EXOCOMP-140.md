@@ -6,12 +6,14 @@ priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-136
+- EXOCOMP-138
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-07-30T14:14:21.377992Z'
+updated_at: '2026-07-30T14:19:44.368088Z'
 work_branch: null
 target_branch: null
 review_url: null

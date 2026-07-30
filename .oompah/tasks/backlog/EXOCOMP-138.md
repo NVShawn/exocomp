@@ -6,12 +6,13 @@ priority: 2
 title: Add organizations and mandatory organization scoping
 parent: EXOCOMP-128
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-137
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-07-30T14:13:52.527968Z'
+updated_at: '2026-07-30T14:19:41.370539Z'
 work_branch: null
 target_branch: null
 review_url: null

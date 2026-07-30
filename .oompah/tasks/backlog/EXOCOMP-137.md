@@ -6,12 +6,13 @@ priority: 2
 title: Configure PostgreSQL and the Ecto migration test harness
 parent: EXOCOMP-128
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-136
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-07-30T14:13:51.051048Z'
+updated_at: '2026-07-30T14:19:40.425905Z'
 work_branch: null
 target_branch: null
 review_url: null
