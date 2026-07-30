@@ -7,16 +7,20 @@ title: Schedule service discovery and observations in the coordinator
 parent: EXOCOMP-185
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-188
+- EXOCOMP-190
+- EXOCOMP-191
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:02.009432Z'
-updated_at: '2026-07-30T21:37:02.009432Z'
+updated_at: '2026-07-30T21:39:51.985790Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

@@ -7,16 +7,18 @@ title: Implement enabled long-running systemd service discovery
 parent: EXOCOMP-185
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-187
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-07-30T21:37:00.068929Z'
+updated_at: '2026-07-30T21:39:46.770210Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

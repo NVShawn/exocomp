@@ -7,16 +7,19 @@ title: Reconcile desired services and health transitions
 parent: EXOCOMP-185
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-189
+- EXOCOMP-192
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-07-30T21:37:03.188337Z'
+updated_at: '2026-07-30T21:39:54.167213Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

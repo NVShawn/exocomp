@@ -7,16 +7,19 @@ title: Define desired-service status events and contract fixtures
 parent: EXOCOMP-185
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-139
+- EXOCOMP-193
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-07-30T21:37:04.090360Z'
+updated_at: '2026-07-30T21:39:57.076937Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

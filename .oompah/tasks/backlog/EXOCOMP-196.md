@@ -7,16 +7,18 @@ title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-195
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-07-30T21:38:18.558307Z'
+updated_at: '2026-07-30T21:39:59.942749Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

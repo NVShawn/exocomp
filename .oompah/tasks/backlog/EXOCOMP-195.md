@@ -7,16 +7,18 @@ title: Add the shipped cluster-profile registry and version contract
 parent: EXOCOMP-186
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-189
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-07-30T21:38:14.294893Z'
+updated_at: '2026-07-30T21:39:58.691804Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

@@ -7,16 +7,18 @@ title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-199
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-07-30T21:38:25.539449Z'
+updated_at: '2026-07-30T21:40:08.102209Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 
