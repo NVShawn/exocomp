@@ -5,13 +5,25 @@ status: Backlog
 priority: 1
 title: 'M7J: Cluster profiles and Ceph v1'
 parent: EXOCOMP-127
-children: []
+children:
+- EXOCOMP-195
+- EXOCOMP-196
+- EXOCOMP-197
+- EXOCOMP-198
+- EXOCOMP-199
+- EXOCOMP-200
+- EXOCOMP-201
+- EXOCOMP-202
+- EXOCOMP-203
+- EXOCOMP-204
+- EXOCOMP-205
+- EXOCOMP-206
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:55.625186Z'
-updated_at: '2026-07-30T21:35:55.625186Z'
+updated_at: '2026-07-30T21:38:38.945169Z'
 work_branch: null
 target_branch: null
 review_url: null
