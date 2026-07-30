@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-36
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Benchmark node idle and diagnostic workloads
 parent: EXOCOMP-5
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:18.592456Z'
-updated_at: '2026-07-30T23:49:33.829345Z'
+updated_at: '2026-07-30T23:51:14.147313Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -20,6 +20,8 @@ review_number: null
 merged_at: null
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-7f77f29ff575: '2026-07-30T23:51:11.920976+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -27,7 +29,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-36
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -36,7 +38,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-7f77f29ff575
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -46,13 +48,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T23:49:27.394147+00:00'
       branch_key: EXOCOMP-36
+      verdict: pass
+      completed_at: '2026-07-30T23:51:11.920882+00:00'
+      ended_at: '2026-07-30T23:51:11.920882+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:19.465316+00:00'
-    updated_at: '2026-07-30T23:49:27.394147+00:00'
+    updated_at: '2026-07-30T23:51:11.920882+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-7f77f29ff575
@@ -112,5 +117,22 @@ author: oompah
 created: 2026-07-30 23:49
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-30 23:51
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- task_id: EXOCOMP-36
+- issue_type: chore
+- previous_state: Merged
+- target_state: Archived
+- trigger: aged_merged_auto_archive_7d
+- bench_harness_present: apps/bench/ with idle-node scenario
+- baselines_present: priv/bench/baselines/v0.1.0-rc.23/{amd64,arm64}.toml
+- history_note: Task file moved backlog->open->merged->in-validation (in-validation transition is standard terminal-audit staging)
 ---
 <!-- COMMENTS:END -->
