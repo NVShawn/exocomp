@@ -6,12 +6,13 @@ priority: 1
 title: Add shared Mission Control protocol contract tests
 parent: EXOCOMP-135
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-139
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-07-30T14:18:34.108558Z'
+updated_at: '2026-07-30T14:23:31.021374Z'
 work_branch: null
 target_branch: null
 review_url: null

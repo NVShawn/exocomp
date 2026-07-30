@@ -6,12 +6,16 @@ priority: 1
 title: Build the two-cluster Mission Control qualification scenario
 parent: EXOCOMP-135
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-169
+- EXOCOMP-173
+- EXOCOMP-180
+- EXOCOMP-181
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:50.264411Z'
-updated_at: '2026-07-30T14:18:50.264411Z'
+updated_at: '2026-07-30T14:23:53.519534Z'
 work_branch: null
 target_branch: null
 review_url: null

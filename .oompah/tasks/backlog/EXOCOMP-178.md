@@ -6,12 +6,19 @@ priority: 2
 title: Document Mission Control installation and operations
 parent: EXOCOMP-135
 children: []
-blocked_by: []
+blocked_by:
+- EXOCOMP-144
+- EXOCOMP-170
+- EXOCOMP-173
+- EXOCOMP-174
+- EXOCOMP-175
+- EXOCOMP-176
+- EXOCOMP-177
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-07-30T14:18:32.596455Z'
+updated_at: '2026-07-30T14:23:30.135488Z'
 work_branch: null
 target_branch: null
 review_url: null
