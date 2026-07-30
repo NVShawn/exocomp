@@ -8,16 +8,18 @@ parent: EXOCOMP-135
 children: []
 blocked_by:
 - EXOCOMP-139
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-194
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-07-30T14:23:31.021374Z'
+updated_at: '2026-07-30T21:40:47.893460Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

@@ -14,16 +14,18 @@ blocked_by:
 - EXOCOMP-175
 - EXOCOMP-176
 - EXOCOMP-177
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-205
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-07-30T14:23:30.135488Z'
+updated_at: '2026-07-30T21:40:46.798258Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

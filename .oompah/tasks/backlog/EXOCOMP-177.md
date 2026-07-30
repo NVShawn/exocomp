@@ -17,10 +17,11 @@ blocked_by:
 - EXOCOMP-175
 start_blocked_by: &id001
 - EXOCOMP-193
+- EXOCOMP-200
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-07-30T21:40:43.039329Z'
+updated_at: '2026-07-30T21:40:45.526419Z'
 work_branch: null
 target_branch: null
 review_url: null
