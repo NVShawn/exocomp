@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-40
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Publish M5 baselines and performance gates
 parent: EXOCOMP-5
@@ -15,7 +15,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:22.415417Z'
-updated_at: '2026-07-30T23:50:33.172433Z'
+updated_at: '2026-07-30T23:54:31.930875Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -23,6 +23,8 @@ review_number: null
 merged_at: null
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-3080f4e2af6a: '2026-07-30T23:54:29.790029+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -30,7 +32,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-40
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -39,7 +41,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-3080f4e2af6a
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -49,13 +51,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-30T23:50:23.484761+00:00'
       branch_key: EXOCOMP-40
+      verdict: pass
+      completed_at: '2026-07-30T23:54:29.789854+00:00'
+      ended_at: '2026-07-30T23:54:29.789854+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:40.125897+00:00'
-    updated_at: '2026-07-30T23:50:23.484761+00:00'
+    updated_at: '2026-07-30T23:54:29.789854+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-3080f4e2af6a
@@ -116,5 +121,31 @@ author: oompah
 created: 2026-07-30 23:50
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-30 23:54
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- task_id: EXOCOMP-40
+- issue_type: chore
+- previous_state: Merged
+- target_state: Archived
+- trigger: aged_merged_auto_archive_7d
+- merged_transition_commit: b7e1e08
+- merged_at_date: 2026-07-23
+- audit_date: 2026-07-30
+- aging_days: 7
+- baselines_present: apps/bench/priv/bench/baselines/v0.1.0-rc.23/{amd64,arm64}.toml
+- profiles_present: apps/bench/priv/bench/profiles/{amd64,arm64}-ci.toml
+- release_evidence_present: docs/release-evidence/v0.1.0-rc.23/{README.md,qualification-results.json,evidence-index.sha256,evidence-index.sha256.sig}
+- plan_criteria_status: all 8 M5-CRIT-* checked in plans/milestone-5-performance.md
+- make_targets: bench-llama-short, bench-harness, bench-llama-short-shipped, bench-llama-full, test-m5-qualification
+- dependencies_state: EXOCOMP-34 Merged; EXOCOMP-36 Archived; EXOCOMP-37/38/39 In Validation (audit-staging) or Merged
+- parent_epic_status: EXOCOMP-5 Merged via PR #5
+- history_note: backlog->open->merged->in-validation transition matches standard terminal-audit workflow
 ---
 <!-- COMMENTS:END -->
