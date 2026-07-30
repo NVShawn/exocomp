@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-07-30T21:55:29.983673Z'
+updated_at: '2026-07-30T21:55:38.401289Z'
 work_branch: EXOCOMP-57
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/1
@@ -65,19 +65,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-57
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 24f26d374e1f374710c11df3ee89b4b0fe358c563f38927a8aecd62831e9367c
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-a965b4684476
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 24f26d374e1f374710c11df3ee89b4b0fe358c563f38927a8aecd62831e9367c
+      created_at: '2026-07-30T21:55:37.130303+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-07-30T21:55:37.130303+00:00'
+      branch_key: EXOCOMP-57
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T21:55:28.205505+00:00'
-  attempt_history: []
+    updated_at: '2026-07-30T21:55:37.130303+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-a965b4684476
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 24f26d374e1f374710c11df3ee89b4b0fe358c563f38927a8aecd62831e9367c
+    created_at: '2026-07-30T21:55:37.130303+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-07-30T21:55:37.130303+00:00'
+    branch_key: EXOCOMP-57
 ---
 ## Summary
 

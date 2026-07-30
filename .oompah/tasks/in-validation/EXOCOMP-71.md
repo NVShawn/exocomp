@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-07-23T21:52:25.214825Z'
+updated_at: '2026-07-30T21:55:37.444302Z'
 work_branch: EXOCOMP-71
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/4
@@ -58,6 +58,28 @@ oompah.task_costs:
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/4
 oompah.review_number: '4'
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-7aa9b99b1cdd
+    project_id: proj-c260b117
+    task_id: EXOCOMP-71
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7c44f33cb76a51c32c6f4440dba16d362a74cd96c653cec1fbe50c3ef7fa344b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T21:55:35.388678+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -360,5 +382,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 2m 47s
 - Log: EXOCOMP-71__20260723T214941Z.jsonl
+---
+author: oompah
+created: 2026-07-30 21:55
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
