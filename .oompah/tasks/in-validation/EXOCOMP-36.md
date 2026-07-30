@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-36
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Benchmark node idle and diagnostic workloads
 parent: EXOCOMP-5
@@ -12,12 +12,34 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:18.592456Z'
-updated_at: '2026-07-23T23:25:38.209115Z'
+updated_at: '2026-07-30T23:49:21.577683Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-6e168b7c5056
+    project_id: proj-c260b117
+    task_id: EXOCOMP-36
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 8420cb55a70aad5dceab0d7f9e34c491c08d4d2108c8c07a60dbf02b3822089b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:19.465316+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -47,3 +69,11 @@ Run the focused benchmark tests and all repository Make targets affected by this
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+<!-- COMMENTS:END -->
