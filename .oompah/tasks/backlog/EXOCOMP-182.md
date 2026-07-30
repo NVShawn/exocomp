@@ -16,7 +16,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:50.264411Z'
-updated_at: '2026-07-30T21:40:49.085265Z'
+updated_at: '2026-07-30T21:41:30.427673Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -47,3 +47,11 @@ Quality gate: a dedicated noninteractive Make qualification target.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension acceptance: incorporate the VM-qualified EXOCOMP-206 path so the two-cluster scenario includes composed service expectations, one coordinator-declared Ceph profile, a deduplicated failed-daemon incident, exactly-once safe restart, stable verification, and reconnect replay.
+---
+<!-- COMMENTS:END -->

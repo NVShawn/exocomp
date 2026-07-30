@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-07-30T21:40:46.798258Z'
+updated_at: '2026-07-30T21:41:27.655481Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -50,3 +50,11 @@ Quality gate: make check-links, make compliance-check, and focused operator-doc 
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension acceptance: include and link the operator documentation delivered by EXOCOMP-205 for inventory v2, all three monitoring paths, Ceph credential bootstrap, profile coverage troubleshooting, safe restart, and monitoring-versus-recovery authority.
+---
+<!-- COMMENTS:END -->

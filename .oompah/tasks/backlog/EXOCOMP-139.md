@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-07-30T14:19:42.420733Z'
+updated_at: '2026-07-30T21:41:19.821554Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -42,3 +42,11 @@ Quality gate: focused protocol tests plus make test, make fmt-check, and make li
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension: keep this task focused on generic Mission Control envelopes. EXOCOMP-194 depends on it and adds service expectation, service health, and profile coverage event fixtures.
+---
+<!-- COMMENTS:END -->

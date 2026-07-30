@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-07-30T21:40:38.244676Z'
+updated_at: '2026-07-30T21:41:21.981390Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -45,3 +45,11 @@ Quality gate: focused reducer tests plus make test, make fmt-check, and make lin
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension acceptance: reduce service and profile health into incidents. Use two observations for unhealthy/WARN transitions, immediate critical alerts for Ceph HEALTH_ERR, explicit coverage incidents, and desired_state_removed resolution without creating a false recovery observation.
+---
+<!-- COMMENTS:END -->

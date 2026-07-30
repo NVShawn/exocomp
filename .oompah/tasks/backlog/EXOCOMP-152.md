@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-07-30T21:40:35.868576Z'
+updated_at: '2026-07-30T21:41:20.799402Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -43,3 +43,11 @@ Quality gate: focused context tests plus make test, make fmt-check, and make lin
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension acceptance: persist the current effective service expectation and health per organization/cluster/node/unit, including source set, health depth, recovery authority, profile version, observation time, and retirement state. EXOCOMP-194 supplies the protocol contract.
+---
+<!-- COMMENTS:END -->

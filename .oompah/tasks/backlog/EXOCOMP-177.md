@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-07-30T21:40:45.526419Z'
+updated_at: '2026-07-30T21:41:25.448205Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -51,3 +51,11 @@ Quality gate: focused health/telemetry tests plus make fmt-check and make lint.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension acceptance: add counts and transition metrics for healthy/unhealthy/stale/retired services, automatic-discovery failures, profile coverage, Ceph health severity, helper denial, recovery verification failure, and cooldown.
+---
+<!-- COMMENTS:END -->

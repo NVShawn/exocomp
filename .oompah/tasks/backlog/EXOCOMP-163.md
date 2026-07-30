@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:22.081454Z'
-updated_at: '2026-07-30T21:40:39.453990Z'
+updated_at: '2026-07-30T21:41:23.140255Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -46,3 +46,11 @@ Quality gate: focused node/coordinator tests plus make test, make fmt-check, and
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension acceptance: profile remedies must remain typed and cluster-local. Integrate the verified Ceph safe-restart result from EXOCOMP-204 without allowing Mission Control to supply service allow-lists, profile commands, or arbitrary argv.
+---
+<!-- COMMENTS:END -->

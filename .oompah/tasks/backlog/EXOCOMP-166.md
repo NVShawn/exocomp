@@ -17,7 +17,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:59.969604Z'
-updated_at: '2026-07-30T21:40:41.719199Z'
+updated_at: '2026-07-30T21:41:24.246946Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -47,3 +47,11 @@ Quality gate: focused LiveView tests plus make fmt-check and make lint.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 21:41
+---
+Desired-state extension acceptance: cluster detail must show effective services, manual/automatic/profile source badges, systemd versus application health depth, recovery authority, Ceph profile version and coverage, stale/unsupported states, and evidence timestamps.
+---
+<!-- COMMENTS:END -->

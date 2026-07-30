@@ -21,7 +21,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:14.308143Z'
-updated_at: '2026-07-30T21:35:55.686265Z'
+updated_at: '2026-07-30T21:41:18.430599Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -63,5 +63,10 @@ Structure:
 - 139 explicit dependency edges
 
 Each implementation task defines one focused deliverable, acceptance tests, out-of-scope boundaries, and Make quality gates. The graph was validated for complete parentage, existing dependency targets, required task sections, and cycles; validation reported zero errors. All items remain in Backlog so implementation does not start automatically. The first implementation task is EXOCOMP-136, which scaffolds the isolated Mission Control Phoenix application.
+---
+author: oompah
+created: 2026-07-30 21:41
+---
+Three-path desired-state implementation graph added on 2026-07-30: EXOCOMP-185 (host service desired state) with EXOCOMP-187 through EXOCOMP-194; EXOCOMP-186 (cluster profiles and Ceph v1) with EXOCOMP-195 through EXOCOMP-206; and separate roadmap epic EXOCOMP-207 for later broad typed Ceph repair. Existing Mission Control tasks now depend on the relevant new foundations. All new implementation tasks are focused, test-bearing, and kept in Backlog.
 ---
 <!-- COMMENTS:END -->
