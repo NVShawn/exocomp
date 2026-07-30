@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-40
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Publish M5 baselines and performance gates
 parent: EXOCOMP-5
@@ -15,12 +15,34 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:11:22.415417Z'
-updated_at: '2026-07-23T23:30:03.242792Z'
+updated_at: '2026-07-30T23:49:42.484324Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-7ba40c5c7fdb
+    project_id: proj-c260b117
+    task_id: EXOCOMP-40
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 33452d982c60a33aa967798a656d84c4fc8b7709239a7f73ef70e7e110fb331a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-30T23:49:40.125897+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -51,3 +73,11 @@ Run the focused benchmark tests and all repository Make targets affected by this
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-07-30 23:49
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+<!-- COMMENTS:END -->
