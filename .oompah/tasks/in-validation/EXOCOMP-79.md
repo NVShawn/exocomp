@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-24T03:53:26.197942Z'
+updated_at: '2026-07-31T04:13:11.424696Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -36,6 +36,28 @@ oompah.task_costs:
     output_tokens: 2870
     cost_usd: 0.0
     recorded_at: '2026-07-24T00:52:04.639873+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3b5229dc30b8
+    project_id: proj-c260b117
+    task_id: EXOCOMP-79
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 54cd610a71c9d64b48855d4b5673b985a83e98316890e1b59b26321b2772f45e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:13:09.521233+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -274,5 +296,10 @@ author: oompah
 created: 2026-07-24 01:33
 ---
 Implemented and pushed a supervised bounded in-memory A2A TaskRegistry with lifecycle validation, worker cancellation, concurrency limits, TTL/count eviction, and 14 passing focused tests; formatting and warnings-as-errors compilation pass.
+---
+author: oompah
+created: 2026-07-31 04:13
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
