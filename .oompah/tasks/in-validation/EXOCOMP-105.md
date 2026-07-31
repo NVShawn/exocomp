@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-105
 type: task
-status: Merged
+status: In Validation
 priority: 1
 title: Verify coordinator diagnostic orchestration end to end
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-07-24T20:25:59.203144Z'
+updated_at: '2026-07-31T20:46:23.517503Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 27969
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:23:19.393919+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-78ec2b1e175b
+    project_id: proj-c260b117
+    task_id: EXOCOMP-105
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5a2adfeb1efde1b308178a208a14964f80a5f2a78e9d087680abf6d2884f6bb1
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:21.333805+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -231,5 +253,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 12m 21s
 - Log: EXOCOMP-105__20260724T181059Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
