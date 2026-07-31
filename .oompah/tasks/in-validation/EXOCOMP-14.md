@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-14
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Scaffold coordinator inventory, registry, and audit
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-24T19:26:05.777963Z'
+updated_at: '2026-07-31T19:41:13.282624Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -74,6 +74,28 @@ oompah.task_costs:
     output_tokens: 3420
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:26:29.908131+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8a2b388e45ee
+    project_id: proj-c260b117
+    task_id: EXOCOMP-14
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b2e212961bbac4dd799bb06ccc9e4040a27728e65810af444b8d825583862889
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T19:41:10.360360+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -426,5 +448,10 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 7m 3s
 - Log: EXOCOMP-14__20260723T221928Z.jsonl
+---
+author: oompah
+created: 2026-07-31 19:41
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
