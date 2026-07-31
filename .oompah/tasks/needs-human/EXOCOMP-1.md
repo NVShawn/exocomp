@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Validation
+status: Needs Human
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-31T04:12:27.507544Z'
+updated_at: '2026-07-31T04:15:14.356989Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -32,6 +32,8 @@ oompah.work_branch: epic-EXOCOMP-1
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-587b1d655ca0: '2026-07-31T04:15:05.910387+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -39,7 +41,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -48,7 +50,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-587b1d655ca0
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -58,13 +60,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:12:20.147318+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: fail
+      failure_classification: unsafe_archive
+      completed_at: '2026-07-31T04:15:05.910192+00:00'
+      ended_at: '2026-07-31T04:15:05.910192+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:14.491522+00:00'
-    updated_at: '2026-07-31T04:12:20.147318+00:00'
+    updated_at: '2026-07-31T04:15:05.910192+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -79,6 +85,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-31T04:12:20.147318+00:00'
     branch_key: epic-EXOCOMP-1
+oompah.task_costs:
+  total_input_tokens: 46
+  total_output_tokens: 8762
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 46
+      output_tokens: 8762
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 46
+    output_tokens: 8762
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T04:15:12.304538+00:00'
 ---
 ## Summary
 
@@ -126,5 +148,26 @@ author: oompah
 created: 2026-07-31 04:12
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:15
+---
+Needs Human — Archived audit requires operator input.
+
+[REDACTED]
+
+Instructions:
+- Do not archive while task state is not Merged. Return the aged-Merged auto-archive to the queue only after the task re-enters Merged with all children in terminal (Merged/Archived/Done) states.
+- Because the 'epic:rebasing' label is present, treat this epic as active and skip auto-archival until the rebase-and-revalidate cycle completes and the label is removed.
+---
+author: oompah
+created: 2026-07-31 04:15
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 50, Tool calls: 40
+- Tokens: 46 in / 8.8K out [8.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 50s
+- Log: EXOCOMP-1__20260731T041228Z.jsonl
 ---
 <!-- COMMENTS:END -->
