@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-7
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Scaffold the Elixir umbrella and quality gates
 parent: EXOCOMP-1
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-24T03:16:21.146030Z'
+updated_at: '2026-07-31T04:13:03.973273Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -59,6 +59,28 @@ oompah.task_costs:
     output_tokens: 588
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:21:10.551490+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-0762228cf69d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-7
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2e54a34f3467b3ea2e7358f77cf9fb3d44382ce4ca51e731a17f4a4f6a27fad6
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:13:02.210495+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -323,5 +345,10 @@ author: oompah
 created: 2026-07-23 20:21
 ---
 Scaffolded and verified the Elixir umbrella, pinned builder/toolchain, ERTS-inclusive node and coordinator releases, Make quality gates, smoke tests, and development docs; all gates pass on origin/EXOCOMP-7.
+---
+author: oompah
+created: 2026-07-31 04:13
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
