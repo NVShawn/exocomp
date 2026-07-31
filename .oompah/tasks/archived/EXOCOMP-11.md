@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-31T04:45:49.549338Z'
+updated_at: '2026-07-31T04:46:04.901023Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -25,13 +25,13 @@ merged_at: null
 oompah.agent_run_id: 7bcb788c-a65c-4d23-9455-8e38f27cd7de
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 71
-  total_output_tokens: 7251
+  total_input_tokens: 101
+  total_output_tokens: 8111
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 71
-      output_tokens: 7251
+      input_tokens: 101
+      output_tokens: 8111
       cost_usd: 0.0
   runs:
   - profile: default
@@ -46,6 +46,12 @@ oompah.task_costs:
     output_tokens: 1395
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:05:29.897633+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 30
+    output_tokens: 860
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T04:46:02.901308+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -301,5 +307,15 @@ Safe evidence:
 - artefact_files: apps/exocomp_node/lib/exocomp/node/{llama_server.ex, proposal_client.ex, proposal_schema.ex}; apps/exocomp_node/test/exocomp/node/{llama_server_test.exs, proposal_client_test.exs, proposal_schema_test.exs}; apps/exocomp_node/test/support/fake_llama_server.ex
 - originating_commits: 73d5b12 EXOCOMP-61, ee74746 EXOCOMP-62, 1d15f62 EXOCOMP-63
 - audit_reason: Aged Merged auto-archive (closed 7 days ago)
+---
+author: oompah
+created: 2026-07-31 04:46
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 16
+- Tokens: 30 in / 860 out [890 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 40s
+- Log: EXOCOMP-11__20260731T044427Z.jsonl
 ---
 <!-- COMMENTS:END -->
