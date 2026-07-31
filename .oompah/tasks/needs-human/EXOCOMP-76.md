@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-76
 type: feature
-status: In Validation
+status: Needs Human
 priority: 1
 title: Implement durable node-bound enrollment token service
 parent: EXOCOMP-16
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-31T21:14:37.060861Z'
+updated_at: '2026-07-31T21:14:40.794078Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -67,8 +67,9 @@ oompah.terminal_audit:
     status: Needs Human
     audit_ids:
     - audit-9dad9d69f697
-    applied: false
+    applied: true
     created_at: '2026-07-31T21:14:35.395189+00:00'
+    applied_at: '2026-07-31T21:14:40.188504+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -426,5 +427,12 @@ author: oompah
 created: 2026-07-31 21:13
 ---
 Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2. A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-07-31 21:14
+---
+Needs Human — Archived audit requires operator input.
+
+No independent auditor candidate is available for this audit (Audit reached the maximum of 3 attempts.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then move the task back to Open to retry.
 ---
 <!-- COMMENTS:END -->
