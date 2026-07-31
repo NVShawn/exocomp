@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-31T21:12:06.829675Z'
+updated_at: '2026-07-31T21:12:15.244421Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -52,7 +52,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-101
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -96,7 +96,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-7b725e0118d5
       target_state: Archived
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -107,13 +107,17 @@ oompah.terminal_audit:
       started_at: '2026-07-31T21:11:56.600104+00:00'
       branch_key: epic-EXOCOMP-2
       candidate_rotation_count: 2
+      failure_classification: infrastructure_error
+      ended_at: '2026-07-31T21:12:03.637310+00:00'
+      failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
+      next_retry_at: '2026-07-31T21:12:43.637277+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:04.297295+00:00'
-    updated_at: '2026-07-31T21:11:56.600104+00:00'
+    updated_at: '2026-07-31T21:12:03.637310+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-992c3fceac85
@@ -153,7 +157,7 @@ oompah.terminal_audit:
   - version: 1
     attempt_id: attempt-7b725e0118d5
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -164,6 +168,10 @@ oompah.terminal_audit:
     started_at: '2026-07-31T21:11:56.600104+00:00'
     branch_key: epic-EXOCOMP-2
     candidate_rotation_count: 2
+    failure_classification: infrastructure_error
+    ended_at: '2026-07-31T21:12:03.637310+00:00'
+    failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
+    next_retry_at: '2026-07-31T21:12:43.637277+00:00'
 ---
 ## Summary
 
