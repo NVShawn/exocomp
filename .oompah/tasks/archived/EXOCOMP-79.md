@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-79
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Bounded in-memory task registry GenServer
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-31T04:33:14.774140Z'
+updated_at: '2026-07-31T04:35:11.881523Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -38,6 +38,8 @@ oompah.task_costs:
     recorded_at: '2026-07-24T00:52:04.639873+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-28e20619070b: '2026-07-31T04:35:10.082082+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -45,7 +47,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-79
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -71,7 +73,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-28e20619070b
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -82,13 +84,16 @@ oompah.terminal_audit:
       started_at: '2026-07-31T04:33:09.780710+00:00'
       branch_key: epic-EXOCOMP-1
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-07-31T04:35:10.081920+00:00'
+      ended_at: '2026-07-31T04:35:10.081920+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:13:09.521233+00:00'
-    updated_at: '2026-07-31T04:33:09.780710+00:00'
+    updated_at: '2026-07-31T04:35:10.081920+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-23a62038aa2b
@@ -393,5 +398,21 @@ author: oompah
 created: 2026-07-31 04:33
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:35
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- implementation_file: apps/exocomp_node/lib/exocomp/node/task_registry.ex — present, full GenServer with all APIs
+- test_file: apps/exocomp_node/test/exocomp/node/task_registry_test.exs — 14 test cases covering all required scenarios
+- supervision_wiring: apps/exocomp_node/lib/exocomp/node/application.ex line 26: Exocomp.Node.TaskRegistry in children/0
+- application_test: apps/exocomp_node/test/exocomp/node/application_test.exs verifies is_pid(Process.whereis(Exocomp.Node.TaskRegistry))
+- crypto_declared: apps/exocomp_node/mix.exs line 23: extra_applications includes :crypto
+- integration: TaskRegistry consumed by apps/exocomp_node/lib/exocomp/node/a2a_router.ex and integration tests
+- previous_state: Merged — task passed code review and was merged to mainline
 ---
 <!-- COMMENTS:END -->
