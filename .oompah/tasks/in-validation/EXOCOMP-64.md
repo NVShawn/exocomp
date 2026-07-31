@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-64
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Write focused ExUnit tests for LlamaServer and ProposalClient
 parent: EXOCOMP-11
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-24T03:51:22.356208Z'
+updated_at: '2026-07-31T04:13:00.464312Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -55,6 +55,28 @@ oompah.task_costs:
     output_tokens: 6027
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:26:27.876340+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-c39f1f6fe23b
+    project_id: proj-c260b117
+    task_id: EXOCOMP-64
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d0d3f204b5b14ee5fb3de787ccef953e80d57d686f6890d0b9069e9ba5eba737
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:58.701694+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -348,5 +370,10 @@ Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 30m 36s
 - Log: EXOCOMP-64__20260723T215553Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:13
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
