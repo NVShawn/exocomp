@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-24T04:06:54.618510Z'
+updated_at: '2026-07-31T04:12:41.648557Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -71,6 +71,28 @@ oompah.task_costs:
     output_tokens: 36704
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:25:42.885900+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-0a9481180506
+    project_id: proj-c260b117
+    task_id: EXOCOMP-58
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a4bea3a9aeaa5ce03f041791b87fa523b03846767179e4bf015663a5b59cbfbb
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:39.201025+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -443,5 +465,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 12m 57s
 - Log: EXOCOMP-58__20260723T221247Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
