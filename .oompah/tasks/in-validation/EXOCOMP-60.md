@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-60
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement mTLS Bandit listener startup with fail-closed identity gate (Exocomp.Node.Listener)
 parent: EXOCOMP-9
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-24T04:06:57.262760Z'
+updated_at: '2026-07-31T04:12:45.217637Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 49038
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:45:35.569815+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-c91631cca1b1
+    project_id: proj-c260b117
+    task_id: EXOCOMP-60
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 6b076d1688dcc2c2cb67d078f71c71cd727ae870d8264d06e7895b0d498796f0
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:43.290123+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -288,5 +310,10 @@ Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 16m 50s
 - Log: EXOCOMP-60__20260723T222847Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
