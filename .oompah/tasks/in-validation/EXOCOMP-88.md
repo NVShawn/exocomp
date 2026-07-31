@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-24T19:30:51.815255Z'
+updated_at: '2026-07-31T19:41:18.260137Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 24618
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:18:18.604004+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-f774c48917fb
+    project_id: proj-c260b117
+    task_id: EXOCOMP-88
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T19:41:15.415296+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -287,5 +309,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 10m 6s
 - Log: EXOCOMP-88__20260724T030815Z.jsonl
+---
+author: oompah
+created: 2026-07-31 19:41
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
