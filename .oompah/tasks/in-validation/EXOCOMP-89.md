@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-89
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Verify node mTLS identity and safely adopt resolved addresses
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-24T19:30:54.449726Z'
+updated_at: '2026-07-31T19:41:23.099916Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 29379
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:31:51.293382+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-39a1ee39b785
+    project_id: proj-c260b117
+    task_id: EXOCOMP-89
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7fd8648fd2a3bb7deedcc4992c2cade4c73a78bad6666bdcb7f2c2aee34bc812
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T19:41:20.172206+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -164,5 +186,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 11m 53s
 - Log: EXOCOMP-89__20260724T032000Z.jsonl
+---
+author: oompah
+created: 2026-07-31 19:41
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
