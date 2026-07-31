@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-63
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement ProposalClient inference HTTP client
 parent: EXOCOMP-11
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-31T04:28:03.746352Z'
+updated_at: '2026-07-31T04:29:16.961295Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -45,6 +45,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:49:28.371560+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-56bc4c068a94: '2026-07-31T04:29:14.338408+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -52,7 +54,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-63
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -61,7 +63,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-56bc4c068a94
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -71,13 +73,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:27:58.940854+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:29:14.338256+00:00'
+      ended_at: '2026-07-31T04:29:14.338256+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:54.356604+00:00'
-    updated_at: '2026-07-31T04:27:58.940854+00:00'
+    updated_at: '2026-07-31T04:29:14.338256+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-56bc4c068a94
@@ -348,5 +353,22 @@ author: oompah
 created: 2026-07-31 04:28
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:29
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit_sha: 1d15f62
+- on_main: true
+- impl_path: apps/exocomp_node/lib/exocomp/node/proposal_client.ex
+- test_path: apps/exocomp_node/test/exocomp/node/proposal_client_test.exs
+- followups_touching_files: EXOCOMP-64 (5712349), EXOCOMP-114 (50cd48c), EXOCOMP-123 (b723eea)
+- previous_state: Merged
+- requested_target: Archived
+- aging_reason: closed 7 days ago (auto-archive queue)
 ---
 <!-- COMMENTS:END -->
