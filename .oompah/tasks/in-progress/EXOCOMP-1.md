@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: Needs Human
+status: In Progress
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-31T04:15:14.356989Z'
+updated_at: '2026-07-31T04:15:46.992882Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
