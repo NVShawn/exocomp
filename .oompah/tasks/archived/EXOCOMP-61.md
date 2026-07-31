@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-61
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Define versioned proposal schema module
 parent: EXOCOMP-11
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-31T04:24:53.179277Z'
+updated_at: '2026-07-31T04:26:08.466451Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -44,6 +44,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:21:31.533824+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-2d192d19e5fc: '2026-07-31T04:26:06.166052+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -51,7 +53,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-61
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -60,7 +62,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-2d192d19e5fc
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -70,13 +72,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:24:48.996558+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:26:06.165877+00:00'
+      ended_at: '2026-07-31T04:26:06.165877+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:46.939683+00:00'
-    updated_at: '2026-07-31T04:24:48.996558+00:00'
+    updated_at: '2026-07-31T04:26:06.165877+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-2d192d19e5fc
@@ -280,5 +285,22 @@ author: oompah
 created: 2026-07-31 04:24
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:26
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merged_commit: 73d5b12 EXOCOMP-61: Define versioned proposal schema module
+- commit_on_main: yes (git branch --contains 73d5b12 lists main)
+- module_path: apps/exocomp_node/lib/exocomp/node/proposal_schema.ex
+- tests_path: apps/exocomp_node/test/exocomp/node/proposal_schema_test.exs
+- test_count: 25 unit tests
+- post_merge_touches: 50cd48c (EXOCOMP-114) added SPDX headers only — no functional change
+- downstream_consumer_present: apps/exocomp_node/lib/exocomp/node/proposal_client.ex exists on branch
+- aged_merged_days: 7
 ---
 <!-- COMMENTS:END -->
