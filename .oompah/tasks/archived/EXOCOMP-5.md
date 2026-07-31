@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-5
 type: epic
-status: In Validation
+status: Archived
 priority: 1
 title: 'M5: Performance and resource analysis'
 parent: null
@@ -17,7 +17,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:11.554597Z'
-updated_at: '2026-07-31T00:09:54.466462Z'
+updated_at: '2026-07-31T00:11:42.178202Z'
 work_branch: epic-EXOCOMP-5
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/5
@@ -29,6 +29,8 @@ oompah.work_branch: epic-EXOCOMP-5
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-e21e51aa1975: '2026-07-31T00:11:40.565842+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -36,7 +38,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-5
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -45,7 +47,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-e21e51aa1975
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -55,13 +57,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T00:09:51.686153+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-07-31T00:11:40.565734+00:00'
+      ended_at: '2026-07-31T00:11:40.565734+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:44.179008+00:00'
-    updated_at: '2026-07-31T00:09:51.686153+00:00'
+    updated_at: '2026-07-31T00:11:40.565734+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-e21e51aa1975
@@ -123,5 +128,22 @@ author: oompah
 created: 2026-07-31 00:09
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 00:11
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 242ac6363291360969baeb18b73ff10713402e31
+- merge_pr: #5 (epic-EXOCOMP-5)
+- merge_date: 2026-07-23T18:06:27-05:00
+- worktree_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- origin_main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- children_states: EXOCOMP-35=Merged; EXOCOMP-36,37,38,39,40=Archived
+- m5_crit_status: All 8 M5-CRIT-* items checked in plans/milestone-5-performance.md with cited evidence paths
+- evidence_dir: docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/
 ---
 <!-- COMMENTS:END -->
