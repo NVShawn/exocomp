@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -13,7 +13,7 @@ labels:
 - focus-complete:refactor
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-24T03:56:20.259798Z'
+updated_at: '2026-07-31T04:13:19.157764Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -55,6 +55,28 @@ oompah.task_costs:
     output_tokens: 3297
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:29:04.149328+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3be539853be1
+    project_id: proj-c260b117
+    task_id: EXOCOMP-81
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c6a2fe22ce6efd894f34367ad9fb8159a47bd25ec8c2146bbccadb4e821b3888
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:13:16.965127+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -690,5 +712,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 20m 17s
 - Log: EXOCOMP-81__20260724T020850Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:13
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
