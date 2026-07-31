@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-31T04:26:08.466451Z'
+updated_at: '2026-07-31T04:26:23.953570Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 0d5b7da2-9c44-41bc-9460-a8acf7c1a393
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 67
-  total_output_tokens: 24504
+  total_input_tokens: 113
+  total_output_tokens: 25334
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 67
-      output_tokens: 24504
+      input_tokens: 113
+      output_tokens: 25334
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 18445
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:21:31.533824+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 46
+    output_tokens: 830
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T04:26:22.402580+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -302,5 +308,15 @@ Safe evidence:
 - post_merge_touches: 50cd48c (EXOCOMP-114) added SPDX headers only — no functional change
 - downstream_consumer_present: apps/exocomp_node/lib/exocomp/node/proposal_client.ex exists on branch
 - aged_merged_days: 7
+---
+author: oompah
+created: 2026-07-31 04:26
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 18
+- Tokens: 46 in / 830 out [876 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 33s
+- Log: EXOCOMP-61__20260731T042453Z.jsonl
 ---
 <!-- COMMENTS:END -->
