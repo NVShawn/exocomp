@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-11
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Supervise llama.cpp and validate structured proposals
 parent: EXOCOMP-1
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-31T04:44:26.149537Z'
+updated_at: '2026-07-31T04:45:49.549338Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -48,6 +48,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:05:29.897633+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-099308e9166e: '2026-07-31T04:45:47.205876+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -55,7 +57,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-11
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -64,7 +66,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-099308e9166e
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -74,13 +76,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:44:21.874863+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:45:47.205690+00:00'
+      ended_at: '2026-07-31T04:45:47.205690+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:22.553267+00:00'
-    updated_at: '2026-07-31T04:44:21.874863+00:00'
+    updated_at: '2026-07-31T04:45:47.205690+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-099308e9166e
@@ -281,5 +286,20 @@ author: oompah
 created: 2026-07-31 04:44
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:45
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- branch: epic-EXOCOMP-1--task-EXOCOMP-11
+- merge_commit: 0cff229 Merge epic-EXOCOMP-35 and epic-EXOCOMP-11: integrate bench harness and llama-server supervisor
+- child_states: EXOCOMP-61 Archived, EXOCOMP-62 Archived, EXOCOMP-63 Archived, EXOCOMP-64 Archived
+- artefact_files: apps/exocomp_node/lib/exocomp/node/{llama_server.ex, proposal_client.ex, proposal_schema.ex}; apps/exocomp_node/test/exocomp/node/{llama_server_test.exs, proposal_client_test.exs, proposal_schema_test.exs}; apps/exocomp_node/test/support/fake_llama_server.ex
+- originating_commits: 73d5b12 EXOCOMP-61, ee74746 EXOCOMP-62, 1d15f62 EXOCOMP-63
+- audit_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
