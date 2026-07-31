@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-15
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement DNS discovery and concurrent node polling
 parent: EXOCOMP-2
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-24T19:41:03.307480Z'
+updated_at: '2026-07-31T19:45:42.738981Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -54,6 +54,28 @@ oompah.task_costs:
     output_tokens: 1793
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:36:36.602541+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-2ffe9c3a9c7d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-15
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 9d5b323500fc111a5e58656a487744442f69ec2476df79ceb2d0c8da20de0c30
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T19:45:40.449641+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -227,5 +249,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 22s
 - Log: EXOCOMP-15__20260724T024053Z.jsonl
+---
+author: oompah
+created: 2026-07-31 19:45
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
