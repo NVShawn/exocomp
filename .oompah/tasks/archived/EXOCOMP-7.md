@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-7
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Scaffold the Elixir umbrella and quality gates
 parent: EXOCOMP-1
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-31T04:40:56.923682Z'
+updated_at: '2026-07-31T04:42:40.866750Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -61,6 +61,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T20:21:10.551490+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ad0abeb8b1a7: '2026-07-31T04:42:38.659332+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -68,7 +70,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-7
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -77,7 +79,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ad0abeb8b1a7
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -87,13 +89,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:40:51.853576+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:42:38.659152+00:00'
+      ended_at: '2026-07-31T04:42:38.659152+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:13:02.210495+00:00'
-    updated_at: '2026-07-31T04:40:51.853576+00:00'
+    updated_at: '2026-07-31T04:42:38.659152+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ad0abeb8b1a7
@@ -387,5 +392,19 @@ author: oompah
 created: 2026-07-31 04:40
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:42
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commits_present_in_main: dfa360c, 129427c both reported by git branch --contains including main
+- current_branch: epic-EXOCOMP-1--task-EXOCOMP-7
+- umbrella_apps_present: apps/exocomp_core, apps/exocomp_node, apps/exocomp_coordinator all list mix.exs plus lib/ and test/
+- merged_state_age: Queued 2026-07-31, task closed 2026-07-23 (>=7 days retention)
+- prior_verification: Comments 2026-07-23 20:20 confirmed make init/fmt/build/test/fmt-check/lint all pass and both releases start with bundled ERTS
 ---
 <!-- COMMENTS:END -->
