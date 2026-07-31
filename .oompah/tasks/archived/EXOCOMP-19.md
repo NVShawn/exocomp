@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-19
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-31T21:07:19.428160Z'
+updated_at: '2026-07-31T21:08:15.273552Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -52,6 +52,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T18:45:34.335248+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-b053aa40b3f2: '2026-07-31T21:08:12.944531+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-19
+    target_state: Archived
+    evidence_fingerprint: 7daa7d0db5cf5e4bd309d1c9017eca87f630e0f8e436474b8d507f722f20d68c
+    audit_ids:
+    - audit-8844d0738ff3
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T21:08:12.944542+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-19
+    audit_id: audit-8844d0738ff3
+    attempt_id: attempt-b053aa40b3f2
+    target_state: Archived
+    evidence_fingerprint: 7daa7d0db5cf5e4bd309d1c9017eca87f630e0f8e436474b8d507f722f20d68c
+    status: Archived
+    audit_ids:
+    - audit-8844d0738ff3
+    applied: false
+    created_at: '2026-07-31T21:08:12.944559+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -59,7 +83,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-19
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -68,7 +92,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b053aa40b3f2
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -78,13 +102,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T21:07:12.955117+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-07-31T21:08:12.944371+00:00'
+      ended_at: '2026-07-31T21:08:12.944371+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:38.188717+00:00'
-    updated_at: '2026-07-31T21:07:12.955117+00:00'
+    updated_at: '2026-07-31T21:08:12.944371+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-b053aa40b3f2
@@ -389,5 +416,21 @@ author: oompah
 created: 2026-07-31 21:07
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 21:08
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- main_merge_commit: 6deabae Merge pull request #9 from NVShawn/epic-EXOCOMP-2
+- impl_commit: a8f2e25 EXOCOMP-19: expose coordinator cluster A2A service
+- deps_commit: 332ffa8 EXOCOMP-19: add HTTP deps to coordinator mix.exs
+- branches_containing_impl: main, origin/main, epic-EXOCOMP-2, epic-EXOCOMP-11, epic-EXOCOMP-15, epic-EXOCOMP-35
+- worktree_status: clean; up to date with origin/epic-EXOCOMP-2
+- coordinator_lib_dir: a2a/, a2a_router.ex, handlers/, inventory_authorizer.ex, listener.ex, task_registry.ex, skills/, config.ex present
+- prior_test_evidence: 83/83 coordinator tests; 55 bench, 66 core, 201 node (10 privileged excluded) reported passing in prior comment
 ---
 <!-- COMMENTS:END -->
