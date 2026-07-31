@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-31T20:58:18.916599Z'
+updated_at: '2026-07-31T20:58:28.015898Z'
 work_branch: epic-EXOCOMP-2
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/9
@@ -139,6 +139,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-31T20:55:22.608032+00:00'
     branch_key: epic-EXOCOMP-2
+oompah.task_costs:
+  total_input_tokens: 40
+  total_output_tokens: 6545
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 40
+      output_tokens: 6545
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 40
+    output_tokens: 6545
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T20:58:26.813299+00:00'
 ---
 ## Summary
 
@@ -201,5 +217,15 @@ Safe evidence:
 - coordinator_app_present: apps/exocomp_coordinator/ with lib/ and test/
 - downstream_milestones_built_on_top: M4 EXOCOMP-117, M5 EXOCOMP-123/125/126 merged after this epic
 - auto_archive_reason: Aged Merged (closed 7 days ago)
+---
+author: oompah
+created: 2026-07-31 20:58
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 44, Tool calls: 34
+- Tokens: 40 in / 6.5K out [6.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 3s
+- Log: EXOCOMP-2__20260731T205525Z.jsonl
 ---
 <!-- COMMENTS:END -->
