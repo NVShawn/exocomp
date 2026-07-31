@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-76
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement durable node-bound enrollment token service
 parent: EXOCOMP-16
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-24T19:51:03.408732Z'
+updated_at: '2026-07-31T20:46:57.797846Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 74197
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:32:59.577474+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-9dad9d69f697
+    project_id: proj-c260b117
+    task_id: EXOCOMP-76
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 650b440de6b052185df372762282a4c5ecac099480cdb0d1d58d647edd634643
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:54.836489+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -199,5 +221,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 24m 33s
 - Log: EXOCOMP-76__20260724T010827Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
