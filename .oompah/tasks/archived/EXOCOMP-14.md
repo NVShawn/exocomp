@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-14
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Scaffold coordinator inventory, registry, and audit
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:28.257166Z'
-updated_at: '2026-07-31T19:44:49.208738Z'
+updated_at: '2026-07-31T19:47:44.144465Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -76,6 +76,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:26:29.908131+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-b0e7bf6cb910: '2026-07-31T19:47:42.023645+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-14
+    target_state: Archived
+    evidence_fingerprint: b2e212961bbac4dd799bb06ccc9e4040a27728e65810af444b8d825583862889
+    audit_ids:
+    - audit-8a2b388e45ee
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T19:47:42.023653+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-14
+    audit_id: audit-8a2b388e45ee
+    attempt_id: attempt-b0e7bf6cb910
+    target_state: Archived
+    evidence_fingerprint: b2e212961bbac4dd799bb06ccc9e4040a27728e65810af444b8d825583862889
+    status: Archived
+    audit_ids:
+    - audit-8a2b388e45ee
+    applied: false
+    created_at: '2026-07-31T19:47:42.023665+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -83,7 +107,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-14
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -92,7 +116,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b0e7bf6cb910
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -102,13 +126,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T19:44:42.753264+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-07-31T19:47:42.023514+00:00'
+      ended_at: '2026-07-31T19:47:42.023514+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T19:41:10.360360+00:00'
-    updated_at: '2026-07-31T19:44:42.753264+00:00'
+    updated_at: '2026-07-31T19:47:42.023514+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-b0e7bf6cb910
@@ -490,5 +517,22 @@ author: oompah
 created: 2026-07-31 19:44
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 19:47
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- impl_delivery_commit: 18c1acd (EXOCOMP-88 cherry-pick of EXOCOMP-14 foundation)
+- worktree_branch_head: 8f80aeb (aligned with main HEAD)
+- original_task_branch_head: 7ab7dc6 (EXOCOMP-14 branch, superseded by main-based delivery)
+- modules_verified_on_main: inventory.ex, registry.ex, audit.ex, audit/json_lines.ex, audit/sink.ex, health.ex, error.ex, inventory/node.ex
+- tests_present: inventory_test.exs, registry_test.exs, audit_test.exs, health_test.exs
+- downstream_dependents_merged: EXOCOMP-88, 89, 90, 91, 92, 99, 100, 101, 102, 103, 105, 107, 114, 119, 121, 123, 125, 126
+- previous_state: Merged
+- archive_trigger: aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
