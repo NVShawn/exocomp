@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-58
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement versioned JSON config loader (Exocomp.Node.Config)
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-31T04:20:30.831103Z'
+updated_at: '2026-07-31T04:21:37.996642Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -73,6 +73,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:25:42.885900+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-0737ff045d5d: '2026-07-31T04:21:35.812409+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -80,7 +82,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-58
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -89,7 +91,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-0737ff045d5d
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -99,13 +101,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:20:25.692347+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:21:35.812192+00:00'
+      ended_at: '2026-07-31T04:21:35.812192+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:39.201025+00:00'
-    updated_at: '2026-07-31T04:20:25.692347+00:00'
+    updated_at: '2026-07-31T04:21:35.812192+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-0737ff045d5d
@@ -507,5 +512,24 @@ author: oompah
 created: 2026-07-31 04:20
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:21
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 186a4ad
+- merge_commit_title: EXOCOMP-58: implement Exocomp.Node.Config versioned JSON config loader
+- config_module_path: apps/exocomp_node/lib/exocomp/node/config.ex
+- redact_module_path: apps/exocomp_node/lib/exocomp/node/redact.ex
+- test_module_path: apps/exocomp_node/test/exocomp/node/config_test.exs
+- jason_dep: mix.exs line 34: {:jason, "~> 1.4"}
+- on_origin_main: yes (git branch --contains 186a4ad -r includes origin/main)
+- required_test_cases_present: enoent, json_parse, unsupported_version, missing_fields, valid load, EXOCOMP_NODE_ID override, key_path redaction — all present
+- previous_state: Merged
+- reason_for_archive: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
