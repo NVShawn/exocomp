@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-48
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Define A2A 1.0 protocol type structs and task-state enum
 parent: EXOCOMP-8
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:35:55.059812Z'
-updated_at: '2026-07-24T04:01:21.319625Z'
+updated_at: '2026-07-31T04:12:37.211146Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -47,6 +47,28 @@ oompah.task_costs:
     output_tokens: 37597
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:14:38.633115+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3f0cb0e79439
+    project_id: proj-c260b117
+    task_id: EXOCOMP-48
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0dc3bb85f98d60b6d5153e0e5f616fe0e7bbefbe663897dfaf0b91ea139311b2
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:34.895577+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -224,5 +246,10 @@ Run #3 [attempt=3, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 20m 48s
 - Log: EXOCOMP-48__20260723T205748Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
