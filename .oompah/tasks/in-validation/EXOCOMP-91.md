@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-91
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Run bounded concurrent node polls with per-node isolation
 parent: EXOCOMP-15
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-07-24T19:36:06.627936Z'
+updated_at: '2026-07-31T19:41:31.526264Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -37,6 +37,28 @@ oompah.task_costs:
     output_tokens: 4937
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:53:03.532221+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-cad7fc36c148
+    project_id: proj-c260b117
+    task_id: EXOCOMP-91
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: bd73d8cefece89ad5eac31b67586c8a4aee67ebff294afdf373849d48f51f499
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T19:41:28.835026+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -174,5 +196,10 @@ author: oompah
 created: 2026-07-24 04:01
 ---
 Implemented supervised bounded concurrent health polling with per-node timeout/crash isolation, in-flight deduplication, atomic Registry observations, restart recovery, application wiring, and focused tests; pushed c88cf3e.
+---
+author: oompah
+created: 2026-07-31 19:41
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
