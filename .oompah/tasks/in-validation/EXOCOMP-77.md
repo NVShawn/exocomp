@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: Merged
+status: In Validation
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-07-24T19:56:18.946248Z'
+updated_at: '2026-07-31T20:47:01.833390Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -57,6 +57,28 @@ oompah.task_costs:
     output_tokens: 65455
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:28:23.263853+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-1cb162523072
+    project_id: proj-c260b117
+    task_id: EXOCOMP-77
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ec43c3a85218b323be7e9b2609255990d2c4a210af984e6ac5f487e4daffda0b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:59.688080+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -481,5 +503,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 24m 32s
 - Log: EXOCOMP-77__20260724T020353Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:47
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
