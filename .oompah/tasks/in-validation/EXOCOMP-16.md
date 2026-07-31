@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-16
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement coordinator CA initialization and enrollment tokens
 parent: EXOCOMP-2
@@ -17,7 +17,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-24T19:56:18.069119Z'
+updated_at: '2026-07-31T20:46:28.321386Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -53,6 +53,28 @@ oompah.task_costs:
     output_tokens: 3431
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:58:01.883876+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-7fa4e9378256
+    project_id: proj-c260b117
+    task_id: EXOCOMP-16
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 10ffd57f39c0d02d6ad605050caba192ef5654f3626f8688d56625c86416638b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:25.720827+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -268,5 +290,10 @@ Run #2 [attempt=2, profile=deep, role=deep -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 18s
 - Log: EXOCOMP-16__20260723T225820Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
