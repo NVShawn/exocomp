@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-52
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement versioned benchmark configuration schema and validation
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-31T00:03:52.086479Z'
+updated_at: '2026-07-31T00:04:55.216197Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -43,6 +43,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:22:24.001713+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-00518b2557b9: '2026-07-31T00:04:53.447020+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -50,7 +52,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-52
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -59,7 +61,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-00518b2557b9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -69,13 +71,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T00:03:48.348024+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-07-31T00:04:53.446861+00:00'
+      ended_at: '2026-07-31T00:04:53.446861+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:51.603099+00:00'
-    updated_at: '2026-07-31T00:03:48.348024+00:00'
+    updated_at: '2026-07-31T00:04:53.446861+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-00518b2557b9
@@ -248,5 +253,19 @@ author: oompah
 created: 2026-07-31 00:03
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 00:04
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit_on_main: 33f6cfb EXOCOMP-52: implement Bench.Config versioned schema and validation
+- config_module_path: apps/bench/lib/bench/config.ex (213 lines)
+- test_module_path: apps/bench/test/bench/config_test.exs (93 lines)
+- required_scenarios_covered: valid parse, unknown fields, missing fields, incompatible_version, negative numeric — all present in config_test.exs
+- previous_state: Merged (7-day auto-archive)
 ---
 <!-- COMMENTS:END -->
