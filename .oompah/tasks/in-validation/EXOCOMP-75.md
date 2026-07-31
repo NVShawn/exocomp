@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-31T21:11:09.179459Z'
+updated_at: '2026-07-31T21:11:44.537360Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -45,7 +45,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-75
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -86,13 +86,27 @@ oompah.terminal_audit:
       ended_at: '2026-07-31T21:11:07.736884+00:00'
       failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
       next_retry_at: '2026-07-31T21:11:27.736860+00:00'
+    - version: 1
+      attempt_id: attempt-accbb1439ea1
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
+      created_at: '2026-07-31T21:11:43.825361+00:00'
+      provider_id: prov-651d553c
+      model: haiku
+      started_at: '2026-07-31T21:11:43.825361+00:00'
+      branch_key: epic-EXOCOMP-2
+      candidate_rotation_count: 2
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:51.226099+00:00'
-    updated_at: '2026-07-31T21:11:07.736884+00:00'
+    updated_at: '2026-07-31T21:11:43.825361+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-2313c5c61c6a
@@ -129,6 +143,20 @@ oompah.terminal_audit:
     ended_at: '2026-07-31T21:11:07.736884+00:00'
     failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
     next_retry_at: '2026-07-31T21:11:27.736860+00:00'
+  - version: 1
+    attempt_id: attempt-accbb1439ea1
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
+    created_at: '2026-07-31T21:11:43.825361+00:00'
+    provider_id: prov-651d553c
+    model: haiku
+    started_at: '2026-07-31T21:11:43.825361+00:00'
+    branch_key: epic-EXOCOMP-2
+    candidate_rotation_count: 2
 ---
 ## Summary
 
