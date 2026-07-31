@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-81
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Wire A2A message endpoints to TaskRegistry and skill dispatch
 parent: EXOCOMP-12
@@ -13,7 +13,7 @@ labels:
 - focus-complete:refactor
 assignee: null
 created_at: '2026-07-23T23:05:17.322742Z'
-updated_at: '2026-07-31T04:36:54.281268Z'
+updated_at: '2026-07-31T04:38:23.919156Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -57,6 +57,8 @@ oompah.task_costs:
     recorded_at: '2026-07-24T02:29:04.149328+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-eec9ebd8f6e9: '2026-07-31T04:38:21.689231+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -64,7 +66,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-81
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -73,7 +75,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-eec9ebd8f6e9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -83,13 +85,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:36:50.168397+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:38:21.689076+00:00'
+      ended_at: '2026-07-31T04:38:21.689076+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:13:16.965127+00:00'
-    updated_at: '2026-07-31T04:36:50.168397+00:00'
+    updated_at: '2026-07-31T04:38:21.689076+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-eec9ebd8f6e9
@@ -754,5 +759,20 @@ author: oompah
 created: 2026-07-31 04:36
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:38
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 98ff14c
+- branch_containing_main: main and origin/main both contain 98ff14c
+- files_present: a2a_router.ex, a2a/codec.ex, task_registry.ex, skills/dispatcher.ex, a2a_router_test.exs all exist
+- commit_stat: 5 files changed, 744 insertions(+), 18 deletions(-)
+- previous_state: Merged
+- archive_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
