@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-15
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement DNS discovery and concurrent node polling
 parent: EXOCOMP-2
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-31T19:48:08.762268Z'
+updated_at: '2026-07-31T19:53:26.667157Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -56,6 +56,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T02:36:36.602541+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-f00827cac656: '2026-07-31T19:53:24.452487+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-15
+    target_state: Archived
+    evidence_fingerprint: 9d5b323500fc111a5e58656a487744442f69ec2476df79ceb2d0c8da20de0c30
+    audit_ids:
+    - audit-2ffe9c3a9c7d
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T19:53:24.452496+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-15
+    audit_id: audit-2ffe9c3a9c7d
+    attempt_id: attempt-f00827cac656
+    target_state: Archived
+    evidence_fingerprint: 9d5b323500fc111a5e58656a487744442f69ec2476df79ceb2d0c8da20de0c30
+    status: Archived
+    audit_ids:
+    - audit-2ffe9c3a9c7d
+    applied: false
+    created_at: '2026-07-31T19:53:24.452507+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -63,7 +87,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-15
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -72,7 +96,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-f00827cac656
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -82,13 +106,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T19:48:02.873910+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-07-31T19:53:24.452289+00:00'
+      ended_at: '2026-07-31T19:53:24.452289+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T19:45:40.449641+00:00'
-    updated_at: '2026-07-31T19:48:02.873910+00:00'
+    updated_at: '2026-07-31T19:53:24.452289+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f00827cac656
@@ -291,5 +318,27 @@ author: oompah
 created: 2026-07-31 19:48
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 19:53
+---
+Audit PASS — Archived
+
+EXOCOMP-15 was decomposed into 5 children (EXOCOMP-88..EXOCOMP-92) and all five child commits are present on origin/main, delivered through the epic-EXOCOMP-2 merge (PR #9, commit 6deabae). Aged Merged auto-archive is safe.
+
+Safe evidence:
+- child_EXOCOMP-88_commit: 18c1acd EXOCOMP-88: implement DNS resolver for inventory hostname candidates
+- child_EXOCOMP-89_commit: aa0c08a EXOCOMP-89: implement NodeProber with mTLS identity verification and tests
+- child_EXOCOMP-90_commit: cfec4d2 EXOCOMP-90: implement poll scheduling and state transitions
+- child_EXOCOMP-91_commit: c88cf3e EXOCOMP-91: add isolated concurrent health polling
+- child_EXOCOMP-92_commit: 9e9462b EXOCOMP-92: add multi-node discovery and polling integration test suite
+- epic_merge_pr: 6deabae Merge pull request #9 from NVShawn/epic-EXOCOMP-2
+- resolver_lib_path: apps/exocomp_coordinator/lib/exocomp/coordinator/resolver.ex
+- node_prober_lib_path: apps/exocomp_coordinator/lib/exocomp/coordinator/node_prober.ex
+- health_poller_lib_path: apps/exocomp_coordinator/lib/exocomp/coordinator/health_poller.ex
+- integration_test_path: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs
+- integration_test_case_count: 17 tests including 'three healthy nodes' concurrency, per-node timeout isolation, DNS address change requiring mTLS, exponential backoff, and recovery
+- acceptance_criteria_coverage: AC1 (>=3 nodes concurrent): test at line 204 + concurrency cap test at line 686; AC2 (slow node isolation): test at line 316; AC3 (address change requires DNS+mTLS): tests at lines 595, 644; AC4 (registry states/timestamps): tests at lines 204, 908, 988; AC5 (focused tests present): 17 integration tests + resolver_test + node_prober_test + health_poller_test
+- audit_scope: read-only inspection; no repository or tracker mutations performed
 ---
 <!-- COMMENTS:END -->
