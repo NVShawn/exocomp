@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: In Validation
+status: Needs Human
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-07-31T19:54:59.026283Z'
+updated_at: '2026-07-31T19:56:01.746545Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -50,6 +50,31 @@ oompah.task_costs:
     recorded_at: '2026-07-24T03:18:18.604004+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    no-auditor-audit-f774c48917fb-3: '2026-07-31T19:55:59.217137+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-88
+    target_state: Archived
+    evidence_fingerprint: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+    audit_ids:
+    - audit-f774c48917fb
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T19:55:59.217146+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-88
+    audit_id: audit-f774c48917fb
+    attempt_id: no-auditor-audit-f774c48917fb-3
+    target_state: Archived
+    evidence_fingerprint: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+    status: Needs Human
+    audit_ids:
+    - audit-f774c48917fb
+    applied: true
+    created_at: '2026-07-31T19:55:59.217159+00:00'
+    applied_at: '2026-07-31T19:56:01.135598+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +82,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-88
     target_state: Archived
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -116,13 +141,25 @@ oompah.terminal_audit:
       ended_at: '2026-07-31T19:54:57.713138+00:00'
       failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
       next_retry_at: '2026-07-31T19:55:37.713115+00:00'
+    - version: 1
+      attempt_id: no-auditor-audit-f774c48917fb-3
+      target_state: Archived
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+      verdict: fail
+      failure_classification: no_auditor
+      created_at: '2026-07-31T19:55:59.217041+00:00'
+      completed_at: '2026-07-31T19:55:59.217041+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T19:41:15.415296+00:00'
-    updated_at: '2026-07-31T19:54:57.713138+00:00'
+    updated_at: '2026-07-31T19:55:59.217041+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a299ab532604
@@ -478,5 +515,12 @@ author: oompah
 created: 2026-07-31 19:54
 ---
 Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2. A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-07-31 19:56
+---
+Needs Human — Archived audit requires operator input.
+
+No independent auditor candidate is available for this audit (Audit reached the maximum of 3 attempts.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then move the task back to Open to retry.
 ---
 <!-- COMMENTS:END -->
