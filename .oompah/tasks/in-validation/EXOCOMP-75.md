@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-75
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement secure coordinator PKI bootstrap and state validation
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-24T19:46:33.374161Z'
+updated_at: '2026-07-31T20:46:53.096167Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -36,6 +36,28 @@ oompah.task_costs:
     output_tokens: 4017
     cost_usd: 0.0
     recorded_at: '2026-07-24T00:52:39.021232+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-09b89e576d5e
+    project_id: proj-c260b117
+    task_id: EXOCOMP-75
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:51.226099+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -189,5 +211,10 @@ author: oompah
 created: 2026-07-24 01:05
 ---
 Implemented secure coordinator PKI bootstrap, atomic protected storage, comprehensive existing-state validation, and focused tests; pushed commit 7ceead4.
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
