@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-20
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Verify the M2 coordinator milestone
 parent: EXOCOMP-2
@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-24T20:30:59.760538Z'
+updated_at: '2026-07-31T20:46:48.469889Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,6 +47,28 @@ oompah.task_costs:
     output_tokens: 88984
     cost_usd: 0.0
     recorded_at: '2026-07-24T19:28:39.929032+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-597c45b757fa
+    project_id: proj-c260b117
+    task_id: EXOCOMP-20
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: fa5157de714b399e6412b235fc85ceb9ad475516738dfaf1ab437ffd1b62cfe1
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:46.217614+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -315,5 +337,10 @@ author: oompah
 created: 2026-07-24 19:29
 ---
 All 18 M2 acceptance tests pass (M2-CRIT-1 through M2-CRIT-8). Quality gates: make test (743 passed, 0 failed), make lint, make fmt-check, make build all pass. Three integration commits on epic-EXOCOMP-2 merged orchestration modules (epic-EXOCOMP-18), PKI/enrollment modules (EXOCOMP-87), and added the 751-line acceptance test suite. EXOCOMP-107 filed for missing node-side enrollment client/installer/renewal (EXOCOMP-17 gap).
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
