@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-12
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Expose diagnostic-only node A2A service
 parent: EXOCOMP-1
@@ -19,7 +19,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-31T04:46:10.296804Z'
+updated_at: '2026-07-31T04:48:38.902166Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -57,6 +57,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T23:05:46.778020+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-640f8dd654c0: '2026-07-31T04:48:36.302922+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -64,7 +66,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-12
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -73,7 +75,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-640f8dd654c0
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -83,13 +85,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:46:05.169542+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:48:36.302732+00:00'
+      ended_at: '2026-07-31T04:48:36.302732+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:26.956602+00:00'
-    updated_at: '2026-07-31T04:46:05.169542+00:00'
+    updated_at: '2026-07-31T04:48:36.302732+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-640f8dd654c0
@@ -287,5 +292,20 @@ author: oompah
 created: 2026-07-31 04:46
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:48
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- main_merge_commit: 7e04074 Merge pull request #8 from NVShawn/epic-EXOCOMP-1
+- child_task_states: EXOCOMP-78 Archived; EXOCOMP-79 Archived; EXOCOMP-80 Archived; EXOCOMP-81 Archived
+- merged_child_commits: 137e7e1 EXOCOMP-78 (A2A router), 94dfe96 EXOCOMP-79 (TaskRegistry), 92e9bd3 EXOCOMP-80 (skill handlers), 98ff14c EXOCOMP-81 (endpoint wiring)
+- router_file: apps/exocomp_node/lib/exocomp/node/a2a_router.ex present on origin/main; enforces @max_body_length 1_048_576, authenticate_mtls plug before body parser, UnsupportedOperationError for /message/stream and /tasks/:id/resubscribe
+- agent_card_skills: system.diagnose, service.diagnose, remediation.propose (plus later service.recover from EXOCOMP-126); default AgentCapabilities struct (no execution capability advertised)
+- test_coverage: apps/exocomp_node/test/exocomp/node/a2a_router_test.exs, task_registry_test.exs, skills/ suite all merged to main
 ---
 <!-- COMMENTS:END -->
