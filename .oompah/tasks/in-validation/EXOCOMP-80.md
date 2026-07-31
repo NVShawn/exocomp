@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-80
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: 'Skill handler implementations: system.diagnose, service.diagnose, remediation.propose'
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-24T03:56:17.492697Z'
+updated_at: '2026-07-31T04:13:15.203970Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 32723
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:53:06.739784+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-aae550d0a255
+    project_id: proj-c260b117
+    task_id: EXOCOMP-80
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b1ecfa054f2a117ea27e46c3875fcb7b1d2fedd2e21e28d6409986d1cb527972
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:13:13.222063+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -315,5 +337,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 16m 15s
 - Log: EXOCOMP-80__20260724T013655Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:13
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
