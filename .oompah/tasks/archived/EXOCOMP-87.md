@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-87
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement coordinator CSR validation and node leaf cert issuance
 parent: EXOCOMP-17
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-31T20:52:18.916398Z'
+updated_at: '2026-07-31T20:55:02.614127Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -37,6 +37,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T02:52:14.764466+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-7184d467bd22: '2026-07-31T20:55:00.733707+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-87
+    target_state: Archived
+    evidence_fingerprint: c37ccd42ed177ec0831fcd7b8144165caf624e7ef60139b9864bc0a160be2ec3
+    audit_ids:
+    - audit-b29ab969d1b3
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T20:55:00.733718+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-87
+    audit_id: audit-b29ab969d1b3
+    attempt_id: attempt-7184d467bd22
+    target_state: Archived
+    evidence_fingerprint: c37ccd42ed177ec0831fcd7b8144165caf624e7ef60139b9864bc0a160be2ec3
+    status: Archived
+    audit_ids:
+    - audit-b29ab969d1b3
+    applied: false
+    created_at: '2026-07-31T20:55:00.733736+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -44,7 +68,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-87
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -70,7 +94,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-7184d467bd22
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -81,13 +105,16 @@ oompah.terminal_audit:
       started_at: '2026-07-31T20:52:14.450714+00:00'
       branch_key: epic-EXOCOMP-2
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-07-31T20:55:00.733547+00:00'
+      ended_at: '2026-07-31T20:55:00.733547+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:47:03.516176+00:00'
-    updated_at: '2026-07-31T20:52:14.450714+00:00'
+    updated_at: '2026-07-31T20:55:00.733547+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-da5b079498d7
@@ -337,5 +364,23 @@ author: oompah
 created: 2026-07-31 20:52
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 20:55
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- issuer_ex_path: apps/exocomp_coordinator/lib/exocomp/coordinator/pki/issuer.ex
+- issuer_test_path: apps/exocomp_coordinator/test/exocomp/coordinator/pki/issuer_test.exs
+- merge_commit: af0065d78adc1c93d8dbf2ff83976275cd3fa06c
+- merge_commit_message: EXOCOMP-20: integrate PKI and enrollment modules from EXOCOMP-87/epic-EXOCOMP-16
+- merge_commit_date: 2026-07-24
+- issuer_ex_lines: 276
+- issuer_test_lines: 344
+- test_count: 15
+- previous_state: Merged
 ---
 <!-- COMMENTS:END -->
