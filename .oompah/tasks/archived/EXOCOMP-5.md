@@ -17,7 +17,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:11.554597Z'
-updated_at: '2026-07-31T00:11:42.178202Z'
+updated_at: '2026-07-31T00:11:49.975183Z'
 work_branch: epic-EXOCOMP-5
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/5
@@ -81,6 +81,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-31T00:09:51.686153+00:00'
     branch_key: epic-EXOCOMP-5
+oompah.task_costs:
+  total_input_tokens: 34
+  total_output_tokens: 5514
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 34
+      output_tokens: 5514
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 34
+    output_tokens: 5514
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T00:11:48.644034+00:00'
 ---
 ## Summary
 
@@ -145,5 +161,15 @@ Safe evidence:
 - children_states: EXOCOMP-35=Merged; EXOCOMP-36,37,38,39,40=Archived
 - m5_crit_status: All 8 M5-CRIT-* items checked in plans/milestone-5-performance.md with cited evidence paths
 - evidence_dir: docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/
+---
+author: oompah
+created: 2026-07-31 00:11
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 36, Tool calls: 28
+- Tokens: 34 in / 5.5K out [5.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 56s
+- Log: EXOCOMP-5__20260731T000954Z.jsonl
 ---
 <!-- COMMENTS:END -->
