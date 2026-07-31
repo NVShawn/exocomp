@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-78
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: A2A router scaffold, Agent Card endpoint, and mTLS enforcement
 parent: EXOCOMP-12
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-24T03:53:23.562792Z'
+updated_at: '2026-07-31T04:13:07.703706Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -35,6 +35,28 @@ oompah.task_costs:
     output_tokens: 6333
     cost_usd: 0.0
     recorded_at: '2026-07-24T00:54:38.891171+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-d5ee94ad177b
+    project_id: proj-c260b117
+    task_id: EXOCOMP-78
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 04766053915c0512cb61d32588fea39209ee61a1d48194c84c7a298118aa3516
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:13:05.726343+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -252,5 +274,10 @@ author: oompah
 created: 2026-07-24 01:14
 ---
 Implemented and pushed the authenticated A2A 1.0 router scaffold, Agent Card endpoint, one-MiB JSON limit, unsupported/catch-all errors, Listener wiring, and six focused tests. Node suite and quality checks pass.
+---
+author: oompah
+created: 2026-07-31 04:13
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
