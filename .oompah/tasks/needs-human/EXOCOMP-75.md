@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-75
 type: feature
-status: In Validation
+status: Needs Human
 priority: 1
 title: Implement secure coordinator PKI bootstrap and state validation
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-07-31T21:12:45.788310Z'
+updated_at: '2026-07-31T21:12:50.287452Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -60,8 +60,9 @@ oompah.terminal_audit:
     status: Needs Human
     audit_ids:
     - audit-09b89e576d5e
-    applied: false
+    applied: true
     created_at: '2026-07-31T21:12:45.248988+00:00'
+    applied_at: '2026-07-31T21:12:49.744607+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -416,5 +417,12 @@ author: oompah
 created: 2026-07-31 21:11
 ---
 Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2. A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-07-31 21:12
+---
+Needs Human — Archived audit requires operator input.
+
+No independent auditor candidate is available for this audit (Audit reached the maximum of 3 attempts.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then move the task back to Open to retry.
 ---
 <!-- COMMENTS:END -->
