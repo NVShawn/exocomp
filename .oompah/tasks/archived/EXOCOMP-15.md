@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:29.099203Z'
-updated_at: '2026-07-31T19:53:29.361159Z'
+updated_at: '2026-07-31T19:53:48.899492Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -27,13 +27,13 @@ merged_at: null
 oompah.agent_run_id: 16f41088-7488-4fad-9ba8-b29ab784d7f5
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 753297
-  total_output_tokens: 5501
+  total_input_tokens: 753367
+  total_output_tokens: 8210
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 753297
-      output_tokens: 5501
+      input_tokens: 753367
+      output_tokens: 8210
       cost_usd: 0.0
   runs:
   - profile: default
@@ -54,6 +54,12 @@ oompah.task_costs:
     output_tokens: 1793
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:36:36.602541+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 70
+    output_tokens: 2709
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T19:53:47.322720+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -341,5 +347,15 @@ Safe evidence:
 - integration_test_case_count: 17 tests including 'three healthy nodes' concurrency, per-node timeout isolation, DNS address change requiring mTLS, exponential backoff, and recovery
 - acceptance_criteria_coverage: AC1 (>=3 nodes concurrent): test at line 204 + concurrency cap test at line 686; AC2 (slow node isolation): test at line 316; AC3 (address change requires DNS+mTLS): tests at lines 595, 644; AC4 (registry states/timestamps): tests at lines 204, 908, 988; AC5 (focused tests present): 17 integration tests + resolver_test + node_prober_test + health_poller_test
 - audit_scope: read-only inspection; no repository or tracker mutations performed
+---
+author: oompah
+created: 2026-07-31 19:53
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 50
+- Tokens: 70 in / 2.7K out [2.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 5m 44s
+- Log: EXOCOMP-15__20260731T194809Z.jsonl
 ---
 <!-- COMMENTS:END -->
