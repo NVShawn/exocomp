@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:52.964005Z'
-updated_at: '2026-07-31T04:42:40.866750Z'
+updated_at: '2026-07-31T04:42:55.381311Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: bb0865f9-966d-40be-8842-77a711fbe012
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 14946807
-  total_output_tokens: 86455
+  total_input_tokens: 14946846
+  total_output_tokens: 87678
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 14946807
-      output_tokens: 86455
+      input_tokens: 14946846
+      output_tokens: 87678
       cost_usd: 0.0
   runs:
   - profile: default
@@ -59,6 +59,12 @@ oompah.task_costs:
     output_tokens: 588
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:21:10.551490+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 39
+    output_tokens: 1223
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T04:42:53.989993+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -406,5 +412,15 @@ Safe evidence:
 - umbrella_apps_present: apps/exocomp_core, apps/exocomp_node, apps/exocomp_coordinator all list mix.exs plus lib/ and test/
 - merged_state_age: Queued 2026-07-31, task closed 2026-07-23 (>=7 days retention)
 - prior_verification: Comments 2026-07-23 20:20 confirmed make init/fmt/build/test/fmt-check/lint all pass and both releases start with bundled ERTS
+---
+author: oompah
+created: 2026-07-31 04:42
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 23
+- Tokens: 39 in / 1.2K out [1.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 1s
+- Log: EXOCOMP-7__20260731T044057Z.jsonl
 ---
 <!-- COMMENTS:END -->
