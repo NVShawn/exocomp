@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-31T21:01:04.986816Z'
+updated_at: '2026-07-31T21:01:21.041565Z'
 work_branch: epic-EXOCOMP-2
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/9
@@ -152,18 +152,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-2
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-398093e5bff1
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
+      created_at: '2026-07-31T21:01:18.184722+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-07-31T21:01:18.184722+00:00'
+      branch_key: epic-EXOCOMP-2
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-07-31T20:57:03.647172+00:00'
+    updated_at: '2026-07-31T21:01:18.184722+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-7ed3dd34d77a
@@ -191,14 +205,27 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-31T20:59:05.385458+00:00'
     branch_key: epic-EXOCOMP-2
+  - version: 1
+    attempt_id: attempt-398093e5bff1
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
+    created_at: '2026-07-31T21:01:18.184722+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-07-31T21:01:18.184722+00:00'
+    branch_key: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 40
-  total_output_tokens: 6545
+  total_input_tokens: 63
+  total_output_tokens: 10722
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 40
-      output_tokens: 6545
+      input_tokens: 63
+      output_tokens: 10722
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -207,6 +234,12 @@ oompah.task_costs:
     output_tokens: 6545
     cost_usd: 0.0
     recorded_at: '2026-07-31T20:58:26.813299+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 23
+    output_tokens: 4177
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T21:01:14.789005+00:00'
 ---
 ## Summary
 
@@ -307,5 +340,25 @@ Safe evidence:
 - prior_archived_audit: PASS recorded by prior auditor for Archived target with same merge commit
 - previous_state: In Validation
 - target_state: Done
+---
+author: oompah
+created: 2026-07-31 21:01
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 22, Tool calls: 17
+- Tokens: 23 in / 4.2K out [4.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 9s
+- Log: EXOCOMP-2__20260731T205909Z.jsonl
+---
+author: oompah
+created: 2026-07-31 21:01
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-07-31 21:01
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
