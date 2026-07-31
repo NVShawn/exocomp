@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-9
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement node configuration, identity, and mTLS startup
 parent: EXOCOMP-1
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:54.530229Z'
-updated_at: '2026-07-31T04:15:46.204103Z'
+updated_at: '2026-07-31T04:17:41.027053Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -54,6 +54,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T20:41:26.697012+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-f74b04d41e09: '2026-07-31T04:17:39.151824+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -61,7 +63,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-9
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -70,7 +72,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-f74b04d41e09
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -80,13 +82,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:15:38.142339+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:17:39.151639+00:00'
+      ended_at: '2026-07-31T04:17:39.151639+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:13:20.936909+00:00'
-    updated_at: '2026-07-31T04:15:38.142339+00:00'
+    updated_at: '2026-07-31T04:17:39.151639+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f74b04d41e09
@@ -274,5 +279,22 @@ author: oompah
 created: 2026-07-31 04:15
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:17
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- decomposition_commits: 186a4ad EXOCOMP-58 config loader; 44f1fc1 EXOCOMP-60 mTLS Bandit listener; 2fe7309 EXOCOMP-57 fixture certs; abbf87e/090295b EXOCOMP-13 M1 acceptance
+- config_module: apps/exocomp_node/lib/exocomp/node/config.ex present on main
+- identity_module: apps/exocomp_node/lib/exocomp/node/identity.ex present on main
+- listener_module: apps/exocomp_node/lib/exocomp/node/listener.ex present on main
+- redact_module: apps/exocomp_node/lib/exocomp/node/redact.ex present on main
+- focused_tests: config_test.exs, identity_test.exs, listener_test.exs plus fixture JSON files present under apps/exocomp_node/test
+- acceptance_test: apps/exocomp_node/test/integration/m1_acceptance_test.exs present on main
+- previous_state: Merged (7+ days aged)
 ---
 <!-- COMMENTS:END -->
