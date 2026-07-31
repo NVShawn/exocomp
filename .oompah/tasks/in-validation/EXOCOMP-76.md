@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-31T21:13:46.059189Z'
+updated_at: '2026-07-31T21:13:52.890605Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -52,7 +52,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-76
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -96,7 +96,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d2501e4ec42b
       target_state: Archived
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -107,13 +107,17 @@ oompah.terminal_audit:
       started_at: '2026-07-31T21:13:44.619382+00:00'
       branch_key: epic-EXOCOMP-2
       candidate_rotation_count: 2
+      failure_classification: infrastructure_error
+      ended_at: '2026-07-31T21:13:51.175051+00:00'
+      failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
+      next_retry_at: '2026-07-31T21:14:31.175025+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:54.836489+00:00'
-    updated_at: '2026-07-31T21:13:44.619382+00:00'
+    updated_at: '2026-07-31T21:13:51.175051+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6922b53464c6
@@ -153,7 +157,7 @@ oompah.terminal_audit:
   - version: 1
     attempt_id: attempt-d2501e4ec42b
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -164,6 +168,10 @@ oompah.terminal_audit:
     started_at: '2026-07-31T21:13:44.619382+00:00'
     branch_key: epic-EXOCOMP-2
     candidate_rotation_count: 2
+    failure_classification: infrastructure_error
+    ended_at: '2026-07-31T21:13:51.175051+00:00'
+    failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
+    next_retry_at: '2026-07-31T21:14:31.175025+00:00'
 ---
 ## Summary
 
@@ -368,5 +376,19 @@ author: oompah
 created: 2026-07-31 21:13
 ---
 Auditor dispatched (attempt #3, candidate: prov-651d553c/haiku)
+---
+author: oompah
+created: 2026-07-31 21:13
+---
+Run #3 [attempt=3, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 5s
+---
+author: oompah
+created: 2026-07-31 21:13
+---
+Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2. A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
