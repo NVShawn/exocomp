@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-24T19:34:17.734226Z'
+updated_at: '2026-07-31T19:41:26.842559Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -35,6 +35,28 @@ oompah.task_costs:
     output_tokens: 2923
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:05:49.867930+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-478202836c55
+    project_id: proj-c260b117
+    task_id: EXOCOMP-90
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0345e34e3b5b812463b184e8434eb4e9f889d38a064b937da0f7700d3a435d37
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T19:41:24.805725+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -150,5 +172,10 @@ author: oompah
 created: 2026-07-24 03:48
 ---
 Implemented deterministic poll scheduling, bounded jitter/backoff, freshness-based Registry transitions, stale-result protection, redacted audits, NodeProber token integration, and comprehensive passing tests.
+---
+author: oompah
+created: 2026-07-31 19:41
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
