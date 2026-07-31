@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-64
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Write focused ExUnit tests for LlamaServer and ProposalClient
 parent: EXOCOMP-11
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:41.808383Z'
-updated_at: '2026-07-31T04:29:37.618435Z'
+updated_at: '2026-07-31T04:31:22.302684Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -57,6 +57,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:26:27.876340+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-b5deec39a5c6: '2026-07-31T04:31:20.638860+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -64,7 +66,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-64
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -90,7 +92,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b5deec39a5c6
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -101,13 +103,16 @@ oompah.terminal_audit:
       started_at: '2026-07-31T04:29:33.399419+00:00'
       branch_key: epic-EXOCOMP-1
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-07-31T04:31:20.638696+00:00'
+      ended_at: '2026-07-31T04:31:20.638696+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:58.701694+00:00'
-    updated_at: '2026-07-31T04:29:33.399419+00:00'
+    updated_at: '2026-07-31T04:31:20.638696+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-96765ab6f989
@@ -467,5 +472,24 @@ author: oompah
 created: 2026-07-31 04:29
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:31
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- commit_sha: 5712349f74f78ed3a87409186221f629bfeba0b8
+- commit_on_main: true
+- commit_on_task_branch: true
+- llama_server_scenarios: 5/5 present
+- proposal_client_scenarios: 6/6 present (plus 1 bonus error-path redaction)
+- fake_llama_server: apps/exocomp_node/test/support/fake_llama_server.ex (in-process :gen_tcp, no external deps)
+- llama_server_forever_fixture: apps/exocomp_node/test/fixtures/llama-server-forever
+- test_helper_updated: true
+- merged_to_main_date: 2026-07-23
+- days_since_merge: 8
 ---
 <!-- COMMENTS:END -->
