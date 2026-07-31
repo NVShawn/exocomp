@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-83
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Make LlamaServer crash tests portable in Alpine builder
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-24T02:40:56.649154Z'
+updated_at: '2026-07-31T03:09:31.242976Z'
 work_branch: EXOCOMP-83
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/7
@@ -38,6 +38,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/7
 oompah.review_number: '7'
 oompah.work_branch: EXOCOMP-83
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3099b2b71187
+    project_id: proj-c260b117
+    task_id: EXOCOMP-83
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: bbdbf439b2597040f83e9d9e7fdc36a09b93d027b0629b641ba74e8d05fd1a03
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T03:09:29.442721+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -192,5 +214,10 @@ author: oompah
 created: 2026-07-24 02:40
 ---
 YOLO: merged PR #7.
+---
+author: oompah
+created: 2026-07-31 03:09
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
