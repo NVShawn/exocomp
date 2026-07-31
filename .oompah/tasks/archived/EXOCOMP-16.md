@@ -17,7 +17,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-31T21:05:48.396827Z'
+updated_at: '2026-07-31T21:06:03.553574Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: b0cdd68c-7f2c-4051-9f56-d42fc55cc4a9
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 1178921
-  total_output_tokens: 11681
+  total_input_tokens: 1178975
+  total_output_tokens: 13443
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1178921
-      output_tokens: 11681
+      input_tokens: 1178975
+      output_tokens: 13443
       cost_usd: 0.0
   runs:
   - profile: default
@@ -53,6 +53,12 @@ oompah.task_costs:
     output_tokens: 3431
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:58:01.883876+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 54
+    output_tokens: 1762
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T21:06:02.005550+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -378,5 +384,15 @@ Safe evidence:
 - delivered_test_files: apps/exocomp_coordinator/test/exocomp/coordinator/pki/{bootstrap_test.exs, issuer_test.exs}; apps/exocomp_coordinator/test/exocomp/coordinator/{enrollment_token_test.exs, integration_test.exs}; apps/exocomp_coordinator/test/mix/tasks/exocomp_coordinator_init_test.exs
 - downstream_dependents: EXOCOMP-107 node enrollment/renewal; EXOCOMP-119 production PKI startup; EXOCOMP-123 rc.* PKI release safety; EXOCOMP-125 approval cleanup
 - archive_reason: Aged Merged auto-archive (closed 7 days ago) per scheduler queued audit
+---
+author: oompah
+created: 2026-07-31 21:06
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 29
+- Tokens: 54 in / 1.8K out [1.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 35s
+- Log: EXOCOMP-16__20260731T210235Z.jsonl
 ---
 <!-- COMMENTS:END -->
