@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-55
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement BEAM telemetry sampler
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:10.989869Z'
-updated_at: '2026-07-31T00:07:14.563288Z'
+updated_at: '2026-07-31T00:08:17.905085Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -67,6 +67,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:39:09.592923+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ef0851f12f66: '2026-07-31T00:08:15.982966+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -74,7 +76,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-55
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -83,7 +85,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ef0851f12f66
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -93,13 +95,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T00:07:10.776305+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-07-31T00:08:15.982850+00:00'
+      ended_at: '2026-07-31T00:08:15.982850+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:59.575765+00:00'
-    updated_at: '2026-07-31T00:07:10.776305+00:00'
+    updated_at: '2026-07-31T00:08:15.982850+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ef0851f12f66
@@ -418,5 +423,20 @@ author: oompah
 created: 2026-07-31 00:07
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 00:08
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: f8e586a EXOCOMP-55: implement BEAM telemetry sampler
+- commit_on_origin_main: true (git log origin/main shows f8e586a for beam_sampler.ex and its test)
+- files_present: apps/bench/lib/bench/beam_sampler.ex, apps/bench/test/bench/beam_sampler_test.exs
+- test_count: 6 tests covering all acceptance criteria in beam_sampler_test.exs
+- previous_state: Merged
+- audit_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
