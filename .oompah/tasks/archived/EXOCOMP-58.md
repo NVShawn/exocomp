@@ -11,7 +11,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:40:08.763210Z'
-updated_at: '2026-07-31T04:21:37.996642Z'
+updated_at: '2026-07-31T04:21:56.392400Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 80c12d97-7eac-4d2f-a839-9b62f99cbe90
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 3306488
-  total_output_tokens: 55217
+  total_input_tokens: 3306521
+  total_output_tokens: 56242
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 3306488
-      output_tokens: 55217
+      input_tokens: 3306521
+      output_tokens: 56242
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +71,12 @@ oompah.task_costs:
     output_tokens: 36704
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:25:42.885900+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 33
+    output_tokens: 1025
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T04:21:54.797491+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -531,5 +537,15 @@ Safe evidence:
 - required_test_cases_present: enoent, json_parse, unsupported_version, missing_fields, valid load, EXOCOMP_NODE_ID override, key_path redaction — all present
 - previous_state: Merged
 - reason_for_archive: Aged Merged auto-archive (closed 7 days ago)
+---
+author: oompah
+created: 2026-07-31 04:21
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 19
+- Tokens: 33 in / 1.0K out [1.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 28s
+- Log: EXOCOMP-58__20260731T042031Z.jsonl
 ---
 <!-- COMMENTS:END -->
