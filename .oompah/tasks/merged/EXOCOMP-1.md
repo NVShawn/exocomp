@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-31T05:52:09.633114Z'
+updated_at: '2026-07-31T05:56:15.239058Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -35,6 +35,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-587b1d655ca0: '2026-07-31T04:15:05.910387+00:00'
     attempt-fb8d7e9d1798: '2026-07-31T04:40:35.904060+00:00'
+    attempt-6bf9ac5e9f1a: '2026-07-31T05:56:12.430513+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -112,7 +113,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -121,7 +122,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6bf9ac5e9f1a
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -131,13 +132,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T05:52:07.370115+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T05:56:12.430293+00:00'
+      ended_at: '2026-07-31T05:56:12.430293+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Progress
     created_at: '2026-07-31T04:22:38.213097+00:00'
-    updated_at: '2026-07-31T05:52:07.370115+00:00'
+    updated_at: '2026-07-31T05:56:12.430293+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -315,5 +319,26 @@ author: oompah
 created: 2026-07-31 05:52
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 05:56
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Instructions:
+- After this Merged audit is applied, an operator or the scheduler should remove the 'epic:rebasing' label from EXOCOMP-1 before scheduling any Archive/Done audit, per prior auditor guidance.
+- Subsequent Archive audit can be scheduled once the label is cleared and the standard Merged-to-Archived aging window has elapsed.
+
+Safe evidence:
+- branch_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- branch_matches_main: true
+- children_terminal_count: 9/9
+- children_states: EXOCOMP-93:Archived, EXOCOMP-94:Archived, EXOCOMP-7:Archived, EXOCOMP-8:Merged, EXOCOMP-9:Archived, EXOCOMP-10:Archived, EXOCOMP-11:Archived, EXOCOMP-12:Archived, EXOCOMP-13:Archived
+- m1_crit_checked_count: 7/7 in plans/milestone-1-node-agent.md
+- m1_acceptance_test_file: apps/exocomp_node/test/integration/m1_acceptance_test.exs
+- epic_rebasing_label_present: true (does not block Merged, but must be cleared for subsequent Archive/Done audit)
 ---
 <!-- COMMENTS:END -->
