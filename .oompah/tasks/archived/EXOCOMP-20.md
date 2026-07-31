@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-20
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Verify the M2 coordinator milestone
 parent: EXOCOMP-2
@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-31T21:08:42.170224Z'
+updated_at: '2026-07-31T21:10:07.024410Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -49,6 +49,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T19:28:39.929032+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-42179b267740: '2026-07-31T21:10:03.974751+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-20
+    target_state: Archived
+    evidence_fingerprint: fa5157de714b399e6412b235fc85ceb9ad475516738dfaf1ab437ffd1b62cfe1
+    audit_ids:
+    - audit-597c45b757fa
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T21:10:03.974762+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-20
+    audit_id: audit-597c45b757fa
+    attempt_id: attempt-42179b267740
+    target_state: Archived
+    evidence_fingerprint: fa5157de714b399e6412b235fc85ceb9ad475516738dfaf1ab437ffd1b62cfe1
+    status: Archived
+    audit_ids:
+    - audit-597c45b757fa
+    applied: false
+    created_at: '2026-07-31T21:10:03.974778+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -56,7 +80,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-20
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -65,7 +89,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-42179b267740
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -75,13 +99,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T21:08:35.530806+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-07-31T21:10:03.974592+00:00'
+      ended_at: '2026-07-31T21:10:03.974592+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:46.217614+00:00'
-    updated_at: '2026-07-31T21:08:35.530806+00:00'
+    updated_at: '2026-07-31T21:10:03.974592+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-42179b267740
@@ -379,5 +406,22 @@ author: oompah
 created: 2026-07-31 21:08
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 21:10
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- commits_on_main: ed2af63, af0065d, 5b1515c
+- acceptance_test_file: apps/exocomp_coordinator/test/integration/m2_acceptance_test.exs
+- m2_crit_coverage: M2-CRIT-1 through M2-CRIT-8 in describe blocks 1a-1d, 2a-2b, 3a-3c, 4a, 5a-5b, 6a-6c, 7a-7c
+- plan_criteria: plans/milestone-2-coordinator.md lines 182-195: all 8 M2-CRIT-* marked [x]
+- prior_verification: 743 tests passed / 0 failed; make lint, fmt-check, build all clean
+- followup_task: EXOCOMP-107 tracks node-side enrollment gap (EXOCOMP-17)
+- working_tree: clean, up to date with origin/epic-EXOCOMP-2
+- archival_trigger: aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
