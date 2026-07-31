@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-2
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M2: Coordinator, discovery, and node enrollment'
 parent: null
@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-31T21:01:21.041565Z'
+updated_at: '2026-07-31T21:02:09.033943Z'
 work_branch: epic-EXOCOMP-2
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/9
@@ -33,6 +33,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-7ed3dd34d77a: '2026-07-31T20:58:16.116602+00:00'
     attempt-11f4978b0eb4: '2026-07-31T21:01:01.483999+00:00'
+    attempt-398093e5bff1: '2026-07-31T21:02:06.576225+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-2
@@ -52,6 +53,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-07-31T21:01:01.484018+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-2
+    target_state: Merged
+    evidence_fingerprint: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
+    audit_ids:
+    - audit-024b3eea6f9b
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T21:02:06.576256+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-2
@@ -77,6 +87,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:01:01.484043+00:00'
     applied_at: '2026-07-31T21:01:04.144438+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-2
+    audit_id: audit-024b3eea6f9b
+    attempt_id: attempt-398093e5bff1
+    target_state: Merged
+    evidence_fingerprint: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
+    status: Merged
+    audit_ids:
+    - audit-024b3eea6f9b
+    applied: false
+    created_at: '2026-07-31T21:02:06.576279+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -152,7 +173,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-2
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -161,7 +182,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-398093e5bff1
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -171,13 +192,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T21:01:18.184722+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-07-31T21:02:06.576010+00:00'
+      ended_at: '2026-07-31T21:02:06.576010+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-07-31T20:57:03.647172+00:00'
-    updated_at: '2026-07-31T21:01:18.184722+00:00'
+    updated_at: '2026-07-31T21:02:06.576010+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-7ed3dd34d77a
@@ -360,5 +384,22 @@ author: oompah
 created: 2026-07-31 21:01
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 21:02
+---
+Audit PASS — Merged
+
+Epic EXOCOMP-2 (M2: Coordinator, discovery, and node enrollment) is merged to main. PR #9 merge commit 6deabae is present on the main branch. All eight M2-CRIT-* acceptance criteria (M2-CRIT-1..8) are checked complete in plans/milestone-2-coordinator.md (lines 182-195). The coordinator Elixir app is present at apps/exocomp_coordinator/ with lib/, test/, mix.exs. Two prior audits (Archived and Done targets) also PASSed with the same merge commit and evidence fingerprint. Merged target verdict: PASS.
+
+Safe evidence:
+- merge_commit: 6deabae (Merge pull request #9 from NVShawn/epic-EXOCOMP-2)
+- merge_contained_in_main: true (git branch --contains 6deabae lists main and remotes/origin/main among containing branches)
+- plan_criteria_status: M2-CRIT-1..8 all checked [x] in plans/milestone-2-coordinator.md lines 182-195
+- coordinator_app_present: apps/exocomp_coordinator/ with lib/, test/, mix.exs, .gitignore
+- prior_audit_results: Archived PASS (audit run 20260731T205525Z) and Done PASS (audit run 20260731T205909Z) on same merge commit
+- previous_state: In Validation
+- target_state: Merged
+- requested_target: Merged
 ---
 <!-- COMMENTS:END -->
