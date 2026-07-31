@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-103
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Audit every correlated diagnostic task transition
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-07-24T20:21:15.790107Z'
+updated_at: '2026-07-31T20:46:15.610728Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 56765
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:00:53.927782+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-b0ed42b792f6
+    project_id: proj-c260b117
+    task_id: EXOCOMP-103
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 3e66c2b51b1f138762ff7cd66cdfa371dcdd5060bbb6cf59c64009303708116e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:13.577107+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -223,5 +245,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 24m 38s
 - Log: EXOCOMP-103__20260724T173619Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
