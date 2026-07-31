@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-93
 type: task
-status: Merged
+status: In Validation
 priority: 0
 title: Rebase epic-EXOCOMP-1 onto main
 parent: EXOCOMP-1
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:50:21.235712Z'
-updated_at: '2026-07-24T03:15:01.449040Z'
+updated_at: '2026-07-31T04:13:26.387142Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -41,6 +41,28 @@ oompah.task_costs:
     output_tokens: 645
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:06:00.405637+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-b73ad6369b91
+    project_id: proj-c260b117
+    task_id: EXOCOMP-93
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 9589b3ecb9282680b760c21a4b2c13232816c5797f92bfd5d68bce4920aa880e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:13:24.666428+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -188,5 +210,10 @@ author: oompah
 created: 2026-07-24 03:11
 ---
 Rebased epic-EXOCOMP-1 onto origin/main, resolved conflicts, verified the rewritten history and available tests, and force-pushed with lease. PR #8 auto-merged the rebased branch into main at 7e04074 and deleted the remote epic branch.
+---
+author: oompah
+created: 2026-07-31 04:13
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
