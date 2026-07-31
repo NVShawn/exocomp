@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-38
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Benchmark llama.cpp inference and restart behavior
 parent: EXOCOMP-5
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:20.539713Z'
-updated_at: '2026-07-31T00:08:33.285119Z'
+updated_at: '2026-07-31T00:09:41.161692Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -69,6 +69,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T23:08:58.865775+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6482cae288d9: '2026-07-31T00:09:39.436002+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -76,7 +78,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-38
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -85,7 +87,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6482cae288d9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -95,13 +97,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T00:08:28.898196+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-07-31T00:09:39.435841+00:00'
+      ended_at: '2026-07-31T00:09:39.435841+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:28.305764+00:00'
-    updated_at: '2026-07-31T00:08:28.898196+00:00'
+    updated_at: '2026-07-31T00:09:39.435841+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6482cae288d9
@@ -412,5 +417,22 @@ author: oompah
 created: 2026-07-31 00:08
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 00:09
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 242ac63 (PR #5)
+- impl_commit: 0077af0
+- workload_module_present: apps/bench/lib/bench/workload/llama_inference.ex
+- fake_server_present: apps/bench/test/support/fake_llama_server.ex
+- test_file_present: apps/bench/test/bench/workload/llama_inference_test.exs
+- makefile_target: bench-llama-short (Makefile:203)
+- days_since_merge: 7
+- previous_state: Merged
 ---
 <!-- COMMENTS:END -->
