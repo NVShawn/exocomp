@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-10
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement Linux and systemd diagnostic collectors
 parent: EXOCOMP-1
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-31T04:43:00.007303Z'
+updated_at: '2026-07-31T04:44:03.986734Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -50,6 +50,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:17:00.508094+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-d7ee39db154d: '2026-07-31T04:44:01.216078+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +59,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-10
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +68,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d7ee39db154d
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,13 +78,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:42:56.102559+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:44:01.215901+00:00'
+      ended_at: '2026-07-31T04:44:01.215901+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:17.785085+00:00'
-    updated_at: '2026-07-31T04:42:56.102559+00:00'
+    updated_at: '2026-07-31T04:44:01.215901+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d7ee39db154d
@@ -375,5 +380,21 @@ author: oompah
 created: 2026-07-31 04:43
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:44
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit_on_main: 88e7690 EXOCOMP-10: implement Linux and systemd diagnostic collectors
+- collectors_present: types.ex, uptime.ex, memory.ex, cpu.ex, disk.ex, systemd.ex
+- tests_present: cpu_test.exs, disk_test.exs, memory_test.exs, systemd_test.exs, uptime_test.exs
+- previous_state: Merged
+- aged_reason: Aged Merged auto-archive (closed 7 days ago) per scheduler
+- commit_stat: 21 files changed, 1751 insertions(+)
+- branches_containing_commit: main, epic-EXOCOMP-1, epic-EXOCOMP-11, epic-EXOCOMP-35, several task branches
 ---
 <!-- COMMENTS:END -->
