@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-07-24T20:15:58.923634Z'
+updated_at: '2026-07-31T20:46:00.390844Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,6 +47,28 @@ oompah.task_costs:
     output_tokens: 37566
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:28:54.974766+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-84dd878d6ea3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-100
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 73c4d75ef3c0aa77d8940cf4cffaf962a743e0a6ffc7ea1a327a1ca18f629b51
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:45:58.129943+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -204,5 +226,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 13m 37s
 - Log: EXOCOMP-100__20260724T161521Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
