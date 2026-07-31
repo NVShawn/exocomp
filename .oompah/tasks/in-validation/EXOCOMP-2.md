@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-31T20:58:28.015898Z'
+updated_at: '2026-07-31T20:59:09.506923Z'
 work_branch: epic-EXOCOMP-2
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/9
@@ -96,18 +96,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-2
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-11f4978b0eb4
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
+      created_at: '2026-07-31T20:59:05.385458+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-07-31T20:59:05.385458+00:00'
+      branch_key: epic-EXOCOMP-2
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-07-31T20:57:03.647172+00:00'
+    updated_at: '2026-07-31T20:59:05.385458+00:00'
   - version: 1
     audit_id: audit-024b3eea6f9b
     project_id: proj-c260b117
@@ -138,6 +152,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-07-31T20:55:22.608032+00:00'
+    branch_key: epic-EXOCOMP-2
+  - version: 1
+    attempt_id: attempt-11f4978b0eb4
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f67c2632102b1b301444a2a6467de3dfc5cccb01b8e9788f109a1a31c5ef5a9f
+    created_at: '2026-07-31T20:59:05.385458+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-07-31T20:59:05.385458+00:00'
     branch_key: epic-EXOCOMP-2
 oompah.task_costs:
   total_input_tokens: 40
@@ -227,5 +254,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 3m 3s
 - Log: EXOCOMP-2__20260731T205525Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:59
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-07-31 20:59
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
