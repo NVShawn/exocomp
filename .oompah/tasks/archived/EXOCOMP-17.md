@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-31T20:51:57.063364Z'
+updated_at: '2026-07-31T20:52:11.634433Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 02447343-8f9b-4cfc-a23d-cc12a8f9c0fd
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 1113276
-  total_output_tokens: 7854
+  total_input_tokens: 1113326
+  total_output_tokens: 9736
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1113276
-      output_tokens: 7854
+      input_tokens: 1113326
+      output_tokens: 9736
       cost_usd: 0.0
   runs:
   - profile: default
@@ -43,6 +43,12 @@ oompah.task_costs:
     output_tokens: 3708
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:40:39.959916+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 50
+    output_tokens: 1882
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T20:52:10.233691+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -262,5 +268,15 @@ Safe evidence:
 - branch_contains_check: ed8b906 present on branches including main
 - aged_auto_archive_trigger: previous_state=Merged, queued after 7-day aging window
 - child_status_note: EXOCOMP-87 In Validation but its scope already delivered via merged PR chain
+---
+author: oompah
+created: 2026-07-31 20:52
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 33
+- Tokens: 50 in / 1.9K out [1.9K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 22s
+- Log: EXOCOMP-17__20260731T204754Z.jsonl
 ---
 <!-- COMMENTS:END -->
