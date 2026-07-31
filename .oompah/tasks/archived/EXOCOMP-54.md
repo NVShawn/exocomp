@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-54
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement raw sample data model and JSON-Lines output
 parent: EXOCOMP-35
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:37:01.619113Z'
-updated_at: '2026-07-31T00:05:10.902720Z'
+updated_at: '2026-07-31T00:06:49.181349Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -55,6 +55,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:55:36.533136+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ae1a7da1f4a2: '2026-07-31T00:06:47.483692+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -62,7 +64,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-54
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -71,7 +73,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ae1a7da1f4a2
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -81,13 +83,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T00:05:05.732546+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-07-31T00:06:47.483524+00:00'
+      ended_at: '2026-07-31T00:06:47.483524+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-30T23:49:55.715185+00:00'
-    updated_at: '2026-07-31T00:05:05.732546+00:00'
+    updated_at: '2026-07-31T00:06:47.483524+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ae1a7da1f4a2
@@ -287,5 +292,21 @@ author: oompah
 created: 2026-07-31 00:05
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 00:06
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit_on_main: bd6403def7f72300f736579b6b3f7872a74e493a
+- files_present_on_main: apps/bench/lib/bench/run.ex, apps/bench/lib/bench/sample.ex, apps/bench/test/bench/run_test.exs, apps/bench/test/bench/sample_test.exs
+- last_touch_run_ex: 50cd48c EXOCOMP-114: recover M6 release governance tooling (SPDX header only)
+- public_functions_run: new/1, append_sample/2, write_jsonl/2 (path,run and run,path arities), read_jsonl/1
+- sample_sources_supported: :beam :host :node :coordinator :llama
+- test_count_confirmed_in_files: run_test.exs=7 tests, sample_test.exs=5 tests
+- aged_merged_days: 7+ (merged 2026-07-23, audited 2026-07-31)
 ---
 <!-- COMMENTS:END -->
