@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Validation
+status: Needs Human
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-31T04:38:42.155882Z'
+updated_at: '2026-07-31T04:40:38.309514Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -34,6 +34,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-587b1d655ca0: '2026-07-31T04:15:05.910387+00:00'
+    attempt-fb8d7e9d1798: '2026-07-31T04:40:35.904060+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -76,7 +77,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -85,7 +86,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-fb8d7e9d1798
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -95,13 +96,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:38:39.138199+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: needs_human
+      failure_classification: unsafe_archive
+      completed_at: '2026-07-31T04:40:35.903856+00:00'
+      ended_at: '2026-07-31T04:40:35.903856+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Progress
     created_at: '2026-07-31T04:22:38.213097+00:00'
-    updated_at: '2026-07-31T04:38:39.138199+00:00'
+    updated_at: '2026-07-31T04:40:35.903856+00:00'
   - version: 1
     audit_id: audit-ba5cb27057e8
     project_id: proj-c260b117
@@ -240,5 +245,22 @@ author: oompah
 created: 2026-07-31 04:38
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:40
+---
+Needs Human — Done audit requires operator input.
+
+[REDACTED]
+
+Questions:
+- Should the Done audit wait until all six 'In Validation' children reach terminal (Merged/Archived/Done) states?
+- Should the 'epic:rebasing' label be removed before promoting EXOCOMP-1 to a terminal state, per the prior auditor's guidance?
+- Is the intent to promote this parent epic to Done despite EXOCOMP-93's rebase task still being In Validation?
+
+Instructions:
+- Complete the epic-EXOCOMP-1 rebase-and-revalidate cycle: drive EXOCOMP-93, EXOCOMP-7, EXOCOMP-10, EXOCOMP-11, EXOCOMP-12, and EXOCOMP-13 to terminal states (Merged/Archived/Done).
+- Remove the 'epic:rebasing' label once the rebase-and-revalidate cycle completes.
+- Reschedule the Done audit for EXOCOMP-1 only after the tracker graph shows all children in terminal states and the rebasing label is cleared.
 ---
 <!-- COMMENTS:END -->
