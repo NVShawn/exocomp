@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-18
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement coordinator diagnostic task orchestration and audit
 parent: EXOCOMP-2
@@ -21,7 +21,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:31.642631Z'
-updated_at: '2026-07-24T20:25:56.061233Z'
+updated_at: '2026-07-31T20:46:36.209071Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -45,6 +45,28 @@ oompah.task_costs:
     output_tokens: 4118
     cost_usd: 0.0
     recorded_at: '2026-07-24T04:28:09.200736+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-c5c1fb85c81c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-18
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: efde635871c6d6f4d36eca83499c287c4a07d466d1164e0a9288713f635a44c6
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:34.108385+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -204,5 +226,10 @@ author: oompah
 created: 2026-07-24 15:52
 ---
 YOLO decomposition follow-up: promoted generated children EXOCOMP-99 through EXOCOMP-105 from Backlog to Open after the planner completed decomposition. Dependencies remain the execution gate, so only EXOCOMP-99 and EXOCOMP-100 are now eligible to start.
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
