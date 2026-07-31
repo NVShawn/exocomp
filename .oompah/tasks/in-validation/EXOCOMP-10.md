@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-10
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement Linux and systemd diagnostic collectors
 parent: EXOCOMP-1
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:55.388617Z'
-updated_at: '2026-07-24T03:26:22.852423Z'
+updated_at: '2026-07-31T04:12:20.053680Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 48120
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:17:00.508094+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-0b9dd8850257
+    project_id: proj-c260b117
+    task_id: EXOCOMP-10
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d55d24c7843df1beac1550908e5577293ade221edd75fad36d024a5fb25d53c5
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:17.785085+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -311,5 +333,10 @@ Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 15m 0s
 - Log: EXOCOMP-10__20260723T210206Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
