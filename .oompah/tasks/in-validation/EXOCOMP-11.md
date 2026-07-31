@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-11
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Supervise llama.cpp and validate structured proposals
 parent: EXOCOMP-1
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:56.242530Z'
-updated_at: '2026-07-24T03:51:21.530033Z'
+updated_at: '2026-07-31T04:12:25.381096Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -46,6 +46,28 @@ oompah.task_costs:
     output_tokens: 1395
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:05:29.897633+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-d3c5e75c3ec1
+    project_id: proj-c260b117
+    task_id: EXOCOMP-11
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 72a382823c46902d1adc22bbaa62edaeb1b3c751e941e71923316207d1654502
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:22.553267+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -217,5 +239,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 29s
 - Log: EXOCOMP-11__20260723T210206Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
