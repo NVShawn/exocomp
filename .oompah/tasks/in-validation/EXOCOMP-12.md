@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-12
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Expose diagnostic-only node A2A service
 parent: EXOCOMP-1
@@ -19,7 +19,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.046675Z'
-updated_at: '2026-07-24T03:56:16.697736Z'
+updated_at: '2026-07-31T04:12:29.406850Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -55,6 +55,28 @@ oompah.task_costs:
     output_tokens: 3918
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:05:46.778020+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-00c725899df5
+    project_id: proj-c260b117
+    task_id: EXOCOMP-12
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 822f678f92554910bf5dd3762c9755313ccca68c0c3b35c489649c5b91036017
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:26.956602+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -223,5 +245,10 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 7m 26s
 - Log: EXOCOMP-12__20260723T225822Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
