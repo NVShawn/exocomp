@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:45.706594Z'
-updated_at: '2026-07-31T00:04:55.216197Z'
+updated_at: '2026-07-31T00:05:03.923075Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 5185ffea-c461-4aca-bce4-a82b87eed8eb
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 116
-  total_output_tokens: 56788
+  total_input_tokens: 142
+  total_output_tokens: 60031
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 116
-      output_tokens: 56788
+      input_tokens: 142
+      output_tokens: 60031
       cost_usd: 0.0
   runs:
   - profile: default
@@ -41,6 +41,12 @@ oompah.task_costs:
     output_tokens: 51894
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:22:24.001713+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 26
+    output_tokens: 3243
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T00:05:01.508319+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -267,5 +273,15 @@ Safe evidence:
 - test_module_path: apps/bench/test/bench/config_test.exs (93 lines)
 - required_scenarios_covered: valid parse, unknown fields, missing fields, incompatible_version, negative numeric — all present in config_test.exs
 - previous_state: Merged (7-day auto-archive)
+---
+author: oompah
+created: 2026-07-31 00:05
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 24, Tool calls: 20
+- Tokens: 26 in / 3.2K out [3.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 12s
+- Log: EXOCOMP-52__20260731T000352Z.jsonl
 ---
 <!-- COMMENTS:END -->
