@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-63
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement ProposalClient inference HTTP client
 parent: EXOCOMP-11
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:04:13.412982Z'
-updated_at: '2026-07-24T03:46:22.637649Z'
+updated_at: '2026-07-31T04:12:56.593557Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 3512
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:49:28.371560+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-07781053eaaa
+    project_id: proj-c260b117
+    task_id: EXOCOMP-63
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d62b0f4f2343890ad874caee8acf373b5606dab91dc54f9895d3115a9d0a3eab
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:54.356604+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -284,5 +306,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 9m 32s
 - Log: EXOCOMP-63__20260723T213958Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
