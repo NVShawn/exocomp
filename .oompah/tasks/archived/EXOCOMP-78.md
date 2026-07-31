@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-78
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: A2A router scaffold, Agent Card endpoint, and mTLS enforcement
 parent: EXOCOMP-12
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:04:01.391705Z'
-updated_at: '2026-07-31T04:31:41.503608Z'
+updated_at: '2026-07-31T04:32:54.668266Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -37,6 +37,8 @@ oompah.task_costs:
     recorded_at: '2026-07-24T00:54:38.891171+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-20f842af644e: '2026-07-31T04:32:52.126054+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -44,7 +46,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-78
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -53,7 +55,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-20f842af644e
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -63,13 +65,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:31:37.700564+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:32:52.125878+00:00'
+      ended_at: '2026-07-31T04:32:52.125878+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:13:05.726343+00:00'
-    updated_at: '2026-07-31T04:31:37.700564+00:00'
+    updated_at: '2026-07-31T04:32:52.125878+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-20f842af644e
@@ -316,5 +321,22 @@ author: oompah
 created: 2026-07-31 04:31
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:32
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 137e7e1e9c7c346af819a165583c9b8600d6dae1
+- merge_commit_date_utc: 2026-07-24 03:08:38 +0000
+- audit_date_utc: 2026-07-31
+- age_days: 7
+- artifacts_on_main: apps/exocomp_node/lib/exocomp/node/a2a_router.ex; handlers/agent_card_handler.ex; plug/json_body_parser.ex; test/exocomp/node/a2a_router_test.exs
+- downstream_merged: EXOCOMP-79 task_registry, EXOCOMP-80 skills, EXOCOMP-81 dispatch, EXOCOMP-126 recovery all merged on top
+- previous_state: Merged
+- auto_archive_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
