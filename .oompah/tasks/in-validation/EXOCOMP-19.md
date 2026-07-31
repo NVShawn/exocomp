@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-19
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Expose coordinator cluster A2A service
 parent: EXOCOMP-2
@@ -14,7 +14,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T19:09:32.508992Z'
-updated_at: '2026-07-24T20:30:57.172169Z'
+updated_at: '2026-07-31T20:46:40.598370Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -50,6 +50,28 @@ oompah.task_costs:
     output_tokens: 46203
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:45:34.335248+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8844d0738ff3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-19
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7daa7d0db5cf5e4bd309d1c9017eca87f630e0f8e436474b8d507f722f20d68c
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:38.188717+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -325,5 +347,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 49s
 - Log: EXOCOMP-19__20260724T184548Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
