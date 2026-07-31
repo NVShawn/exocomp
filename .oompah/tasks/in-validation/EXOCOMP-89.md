@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-07-31T19:56:08.647284Z'
+updated_at: '2026-07-31T19:56:31.250415Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -51,7 +51,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-89
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -74,13 +74,27 @@ oompah.terminal_audit:
       ended_at: '2026-07-31T19:56:07.036568+00:00'
       failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
       next_retry_at: '2026-07-31T19:56:17.036541+00:00'
+    - version: 1
+      attempt_id: attempt-ccd1490c697c
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 7fd8648fd2a3bb7deedcc4992c2cade4c73a78bad6666bdcb7f2c2aee34bc812
+      created_at: '2026-07-31T19:56:28.038400+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-07-31T19:56:28.038400+00:00'
+      branch_key: epic-EXOCOMP-2
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T19:41:20.172206+00:00'
-    updated_at: '2026-07-31T19:56:07.036568+00:00'
+    updated_at: '2026-07-31T19:56:28.038400+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-78e4d7cd319f
@@ -99,6 +113,20 @@ oompah.terminal_audit:
     ended_at: '2026-07-31T19:56:07.036568+00:00'
     failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
     next_retry_at: '2026-07-31T19:56:17.036541+00:00'
+  - version: 1
+    attempt_id: attempt-ccd1490c697c
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7fd8648fd2a3bb7deedcc4992c2cade4c73a78bad6666bdcb7f2c2aee34bc812
+    created_at: '2026-07-31T19:56:28.038400+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-07-31T19:56:28.038400+00:00'
+    branch_key: epic-EXOCOMP-2
+    candidate_rotation_count: 1
 ---
 ## Summary
 
@@ -245,5 +273,10 @@ author: oompah
 created: 2026-07-31 19:56
 ---
 Auditor attempt ended: git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2. A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-07-31 19:56
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
 ---
 <!-- COMMENTS:END -->
