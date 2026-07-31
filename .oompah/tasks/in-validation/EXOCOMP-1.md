@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: Merged
+status: In Validation
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-24T03:36:18.419858Z'
+updated_at: '2026-07-31T04:12:16.062866Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -30,6 +30,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/8
 oompah.review_number: '8'
 oompah.work_branch: epic-EXOCOMP-1
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-89016608bf79
+    project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:14.491522+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -62,5 +84,10 @@ author: oompah
 created: 2026-07-24 03:10
 ---
 YOLO: merged PR #8.
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
