@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-102
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Propagate coordinator diagnostic cancellation
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-07-24T20:21:12.897172Z'
+updated_at: '2026-07-31T20:46:10.754543Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 62974
     cost_usd: 0.0
     recorded_at: '2026-07-24T17:33:40.568730+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a04fdbdb74c9
+    project_id: proj-c260b117
+    task_id: EXOCOMP-102
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 3939a7130e9bad948b1ba216061de1694657191d5c2e8f46eaf1faa95a875e15
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:08.667667+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -154,5 +176,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 36m 5s
 - Log: EXOCOMP-102__20260724T165737Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
