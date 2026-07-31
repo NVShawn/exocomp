@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Progress
+status: In Validation
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-31T04:15:46.992882Z'
+updated_at: '2026-07-31T04:22:39.836622Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -71,6 +71,40 @@ oompah.terminal_audit:
     previous_state: Merged
     created_at: '2026-07-31T04:12:14.491522+00:00'
     updated_at: '2026-07-31T04:15:05.910192+00:00'
+  - version: 1
+    audit_id: audit-fbf0c16421eb
+    project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: epic-rollup-reconciliation
+      source: oompah
+    previous_state: In Progress
+    created_at: '2026-07-31T04:22:38.213097+00:00'
+  - version: 1
+    audit_id: audit-ba5cb27057e8
+    project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    target_state: Merged
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: epic-rollup-reconciliation
+      source: oompah
+    previous_state: In Progress
+    created_at: '2026-07-31T04:22:38.213097+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
