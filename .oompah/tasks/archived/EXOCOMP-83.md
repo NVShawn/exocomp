@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-83
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Make LlamaServer crash tests portable in Alpine builder
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:03:42.852933Z'
-updated_at: '2026-07-31T03:11:36.118033Z'
+updated_at: '2026-07-31T03:12:43.521754Z'
 work_branch: EXOCOMP-83
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/7
@@ -40,6 +40,8 @@ oompah.work_branch: EXOCOMP-83
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-0835c27829ec: '2026-07-31T03:12:40.092361+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -47,7 +49,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-83
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -56,7 +58,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-0835c27829ec
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -66,13 +68,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T03:11:33.809500+00:00'
       branch_key: EXOCOMP-83
+      verdict: pass
+      completed_at: '2026-07-31T03:12:40.092170+00:00'
+      ended_at: '2026-07-31T03:12:40.092170+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T03:09:29.442721+00:00'
-    updated_at: '2026-07-31T03:11:33.809500+00:00'
+    updated_at: '2026-07-31T03:12:40.092170+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-0835c27829ec
@@ -256,5 +261,21 @@ author: oompah
 created: 2026-07-31 03:11
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 03:12
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- delivery_commit: 8c067f2 EXOCOMP-83: make LlamaServer crash tests portable
+- merge_commit: 1577fed Merge pull request #7 from NVShawn/EXOCOMP-83
+- commit_on_main: true
+- fix_present_in_file: apps/exocomp_node/test/exocomp/node/llama_server_test.exs kill_port_os_process/1 now invokes :os.cmd(~c"kill -TERM #{os_pid}"); no hard-coded /usr/bin/kill path remains
+- followup_commit: 50cd48c EXOCOMP-114 further hardened the helper to :os.cmd for Debian slim (regression not reintroduced)
+- previous_state: Merged
+- auto_archive_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
