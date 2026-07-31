@@ -17,7 +17,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T19:09:33.364917Z'
-updated_at: '2026-07-31T21:10:10.902283Z'
+updated_at: '2026-07-31T21:10:25.284148Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -26,13 +26,13 @@ merged_at: null
 oompah.agent_run_id: 17ce3690-d796-40cf-a60e-fe094336c7d7
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 160
-  total_output_tokens: 93612
+  total_input_tokens: 187
+  total_output_tokens: 94307
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 160
-      output_tokens: 93612
+      input_tokens: 187
+      output_tokens: 94307
       cost_usd: 0.0
   runs:
   - profile: default
@@ -47,6 +47,12 @@ oompah.task_costs:
     output_tokens: 88984
     cost_usd: 0.0
     recorded_at: '2026-07-24T19:28:39.929032+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 27
+    output_tokens: 695
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T21:10:23.070230+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -424,5 +430,15 @@ Safe evidence:
 - followup_task: EXOCOMP-107 tracks node-side enrollment gap (EXOCOMP-17)
 - working_tree: clean, up to date with origin/epic-EXOCOMP-2
 - archival_trigger: aged Merged auto-archive (closed 7 days ago)
+---
+author: oompah
+created: 2026-07-31 21:10
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 13
+- Tokens: 27 in / 695 out [722 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 46s
+- Log: EXOCOMP-20__20260731T210842Z.jsonl
 ---
 <!-- COMMENTS:END -->
