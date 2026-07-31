@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-60
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement mTLS Bandit listener startup with fail-closed identity gate (Exocomp.Node.Listener)
 parent: EXOCOMP-9
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:41:00.937857Z'
-updated_at: '2026-07-31T04:22:02.779056Z'
+updated_at: '2026-07-31T04:24:33.176509Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -44,6 +44,8 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:45:35.569815+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-e3adf06f8dbd: '2026-07-31T04:24:30.517893+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -51,7 +53,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-60
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -77,7 +79,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-e3adf06f8dbd
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -88,13 +90,16 @@ oompah.terminal_audit:
       started_at: '2026-07-31T04:21:57.017400+00:00'
       branch_key: epic-EXOCOMP-1
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-07-31T04:24:30.517701+00:00'
+      ended_at: '2026-07-31T04:24:30.517701+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:43.290123+00:00'
-    updated_at: '2026-07-31T04:21:57.017400+00:00'
+    updated_at: '2026-07-31T04:24:30.517701+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d940245c41b0
@@ -407,5 +412,25 @@ author: oompah
 created: 2026-07-31 04:22
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:24
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- commit: 44f1fc197bc0f66375b6ff7411377006616d9c9e
+- commit_message: EXOCOMP-60: implement mTLS Bandit listener with fail-closed identity gate
+- files_changed: 8 files, 788 insertions
+- listener_ex: present — verify_peer, fail_if_no_peer_cert:true, tlsv1.3
+- identity_ex: present — key perms, chain, SAN validation
+- plug_stub_ex: present
+- listener_test_exs: 9 tests present using start_supervised!
+- identity_test_exs: 9 tests present
+- bandit_in_lockfile: bandit 1.12.1, plug 1.20.3, thousand_island 1.5.0
+- fixture_certs: ca.crt, node.crt/key, wrong_san.crt/key, rogue.crt/key, expired.crt/key all present
+- quality_gates: make test 32 passed, make lint pass, make fmt-check pass (per commit message and task comments)
 ---
 <!-- COMMENTS:END -->
