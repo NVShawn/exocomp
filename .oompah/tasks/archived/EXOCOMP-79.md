@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:29.432001Z'
-updated_at: '2026-07-31T04:35:11.881523Z'
+updated_at: '2026-07-31T04:35:26.214641Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: fe3340fc-eea9-47a4-9d1b-4c32ac6cc5af
 oompah.work_branch: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 491106
-  total_output_tokens: 2870
+  total_input_tokens: 491147
+  total_output_tokens: 4224
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 491106
-      output_tokens: 2870
+      input_tokens: 491147
+      output_tokens: 4224
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 2870
     cost_usd: 0.0
     recorded_at: '2026-07-24T00:52:04.639873+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 41
+    output_tokens: 1354
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T04:35:24.796499+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -414,5 +420,15 @@ Safe evidence:
 - crypto_declared: apps/exocomp_node/mix.exs line 23: extra_applications includes :crypto
 - integration: TaskRegistry consumed by apps/exocomp_node/lib/exocomp/node/a2a_router.ex and integration tests
 - previous_state: Merged — task passed code review and was merged to mainline
+---
+author: oompah
+created: 2026-07-31 04:35
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 0, Tool calls: 27
+- Tokens: 41 in / 1.4K out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 14s
+- Log: EXOCOMP-79__20260731T043315Z.jsonl
 ---
 <!-- COMMENTS:END -->
