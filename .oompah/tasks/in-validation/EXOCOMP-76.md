@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-07-31T21:13:52.890605Z'
+updated_at: '2026-07-31T21:14:37.060861Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -45,6 +45,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T01:32:59.577474+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    no-auditor-audit-9dad9d69f697-3: '2026-07-31T21:14:35.395162+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-76
+    target_state: Archived
+    evidence_fingerprint: 650b440de6b052185df372762282a4c5ecac099480cdb0d1d58d647edd634643
+    audit_ids:
+    - audit-9dad9d69f697
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T21:14:35.395173+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-76
+    audit_id: audit-9dad9d69f697
+    attempt_id: no-auditor-audit-9dad9d69f697-3
+    target_state: Archived
+    evidence_fingerprint: 650b440de6b052185df372762282a4c5ecac099480cdb0d1d58d647edd634643
+    status: Needs Human
+    audit_ids:
+    - audit-9dad9d69f697
+    applied: false
+    created_at: '2026-07-31T21:14:35.395189+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -52,7 +76,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-76
     target_state: Archived
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -111,13 +135,25 @@ oompah.terminal_audit:
       ended_at: '2026-07-31T21:13:51.175051+00:00'
       failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
       next_retry_at: '2026-07-31T21:14:31.175025+00:00'
+    - version: 1
+      attempt_id: no-auditor-audit-9dad9d69f697-3
+      target_state: Archived
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 650b440de6b052185df372762282a4c5ecac099480cdb0d1d58d647edd634643
+      verdict: fail
+      failure_classification: no_auditor
+      created_at: '2026-07-31T21:14:35.395018+00:00'
+      completed_at: '2026-07-31T21:14:35.395018+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:54.836489+00:00'
-    updated_at: '2026-07-31T21:13:51.175051+00:00'
+    updated_at: '2026-07-31T21:14:35.395018+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6922b53464c6
