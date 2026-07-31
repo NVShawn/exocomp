@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-99
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement coordinator diagnostic A2A client adapter
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-07-24T20:15:56.402519Z'
+updated_at: '2026-07-31T20:47:11.756335Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -41,6 +41,28 @@ oompah.task_costs:
     output_tokens: 2191
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:19:55.047934+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-e57dccbb6b4b
+    project_id: proj-c260b117
+    task_id: EXOCOMP-99
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b0e62630a4b564120ae6c051dbfd737340cf70c55554351c64eb5112f80c3aca
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:47:08.256317+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -256,5 +278,10 @@ author: oompah
 created: 2026-07-24 16:20
 ---
 Implemented and pushed the coordinator-only A2A 1.0 diagnostic client adapter with registry/mTLS identity handling, protocol negotiation, per-request timeouts, normalized errors, send/get/cancel operations, remediation exclusion, and focused passing tests.
+---
+author: oompah
+created: 2026-07-31 20:47
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
