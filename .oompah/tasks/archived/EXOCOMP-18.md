@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-18
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement coordinator diagnostic task orchestration and audit
 parent: EXOCOMP-2
@@ -21,7 +21,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:31.642631Z'
-updated_at: '2026-07-31T21:06:12.991094Z'
+updated_at: '2026-07-31T21:06:55.937597Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,6 +47,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T04:28:09.200736+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-5ab36fc93c94: '2026-07-31T21:06:53.315854+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-18
+    target_state: Archived
+    evidence_fingerprint: efde635871c6d6f4d36eca83499c287c4a07d466d1164e0a9288713f635a44c6
+    audit_ids:
+    - audit-c5c1fb85c81c
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T21:06:53.315866+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-18
+    audit_id: audit-c5c1fb85c81c
+    attempt_id: attempt-5ab36fc93c94
+    target_state: Archived
+    evidence_fingerprint: efde635871c6d6f4d36eca83499c287c4a07d466d1164e0a9288713f635a44c6
+    status: Archived
+    audit_ids:
+    - audit-c5c1fb85c81c
+    applied: false
+    created_at: '2026-07-31T21:06:53.315883+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -54,7 +78,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-18
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -63,7 +87,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-5ab36fc93c94
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -73,13 +97,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T21:06:05.266859+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-07-31T21:06:53.315717+00:00'
+      ended_at: '2026-07-31T21:06:53.315717+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:34.108385+00:00'
-    updated_at: '2026-07-31T21:06:05.266859+00:00'
+    updated_at: '2026-07-31T21:06:53.315717+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-5ab36fc93c94
@@ -268,5 +295,19 @@ author: oompah
 created: 2026-07-31 21:06
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 21:06
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- previous_state: Merged
+- merge_commit: ed2af63
+- children_completed: EXOCOMP-99..EXOCOMP-105
+- downstream_use: M5 (EXOCOMP-125/126) built on merged coordinator orchestration
+- branch: epic-EXOCOMP-2--task-EXOCOMP-18
 ---
 <!-- COMMENTS:END -->
