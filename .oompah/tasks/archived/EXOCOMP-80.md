@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-80
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: 'Skill handler implementations: system.diagnose, service.diagnose, remediation.propose'
 parent: EXOCOMP-12
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T23:04:55.080769Z'
-updated_at: '2026-07-31T04:35:31.557810Z'
+updated_at: '2026-07-31T04:36:34.199721Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -50,6 +50,8 @@ oompah.task_costs:
     recorded_at: '2026-07-24T01:53:06.739784+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-7cc6c7afcba9: '2026-07-31T04:36:31.981260+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +59,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-80
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +68,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-7cc6c7afcba9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,13 +78,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:35:27.026875+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:36:31.981109+00:00'
+      ended_at: '2026-07-31T04:36:31.981109+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:13:13.222063+00:00'
-    updated_at: '2026-07-31T04:35:27.026875+00:00'
+    updated_at: '2026-07-31T04:36:31.981109+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-7cc6c7afcba9
@@ -379,5 +384,20 @@ author: oompah
 created: 2026-07-31 04:35
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:36
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 92e9bd3
+- modules_present: behaviour.ex, dispatcher.ex, system_diagnose.ex, service_diagnose.ex, remediation_propose.ex
+- tests_present: dispatcher_test.exs, system_diagnose_test.exs, service_diagnose_test.exs, remediation_propose_test.exs
+- branch_on_main: yes
+- previous_state: Merged
+- target_state: Archived
 ---
 <!-- COMMENTS:END -->
