@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-101
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Orchestrate bounded diagnostic fan-out and partial results
 parent: EXOCOMP-18
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-07-24T20:16:01.507640Z'
+updated_at: '2026-07-31T20:46:06.598816Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 67159
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:54:31.651306+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-33eb614b1287
+    project_id: proj-c260b117
+    task_id: EXOCOMP-101
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 1671225bea85022c0649510b307876d1edce23d1b5eef25f2cb674a7d16b0359
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:04.297295+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -163,5 +185,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 23m 52s
 - Log: EXOCOMP-101__20260724T163041Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
