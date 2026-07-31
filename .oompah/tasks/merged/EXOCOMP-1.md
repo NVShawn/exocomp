@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-31T05:56:15.239058Z'
+updated_at: '2026-07-31T05:56:27.672532Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -183,13 +183,13 @@ oompah.terminal_audit:
     started_at: '2026-07-31T05:52:07.370115+00:00'
     branch_key: epic-EXOCOMP-1
 oompah.task_costs:
-  total_input_tokens: 93
-  total_output_tokens: 9341
+  total_input_tokens: 132
+  total_output_tokens: 18906
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 93
-      output_tokens: 9341
+      input_tokens: 132
+      output_tokens: 18906
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -204,6 +204,12 @@ oompah.task_costs:
     output_tokens: 579
     cost_usd: 0.0
     recorded_at: '2026-07-31T04:40:49.533823+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 39
+    output_tokens: 9565
+    cost_usd: 0.0
+    recorded_at: '2026-07-31T05:56:25.748207+00:00'
 ---
 ## Summary
 
@@ -340,5 +346,15 @@ Safe evidence:
 - m1_crit_checked_count: 7/7 in plans/milestone-1-node-agent.md
 - m1_acceptance_test_file: apps/exocomp_node/test/integration/m1_acceptance_test.exs
 - epic_rebasing_label_present: true (does not block Merged, but must be cleared for subsequent Archive/Done audit)
+---
+author: oompah
+created: 2026-07-31 05:56
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 45, Tool calls: 33
+- Tokens: 39 in / 9.6K out [9.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 18s
+- Log: EXOCOMP-1__20260731T055209Z.jsonl
 ---
 <!-- COMMENTS:END -->
