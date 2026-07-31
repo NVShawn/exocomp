@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-07-31T19:54:18.613626Z'
+updated_at: '2026-07-31T19:54:24.401025Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -209,5 +209,14 @@ author: oompah
 created: 2026-07-31 19:54
 ---
 Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-07-31 19:54
+---
+Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 6s
 ---
 <!-- COMMENTS:END -->
