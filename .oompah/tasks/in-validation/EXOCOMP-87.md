@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-87
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement coordinator CSR validation and node leaf cert issuance
 parent: EXOCOMP-17
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:40:05.872303Z'
-updated_at: '2026-07-24T20:10:58.301764Z'
+updated_at: '2026-07-31T20:47:06.107759Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -35,6 +35,28 @@ oompah.task_costs:
     output_tokens: 2889
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:52:14.764466+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-b29ab969d1b3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-87
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c37ccd42ed177ec0831fcd7b8144165caf624e7ef60139b9864bc0a160be2ec3
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:47:03.516176+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -218,5 +240,10 @@ author: oompah
 created: 2026-07-24 03:05
 ---
 Implemented strict coordinator CSR validation and secure intermediate-signed node leaf certificate issuance with full focused coverage; fmt-check, lint, test, release smoke checks passed; commit 1f3c323 pushed.
+---
+author: oompah
+created: 2026-07-31 20:47
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
