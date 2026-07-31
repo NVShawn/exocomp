@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-13
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Verify the M1 node-agent milestone
 parent: EXOCOMP-1
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:08:57.920933Z'
-updated_at: '2026-07-31T04:48:58.483367Z'
+updated_at: '2026-07-31T04:50:29.984347Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -38,6 +38,8 @@ oompah.task_costs:
     recorded_at: '2026-07-24T02:31:42.528103+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-1e0d6b5bd207: '2026-07-31T04:50:26.977639+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -45,7 +47,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-13
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -54,7 +56,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-1e0d6b5bd207
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -64,13 +66,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T04:48:54.116879+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-07-31T04:50:26.977487+00:00'
+      ended_at: '2026-07-31T04:50:26.977487+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T04:12:31.218790+00:00'
-    updated_at: '2026-07-31T04:48:54.116879+00:00'
+    updated_at: '2026-07-31T04:50:26.977487+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-1e0d6b5bd207
@@ -358,5 +363,21 @@ author: oompah
 created: 2026-07-31 04:48
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 04:50
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- exocomp_13_commits_on_main: 090295b, abbf87e
+- acceptance_fixture_path: apps/exocomp_node/test/integration/m1_acceptance_test.exs
+- last_merge_commit_date: 2026-07-24 03:09:00 +0000
+- audit_date: 2026-07-31
+- days_since_merge: 7
+- branch_contains_check: commit 090295b is on main (verified via git branch --contains)
+- previous_state: Merged
 ---
 <!-- COMMENTS:END -->
