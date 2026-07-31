@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-17
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement node enrollment and certificate renewal
 parent: EXOCOMP-2
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:09:30.784524Z'
-updated_at: '2026-07-24T20:10:57.459265Z'
+updated_at: '2026-07-31T20:46:32.401094Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 3708
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:40:39.959916+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-d7c952d7e9be
+    project_id: proj-c260b117
+    task_id: EXOCOMP-17
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 75e4ae0415fc19935596e01d88b0a08272a87ca4764a077b3b0e35441e944d53
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T20:46:30.068678+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -154,5 +176,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 5m 16s
 - Log: EXOCOMP-17__20260724T023527Z.jsonl
+---
+author: oompah
+created: 2026-07-31 20:46
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
