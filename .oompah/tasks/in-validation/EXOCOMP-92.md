@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-92
 type: task
-status: Merged
+status: In Validation
 priority: 1
 title: Add multi-node discovery and polling integration coverage
 parent: EXOCOMP-15
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-07-24T19:41:04.052741Z'
+updated_at: '2026-07-31T19:45:47.071285Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -45,6 +45,28 @@ oompah.task_costs:
     output_tokens: 60048
     cost_usd: 0.0
     recorded_at: '2026-07-24T04:22:44.648922+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-746094020b5f
+    project_id: proj-c260b117
+    task_id: EXOCOMP-92
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 33f8e7466d0df61fd82da1542365884c1902e113211b55d69fe2141ddbefdd19
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T19:45:44.492483+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -178,5 +200,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 19m 42s
 - Log: EXOCOMP-92__20260724T040305Z.jsonl
+---
+author: oompah
+created: 2026-07-31 19:45
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
