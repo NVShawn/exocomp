@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-61
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Define versioned proposal schema module
 parent: EXOCOMP-11
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:03:38.382843Z'
-updated_at: '2026-07-24T03:41:19.532334Z'
+updated_at: '2026-07-31T04:12:48.782152Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 18445
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:21:31.533824+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-565a0745f76c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-61
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a8d9407880e26d75465bab699cbe968fbd88075dda0249b32eee62c4dd20d651
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-07-31T04:12:46.939683+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -216,5 +238,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 7m 12s
 - Log: EXOCOMP-61__20260723T211423Z.jsonl
+---
+author: oompah
+created: 2026-07-31 04:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
