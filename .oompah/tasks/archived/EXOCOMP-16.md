@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-16
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement coordinator CA initialization and enrollment tokens
 parent: EXOCOMP-2
@@ -17,7 +17,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:09:29.953540Z'
-updated_at: '2026-07-31T21:02:33.028352Z'
+updated_at: '2026-07-31T21:05:44.814923Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -55,6 +55,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:58:01.883876+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ece0243b8f57: '2026-07-31T21:05:42.330674+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-16
+    target_state: Archived
+    evidence_fingerprint: 10ffd57f39c0d02d6ad605050caba192ef5654f3626f8688d56625c86416638b
+    audit_ids:
+    - audit-7fa4e9378256
+    kind: result
+    applied: true
+    retired_at: '2026-07-31T21:05:42.330687+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-16
+    audit_id: audit-7fa4e9378256
+    attempt_id: attempt-ece0243b8f57
+    target_state: Archived
+    evidence_fingerprint: 10ffd57f39c0d02d6ad605050caba192ef5654f3626f8688d56625c86416638b
+    status: Archived
+    audit_ids:
+    - audit-7fa4e9378256
+    applied: false
+    created_at: '2026-07-31T21:05:42.330703+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -62,7 +86,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-16
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -71,7 +95,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ece0243b8f57
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -81,13 +105,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-07-31T21:02:25.975840+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-07-31T21:05:42.330438+00:00'
+      ended_at: '2026-07-31T21:05:42.330438+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:25.720827+00:00'
-    updated_at: '2026-07-31T21:02:25.975840+00:00'
+    updated_at: '2026-07-31T21:05:42.330438+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ece0243b8f57
@@ -332,5 +359,23 @@ author: oompah
 created: 2026-07-31 21:02
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-07-31 21:05
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- integration_commit: af0065d7 EXOCOMP-20: integrate PKI and enrollment modules from EXOCOMP-87/epic-EXOCOMP-16
+- integration_branches: origin/main, origin/HEAD, origin/EXOCOMP-33, origin/epic-EXOCOMP-11/15/35
+- merge_pr: PR #9 merge commit 6deabae Merge pull request #9 from NVShawn/epic-EXOCOMP-2
+- children_decomposed: EXOCOMP-75 (secure PKI bootstrap), EXOCOMP-76 (durable enrollment token service), EXOCOMP-77 (integrate PKI init and enrollment ops)
+- children_commits_on_epic_branch: 7ceead4 EXOCOMP-75, af14041 EXOCOMP-76, 867836d + 9afb6f8 EXOCOMP-77 (all on origin/epic-EXOCOMP-16)
+- delivered_lib_files: apps/exocomp_coordinator/lib/exocomp/coordinator/pki/{bootstrap.ex, issuer.ex, state.ex}; apps/exocomp_coordinator/lib/exocomp/coordinator/enrollment_token.ex; apps/exocomp_coordinator/lib/mix/tasks/exocomp.coordinator.init.ex
+- delivered_test_files: apps/exocomp_coordinator/test/exocomp/coordinator/pki/{bootstrap_test.exs, issuer_test.exs}; apps/exocomp_coordinator/test/exocomp/coordinator/{enrollment_token_test.exs, integration_test.exs}; apps/exocomp_coordinator/test/mix/tasks/exocomp_coordinator_init_test.exs
+- downstream_dependents: EXOCOMP-107 node enrollment/renewal; EXOCOMP-119 production PKI startup; EXOCOMP-123 rc.* PKI release safety; EXOCOMP-125 approval cleanup
+- archive_reason: Aged Merged auto-archive (closed 7 days ago) per scheduler queued audit
 ---
 <!-- COMMENTS:END -->
