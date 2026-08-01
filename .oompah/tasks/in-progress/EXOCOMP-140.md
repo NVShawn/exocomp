@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: Needs CI Fix
+status: In Progress
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:12:12.363847Z'
+updated_at: '2026-08-01T18:13:02.734147Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -89,7 +89,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 5da3391e-0aeb-4929-8198-5d8d7b3fc080
+oompah.agent_run_id: 320eda88-85a2-46df-b750-3173c5387f2a
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
@@ -103,8 +103,8 @@ oompah.integration:
   submitted_at: '2026-08-01T17:59:43.467642+00:00'
   updated_at: '2026-08-01T18:01:03.696614+00:00'
 oompah.task_costs:
-  total_input_tokens: 22346039
-  total_output_tokens: 118135
+  total_input_tokens: 22346107
+  total_output_tokens: 127507
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -112,8 +112,8 @@ oompah.task_costs:
       output_tokens: 90445
       cost_usd: 0.0
     unknown:
-      input_tokens: 165
-      output_tokens: 22950
+      input_tokens: 233
+      output_tokens: 32322
       cost_usd: 0.0
     sonnet:
       input_tokens: 169
@@ -162,6 +162,12 @@ oompah.task_costs:
     output_tokens: 8083
     cost_usd: 0.0
     recorded_at: '2026-08-01T17:59:54.907374+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 68
+    output_tokens: 9372
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:12:47.039056+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-140__20260801T114901Z
@@ -786,5 +792,15 @@ Instructions:
 - Re-run make test in the pinned container and confirm oidc_client_test.exs, oidc_config_cache_test.exs, oidc_integration_test.exs and controllers/auth_controller_test.exs all compile and pass end to end, including the encryption_salt/session-cookie assertions.
 - Re-run make fmt-check and make lint after the change so the added top-level import does not introduce formatter or Credo warnings, and confirm compliance-check still passes.
 - Only resubmit once the focused OIDC test suite is actually green (not just compile-clean) so the acceptance criteria for fake-provider coverage can be verified.
+---
+author: oompah
+created: 2026-08-01 18:12
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 71, Tool calls: 62
+- Tokens: 68 in / 9.4K out [9.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 11m 0s
+- Log: EXOCOMP-140__20260801T180149Z.jsonl
 ---
 <!-- COMMENTS:END -->

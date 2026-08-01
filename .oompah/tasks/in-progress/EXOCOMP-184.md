@@ -21,7 +21,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:12:29.288471Z'
+updated_at: '2026-08-01T18:13:06.754633Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -66,7 +66,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: a63b5b23-5fed-49a3-abac-6e36deb877a3
+oompah.agent_run_id: 749afad2-9446-4bf7-995a-1d404d820cef
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 oompah.integration:
   version: 2
@@ -77,8 +77,8 @@ oompah.integration:
   base_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
   updated_at: '2026-08-01T18:05:24.963681+00:00'
 oompah.task_costs:
-  total_input_tokens: 7611527
-  total_output_tokens: 79993
+  total_input_tokens: 10248535
+  total_output_tokens: 98700
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -86,8 +86,8 @@ oompah.task_costs:
       output_tokens: 13215
       cost_usd: 0.0
     sonnet:
-      input_tokens: 5044472
-      output_tokens: 48839
+      input_tokens: 7681480
+      output_tokens: 67546
       cost_usd: 0.0
     opus:
       input_tokens: 2566715
@@ -130,6 +130,12 @@ oompah.task_costs:
     output_tokens: 393
     cost_usd: 0.0
     recorded_at: '2026-08-01T18:03:58.558387+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 2637008
+    output_tokens: 18707
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:12:39.496813+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-184__20260801T132400Z
@@ -172,6 +178,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
     source_sha: cff17ef0a6b47856774be014a1dea3b8bed67c9b
     completed_at: '2026-08-01T17:56:20.347707+00:00'
+  - run_id: EXOCOMP-184__20260801T180527Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-terra
+    focus: callback_auth
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
+    source_sha: cb7660e9c25050cd6098684a38df06513194ab7a
+    completed_at: '2026-08-01T18:12:39.501736+00:00'
 ---
 ## Summary
 
@@ -724,5 +738,30 @@ FILES / EVIDENCE: scripts/m7_qualification.py now blocks credential/key-bearing 
 REMAINING WORK / RISKS: Do not submit EXOCOMP-184 yet. A signed final candidate, supported amd64/arm64 systemd guests, and integrated Mission Control scenario/scale/lifecycle targets are still required to execute the live qualification and signed dual-architecture evidence finalization. The harness continues to fail closed until then.
 
 RECOMMENDED NEXT FOCUS: devops, after EXOCOMP-178/181/182/183 integration, to run both guest qualifications and finalize signed evidence.
+---
+author: oompah
+created: 2026-08-01 18:12
+---
+Agent completed successfully in 439s (2655715 tokens)
+---
+author: oompah
+created: 2026-08-01 18:12
+---
+Run #4 [attempt=4, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 1, Tool calls: 50
+- Tokens: 2.6M in / 18.7K out [2.7M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 19s
+- Log: EXOCOMP-184__20260801T180527Z.jsonl
+---
+author: oompah
+created: 2026-08-01 18:12
+---
+Focus handoff from `callback_auth` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-08-01 18:13
+---
+Agent dispatched (profile: standard)
 ---
 <!-- COMMENTS:END -->
