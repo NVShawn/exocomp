@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-49
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement A2A 1.0 JSON codecs, error mapping, and version handling
 parent: EXOCOMP-8
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-07-25T21:10:46.300788Z'
+updated_at: '2026-08-01T21:19:30.074151Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -55,6 +55,28 @@ oompah.task_costs:
     output_tokens: 4148
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:36:38.576098+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-36a8fa2104d3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-49
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 748cb423edfff7788f8bbbc03133e8c026059568ba324ace3ce5d428e922059a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:27.741697+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -290,5 +312,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
