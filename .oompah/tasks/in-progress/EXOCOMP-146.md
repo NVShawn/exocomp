@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-01T12:11:18.572951Z'
+updated_at: '2026-08-01T12:15:01.587777Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -23,17 +23,31 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: e89e27b3fcf6b07f45d8bc5633fc0ace9c4e108c95db7a100a80b4ac8266591a
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T12:14:39.386053+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: eee815c1-ea26-4398-b2b6-e1f9675cf103
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T12:11:06.187470+00:00'
-  claim_expires_at: '2026-08-01T12:41:06.187470+00:00'
+  evidence: 'Focus handoff: duplicate_detector
+
+
+    Duplicate preflight verdict: no_duplicate
+
+
+    Matches: none
+
+
+    Evidence: Reviewed active EXOCOMP-144, EXOCOMP-145, EXOCOMP-147, EXOCOMP-149,
+    EXOCOMP-150, EXOCOMP-180, EXOCOMP-181, and EXOCOMP-143. Each covers adjacent PKI,
+    configuration, heartbeat, delivery, integration, security testing, or enrollment
+    scope; EXOCOMP-143 explicitly excludes WebSocket authentication. The exact outbound
+    mTLS WebSocket upgrade/session-replacement scope appears only in EXOCOMP-146 and
+    `plans/mission-control.md`.'
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 3b3f1553-7461-4c11-abbd-6b7d5e197bfc
+oompah.agent_run_id: f9a51151-476f-4930-82ab-b57021b5a8a3
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
@@ -42,7 +56,33 @@ oompah.integration:
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
   base_branch: epic-EXOCOMP-130
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:11:15.869531+00:00'
+  updated_at: '2026-08-01T12:14:59.554141+00:00'
+oompah.task_costs:
+  total_input_tokens: 467252
+  total_output_tokens: 4252
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 467252
+      output_tokens: 4252
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 467252
+    output_tokens: 4252
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:14:39.385281+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-146__20260801T121119Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-130--task-EXOCOMP-146
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T12:14:39.452481+00:00'
 ---
 ## Summary
 
@@ -77,5 +117,25 @@ author: oompah
 created: 2026-08-01 12:11
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 12:14
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 2, Tool calls: 29
+- Tokens: 467.3K in / 4.3K out [471.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 32s
+- Log: EXOCOMP-146__20260801T121119Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:14
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 12:15
+---
+Focus: Refactoring Specialist
 ---
 <!-- COMMENTS:END -->
