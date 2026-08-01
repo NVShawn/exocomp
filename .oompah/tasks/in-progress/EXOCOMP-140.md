@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:15:55.232986Z'
+updated_at: '2026-08-01T17:20:11.879013Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -476,5 +476,10 @@ author: oompah
 created: 2026-08-01 17:15
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 17:20
+---
+Understanding: The integration conflict stems from our task branch having sibling task commits (EXOCOMP-136/137/138/139) mixed in with our OIDC work. The epic (epic-EXOCOMP-129) at b1a07ccf has an initial OIDC implementation but without those sibling task commits. Our task branch needs to be rebased so only the EXOCOMP-140 hardening work (oidc_client.ex improvements, OIDCConfigCache, improved auth_controller, real integration tests, license inventory) sits on top of the epic - without the sibling task code which will be integrated separately. Plan: rebase just our two EXOCOMP-140 commits onto epic-EXOCOMP-129, resolving conflicts in application.ex, router.ex, and mix.exs to leave only OIDC-specific additions.
 ---
 <!-- COMMENTS:END -->
