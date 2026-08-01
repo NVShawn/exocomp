@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:42:20.268808Z'
+updated_at: '2026-08-01T13:42:40.347918Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -71,7 +71,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: de2284c8-4037-42c4-bd91-c479720a02d7
+oompah.agent_run_id: 9857a554-a328-44bd-a25c-98af284fe8f7
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 oompah.integration:
   version: 2
@@ -80,7 +80,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-147
   base_branch: epic-EXOCOMP-130
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:21:34.529386+00:00'
+  updated_at: '2026-08-01T13:42:38.256881+00:00'
 oompah.task_costs:
   total_input_tokens: 385390
   total_output_tokens: 5028
@@ -258,5 +258,15 @@ author: oompah
 created: 2026-08-01 12:36
 ---
 Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
+---
+author: oompah
+created: 2026-08-01 13:42
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:42
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
