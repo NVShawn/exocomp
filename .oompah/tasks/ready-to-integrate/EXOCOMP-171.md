@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-01T13:21:50.171620Z'
+updated_at: '2026-08-01T13:22:25.264903Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -51,13 +51,13 @@ oompah.integration:
   submitted_at: '2026-08-01T13:21:48.285012+00:00'
   updated_at: '2026-08-01T13:21:48.285012+00:00'
 oompah.task_costs:
-  total_input_tokens: 880593
-  total_output_tokens: 4076
+  total_input_tokens: 881317
+  total_output_tokens: 38329
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 880593
-      output_tokens: 4076
+      input_tokens: 881317
+      output_tokens: 38329
       cost_usd: 0.0
   runs:
   - profile: default
@@ -66,6 +66,12 @@ oompah.task_costs:
     output_tokens: 4076
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:05:21.175947+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 724
+    output_tokens: 34253
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:22:22.489491+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-171__20260801T130345Z
@@ -189,5 +195,15 @@ author: oompah
 created: 2026-08-01 13:21
 ---
 Delivered: immutable organization-scoped audit-event storage with redaction module and comprehensive test coverage (79 tests, all quality gates pass)
+---
+author: oompah
+created: 2026-08-01 13:22
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 88
+- Tokens: 724 in / 34.3K out [35.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 16m 45s
+- Log: EXOCOMP-171__20260801T130544Z.jsonl
 ---
 <!-- COMMENTS:END -->
