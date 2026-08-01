@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-08-01T14:59:15.692617Z'
+updated_at: '2026-08-01T15:07:04.256951Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 target_branch: null
 review_url: null
@@ -152,5 +152,16 @@ Planned approach:
 5. Implement edge case handling (snooze expiry, reassignment, concurrent mutations, cross-org checks)
 6. Add comprehensive test coverage for role matrix, invalid transitions, and unhealthy evidence reopening
 7. Run make test, make fmt-check, make lint
+---
+author: oompah
+created: 2026-08-01 15:07
+---
+Discovery: Merged EXOCOMP-154's incident scaffold into current branch. Found:
+- Incident struct with state (open/acknowledged/resolved), dates, and identity fields
+- IncidentEvent timeline with 4 event types: opened, updated, acknowledged, resolved
+- GenServer-based incidents context with record/get/list/events operations
+- No fields yet for: assignment, snooze, resolution_reason, operator audit trail
+
+Next: Extend Incident struct for assignment/snooze/reason, add new event types for operator mutations, implement context functions with role-based authorization, and add comprehensive tests.
 ---
 <!-- COMMENTS:END -->
