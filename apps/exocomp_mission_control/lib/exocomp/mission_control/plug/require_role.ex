@@ -9,9 +9,8 @@ defmodule Exocomp.MissionControl.Plug.RequireRole do
   """
 
   import Plug.Conn
+  import Phoenix.Controller, only: [redirect: 2, put_view: 2, render: 2]
   require Logger
-
-  alias Phoenix.Controller
 
   def init(opts) do
     opts
@@ -50,8 +49,8 @@ defmodule Exocomp.MissionControl.Plug.RequireRole do
   defp forbidden(conn) do
     conn
     |> put_status(:forbidden)
-    |> Phoenix.Controller.put_view(Exocomp.MissionControl.ErrorHTML)
-    |> Phoenix.Controller.render("403.html")
+    |> put_view(html: Exocomp.MissionControl.ErrorHTML)
+    |> render("403.html")
     |> halt()
   end
 

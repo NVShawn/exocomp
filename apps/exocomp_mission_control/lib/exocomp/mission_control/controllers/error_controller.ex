@@ -18,4 +18,10 @@ defmodule Exocomp.MissionControl.ErrorController do
     |> put_view(html: Exocomp.MissionControl.ErrorHTML)
     |> render("403.html")
   end
+
+  def health(conn, _params) do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, ~s({"status":"ok"}))
+  end
 end

@@ -26,7 +26,7 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
   def require_authenticated_or_redirect({:ok, socket}, session) do
     case get_operator_from_session(session) do
       nil -> {:redirect, to: "/auth/login"}
-      operator -> {:ok, assign(socket, :operator, operator)}
+      operator -> {:ok, Phoenix.Component.assign(socket, :operator, operator)}
     end
   end
 
@@ -39,7 +39,7 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
 
       %Operator{} = operator ->
         if Operator.has_role_at_least?(operator, :viewer) do
-          {:ok, assign(socket, :operator, operator)}
+          {:ok, Phoenix.Component.assign(socket, :operator, operator)}
         else
           {:redirect, to: "/forbidden"}
         end
@@ -55,7 +55,7 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
 
       %Operator{} = operator ->
         if Operator.has_role_at_least?(operator, :operator) do
-          {:ok, assign(socket, :operator, operator)}
+          {:ok, Phoenix.Component.assign(socket, :operator, operator)}
         else
           {:redirect, to: "/forbidden"}
         end
@@ -71,7 +71,7 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
 
       %Operator{} = operator ->
         if Operator.has_role_at_least?(operator, :admin) do
-          {:ok, assign(socket, :operator, operator)}
+          {:ok, Phoenix.Component.assign(socket, :operator, operator)}
         else
           {:redirect, to: "/forbidden"}
         end

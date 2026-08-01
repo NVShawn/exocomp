@@ -28,11 +28,7 @@ defmodule Exocomp.MissionControl.Router do
   scope "/", Exocomp.MissionControl do
     pipe_through(:browser)
 
-    get "/health" do
-      conn
-      |> Plug.Conn.put_resp_content_type("application/json")
-      |> Plug.Conn.send_resp(200, ~s({"status":"ok"}))
-    end
+    get("/health", ErrorController, :health)
   end
 
   scope "/auth", Exocomp.MissionControl do
@@ -43,23 +39,17 @@ defmodule Exocomp.MissionControl.Router do
     get("/logout", AuthController, :logout)
   end
 
+  scope "/forbidden", Exocomp.MissionControl do
+    pipe_through(:browser)
+
+    get("/", ErrorController, :forbidden)
+  end
+
   scope "/" do
     pipe_through(:browser)
 
-    live_session :authenticated,
-      on_mount: {Exocomp.MissionControl.LiveView.RequireRole, :require_authenticated_or_redirect},
-      session: {__MODULE__, :auth_session, []} do
-      live("/", Exocomp.MissionControl.DashboardLive.Index, :index)
-      live("/incidents", Exocomp.MissionControl.IncidentsLive.Index, :index)
-      live("/conversations", Exocomp.MissionControl.ConversationsLive.Index, :index)
-      live("/admin", Exocomp.MissionControl.AdminLive.Index, :index)
-    end
-  end
-
-  scope "/forbidden" do
-    pipe_through(:browser)
-
-    get("/", Exocomp.MissionControl.ErrorController, :forbidden)
+    # Placeholder for LiveView routes - will be configured with proper live_session in future
+    get("/", Exocomp.MissionControl.ErrorController, :not_found)
   end
 
   # Error handlers (must be last)
