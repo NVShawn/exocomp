@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:19.626537Z'
-updated_at: '2026-08-01T12:59:32.224492Z'
+updated_at: '2026-08-01T13:05:57.852866Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 target_branch: null
 review_url: null
@@ -138,5 +138,29 @@ author: oompah
 created: 2026-08-01 12:59
 ---
 DISCOVERY: Merged EXOCOMP-158 work on bounded conversations. Found existing RemediationLifecycle uses RemediationAdapter callback pattern for validate/decide. Plan: Create Proposal struct with organization scoping, cluster/node target, catalog action, validated parameters, evidence reference/hash, risk, disruption, rationale, policy result, and expiry. Implement Proposals context (GenServer store) following Conversations pattern with validation against action catalog and parameter schema. Link proposals to conversation messages and correlation/task IDs through attrs. Tests cover valid, unknown action, caller-supplied command/path, invalid target/params, stale/missing evidence, duplicate ID, expiry, org mismatch.
+---
+author: oompah
+created: 2026-08-01 13:05
+---
+IMPLEMENTATION: Created Proposal struct and Proposals context for typed remedy proposal storage and validation.
+
+Files added:
+- apps/exocomp_mission_control/lib/exocomp/mission_control/proposal.ex (280 LOC): Struct with validation for proposal fields, risk levels, policy results, evidence staleness checking, expiry detection
+- apps/exocomp_mission_control/lib/exocomp/mission_control/proposals.ex (247 LOC): GenServer store with catalog validation, organization scoping, list filtering
+- apps/exocomp_mission_control/test/exocomp/mission_control/proposals_test.exs (660 LOC): Comprehensive test suite covering all acceptance criteria
+
+Key features:
+- Organization-scoped with cross-organization prevention
+- Action catalog validation (unknown action rejection)
+- Unsupported field rejection (no command/path parameters allowed)
+- Parameter validation (must be map with string keys)
+- Evidence reference support with staleness checking
+- Proposal expiry with default 1-hour TTL
+- Unique ID enforcement within organization
+- Text field size limits (expected_disruption: 256B, rationale: 2048B)
+- Automatic default values and field normalization
+- Linked to conversation messages and correlation/task IDs
+
+Tests pass: 511/511. Quality gates: fmt-check ✓, lint ✓, compile ✓
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-01T13:05:24.454809Z'
+updated_at: '2026-08-01T13:05:44.418865Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -40,7 +40,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 14718e91-ee39-45d4-bef0-95889c8bbc4b
+oompah.agent_run_id: 3f51ce77-d11c-490a-8473-b0140bd78a30
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
@@ -49,7 +49,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
   base_branch: epic-EXOCOMP-134
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:03:40.705806+00:00'
+  updated_at: '2026-08-01T13:05:41.218802+00:00'
 oompah.task_costs:
   total_input_tokens: 880593
   total_output_tokens: 4076
@@ -120,5 +120,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 48s
 - Log: EXOCOMP-171__20260801T130345Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:05
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:05
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
