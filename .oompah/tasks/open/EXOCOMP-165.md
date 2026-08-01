@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:58.020040Z'
-updated_at: '2026-08-01T15:14:24.036147Z'
+updated_at: '2026-08-01T15:18:17.209829Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-165
 target_branch: null
 review_url: null
@@ -24,14 +24,18 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 8bdc46b38dfb6fd4d3ffb049596cc67c32cbca1a319939044eb2391e7f82a71f
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T15:18:14.413721+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: 8f889175-4350-49e3-9bed-8ca26813dd36
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T15:14:14.486877+00:00'
-  claim_expires_at: '2026-08-01T15:44:14.486877+00:00'
+  evidence: "Focus handoff: duplicate_detector\n\nDuplicate preflight verdict: no_duplicate\n\
+    \nMatches: none\n\nEvidence: Reviewed EXOCOMP-164 (shell), EXOCOMP-152 (status\
+    \ persistence), EXOCOMP-155 (health rules), and sibling UI tasks EXOCOMP-166\u2013\
+    170. Their scopes are distinct foundations or feature views; none duplicates the\
+    \ fleet overview LiveView."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
 oompah.agent_run_id: 348efd6a-e30c-42e8-9612-0a34e4c4924f
@@ -44,6 +48,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-133
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T15:14:21.668454+00:00'
+oompah.task_costs:
+  total_input_tokens: 328548
+  total_output_tokens: 4331
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 328548
+      output_tokens: 4331
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 328548
+    output_tokens: 4331
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:18:14.412872+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-165__20260801T151425Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-133--task-EXOCOMP-165
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T15:18:14.420445+00:00'
 ---
 ## Summary
 
@@ -79,5 +109,15 @@ author: oompah
 created: 2026-08-01 15:14
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 15:18
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 2, Tool calls: 39
+- Tokens: 328.5K in / 4.3K out [332.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 58s
+- Log: EXOCOMP-165__20260801T151425Z.jsonl
 ---
 <!-- COMMENTS:END -->
