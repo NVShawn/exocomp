@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:39.520334Z'
-updated_at: '2026-08-01T15:42:45.264291Z'
+updated_at: '2026-08-01T15:46:57.108118Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-08-01 15:42
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 15:46
+---
+**Understanding:** Task is to implement configurable retention policy for Mission Control history (incidents, conversations, proposals, audit events, webhook history). Default one-year for incidents/messages/proposals/audits, 90 days for status history. Must delete in bounded batches without blocking ingestion, preserve open/pending records, and record job stats. Checking codebase for existing schema and dependencies.
 ---
 <!-- COMMENTS:END -->
