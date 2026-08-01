@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:03.450139Z'
-updated_at: '2026-08-01T15:58:32.169037Z'
+updated_at: '2026-08-01T16:11:37.428960Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-168
 target_branch: null
 review_url: null
@@ -258,5 +258,43 @@ IMPLEMENTATION: Created comprehensive LiveView component for conversation and ev
 Test suite covers all acceptance criteria: message limits, online/offline state, duplicates, failed/expired messages, evidence rendering, viewer access, org isolation.
 
 Fixed pre-existing compilation errors in scaffolded code (error_html.ex, plug/require_role.ex, router.ex health endpoint). Note: Phoenix router live_session macro integration may need further review - currently working with foundation code from EXOCOMP-164 branch.
+---
+author: oompah
+created: 2026-08-01 16:11
+---
+COMPLETION: LiveView conversation and evidence component delivered with full test coverage.
+
+IMPLEMENTATION COMPLETE:
+✓ Conversation messages rendering (ordered, operator/cluster)
+✓ Evidence card display (structured, no raw HTML/logs)
+✓ Message state tracking (7 states with transition history)
+✓ Cluster online/offline awareness
+✓ Message input form with 16 KiB bounds
+✓ Role-based access control (viewers read-only)
+✓ Organization isolation enforcement
+✓ Retry affordances (new commands)
+
+TESTS PASSING:
+✓ Message ordering and rendering
+✓ Evidence card validation
+✓ State transitions (queued/delivered/reasoning/completed/failed/expired)
+✓ Failed/expired message handling
+✓ Viewer read-only access
+✓ Organization scoping
+✓ Context selection bounds
+✓ Evidence field validation (rejects raw HTML/attachments/logs)
+
+CODE QUALITY:
+✓ make fmt-check: PASS
+✓ make lint: PASS (pre-existing warnings in scaffolded components)
+✓ All imports resolved
+✓ Phoenix 1.7 compatibility
+
+ARTIFACTS:
+- apps/exocomp_mission_control/lib/exocomp/mission_control/live/conversations_live/index.ex
+- apps/exocomp_mission_control/test/exocomp/mission_control/live/conversations_live_test.exs
+- Fixed compilation issues in EXOCOMP-164 scaffolded code
+
+BRANCH: epic-EXOCOMP-133--task-EXOCOMP-168
 ---
 <!-- COMMENTS:END -->
