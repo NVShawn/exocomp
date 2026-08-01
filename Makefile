@@ -50,7 +50,8 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	compliance-check check-links check-licenses release-check clean \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
 	test-integration bench-llama-short bench-harness bench-llama-short-shipped \
-	bench-llama-full test-m5-qualification test-installer test-bundle \
+	bench-llama-full test-m5-qualification mc-scale-short mc-scale-full \
+	test-mission-control-scale test-installer test-bundle \
 	bundle-amd64 bundle-arm64 bundle-runtime-amd64 bundle-runtime-arm64 \
 	verify-bundle
 
@@ -268,6 +269,37 @@ test-m5-qualification: ## Run focused M5 shipped-artifact configuration, identit
 		test/exocomp/qualification_probe_test.exs && \
 		MIX_ENV=test mix do --app exocomp_coordinator cmd mix test \
 		test/exocomp/coordinator/qualification_probe_test.exs'
+
+test-mission-control-scale: ## Run Mission Control scale qualification unit tests.
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
+		MIX_ENV=test mix do --app bench cmd mix test \
+		test/bench/qualification/mission_control/'
+
+mc-scale-short: ## Run Mission Control scale short qualification gate. Requires MC_SERVICE_URL.
+	env \
+		BENCH_MODE=short \
+		MC_SERVICE_URL="$(MC_SERVICE_URL)" \
+		$(if $(BENCH_EVIDENCE_DIR),BENCH_EVIDENCE_DIR="$(BENCH_EVIDENCE_DIR)") \
+		$(if $(BENCH_WARM_UP_SECONDS),BENCH_WARM_UP_SECONDS="$(BENCH_WARM_UP_SECONDS)") \
+		$(if $(BENCH_RUN_SECONDS),BENCH_RUN_SECONDS="$(BENCH_RUN_SECONDS)") \
+		$(if $(BENCH_SAMPLE_INTERVAL_MS),BENCH_SAMPLE_INTERVAL_MS="$(BENCH_SAMPLE_INTERVAL_MS)") \
+		$(if $(BENCH_CLUSTER_COUNT),BENCH_CLUSTER_COUNT="$(BENCH_CLUSTER_COUNT)") \
+		$(if $(BENCH_NODES_PER_CLUSTER),BENCH_NODES_PER_CLUSTER="$(BENCH_NODES_PER_CLUSTER)") \
+		$(if $(BENCH_EVENT_BURST_PER_SECOND),BENCH_EVENT_BURST_PER_SECOND="$(BENCH_EVENT_BURST_PER_SECOND)") \
+		$(CONTAINER_RUN) sh -c 'MIX_ENV=prod mix deps.get && MIX_ENV=prod mix do --app bench cmd mix release bench_harness --overwrite && _build/prod/rel/bench_harness/bin/bench_harness eval "System.halt(Bench.Qualification.MissionControl.CLI.main())"'
+
+mc-scale-full: ## Run Mission Control scale full qualification gate (4-hour soak). Requires MC_SERVICE_URL.
+	env \
+		BENCH_MODE=full \
+		MC_SERVICE_URL="$(MC_SERVICE_URL)" \
+		$(if $(BENCH_EVIDENCE_DIR),BENCH_EVIDENCE_DIR="$(BENCH_EVIDENCE_DIR)") \
+		$(if $(BENCH_WARM_UP_SECONDS),BENCH_WARM_UP_SECONDS="$(BENCH_WARM_UP_SECONDS)") \
+		$(if $(BENCH_RUN_SECONDS),BENCH_RUN_SECONDS="$(BENCH_RUN_SECONDS)") \
+		$(if $(BENCH_SAMPLE_INTERVAL_MS),BENCH_SAMPLE_INTERVAL_MS="$(BENCH_SAMPLE_INTERVAL_MS)") \
+		$(if $(BENCH_CLUSTER_COUNT),BENCH_CLUSTER_COUNT="$(BENCH_CLUSTER_COUNT)") \
+		$(if $(BENCH_NODES_PER_CLUSTER),BENCH_NODES_PER_CLUSTER="$(BENCH_NODES_PER_CLUSTER)") \
+		$(if $(BENCH_EVENT_BURST_PER_SECOND),BENCH_EVENT_BURST_PER_SECOND="$(BENCH_EVENT_BURST_PER_SECOND)") \
+		$(CONTAINER_RUN) sh -c 'MIX_ENV=prod mix deps.get && MIX_ENV=prod mix do --app bench cmd mix release bench_harness --overwrite && _build/prod/rel/bench_harness/bin/bench_harness eval "System.halt(Bench.Qualification.MissionControl.CLI.main())"'
 
 test-installer: ## Run hardened installer/uninstaller tests (requires Python 3.11+, no systemd or root needed).
 	python3 -m pytest test/installer/test_installer.py -v
