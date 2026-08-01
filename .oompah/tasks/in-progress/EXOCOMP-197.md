@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:19.643459Z'
-updated_at: '2026-08-01T17:14:23.868277Z'
+updated_at: '2026-08-01T17:16:17.647399Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 target_branch: null
 review_url: null
@@ -152,5 +152,10 @@ author: oompah
 created: 2026-08-01 17:14
 ---
 UNDERSTANDING: Implementing an unprivileged coordinator collector for Ceph health and topology JSON. Acceptance criteria: collect health + monitor/manager/OSD/MDS/gateway topology using fixed argv, enforce timeout/output-size limits, no shell invocation, normalize Ceph JSON versions, preserve partial failures with timestamps, never expose keyrings or env. Must include tests for HEALTH_OK/WARN/ERR, empty clusters, malformed JSON, partial failures, timeout, truncation. Starting with codebase exploration to understand infrastructure.
+---
+author: oompah
+created: 2026-08-01 17:16
+---
+DISCOVERY: Found infrastructure - Ceph profile config validated at startup via ProfileCoverage, node-side Ceph daemon discovery working as reference pattern. Need to implement coordinator-side Ceph health + topology JSON collector with fixed argv, bounded I/O/timeout, error handling, JSON normalization. Key files: Exocomp.ClusterProfile.Ceph, Exocomp.Coordinator.ProfileCoverage, docs/ceph-profile-configuration.md, Exocomp.Node.Collectors.Ceph (reference pattern).
 ---
 <!-- COMMENTS:END -->
