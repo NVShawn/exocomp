@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-102
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Propagate coordinator diagnostic cancellation
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-08-01T02:38:17.057805Z'
+updated_at: '2026-08-01T02:41:17.749977Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -46,6 +46,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-a04fdbdb74c9-3: '2026-07-31T21:15:12.734310+00:00'
+    attempt-a92c030ed375: '2026-08-01T02:41:15.449248+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-102
@@ -53,6 +54,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 3939a7130e9bad948b1ba216061de1694657191d5c2e8f46eaf1faa95a875e15
     audit_ids:
     - audit-a04fdbdb74c9
+    - audit-dd5aaf65baab
     kind: result
     applied: true
     retired_at: '2026-07-31T21:15:12.734319+00:00'
@@ -69,6 +71,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:15:12.734333+00:00'
     applied_at: '2026-07-31T21:15:15.346318+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-102
+    audit_id: audit-dd5aaf65baab
+    attempt_id: attempt-a92c030ed375
+    target_state: Archived
+    evidence_fingerprint: 3939a7130e9bad948b1ba216061de1694657191d5c2e8f46eaf1faa95a875e15
+    status: Archived
+    audit_ids:
+    - audit-dd5aaf65baab
+    applied: false
+    created_at: '2026-08-01T02:41:15.449279+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -159,7 +172,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-102
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -168,7 +181,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-a92c030ed375
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -178,13 +191,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:38:13.107214+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:41:15.449059+00:00'
+      ended_at: '2026-08-01T02:41:15.449059+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:44:10.459683+00:00'
-    updated_at: '2026-08-01T02:38:13.107214+00:00'
+    updated_at: '2026-08-01T02:41:15.449059+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-3451e031b572
@@ -453,5 +469,26 @@ author: oompah
 created: 2026-08-01 02:38
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:41
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- commit_sha: ec7816a5824afe4b146abcbcc32a41a0083ad6b1
+- commit_subject: EXOCOMP-102: Propagate coordinator diagnostic cancellation
+- commit_on_origin_main: true
+- files_changed: 3
+- lines_added: 594
+- lines_removed: 31
+- orchestrator_cancel_api: apps/exocomp_coordinator/lib/exocomp/coordinator/orchestrator.ex:165 def cancel(goal_id, opts \\ [])
+- node_outcome_cancel_failed: apps/exocomp_coordinator/lib/exocomp/coordinator/node_outcome.ex:46-48 :cancel_failed in @type state and @terminal_states
+- cancellation_tests_count: 8
+- test_scenarios_covered: before_dispatch, during_fan_out, unsupported_downstream, partial_failure, repeated_cancel, completion_race, unknown_goal_id, in_flight_drain
+- previous_state: Merged
+- archive_trigger: aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
