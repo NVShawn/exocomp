@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T17:02:14.602178Z'
+updated_at: '2026-08-01T17:02:39.420701Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -43,14 +43,15 @@ oompah.agent_run_id: 42ed0d28-83da-4abd-af88-20dc381b881f
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-196
-  base_branch: main
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  base_branch: epic-EXOCOMP-186
+  base_sha: 220cb7c992634296968011ba045dbc35020d7555
   head_sha: 86a4eef228b47d4cd898826045a2fb7ac6cf5b05
+  integrated_sha: 86a4eef228b47d4cd898826045a2fb7ac6cf5b05
   submitted_at: '2026-08-01T17:01:45.184573+00:00'
-  updated_at: '2026-08-01T17:02:13.777594+00:00'
+  updated_at: '2026-08-01T17:02:29.319534+00:00'
 oompah.task_costs:
   total_input_tokens: 12303172
   total_output_tokens: 90869
@@ -311,7 +312,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-196
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -341,6 +342,37 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:52:10.878767+00:00'
     updated_at: '2026-08-01T16:56:39.182674+00:00'
+  - version: 1
+    audit_id: audit-c40b4f467283
+    project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b1e9c5085946a97d5b8635fad32eae851407b16b0c7cda2896644959627f65f1
+    attempts:
+    - version: 1
+      attempt_id: attempt-3b4ae5924a6c
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: b1e9c5085946a97d5b8635fad32eae851407b16b0c7cda2896644959627f65f1
+      created_at: '2026-08-01T17:02:35.607579+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T17:02:35.607579+00:00'
+      branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T17:02:30.643157+00:00'
+    updated_at: '2026-08-01T17:02:35.607579+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d465f6bfc92e
@@ -380,6 +412,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-01T16:52:18.617441+00:00'
+    branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
+  - version: 1
+    attempt_id: attempt-3b4ae5924a6c
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b1e9c5085946a97d5b8635fad32eae851407b16b0c7cda2896644959627f65f1
+    created_at: '2026-08-01T17:02:35.607579+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T17:02:35.607579+00:00'
     branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
 ---
 ## Summary
@@ -930,5 +975,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 4m 22s
 - Log: EXOCOMP-196__20260801T165755Z.jsonl
+---
+author: oompah
+created: 2026-08-01 17:02
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 17:02
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
