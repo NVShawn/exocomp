@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-01T12:13:46.400451Z'
+updated_at: '2026-08-01T12:16:16.057773Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: 962749f5-b91a-428a-b530-5c134ad09e35
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-142
-  base_branch: epic-EXOCOMP-129
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T11:56:24.877363+00:00'
+  head_sha: 97439b59b7134f4bdd7483d64763043aa86109da
+  submitted_at: '2026-08-01T12:16:15.061043+00:00'
+  updated_at: '2026-08-01T12:16:15.061043+00:00'
 oompah.task_costs:
   total_input_tokens: 801245
   total_output_tokens: 3780
@@ -150,5 +150,10 @@ author: oompah
 created: 2026-08-01 12:13
 ---
 Verification: manual OTP checks passed for digest-only persistence, restart durability, expiry boundary, wrong-organization non-consumption, replay rejection, and serialized concurrent consumption; new/changed files parse and are formatter-clean, and the pure store compiles with --warnings-as-errors. make test/make lint/make fmt-check reached the pinned builder invocation but could not run because the environment's docker/podman wrapper cannot access its read-only libpod config; direct mix test is additionally blocked by local Elixir 1.18.3 versus project Elixir 1.20.2.
+---
+author: oompah
+created: 2026-08-01 12:16
+---
+Completion: delivered organization-scoped Cluster/ClusterInvitation schemas, digest-only random one-use invitations with expiry and serialized atomic consumption, durable staged-rename storage/configuration, admin-only POST /api/v1/cluster-invitations, and focused acceptance tests. Commit 97439b59 is pushed and the branch is up to date with origin. Focused/manual checks and static formatting passed; full Make gates were attempted but blocked at the unavailable docker/podman pinned-builder runtime, and direct mix test by the local Elixir 1.18.3 versus declared 1.20.2 mismatch.
 ---
 <!-- COMMENTS:END -->
