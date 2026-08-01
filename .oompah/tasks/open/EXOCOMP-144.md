@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:10:24.700550Z'
+updated_at: '2026-08-01T12:11:24.237660Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
