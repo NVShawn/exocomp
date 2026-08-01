@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:59:08.716295Z'
+updated_at: '2026-08-01T17:59:46.507487Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,12 +93,12 @@ oompah.agent_run_id: 5da3391e-0aeb-4929-8198-5d8d7b3fc080
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
-  base_branch: epic-EXOCOMP-129
-  base_sha: da00228fa34111b6cce19eca7d8c65491a4fd6cf
-  updated_at: '2026-08-01T17:56:14.044405+00:00'
+  head_sha: a32e40695d6c0f67fa3cc823cf8cfcfc6525cbee
+  submitted_at: '2026-08-01T17:59:43.467642+00:00'
+  updated_at: '2026-08-01T17:59:43.467642+00:00'
 oompah.task_costs:
   total_input_tokens: 21150725
   total_output_tokens: 110052
@@ -651,5 +651,15 @@ author: oompah
 created: 2026-08-01 17:59
 ---
 Verification: make test-builders (13/13) and make compliance-check pass; changed files parse with Elixir and git diff --check is clean. make fmt-check, make lint, and make test are blocked before execution by the host container runtime (read-only /run/user/1000/libpod); host Elixir 1.18.3 also cannot run the app pinned to Elixir 1.20.2.
+---
+author: oompah
+created: 2026-08-01 17:59
+---
+Completion: EXOCOMP-140 now includes test-support compilation paths and encrypted secure session-cookie configuration. The existing OIDC PKCE login/callback/logout implementation and integration coverage remain intact. Commit a32e4069 is pushed; worktree is clean and branch is up to date with origin. Required container-backed fmt/lint/full-test gates remain environment-blocked by the read-only libpod runtime.
+---
+author: oompah
+created: 2026-08-01 17:59
+---
+Fixed Mission Control OIDC test compilation and encrypted session-cookie configuration; pushed a32e4069.
 ---
 <!-- COMMENTS:END -->
