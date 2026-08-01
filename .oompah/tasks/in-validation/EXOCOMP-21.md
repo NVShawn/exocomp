@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-08-01T02:12:26.146367Z'
+updated_at: '2026-08-01T02:13:36.067845Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -58,19 +58,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-21
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 6428457e992194afb2a620e20e4565bbfbfa51a2d737c82389318dfd9aeb7e08
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-caa0e74e3abd
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 6428457e992194afb2a620e20e4565bbfbfa51a2d737c82389318dfd9aeb7e08
+      created_at: '2026-08-01T02:13:28.182204+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T02:13:28.182204+00:00'
+      branch_key: epic-EXOCOMP-3
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T02:12:23.970215+00:00'
-  attempt_history: []
+    updated_at: '2026-08-01T02:13:28.182204+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-caa0e74e3abd
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 6428457e992194afb2a620e20e4565bbfbfa51a2d737c82389318dfd9aeb7e08
+    created_at: '2026-08-01T02:13:28.182204+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T02:13:28.182204+00:00'
+    branch_key: epic-EXOCOMP-3
 ---
 ## Summary
 
@@ -304,5 +331,15 @@ author: oompah
 created: 2026-08-01 02:12
 ---
 Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+author: oompah
+created: 2026-08-01 02:13
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 02:13
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
