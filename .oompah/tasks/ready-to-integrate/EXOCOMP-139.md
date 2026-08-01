@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T15:10:54.848622Z'
+updated_at: '2026-08-01T15:12:38.874553Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -49,13 +49,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:10:52.971147+00:00'
   updated_at: '2026-08-01T15:10:52.971147+00:00'
 oompah.task_costs:
-  total_input_tokens: 820072
-  total_output_tokens: 11745
+  total_input_tokens: 820106
+  total_output_tokens: 12567
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 820072
-      output_tokens: 11745
+      input_tokens: 820106
+      output_tokens: 12567
       cost_usd: 0.0
   runs:
   - profile: default
@@ -70,6 +70,12 @@ oompah.task_costs:
     output_tokens: 4430
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:51:31.761287+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 34
+    output_tokens: 822
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:12:37.548256+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-139__20260801T144343Z
@@ -247,5 +253,15 @@ author: oompah
 created: 2026-08-01 15:10
 ---
 Implemented Mission Control protocol envelopes (Event, Command, Acknowledgement) with codecs, validation, and 62 comprehensive tests. All acceptance criteria met: valid fixtures round-trip without loss, invalid fixtures return bounded errors, all tests pass (573), formatting and linting clean.
+---
+author: oompah
+created: 2026-08-01 15:12
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 53
+- Tokens: 34 in / 822 out [856 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 19m 40s
+- Log: EXOCOMP-139__20260801T145305Z.jsonl
 ---
 <!-- COMMENTS:END -->
