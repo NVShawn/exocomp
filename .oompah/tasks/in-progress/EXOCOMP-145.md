@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T21:58:28.121932Z'
+updated_at: '2026-08-01T21:59:32.802480Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -1006,5 +1006,17 @@ author: oompah
 created: 2026-08-01 21:58
 ---
 Discovery: The recovered branch contains the runtime wiring, bounded Config validation, custom MissionControl.Supervisor child_spec/1, and the repaired supervisor tests at apps/exocomp_coordinator/test/exocomp/coordinator/mission_control/supervisor_test.exs. The enabled test now destructures test_config/0 and restores app env deterministically; no tracked apps/fixtures artifacts remain. I’m proceeding with the pinned Makefile gates and will preserve their raw tails.
+---
+author: oompah
+created: 2026-08-01 21:59
+---
+Verification evidence (raw required tails):
+
+make test 2>&1 | tail -5
+	MIX_ENV=test mix release exocomp_coordinator --overwrite && \
+	scripts/smoke-releases.sh test
+Failed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system
+make[1]: *** [Makefile:137: test] Error 1
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\n\nmake fmt-check 2>&1 | tail -3\nFailed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system\nmake[1]: *** [Makefile:116: fmt-check] Error 1\nmake[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\n\nmake lint 2>&1 | tail -3\nFailed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system\nmake[1]: *** [Makefile:160: lint] Error 1\nmake[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\n\nAll three gates fail before the pinned Elixir 1.20.2 / OTP 28.5.0.3 builder starts. Static git diff --check passes; the host has Elixir 1.18.3 and cannot run this project.
 ---
 <!-- COMMENTS:END -->
