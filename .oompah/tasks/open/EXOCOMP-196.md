@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:42:36.414745Z'
+updated_at: '2026-08-01T15:52:14.255804Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -110,6 +110,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T15:15:38.876058+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-d465f6bfc92e: '2026-08-01T15:52:10.981213+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    target_state: Done
+    evidence_fingerprint: e48fe9c329f6af44ba46be6a0d412bcfbfe68437f3f3838f066a9283078fcbd6
+    audit_ids:
+    - audit-8ab9aa8dbea3
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T15:52:10.981225+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    audit_id: audit-8ab9aa8dbea3
+    attempt_id: attempt-d465f6bfc92e
+    target_state: Done
+    evidence_fingerprint: e48fe9c329f6af44ba46be6a0d412bcfbfe68437f3f3838f066a9283078fcbd6
+    status: Open
+    audit_ids:
+    - audit-8ab9aa8dbea3
+    applied: true
+    created_at: '2026-08-01T15:52:10.981255+00:00'
+    applied_at: '2026-08-01T15:52:13.487098+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -117,7 +142,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-196
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -126,7 +151,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d465f6bfc92e
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -136,13 +161,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T15:42:33.525104+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-01T15:52:10.980977+00:00'
+      ended_at: '2026-08-01T15:52:10.980977+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:42:15.964381+00:00'
-    updated_at: '2026-08-01T15:42:33.525104+00:00'
+    updated_at: '2026-08-01T15:52:10.980977+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d465f6bfc92e
@@ -461,5 +490,19 @@ author: oompah
 created: 2026-08-01 15:42
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 15:52
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Wire Exocomp.ClusterProfile.Ceph.Validator.validate/2 into coordinator startup (e.g., from Listener.init/1 or a dedicated bootstrap step) so it runs against the loaded Ceph.Config when cluster_profiles.ceph is configured.
+- On validator failure, call Audit.emit with a `ceph_profile_validation_failed` (or equivalent) event whose attributes describe path/mode/uid metadata only and never include keyring content, then continue coordinator startup with the Ceph profile marked as unavailable (degraded coverage) rather than crashing.
+- Add a mechanism for Registry (or the profile lookup path) to reflect that Ceph coverage was degraded at startup, and add an integration test that exercises the wired startup path end-to-end with a bad keyring mode / missing binary / root ownership.
+- Repair the compile error in apps/exocomp_node/test/exocomp/node/collectors/ceph_test.exs (the second assert_receive block references ^unit without a bound `unit` variable). Coordinate with EXOCOMP-198 owners; the EXOCOMP-196 branch cannot pass `make test` while this file is broken.
+- After fixes, re-run `make test` and confirm it exits 0 before requeueing for terminal audit.
 ---
 <!-- COMMENTS:END -->
