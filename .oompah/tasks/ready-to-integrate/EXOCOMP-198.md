@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-198
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Discover local traditional and cephadm daemon units
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T18:17:33.786627Z'
+updated_at: '2026-08-01T18:17:48.756766Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 10af1daa-a0fb-4019-b1f8-a8131e2accb8
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-198
-  base_branch: epic-EXOCOMP-186
-  base_sha: c596834e6b50082aaf3023e8695a651f0360ec5f
-  updated_at: '2026-08-01T17:41:34.844519+00:00'
+  head_sha: c17555f8314fab1022ff67550c00eebe6d8d198e
+  submitted_at: '2026-08-01T18:17:46.169201+00:00'
+  updated_at: '2026-08-01T18:17:46.169201+00:00'
 oompah.task_costs:
   total_input_tokens: 663629
   total_output_tokens: 16682
@@ -402,5 +402,10 @@ No remaining security issues found. Full threat surface reviewed:
 - No data leakage: overflow output is discarded (not logged); error reasons are hardcoded strings (no user/unit data)
 - No SSRF/privilege escalation: the collector is read-only (no write commands), no Ceph credentials are accessed
 - Fixes shipped: non-ASCII byte bypass in valid_property_value?/1 and missing completeness check in parse_show_output/1
+---
+author: oompah
+created: 2026-08-01 18:17
+---
+Security audit complete. Fixed two issues in the Ceph daemon unit discovery implementation: (1) valid_property_value?/1 byte-range check incorrectly admitted non-ASCII bytes 0x80-0xFF due to missing upper bound — changed from byte != 0x7F to byte <= 0x7E to enforce printable-ASCII restriction; (2) parse_show_output lacked a completeness guard and would silently accept partial systemd responses with nil state fields — added map_size check. Three regression tests added. All 511 exocomp_node tests pass. Committed at c17555f8.
 ---
 <!-- COMMENTS:END -->

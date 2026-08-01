@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-08-01T18:08:06.833161Z'
+updated_at: '2026-08-01T18:17:50.037372Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-152
 target_branch: null
 review_url: null
@@ -222,5 +222,49 @@ DISCOVERY: Event structure found in plan: schema_version, event_id, cluster_seq,
 4. Comprehensive tests covering: initial state, partial updates, stale updates, node removal, reconnect, duplicates, org isolation
 
 Implementing with in-memory storage pattern (GenServer/ETS) sufficient for focused test coverage. Database integration can follow in EXOCOMP-194 (desired-state extension).
+---
+author: oompah
+created: 2026-08-01 18:17
+---
+IMPLEMENTATION COMPLETE:
+
+Created three core modules for persisting cluster and node current state:
+
+1. ClusterCurrentState (150 lines):
+   - Struct for organization-scoped cluster state (connectivity, health, versions, capabilities, labels, node counts, last contact, observation_seq)
+   - Reducer methods: apply_hello, apply_heartbeat, apply_status_snapshot
+   - Stale update rejection via observation_seq ordering
+   - Immutable design with transactional semantics
+
+2. NodeCurrentState (130 lines):
+   - Struct for organization-scoped node state (same fields + retired flag)
+   - apply_snapshot and retire methods
+   - Node removal/tombstone detection capability
+
+3. CurrentStateReducer (350 lines):
+   - In-memory event store with clusters, nodes, and processed_events tracking
+   - process_event with duplicate detection and idempotency
+   - Transaction-safe: rejects stale updates, tracks event_ids
+   - Query functions: get_cluster, list_clusters, get_node, list_cluster_nodes, list_active_nodes, list_retired_nodes
+   - Organization isolation via scoped keys
+
+Test coverage (32 focused tests):
+✓ Initial state (4 tests)
+✓ Cluster.hello event processing (4 tests)  
+✓ Cluster.heartbeat processing (1 test)
+✓ Status.snapshot processing (3 tests)
+✓ Stale update rejection (2 tests)
+✓ Node removal/tombstone detection (2 tests)
+✓ Reconnect handling (2 tests)
+✓ Duplicate event idempotency (1 test)
+✓ Organization isolation (3 tests)
+✓ Partial updates (2 tests)
+✓ ClusterCurrentState unit tests (9 tests)
+✓ NodeCurrentState unit tests (10 tests)
+
+Quality gates:
+✓ make test: 511 passed
+✓ make fmt-check: passed
+✓ make lint: passed
 ---
 <!-- COMMENTS:END -->
