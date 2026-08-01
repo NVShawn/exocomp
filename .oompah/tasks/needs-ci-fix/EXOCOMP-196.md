@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:56:42.369473Z'
+updated_at: '2026-08-01T16:57:13.202326Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -53,8 +53,8 @@ oompah.integration:
   submitted_at: '2026-08-01T16:51:23.792850+00:00'
   updated_at: '2026-08-01T16:52:09.332338+00:00'
 oompah.task_costs:
-  total_input_tokens: 10696124
-  total_output_tokens: 73422
+  total_input_tokens: 10696167
+  total_output_tokens: 81645
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -66,8 +66,8 @@ oompah.task_costs:
       output_tokens: 5878
       cost_usd: 0.0
     unknown:
-      input_tokens: 173
-      output_tokens: 6427
+      input_tokens: 216
+      output_tokens: 14650
       cost_usd: 0.0
   runs:
   - profile: default
@@ -118,6 +118,12 @@ oompah.task_costs:
     output_tokens: 203
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:51:50.360487+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 43
+    output_tokens: 8223
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:57:11.718773+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -841,5 +847,15 @@ Instructions:
 - Do not claim a green CI in a verification comment without pasting the exact tail of the passing output; the previous run's claim was contradicted by the pushed head.
 - Run the full `make test` inside the pinned builder container to populate _build/test/rel/exocomp_{node,coordinator} and exercise scripts/smoke-releases.sh; capture the tail to _build/test.log if any failure recurs.
 - Once make test exit 0 and make test-compliance exit 0 are both reproduced on the pushed HEAD, requeue EXOCOMP-196 for terminal audit.
+---
+author: oompah
+created: 2026-08-01 16:57
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 37
+- Tokens: 43 in / 8.2K out [8.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 52s
+- Log: EXOCOMP-196__20260801T165222Z.jsonl
 ---
 <!-- COMMENTS:END -->
