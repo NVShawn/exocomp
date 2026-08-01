@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -9,11 +9,10 @@ children: []
 blocked_by:
 - EXOCOMP-143
 start_blocked_by: []
-labels:
-- needs:feature
+labels: []
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:11:24.237660Z'
+updated_at: '2026-08-01T12:11:36.112717Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -37,7 +36,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 93142dbf-58d1-4e26-b87f-116acf51907e
+oompah.agent_run_id: d8ac6fb9-a996-487e-b42a-b25f3df7da2a
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
@@ -46,7 +45,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-144
   base_branch: epic-EXOCOMP-129
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:09:06.831364+00:00'
+  updated_at: '2026-08-01T12:11:33.147330+00:00'
 oompah.task_costs:
   total_input_tokens: 1573726
   total_output_tokens: 15273
@@ -170,5 +169,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 9s
 - Log: EXOCOMP-144__20260801T120912Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:11
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 12:11
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
