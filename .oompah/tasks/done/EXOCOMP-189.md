@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-189
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Define desired-service types and deterministic merge rules
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:21:59.942359Z'
+updated_at: '2026-08-01T14:30:20.688623Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -96,6 +96,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:45:48.761690+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-86084bb0a154: '2026-08-01T14:30:18.293782+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-189
+    target_state: Done
+    evidence_fingerprint: f528e484080e6faff2777d2b89b44a2394bda9ff113e97f65ae452f7df526c8e
+    audit_ids:
+    - audit-a278593d6f38
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T14:30:18.293793+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-189
+    audit_id: audit-a278593d6f38
+    attempt_id: attempt-86084bb0a154
+    target_state: Done
+    evidence_fingerprint: f528e484080e6faff2777d2b89b44a2394bda9ff113e97f65ae452f7df526c8e
+    status: Done
+    audit_ids:
+    - audit-a278593d6f38
+    applied: false
+    created_at: '2026-08-01T14:30:18.293809+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -103,7 +127,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-189
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -112,7 +136,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-86084bb0a154
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -122,13 +146,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T14:21:57.073396+00:00'
       branch_key: epic-EXOCOMP-185--task-EXOCOMP-189
+      verdict: pass
+      completed_at: '2026-08-01T14:30:18.293552+00:00'
+      ended_at: '2026-08-01T14:30:18.293552+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T14:21:51.749067+00:00'
-    updated_at: '2026-08-01T14:21:57.073396+00:00'
+    updated_at: '2026-08-01T14:30:18.293552+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-86084bb0a154
@@ -253,5 +280,28 @@ author: oompah
 created: 2026-08-01 14:21
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 14:30
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- commit: c3eeb34abbb045e4dcbe3e4703952b1053791cb3
+- commit_subject: EXOCOMP-189: add deterministic desired-service resolver
+- pushed_branch: origin/epic-EXOCOMP-185--task-EXOCOMP-189
+- head_matches_remote: true
+- diffstat: apps/exocomp_core/lib/exocomp/desired_service.ex +187; apps/exocomp_core/lib/exocomp/desired_service/source_expectation.ex +54; apps/exocomp_core/test/exocomp/desired_service_test.exs +121
+- test_file_test_count: 6
+- make_test-builders: 13 passed, 0 failed
+- make_test-deps: 9 passed, 0 failed
+- make_test_containerized_stage: not runnable in auditor sandbox (podman/docker denied); implementer reports focused mix test 6/6 pass and host podman runroot chmod is broken
+- ac1_fields_present: node, unit, sources, required_probes, expected_state, profile_context, recovery_authority_source
+- ac2_duplicate_collapse: Enum.group_by({node,unit}) + Enum.uniq/Enum.sort on sources and probes
+- ac3_automatic_no_authority: authority_for(:automatic) -> nil (structural)
+- ac4_distinguishable_authority: :manual_allow_list vs :shipped_profile atoms retained separately
+- ac5_deterministic_ordering: sort by {node,unit}; unique_sorted; source_rank+term_to_binary tiebreak
 ---
 <!-- COMMENTS:END -->
