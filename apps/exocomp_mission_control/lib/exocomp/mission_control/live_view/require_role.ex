@@ -96,8 +96,7 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
         {:halt, halted_socket}
 
       {:error, reason} ->
-        # Redirect to root with an error flash. The put_flash/redirect calls
-        # use the Phoenix.LiveView API which must be available at runtime.
+        # Redirect to forbidden page with an error flash.
         halted_socket =
           socket
           |> phoenix_put_flash(:error, forbidden_message(reason))

@@ -6,6 +6,8 @@ defmodule Exocomp.MissionControl.Router do
   use Phoenix.Router
   import Phoenix.LiveView.Router
 
+  # credo:disable-for-this-file Credo.Check.Readability.AliasUsage
+
   pipeline :browser do
     plug(:accepts, ["html"])
     plug(:fetch_session)
