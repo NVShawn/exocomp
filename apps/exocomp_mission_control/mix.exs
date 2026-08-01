@@ -11,7 +11,7 @@ defmodule Exocomp.MissionControl.MixProject do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "1.20.2",
+      elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       start_apps_before_run: [:logger],
       elixirc_paths: elixirc_paths(Mix.env()),
