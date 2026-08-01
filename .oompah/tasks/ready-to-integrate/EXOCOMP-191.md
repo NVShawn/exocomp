@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-191
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement bounded read-only service observation
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:19:55.654056Z'
+updated_at: '2026-08-01T14:20:10.931816Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -49,12 +49,12 @@ oompah.agent_run_id: 5684be9d-6fdd-4ce7-935a-6c0f0bc44d39
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-191
-  base_branch: epic-EXOCOMP-185
-  base_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
-  updated_at: '2026-08-01T14:11:57.213977+00:00'
+  head_sha: 29389ced6c28750af1f3cf719ba95b76237c2406
+  submitted_at: '2026-08-01T14:20:08.797912+00:00'
+  updated_at: '2026-08-01T14:20:08.797912+00:00'
 oompah.task_costs:
   total_input_tokens: 562588
   total_output_tokens: 2938
@@ -151,5 +151,10 @@ author: oompah
 created: 2026-08-01 14:19
 ---
 **Implementation**: Created exocomp.service.observe skill with: (1) ServiceObserve handler validating service names and loopback URLs, (2) HttpProbe collector for safe HTTP GET probing, (3) dispatcher registration. Enforces: service-count ≤50, probe-count ≤10, response-size ≤65KB, timeout ≤15s. Provides defense-in-depth loopback validation at both param extraction and execution. Returns structured evidence with timestamps and versions. Tests: 30+ cases covering valid observations, invalid names, non-loopback rejection, mixed results, timeouts, and limits. All code follows established patterns in ServiceDiagnose and SystemDiagnose. Pushed to epic-EXOCOMP-185--task-EXOCOMP-191.
+---
+author: oompah
+created: 2026-08-01 14:20
+---
+Implemented exocomp.service.observe skill with bounded read-only service observation. Added ServiceObserve handler for systemd queries and optional loopback HTTP probes. Enforces service-count, probe-count, response-size, and timeout limits. HttpProbe collector validates loopback addresses. Comprehensive test coverage with 30+ test cases. All acceptance criteria met.
 ---
 <!-- COMMENTS:END -->
