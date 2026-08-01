@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-01T13:06:51.278812Z'
+updated_at: '2026-08-01T13:07:09.271441Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -45,7 +45,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 720037ef-83fc-4c12-a0b5-852b3b6a8f0d
+oompah.agent_run_id: 49bafc99-8503-4487-a8b6-c7d173dffa86
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 oompah.integration:
   version: 2
@@ -54,7 +54,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-172
   base_branch: epic-EXOCOMP-134
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:05:46.554356+00:00'
+  updated_at: '2026-08-01T13:07:06.008369+00:00'
 oompah.task_costs:
   total_input_tokens: 336036
   total_output_tokens: 2464
@@ -125,5 +125,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 6s
 - Log: EXOCOMP-172__20260801T130549Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:07
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:07
+---
+Focus: Security Auditor
 ---
 <!-- COMMENTS:END -->
