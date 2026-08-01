@@ -11,12 +11,27 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T11:50:06.950967Z'
+updated_at: '2026-08-01T13:35:30.027959Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 7ba81767a3816b7642f4cad590e60195b0783b20b33d3683145a36be9e467816
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: fd57c306-3133-4af9-9304-a19379847225
+  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
+  claimed_at: '2026-08-01T13:35:15.596595+00:00'
+  claim_expires_at: '2026-08-01T14:05:15.596595+00:00'
+  retry_count: 0
+  retry_after: null
+oompah.agent_run_id: af05c419-64a8-4010-82a1-384447caa16a
 ---
 ## Summary
 
@@ -41,3 +56,11 @@ Out of scope: Source-code, configuration-template, or tracker changes beyond doc
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 13:35
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+<!-- COMMENTS:END -->
