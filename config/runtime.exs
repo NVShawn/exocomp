@@ -45,6 +45,10 @@ if config_env() == :prod do
     pki_offline_root_backup: System.get_env("EXOCOMP_PKI_OFFLINE_ROOT_BACKUP"),
     enrollment_token_store_path: System.get_env("EXOCOMP_ENROLLMENT_TOKEN_STORE"),
     cluster_invitation_store_path: System.get_env("EXOCOMP_CLUSTER_INVITATION_STORE"),
+    cluster_id: System.get_env("EXOCOMP_CLUSTER_ID"),
+    event_outbox_path:
+      System.get_env("EXOCOMP_EVENT_OUTBOX_PATH") ||
+        "/var/lib/exocomp-coordinator/event_outbox.json",
     a2a_tls: a2a_tls
 
   # Load coordinator configuration and wire Mission Control config into app env.
