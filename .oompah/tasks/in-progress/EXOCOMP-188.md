@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:57.890248Z'
-updated_at: '2026-08-01T13:48:22.553549Z'
+updated_at: '2026-08-01T13:48:45.978095Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 target_branch: null
 review_url: null
@@ -159,5 +159,19 @@ created: 2026-08-01 13:48
 Approach: (1) Extend Node struct with optional monitoring fields, (2) Update validate() to handle v1 and v2 with backward-compatibility, (3) Add validation for service names, HTTP URLs, booleans, (4) Add comprehensive tests for valid/invalid inputs, (5) Ensure atomic rejection leaves prior inventory intact.
 
 Will now explore current version and design v2 schema.
+---
+author: oompah
+created: 2026-08-01 13:48
+---
+**Discovery:** Found inventory implementation in apps/exocomp_coordinator/lib/exocomp/coordinator/inventory.ex. Current structure:
+- Inventory.ex: Parses JSON, validates nodes, manages replacements atomically
+- Node struct: id, hostname, port, certificate_identity, capabilities, labels
+- Tests: inventory_test.exs validates JSON parsing, duplicates, malformed data, file loading
+
+Will implement v2 by:
+1. Extending Node struct with optional monitoring: {automatic: bool, services: [{name: string, health_check_url: string}]}
+2. Updating validate() to accept v1 (backward compatible) and v2 with new fields
+3. Adding validations: .service names (must end with .service), HTTP URLs (loopback), boolean automatic
+4. Adding comprehensive tests for v1 backward-compat, v2 valid/invalid inputs, atomic rejection
 ---
 <!-- COMMENTS:END -->
