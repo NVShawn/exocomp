@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-91
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Run bounded concurrent node polls with per-node isolation
 parent: EXOCOMP-15
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-08-01T02:24:07.291497Z'
+updated_at: '2026-08-01T02:26:59.791265Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -41,6 +41,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-cad7fc36c148-3: '2026-07-31T19:57:40.351452+00:00'
+    attempt-1289ff49f6bf: '2026-08-01T02:26:57.588990+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-91
@@ -48,6 +49,7 @@ oompah.terminal_audit:
     evidence_fingerprint: bd73d8cefece89ad5eac31b67586c8a4aee67ebff294afdf373849d48f51f499
     audit_ids:
     - audit-cad7fc36c148
+    - audit-9396564ab04a
     kind: result
     applied: true
     retired_at: '2026-07-31T19:57:40.351463+00:00'
@@ -64,6 +66,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T19:57:40.351480+00:00'
     applied_at: '2026-07-31T19:57:42.650726+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-91
+    audit_id: audit-9396564ab04a
+    attempt_id: attempt-1289ff49f6bf
+    target_state: Archived
+    evidence_fingerprint: bd73d8cefece89ad5eac31b67586c8a4aee67ebff294afdf373849d48f51f499
+    status: Archived
+    audit_ids:
+    - audit-9396564ab04a
+    applied: false
+    created_at: '2026-08-01T02:26:57.589023+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -154,7 +167,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-91
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -163,7 +176,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-1289ff49f6bf
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -173,13 +186,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:24:03.479900+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:26:57.588814+00:00'
+      ended_at: '2026-08-01T02:26:57.588814+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:46.916717+00:00'
-    updated_at: '2026-08-01T02:24:03.479900+00:00'
+    updated_at: '2026-08-01T02:26:57.588814+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-bdec97d2b6ce
@@ -473,5 +489,23 @@ author: oompah
 created: 2026-08-01 02:24
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:26
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: c88cf3e
+- commit_message: EXOCOMP-91: add isolated concurrent health polling
+- branches_containing_commit: origin/main, main
+- implementation_file: apps/exocomp_coordinator/lib/exocomp/coordinator/health_poller.ex
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/health_poller_test.exs
+- test_case_count: 5
+- application_wiring: Exocomp.Coordinator.PollTaskSupervisor + HealthPoller registered in Application.base_children/0
+- downstream_task_merged: EXOCOMP-92 (multi-node integration) commit 9e9462b on main
+- prior_audit_failure: infrastructure_error (missing origin/epic-EXOCOMP-2), reported recovered by operator
 ---
 <!-- COMMENTS:END -->
