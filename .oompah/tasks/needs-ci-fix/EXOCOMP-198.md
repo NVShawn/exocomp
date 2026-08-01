@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-198
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Discover local traditional and cephadm daemon units
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T15:18:33.775179Z'
+updated_at: '2026-08-01T15:22:42.707556Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -78,6 +78,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:09:48.242280+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-79028d8df83b: '2026-08-01T15:22:39.233299+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-198
+    target_state: Done
+    evidence_fingerprint: c133a8eb8f17c104c066c416a2b00a1565a536af6c832757b518e6b57eb91feb
+    audit_ids:
+    - audit-9fe6cc7db709
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T15:22:39.233312+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-198
+    audit_id: audit-9fe6cc7db709
+    attempt_id: attempt-79028d8df83b
+    target_state: Done
+    evidence_fingerprint: c133a8eb8f17c104c066c416a2b00a1565a536af6c832757b518e6b57eb91feb
+    status: Needs CI Fix
+    audit_ids:
+    - audit-9fe6cc7db709
+    applied: true
+    created_at: '2026-08-01T15:22:39.233328+00:00'
+    applied_at: '2026-08-01T15:22:41.960258+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -85,7 +110,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-198
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -94,7 +119,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-79028d8df83b
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -104,13 +129,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T15:18:30.334384+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-198
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T15:22:39.233082+00:00'
+      ended_at: '2026-08-01T15:22:39.233082+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:17:31.420760+00:00'
-    updated_at: '2026-08-01T15:18:30.334384+00:00'
+    updated_at: '2026-08-01T15:22:39.233082+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-79028d8df83b
@@ -234,5 +263,17 @@ author: oompah
 created: 2026-08-01 15:18
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 15:22
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Instructions:
+- Fix apps/exocomp_node/test/exocomp/node/collectors/ceph_test.exs line 204: bind `unit` before pinning it in the second `assert_receive` (e.g. `assert_receive {:argv, "systemctl", ["show", _, _, unit], _}` then use `^unit` in a subsequent assertion), or drop the pin.
+- After the fix, re-run `make test` end-to-end and confirm the exocomp_node suite compiles and passes before re-submitting.
+- Verify the other EXOCOMP-198 tests (ProfileInspect skill, dispatcher registration, mixed/no-install/malformed/timeout/truncated fixtures) actually execute once the compile error is resolved.
 ---
 <!-- COMMENTS:END -->
