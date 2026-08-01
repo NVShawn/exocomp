@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T15:13:19.408426Z'
+updated_at: '2026-08-01T15:13:21.824427Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -357,5 +357,10 @@ author: oompah
 created: 2026-08-01 15:13
 ---
 Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 15:13
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->

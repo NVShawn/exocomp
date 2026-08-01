@@ -9,11 +9,10 @@ children: []
 blocked_by: []
 start_blocked_by: &id001
 - EXOCOMP-195
-labels:
-- needs:feature
+labels: []
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:13:14.328605Z'
+updated_at: '2026-08-01T15:13:23.741287Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -251,5 +250,10 @@ author: oompah
 created: 2026-08-01 15:13
 ---
 Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 15:13
+---
+Focus: Technical Writer
 ---
 <!-- COMMENTS:END -->
