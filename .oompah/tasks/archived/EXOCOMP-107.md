@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-107
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement node-agent enrollment client, credential installer, and renewal scheduler
   (EXOCOMP-17 gap)
@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-08-01T02:13:24.731396Z'
+updated_at: '2026-08-01T02:17:27.981219Z'
 work_branch: EXOCOMP-107
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/11
@@ -54,6 +54,30 @@ oompah.work_branch: EXOCOMP-107
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-d43e2f5cdbd0: '2026-08-01T02:17:25.748503+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-107
+    target_state: Archived
+    evidence_fingerprint: 5e9f90f9dacef4c13c74f29c138bee97d028b13c20dd5b82c29570fdea6c5967
+    audit_ids:
+    - audit-8733baf0e61c
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T02:17:25.748513+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-107
+    audit_id: audit-8733baf0e61c
+    attempt_id: attempt-d43e2f5cdbd0
+    target_state: Archived
+    evidence_fingerprint: 5e9f90f9dacef4c13c74f29c138bee97d028b13c20dd5b82c29570fdea6c5967
+    status: Archived
+    audit_ids:
+    - audit-8733baf0e61c
+    applied: false
+    created_at: '2026-08-01T02:17:25.748527+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -61,7 +85,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-107
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -70,7 +94,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d43e2f5cdbd0
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -80,13 +104,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:13:20.102979+00:00'
       branch_key: EXOCOMP-107
+      verdict: pass
+      completed_at: '2026-08-01T02:17:25.748369+00:00'
+      ended_at: '2026-08-01T02:17:25.748369+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T02:12:15.442432+00:00'
-    updated_at: '2026-08-01T02:13:20.102979+00:00'
+    updated_at: '2026-08-01T02:17:25.748369+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d43e2f5cdbd0
@@ -328,5 +355,22 @@ author: oompah
 created: 2026-08-01 02:13
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:17
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 8cfa6453f8f9b363c87805406695881ccf7c71c1
+- implementation_commit: ed8b9069829046fbd8d56c1c0279a7772e40f09c
+- prereq_merge_commit: 021ed4277f1d7c82f89385edc66264b4dd126b92
+- current_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- merge_on_main: true
+- modules_present: enrollment_client.ex, credential_installer.ex, renewal_scheduler.ex
+- tests_present: enrollment_client_test.exs, credential_installer_test.exs, renewal_scheduler_test.exs
+- days_since_merge: ~7
 ---
 <!-- COMMENTS:END -->
