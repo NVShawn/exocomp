@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:58:23.290400Z'
+updated_at: '2026-08-01T17:01:01.154028Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -874,5 +874,10 @@ author: oompah
 created: 2026-08-01 16:58
 ---
 Discovery: the reported CI issue is present on the pushed HEAD. git diff --check origin/main..HEAD identifies scripts/install.sh:698 and multiple trailing-whitespace lines in test/installer/test_installer.py; the worktree is otherwise clean and aligned with origin.
+---
+author: oompah
+created: 2026-08-01 17:01
+---
+Implementation: removed trailing whitespace from scripts/install.sh and test/installer/test_installer.py in commit 86a4eef2. No installer behavior or Ceph implementation was changed; this directly addresses the CI audit finding.
 ---
 <!-- COMMENTS:END -->
