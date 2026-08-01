@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-01T13:05:44.418865Z'
+updated_at: '2026-08-01T13:07:27.055662Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -130,5 +130,10 @@ author: oompah
 created: 2026-08-01 13:05
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 13:07
+---
+Understanding: This task requires adding immutable, organization-scoped audit-event storage for Mission Control. Deliverables: (1) Audit event model storing actor/cluster identity, timestamp, event type, target, outcome, correlation IDs; (2) One redaction module for sensitive data before serialization; (3) Tests covering actor types, correlation, ordering, rollback, cross-org access, redaction, and prevention of update/delete. Plan reference: plans/mission-control.md 'Persistence and Retention' section. Approach: (1) Review existing audit patterns in coordinator; (2) Create Mission Control audit event schema and redaction module; (3) Add comprehensive tests; (4) Run quality gates.
 ---
 <!-- COMMENTS:END -->
