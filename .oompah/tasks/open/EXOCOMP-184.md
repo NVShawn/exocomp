@@ -16,12 +16,26 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T11:50:05.666039Z'
+updated_at: '2026-08-01T13:23:49.662452Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 9f504d9488343565c1d4160688e3f0750bcb838ef6ef002b4199224a5f54c000
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: d8566f85-fde8-4631-8684-c1232b566704
+  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
+  claimed_at: '2026-08-01T13:23:49.081851+00:00'
+  claim_expires_at: '2026-08-01T13:53:49.081851+00:00'
+  retry_count: 0
+  retry_after: null
 ---
 ## Summary
 
