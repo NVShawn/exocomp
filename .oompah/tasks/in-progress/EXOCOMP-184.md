@@ -20,7 +20,7 @@ labels:
 - focus-complete:callback_auth
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:27:46.405151Z'
+updated_at: '2026-08-01T18:28:08.823683Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -782,5 +782,10 @@ author: oompah
 created: 2026-08-01 18:27
 ---
 IMPLEMENTATION (software-engineer): Fixed a gap in the M7 qualification pre-flight check. scripts/test-m7-qualification.sh called 'make security' (line 208) to collect evidence for M7-CRIT-2/7/9 but did not include 'security' in the has_target() loop that guards the three scenario targets. Added 'security' as the first entry in the required for-loop so all four live targets (security, test-mission-control-scenario, mc-scale-full, test-mission-control-lifecycle) are validated before any evidence directory is created. Added a new contract test test_live_wrapper_pre_checks_all_required_live_targets that checks the exact for-loop line, which is stricter than the existing fragment checks (it proves the target is in the pre-flight check, not just anywhere in the script). Committed at 45286f59.
+---
+author: oompah
+created: 2026-08-01 18:28
+---
+VERIFICATION (software-engineer): PASS: make test-m7-qualification-contract (19 offline tests, was 18); PASS: make release-check (54 tests, was 53); PASS: python3 -m pytest tests/ (157 tests); PASS: make check-links; PASS: git diff --check (no whitespace issues); PASS: bash -n scripts/test-m7-qualification.sh (shell syntax OK). Branch pushed at 45286f59. Live qualification remains blocked pending EXOCOMP-176/178/181/182/183 integration and a signed candidate tag on real systemd VMs.
 ---
 <!-- COMMENTS:END -->
