@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:42:46.832366Z'
+updated_at: '2026-08-01T22:42:49.895631Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -531,5 +531,10 @@ COMPLETION: CephHealthReducer is now correct and fully tested. Deliverables:
 - Empty profile evidence observation is a no-op; systemd gate alone determines daemon health (was incorrectly failing, now fixed)
 - All reason atoms (stale_evidence, missing_evidence, incomplete_coverage, ambiguous_topology, daemon_state_failed, critical_health_status, unsupported_profiles) are exercised by table-driven tests
 - 558 tests pass, 0 failures
+---
+author: oompah
+created: 2026-08-01 22:42
+---
+Fixed two CephHealthReducer bugs identified by second audit: (1) :critical_health_status reason now emitted when HEALTH_ERR; (2) empty local.state profile evidence treated as no-op so systemd-healthy daemons correctly report :healthy. All 558 tests pass.
 ---
 <!-- COMMENTS:END -->
