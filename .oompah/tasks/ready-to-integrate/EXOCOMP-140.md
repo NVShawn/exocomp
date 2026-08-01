@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T12:08:26.462841Z'
+updated_at: '2026-08-01T12:08:40.824500Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -100,13 +100,13 @@ oompah.integration:
   submitted_at: '2026-08-01T12:08:24.262333+00:00'
   updated_at: '2026-08-01T12:08:24.262333+00:00'
 oompah.task_costs:
-  total_input_tokens: 186
-  total_output_tokens: 4177
+  total_input_tokens: 2264
+  total_output_tokens: 4769
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 186
-      output_tokens: 4177
+      input_tokens: 2264
+      output_tokens: 4769
       cost_usd: 0.0
   runs:
   - profile: default
@@ -115,6 +115,12 @@ oompah.task_costs:
     output_tokens: 4177
     cost_usd: 0.0
     recorded_at: '2026-08-01T11:50:26.182796+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 2078
+    output_tokens: 592
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:08:39.312312+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-140__20260801T114901Z
@@ -249,5 +255,15 @@ author: oompah
 created: 2026-08-01 12:08
 ---
 OIDC login, callback, and logout implemented with secure server-side sessions, token validation, and comprehensive test coverage
+---
+author: oompah
+created: 2026-08-01 12:08
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 127
+- Tokens: 2.1K in / 592 out [2.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 50s
+- Log: EXOCOMP-140__20260801T115057Z.jsonl
 ---
 <!-- COMMENTS:END -->
