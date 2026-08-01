@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-84
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement disk-pressure evidence collector
 parent: EXOCOMP-26
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-07-25T02:19:46.870305Z'
+updated_at: '2026-08-01T03:00:45.544708Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -54,6 +54,28 @@ oompah.task_costs:
     output_tokens: 14771
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:52:40.751112+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-c3234ea3602c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-84
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 84f5e71028779c76dd785f7441779e465cd14d91c2aa062003fe1a454dfa4027
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:43.438076+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -328,5 +350,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 6m 3s
 - Log: EXOCOMP-84__20260724T024640Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
