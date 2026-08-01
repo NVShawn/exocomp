@@ -48,6 +48,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	test-compliance \
 	inspect-deps-amd64 inspect-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
+	build-profile-action-helper test-profile-action-helper \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
 	test-integration bench-llama-short bench-harness bench-llama-short-shipped \
 	bench-llama-full test-m5-qualification test-installer test-bundle \
@@ -145,6 +146,28 @@ test-builders: ## Validate immutable multi-architecture builder definitions and 
 
 test-deps: ## Run runtime dependency inspection tests (no container required).
 	./scripts/test-runtime-deps.sh
+
+PROFILE_ACTION_HELPER_DIR := apps/exocomp_node/priv
+PROFILE_ACTION_HELPER_BUILD_DIR := _build/profile-action-helper
+PROFILE_ACTION_HELPER_CFLAGS := -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIE
+PROFILE_ACTION_HELPER_LDFLAGS := -Wl,-z,relro,-z,now -pie
+
+build-profile-action-helper: ## Compile the fixed-argv Ceph profile-action helper.
+	mkdir -p "$(PROFILE_ACTION_HELPER_BUILD_DIR)"
+	$(CC) $(PROFILE_ACTION_HELPER_CFLAGS) $(PROFILE_ACTION_HELPER_LDFLAGS) \
+		-I"$(PROFILE_ACTION_HELPER_DIR)" \
+		"$(PROFILE_ACTION_HELPER_DIR)/profile_action_helper.c" \
+		-o "$(PROFILE_ACTION_HELPER_BUILD_DIR)/profile_action_helper"
+
+test-profile-action-helper: build-profile-action-helper ## Run parser, validator, and subprocess-failure tests for the helper.
+	mkdir -p "$(PROFILE_ACTION_HELPER_BUILD_DIR)"
+	$(CC) $(PROFILE_ACTION_HELPER_CFLAGS) $(PROFILE_ACTION_HELPER_LDFLAGS) \
+		-DPROFILE_ACTION_HELPER_NO_MAIN -I"$(PROFILE_ACTION_HELPER_DIR)" \
+		"$(PROFILE_ACTION_HELPER_DIR)/profile_action_helper.c" \
+		"apps/exocomp_node/test/native/profile_action_helper_test.c" \
+		-o "$(PROFILE_ACTION_HELPER_BUILD_DIR)/profile_action_helper_test"
+	"$(PROFILE_ACTION_HELPER_BUILD_DIR)/profile_action_helper_test"
+	@set +e; "$(PROFILE_ACTION_HELPER_BUILD_DIR)/profile_action_helper" --unexpected >/dev/null 2>&1; status=$$?; test "$$status" -eq 2
 
 test-release-matrix: ## Run OTP release qualification matrix (requires Docker and real builds). Pass ARCH=amd64|arm64 to test one arch; SKIP_BUILD=1 to skip rebuild.
 	./scripts/test-release-matrix.sh \
