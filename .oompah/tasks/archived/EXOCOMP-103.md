@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-103
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Audit every correlated diagnostic task transition
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-08-01T02:41:42.491643Z'
+updated_at: '2026-08-01T02:44:18.386469Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -46,6 +46,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-b0ed42b792f6-3: '2026-07-31T21:16:11.030659+00:00'
+    attempt-02712ca1acbb: '2026-08-01T02:44:16.198815+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-103
@@ -53,6 +54,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 3e66c2b51b1f138762ff7cd66cdfa371dcdd5060bbb6cf59c64009303708116e
     audit_ids:
     - audit-b0ed42b792f6
+    - audit-6e95953006f4
     kind: result
     applied: true
     retired_at: '2026-07-31T21:16:11.030671+00:00'
@@ -69,6 +71,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:16:11.030687+00:00'
     applied_at: '2026-07-31T21:16:13.097284+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-103
+    audit_id: audit-6e95953006f4
+    attempt_id: attempt-02712ca1acbb
+    target_state: Archived
+    evidence_fingerprint: 3e66c2b51b1f138762ff7cd66cdfa371dcdd5060bbb6cf59c64009303708116e
+    status: Archived
+    audit_ids:
+    - audit-6e95953006f4
+    applied: false
+    created_at: '2026-08-01T02:44:16.198837+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -159,7 +172,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-103
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -168,7 +181,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-02712ca1acbb
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -178,13 +191,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:41:37.929612+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:44:16.198665+00:00'
+      ended_at: '2026-08-01T02:44:16.198665+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:44:15.465947+00:00'
-    updated_at: '2026-08-01T02:41:37.929612+00:00'
+    updated_at: '2026-08-01T02:44:16.198665+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-fadcb3f1dbf8
@@ -522,5 +538,27 @@ author: oompah
 created: 2026-08-01 02:41
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:44
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- delivery_commit: 20dfb88be3cd6d08e5be3a556a5948883eda0361
+- commit_subject: EXOCOMP-103: Audit every correlated diagnostic task transition
+- impl_file_orchestrator: apps/exocomp_coordinator/lib/exocomp/coordinator/orchestrator.ex
+- impl_file_goal_store: apps/exocomp_coordinator/lib/exocomp/coordinator/goal_store.ex
+- impl_file_audit: apps/exocomp_coordinator/lib/exocomp/coordinator/audit.ex
+- impl_file_health: apps/exocomp_coordinator/lib/exocomp/coordinator/health.ex
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/orchestrator_audit_test.exs
+- test_count_in_audit_file: 18
+- event_types_present: goal_accepted, goal_deduplicated, goal_dispatching, node_dispatching, node_dispatched, node_result, node_failed, node_unreachable, node_timeout, goal_timeout, cancellation_requested, node_canceled, cluster_completed, goal_evicted
+- correlation_id_source: goal.id passed as correlation_id to Audit.emit at every call site
+- redaction_boundary: Exocomp.Coordinator.Audit.emit calls redact/1 (recursive) with sensitive_keys covering api_key/authorization/cookie/credential(s)/password/passwd/private_key/secret/token and *_suffix normalization
+- audit_failure_handling: emit_audit catches :exit in orchestrator.ex:954 and goal_store.ex:480; Audit deliver returns {:error, Error} and Health.check.healthy_audit? maps to :degraded
+- prior_audit_failure_root_cause: git worktree add against deleted origin/epic-EXOCOMP-2 (infrastructure); project owner confirmed recovery deployed and rearmed audit
 ---
 <!-- COMMENTS:END -->
