@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-01T13:08:53.856890Z'
+updated_at: '2026-08-01T13:10:21.476993Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-08-01 13:08
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 13:10
+---
+Understanding: Task is to implement webhook event signing, delivery, retry, and replay functionality for Mission Control. Deliverables include: (1) durable webhook event/delivery-attempt records, (2) HMAC-SHA256 signing of event ID, timestamp, and exact JSON body, (3) delivery with exponential retry up to 24 hours with bounded timeouts, (4) admin inspection and manual replay. Will explore current codebase state to determine what infrastructure exists from blocked dependencies.
 ---
 <!-- COMMENTS:END -->
