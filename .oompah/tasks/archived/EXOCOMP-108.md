@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T02:02:35.321765Z'
-updated_at: '2026-08-01T02:19:55.512279Z'
+updated_at: '2026-08-01T02:19:57.956262Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -70,8 +70,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-28b2167dfed5
-    applied: false
+    applied: true
     created_at: '2026-08-01T02:19:53.402832+00:00'
+    applied_at: '2026-08-01T02:19:57.300785+00:00'
   version: 1
   pending_chain:
   - version: 1
