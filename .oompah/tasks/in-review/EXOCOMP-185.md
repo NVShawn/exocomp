@@ -19,12 +19,16 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-08-01T17:58:54.305232Z'
-work_branch: null
-target_branch: null
-review_url: null
-review_number: null
+updated_at: '2026-08-01T17:58:59.897512Z'
+work_branch: epic-EXOCOMP-185
+target_branch: epic-EXOCOMP-127
+review_url: https://github.com/NVShawn/exocomp/pull/22
+review_number: '22'
 merged_at: null
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/22
+oompah.review_number: '22'
+oompah.work_branch: epic-EXOCOMP-185
+oompah.target_branch: epic-EXOCOMP-127
 ---
 ## Summary
 
