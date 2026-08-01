@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-156
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Add incident acknowledgement, assignment, snooze, and resolution
 parent: EXOCOMP-131
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-08-01T15:20:02.403462Z'
+updated_at: '2026-08-01T15:20:15.502423Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: a969e83e-f2d7-49e3-9803-5fcdb63ee8a0
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-156
-  base_branch: epic-EXOCOMP-131
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:56:13.199785+00:00'
+  head_sha: ab8ef3f4e226db3650f106b6fccbabb8f7f40ff7
+  submitted_at: '2026-08-01T15:20:13.349900+00:00'
+  updated_at: '2026-08-01T15:20:13.349900+00:00'
 oompah.task_costs:
   total_input_tokens: 1352093
   total_output_tokens: 5941
@@ -213,5 +213,10 @@ Code Quality:
 - make test: PASS (full suite including integration)
 
 Ready for review and integration.
+---
+author: oompah
+created: 2026-08-01 15:20
+---
+Implemented incident acknowledgement, assignment, snooze, and resolution mutations with role-based authorization, audit trail recording, and comprehensive test coverage. All quality gates passed (511 tests, fmt-check, lint).
 ---
 <!-- COMMENTS:END -->

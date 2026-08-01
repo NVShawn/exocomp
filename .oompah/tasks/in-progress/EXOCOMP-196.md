@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:16:25.738434Z'
+updated_at: '2026-08-01T15:20:19.481107Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -334,5 +334,10 @@ author: oompah
 created: 2026-08-01 15:16
 ---
 Understanding: As Maintenance Engineer, I'm implementing the Ceph profile feature. Prior phases completed: documentation in docs/ceph-profile-configuration.md. Remaining: implement Exocomp.ClusterProfile.Ceph module, extend Coordinator.Config for cluster_profiles.ceph, add startup validation with audit events (no key logging), degrade profile on failures, and write tests for all acceptance criteria scenarios. Starting by exploring existing code.
+---
+author: oompah
+created: 2026-08-01 15:20
+---
+Discovery: Explored codebase. Key findings: (1) Exocomp.ClusterProfile behaviour defined in apps/exocomp_core/lib/exocomp/cluster_profile.ex with 7 callbacks; (2) Registry.shipped_modules only includes Default profile - need to add Ceph; (3) Coordinator.Config currently parses version/coordinator_id/tls/listen - needs cluster_profiles.ceph extension; (4) Audit.emit/3 handles redaction of sensitive keys (but 'keyring' not yet in the list); (5) File.Stat provides uid/mode for ownership+permission checks; (6) Validator can use injectable stat_fn for testability. Plan: create Ceph.Config struct, Ceph.Validator module (absolute path, existence, ownership uid=0 check, keyring permissions 0600/0640), Exocomp.ClusterProfile.Ceph module (all 7 callbacks), extend Coordinator.Config, register Ceph in Registry, comprehensive tests.
 ---
 <!-- COMMENTS:END -->
