@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -16,7 +16,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-07-25T21:07:38.635315Z'
+updated_at: '2026-08-01T21:20:07.424937Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -46,6 +46,28 @@ oompah.task_costs:
     output_tokens: 1641
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:37:21.791221+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-7e4ee64e6c2a
+    project_id: proj-c260b117
+    task_id: EXOCOMP-8
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 399d5e231197d4cd6838b30da22c902090b1cdd15c3ba6afaf0a2030ed95ca4b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:20:05.299361+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -206,5 +228,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 39s
 - Log: EXOCOMP-8__20260723T203345Z.jsonl
+---
+author: oompah
+created: 2026-08-01 21:20
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
