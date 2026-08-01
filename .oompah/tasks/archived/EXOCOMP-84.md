@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-84
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement disk-pressure evidence collector
 parent: EXOCOMP-26
@@ -12,7 +12,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-24T01:40:57.548405Z'
-updated_at: '2026-08-01T03:06:37.729644Z'
+updated_at: '2026-08-01T03:08:55.442450Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -56,6 +56,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T02:52:40.751112+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-f0d3467abdcf: '2026-08-01T03:08:53.518937+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-84
+    target_state: Archived
+    evidence_fingerprint: 84f5e71028779c76dd785f7441779e465cd14d91c2aa062003fe1a454dfa4027
+    audit_ids:
+    - audit-c3234ea3602c
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:08:53.518949+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-84
+    audit_id: audit-c3234ea3602c
+    attempt_id: attempt-f0d3467abdcf
+    target_state: Archived
+    evidence_fingerprint: 84f5e71028779c76dd785f7441779e465cd14d91c2aa062003fe1a454dfa4027
+    status: Archived
+    audit_ids:
+    - audit-c3234ea3602c
+    applied: false
+    created_at: '2026-08-01T03:08:53.518966+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -63,7 +87,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-84
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -72,7 +96,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-f0d3467abdcf
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -82,13 +106,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:06:34.446642+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:08:53.518731+00:00'
+      ended_at: '2026-08-01T03:08:53.518731+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:43.438076+00:00'
-    updated_at: '2026-08-01T03:06:34.446642+00:00'
+    updated_at: '2026-08-01T03:08:53.518731+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f0d3467abdcf
@@ -392,5 +419,27 @@ author: oompah
 created: 2026-08-01 03:06
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:08
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- collector_module_path: apps/exocomp_node/lib/exocomp/node/safety/disk_pressure_collector.ex
+- collector_test_path: apps/exocomp_node/test/exocomp/node/safety/disk_pressure_collector_test.exs
+- main_commit: 0bf7675
+- branch_commit: ba794fa
+- branch_containing_commit_on_remote: origin/main, origin/EXOCOMP-84, origin/EXOCOMP-33
+- collector_name: system.disk.pressure
+- collector_arity: collect/0 (no caller-supplied arguments)
+- config_keys_verified: :disk_pressure_mount_point, :disk_pressure_warning_pct, :disk_pressure_critical_pct
+- os_commander_injection: Application.get_env(:exocomp_node, :os_commander, Exocomp.Node.SystemCommander)
+- integrity_hash_scheme: SHA-256 hex over schema_version|evidence_id|collector|collector_version|target_id|observed_at_iso8601|sorted_values (key1=v1;key2=v2)
+- previous_state: Merged
+- requested_target: Archived
+- audit_reason: Aged Merged auto-archive (queued 2026-08-01, 7 days after close)
 ---
 <!-- COMMENTS:END -->
