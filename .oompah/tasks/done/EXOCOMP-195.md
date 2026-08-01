@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:58:10.363383Z'
+updated_at: '2026-08-01T14:58:51.036226Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -51,13 +51,17 @@ oompah.integration:
   submitted_at: '2026-08-01T14:43:26.071485+00:00'
   updated_at: '2026-08-01T14:44:03.364258+00:00'
 oompah.task_costs:
-  total_input_tokens: 1059335
-  total_output_tokens: 4793
+  total_input_tokens: 1059427
+  total_output_tokens: 21384
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 1059335
       output_tokens: 4793
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 92
+      output_tokens: 16591
       cost_usd: 0.0
   runs:
   - profile: default
@@ -66,6 +70,12 @@ oompah.task_costs:
     output_tokens: 4793
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:59:33.974742+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 92
+    output_tokens: 16591
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:58:48.830026+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-195__20260801T135730Z
@@ -293,5 +303,15 @@ Safe evidence:
 - mix_test_evidence: Registry.beam artifact timestamp 2026-08-01 14:48:08 precedes both node and coordinator release builds at 14:53:36-37, proving mix test and mix release stages of make test completed
 - advertised_profile_payload: [%{id: 'default', versions: [1]}]
 - coverage_error_codes: :unknown_profile, :unsupported_profile_version, :non_shipped_profile, :duplicate_profile_id, :invalid_profile
+---
+author: oompah
+created: 2026-08-01 14:58
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 103, Tool calls: 86
+- Tokens: 92 in / 16.6K out [16.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 14m 38s
+- Log: EXOCOMP-195__20260801T144413Z.jsonl
 ---
 <!-- COMMENTS:END -->
