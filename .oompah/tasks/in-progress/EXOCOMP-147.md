@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T12:21:37.651333Z'
+updated_at: '2026-08-01T12:36:29.638194Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-08-01 12:21
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:36
+---
+Coordination review: EXOCOMP-148, EXOCOMP-149, EXOCOMP-150, and EXOCOMP-151 have started as epic siblings. EXOCOMP-147 is isolated to coordinator Mission Control connection/liveness (heartbeat, disconnect detection, and reconnect backoff), so no sibling dependency or file overlap was identified; no task graph change is required. Branch is clean and already pushed at 955a4b15 (EXOCOMP-147: add Mission Control connection liveness). Quality-gate handoff: make test and make lint passed their offline release/package/doc checks, then could not start the containerized Elixir suite because Podman cannot chmod /run/user/1000/libpod in this sandbox. make fmt-check failed at the same runner boundary. Focused local Mix tests cannot run because host Elixir 1.18.3 is below the pinned 1.20.2. Re-run make test, make fmt-check, and make lint in CI or a runner with the project container toolchain.
 ---
 <!-- COMMENTS:END -->

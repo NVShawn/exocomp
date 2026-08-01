@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-01T12:31:23.395151Z'
+updated_at: '2026-08-01T12:36:25.776260Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -152,5 +152,10 @@ author: oompah
 created: 2026-08-01 12:31
 ---
 Implementation: added an outbound coordinator MissionControl.WebSocket transport over :ssl with wss-only URLs, TLS 1.3, CA/server-name verification, enrolled client cert/key, RFC 6455 masking/handshake/frame handling, and an optional Client GenServer. Added a Bandit-compatible Mission Control ClusterGateway Plug, strict peer-certificate SPIFFE identity extraction, revocation-aware ClusterSessions with cryptographically random IDs and replacement signaling, plus strict server TLS option construction. The coordinator Application and inbound listener were left unchanged.
+---
+author: oompah
+created: 2026-08-01 12:36
+---
+Verification update: focused tests now cover certificate-derived identity, wrong trust root, missing/wrong client credentials, revoked identities, payload spoofing, random session IDs, and session replacement; the integration fixture exercises a real Bandit TLS 1.3 WebSocket handshake and masked frame exchange. Local Elixir execution is blocked because the host has Elixir 1.18.3 (project requires 1.20.2) and lacks OTP syntax_tools; the required Make targets also cannot start their pinned Podman container because the runtime filesystem is read-only. Source parsing, formatted-file checks, compile-with-stub checks, and git diff checks pass.
 ---
 <!-- COMMENTS:END -->
