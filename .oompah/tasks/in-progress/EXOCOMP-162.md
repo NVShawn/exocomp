@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:20.549186Z'
-updated_at: '2026-08-01T13:01:27.883921Z'
+updated_at: '2026-08-01T13:14:39.432718Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-162
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-08-01 13:01
 ---
 Discovery: the intended Mission Control boundary is apps/exocomp_mission_control. Dependency commits provide Authorization.authorize/3 (organization + role), CommandOutbox.enqueue/2 (typed allow-list), SessionRegistry ownership for online sessions, and Ecto Repo/migrations. The approval context should compose with these contracts and atomically persist proposal decision plus audit actor fields before enqueueing.
+---
+author: oompah
+created: 2026-08-01 13:14
+---
+Implementation: added Proposal schema/migration and Approvals context with operator/admin authorization, organization scoping, row-locked pending decisions, expiry/evidence freshness/terminal guards, explicit denial reasons, liveness checks that prevent offline approval writes, actor attribution fields, and transactional typed proposal.approve/proposal.deny outbox insertion. Focused tests cover guards, rollback, duplicate decisions, denial, and accepted-not-executed.
 ---
 <!-- COMMENTS:END -->
