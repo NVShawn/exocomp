@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:41:24.535437Z'
+updated_at: '2026-08-01T13:46:47.861302Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -503,5 +503,10 @@ author: oompah
 created: 2026-08-01 13:41
 ---
 UNDERSTANDING (docs): I will document the M7 artifact qualification workflow for release operators, grounded in the repository's actual targets and scripts. I will cover candidate/tag and host prerequisites, amd64/arm64 execution, required gates and scenarios, evidence/provenance fields, override constraints, and verification. Because this session is documentation-only, any missing qualification implementation or live dual-architecture execution will be handed to test/DevOps after the documentation is committed and pushed.
+---
+author: oompah
+created: 2026-08-01 13:46
+---
+DISCOVERY (docs): The current epic base documents M6 clean-host qualification but has no M7 operator runbook and no test-m7-qualification Make target. Dependency branch EXOCOMP-176 defines build-mission-control-{amd64,arm64}, Mission Control packaging/image tests, OCI manifests/SBOM/provenance, and a separate migrate command; EXOCOMP-181 defines the security target. The M7 plan requires the full two-cluster workflow, 100-cluster/10,000-node scale gate, retention, and all twelve criteria. The docs therefore need an explicit integrated-target prerequisite plus a signed evidence contract that prevents ad hoc or weakened qualification.
 ---
 <!-- COMMENTS:END -->

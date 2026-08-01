@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T13:46:26.713514Z'
+updated_at: '2026-08-01T13:46:38.832299Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 target_branch: null
 review_url: null
@@ -49,13 +49,17 @@ oompah.integration:
   submitted_at: '2026-08-01T13:40:19.872477+00:00'
   updated_at: '2026-08-01T13:41:31.457005+00:00'
 oompah.task_costs:
-  total_input_tokens: 377861
-  total_output_tokens: 2727
+  total_input_tokens: 377910
+  total_output_tokens: 4258
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 377861
       output_tokens: 2727
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 49
+      output_tokens: 1531
       cost_usd: 0.0
   runs:
   - profile: default
@@ -70,6 +74,12 @@ oompah.task_costs:
     output_tokens: 128
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:40:49.105576+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 49
+    output_tokens: 1531
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:46:37.442470+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-187__20260801T133536Z
@@ -273,5 +283,15 @@ Safe evidence:
 - commit: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72 (plans/exocomp.md +186 -23)
 - test_compliance: make test-compliance: Ran 29 tests in 1.700s -- OK
 - check_links_coverage: Direct make check-links denied by auditor policy, but link check ran inside test-compliance via test_repository_passes_all_checks (all checks selection) and passed.
+---
+author: oompah
+created: 2026-08-01 13:46
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 29
+- Tokens: 49 in / 1.5K out [1.6K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 24s
+- Log: EXOCOMP-187__20260801T134215Z.jsonl
 ---
 <!-- COMMENTS:END -->
