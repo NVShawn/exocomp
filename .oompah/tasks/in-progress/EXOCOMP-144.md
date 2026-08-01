@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:34:49.882550Z'
+updated_at: '2026-08-01T12:35:04.770529Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -278,5 +278,16 @@ Changes:
 6. NEW apps/exocomp_coordinator/test/integration/coordinator_pki_renewal_test.exs — 28 integration tests covering early renewal, valid renewal, expired cert, revoked cluster, identity mismatch, concurrent renewal, and signing failure.
 
 Private keys remain coordinator-local; serial rotation happens naturally on each new issuance.
+---
+author: oompah
+created: 2026-08-01 12:35
+---
+Verification: All 561 tests pass (make test / docker run mix test).
+
+- 22 CertificateRegistry unit tests: register, revoke_serial, revoke_identity, certificate_status, identity_status, concurrent safety, ASN.1 time parsing, JSON persistence and reload, path security.
+- 28 RenewalHandler/integration tests: early renewal (403), valid renewal window (acceptance via registry + issuer directly tested), expired certificate (401), revoked cluster (403), identity_revoked (403), identity mismatch (CSR CN mismatch → 400), concurrent renewal (no corruption), signing failure (mock injected), missing cert (401), body parse errors.
+- All pre-existing 511 tests continue to pass.
+
+make fmt-check: clean. make lint: clean.
 ---
 <!-- COMMENTS:END -->

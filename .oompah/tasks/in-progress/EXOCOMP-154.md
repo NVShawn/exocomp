@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:38.872090Z'
-updated_at: '2026-08-01T12:32:44.376981Z'
+updated_at: '2026-08-01T12:35:03.790443Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-154
 target_branch: null
 review_url: null
@@ -132,5 +132,10 @@ author: oompah
 created: 2026-08-01 12:32
 ---
 Understanding: I will inspect the existing model, storage, and migration/test patterns plus plans/mission-control.md; implement organization-scoped incidents/events, deterministic secret-free fingerprints, atomic repeated-evidence upsert, and correlated event ordering; then run focused tests and all required quality gates before committing, pushing, and submitting.
+---
+author: oompah
+created: 2026-08-01 12:35
+---
+Discovery: the current base has no Mission Control app, Ecto schemas, Repo, or database migration infrastructure; the roadmap is the only incident contract. Existing coordinator stores use isolated GenServers and immutable structs, with serialization/redaction patterns already established. I will add a dependency-free Mission Control incident domain/context that can be adopted by the later persistence foundation: explicit Incident and IncidentEvent records, canonical length-prefixed fingerprinting, atomic GenServer upsert, and timeline sorting by occurred_at plus stable insertion sequence.
 ---
 <!-- COMMENTS:END -->
