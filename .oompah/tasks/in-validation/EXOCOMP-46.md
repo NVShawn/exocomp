@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-46
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Document and test upgrade, rollback, backup, and removal
 parent: EXOCOMP-6
@@ -13,12 +13,34 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:05.467498Z'
-updated_at: '2026-07-25T21:10:41.914653Z'
+updated_at: '2026-08-01T21:19:26.054097Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a2bb7b1f99fa
+    project_id: proj-c260b117
+    task_id: EXOCOMP-46
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 8dabacef6f55414e230fceec41cbeea81fd0fb149c5ff0d60cd76bd0472f0bb8
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:23.623694+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -75,5 +97,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
