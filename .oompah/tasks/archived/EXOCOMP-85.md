@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-85
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement installed vacuum bounds and eligibility gate
 parent: EXOCOMP-26
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-08-01T03:09:14.678277Z'
+updated_at: '2026-08-01T03:11:52.089490Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -43,6 +43,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T03:14:36.823644+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-946290a0c631: '2026-08-01T03:11:49.909402+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-85
+    target_state: Archived
+    evidence_fingerprint: 0058f5107cdcfac0b8a5ecd2d63b9f204016e03f9b188be7a7d00cf3e3b39fde
+    audit_ids:
+    - audit-07b818099856
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:11:49.909409+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-85
+    audit_id: audit-07b818099856
+    attempt_id: attempt-946290a0c631
+    target_state: Archived
+    evidence_fingerprint: 0058f5107cdcfac0b8a5ecd2d63b9f204016e03f9b188be7a7d00cf3e3b39fde
+    status: Archived
+    audit_ids:
+    - audit-07b818099856
+    applied: false
+    created_at: '2026-08-01T03:11:49.909418+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -50,7 +74,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-85
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -59,7 +83,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-946290a0c631
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -69,13 +93,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:09:10.174745+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:11:49.909303+00:00'
+      ended_at: '2026-08-01T03:11:49.909303+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:47.408551+00:00'
-    updated_at: '2026-08-01T03:09:10.174745+00:00'
+    updated_at: '2026-08-01T03:11:49.909303+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-946290a0c631
@@ -305,5 +332,25 @@ author: oompah
 created: 2026-08-01 03:09
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:11
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 1d4c65e3ed69943f0720911c743aebb9de65f9eb
+- commit_on_main: true
+- commit_authored_at: 2026-07-24T03:13:46Z
+- audit_date: 2026-08-01
+- days_since_merge: 8
+- impl_file: apps/exocomp_node/lib/exocomp/node/vacuum_bounds.ex
+- state_file: apps/exocomp_node/lib/exocomp/node/vacuum_state.ex
+- supervisor_update: apps/exocomp_node/lib/exocomp/node/application.ex
+- test_file: apps/exocomp_node/test/exocomp/node/vacuum_bounds_test.exs
+- previous_state: Merged
+- requested_target: Archived
 ---
 <!-- COMMENTS:END -->
