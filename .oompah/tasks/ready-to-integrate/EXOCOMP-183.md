@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:53.481557Z'
-updated_at: '2026-08-01T16:22:31.787004Z'
+updated_at: '2026-08-01T16:22:46.651336Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-183
 target_branch: null
 review_url: null
@@ -71,13 +71,13 @@ oompah.integration:
   submitted_at: '2026-08-01T16:22:29.573511+00:00'
   updated_at: '2026-08-01T16:22:29.573511+00:00'
 oompah.task_costs:
-  total_input_tokens: 470342
-  total_output_tokens: 16198
+  total_input_tokens: 471934
+  total_output_tokens: 16594
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 470342
-      output_tokens: 16198
+      input_tokens: 471934
+      output_tokens: 16594
       cost_usd: 0.0
   runs:
   - profile: default
@@ -98,6 +98,12 @@ oompah.task_costs:
     output_tokens: 5818
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:08:16.920423+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1592
+    output_tokens: 396
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:22:45.020771+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-183__20260801T155111Z
@@ -347,5 +353,15 @@ author: oompah
 created: 2026-08-01 16:22
 ---
 Mission Control scale and soak qualification infrastructure implemented and tested. Ready for integration with MC service implementation.
+---
+author: oompah
+created: 2026-08-01 16:22
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 76
+- Tokens: 1.6K in / 396 out [2.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 14m 6s
+- Log: EXOCOMP-183__20260801T160846Z.jsonl
 ---
 <!-- COMMENTS:END -->
