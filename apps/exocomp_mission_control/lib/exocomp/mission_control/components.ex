@@ -46,7 +46,7 @@ defmodule Exocomp.MissionControl.Components do
   - Operator: Orange background
   - Admin: Red background
   """
-  attr(:role, Operator.role(), required: true)
+  attr(:role, :atom, required: true, values: [:viewer, :operator, :admin])
 
   def role_badge(%{role: role} = assigns) do
     {bg_class, text} =
@@ -195,7 +195,7 @@ defmodule Exocomp.MissionControl.Components do
   attr(:description, :string, required: true)
   attr(:icon, :string, default: "○")
 
-  def empty_state(%{title: title, description: description} = assigns) do
+  def empty_state(assigns) do
     ~H"""
     <div class="text-center py-12">
       <p class="text-4xl mb-4"><%= @icon %></p>

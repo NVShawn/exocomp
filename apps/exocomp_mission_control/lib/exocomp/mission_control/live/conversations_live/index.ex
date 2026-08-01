@@ -14,12 +14,12 @@ defmodule Exocomp.MissionControl.ConversationsLive.Index do
   """
 
   use Phoenix.LiveView
+  import Phoenix.LiveView
+  import Phoenix.Component
 
   alias Exocomp.MissionControl.{
     Conversations,
-    Conversation,
     Message,
-    EvidenceReference,
     LiveView.RequireRole
   }
 
@@ -71,7 +71,7 @@ defmodule Exocomp.MissionControl.ConversationsLive.Index do
 
       {:error, :not_found} ->
         socket = put_flash(socket, :error, "Conversation not found")
-        {:noreply, push_navigate(socket, to: ~p"/conversations")}
+        {:noreply, push_navigate(socket, to: "/conversations")}
     end
   end
 
@@ -270,16 +270,39 @@ defmodule Exocomp.MissionControl.ConversationsLive.Index do
   end
 
   defp message_form(assigns) do
+    button_class =
+      if assigns.cluster_online and not assigns.sending do
+        "px-4 py-2 rounded font-semibold bg-blue-600 text-white hover:bg-blue-700"
+      else
+        "px-4 py-2 rounded font-semibold bg-gray-300 text-gray-500 cursor-not-allowed"
+      end
+
+    placeholder = "Type your message (max #{assigns.max_message_bytes} bytes)..."
+
+    assigns =
+      assigns
+      |> assign(:button_class, button_class)
+      |> assign(:placeholder, placeholder)
+
     ~H"""
     <form phx-submit="send_message" class="space-y-3">
       <div>
-        <textarea
-          name="message"
-          placeholder="Type your message (max <%= @max_message_bytes %> bytes)..."
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          rows="3"
-          <%= if not @cluster_online, do: "disabled" %>
-        ></textarea>
+        <%= if @cluster_online do %>
+          <textarea
+            name="message"
+            placeholder={@placeholder}
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="3"
+          ></textarea>
+        <% else %>
+          <textarea
+            name="message"
+            placeholder={@placeholder}
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="3"
+            disabled
+          ></textarea>
+        <% end %>
         <div class="text-xs text-gray-500 mt-1">
           <%= @max_message_bytes %> byte limit
         </div>
@@ -288,13 +311,7 @@ defmodule Exocomp.MissionControl.ConversationsLive.Index do
       <button
         type="submit"
         disabled={not @cluster_online or @sending}
-        class={
-          "px-4 py-2 rounded font-semibold " <>
-          if(@cluster_online and not @sending,
-            do: "bg-blue-600 text-white hover:bg-blue-700",
-            else: "bg-gray-300 text-gray-500 cursor-not-allowed"
-          )
-        }
+        class={@button_class}
       >
         <%= if @sending, do: "Sending...", else: "Send Message" %>
       </button>
@@ -358,11 +375,11 @@ defmodule Exocomp.MissionControl.ConversationsLive.Index do
 
   @impl true
   def handle_event("select_conversation", %{"id" => conversation_id}, socket) do
-    {:noreply, push_patch(socket, to: ~p"/conversations/#{conversation_id}")}
+    {:noreply, push_patch(socket, to: "/conversations/#{conversation_id}")}
   end
 
   def handle_event("back_to_list", _params, socket) do
-    {:noreply, push_patch(socket, to: ~p"/conversations")}
+    {:noreply, push_patch(socket, to: "/conversations")}
   end
 
   def handle_event("send_message", %{"message" => body}, socket) do

@@ -4,6 +4,7 @@ defmodule Exocomp.MissionControl.Layouts do
   @moduledoc false
 
   use Phoenix.Component
+  import Phoenix.Controller
 
   import Exocomp.MissionControl.Components
 
