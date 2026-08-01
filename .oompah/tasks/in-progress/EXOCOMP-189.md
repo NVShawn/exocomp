@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-189
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Define desired-service types and deterministic merge rules
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T13:45:51.720481Z'
+updated_at: '2026-08-01T14:11:27.857882Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -49,7 +49,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 851e86c0-8f21-4811-a4c2-b0a82f51c00e
+oompah.agent_run_id: caef73ca-1dfc-414c-a784-f41a63261e52
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 oompah.integration:
   version: 2
@@ -57,8 +57,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-189
   base_branch: epic-EXOCOMP-185
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:41:09.929817+00:00'
+  base_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
+  updated_at: '2026-08-01T14:11:25.694852+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 2595
@@ -130,5 +130,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 4m 43s
 - Log: EXOCOMP-189__20260801T134112Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:11
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 14:11
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
