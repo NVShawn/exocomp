@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:04:58.133835Z'
+updated_at: '2026-08-01T17:26:56.391898Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -483,5 +483,10 @@ author: oompah
 created: 2026-08-01 17:04
 ---
 Understanding: Auditor feedback indicates the MissionControl.Supervisor needs a custom child_spec/1 to properly pass the %Config.MissionControl{} struct to start_link. Current tests are incomplete. Plan: (1) Add child_spec/1 to MissionControl.Supervisor to accept the struct and emit proper child spec, (2) Update Application.mission_control_children/0 to emit {MissionControl.Supervisor, mc_config}, (3) Add comprehensive tests for nil, disabled, and enabled configs with actual supervision tree startup verification, (4) Run full test suite and fmt/lint checks.
+---
+author: oompah
+created: 2026-08-01 17:26
+---
+Implementation: Added custom child_spec/1 to MissionControl.Supervisor that properly handles the config struct and registers the supervisor under Exocomp.Coordinator.MissionControlSupervisor with type:supervisor. Updated Application.mission_control_children() to emit {MissionControl.Supervisor, mc_config} tuple format. Replaced dummy tests with four comprehensive tests: (1) nil config returns empty list, (2) disabled config returns empty list, (3) enabled config returns proper child spec, (4) direct supervisor start with enabled config verifies Outbox and Connection children are alive and initialized.
 ---
 <!-- COMMENTS:END -->
