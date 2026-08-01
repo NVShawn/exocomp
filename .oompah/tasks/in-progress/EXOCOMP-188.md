@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:57.890248Z'
-updated_at: '2026-08-01T13:46:48.710961Z'
+updated_at: '2026-08-01T13:48:22.553549Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 target_branch: null
 review_url: null
@@ -147,5 +147,17 @@ author: oompah
 created: 2026-08-01 13:46
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 13:48
+---
+**Understanding:** Implementing Coordinator Inventory v2 service-monitoring fields. Current state: inventory v1 supports basic node definitions (id, hostname, port, certificate_identity, capabilities, labels). Task extends parser to support:
+1. Optional per-node manual service entries (with .service name, HTTP health check URL validation)
+2. Optional automatic-mode enablement (boolean)
+3. Root cluster-profile declaration
+
+Approach: (1) Extend Node struct with optional monitoring fields, (2) Update validate() to handle v1 and v2 with backward-compatibility, (3) Add validation for service names, HTTP URLs, booleans, (4) Add comprehensive tests for valid/invalid inputs, (5) Ensure atomic rejection leaves prior inventory intact.
+
+Will now explore current version and design v2 schema.
 ---
 <!-- COMMENTS:END -->
