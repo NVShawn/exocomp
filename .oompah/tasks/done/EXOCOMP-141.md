@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-141
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Enforce viewer, operator, and admin authorization
 parent: EXOCOMP-129
@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T19:04:57.387441Z'
+updated_at: '2026-08-01T19:10:20.221293Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -103,6 +103,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T11:53:47.776528+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6ab9b5bc6746: '2026-08-01T19:10:16.562278+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-141
+    target_state: Done
+    evidence_fingerprint: e31ac7e99a7ff85704affa818d7ee2973bd335b4914302133ef4e9ef1bdf1c62
+    audit_ids:
+    - audit-221764b41c78
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T19:10:16.562289+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-141
+    audit_id: audit-221764b41c78
+    attempt_id: attempt-6ab9b5bc6746
+    target_state: Done
+    evidence_fingerprint: e31ac7e99a7ff85704affa818d7ee2973bd335b4914302133ef4e9ef1bdf1c62
+    status: Done
+    audit_ids:
+    - audit-221764b41c78
+    applied: false
+    created_at: '2026-08-01T19:10:16.562304+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -110,7 +134,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-141
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -119,7 +143,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6ab9b5bc6746
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -129,13 +153,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T19:04:54.143420+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-141
+      verdict: pass
+      completed_at: '2026-08-01T19:10:16.562031+00:00'
+      ended_at: '2026-08-01T19:10:16.562031+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T19:04:34.192090+00:00'
-    updated_at: '2026-08-01T19:04:54.143420+00:00'
+    updated_at: '2026-08-01T19:10:16.562031+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6ab9b5bc6746
@@ -450,5 +477,23 @@ author: oompah
 created: 2026-08-01 19:04
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 19:10
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: d4c703e9
+- integrated_on_branch: origin/epic-EXOCOMP-129
+- acceptance_criterion_1_role_matrix: authorization_test.exs @matrix parameterizes {role, action, same_org?, expected} across 18 cells (viewer/operator/admin × read/operate/administer × same/cross-org)
+- acceptance_criterion_2_ui_bypass_impossible: Authorization.authorize/3 is invoked by both Plug.RequireRole.call/2 and LiveView.RequireRole.on_mount/4; context predicates can_read?/can_operate?/can_administer? are the enforcement boundary independently of any guard
+- acceptance_criterion_3_cross_org_fail_closed: authorize/3 returns {:error, :cross_organization} before any role check when operator.organization_id != argument; RoleBinding.matches?/3 refuses cross-org binding lookup; parameterized tests assert this for all nine role×action cells across-org
+- deliverable_operator_identity: apps/exocomp_mission_control/lib/exocomp/mission_control/identity/operator.ex + role_binding.ex
+- deliverable_oidc_role_map: apps/exocomp_mission_control/lib/exocomp/mission_control/auth/oidc_resolver.ex
+- deliverable_plug_and_on_mount: apps/exocomp_mission_control/lib/exocomp/mission_control/plug/require_role.ex + live_view/require_role.ex + authorization.ex
+- deliverable_attribution: apps/exocomp_mission_control/lib/exocomp/mission_control/mutations/attribution.ex records sub, display_name, organization_id, corr_<url-safe-base64> correlation_id, DateTime.utc_now()
 ---
 <!-- COMMENTS:END -->
