@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-28
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Verify M3 safety and remediation controls
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-07-25T21:10:08.400053Z'
+updated_at: '2026-08-01T21:18:52.600192Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -45,6 +45,28 @@ oompah.task_costs:
     output_tokens: 64334
     cost_usd: 0.0
     recorded_at: '2026-07-24T19:56:40.463513+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-2ef233174216
+    project_id: proj-c260b117
+    task_id: EXOCOMP-28
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: df54e699c0d4763999a5600c88673b60ca997907553d04edb9abf09824976d93
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:50.537415+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -360,5 +382,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:18
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
