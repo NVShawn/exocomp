@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:52:22.159081Z'
+updated_at: '2026-08-01T16:56:42.369473Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -149,6 +149,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-d465f6bfc92e: '2026-08-01T15:52:10.981213+00:00'
     attempt-c6db32ddcae5: '2026-08-01T16:35:26.116968+00:00'
+    attempt-576d42a613f2: '2026-08-01T16:56:39.182789+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-196
@@ -168,6 +169,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T16:35:26.116986+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    target_state: Done
+    evidence_fingerprint: 98ed1cce3ac906bfbafa848986eaeb97c530b386d0825091c82bd16e088b0a12
+    audit_ids:
+    - audit-36d8a3eeecd5
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:56:39.182801+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-196
@@ -193,6 +203,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T16:35:26.117007+00:00'
     applied_at: '2026-08-01T16:35:28.249654+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    audit_id: audit-36d8a3eeecd5
+    attempt_id: attempt-576d42a613f2
+    target_state: Done
+    evidence_fingerprint: 98ed1cce3ac906bfbafa848986eaeb97c530b386d0825091c82bd16e088b0a12
+    status: Needs CI Fix
+    audit_ids:
+    - audit-36d8a3eeecd5
+    applied: true
+    created_at: '2026-08-01T16:56:39.182814+00:00'
+    applied_at: '2026-08-01T16:56:41.715842+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -270,7 +292,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-196
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -279,7 +301,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-576d42a613f2
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -289,13 +311,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:52:18.617441+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T16:56:39.182674+00:00'
+      ended_at: '2026-08-01T16:56:39.182674+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:52:10.878767+00:00'
-    updated_at: '2026-08-01T16:52:18.617441+00:00'
+    updated_at: '2026-08-01T16:56:39.182674+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d465f6bfc92e
@@ -802,5 +828,18 @@ author: oompah
 created: 2026-08-01 16:52
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:56
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Instructions:
+- Actually strip trailing whitespace from scripts/install.sh:698 and every offending line in test/installer/test_installer.py:1651-1875 so `git diff --check origin/main..HEAD` exits 0 and `make test-compliance` passes test_repository_passes_all_checks. Verify BOTH commands return success before pushing.
+- Do not claim a green CI in a verification comment without pasting the exact tail of the passing output; the previous run's claim was contradicted by the pushed head.
+- Run the full `make test` inside the pinned builder container to populate _build/test/rel/exocomp_{node,coordinator} and exercise scripts/smoke-releases.sh; capture the tail to _build/test.log if any failure recurs.
+- Once make test exit 0 and make test-compliance exit 0 are both reproduced on the pushed HEAD, requeue EXOCOMP-196 for terminal audit.
 ---
 <!-- COMMENTS:END -->
