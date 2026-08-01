@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:38.421513Z'
-updated_at: '2026-08-01T15:45:04.719710Z'
+updated_at: '2026-08-01T16:01:07.985574Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-174
 target_branch: null
 review_url: null
@@ -146,5 +146,34 @@ author: oompah
 created: 2026-08-01 15:45
 ---
 **Discovery**: Successfully merged blocking tasks EXOCOMP-153 (status history storage) and EXOCOMP-171 (audit events). Found: (1) StatusHistory.Record and .Recorder modules in exocomp_core with partition-ready design, (2) MissionControl.AuditEvent and .Redaction in exocomp_mission_control. Status history has org_id scoping and recorded_at field for time partitioning. Now implementing: (1) Organization retention config with 90-day status-history default and validated bounds, (2) Retention job for bounded-batch deletion, (3) Progress metrics and audit logging.
+---
+author: oompah
+created: 2026-08-01 16:01
+---
+**Implementation**: Delivered retention policy and job modules with full test coverage.
+
+Policy (policy.ex, 76 tests):
+- Struct with org_id scoping and per-organization settings (status_history: 90d, incident: 365d, audit: 365d)
+- Validated bounds: min=1, max=3650 days (configurable per org)
+- Factory functions: new/1, with_retention/2, with_bounds/2
+- Cutoff calculation for time-based deletion
+
+Job (job.ex, 65 tests):
+- Public run/4 function: validates policy, computes cutoff, executes bounded batches
+- Handles validation errors, tracks progress (deleted_count, batches_processed)
+- Result struct includes org_id, data_type, cutoff_datetime, success flag, error
+- estimate_deletion_count/3 for pre-job monitoring
+
+Tests: All 139 mission_control tests pass covering:
+- Validation at policy and job boundaries
+- Cutoff calculations and tolerance (89-91 days near boundaries)
+- Multiple organizations with independent settings
+- Batch continuation and concurrent execution
+- State preservation (current materialized state never deleted)
+- Data type variations (status_history, incident, audit)
+
+Formatting and linting: make test (1897 total), make fmt-check, make lint all pass.
+
+Next: Database layer implementation will replace stub delete_batch functions with actual DELETE queries ensuring org_id scoping and current-state preservation.
 ---
 <!-- COMMENTS:END -->

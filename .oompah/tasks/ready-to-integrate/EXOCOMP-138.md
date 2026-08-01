@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:00:54.952192Z'
+updated_at: '2026-08-01T16:01:09.973982Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -68,13 +68,17 @@ oompah.integration:
   submitted_at: '2026-08-01T16:00:52.032016+00:00'
   updated_at: '2026-08-01T16:00:52.032016+00:00'
 oompah.task_costs:
-  total_input_tokens: 26885270
-  total_output_tokens: 71951
+  total_input_tokens: 26885307
+  total_output_tokens: 79500
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 26885270
       output_tokens: 71951
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 37
+      output_tokens: 7549
       cost_usd: 0.0
   runs:
   - profile: default
@@ -89,6 +93,12 @@ oompah.task_costs:
     output_tokens: 66350
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:10:37.128906+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 37
+    output_tokens: 7549
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:01:08.466766+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-138__20260801T144129Z
@@ -300,5 +310,15 @@ author: oompah
 created: 2026-08-01 16:00
 ---
 Added organizations table and schema with stable binary_id UUID (caller cannot select ID), idempotent dev/test seed, fail-closed OrganizationScope scoping helper (require_id!/query/put/all/update_all/delete_all), and example OrganizationScopedRecord with FK+unique constraint. Two reversible migrations. Three focused ExUnit test files with mock repos proving: inserts without org fail closed, cross-org isolation for get/update/delete, no unscoped list exposed. All new files pass format check.
+---
+author: oompah
+created: 2026-08-01 16:01
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 49
+- Tokens: 37 in / 7.5K out [7.6K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 7m 55s
+- Log: EXOCOMP-138__20260801T155321Z.jsonl
 ---
 <!-- COMMENTS:END -->
