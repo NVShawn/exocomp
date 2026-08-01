@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:10:39.936249Z'
+updated_at: '2026-08-01T17:10:51.241565Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-08-01 17:10
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 17:10
+---
+Understanding: extend the versioned Mission Control protocol with bounded desired-state and service-status events plus periodic summaries and shared fixtures. I will first map the existing protocol and adjacent coordinator/reconciliation contracts, then implement focused encode/decode, schema, bounds, redaction, duplicate/order, and reconstruction coverage before running make test.
 ---
 <!-- COMMENTS:END -->
