@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T18:53:52.937826Z'
+updated_at: '2026-08-01T19:03:34.644806Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -345,5 +345,10 @@ author: oompah
 created: 2026-08-01 18:53
 ---
 Understanding: Starting work on EXOCOMP-141 (Enforce viewer, operator, and admin authorization). Based on the coordination comments, significant foundation has been laid by peer tasks (EXOCOMP-138 for org isolation, EXOCOMP-140 for OIDC auth, EXOCOMP-170 for admin LiveViews, EXOCOMP-175 for webhooks/audit). My job is to deliver the core authorization layer: operator/role-binding schemas scoped to org_id, OIDC claim→role resolver, Plug/LiveView require_role guards, context-level read/operate/administer functions, mutation attribution helper, and a role matrix test covering all allowed/denied operations with cross-org fail-closed. I will rebase onto the current epic branch head first to pick up all integrated dependencies.
+---
+author: oompah
+created: 2026-08-01 19:03
+---
+Discovery + Implementation: The authorization foundation was already committed (87024707) but was forked from the pre-EXOCOMP-140 common ancestor. Rebased onto origin/epic-EXOCOMP-129 (which includes all 4 OIDC commits from EXOCOMP-140) to get the full Phoenix app foundation. Resolved two conflicts: mix.exs (kept epic's full Phoenix/Ecto deps, which already include jason and plug), test_helper.exs (merged epic's app-start boilerplate). Result is d4c703e9 with: Identity.Operator + Identity.RoleBinding (org-scoped, cross-org fail-closed), Auth.OIDCResolver (subject override → group claim → highest privilege merge), Authorization (can_read?/can_operate?/can_administer? + authorize/authorize! with :unauthenticated/:cross_organization/:insufficient_role), ForbiddenError, Plug.RequireRole (HTTP 403 JSON), LiveView.RequireRole (on_mount redirect), Mutations.Attribution (corr_<url-safe-base64> correlation IDs), and 6 test files covering the full 18-cell role×action×org matrix.
 ---
 <!-- COMMENTS:END -->
