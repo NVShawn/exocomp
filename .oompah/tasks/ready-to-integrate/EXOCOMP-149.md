@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-01T12:38:41.600676Z'
+updated_at: '2026-08-01T12:39:43.701851Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -60,13 +60,13 @@ oompah.integration:
   submitted_at: '2026-08-01T12:38:37.659158+00:00'
   updated_at: '2026-08-01T12:38:37.659158+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 453
+  total_input_tokens: 6247104
+  total_output_tokens: 41361
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10
-      output_tokens: 453
+      input_tokens: 6247104
+      output_tokens: 41361
       cost_usd: 0.0
   runs:
   - profile: default
@@ -75,6 +75,12 @@ oompah.task_costs:
     output_tokens: 453
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:24:33.467591+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 6247094
+    output_tokens: 40908
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:39:42.163091+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-149__20260801T122245Z
@@ -175,5 +181,15 @@ author: oompah
 created: 2026-08-01 12:38
 ---
 Implemented authenticated idempotent cluster event ingestion with transactional durable cursors, gap-aware acknowledgements, and focused contract coverage. Commit 09ac7a78 pushed to origin; Makefile container gates were attempted and are blocked only by the environment Podman runtime.
+---
+author: oompah
+created: 2026-08-01 12:39
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 110
+- Tokens: 6.2M in / 40.9K out [6.3M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 14m 58s
+- Log: EXOCOMP-149__20260801T122452Z.jsonl
 ---
 <!-- COMMENTS:END -->
