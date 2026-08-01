@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T18:31:11.307513Z'
+updated_at: '2026-08-01T18:31:13.732817Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -122,8 +122,9 @@ oompah.terminal_audit:
     status: Done
     audit_ids:
     - audit-6d5e5be9de97
-    applied: false
+    applied: true
     created_at: '2026-08-01T18:31:08.889290+00:00'
+    applied_at: '2026-08-01T18:31:13.063910+00:00'
   version: 1
   pending_chain:
   - version: 1
