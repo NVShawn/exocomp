@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-01T12:35:33.766652Z'
+updated_at: '2026-08-01T12:37:46.628616Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -160,5 +160,10 @@ author: oompah
 created: 2026-08-01 12:35
 ---
 Implementation detail: added ClusterIdentity certificate/SPIFFE parsing, strict ClusterEvent envelope validation (version, vocabulary, types, timestamps, bounds, and size), and serialized ClusterEventIngestor state transitions. Events, event-ID indexes, sequence indexes, and contiguous cursors persist together via staged snapshot rename; failed persistence leaves state and acknowledgements unchanged. Added EventIngestor alias, authenticated POST /v1/events handler, router/application wiring, production event-store configuration, and focused contract tests.
+---
+author: oompah
+created: 2026-08-01 12:37
+---
+Verification: local format check and git diff --check pass. A standalone Elixir check exercised out-of-order delivery, gap retention, cursor advancement through the missing sequence, and replay deduplication successfully. make test, make fmt-check, and make lint passed their offline structural checks but could not run the pinned Elixir container because Podman cannot chmod its read-only /run/user/1000/libpod; host Elixir 1.18.3 also rejects this project declaration of 1.20.2.
 ---
 <!-- COMMENTS:END -->
