@@ -53,6 +53,13 @@ defmodule Exocomp.MissionControl.Router do
       live("/incidents", Exocomp.MissionControl.IncidentsLive.Index, :index)
       live("/conversations", Exocomp.MissionControl.ConversationsLive.Index, :index)
       live("/admin", Exocomp.MissionControl.AdminLive.Index, :index)
+      live("/admin/invitations", Exocomp.MissionControl.AdminLive.Index, :invitations)
+      live("/admin/clusters", Exocomp.MissionControl.AdminLive.Index, :clusters)
+      live("/admin/certificates", Exocomp.MissionControl.AdminLive.Index, :clusters)
+      live("/admin/role-mappings", Exocomp.MissionControl.AdminLive.Index, :role_mappings)
+      live("/admin/oidc-role-mappings", Exocomp.MissionControl.AdminLive.Index, :role_mappings)
+      live("/admin/retention", Exocomp.MissionControl.AdminLive.Index, :retention)
+      live("/admin/webhooks", Exocomp.MissionControl.AdminLive.Index, :webhooks)
     end
   end
 
