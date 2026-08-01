@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-08-01T02:09:10.953434Z'
+updated_at: '2026-08-01T02:11:13.721429Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -180,7 +180,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-4a3bea1edac2
       target_state: Archived
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -190,13 +190,29 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T01:59:48.470338+00:00'
       branch_key: epic-EXOCOMP-2
+      ended_at: '2026-08-01T02:11:09.338354+00:00'
+      failure_reason: auditor session abandoned; no live worker owns the attempt
+    - version: 1
+      attempt_id: attempt-1b7d0d03f917
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+      created_at: '2026-08-01T02:11:10.139559+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-01T02:11:10.139559+00:00'
+      branch_key: epic-EXOCOMP-2
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:35.372682+00:00'
-    updated_at: '2026-08-01T01:59:48.470338+00:00'
+    updated_at: '2026-08-01T02:11:10.139559+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a299ab532604
@@ -254,7 +270,7 @@ oompah.terminal_audit:
   - version: 1
     attempt_id: attempt-4a3bea1edac2
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -264,6 +280,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T01:59:48.470338+00:00'
     branch_key: epic-EXOCOMP-2
+    ended_at: '2026-08-01T02:11:09.338354+00:00'
+    failure_reason: auditor session abandoned; no live worker owns the attempt
+  - version: 1
+    attempt_id: attempt-1b7d0d03f917
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+    created_at: '2026-08-01T02:11:10.139559+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-01T02:11:10.139559+00:00'
+    branch_key: epic-EXOCOMP-2
+    candidate_rotation_count: 1
 ---
 ## Summary
 
@@ -602,5 +634,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 9m 20s
 - Log: EXOCOMP-88__20260801T015952Z.jsonl
+---
+author: oompah
+created: 2026-08-01 02:11
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-01 02:11
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
