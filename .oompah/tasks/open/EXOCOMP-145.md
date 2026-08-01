@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:48:00.166296Z'
+updated_at: '2026-08-01T16:48:11.900612Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -51,13 +51,17 @@ oompah.integration:
   submitted_at: '2026-08-01T12:41:04.371421+00:00'
   updated_at: '2026-08-01T16:31:54.001052+00:00'
 oompah.task_costs:
-  total_input_tokens: 745730
-  total_output_tokens: 4341
+  total_input_tokens: 745845
+  total_output_tokens: 8169
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 745730
       output_tokens: 4341
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 115
+      output_tokens: 3828
       cost_usd: 0.0
   runs:
   - profile: default
@@ -72,6 +76,12 @@ oompah.task_costs:
     output_tokens: 327
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:41:22.294037+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 115
+    output_tokens: 3828
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:48:10.583655+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-145__20260801T120915Z
@@ -279,5 +289,15 @@ Instructions:
 - Replace the `assert true` supervisor test with real coverage: set :mission_control_config to nil, a disabled struct, and an enabled struct in isolated test app envs and assert Application.mission_control_children/0 (or the started supervision tree) matches each case.
 - Add a focused test that starts the coordinator supervision tree with Mission Control disabled or absent, then exercises Inventory, HealthPoller/diagnostics, and RemediationLifecycle to prove acceptance-criterion 3 (Mission Control disablement cannot stop local inventory, diagnostics, or recovery).
 - Re-run `make test`, `make fmt-check`, and `make lint` and capture a summary line (e.g. `mix test 2>&1 | tail -5`) in the task comments so the auditor can independently verify pass counts on the next attempt.
+---
+author: oompah
+created: 2026-08-01 16:48
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 74
+- Tokens: 115 in / 3.8K out [3.9K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 15m 48s
+- Log: EXOCOMP-145__20260801T163226Z.jsonl
 ---
 <!-- COMMENTS:END -->
