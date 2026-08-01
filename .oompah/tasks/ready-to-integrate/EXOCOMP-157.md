@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-157
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Group related incidents deterministically
 parent: EXOCOMP-131
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:42.626270Z'
-updated_at: '2026-08-01T15:14:05.877345Z'
+updated_at: '2026-08-01T15:14:43.645439Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-157
 target_branch: null
 review_url: null
@@ -39,12 +39,12 @@ oompah.agent_run_id: e3287d4b-05e3-4674-be5e-446c54b26a50
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-157
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-157
-  base_branch: epic-EXOCOMP-131
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:59:54.001520+00:00'
+  head_sha: 4f0fb39c88994c605a8afa7d8fa79a167da07d11
+  submitted_at: '2026-08-01T15:14:41.866158+00:00'
+  updated_at: '2026-08-01T15:14:41.866158+00:00'
 oompah.task_costs:
   total_input_tokens: 568972
   total_output_tokens: 4159
@@ -140,5 +140,15 @@ author: oompah
 created: 2026-08-01 15:14
 ---
 Verification: direct ExUnit harness ran the dependency incident tests plus grouping/query tests: 21 tests, 0 failures. New modules compile with elixirc --warnings-as-errors; local mix format --check-formatted and git diff --check pass. make fmt-check and make lint reached the pinned Podman builder but were blocked by the environment's read-only /run/user/1000/libpod configuration; no code failure was reported.
+---
+author: oompah
+created: 2026-08-01 15:14
+---
+Completion: delivered commit 4f0fb39c and pushed branch epic-EXOCOMP-131--task-EXOCOMP-157. The pure grouping projection, deterministic summaries, optional grouping metadata, and organization-scoped open/recent/related queries are covered by focused tests; identity and lifecycle state remain unchanged.
+---
+author: oompah
+created: 2026-08-01 15:14
+---
+Add deterministic incident grouping, summaries, and organization-scoped related/open/recent queries with focused coverage.
 ---
 <!-- COMMENTS:END -->
