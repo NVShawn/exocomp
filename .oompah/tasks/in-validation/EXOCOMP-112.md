@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-112
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Recover omitted M5 benchmark host-profile and sampler work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-07-25T21:09:03.504104Z'
+updated_at: '2026-08-01T21:18:32.009406Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -35,6 +35,28 @@ oompah.task_costs:
     output_tokens: 3409
     cost_usd: 0.0
     recorded_at: '2026-07-25T18:45:05.408716+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-faf00ec1c385
+    project_id: proj-c260b117
+    task_id: EXOCOMP-112
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 08056e9cc7d83816c0a6d769785cdf6cd7f896d485b7b6ae2463b7ac295cde88
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:29.812947+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -178,5 +200,10 @@ author: oompah
 created: 2026-07-25 18:52
 ---
 Recovered EXOCOMP-53 and EXOCOMP-56 host-profile/sampler work onto epic-EXOCOMP-110; all quality gates and release smoke checks pass, and commits are pushed.
+---
+author: oompah
+created: 2026-08-01 21:18
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
