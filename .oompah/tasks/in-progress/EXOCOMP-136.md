@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T15:13:50.149372Z'
+updated_at: '2026-08-01T15:16:38.363984Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -367,5 +367,10 @@ author: oompah
 created: 2026-08-01 15:13
 ---
 CI-fix discovery: the branch is clean at 3a3d6e61, and the auditor specifically requires replacing the inline router handler with a Phoenix controller action under pipeline :api and scope "/", Exocomp.MissionControl. I’m checking the current Phoenix/Bandit test setup before making that focused change.
+---
+author: oompah
+created: 2026-08-01 15:16
+---
+Verification: router and controller pass focused mix format checks, Elixir AST parsing, and git diff validation; make compliance-check passes. The required make fmt-check, make test, and make lint all reach the pinned Docker/Podman invocation but fail before Mix because Podman cannot chmod its read-only /run/user/1000/libpod runtime. Host-side focused mix test/compile is also blocked by Elixir 1.18.3 versus the declared 1.20.2.
 ---
 <!-- COMMENTS:END -->
