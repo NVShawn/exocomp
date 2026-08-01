@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-194
 type: task
-status: In Validation
+status: Done
 priority: 2
 title: Define desired-service status events and contract fixtures
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:40:47.070618Z'
+updated_at: '2026-08-01T17:57:36.061551Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -88,6 +88,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T16:05:02.173946+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-dbb67f276bba: '2026-08-01T17:57:34.028902+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-194
+    target_state: Done
+    evidence_fingerprint: e8d6a587c8f08f0aea48870d250069920d7ea27ca3e6ecc8ba47587251043bac
+    audit_ids:
+    - audit-ce846fc220d2
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T17:57:34.028916+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-194
+    audit_id: audit-ce846fc220d2
+    attempt_id: attempt-dbb67f276bba
+    target_state: Done
+    evidence_fingerprint: e8d6a587c8f08f0aea48870d250069920d7ea27ca3e6ecc8ba47587251043bac
+    status: Done
+    audit_ids:
+    - audit-ce846fc220d2
+    applied: false
+    created_at: '2026-08-01T17:57:34.028935+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -95,7 +119,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-194
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -104,7 +128,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-dbb67f276bba
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -114,13 +138,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T17:40:43.362588+00:00'
       branch_key: epic-EXOCOMP-185--task-EXOCOMP-194
+      verdict: pass
+      completed_at: '2026-08-01T17:57:34.028661+00:00'
+      ended_at: '2026-08-01T17:57:34.028661+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T17:30:31.360116+00:00'
-    updated_at: '2026-08-01T17:40:43.362588+00:00'
+    updated_at: '2026-08-01T17:57:34.028661+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-dbb67f276bba
@@ -245,5 +272,30 @@ author: oompah
 created: 2026-08-01 17:40
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 17:57
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: a163c8323e9b83e2360af73c9f3e972b99f9dc0d
+- remote_ref: remotes/origin/epic-EXOCOMP-185--task-EXOCOMP-194
+- files_added: 16
+- insertions: 1288
+- core_modules: status_event.ex, status_reducer.ex, codec.ex
+- coordinator_facade: apps/exocomp_coordinator/lib/exocomp/coordinator/mission_control/status_contract.ex
+- shared_fixtures_dir: test/fixtures/mission_control/
+- fixture_count: 7
+- test_files: status_event_test.exs, status_reducer_test.exs, codec_test.exs, status_contract_test.exs
+- offline_test_builders: 9 passed
+- offline_test_deps: 9 passed
+- offline_release_packaging: 16 passed
+- compliance_preexisting_failure_source: commit e211afce (EXOCOMP-188), unrelated
+- schema_version: 1
+- max_event_bytes: 65536
+- max_payload_bytes: 49152
 ---
 <!-- COMMENTS:END -->
