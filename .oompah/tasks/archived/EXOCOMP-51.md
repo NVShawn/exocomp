@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-51
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Pin A2A 1.0 fixture files and add comprehensive protocol test suite
 parent: EXOCOMP-8
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-08-01T21:28:08.590028Z'
+updated_at: '2026-08-01T21:31:08.768744Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -50,6 +50,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:50:39.253045+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-4dfb6368e567: '2026-08-01T21:31:06.318454+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-51
+    target_state: Archived
+    evidence_fingerprint: cedb438a82c95ddf2702c27cd0939163b18bc9c2478cb5d08d1690b47ecdd7a2
+    audit_ids:
+    - audit-3e1a48e10e14
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:31:06.318467+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-51
+    audit_id: audit-3e1a48e10e14
+    attempt_id: attempt-4dfb6368e567
+    target_state: Archived
+    evidence_fingerprint: cedb438a82c95ddf2702c27cd0939163b18bc9c2478cb5d08d1690b47ecdd7a2
+    status: Archived
+    audit_ids:
+    - audit-3e1a48e10e14
+    applied: false
+    created_at: '2026-08-01T21:31:06.318485+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +81,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-51
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +90,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-4dfb6368e567
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,13 +100,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:28:01.501295+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-08-01T21:31:06.318303+00:00'
+      ended_at: '2026-08-01T21:31:06.318303+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:32.972054+00:00'
-    updated_at: '2026-08-01T21:28:01.501295+00:00'
+    updated_at: '2026-08-01T21:31:06.318303+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4dfb6368e567
@@ -301,5 +328,20 @@ author: oompah
 created: 2026-08-01 21:28
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:31
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- delivery_commit: d115dd27a490c77bfb4ca88d3ddb4b96909887ef
+- merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- fixture_count: 10
+- test_module_count: 4
+- delivery_on_main: true
+- recovery_task: EXOCOMP-111 (verified merged via PR #14)
 ---
 <!-- COMMENTS:END -->
