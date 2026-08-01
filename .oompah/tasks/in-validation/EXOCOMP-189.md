@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-189
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Define desired-service types and deterministic merge rules
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:21:14.297784Z'
+updated_at: '2026-08-01T14:21:59.942359Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -53,12 +53,15 @@ oompah.agent_run_id: caef73ca-1dfc-414c-a784-f41a63261e52
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-189
+  base_branch: epic-EXOCOMP-185
+  base_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
   head_sha: c3eeb34abbb045e4dcbe3e4703952b1053791cb3
+  integrated_sha: c3eeb34abbb045e4dcbe3e4703952b1053791cb3
   submitted_at: '2026-08-01T14:20:30.117288+00:00'
-  updated_at: '2026-08-01T14:20:30.117288+00:00'
+  updated_at: '2026-08-01T14:21:50.506728+00:00'
 oompah.task_costs:
   total_input_tokens: 4335316
   total_output_tokens: 28719
@@ -91,6 +94,55 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-185--task-EXOCOMP-189
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:45:48.761690+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a278593d6f38
+    project_id: proj-c260b117
+    task_id: EXOCOMP-189
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f528e484080e6faff2777d2b89b44a2394bda9ff113e97f65ae452f7df526c8e
+    attempts:
+    - version: 1
+      attempt_id: attempt-86084bb0a154
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: f528e484080e6faff2777d2b89b44a2394bda9ff113e97f65ae452f7df526c8e
+      created_at: '2026-08-01T14:21:57.073396+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T14:21:57.073396+00:00'
+      branch_key: epic-EXOCOMP-185--task-EXOCOMP-189
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T14:21:51.749067+00:00'
+    updated_at: '2026-08-01T14:21:57.073396+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-86084bb0a154
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f528e484080e6faff2777d2b89b44a2394bda9ff113e97f65ae452f7df526c8e
+    created_at: '2026-08-01T14:21:57.073396+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T14:21:57.073396+00:00'
+    branch_key: epic-EXOCOMP-185--task-EXOCOMP-189
 ---
 ## Summary
 
@@ -186,5 +238,20 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 9m 51s
 - Log: EXOCOMP-189__20260801T141128Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:21
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-01 14:21
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 14:21
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
