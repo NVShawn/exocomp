@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-08-01T21:50:19.589870Z'
+updated_at: '2026-08-01T21:50:33.821853Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -340,13 +340,13 @@ oompah.terminal_audit:
     started_at: '2026-08-01T21:41:32.982638+00:00'
     branch_key: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 35
-  total_output_tokens: 7190
+  total_input_tokens: 82
+  total_output_tokens: 19250
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 35
-      output_tokens: 7190
+      input_tokens: 82
+      output_tokens: 19250
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -355,6 +355,12 @@ oompah.task_costs:
     output_tokens: 7190
     cost_usd: 0.0
     recorded_at: '2026-08-01T21:31:58.294413+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 47
+    output_tokens: 12060
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:50:32.344834+00:00'
 ---
 ## Summary
 
@@ -530,5 +536,15 @@ Safe evidence:
 - prior_archived_audit_pass: audit-5f6fb7566daa passed for Archived (previous_state Merged)
 - intermediate_failure_root_cause: prior Done audits failed on missing remote branch origin/epic-EXOCOMP-4; merge SHA resolves directly
 - hardening_commit_a2a: eabc4e19 EXOCOMP-126: Harden end-to-end A2A recovery
+---
+author: oompah
+created: 2026-08-01 21:50
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 51, Tool calls: 41
+- Tokens: 47 in / 12.1K out [12.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 8m 54s
+- Log: EXOCOMP-4__20260801T214147Z.jsonl
 ---
 <!-- COMMENTS:END -->
