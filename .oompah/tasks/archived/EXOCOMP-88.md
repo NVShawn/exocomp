@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-88
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Resolve inventory hostnames into normalized address candidates
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-08-01T02:11:13.721429Z'
+updated_at: '2026-08-01T02:15:50.674742Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -58,6 +58,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-f774c48917fb-3: '2026-07-31T19:55:59.217137+00:00'
+    attempt-1b7d0d03f917: '2026-08-01T02:15:48.729194+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-88
@@ -65,6 +66,7 @@ oompah.terminal_audit:
     evidence_fingerprint: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
     audit_ids:
     - audit-f774c48917fb
+    - audit-dc1c716c9c0a
     kind: result
     applied: true
     retired_at: '2026-07-31T19:55:59.217146+00:00'
@@ -81,6 +83,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T19:55:59.217159+00:00'
     applied_at: '2026-07-31T19:56:01.135598+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-88
+    audit_id: audit-dc1c716c9c0a
+    attempt_id: attempt-1b7d0d03f917
+    target_state: Archived
+    evidence_fingerprint: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+    status: Archived
+    audit_ids:
+    - audit-dc1c716c9c0a
+    applied: false
+    created_at: '2026-08-01T02:15:48.729233+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -171,7 +184,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-88
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -195,7 +208,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-1b7d0d03f917
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -206,13 +219,16 @@ oompah.terminal_audit:
       started_at: '2026-08-01T02:11:10.139559+00:00'
       branch_key: epic-EXOCOMP-2
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-01T02:15:48.729015+00:00'
+      ended_at: '2026-08-01T02:15:48.729015+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:35.372682+00:00'
-    updated_at: '2026-08-01T02:11:10.139559+00:00'
+    updated_at: '2026-08-01T02:15:48.729015+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a299ab532604
@@ -644,5 +660,22 @@ author: oompah
 created: 2026-08-01 02:11
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:15
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- implementation_commit: 18c1acd5a1b5669d5ceaff01924b4a2cfead984f
+- merge_commit: 6deabae (Merge pull request #9 from NVShawn/epic-EXOCOMP-2)
+- resolver_module: apps/exocomp_coordinator/lib/exocomp/coordinator/resolver.ex
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/resolver_test.exs
+- test_count: 11 resolver test cases
+- supervisor_integration: Resolver present in base_children/0 in application.ex after Inventory
+- registry_changes: candidate_addresses field and put_candidates/3 added to Registry
+- test_evidence_from_commit: 133 tests pass (10 excluded), fmt-check and warnings-as-errors clean
 ---
 <!-- COMMENTS:END -->
