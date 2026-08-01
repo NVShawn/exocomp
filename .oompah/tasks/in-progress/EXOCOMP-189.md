@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:11:27.857882Z'
+updated_at: '2026-08-01T14:11:41.982973Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -140,5 +140,10 @@ author: oompah
 created: 2026-08-01 14:11
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 14:11
+---
+Understanding: add shared desired-service data types and a pure deterministic resolver for one node/service. I will preserve source provenance and authority distinctions, merge duplicate expectations/probes predictably, add table-driven coverage for every source combination and ordering, then run the Makefile test gate.
 ---
 <!-- COMMENTS:END -->
