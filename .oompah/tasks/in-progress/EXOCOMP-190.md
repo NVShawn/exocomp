@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T13:52:51.635518Z'
+updated_at: '2026-08-01T13:54:22.293477Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -126,5 +126,40 @@ author: oompah
 created: 2026-08-01 13:52
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 13:54
+---
+**Understanding & Plan**
+
+Task: Implement `exocomp.service.inventory` skill for enabled service discovery.
+
+**Key Requirements:**
+1. Read-only skill that lists enabled/enabled-runtime systemd services
+2. Return: Type, RemainAfterExit, condition result, load state, active state, substate
+3. Exclude: completed oneshots, static, indirect, disabled, masked, generated, exocomp-node.service
+4. Mark failed conditions as not_applicable
+5. No shell invocation; bounded output; per-subprocess timeout
+6. Tests with command fixtures for all states/edge cases
+
+**Planned Approach:**
+1. Create `Exocomp.Node.Skills.ServiceInventory` skill module following the behavior contract
+2. Create a new collector or extend `Exocomp.Node.Collectors.Systemd` to query systemd for enabled units
+3. Implement filtering logic to exclude unwanted unit types
+4. Build comprehensive tests with injected systemctl fixtures for:
+   - Multiple enabled service states
+   - Enabled-runtime services
+   - All exclusion cases (oneshot, disabled, masked, etc.)
+   - Timeout handling
+   - Malformed output
+   - Output truncation
+
+**Key implementation details:**
+- Use `systemctl list-units --type=service --state=enabled` or similar fixed argv
+- Query properties via `systemctl show` with fixed property list
+- Handle the condition result field (mark failed as not_applicable)
+- Implement output size cap + timeout as seen in existing Systemd collector
+
+Next: Explore existing code to determine best collector approach.
 ---
 <!-- COMMENTS:END -->
