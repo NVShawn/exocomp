@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-08-01T15:33:32.260137Z'
+updated_at: '2026-08-01T15:43:30.768155Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 target_branch: null
 review_url: null
@@ -150,5 +150,10 @@ author: oompah
 created: 2026-08-01 15:33
 ---
 Discovery: the reusable base is in the EXOCOMP-164 branch (Phoenix app, authenticated live_session, Components, RequireRole, and /admin shell); this task branch is still at the roadmap commit. The dependency history also confirms invitation and certificate concerns are secret/digest-only and webhook contexts return plaintext secrets only at creation. I will bring the shell base into this branch for a buildable implementation, then add an organization-scoped admin context and focused LiveViews around those contracts.
+---
+author: oompah
+created: 2026-08-01 15:43
+---
+Implementation: added organization-scoped Administration context and safe admin records, expanded /admin into invitations, clusters/certificates, role mappings, retention, and webhook pages, added confirmation-gated cluster revocation with recorded AdminAction, transient one-time invitation token rendering/clearing, and focused context/LiveView tests. Secret material is excluded from records and templates.
 ---
 <!-- COMMENTS:END -->
