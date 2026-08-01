@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-08-01T02:19:19.253170Z'
+updated_at: '2026-08-01T02:19:34.298542Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: a44df019-a626-4f60-a5ac-ed7e94641fca
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 515900
-  total_output_tokens: 31798
+  total_input_tokens: 515935
+  total_output_tokens: 32897
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 515900
-      output_tokens: 31798
+      input_tokens: 515935
+      output_tokens: 32897
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 29379
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:31:51.293382+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 35
+    output_tokens: 1099
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:19:32.992597+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -501,5 +507,15 @@ Safe evidence:
 - typed_outcomes: :healthy | :degraded | :timeout | :unreachable | :identity_mismatch
 - identity_mismatch_halts_probe: verified (test 'wrong identity: stops probing after first mismatch')
 - address_preservation_verified: empty candidates, timeout, unreachable, and mismatch tests all confirm Registry.addresses preserved
+---
+author: oompah
+created: 2026-08-01 02:19
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 20
+- Tokens: 35 in / 1.1K out [1.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 51s
+- Log: EXOCOMP-89__20260801T021646Z.jsonl
 ---
 <!-- COMMENTS:END -->
