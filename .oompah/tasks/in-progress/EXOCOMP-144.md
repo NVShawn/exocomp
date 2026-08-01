@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:21:01.432278Z'
+updated_at: '2026-08-01T12:34:49.882550Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -258,5 +258,25 @@ author: oompah
 created: 2026-08-01 12:21
 ---
 Discovery: Examined the full coordinator PKI stack. The existing renewal handler (apps/exocomp_coordinator/lib/exocomp/coordinator/handlers/renewal_handler.ex) already handles mTLS cert extraction and CSR validation but has NO eligibility check, no revocation support, and no serial tracking. Key files: pki/{issuer,state,bootstrap}.ex, coordinator_router.ex, enrollment_token.ex (pattern for durable store). Implementation plan: (1) New PKI.CertificateRegistry GenServer tracking issued serials + revocations with disk persistence; (2) Enhanced RenewalHandler with day-20 eligibility check, revocation check, serial registration; (3) New /api/v1/clusters/renew route in CoordinatorRouter alongside existing /v1/renew; (4) Admin revoke_identity/revoke_serial functions; (5) certificate_status/1 for gateway. Tests: unit tests for CertificateRegistry + integration tests covering all 7 acceptance scenarios.
+---
+author: oompah
+created: 2026-08-01 12:34
+---
+Implementation: Added cluster certificate renewal and revocation.
+
+Changes:
+1. NEW apps/exocomp_coordinator/lib/exocomp/coordinator/pki/certificate_registry.ex — GenServer tracking issued certificate serials and explicit revocations. Persists state to JSON (mode-0700 dir, mode-0600 files) with atomic rename. Public API: register/5, revoke_serial/2, revoke_identity/2, certificate_status/2, identity_status/2, status/1. Includes ASN.1 time-to-Unix conversion.
+
+2. MODIFIED apps/exocomp_coordinator/lib/exocomp/coordinator/handlers/renewal_handler.ex — Enhanced with-chain: extract cert info → parse body → require CSR → pki_online_state() → check_not_expired → check_renewal_window (day 20 of 30-day cert = renewal_opens_at = not_before + 20*86400) → check_revocation (serial + identity) → validate_csr → issue_leaf → extract_issued_serial → register_serial. New error codes: cert_expired→401, renewal_too_early→403, certificate_revoked→403, identity_revoked→403.
+
+3. MODIFIED apps/exocomp_coordinator/lib/exocomp/coordinator/coordinator_router.ex — Added POST /api/v1/clusters/renew route dispatching to RenewalHandler.
+
+4. MODIFIED apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex — CertificateRegistry added to pki_and_listener_children/0; configurable cert_registry_store_path.
+
+5. NEW apps/exocomp_coordinator/test/exocomp/coordinator/pki/certificate_registry_test.exs — 22 unit tests.
+
+6. NEW apps/exocomp_coordinator/test/integration/coordinator_pki_renewal_test.exs — 28 integration tests covering early renewal, valid renewal, expired cert, revoked cluster, identity mismatch, concurrent renewal, and signing failure.
+
+Private keys remain coordinator-local; serial rotation happens naturally on each new issuance.
 ---
 <!-- COMMENTS:END -->

@@ -13,12 +13,36 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T11:49:19.894181Z'
-work_branch: null
+updated_at: '2026-08-01T12:34:45.835886Z'
+work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 832bcb18a7b711dada0dc827d18c063664c39661f8fd3d7af6aeb2fdcdfa7532
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 1c99fafe-7466-4190-a005-0fef8f326900
+  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
+  claimed_at: '2026-08-01T12:34:37.272788+00:00'
+  claim_expires_at: '2026-08-01T13:04:37.272788+00:00'
+  retry_count: 0
+  retry_after: null
+oompah.agent_run_id: 32e04359-354d-4ead-85b3-fdd498a54ce9
+oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-132--task-EXOCOMP-158
+  base_branch: epic-EXOCOMP-132
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  updated_at: '2026-08-01T12:34:43.429575+00:00'
 ---
 ## Summary
 
@@ -43,3 +67,16 @@ Quality gate: focused context tests plus make test, make fmt-check, and make lin
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 12:34
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-01 12:34
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
