@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T18:17:16.450026Z'
+updated_at: '2026-08-01T18:17:33.786627Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -389,5 +389,18 @@ Three regression tests added to apps/exocomp_node/test/exocomp/node/collectors/c
 - 'non-ASCII UTF-8 property value from systemd show is a per-unit malformed error'
 - 'a property value containing a DEL byte (0x7F) is rejected as malformed'
 - 'incomplete unit state (fewer properties than requested) is a per-unit malformed error'
+---
+author: oompah
+created: 2026-08-01 18:17
+---
+Verification: make test passes — 511 tests in the exocomp_node suite (up from 508, 3 new security regression tests), 202 coordinator tests, 128 core tests, all green. fmt-check and git diff --check pass. Branch pushed at c17555f8.
+
+No remaining security issues found. Full threat surface reviewed:
+- No shell injection possible: System.cmd/3 used directly (no /bin/sh), all args are compile-time constants or regex-validated unit names
+- No path/arg injection: @list_args and @show_property_flag are module-level compile-time constants; unit names are validated by anchored regex before being placed in argv
+- No output overflow: max_output_bytes enforced at two levels; max_units cap enforced; task timeouts brutal-kill the subprocess
+- No data leakage: overflow output is discarded (not logged); error reasons are hardcoded strings (no user/unit data)
+- No SSRF/privilege escalation: the collector is read-only (no write commands), no Ceph credentials are accessed
+- Fixes shipped: non-ASCII byte bypass in valid_property_value?/1 and missing completeness check in parse_show_output/1
 ---
 <!-- COMMENTS:END -->
