@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T15:40:51.237042Z'
+updated_at: '2026-08-01T15:41:09.593666Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -56,13 +56,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:40:49.301806+00:00'
   updated_at: '2026-08-01T15:40:49.301806+00:00'
 oompah.task_costs:
-  total_input_tokens: 1054271
-  total_output_tokens: 5174
+  total_input_tokens: 1055261
+  total_output_tokens: 5449
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 1054271
-      output_tokens: 5174
+      input_tokens: 1055261
+      output_tokens: 5449
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +71,12 @@ oompah.task_costs:
     output_tokens: 5174
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:19:06.091083+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 990
+    output_tokens: 275
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:41:08.153789+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-202__20260801T141709Z
@@ -285,5 +291,15 @@ author: oompah
 created: 2026-08-01 15:40
 ---
 Packaged profile-action-helper with exact sudo authorization: installer installs root-owned binary with secure sudoers policy, uninstaller removes it idempotently, comprehensive tests verify all acceptance criteria (archives include architectures, exact sudoers grants, upgrade/dry-run/rollback/uninstall handle helper correctly). All 86 installer tests pass plus extended coverage for packaging and sudoers.
+---
+author: oompah
+created: 2026-08-01 15:41
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 56
+- Tokens: 990 in / 275 out [1.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 3s
+- Log: EXOCOMP-202__20260801T153112Z.jsonl
 ---
 <!-- COMMENTS:END -->
