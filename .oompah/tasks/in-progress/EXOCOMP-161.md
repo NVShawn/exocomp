@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-161
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Store and validate typed remedy proposals
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:19.626537Z'
-updated_at: '2026-08-01T12:55:58.618312Z'
+updated_at: '2026-08-01T12:56:37.982563Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 208def74-9d2e-4847-b071-6f290270cc75
+oompah.agent_run_id: eeccde1a-3da5-43ad-8e64-ab5a30b51198
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 oompah.integration:
   version: 2
@@ -47,7 +47,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-161
   base_branch: epic-EXOCOMP-132
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:52:15.949255+00:00'
+  updated_at: '2026-08-01T12:56:34.268003+00:00'
 oompah.task_costs:
   total_input_tokens: 411207
   total_output_tokens: 5101
@@ -118,5 +118,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 3m 45s
 - Log: EXOCOMP-161__20260801T125219Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:56
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 12:56
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

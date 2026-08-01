@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:18.620833Z'
-updated_at: '2026-08-01T12:54:13.959381Z'
+updated_at: '2026-08-01T12:56:35.142594Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-160
 target_branch: null
 review_url: null
@@ -171,5 +171,28 @@ created: 2026-08-01 12:54
 - Write focused tests covering acceptance criteria
 
 **Out of Scope:** UI rendering, proposals
+---
+author: oompah
+created: 2026-08-01 12:56
+---
+## Discovery: Dependency Infrastructure In Place
+
+**Merged dependencies:**
+- EXOCOMP-149: ClusterEventIngestor handles authenticated event delivery with transactional durable cursors, deduplication, and gap-aware acknowledgements
+- EXOCOMP-150: CommandOutbox with validated payloads, session-aware delivery, idempotent acknowledgement, expiry (five min TTL default)
+- EXOCOMP-151: CommandProcessor handles result reporting, validates, acks, expires commands
+- EXOCOMP-158: Message/Conversation/EvidenceReference models with state lifecycle (queued→delivered→reasoning→completed/failed/expired) and context bounds (50 messages, 64 KiB)
+- EXOCOMP-159: ClusterChat skill with bounded context, evidence citation validation, Markdown + optional typed proposals
+
+**Implementation needed for EXOCOMP-160:**
+1. ConversationCommands context: send_message(org, conv, text, evidence_refs) → creates operator Message, enqueues Command, marks Message delivered
+2. Event handler for conversation.reply: find operator Message by command_id, update to reasoning/completed, store reply as cluster Message with evidence refs
+3. Validation: evidence citations must match org/cluster/timestamp bounds, commands expiry handling, invalid citations explicit
+4. Tests: online delivery, offline queue, reconnect, duplicate reply, failed reasoning, expired command, invalid citation, mismatch
+
+**Key design questions resolved:**
+- Command/Message linking: command.payload contains message_id (to be added)
+- Reply storage: separate Message with sender_type: :cluster
+- State transitions: delivered (command enqueued) → reasoning (command acked) → completed (reply arrives)
 ---
 <!-- COMMENTS:END -->
