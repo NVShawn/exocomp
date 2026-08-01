@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-137
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Configure PostgreSQL and the Ecto migration test harness
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T15:06:19.612703Z'
+updated_at: '2026-08-01T15:06:34.362601Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -49,12 +49,12 @@ oompah.agent_run_id: 3b6ba07d-2fc1-492f-9e69-23132db34290
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-137
-  base_branch: epic-EXOCOMP-128
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:39:24.836668+00:00'
+  head_sha: e9fb31b08db1442238755c5c4a45dc1dcdc1b02c
+  submitted_at: '2026-08-01T15:06:31.639313+00:00'
+  updated_at: '2026-08-01T15:06:31.639313+00:00'
 oompah.task_costs:
   total_input_tokens: 1048912
   total_output_tokens: 4341
@@ -162,5 +162,10 @@ author: oompah
 created: 2026-08-01 15:06
 ---
 Completion: rebased onto the landed EXOCOMP-136 scaffold, preserving Phoenix supervision/endpoint behavior while adding the Repo child and Ecto/Postgrex persistence harness. Commit e9fb31b0 is pushed on epic-EXOCOMP-128--task-EXOCOMP-137 and the branch is up to date. Required container quality gates remain environment-blocked by the Podman chmod restriction; local format, parse, runtime-validation, and focused non-DB tests passed.
+---
+author: oompah
+created: 2026-08-01 15:06
+---
+Added the Mission Control Ecto/Postgrex Repo, environment-safe database configuration and production validation, reversible baseline migration, SQL-sandbox harness/tests, and focused database Make target; rebased onto EXOCOMP-136 and pushed commit e9fb31b0.
 ---
 <!-- COMMENTS:END -->
