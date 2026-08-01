@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-151
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Report command results without duplicate execution
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-01T12:42:43.863605Z'
+updated_at: '2026-08-01T12:43:26.914908Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -63,12 +63,12 @@ oompah.agent_run_id: cd8ced73-e8d3-4901-afe5-554770c34877
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-151
-  base_branch: epic-EXOCOMP-130
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:28:36.268582+00:00'
+  head_sha: 33ce64fb0add0848c5c2ca31bf9e396671ed8d17
+  submitted_at: '2026-08-01T12:43:24.347901+00:00'
+  updated_at: '2026-08-01T12:43:24.347901+00:00'
 oompah.task_costs:
   total_input_tokens: 194
   total_output_tokens: 4521
@@ -169,5 +169,15 @@ author: oompah
 created: 2026-08-01 12:42
 ---
 Verification: focused CommandProcessor tests pass 9/9, including duplicate delivery before execution, pending duplicate after restart, completed-result replay after restart, expiry, unsupported kind, handler crash, schema validation, and correlation fields. Strict direct Elixir compilation with Jason passes with warnings-as-errors. make test and make lint pass their offline builder/Python checks but stop at the pinned Docker/Podman Elixir step; make fmt-check is likewise blocked by the container runtime (local changed-file format check passes).
+---
+author: oompah
+created: 2026-08-01 12:43
+---
+Completion: pushed commit 33ce64fb on epic-EXOCOMP-130--task-EXOCOMP-151. The coordinator now durably claims command IDs, separates receipt acknowledgement from terminal execution, validates schema and expiry, fail-closes pending work across restart, replays completed results, and writes correlated terminal command.result events. Focused tests pass 9/9; the required container-backed gates were attempted and documented as environment-blocked.
+---
+author: oompah
+created: 2026-08-01 12:43
+---
+Implemented durable exactly-once command result reporting with receipt acknowledgements, validation, expiry handling, restart-safe replay, correlated terminal events, supervision wiring, and focused tests.
 ---
 <!-- COMMENTS:END -->
