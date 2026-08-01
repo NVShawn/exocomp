@@ -17,9 +17,10 @@ labels:
 - focus-complete:security
 - focus-complete:docs
 - focus-complete:devops
+- needs:test
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:55:51.433009Z'
+updated_at: '2026-08-01T17:56:04.944463Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
