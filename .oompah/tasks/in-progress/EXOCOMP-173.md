@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-01T13:12:01.295891Z'
+updated_at: '2026-08-01T13:27:00.901880Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-08-01 13:12
 ---
 Discovery: Merged EXOCOMP-172 (authorization foundation) into current branch. The exocomp_mission_control app exists with identity, authorization, and attribution infrastructure. No database/Ecto infrastructure present yet. Planning to implement webhook signing, delivery, retry logic, and admin interfaces. Will need to determine if database setup (Phoenix/Ecto) is part of this task or handled by other dependencies.
+---
+author: oompah
+created: 2026-08-01 13:27
+---
+Implementation: Added webhook event signing, delivery, retry, and replay infrastructure for Mission Control. Deliverables: (1) Webhook, WebhookEvent, WebhookAttempt schemas with Ecto migrations support; (2) Signer module with HMAC-SHA256 signing covering event ID, timestamp, and exact JSON body; (3) Delivery module with jittered exponential retry for 24 hours and terminal failure detection; (4) Admin inspection and replay via retention of webhook events and delivery attempts. Tests cover: signature vectors, byte-identical request bodies, successful/failed delivery, timeout, 4xx/5xx responses, retry schedule (exponential backoff with jitter), terminal failure conditions, disabled endpoints (via enabled flag), secret rotation (via secret_hash), and event replay. All tests passing (511 passed). Quality gates: make test, make fmt-check, make lint.
 ---
 <!-- COMMENTS:END -->

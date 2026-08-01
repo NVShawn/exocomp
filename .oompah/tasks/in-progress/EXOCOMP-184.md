@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:26:47.983800Z'
+updated_at: '2026-08-01T13:27:06.232990Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -61,7 +61,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: e44592b2-d732-4aab-a800-f13e5f1d14b1
+oompah.agent_run_id: bded46ef-defa-4789-a4d7-8222f2408d22
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 oompah.integration:
   version: 2
@@ -70,7 +70,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-184
   base_branch: epic-EXOCOMP-135
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:23:56.528587+00:00'
+  updated_at: '2026-08-01T13:27:04.044826+00:00'
 oompah.task_costs:
   total_input_tokens: 218
   total_output_tokens: 8238
@@ -142,5 +142,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 52s
 - Log: EXOCOMP-184__20260801T132400Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:27
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:27
+---
+Focus: Security Auditor
 ---
 <!-- COMMENTS:END -->
