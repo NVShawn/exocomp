@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-29
 type: feature
-status: Merged
+status: In Validation
 priority: 0
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
@@ -17,7 +17,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-07-25T02:14:49.756711Z'
+updated_at: '2026-08-01T03:00:15.160428Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -74,6 +74,28 @@ oompah.task_costs:
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/10
 oompah.review_number: '10'
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-28c579961f9d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-29
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e5383d4cbd6da2ab48e9ed28ddc36ee40b2758792e8c700500aabc6f3f23a17e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:12.999525+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -449,5 +471,10 @@ author: oompah
 created: 2026-07-25 02:13
 ---
 YOLO: merged PR #10.
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
