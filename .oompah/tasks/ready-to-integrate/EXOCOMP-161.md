@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-161
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Store and validate typed remedy proposals
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:19.626537Z'
-updated_at: '2026-08-01T13:07:24.403684Z'
+updated_at: '2026-08-01T13:07:37.179231Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: eeccde1a-3da5-43ad-8e64-ab5a30b51198
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-161
-  base_branch: epic-EXOCOMP-132
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:56:34.268003+00:00'
+  head_sha: b7ccea241de1ce9b8ae53727ca492cfc4010f9a6
+  submitted_at: '2026-08-01T13:07:34.535288+00:00'
+  updated_at: '2026-08-01T13:07:34.535288+00:00'
 oompah.task_costs:
   total_input_tokens: 411207
   total_output_tokens: 5101
@@ -187,5 +187,10 @@ Quality gates:
 ✓ make test
 
 Implementation complete. Committed: 7e8c4b5f (proposal implementation), b7ccea24 (formatting). Branch: epic-EXOCOMP-132--task-EXOCOMP-161
+---
+author: oompah
+created: 2026-08-01 13:07
+---
+Implemented organization-scoped typed remedy proposal storage with comprehensive validation against action catalog and parameter schema. Includes Proposal struct with all required fields, evidence reference support, expiry detection, and Proposals context for persistence. Full test coverage (511 tests) confirms valid proposals, unknown action rejection, unsupported field prevention, invalid parameter detection, stale/missing evidence handling, duplicate ID prevention, expiry validation, and organization mismatch protection. All quality gates pass.
 ---
 <!-- COMMENTS:END -->
