@@ -153,6 +153,55 @@ class M7QualificationInputTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exposes sensitive value"):
             m7_qualification.verify_inputs(args)
 
+    def test_rejects_common_credential_and_key_names_in_effective_configuration(self) -> None:
+        for field in ("client_credential", "apiKey", "signingKey", "passphrase"):
+            with self.subTest(field=field):
+                self.redacted_config.write_text(json.dumps({field: "leaked value"}))
+                args = m7_qualification.parser().parse_args(self.arguments())
+
+                with self.assertRaisesRegex(ValueError, "exposes sensitive value"):
+                    m7_qualification.verify_inputs(args)
+
+    def test_rejects_service_url_query_and_fragment_values(self) -> None:
+        for suffix in ("?access_token=leaked", "#access_token=leaked"):
+            with self.subTest(suffix=suffix):
+                arguments = self.arguments()
+                arguments[arguments.index("--mission-control-service-url") + 1] = (
+                    "https://mission-control.example.invalid/" + suffix
+                )
+                args = m7_qualification.parser().parse_args(arguments)
+
+                with self.assertRaisesRegex(ValueError, "query or fragment"):
+                    m7_qualification.verify_inputs(args)
+
+    def test_rejects_secret_bearing_endpoint_override_evidence(self) -> None:
+        overrides = self.root / "overrides.json"
+        overrides.write_text(
+            json.dumps(
+                {
+                    "overrides": [
+                        {
+                            "name": "mission control endpoint",
+                            "default": "https://default.example.invalid",
+                            "effective": "https://guest.example.invalid?access_token=leaked",
+                            "timestamp": "2026-08-01T00:00:00Z",
+                            "reason": "guest network routing",
+                            "diff": "default endpoint -> guest endpoint",
+                            "architecture": "amd64",
+                            "operator": "qualification@example.invalid",
+                            "scope": "endpoint",
+                            "requirements_relaxed": False,
+                        }
+                    ]
+                }
+            )
+        )
+        arguments = self.arguments() + ["--overrides-file", str(overrides)]
+        args = m7_qualification.parser().parse_args(arguments)
+
+        with self.assertRaisesRegex(ValueError, "sensitive configuration"):
+            m7_qualification.verify_inputs(args)
+
 
 class M7EvidenceResultTest(unittest.TestCase):
     def setUp(self) -> None:
@@ -230,9 +279,20 @@ class M7EvidenceFinalizationTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
         for architecture in m7_qualification.ARCHITECTURES:
-            evidence_file = self.root / "raw" / architecture / "candidate" / "identity.txt"
-            evidence_file.parent.mkdir(parents=True, exist_ok=True)
-            evidence_file.write_text(f"{architecture} evidence")
+            evidence_root = self.root / "raw" / architecture
+            for relative in m7_qualification.ALL_REQUIRED_EVIDENCE:
+                evidence_file = evidence_root / relative
+                evidence_file.parent.mkdir(parents=True, exist_ok=True)
+                if relative in {
+                    path for paths in m7_qualification.REQUIRED_EVIDENCE.values() for path in paths
+                }:
+                    evidence_file.write_text(json.dumps({"status": "pass"}))
+                elif relative == "artifacts/identity.json":
+                    evidence_file.write_text(
+                        json.dumps({"candidate": {"tag": TAG, "commit": COMMIT}})
+                    )
+                else:
+                    evidence_file.write_text(f"{architecture} evidence")
             result = {
                 "architecture": architecture,
                 "decision": "pass",
@@ -240,11 +300,15 @@ class M7EvidenceFinalizationTest(unittest.TestCase):
                 "candidate": {"tag": TAG, "commit": COMMIT},
                 "operator": "qualification@example.invalid",
                 "criteria": {
-                    criterion: {"status": "pass"} for criterion in m7_qualification.CRITERIA
+                    criterion: {
+                        "status": "pass",
+                        "evidence": list(m7_qualification.REQUIRED_EVIDENCE[criterion]),
+                    }
+                    for criterion in m7_qualification.CRITERIA
                 },
-                "required_evidence": ["candidate/identity.txt"],
+                "required_evidence": sorted(m7_qualification.ALL_REQUIRED_EVIDENCE),
             }
-            (self.root / "raw" / architecture / "qualification-result.json").write_text(
+            (evidence_root / "qualification-result.json").write_text(
                 json.dumps(result)
             )
 
@@ -267,6 +331,36 @@ class M7EvidenceFinalizationTest(unittest.TestCase):
         path.write_text(json.dumps(value))
 
         with self.assertRaisesRegex(ValueError, "same signed candidate"):
+            finalize_m7_evidence.validate_evidence_root(self.root)
+
+    def test_rejects_a_result_that_omits_required_evidence(self) -> None:
+        path = self.root / "raw" / "amd64" / "qualification-result.json"
+        value = json.loads(path.read_text())
+        value["required_evidence"] = ["candidate/identity.txt"]
+        path.write_text(json.dumps(value))
+
+        with self.assertRaisesRegex(ValueError, "complete M7 evidence set"):
+            finalize_m7_evidence.validate_evidence_root(self.root)
+
+    def test_rejects_a_result_with_forged_criterion_evidence(self) -> None:
+        path = self.root / "raw" / "amd64" / "qualification-result.json"
+        value = json.loads(path.read_text())
+        value["criteria"]["M7-CRIT-9"]["evidence"] = []
+        path.write_text(json.dumps(value))
+
+        with self.assertRaisesRegex(ValueError, "unexpected M7-CRIT-9 evidence"):
+            finalize_m7_evidence.validate_evidence_root(self.root)
+
+    def test_rejects_a_symbolic_linked_evidence_directory(self) -> None:
+        candidate = self.root / "raw" / "amd64" / "candidate"
+        replacement = self.root / "replacement-candidate"
+        replacement.mkdir()
+        (replacement / "tag-verification.txt").write_text("replacement evidence")
+        (candidate / "tag-verification.txt").unlink()
+        candidate.rmdir()
+        candidate.symlink_to(replacement, target_is_directory=True)
+
+        with self.assertRaisesRegex(ValueError, "symbolic links"):
             finalize_m7_evidence.validate_evidence_root(self.root)
 
     def test_refuses_to_index_a_symbolic_link(self) -> None:

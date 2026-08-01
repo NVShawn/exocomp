@@ -185,9 +185,10 @@ than permission to omit the phase.
 
 `REDACTED_CONFIG` is a JSON copy of the effective qualification configuration.
 Every value under a password, secret, token, cookie, private-key, database URL,
-or authorization key must be the literal string `[REDACTED]`. The gate rejects
-unredacted values before copying the configuration to evidence. The endpoint
-must be an HTTP(S) URL without embedded credentials.
+authorization key, credential, API/access/signing/webhook key, or passphrase
+must be the literal string `[REDACTED]`. The gate rejects unredacted values
+before copying the configuration to evidence. The endpoint must be an HTTP(S)
+base URL without embedded credentials, a query string, or a fragment.
 
 ## Required live phases
 
@@ -334,6 +335,8 @@ organization, authorization, signature, freshness, idempotency, durability,
 redaction, capacity, latency, or soak requirements; or turn a failure into a
 pass. A longer orchestration wait does not change protocol expiry or evidence
 freshness windows. An unrecorded or disallowed override fails qualification.
+Override records are evidence: they must not contain credentials or other
+secret values.
 
 ## Sign and verify the result
 

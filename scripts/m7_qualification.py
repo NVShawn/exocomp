@@ -31,6 +31,27 @@ REQUIRED_EVIDENCE = {
     "M7-CRIT-11": ("two-cluster/two-cluster.json",),
     "M7-CRIT-12": ("repo-gates/release-check.json", "docs/check-links.json"),
 }
+BASE_REQUIRED_EVIDENCE = frozenset(
+    ("candidate/tag-verification.txt", "host/guest-runtime.txt", "artifacts/identity.json")
+)
+ALL_REQUIRED_EVIDENCE = frozenset(
+    path for paths in REQUIRED_EVIDENCE.values() for path in paths
+) | BASE_REQUIRED_EVIDENCE
+SENSITIVE_CONFIG_KEY_MARKERS = (
+    "password",
+    "secret",
+    "token",
+    "cookie",
+    "privatekey",
+    "databaseurl",
+    "authorization",
+    "credential",
+    "apikey",
+    "accesskey",
+    "signingkey",
+    "webhookkey",
+    "passphrase",
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -61,6 +82,11 @@ def require_mapping(value: object, description: str) -> dict[str, object]:
     if not isinstance(value, dict):
         raise ValueError(f"{description} must be an object")
     return value
+
+
+def has_sensitive_marker(value: str) -> bool:
+    normalized = "".join(character for character in value.lower() if character.isalnum())
+    return any(marker in normalized for marker in SENSITIVE_CONFIG_KEY_MARKERS)
 
 
 def image_digest(image: str, description: str) -> str:
@@ -135,12 +161,20 @@ def validate_overrides(
         item = require_mapping(entry, "override entry")
         for key in ("name", "default", "effective", "timestamp", "reason", "diff"):
             require_string(item.get(key), f"override {key}")
+        if any(
+            has_sensitive_marker(item[key])
+            for key in ("name", "default", "effective", "reason", "diff")
+        ):
+            raise ValueError("override evidence must not contain sensitive configuration")
         if item.get("architecture") != architecture:
             raise ValueError("override architecture does not match qualification architecture")
         if item.get("operator") != operator:
             raise ValueError("override operator does not match qualification operator")
         if item.get("scope") not in permitted:
             raise ValueError("override scope is not permitted for qualification")
+        if item["scope"] == "endpoint":
+            validate_service_url(item["default"])
+            validate_service_url(item["effective"])
         if item.get("requirements_relaxed") is not False:
             raise ValueError("override must explicitly state requirements_relaxed=false")
         result.append(item)
@@ -149,7 +183,6 @@ def validate_overrides(
 
 def validate_redacted_config(path: Path) -> dict[str, object]:
     document = load_json(path)
-    sensitive = ("password", "secret", "token", "cookie", "private_key", "database_url", "authorization")
 
     def validate(value: object, location: str = "") -> None:
         if isinstance(value, dict):
@@ -157,7 +190,7 @@ def validate_redacted_config(path: Path) -> dict[str, object]:
                 if not isinstance(key, str):
                     raise ValueError("redacted configuration keys must be strings")
                 nested_location = f"{location}.{key}" if location else key
-                if any(marker in key.lower() for marker in sensitive):
+                if has_sensitive_marker(key):
                     if nested != "[REDACTED]":
                         raise ValueError(f"redacted configuration exposes sensitive value at {nested_location}")
                 else:
@@ -171,11 +204,15 @@ def validate_redacted_config(path: Path) -> dict[str, object]:
 
 
 def validate_service_url(value: str) -> str:
+    if any(character.isspace() for character in value):
+        raise ValueError("M7_MC_SERVICE_URL must not contain whitespace")
     parsed = urlsplit(value)
     if parsed.scheme not in {"http", "https"} or not parsed.hostname:
         raise ValueError("M7_MC_SERVICE_URL must be an absolute HTTP(S) endpoint")
     if parsed.username is not None or parsed.password is not None:
         raise ValueError("M7_MC_SERVICE_URL must not contain credentials")
+    if parsed.query or parsed.fragment:
+        raise ValueError("M7_MC_SERVICE_URL must not contain a query or fragment")
     return value
 
 
@@ -249,8 +286,7 @@ def write_result(args: argparse.Namespace) -> None:
     root = args.evidence_dir
     identity = load_json(root / "artifacts" / "identity.json")
     phase_records = {path for paths in REQUIRED_EVIDENCE.values() for path in paths}
-    required = set(phase_records)
-    required.update(("candidate/tag-verification.txt", "host/guest-runtime.txt", "artifacts/identity.json"))
+    required = set(ALL_REQUIRED_EVIDENCE)
     missing = sorted(path for path in required if not (root / path).is_file())
     if missing:
         raise ValueError("qualification evidence is incomplete: " + ", ".join(missing))

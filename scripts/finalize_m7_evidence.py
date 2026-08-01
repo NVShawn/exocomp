@@ -8,10 +8,22 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 
-from m7_qualification import ARCHITECTURES, CRITERIA, load_json, require_mapping
+from m7_qualification import (
+    ALL_REQUIRED_EVIDENCE,
+    ARCHITECTURES,
+    CRITERIA,
+    REQUIRED_EVIDENCE,
+    load_json,
+    require_mapping,
+    require_string,
+)
+
+
+COMMIT = re.compile(r"[0-9a-f]{40,64}")
 
 
 def sha256_file(path: Path) -> str:
@@ -29,7 +41,20 @@ def require_env(name: str) -> str:
     return value
 
 
+def reject_symbolic_links(root: Path) -> None:
+    if root.is_symlink() or any(path.is_symlink() for path in root.rglob("*")):
+        raise ValueError("M7 evidence does not permit symbolic links")
+
+
+def validate_candidate(candidate: dict[str, object], description: str) -> None:
+    require_string(candidate.get("tag"), f"{description} tag")
+    commit = require_string(candidate.get("commit"), f"{description} commit")
+    if not COMMIT.fullmatch(commit):
+        raise ValueError(f"{description} commit must be a full hexadecimal object ID")
+
+
 def validate_evidence_root(root: Path) -> dict[str, object]:
+    reject_symbolic_links(root)
     candidates: list[dict[str, object]] = []
     architectures: dict[str, dict[str, object]] = {}
     criteria_index: dict[str, dict[str, object]] = {criterion: {} for criterion in CRITERIA}
@@ -43,6 +68,8 @@ def validate_evidence_root(root: Path) -> dict[str, object]:
         ):
             raise ValueError(f"{result_path} is not a passing {architecture} result")
         candidate = require_mapping(result.get("candidate"), f"{result_path} candidate")
+        validate_candidate(candidate, f"{result_path} candidate")
+        require_string(result.get("operator"), f"{result_path} operator")
         criteria = require_mapping(result.get("criteria"), f"{result_path} criteria")
         if set(criteria) != set(CRITERIA):
             raise ValueError(f"{result_path} does not index every M7 criterion")
@@ -50,19 +77,28 @@ def validate_evidence_root(root: Path) -> dict[str, object]:
             value = require_mapping(criteria[criterion], f"{result_path} {criterion}")
             if value.get("status") != "pass":
                 raise ValueError(f"{result_path} reports a non-passing {criterion}")
+            if value.get("evidence") != list(REQUIRED_EVIDENCE[criterion]):
+                raise ValueError(f"{result_path} has unexpected {criterion} evidence")
             criteria_index[criterion][architecture] = {
                 "status": "pass",
-                "evidence": value.get("evidence", []),
+                "evidence": list(REQUIRED_EVIDENCE[criterion]),
             }
         required = result.get("required_evidence")
         if not isinstance(required, list) or not required:
             raise ValueError(f"{result_path} has no required evidence list")
+        if not all(isinstance(relative, str) for relative in required):
+            raise ValueError(f"{result_path} has an unsafe evidence path")
+        if len(required) != len(set(required)) or set(required) != ALL_REQUIRED_EVIDENCE:
+            raise ValueError(f"{result_path} does not declare the complete M7 evidence set")
         architecture_root = result_path.parent
         for relative in required:
-            if not isinstance(relative, str) or relative.startswith("/") or ".." in Path(relative).parts:
+            if relative.startswith("/") or ".." in Path(relative).parts:
                 raise ValueError(f"{result_path} has an unsafe evidence path")
             if not (architecture_root / relative).is_file():
                 raise ValueError(f"{result_path} references missing evidence {relative}")
+        for relative in {path for paths in REQUIRED_EVIDENCE.values() for path in paths}:
+            if load_json(architecture_root / relative).get("status") != "pass":
+                raise ValueError(f"{result_path} references a non-passing phase {relative}")
         candidates.append(candidate)
         architectures[architecture] = {"result": str(result_path.relative_to(root)), "operator": result.get("operator")}
     if candidates[0] != candidates[1]:
@@ -79,12 +115,11 @@ def validate_evidence_root(root: Path) -> dict[str, object]:
 def write_index(root: Path) -> Path:
     index = root / "evidence-index.sha256"
     signature = root / "evidence-index.sha256.sig"
+    reject_symbolic_links(root)
     files = sorted(
         path for path in root.rglob("*")
         if path.is_file() and path not in {index, signature}
     )
-    if any(path.is_symlink() for path in files):
-        raise ValueError("M7 evidence index does not permit symbolic links")
     lines = [f"{sha256_file(path)}  ./{path.relative_to(root).as_posix()}" for path in files]
     index.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return index
