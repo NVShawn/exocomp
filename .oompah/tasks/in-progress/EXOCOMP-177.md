@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-08-01T23:01:58.825793Z'
+updated_at: '2026-08-01T23:02:10.836913Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 target_branch: null
 review_url: null
@@ -144,5 +144,10 @@ author: oompah
 created: 2026-08-01 23:01
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-01 23:02
+---
+Understanding: Add unauthenticated liveness and guarded readiness endpoints, with readiness reflecting migrations/database connectivity and critical supervision state without requiring a cluster, plus stable low-cardinality Prometheus metrics for the planned Mission Control domains. I will first inspect the server, startup, persistence, supervision, telemetry, docs, and Makefile test conventions; then implement focused coverage for healthy/unavailable/pending/degraded/recovery states and endpoint/metric security and stability.
 ---
 <!-- COMMENTS:END -->

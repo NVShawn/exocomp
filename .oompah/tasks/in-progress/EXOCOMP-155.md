@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:01:47.531662Z'
+updated_at: '2026-08-01T23:02:09.571354Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-08-01 23:01
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-01 23:02
+---
+Understanding: implement a deterministic incident health-transition reducer over fleet observations. I will reuse the incident APIs from EXOCOMP-154, define the exact severity and threshold rules from plans/mission-control.md, add table-driven coverage for all acceptance boundaries and ordering cases, then run focused tests plus make test, make fmt-check, and make lint.
 ---
 <!-- COMMENTS:END -->
