@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-187
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Integrate the three-path desired-state design into project plans
 parent: EXOCOMP-185
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T13:40:13.309490Z'
+updated_at: '2026-08-01T13:40:22.222714Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 target_branch: null
 review_url: null
@@ -39,12 +39,12 @@ oompah.agent_run_id: 0e98aea7-92e8-4111-a166-4c0b10dbc8f5
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-187
-  base_branch: epic-EXOCOMP-185
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:36:56.689108+00:00'
+  head_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
+  submitted_at: '2026-08-01T13:40:19.872477+00:00'
+  updated_at: '2026-08-01T13:40:19.872477+00:00'
 oompah.task_costs:
   total_input_tokens: 377263
   total_output_tokens: 2599
@@ -141,5 +141,10 @@ author: oompah
 created: 2026-08-01 13:40
 ---
 Verification: All acceptance criteria met. Tests: make check-links PASS (links validated), make test-compliance PASS (29/29 tests). Deliverable checklist: ✓ plans/exocomp.md summarizes all three paths (overview + detailed sections), ✓ Milestone 2 owns inventory/discovery/reconciliation behavior (M2-CRIT-1 through M2-CRIT-8), ✓ Milestone 4 owns profile-authorized safe recovery (recovery state machine + approval + verification), ✓ Mission Control owns reporting/persistence/incidents/UI (explicit boundaries documented), ✓ Documents state Ceph repairs remain separate roadmap (noted in Boundaries section). Branch: epic-EXOCOMP-185--task-EXOCOMP-187 pushed and ready for review.
+---
+author: oompah
+created: 2026-08-01 13:40
+---
+Integrated three-path desired-state design into plans/exocomp.md with clear ownership boundaries: Path 1 (manual inventory via M2), Path 2 (automatic reconciliation via M2+M4), Path 3 (Mission Control fleet management via M7). Mission Control boundaries clearly defined as non-policy-authority. All acceptance criteria met, tests pass.
 ---
 <!-- COMMENTS:END -->
