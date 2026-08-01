@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-201
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Implement the restricted profile-action helper
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-08-01T15:25:02.595417Z'
+updated_at: '2026-08-01T15:26:34.980903Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 target_branch: null
 review_url: null
@@ -62,12 +62,15 @@ oompah.agent_run_id: cd1d87c7-a2e8-45e3-beeb-79db0a7505e8
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-201
+  base_branch: epic-EXOCOMP-186
+  base_sha: 0b7e7f90e99ff55f770600b19875b9439b841d22
   head_sha: 8e3debd59e5a3ca32307b8a0c2e8c219456cb58c
+  integrated_sha: 8e3debd59e5a3ca32307b8a0c2e8c219456cb58c
   submitted_at: '2026-08-01T15:24:01.462072+00:00'
-  updated_at: '2026-08-01T15:24:01.462072+00:00'
+  updated_at: '2026-08-01T15:26:31.597224+00:00'
 oompah.task_costs:
   total_input_tokens: 5682432
   total_output_tokens: 48061
@@ -100,6 +103,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-201
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:16:37.431408+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-647771aadf64
+    project_id: proj-c260b117
+    task_id: EXOCOMP-201
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7d9f260b165a6075dceee66b5a78ddf86e6321b79a443116f1594798ec66e4ef
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T15:26:32.952160+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -195,5 +220,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 16m 0s
 - Log: EXOCOMP-201__20260801T150915Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:26
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
