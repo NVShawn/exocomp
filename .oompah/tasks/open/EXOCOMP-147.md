@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-146
 start_blocked_by: []
-labels: []
+labels:
+- focus-complete:frontend
+- needs:feature
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T12:19:09.433447Z'
+updated_at: '2026-08-01T12:19:59.919092Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -169,5 +171,29 @@ created: 2026-08-01 12:19
 **Understanding**: Task requires implementing heartbeat protocol for coordinator-to-Mission Control connection: (1) Send heartbeat every 30s, (2) Mark disconnected after 90s without heartbeat, (3) Reconnect with full-jitter exponential backoff (1s-60s), (4) Reset backoff after stable auth connection. Acceptance requires deterministic tests covering heartbeat cadence, missed heartbeats, reconnect bounds, and no crash/blocking on connection loss.
 
 **Assigned Focus**: Frontend Developer - mismatch detected. This is coordinator connection infrastructure work (state machines, timers, network resilience), not UI. Exploring if frontend component exists or if handoff needed to backend focus.
+---
+author: oompah
+created: 2026-08-01 12:19
+---
+**HANDOFF: Backend required**
+
+Investigation shows EXOCOMP-147 is coordinator connection infrastructure work:
+
+**What needs implementing:**
+- Heartbeat sender: send to Mission Control every 30s
+- Disconnect detector: mark disconnected after 90s without heartbeat  
+- Reconnect backoff: full-jitter exponential backoff from 1s to 60s cap
+- Backoff reset: only after stable authenticated connection
+
+**Why frontend handoff:**
+- No existing Mission Control app or connection client to enhance
+- Work is state machine logic (coordinator GenServer), not UI
+- Acceptance tests require deterministic clock/randomness tests for connection state transitions
+- Requires testing: heartbeat cadence, missed heartbeats, reconnect bounds, duplicate timer prevention
+- This is backend resilience/network engineering, not user-facing UI
+
+**Recommendation:** Route to backend/infrastructure focus for connection client implementation in coordinator. Frontend involvement would come later if Mission Control UI needs to display connection state indicators.
+
+Blocked by EXOCOMP-146; check if that provides base connection scaffolding.
 ---
 <!-- COMMENTS:END -->
