@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-01T13:09:01.336165Z'
+updated_at: '2026-08-01T13:10:07.668915Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -160,5 +160,24 @@ I will review existing patterns (EnrollmentToken, Audit) and implement:
 - Zero plaintext secret exposure in logs/crash reports
 
 Starting discovery phase to locate Mission Control schema, context patterns, and encryption infrastructure.
+---
+author: oompah
+created: 2026-08-01 13:10
+---
+**Discovery**
+
+Found Mission Control authorization framework from EXOCOMP-141:
+- Identity.Operator struct with sub, organization_id, role (viewer/operator/admin)
+- Authorization module with organize_id-scoped authorization checks
+- authorize/3 and authorize!/3 for permission enforcement
+- Role hierarchy: viewer < operator < admin
+
+Will implement webhook storage on top of this:
+1. WebhookEndpoint schema with encrypted secret storage
+2. WebhookEndpoints context (create, update, disable, rotate-secret operations)
+3. Security hardening: encryption, redaction, URL validation, policy checks
+4. Tests covering all acceptance criteria
+
+Starting implementation of encrypted secret storage now.
 ---
 <!-- COMMENTS:END -->
