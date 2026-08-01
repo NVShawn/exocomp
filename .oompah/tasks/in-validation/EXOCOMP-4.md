@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-08-01T21:37:32.879459Z'
+updated_at: '2026-08-01T21:38:25.482336Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -97,7 +97,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-4
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -140,13 +140,27 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-4 (tried: origin/epic-EXOCOMP-4, origin/EXOCOMP-4)'
       next_retry_at: '2026-08-01T21:37:47.200754+00:00'
+    - version: 1
+      attempt_id: attempt-aa3c6eb2ee9e
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 695c8293f3da9f82ccfd12f9dc24b166695fe17be72a21ffa2d97f08ab972d28
+      created_at: '2026-08-01T21:38:24.703704+00:00'
+      provider_id: prov-651d553c
+      model: haiku
+      started_at: '2026-08-01T21:38:24.703704+00:00'
+      branch_key: epic-EXOCOMP-4
+      candidate_rotation_count: 2
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-01T21:22:40.212063+00:00'
-    updated_at: '2026-08-01T21:37:27.200794+00:00'
+    updated_at: '2026-08-01T21:38:24.703704+00:00'
   - version: 1
     audit_id: audit-8c5aea60bc95
     project_id: proj-c260b117
@@ -215,6 +229,20 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-4 (tried: origin/epic-EXOCOMP-4, origin/EXOCOMP-4)'
     next_retry_at: '2026-08-01T21:37:47.200754+00:00'
+  - version: 1
+    attempt_id: attempt-aa3c6eb2ee9e
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 695c8293f3da9f82ccfd12f9dc24b166695fe17be72a21ffa2d97f08ab972d28
+    created_at: '2026-08-01T21:38:24.703704+00:00'
+    provider_id: prov-651d553c
+    model: haiku
+    started_at: '2026-08-01T21:38:24.703704+00:00'
+    branch_key: epic-EXOCOMP-4
+    candidate_rotation_count: 2
 oompah.task_costs:
   total_input_tokens: 35
   total_output_tokens: 7190
