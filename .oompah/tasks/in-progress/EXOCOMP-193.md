@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-193
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Reconcile desired services and health transitions
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-08-01T14:02:38.768765Z'
+updated_at: '2026-08-01T16:33:26.452860Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 target_branch: null
 review_url: null
