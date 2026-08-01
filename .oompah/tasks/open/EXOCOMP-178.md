@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-178
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Document Mission Control installation and operations
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-07-30T21:41:27.655481Z'
+updated_at: '2026-08-01T11:52:55.954829Z'
 work_branch: null
 target_branch: null
 review_url: null

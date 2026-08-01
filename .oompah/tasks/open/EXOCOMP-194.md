@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-194
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Define desired-service status events and contract fixtures
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-07-30T21:39:57.076937Z'
+updated_at: '2026-08-01T11:52:32.165772Z'
 work_branch: null
 target_branch: null
 review_url: null

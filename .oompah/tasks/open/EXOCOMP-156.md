@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-156
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Add incident acknowledgement, assignment, snooze, and resolution
 parent: EXOCOMP-131
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-07-30T14:21:08.115620Z'
+updated_at: '2026-08-01T11:52:43.523022Z'
 work_branch: null
 target_branch: null
 review_url: null

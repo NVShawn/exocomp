@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-174
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Delete status history with bounded retention jobs
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:38.421513Z'
-updated_at: '2026-07-30T14:21:50.406068Z'
+updated_at: '2026-08-01T11:52:50.238545Z'
 work_branch: null
 target_branch: null
 review_url: null

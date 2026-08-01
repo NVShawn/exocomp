@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-167
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Build the incident inbox and detail LiveViews
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-07-30T14:22:34.675267Z'
+updated_at: '2026-08-01T11:52:51.201473Z'
 work_branch: null
 target_branch: null
 review_url: null

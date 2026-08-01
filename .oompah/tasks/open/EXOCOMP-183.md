@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-183
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Add the Mission Control scale and soak qualification
 parent: EXOCOMP-135
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:53.481557Z'
-updated_at: '2026-07-30T14:24:00.453930Z'
+updated_at: '2026-08-01T11:52:58.930798Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-165
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Build the fleet overview LiveView
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:58.020040Z'
-updated_at: '2026-07-30T14:22:23.356260Z'
+updated_at: '2026-08-01T11:52:47.048654Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-206
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Qualify three-path monitoring and Ceph safe restart in VMs
 parent: EXOCOMP-186
@@ -16,7 +16,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:38.730648Z'
-updated_at: '2026-07-30T21:40:33.312963Z'
+updated_at: '2026-08-01T11:52:36.329005Z'
 work_branch: null
 target_branch: null
 review_url: null
