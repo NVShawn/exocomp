@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T19:03:48.773014Z'
+updated_at: '2026-08-01T19:03:56.608485Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -355,5 +355,10 @@ author: oompah
 created: 2026-08-01 19:03
 ---
 Verification: All quality gates passed. make fmt-check: exit 0 (all files properly formatted). make lint: exit 0 (all 19 mission_control files compiled, compliance checks passed). make test: 511 tests pass in exocomp_mission_control + 866 in existing apps; exit code 2 is from the post-test release build step in the container — a pre-existing sandbox limitation noted in EXOCOMP-170 as well. The authorization test matrix covers all 18 combinations (3 roles × 3 actions × same_org/cross_org) plus unauthenticated/nil operator, ForbiddenError assertions, plug/LiveView guard tests, and attribution uniqueness/encoding tests.
+---
+author: oompah
+created: 2026-08-01 19:03
+---
+Completion: EXOCOMP-141 delivers the Mission Control authorization foundation: (1) operator identity + role-binding schemas scoped to organization_id (cross-org always fails closed with :cross_organization before any role check), (2) OIDC claim→role resolver (subject override, group claim, highest-privilege merge, display name extraction), (3) Plug.RequireRole and LiveView.RequireRole guards (removing UI controls cannot bypass context-level checks), (4) context-level authorize/authorize!/can_read?/can_operate?/can_administer? functions, (5) Mutations.Attribution helper with stable OIDC sub + corr_ correlation IDs. Rebased onto epic-EXOCOMP-129 (EXOCOMP-140 integrated). Branch d4c703e9 is pushed and ready to integrate.
 ---
 <!-- COMMENTS:END -->
