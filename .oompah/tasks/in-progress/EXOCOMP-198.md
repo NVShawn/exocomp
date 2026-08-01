@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T17:42:10.416482Z'
+updated_at: '2026-08-01T17:52:58.735348Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -360,5 +360,16 @@ author: oompah
 created: 2026-08-01 17:42
 ---
 Understanding: Security audit of EXOCOMP-198 Ceph daemon discovery implementation. My role is to review the Ceph branch of exocomp.profile.inspect for security vulnerabilities, particularly: (1) command/unit injection via systemd queries, (2) output bound enforcement to prevent data floods, (3) strict parsing that rejects malformed names, (4) timeout enforcement to prevent hangs, and (5) proper handling of the not_member case. Starting codebase exploration now.
+---
+author: oompah
+created: 2026-08-01 17:52
+---
+Discovery: Security audit found two issues in apps/exocomp_node/lib/exocomp/node/collectors/ceph.ex:
+
+1. SECURITY BUG (valid_property_value? line 282): The byte-range check `byte >= 0x20 and byte != 0x7F` incorrectly allows non-ASCII bytes 0x80-0xFF, because 0x80 > 0x20 numerically. The intention was to restrict property values to printable ASCII (0x20-0x7E) to prevent garbage characters from leaking into the daemon state map. A valid-UTF-8 non-ASCII value like 'é' (0xC3 0xA9) would currently pass through undetected. Fix: change to `byte >= 0x20 and byte <= 0x7E`.
+
+2. ROBUSTNESS CONCERN (parse_show_output completeness): When systemctl returns fewer than all 4 requested properties, the parser succeeds with a partial map and the daemon record gets nil for missing fields. No downstream exploit found, but it violates the 'strict parsing' guarantee. Fix: add a post-reduce completeness check.
+
+No shell injection, path traversal, or arg injection vectors found. The unit-name grammar, fixed @list_args and @show_property_flag compile-time constants, and System.cmd/3 (no shell) collectively prevent command injection. Tests pass (511/511). Implementing fixes now.
 ---
 <!-- COMMENTS:END -->
