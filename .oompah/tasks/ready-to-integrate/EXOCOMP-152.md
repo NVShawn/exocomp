@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-08-01T18:19:20.152486Z'
+updated_at: '2026-08-01T18:19:41.397637Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-152
 target_branch: null
 review_url: null
@@ -271,5 +271,34 @@ author: oompah
 created: 2026-08-01 18:19
 ---
 Implemented organization-scoped cluster and node current-state schemas with transactional event reducers for cluster.hello, cluster.heartbeat, and status.snapshot events. Includes stale-update rejection, node tombstoning, duplicate handling, and organization isolation. All acceptance criteria met with 32 focused tests passing make test, make fmt-check, and make lint.
+---
+author: oompah
+created: 2026-08-01 18:19
+---
+COMPLETION: Submitted for integration.
+
+Branch: epic-EXOCOMP-131--task-EXOCOMP-152
+Commit: 3e981c04
+
+Deliverables completed:
+✓ Organization-scoped cluster and node current-state schemas
+✓ Transactional event reducers for cluster.hello, heartbeat, status.snapshot
+✓ Stale snapshot rejection via sequence/observation ordering
+✓ Duplicate event detection and idempotency
+✓ Node removal/tombstone tracking
+✓ Organization isolation via scoped key lookup
+✓ Queryable current state without event history scanning
+
+Test coverage: 32 focused tests
+  - initial state, partial updates, stale updates
+  - node removal, reconnect, duplicates
+  - organization isolation, state queries
+
+Quality gates all passed:
+  - make test: 511 tests passed
+  - make fmt-check: passed
+  - make lint: passed
+
+Ready for oompah integration and subsequent tasks depending on current state persistence (EXOCOMP-194 desired-state extension, incident tracking, etc.)
 ---
 <!-- COMMENTS:END -->
