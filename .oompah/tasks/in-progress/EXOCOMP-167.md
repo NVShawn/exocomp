@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-08-01T15:25:32.862644Z'
+updated_at: '2026-08-01T15:27:21.654637Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 target_branch: null
 review_url: null
@@ -154,5 +154,10 @@ author: oompah
 created: 2026-08-01 15:25
 ---
 Understanding: I will inspect the existing incident domain, LiveView routes/components, authorization, and test patterns; implement the inbox/detail UI and operator mutations with filters, pagination, real-time updates, snooze visibility, and focused coverage; then run the relevant Makefile gates and submit the branch.
+---
+author: oompah
+created: 2026-08-01 15:27
+---
+Discovery: the Mission Control scaffold is commit 3a3d6e6 and the incident APIs are on EXOCOMP-156/157. The incident context exposes organization-scoped list/get/events/related plus acknowledge, assign, snooze, and resolve; PubSub is not yet wired. I will compose these prerequisite commits locally, then add LiveViews and a small broadcast/query boundary around the existing GenServer.
 ---
 <!-- COMMENTS:END -->
