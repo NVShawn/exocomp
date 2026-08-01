@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: Open
+status: Needs Human
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:49:55.782700Z'
+updated_at: '2026-08-01T13:50:11.243744Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -75,8 +75,8 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T13:40:55.436186+00:00'
 oompah.task_costs:
-  total_input_tokens: 613640
-  total_output_tokens: 18269
+  total_input_tokens: 3180355
+  total_output_tokens: 36208
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -86,6 +86,10 @@ oompah.task_costs:
     sonnet:
       input_tokens: 613300
       output_tokens: 5054
+      cost_usd: 0.0
+    opus:
+      input_tokens: 2566715
+      output_tokens: 17939
       cost_usd: 0.0
   runs:
   - profile: default
@@ -106,6 +110,12 @@ oompah.task_costs:
     output_tokens: 5054
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:40:31.733693+00:00'
+  - profile: deep
+    model: opus
+    input_tokens: 2566715
+    output_tokens: 17939
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:50:05.523386+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-184__20260801T132400Z
@@ -132,6 +142,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:40:31.736869+00:00'
+  - run_id: EXOCOMP-184__20260801T134058Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-sol
+    focus: docs
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
+    source_sha: eb637c0566242c2ea9d53e19fdd05a536feb67fd
+    completed_at: '2026-08-01T13:50:05.527321+00:00'
 ---
 ## Summary
 
@@ -533,5 +551,20 @@ EVIDENCE/DECISIONS: The runbook requires one signed candidate tag, frozen shippe
 REMAINING WORK/RISKS: The current epic base does not yet contain the M7 qualification target or all Mission Control dependencies. A DevOps/test implementation must integrate EXOCOMP-176/178/181/183, implement the documented target/evidence contract, build and sign one final candidate, run both architecture guests through repository, install, migration, security, two-cluster, scale, lifecycle, and docs gates, then commit the checksummed signed evidence. Do not submit EXOCOMP-184 until both architecture results pass; public release creation remains out of scope.
 
 RECOMMENDED NEXT FOCUS: devops, with test support for the full M7 harness.
+---
+author: oompah
+created: 2026-08-01 13:50
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Codex/gpt-5.6-sol]
+- Turns: 1, Tool calls: 66
+- Tokens: 2.6M in / 17.9K out [2.6M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 9m 14s
+- Log: EXOCOMP-184__20260801T134058Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:50
+---
+Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
 ---
 <!-- COMMENTS:END -->

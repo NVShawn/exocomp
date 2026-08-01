@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:50:00.898658Z'
+updated_at: '2026-08-01T13:50:08.469221Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -75,12 +75,12 @@ oompah.agent_run_id: 9857a554-a328-44bd-a25c-98af284fe8f7
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-147
-  base_branch: epic-EXOCOMP-130
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:42:38.256881+00:00'
+  head_sha: 9c720a4dc684da6479f4e44f661c6c33306a4d18
+  submitted_at: '2026-08-01T13:50:04.701744+00:00'
+  updated_at: '2026-08-01T13:50:04.701744+00:00'
 oompah.task_costs:
   total_input_tokens: 385390
   total_output_tokens: 5028
@@ -293,5 +293,10 @@ author: oompah
 created: 2026-08-01 13:50
 ---
 Completion: pushed commit 9c720a4d on the issue branch. Delivered heartbeat cadence and generation-safe timers, 90-second valid-heartbeat disconnect detection, bounded full-jitter reconnect backoff with stable-auth reset, commit-before-publish state transitions, duplicate timer protection, stale worker shutdown, and deterministic focused coverage. Focused tests pass (11/11), formatting/diff checks pass, and all required Make gates reach their offline checks before the sandbox Podman permission boundary. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-08-01 13:50
+---
+Harden Mission Control heartbeat, disconnect, reconnect backoff, and duplicate-timer state machines with deterministic coverage.
 ---
 <!-- COMMENTS:END -->
