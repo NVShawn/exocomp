@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: Needs Human
+status: Ready to Integrate
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T22:19:10.731154Z'
+updated_at: '2026-08-01T22:20:00.632946Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 3c6e68dc-6241-4646-8fa2-76b7367e12ad
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
-  base_branch: epic-EXOCOMP-130
-  base_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
-  updated_at: '2026-08-01T21:57:31.248296+00:00'
+  head_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
+  submitted_at: '2026-08-01T22:19:58.163788+00:00'
+  updated_at: '2026-08-01T22:19:58.163788+00:00'
 oompah.task_costs:
   total_input_tokens: 4373787
   total_output_tokens: 73491
@@ -1043,5 +1043,10 @@ author: oompah
 created: 2026-08-01 22:19
 ---
 Operator verification on the exact pushed head b0d047ea97d00deb5c9b83054ddfb6de1491f0a9. The worktree is clean and the remote branch matches.\n\nRaw required tails:\n\nmake test 2>&1 | tail -5\n\n22:17:59.867 [notice] Application exocomp_node exited: :stopped\nexocomp_coordinator: started with bundled ERTS\n\n22:18:00.310 [notice] Application exocomp_coordinator exited: :stopped\n\nmake fmt-check 2>&1 | tail -3\nCopying config sha256:ccdc131ebc3d8727e3046e82aaa61af3e4aa3b85dc9879c87c3dff4c6291c10c\nWriting manifest to image destination\n* creating .mix-home/archives/hex-2.5.1\n\nmake lint 2>&1 | tail -3\nmake[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\ncompliance: all checks passed\nmake[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\n\nAll three commands exited 0 using the pinned Elixir 1.20.2 / OTP 28.5.0.3 builder.
+---
+author: oompah
+created: 2026-08-01 22:20
+---
+Operator-owned recovery complete on pushed head b0d047ea: make test, make fmt-check, and make lint all pass in the pinned Elixir 1.20.2 / OTP 28.5.0.3 builder; raw required tails are recorded in the task. Root-cause worker-runtime bug filed as OOMPAH-686.
 ---
 <!-- COMMENTS:END -->
