@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-49
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement A2A 1.0 JSON codecs, error mapping, and version handling
 parent: EXOCOMP-8
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:17.846759Z'
-updated_at: '2026-08-01T21:21:22.494496Z'
+updated_at: '2026-08-01T21:26:29.536790Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -57,6 +57,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:36:38.576098+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-68a8f49cb46e: '2026-08-01T21:26:27.023214+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-49
+    target_state: Archived
+    evidence_fingerprint: 748cb423edfff7788f8bbbc03133e8c026059568ba324ace3ce5d428e922059a
+    audit_ids:
+    - audit-36a8fa2104d3
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:26:27.023226+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-49
+    audit_id: audit-36a8fa2104d3
+    attempt_id: attempt-68a8f49cb46e
+    target_state: Archived
+    evidence_fingerprint: 748cb423edfff7788f8bbbc03133e8c026059568ba324ace3ce5d428e922059a
+    status: Archived
+    audit_ids:
+    - audit-36a8fa2104d3
+    applied: false
+    created_at: '2026-08-01T21:26:27.023274+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -64,7 +88,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-49
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -73,7 +97,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-68a8f49cb46e
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -83,13 +107,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:21:18.048852+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-08-01T21:26:27.023021+00:00'
+      ended_at: '2026-08-01T21:26:27.023021+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:27.741697+00:00'
-    updated_at: '2026-08-01T21:21:18.048852+00:00'
+    updated_at: '2026-08-01T21:26:27.023021+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-68a8f49cb46e
@@ -354,5 +381,26 @@ author: oompah
 created: 2026-08-01 21:21
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:26
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- recovery_merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- recovery_pr: #14 (epic-EXOCOMP-110)
+- recovered_codec_commit_on_main: d22dff88087c613e1cdb98fbfc317a1379505eea
+- recovered_hex_bootstrap_commit_on_main: 62717d7d8840965685424391573a5ab10435ad55
+- branch_head_commit: d4a6f54c
+- codec_file_on_main: apps/exocomp_core/lib/exocomp/a2a/codec.ex (441 lines in merge)
+- version_file_on_main: apps/exocomp_core/lib/exocomp/a2a/version.ex (36 lines in merge)
+- codec_test_on_main: apps/exocomp_core/test/exocomp/a2a/codec_test.exs (148 lines in merge)
+- version_test_on_main: apps/exocomp_core/test/exocomp/a2a/version_test.exs (33 lines in merge)
+- jason_dep: {:jason, "~> 1.4"} declared in apps/exocomp_core/mix.exs on origin/main
+- previous_state: Merged
+- archive_reason: Aged Merged auto-archive (queued 2026-08-01)
 ---
 <!-- COMMENTS:END -->
