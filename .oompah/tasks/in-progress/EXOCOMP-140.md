@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:58:22.454086Z'
+updated_at: '2026-08-01T17:59:08.716295Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -646,5 +646,10 @@ author: oompah
 created: 2026-08-01 17:58
 ---
 Implementation: added elixirc_paths(Mix.env()) with test/support compilation in apps/exocomp_mission_control/mix.exs, added encryption_salt to Endpoint session options, and updated the endpoint security comment to match encrypted cookies. Existing OIDC integration coverage now exercises both corrections.
+---
+author: oompah
+created: 2026-08-01 17:59
+---
+Verification: make test-builders (13/13) and make compliance-check pass; changed files parse with Elixir and git diff --check is clean. make fmt-check, make lint, and make test are blocked before execution by the host container runtime (read-only /run/user/1000/libpod); host Elixir 1.18.3 also cannot run the app pinned to Elixir 1.20.2.
 ---
 <!-- COMMENTS:END -->
