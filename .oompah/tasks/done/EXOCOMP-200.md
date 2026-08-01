@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T23:00:47.052739Z'
+updated_at: '2026-08-01T23:00:58.868552Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -52,8 +52,8 @@ oompah.integration:
   submitted_at: '2026-08-01T22:42:45.799275+00:00'
   updated_at: '2026-08-01T22:53:52.994599+00:00'
 oompah.task_costs:
-  total_input_tokens: 608104
-  total_output_tokens: 85058
+  total_input_tokens: 608144
+  total_output_tokens: 98650
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -61,8 +61,8 @@ oompah.task_costs:
       output_tokens: 25722
       cost_usd: 0.0
     unknown:
-      input_tokens: 188
-      output_tokens: 58173
+      input_tokens: 228
+      output_tokens: 71765
       cost_usd: 0.0
     sonnet:
       input_tokens: 51
@@ -105,6 +105,12 @@ oompah.task_costs:
     output_tokens: 1163
     cost_usd: 0.0
     recorded_at: '2026-08-01T22:43:02.336508+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 40
+    output_tokens: 13592
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T23:00:56.210699+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-200__20260801T141247Z
@@ -657,5 +663,15 @@ Safe evidence:
 - make_test_deps: 9 passed, 0 failed
 - make_test_profile_action_helper: profile-action-helper tests passed
 - make_test: ran to completion, 82K output exceeded auditor inline token cap
+---
+author: oompah
+created: 2026-08-01 23:00
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 50, Tool calls: 34
+- Tokens: 40 in / 13.6K out [13.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 57s
+- Log: EXOCOMP-200__20260801T225401Z.jsonl
 ---
 <!-- COMMENTS:END -->
