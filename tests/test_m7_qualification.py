@@ -425,6 +425,28 @@ class M7MakeContractTest(unittest.TestCase):
                 self.assertIn(fragment, wrapper)
         self.assertNotIn(":latest", wrapper)
 
+    def test_live_wrapper_pre_checks_all_required_live_targets(self) -> None:
+        wrapper = (SCRIPTS / "test-m7-qualification.sh").read_text(encoding="utf-8")
+        # All targets executed via run_target that are not always available in the
+        # repository must appear in the has_target pre-flight check.  A missing entry
+        # here means a failed candidate would waste time on earlier phases before
+        # reaching the unavailable target rather than failing fast.
+        required_live_targets = (
+            "security",
+            "test-mission-control-scenario",
+            "mc-scale-full",
+            "test-mission-control-lifecycle",
+        )
+        # Confirm the has_target for-loop covers all of them.  We check that the
+        # expected for-loop line is present rather than just searching the whole file,
+        # because several targets also appear in run_target calls later in the script.
+        for_loop_line = (
+            "for required_target in "
+            + " ".join(required_live_targets)
+            + "; do"
+        )
+        self.assertIn(for_loop_line, wrapper)
+
 
 if __name__ == "__main__":
     unittest.main()

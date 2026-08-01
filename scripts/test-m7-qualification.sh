@@ -153,7 +153,7 @@ fi
 has_target() {
     make -C "${repo_root}" -n "$1" >/dev/null 2>&1
 }
-for required_target in test-mission-control-scenario mc-scale-full test-mission-control-lifecycle; do
+for required_target in security test-mission-control-scenario mc-scale-full test-mission-control-lifecycle; do
     if ! has_target "${required_target}"; then
         echo "required M7 live target is unavailable: make ${required_target}" >&2
         exit 1
