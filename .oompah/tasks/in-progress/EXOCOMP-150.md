@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-01T12:38:23.625670Z'
+updated_at: '2026-08-01T12:42:24.574425Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -164,5 +164,10 @@ author: oompah
 created: 2026-08-01 12:38
 ---
 Implementation: added Exocomp.MissionControl.CommandOutbox with validated command creation, organization/cluster-scoped pending queries, atomic pending-to-acknowledged transition, idempotent duplicate acknowledgement, expiry to a terminal non-executed state, and session-targeted at-least-once delivery. Added durable command_outbox migration/schema, local active-session ownership replacement, and focused outbox/registry tests. Ecto/Postgrex dependencies are locked for the new Mission Control app.
+---
+author: oompah
+created: 2026-08-01 12:42
+---
+Verification: focused command-outbox tests pass (9 tests, 0 failures); Ecto-backed modules compile without warnings when compiled against the fetched Ecto/Postgrex dependencies; session-registry smoke test passes. make test and make lint passed their offline builder checks but could not enter the container phase because podman reports the sandbox filesystem is read-only for /run/user/1000/libpod. make fmt-check is similarly blocked at container startup. Scoped source formatting and git diff checks pass.
 ---
 <!-- COMMENTS:END -->
