@@ -140,6 +140,199 @@ defmodule Exocomp.MissionControl.Incidents do
   @spec reset(GenServer.server()) :: :ok
   def reset(server \\ __MODULE__), do: GenServer.call(server, :reset)
 
+  @doc """
+  Acknowledges an incident by an operator.
+
+  Requires operator_role to be :operator or :admin (viewers are denied).
+  Records the operator subject, organization, timestamp, and correlation ID.
+  """
+  @spec acknowledge(
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          atom(),
+          GenServer.server()
+        ) ::
+          {:ok, Incident.t()}
+          | {:error, :not_found | :organization_mismatch | :access_denied | :invalid_state}
+  def acknowledge(
+        organization_id,
+        incident_id,
+        operator_subject,
+        operator_org,
+        operator_role,
+        server \\ __MODULE__
+      )
+      when is_binary(organization_id) and is_binary(incident_id) and is_binary(operator_subject) and
+             is_binary(operator_org) and is_atom(operator_role) do
+    GenServer.call(
+      server,
+      {:acknowledge, organization_id, incident_id, operator_subject, operator_org, operator_role}
+    )
+  end
+
+  @doc """
+  Assigns an incident to an operator.
+
+  Requires operator_role to be :operator or :admin.
+  """
+  @spec assign(
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          atom(),
+          GenServer.server()
+        ) ::
+          {:ok, Incident.t()} | {:error, :not_found | :organization_mismatch | :access_denied}
+  def assign(
+        organization_id,
+        incident_id,
+        assigned_to,
+        operator_subject,
+        operator_org,
+        operator_role,
+        server \\ __MODULE__
+      )
+      when is_binary(organization_id) and is_binary(incident_id) and is_binary(assigned_to) and
+             is_binary(operator_subject) and is_binary(operator_org) and is_atom(operator_role) do
+    GenServer.call(
+      server,
+      {:assign, organization_id, incident_id, assigned_to, operator_subject, operator_org,
+       operator_role}
+    )
+  end
+
+  @doc """
+  Unassigns an incident from its current assignee.
+
+  Requires operator_role to be :operator or :admin.
+  """
+  @spec unassign(
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          atom(),
+          GenServer.server()
+        ) ::
+          {:ok, Incident.t()} | {:error, :not_found | :organization_mismatch | :access_denied}
+  def unassign(
+        organization_id,
+        incident_id,
+        operator_subject,
+        operator_org,
+        operator_role,
+        server \\ __MODULE__
+      )
+      when is_binary(organization_id) and is_binary(incident_id) and is_binary(operator_subject) and
+             is_binary(operator_org) and is_atom(operator_role) do
+    GenServer.call(
+      server,
+      {:unassign, organization_id, incident_id, operator_subject, operator_org, operator_role}
+    )
+  end
+
+  @doc """
+  Snoozes an incident until the given time.
+
+  Requires operator_role to be :operator or :admin.
+  """
+  @spec snooze(
+          String.t(),
+          String.t(),
+          DateTime.t(),
+          String.t(),
+          String.t(),
+          atom(),
+          GenServer.server()
+        ) ::
+          {:ok, Incident.t()}
+          | {:error, :not_found | :organization_mismatch | :access_denied | :invalid_snooze_time}
+  def snooze(
+        organization_id,
+        incident_id,
+        snooze_until,
+        operator_subject,
+        operator_org,
+        operator_role,
+        server \\ __MODULE__
+      )
+      when is_binary(organization_id) and is_binary(incident_id) and is_atom(operator_role) do
+    GenServer.call(
+      server,
+      {:snooze, organization_id, incident_id, snooze_until, operator_subject, operator_org,
+       operator_role}
+    )
+  end
+
+  @doc """
+  Unsnozes an incident.
+
+  Requires operator_role to be :operator or :admin.
+  """
+  @spec unsnooze(
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          atom(),
+          GenServer.server()
+        ) ::
+          {:ok, Incident.t()} | {:error, :not_found | :organization_mismatch | :access_denied}
+  def unsnooze(
+        organization_id,
+        incident_id,
+        operator_subject,
+        operator_org,
+        operator_role,
+        server \\ __MODULE__
+      )
+      when is_binary(organization_id) and is_binary(incident_id) and is_binary(operator_subject) and
+             is_binary(operator_org) and is_atom(operator_role) do
+    GenServer.call(
+      server,
+      {:unsnooze, organization_id, incident_id, operator_subject, operator_org, operator_role}
+    )
+  end
+
+  @doc """
+  Manually resolves an incident with a required reason.
+
+  Requires operator_role to be :operator or :admin.
+  New unhealthy evidence will reopen the incident.
+  """
+  @spec resolve(
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          atom(),
+          GenServer.server()
+        ) ::
+          {:ok, Incident.t()}
+          | {:error, :not_found | :organization_mismatch | :access_denied | :missing_reason}
+  def resolve(
+        organization_id,
+        incident_id,
+        reason,
+        operator_subject,
+        operator_org,
+        operator_role,
+        server \\ __MODULE__
+      )
+      when is_binary(organization_id) and is_binary(incident_id) and is_binary(reason) and
+             is_binary(operator_subject) and is_binary(operator_org) and is_atom(operator_role) do
+    GenServer.call(
+      server,
+      {:resolve, organization_id, incident_id, reason, operator_subject, operator_org,
+       operator_role}
+    )
+  end
+
   @impl true
   def init(opts) do
     {:ok,
@@ -202,6 +395,322 @@ defmodule Exocomp.MissionControl.Incidents do
      }}
   end
 
+  def handle_call(
+        {:acknowledge, organization_id, incident_id, operator_subject, operator_org,
+         operator_role},
+        _from,
+        state
+      ) do
+    now = state.now_fn.()
+
+    case check_authorization(
+           state.incidents,
+           incident_id,
+           organization_id,
+           operator_org,
+           operator_role
+         ) do
+      {:ok, incident} ->
+        if incident.state == :open do
+          event = %IncidentEvent{
+            id: state.event_id_fn.(),
+            incident_id: incident.id,
+            organization_id: organization_id,
+            fingerprint: incident.fingerprint,
+            event_type: :acknowledged_by_operator,
+            kind: :acknowledged_by_operator,
+            occurred_at: now,
+            received_at: now,
+            correlation_id: Incident.generate_correlation_id(),
+            sequence: state.sequence + 1,
+            payload: %{
+              "operator_subject" => operator_subject,
+              "operator_organization" => operator_org,
+              "operator_role" => Atom.to_string(operator_role)
+            }
+          }
+
+          timeline = [event | Map.get(state.events, incident.id, [])] |> sort_events()
+          updated_incident = replay(incident, timeline)
+
+          new_state = %{
+            state
+            | sequence: state.sequence + 1,
+              incidents: Map.put(state.incidents, incident.id, updated_incident),
+              events: Map.update(state.events, incident.id, [event], &[event | &1])
+          }
+
+          {:reply, {:ok, updated_incident}, new_state}
+        else
+          {:reply, {:error, :invalid_state}, state}
+        end
+
+      error ->
+        {:reply, error, state}
+    end
+  end
+
+  def handle_call(
+        {:assign, organization_id, incident_id, assigned_to, operator_subject, operator_org,
+         operator_role},
+        _from,
+        state
+      ) do
+    now = state.now_fn.()
+
+    case check_authorization(
+           state.incidents,
+           incident_id,
+           organization_id,
+           operator_org,
+           operator_role
+         ) do
+      {:ok, incident} ->
+        event = %IncidentEvent{
+          id: state.event_id_fn.(),
+          incident_id: incident.id,
+          organization_id: organization_id,
+          fingerprint: incident.fingerprint,
+          event_type: :assigned,
+          kind: :assigned,
+          occurred_at: now,
+          received_at: now,
+          correlation_id: Incident.generate_correlation_id(),
+          sequence: state.sequence + 1,
+          payload: %{
+            "assigned_to" => assigned_to,
+            "operator_subject" => operator_subject,
+            "operator_organization" => operator_org,
+            "operator_role" => Atom.to_string(operator_role)
+          }
+        }
+
+        timeline = [event | Map.get(state.events, incident.id, [])] |> sort_events()
+        updated_incident = replay(incident, timeline)
+
+        new_state = %{
+          state
+          | sequence: state.sequence + 1,
+            incidents: Map.put(state.incidents, incident.id, updated_incident),
+            events: Map.update(state.events, incident.id, [event], &[event | &1])
+        }
+
+        {:reply, {:ok, updated_incident}, new_state}
+
+      error ->
+        {:reply, error, state}
+    end
+  end
+
+  def handle_call(
+        {:unassign, organization_id, incident_id, operator_subject, operator_org, operator_role},
+        _from,
+        state
+      ) do
+    now = state.now_fn.()
+
+    case check_authorization(
+           state.incidents,
+           incident_id,
+           organization_id,
+           operator_org,
+           operator_role
+         ) do
+      {:ok, incident} ->
+        event = %IncidentEvent{
+          id: state.event_id_fn.(),
+          incident_id: incident.id,
+          organization_id: organization_id,
+          fingerprint: incident.fingerprint,
+          event_type: :assigned,
+          kind: :assigned,
+          occurred_at: now,
+          received_at: now,
+          correlation_id: Incident.generate_correlation_id(),
+          sequence: state.sequence + 1,
+          payload: %{
+            "assigned_to" => nil,
+            "operator_subject" => operator_subject,
+            "operator_organization" => operator_org,
+            "operator_role" => Atom.to_string(operator_role)
+          }
+        }
+
+        timeline = [event | Map.get(state.events, incident.id, [])] |> sort_events()
+        updated_incident = replay(incident, timeline)
+
+        new_state = %{
+          state
+          | sequence: state.sequence + 1,
+            incidents: Map.put(state.incidents, incident.id, updated_incident),
+            events: Map.update(state.events, incident.id, [event], &[event | &1])
+        }
+
+        {:reply, {:ok, updated_incident}, new_state}
+
+      error ->
+        {:reply, error, state}
+    end
+  end
+
+  def handle_call(
+        {:snooze, organization_id, incident_id, snooze_until, operator_subject, operator_org,
+         operator_role},
+        _from,
+        state
+      ) do
+    now = state.now_fn.()
+
+    case check_authorization(
+           state.incidents,
+           incident_id,
+           organization_id,
+           operator_org,
+           operator_role
+         ) do
+      {:ok, incident} ->
+        if is_valid_snooze_time(snooze_until, now) do
+          event = %IncidentEvent{
+            id: state.event_id_fn.(),
+            incident_id: incident.id,
+            organization_id: organization_id,
+            fingerprint: incident.fingerprint,
+            event_type: :snoozed,
+            kind: :snoozed,
+            occurred_at: now,
+            received_at: now,
+            correlation_id: Incident.generate_correlation_id(),
+            sequence: state.sequence + 1,
+            payload: %{
+              "snoozed_until" => DateTime.to_iso8601(snooze_until),
+              "operator_subject" => operator_subject,
+              "operator_organization" => operator_org,
+              "operator_role" => Atom.to_string(operator_role)
+            }
+          }
+
+          timeline = [event | Map.get(state.events, incident.id, [])] |> sort_events()
+          updated_incident = replay(incident, timeline)
+
+          new_state = %{
+            state
+            | sequence: state.sequence + 1,
+              incidents: Map.put(state.incidents, incident.id, updated_incident),
+              events: Map.update(state.events, incident.id, [event], &[event | &1])
+          }
+
+          {:reply, {:ok, updated_incident}, new_state}
+        else
+          {:reply, {:error, :invalid_snooze_time}, state}
+        end
+
+      error ->
+        {:reply, error, state}
+    end
+  end
+
+  def handle_call(
+        {:unsnooze, organization_id, incident_id, operator_subject, operator_org, operator_role},
+        _from,
+        state
+      ) do
+    now = state.now_fn.()
+
+    case check_authorization(
+           state.incidents,
+           incident_id,
+           organization_id,
+           operator_org,
+           operator_role
+         ) do
+      {:ok, incident} ->
+        event = %IncidentEvent{
+          id: state.event_id_fn.(),
+          incident_id: incident.id,
+          organization_id: organization_id,
+          fingerprint: incident.fingerprint,
+          event_type: :unsnoozed,
+          kind: :unsnoozed,
+          occurred_at: now,
+          received_at: now,
+          correlation_id: Incident.generate_correlation_id(),
+          sequence: state.sequence + 1,
+          payload: %{
+            "operator_subject" => operator_subject,
+            "operator_organization" => operator_org,
+            "operator_role" => Atom.to_string(operator_role)
+          }
+        }
+
+        timeline = [event | Map.get(state.events, incident.id, [])] |> sort_events()
+        updated_incident = replay(incident, timeline)
+
+        new_state = %{
+          state
+          | sequence: state.sequence + 1,
+            incidents: Map.put(state.incidents, incident.id, updated_incident),
+            events: Map.update(state.events, incident.id, [event], &[event | &1])
+        }
+
+        {:reply, {:ok, updated_incident}, new_state}
+
+      error ->
+        {:reply, error, state}
+    end
+  end
+
+  def handle_call(
+        {:resolve, organization_id, incident_id, reason, operator_subject, operator_org,
+         operator_role},
+        _from,
+        state
+      ) do
+    now = state.now_fn.()
+
+    case check_authorization(
+           state.incidents,
+           incident_id,
+           organization_id,
+           operator_org,
+           operator_role
+         ) do
+      {:ok, incident} ->
+        event = %IncidentEvent{
+          id: state.event_id_fn.(),
+          incident_id: incident.id,
+          organization_id: organization_id,
+          fingerprint: incident.fingerprint,
+          event_type: :manually_resolved,
+          kind: :manually_resolved,
+          occurred_at: now,
+          received_at: now,
+          correlation_id: Incident.generate_correlation_id(),
+          sequence: state.sequence + 1,
+          payload: %{
+            "reason" => reason,
+            "operator_subject" => operator_subject,
+            "operator_organization" => operator_org,
+            "operator_role" => Atom.to_string(operator_role)
+          }
+        }
+
+        timeline = [event | Map.get(state.events, incident.id, [])] |> sort_events()
+        updated_incident = replay(incident, timeline)
+
+        new_state = %{
+          state
+          | sequence: state.sequence + 1,
+            incidents: Map.put(state.incidents, incident.id, updated_incident),
+            events: Map.update(state.events, incident.id, [event], &[event | &1])
+        }
+
+        {:reply, {:ok, updated_incident}, new_state}
+
+      error ->
+        {:reply, error, state}
+    end
+  end
+
   defp reduce_evidence(evidence, state) do
     fingerprint = Fingerprint.build(evidence)
     incident_id = Map.get(state.fingerprints, fingerprint)
@@ -236,6 +745,11 @@ defmodule Exocomp.MissionControl.Incidents do
         evidence.event_type
       end
 
+    # Check if this unhealthy evidence reopens a manually resolved incident
+    should_reopen =
+      existing != nil and existing.state == :resolved and existing.resolution_reason != nil and
+        event_type in [:opened, :updated]
+
     event = %IncidentEvent{
       id: state.event_id_fn.(),
       incident_id: incident.id,
@@ -250,8 +764,35 @@ defmodule Exocomp.MissionControl.Incidents do
       payload: evidence.payload
     }
 
-    timeline = [event | Map.get(state.events, incident.id, [])] |> sort_events()
-    {replay(incident, timeline), event, %{state | sequence: sequence}}
+    events_list = [event | Map.get(state.events, incident.id, [])]
+
+    # Add reopened event if needed
+    events_list =
+      if should_reopen do
+        reopen_event = %IncidentEvent{
+          id: state.event_id_fn.(),
+          incident_id: incident.id,
+          organization_id: evidence.organization_id,
+          fingerprint: fingerprint,
+          event_type: :reopened,
+          kind: :reopened,
+          occurred_at: evidence.occurred_at,
+          received_at: evidence.received_at,
+          correlation_id: evidence.correlation_id || incident.correlation_id,
+          sequence: sequence + 1,
+          payload: %{
+            "reason" => "Manually resolved incident reopened due to new unhealthy evidence"
+          }
+        }
+
+        [reopen_event | events_list]
+      else
+        events_list
+      end
+
+    timeline = events_list |> sort_events()
+    new_sequence = if should_reopen, do: sequence + 1, else: sequence
+    {replay(incident, timeline), event, %{state | sequence: new_sequence}}
   end
 
   defp put_event(state, incident, event) do
@@ -282,9 +823,45 @@ defmodule Exocomp.MissionControl.Incidents do
     resolved_at =
       if state == :resolved do
         timeline
-        |> Enum.filter(&(&1.event_type == :resolved))
+        |> Enum.filter(&(&1.event_type in [:resolved, :manually_resolved]))
         |> List.last()
         |> then(& &1.occurred_at)
+      end
+
+    assigned_to =
+      timeline
+      |> Enum.filter(&(&1.event_type == :assigned))
+      |> List.last()
+      |> case do
+        nil -> incident.assigned_to
+        event -> Map.get(event.payload, "assigned_to")
+      end
+
+    snoozed_until =
+      timeline
+      |> Enum.filter(&(&1.event_type in [:snoozed, :unsnoozed]))
+      |> List.last()
+      |> case do
+        nil ->
+          incident.snoozed_until
+
+        %{event_type: :unsnoozed} ->
+          nil
+
+        %{event_type: :snoozed, payload: payload} ->
+          case DateTime.from_iso8601(Map.get(payload, "snoozed_until", "")) do
+            {:ok, dt, _offset} -> dt
+            _ -> nil
+          end
+      end
+
+    resolution_reason =
+      timeline
+      |> Enum.filter(&(&1.event_type == :manually_resolved))
+      |> List.last()
+      |> case do
+        nil -> incident.resolution_reason
+        event -> Map.get(event.payload, "reason")
       end
 
     %{
@@ -294,16 +871,27 @@ defmodule Exocomp.MissionControl.Incidents do
         state: state,
         acknowledged_at: acknowledged_at,
         resolved_at: resolved_at,
+        assigned_to: assigned_to,
+        snoozed_until: snoozed_until,
+        resolution_reason: resolution_reason,
         event_count: length(timeline)
     }
   end
 
   defp transition(:acknowledged, :opened), do: :acknowledged
   defp transition(:acknowledged, :updated), do: :acknowledged
+  defp transition(:acknowledged, :acknowledged_by_operator), do: :acknowledged
   defp transition(_state, :opened), do: :open
   defp transition(_state, :updated), do: :open
   defp transition(_state, :acknowledged), do: :acknowledged
+  defp transition(_state, :acknowledged_by_operator), do: :acknowledged
   defp transition(_state, :resolved), do: :resolved
+  defp transition(_state, :manually_resolved), do: :resolved
+  defp transition(_state, :reopened), do: :open
+  # Assignment, snooze, unsnooze don't change state
+  defp transition(state, :assigned), do: state
+  defp transition(state, :snoozed), do: state
+  defp transition(state, :unsnoozed), do: state
 
   defp normalize_evidence(evidence, received_at) do
     with :ok <- validate_required(evidence),
@@ -394,4 +982,31 @@ defmodule Exocomp.MissionControl.Incidents do
 
   defp min_datetime(left, right),
     do: if(DateTime.compare(left, right) == :gt, do: right, else: left)
+
+  defp check_authorization(incidents, incident_id, organization_id, operator_org, operator_role) do
+    case Map.fetch(incidents, incident_id) do
+      {:ok, %{organization_id: ^organization_id} = incident} ->
+        if operator_org == organization_id do
+          if operator_role in [:operator, :admin] do
+            {:ok, incident}
+          else
+            {:error, :access_denied}
+          end
+        else
+          {:error, :organization_mismatch}
+        end
+
+      {:ok, _incident} ->
+        {:error, :organization_mismatch}
+
+      :error ->
+        {:error, :not_found}
+    end
+  end
+
+  defp is_valid_snooze_time(%DateTime{} = snooze_until, now) do
+    DateTime.compare(snooze_until, now) == :gt
+  end
+
+  defp is_valid_snooze_time(_snooze_until, _now), do: false
 end
