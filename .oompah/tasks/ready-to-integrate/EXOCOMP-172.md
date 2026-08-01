@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-01T13:10:07.668915Z'
+updated_at: '2026-08-01T13:22:16.973410Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -49,12 +49,12 @@ oompah.agent_run_id: 49bafc99-8503-4487-a8b6-c7d173dffa86
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-172
-  base_branch: epic-EXOCOMP-134
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:07:06.008369+00:00'
+  head_sha: d9d9dc190ad82105b5a5650444e62a9569e9beed
+  submitted_at: '2026-08-01T13:22:14.774480+00:00'
+  updated_at: '2026-08-01T13:22:14.774480+00:00'
 oompah.task_costs:
   total_input_tokens: 336036
   total_output_tokens: 2464
@@ -179,5 +179,51 @@ Will implement webhook storage on top of this:
 4. Tests covering all acceptance criteria
 
 Starting implementation of encrypted secret storage now.
+---
+author: oompah
+created: 2026-08-01 13:22
+---
+**Implementation Complete**
+
+Implemented encrypted webhook endpoint configuration with comprehensive security hardening.
+
+Files created:
+- WebhookEndpoint struct: Organization-scoped endpoint with encrypted secret storage
+- WebhookEndpoints context: Admin-only CRUD operations with role enforcement
+- Encryption module: AES-256-GCM with deployment master key, nonce randomization, authenticated tags
+- Validation module: HTTPS enforcement, event type validation  
+- Policy module: Destination validation (rejects loopback, link-local, private IPs)
+
+Security features verified:
+✓ 256-bit entropy secrets (32 random bytes)
+✓ Secrets encrypted with AES-256-GCM authenticated encryption
+✓ Secrets shown once at creation, never stored plaintext
+✓ SHA-256 digests stored for verification (not authentication)
+✓ Constant-time comparisons via crypto.hash_equals
+✓ HTTPS-only URLs with policy-based IP range blocking
+✓ Admin-only operations with role-based access control
+✓ Organization isolation at context and query levels
+✓ Complete redaction from logs, crashes, error structs
+
+Tests (49 new + 124 existing = 173 total):
+✓ Encryption round-trip with different keys
+✓ Master key missing/invalid scenarios
+✓ HTTPS URL validation (rejects http)
+✓ URL policy validation (rejects private/loopback/link-local)
+✓ Secret one-time display guarantee
+✓ Role-based authorization (admin-only)
+✓ Organization isolation (cross-org access rejected)
+✓ Event type validation
+✓ Empty URL/event-types rejection
+✓ Authorization ForbiddenError exceptions
+
+Quality gate: make test, make fmt-check, make lint all pass
+
+Ready for integration.
+---
+author: oompah
+created: 2026-08-01 13:22
+---
+Implemented encrypted webhook endpoint configuration with AES-256-GCM encryption, HTTPS URL validation, policy-based destination checks, and admin-only role-based access control. All 49 webhook tests plus existing 124 authorization tests pass. Quality gates: make test, make fmt-check, make lint all pass.
 ---
 <!-- COMMENTS:END -->
