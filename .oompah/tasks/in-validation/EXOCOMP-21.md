@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-21
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Define action, evidence, risk, and data-classification types
 parent: EXOCOMP-3
@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-07-25T02:11:27.958006Z'
+updated_at: '2026-08-01T02:12:26.146367Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -49,6 +49,28 @@ oompah.task_costs:
     output_tokens: 47008
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:13:05.624654+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-05377691e72e
+    project_id: proj-c260b117
+    task_id: EXOCOMP-21
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 6428457e992194afb2a620e20e4565bbfbfa51a2d737c82389318dfd9aeb7e08
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T02:12:23.970215+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -277,5 +299,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 17m 11s
 - Log: EXOCOMP-21__20260723T215556Z.jsonl
+---
+author: oompah
+created: 2026-08-01 02:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
