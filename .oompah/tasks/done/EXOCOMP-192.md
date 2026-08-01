@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-192
 type: task
-status: In Validation
+status: Done
 priority: 2
 title: Schedule service discovery and observations in the coordinator
 parent: EXOCOMP-185
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:02.009432Z'
-updated_at: '2026-08-01T16:17:41.168826Z'
+updated_at: '2026-08-01T16:33:18.712883Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-192
 target_branch: null
 review_url: null
@@ -156,6 +156,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T15:58:15.369409+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-7b41955c1a06: '2026-08-01T16:33:16.344729+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-192
+    target_state: Done
+    evidence_fingerprint: 54e2c2b55373842795235d078a99c1f683461501d2e59d940bf8e4436896ee62
+    audit_ids:
+    - audit-05de04dbbbb1
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:33:16.344741+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-192
+    audit_id: audit-05de04dbbbb1
+    attempt_id: attempt-7b41955c1a06
+    target_state: Done
+    evidence_fingerprint: 54e2c2b55373842795235d078a99c1f683461501d2e59d940bf8e4436896ee62
+    status: Done
+    audit_ids:
+    - audit-05de04dbbbb1
+    applied: false
+    created_at: '2026-08-01T16:33:16.344757+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -163,7 +187,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-192
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -172,7 +196,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-7b41955c1a06
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -182,13 +206,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:17:33.000442+00:00'
       branch_key: epic-EXOCOMP-185--task-EXOCOMP-192
+      verdict: pass
+      completed_at: '2026-08-01T16:33:16.344441+00:00'
+      ended_at: '2026-08-01T16:33:16.344441+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:17:18.577568+00:00'
-    updated_at: '2026-08-01T16:17:33.000442+00:00'
+    updated_at: '2026-08-01T16:33:16.344441+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-7b41955c1a06
@@ -313,5 +340,27 @@ author: oompah
 created: 2026-08-01 16:17
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:33
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: 2304acc105f13ebc16792ffc8ea7a57e48be313d
+- remote_head_epic-EXOCOMP-185--task-EXOCOMP-192: 2304acc105f13ebc16792ffc8ea7a57e48be313d
+- files_changed: coordinator/application.ex(+9), coordinator/health_poller.ex(+19), coordinator/inventory.ex(+25), coordinator/service_scheduler.ex(new, 772 LOC), test/service_scheduler_test.exs(new, 343 LOC)
+- test_make_test-deps: 9 passed, 0 failed
+- test_make_test-builders: 22 passed, 0 failed (13 offline structural + 9 runtime deps)
+- test_make_test-release-packaging: 16 passed (6 package + 3 normalizer + 7 operator docs)
+- test_make_test: chain completed; exocomp_node and exocomp_coordinator releases rebuilt during audit at 16:27:37-38 (Makefile uses && chaining after mix test)
+- test_make_test-compliance: 28/29 pass; sole failure = pre-existing trailing whitespace at inventory_test.exs:{90,99,123,133,136,149,156,158} introduced by commit e211afce (EXOCOMP-188), not by 2304acc1
+- acceptance_criteria_jitter_concurrency_timeout_backoff: verified in service_scheduler.ex — discovery_jitter_ms default 30s via injectable random; concurrency default 4 enforced in dispatch_kind; per-task Process.send_after with brutal_kill; exponential backoff with backoff_cap_ms
+- acceptance_criteria_cache_preservation: handle_result(:discovery) writes cache only on {:ok, services}; :error branch records failure without touching discovery_cache
+- acceptance_criteria_inventory_reload: Inventory.notify_reconciliation invokes ServiceScheduler.inventory_replaced which bumps generations, cancels tasks, prunes removed nodes, and requests fresh discovery+observation
+- acceptance_criteria_peer_isolation: Task.Supervisor.async_nolink + per-task timeout + generation guard verified; test 'a timed-out node does not block a peer' covers scenario
+- acceptance_criteria_injectable_clock: clock and random passed as opts (defaults DateTime.utc_now/0 and :rand.uniform-based); test suite uses Agent-backed clock
 ---
 <!-- COMMENTS:END -->
