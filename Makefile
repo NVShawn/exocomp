@@ -184,6 +184,7 @@ test-mission-control-contract: ## Run the shared Mission Control contract suite 
 			apps/exocomp_core/test/exocomp/mission_control \
 			apps/exocomp_coordinator/test/exocomp/coordinator/mission_control'
 
+
 test-mission-control-image: ## Start a built Mission Control image against digest-pinned PostgreSQL and test restart safety.
 	@test -n "$(IMAGE)" || { echo "IMAGE is required; use make test-mission-control-image IMAGE=... POSTGRES_IMAGE=..." >&2; exit 2; }
 	@test -n "$(POSTGRES_IMAGE)" || { echo "POSTGRES_IMAGE is required and must include a digest" >&2; exit 2; }
