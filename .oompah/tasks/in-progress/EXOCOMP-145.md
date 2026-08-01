@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T12:11:12.093614Z'
+updated_at: '2026-08-01T12:11:58.278135Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -128,5 +128,10 @@ author: oompah
 created: 2026-08-01 12:11
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:11
+---
+Understanding: Adding optional Mission Control coordinator configuration. Plan: 1) Extend Config module to add versioned mission_control block (URL, trust root, cert/key paths, heartbeat interval, reconnect bounds, outbox path). 2) Validate paths exist, TLS settings are valid, and numeric bounds are reasonable at startup. 3) Create a supervision subtree for Mission Control client (supervisor, connection handler, outbox manager) that only starts when config is present and enabled. 4) Ensure existing coordinator behavior is unchanged when config absent. 5) Write focused tests for config validation and supervision tree behavior.
 ---
 <!-- COMMENTS:END -->
