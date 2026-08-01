@@ -18,7 +18,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:41:25.652414Z'
+updated_at: '2026-08-01T17:41:54.523161Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -580,5 +580,10 @@ author: oompah
 created: 2026-08-01 17:41
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-08-01 17:41
+---
+UNDERSTANDING (devops): I will reconcile the branch with the integrated Mission Control packaging work, then provide a reproducible M7 qualification target that builds and validates the same candidate across amd64 and arm64. The harness will preserve strict pass/fail gates and produce signed, checksummed evidence with host/provenance identity; it will not permit overrides to bypass functional or security requirements.
 ---
 <!-- COMMENTS:END -->
