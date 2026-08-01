@@ -45,7 +45,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 
 .PHONY: help init init-amd64 init-arm64 fmt fmt-check build build-amd64 \
 	build-arm64 test test-builders test-deps test-release-matrix test-release-packaging \
-	test-compliance \
+	test-compliance security \
 	inspect-deps-amd64 inspect-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
@@ -139,6 +139,10 @@ test: test-builders ## Run the test suite.
 		MIX_ENV=test mix release exocomp_node --overwrite && \
 		MIX_ENV=test mix release exocomp_coordinator --overwrite && \
 		scripts/smoke-releases.sh test'
+
+security: test-builders ## Run comprehensive security negative tests.
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
+		MIX_ENV=test mix test --only security'
 
 test-builders: ## Validate immutable multi-architecture builder definitions and runtime dep inspection.
 	./scripts/test-release-builders.sh
