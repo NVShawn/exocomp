@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-08-01T21:28:35.940371Z'
+updated_at: '2026-08-01T21:28:54.911302Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 35b959f2-3ea1-4b38-a5df-ea829b362526
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
-  total_input_tokens: 15
-  total_output_tokens: 3409
+  total_input_tokens: 21
+  total_output_tokens: 3868
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 15
-      output_tokens: 3409
+      input_tokens: 21
+      output_tokens: 3868
       cost_usd: 0.0
   runs:
   - profile: default
@@ -35,6 +35,12 @@ oompah.task_costs:
     output_tokens: 3409
     cost_usd: 0.0
     recorded_at: '2026-07-25T18:45:05.408716+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 459
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:28:53.490941+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -287,5 +293,15 @@ Safe evidence:
 - host_profile_test_present: apps/bench/test/bench/host_profile_test.exs
 - host_sampler_test_present: apps/bench/test/bench/host_sampler_test.exs
 - downstream_integration: subsequent commits (EXOCOMP-114 50cd48c2, EXOCOMP-125 1ff41fe1) build on host_profile/host_sampler on main
+---
+author: oompah
+created: 2026-08-01 21:28
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 22, Tool calls: 16
+- Tokens: 6 in / 459 out [465 total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 49s
+- Log: EXOCOMP-112__20260801T212512Z.jsonl
 ---
 <!-- COMMENTS:END -->
