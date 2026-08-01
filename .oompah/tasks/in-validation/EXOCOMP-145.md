@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T21:37:06.943726Z'
+updated_at: '2026-08-01T21:37:40.385428Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -356,18 +356,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: a5f0a46e61cd5498dd07348602f243d09c81a8e47727fd342020773b5926ad29
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-c4a67d6b0f6d
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: a5f0a46e61cd5498dd07348602f243d09c81a8e47727fd342020773b5926ad29
+      created_at: '2026-08-01T21:37:34.271130+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T21:37:34.271130+00:00'
+      branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T21:37:05.378873+00:00'
+    updated_at: '2026-08-01T21:37:34.271130+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -420,6 +434,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-01T18:04:03.315884+00:00'
+    branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+  - version: 1
+    attempt_id: attempt-c4a67d6b0f6d
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a5f0a46e61cd5498dd07348602f243d09c81a8e47727fd342020773b5926ad29
+    created_at: '2026-08-01T21:37:34.271130+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T21:37:34.271130+00:00'
     branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
 ---
 ## Summary
@@ -898,5 +925,15 @@ author: oompah
 created: 2026-08-01 21:36
 ---
 Recovered the preserved audit repair, removed the undefined configuration/path variables, made application environment restoration deterministic, and made supervisor cleanup race-safe. Focused pinned Elixir 1.20.2 supervisor suite: 5 passed. Pushed the repaired branch.
+---
+author: oompah
+created: 2026-08-01 21:37
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 21:37
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
