@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-08-01T16:34:01.744632Z'
+updated_at: '2026-08-01T16:34:29.710520Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 target_branch: null
 review_url: null
@@ -190,5 +190,10 @@ author: oompah
 created: 2026-08-01 16:34
 ---
 Understanding: reconcile the coordinator's effective desired-service expectations from manual, automatic, and profile sources; require all configured probes; preserve stale/unreachable observations; retire removed expectations with desired_state_removed; apply two-observation unhealthy/recovered hysteresis; and keep transitions correlated and auditable. I will inspect the existing resolver/observation pipeline, add focused tests, run Makefile quality gates, then submit.
+---
+author: oompah
+created: 2026-08-01 16:34
+---
+Discovery: the parent branch contains the shared resolver (EXOCOMP-189), read-only observation behavior (EXOCOMP-191), and scheduler/inventory integration (EXOCOMP-192), while this task branch currently predates them. The reconciliation work belongs around ServiceScheduler's cached discovery/observation results and Registry's node state, with Audit as the transition sink.
 ---
 <!-- COMMENTS:END -->
