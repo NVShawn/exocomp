@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:30:46.669458Z'
+updated_at: '2026-08-01T14:31:11.727693Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -132,5 +132,10 @@ author: oompah
 created: 2026-08-01 14:30
 ---
 Understanding: add a signed-release-owned cluster-profile contract exposing identity/version, discovery, expected-service derivation, health reduction, typed actions, and redaction metadata; reject unknown/unsupported versions and all runtime/local/command registration; advertise shipped IDs/versions in node and coordinator Agent Cards. I will inspect the existing cluster and card surfaces, implement the smallest compatible registry, add focused tests, then run the Makefile test gate.
+---
+author: oompah
+created: 2026-08-01 14:31
+---
+Discovery: no cluster-profile implementation exists yet. The shared A2A card model is in apps/exocomp_core/lib/exocomp/a2a; node and coordinator card handlers are separate. Existing node/coordinator action and health modules should remain unchanged for this contract-only task. I’m defining the release-owned registry in shared core and wiring supported profile IDs/versions into both card producers.
 ---
 <!-- COMMENTS:END -->
