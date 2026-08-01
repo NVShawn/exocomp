@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-113
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-07-25T21:09:05.973162Z'
+updated_at: '2026-08-01T21:18:36.037571Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -41,6 +41,28 @@ oompah.task_costs:
     output_tokens: 11048
     cost_usd: 0.0
     recorded_at: '2026-07-25T19:14:08.244302+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-f49bdb4e5e1d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-113
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2fbb22c84b8b5ff6596a1e1c89a27d00a94389ffc91871d379e6a69e91583c69
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:33.960380+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -310,5 +332,10 @@ author: oompah
 created: 2026-07-25 19:15
 ---
 Recovered M3 acceptance and M4 fault-injection suites plus recovery/approval security fixes in cad1c28. All 1,564 tests pass; PR #13 is open to main.
+---
+author: oompah
+created: 2026-08-01 21:18
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
