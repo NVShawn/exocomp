@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-08-01T03:02:41.907097Z'
+updated_at: '2026-08-01T03:02:46.632276Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -324,5 +324,10 @@ author: oompah
 created: 2026-08-01 03:02
 ---
 Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 03:02
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
