@@ -2,6 +2,18 @@
 # SPDX-License-Identifier: Apache-2.0
 import Config
 
+if config_env() == :prod do
+  database_url = System.get_env("DATABASE_URL")
+
+  if !is_binary(database_url) or String.trim(database_url) == "" do
+    raise RuntimeError,
+          "Mission Control production database is not configured; " <>
+            "set DATABASE_URL from the deployment secret store before starting."
+  end
+
+  config :exocomp_mission_control, Exocomp.MissionControl.Repo, url: database_url
+end
+
 # Release services receive their protected state locations from the rendered
 # systemd unit. Read them when the release boots, not while the immutable
 # artifact is compiled inside the builder container.

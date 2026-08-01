@@ -13,6 +13,9 @@ defmodule Exocomp.MissionControl.MixProject do
       lockfile: "../../mix.lock",
       elixir: "1.20.2",
       start_permanent: Mix.env() == :prod,
+      start_apps_before_run: [:logger],
+      elixirc_paths: elixirc_paths(Mix.env()),
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -30,7 +33,19 @@ defmodule Exocomp.MissionControl.MixProject do
       {:phoenix_live_view, "~> 1.1"},
       {:phoenix_pubsub, "~> 2.1"},
       {:bandit, "~> 1.0"},
+      {:ecto_sql, "~> 3.14"},
+      {:postgrex, "~> 0.22"},
       {:jason, "~> 1.4"}
+    ]
+  end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_env), do: ["lib"]
+
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"]
     ]
   end
 end

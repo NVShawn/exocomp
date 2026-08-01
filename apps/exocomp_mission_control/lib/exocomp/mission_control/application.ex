@@ -7,12 +7,7 @@ defmodule Exocomp.MissionControl.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
-      Exocomp.MissionControl.Endpoint
-    ]
-
-    Supervisor.start_link(children,
+    Supervisor.start_link(children(),
       strategy: :one_for_one,
       name: Exocomp.MissionControl.Supervisor
     )
@@ -22,5 +17,14 @@ defmodule Exocomp.MissionControl.Application do
   def config_change(changed, _new, removed) do
     Exocomp.MissionControl.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  @doc false
+  def children do
+    [
+      {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
+      Exocomp.MissionControl.Endpoint,
+      Exocomp.MissionControl.Repo
+    ]
   end
 end

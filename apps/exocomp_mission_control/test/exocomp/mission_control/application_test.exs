@@ -16,4 +16,8 @@ defmodule Exocomp.MissionControl.ApplicationTest do
     refute :exocomp_node in applications
     refute :exocomp_coordinator in applications
   end
+
+  test "supervises the repository" do
+    assert Exocomp.MissionControl.Repo in Exocomp.MissionControl.Application.children()
+  end
 end
