@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:31:11.727693Z'
+updated_at: '2026-08-01T14:36:41.841803Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -137,5 +137,10 @@ author: oompah
 created: 2026-08-01 14:31
 ---
 Discovery: no cluster-profile implementation exists yet. The shared A2A card model is in apps/exocomp_core/lib/exocomp/a2a; node and coordinator card handlers are separate. Existing node/coordinator action and health modules should remain unchanged for this contract-only task. I’m defining the release-owned registry in shared core and wiring supported profile IDs/versions into both card producers.
+---
+author: oompah
+created: 2026-08-01 14:36
+---
+Implementation: added Exocomp.ClusterProfile behavior, Default profile v1, static Registry, and structured CoverageError. The registry has no dynamic source or mutation path; register/register_from_file/register_from_command fail closed. AgentCard/Codec now carry clusterProfiles, and node/coordinator cards advertise the shipped default ID/version. Focused tests cover contract fields, duplicate IDs, unknown/unsupported coverage, registration rejection, and both card handlers.
 ---
 <!-- COMMENTS:END -->

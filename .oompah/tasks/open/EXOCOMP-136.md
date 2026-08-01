@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T14:34:45.063129Z'
+updated_at: '2026-08-01T14:36:47.998219Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: ''
-  claim_id: 1cc5de5b-0df5-49a6-9ebb-772dee9c4955
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T14:34:35.683286+00:00'
-  claim_expires_at: '2026-08-01T15:04:35.683286+00:00'
-  retry_count: 0
-  retry_after: null
+  evidence: Duplicate-screening worker exited with reason normal.
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
+  retry_count: 1
+  retry_after: '2026-08-01T14:37:44.544375+00:00'
 oompah.agent_run_id: 89e36f9e-368c-4743-b402-9568e6acbbdb
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 oompah.integration:
@@ -41,6 +41,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-128
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T14:34:42.490669+00:00'
+oompah.task_costs:
+  total_input_tokens: 170
+  total_output_tokens: 5815
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 170
+      output_tokens: 5815
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 170
+    output_tokens: 5815
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:36:44.543597+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-136__20260801T143445Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: haiku
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-128--task-EXOCOMP-136
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T14:36:44.551221+00:00'
 ---
 ## Summary
 
@@ -76,5 +102,15 @@ author: oompah
 created: 2026-08-01 14:34
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 14:36
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 45, Tool calls: 21
+- Tokens: 170 in / 5.8K out [6.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 6s
+- Log: EXOCOMP-136__20260801T143445Z.jsonl
 ---
 <!-- COMMENTS:END -->
