@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-152
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Persist current cluster and node status
 parent: EXOCOMP-131
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-08-01T18:17:50.037372Z'
+updated_at: '2026-08-01T18:19:20.152486Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-152
 target_branch: null
 review_url: null
@@ -102,12 +102,12 @@ oompah.agent_run_id: 13edb1aa-a905-4c55-a3a1-a544e709b3ad
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-152
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-152
-  base_branch: epic-EXOCOMP-131
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T17:58:42.250604+00:00'
+  head_sha: 3e981c0475a57a317365a1408894281ed7562d29
+  submitted_at: '2026-08-01T18:19:16.427158+00:00'
+  updated_at: '2026-08-01T18:19:16.427158+00:00'
 oompah.task_costs:
   total_input_tokens: 154
   total_output_tokens: 4917
@@ -266,5 +266,10 @@ Quality gates:
 ✓ make test: 511 passed
 ✓ make fmt-check: passed
 ✓ make lint: passed
+---
+author: oompah
+created: 2026-08-01 18:19
+---
+Implemented organization-scoped cluster and node current-state schemas with transactional event reducers for cluster.hello, cluster.heartbeat, and status.snapshot events. Includes stale-update rejection, node tombstoning, duplicate handling, and organization isolation. All acceptance criteria met with 32 focused tests passing make test, make fmt-check, and make lint.
 ---
 <!-- COMMENTS:END -->
