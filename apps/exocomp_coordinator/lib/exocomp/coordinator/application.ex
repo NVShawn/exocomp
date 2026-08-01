@@ -22,7 +22,7 @@ defmodule Exocomp.Coordinator.Application do
 
   require Logger
 
-  alias Exocomp.Coordinator.{Audit, EnrollmentToken, Listener}
+  alias Exocomp.Coordinator.{Audit, ClusterInvitationStore, EnrollmentToken, Listener}
   alias Exocomp.Coordinator.PKI.{Bootstrap, State}
 
   @impl true
@@ -75,7 +75,10 @@ defmodule Exocomp.Coordinator.Application do
        Application.get_env(:exocomp_coordinator, :orchestrator, [])},
       Exocomp.Coordinator.TaskRegistry,
       {Exocomp.Coordinator.RemediationLifecycle,
-       Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}
+       Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])},
+      {ClusterInvitationStore,
+       store_path: Application.get_env(:exocomp_coordinator, :cluster_invitation_store_path),
+       audit_server: Audit}
     ]
   end
 
@@ -168,6 +171,7 @@ defmodule Exocomp.Coordinator.Application do
     inventory_name = :"#{prefix}_inventory"
     pki_state_name = :"#{prefix}_pki_state"
     enrollment_name = :"#{prefix}_enrollment_token"
+    invitation_name = :"#{prefix}_cluster_invitation_store"
 
     store_path =
       Keyword.get(
@@ -180,6 +184,10 @@ defmodule Exocomp.Coordinator.Application do
       [name: enrollment_name, store_path: store_path, audit_server: audit_name]
       |> Keyword.merge(Keyword.get(opts, :enrollment_token_opts, []))
 
+    invitation_opts =
+      [name: invitation_name, store_path: Keyword.get(opts, :cluster_invitation_store_path)]
+      |> Keyword.merge(Keyword.get(opts, :cluster_invitation_opts, []))
+
     audit_opts =
       [name: audit_name]
       |> Keyword.merge(Keyword.get(opts, :audit_opts, []))
@@ -190,7 +198,8 @@ defmodule Exocomp.Coordinator.Application do
       {Exocomp.Coordinator.Registry, [name: registry_name]},
       {Exocomp.Coordinator.Inventory,
        [name: inventory_name, inventory_path: Keyword.get(opts, :inventory_path)]},
-      {Exocomp.Coordinator.EnrollmentToken, enrollment_token_opts}
+      {Exocomp.Coordinator.EnrollmentToken, enrollment_token_opts},
+      {ClusterInvitationStore, invitation_opts}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: sup_name)
