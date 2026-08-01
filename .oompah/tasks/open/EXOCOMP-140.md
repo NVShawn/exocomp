@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T16:32:19.768745Z'
+updated_at: '2026-08-01T16:43:10.058075Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -136,6 +136,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T11:50:26.211811+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-31573855ceed: '2026-08-01T16:43:06.595835+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Done
+    evidence_fingerprint: c937197b0a69b4324d6ce291afecffa280e6bef61946ea47ce6b28d264911e0b
+    audit_ids:
+    - audit-a53c755ecd42
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:43:06.595848+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    audit_id: audit-a53c755ecd42
+    attempt_id: attempt-31573855ceed
+    target_state: Done
+    evidence_fingerprint: c937197b0a69b4324d6ce291afecffa280e6bef61946ea47ce6b28d264911e0b
+    status: Open
+    audit_ids:
+    - audit-a53c755ecd42
+    applied: true
+    created_at: '2026-08-01T16:43:06.595866+00:00'
+    applied_at: '2026-08-01T16:43:09.283774+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -143,7 +168,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-140
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -152,7 +177,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-31573855ceed
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -162,13 +187,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:32:16.908323+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-140
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-01T16:43:06.595623+00:00'
+      ended_at: '2026-08-01T16:43:06.595623+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:31:43.533715+00:00'
-    updated_at: '2026-08-01T16:32:16.908323+00:00'
+    updated_at: '2026-08-01T16:43:06.595623+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-31573855ceed
@@ -332,5 +361,19 @@ author: oompah
 created: 2026-08-01 16:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:43
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Populate the integration tests in oidc_integration_test.exs to drive the FakeOIDCProvider end-to-end for success, bad state, bad nonce, invalid issuer, invalid audience, denied login, and logout scenarios with real assertions.
+- Fix validate_id_[REDACTED-credential] JOSE.JWT.peek(...).fields (atom key) for the payload, and add real signature verification via the provider JWKS before trusting any claims.
+- Replace Application.put_env storage of the PKCE code_verifier and OIDC config cache with per-session (session cookie) and per-process (ETS/GenServer) storage so concurrent logins do not race.
+- Add every mix.lock hex dependency introduced by the Mission Control app to licenses/components.toml with the required fields, and update THIRD_PARTY_NOTICES.md so make lint / make compliance-check passes.
+- Rebase the branch onto the current epic tip that integrated EXOCOMP-136 and EXOCOMP-138, resolve overlaps with sibling tasks, and rerun focused auth tests plus make fmt-check and make lint.
 ---
 <!-- COMMENTS:END -->
