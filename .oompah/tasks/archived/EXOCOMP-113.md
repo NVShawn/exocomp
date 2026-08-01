@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-113
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Recover omitted M3 and M4 acceptance and fault-injection work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.004834Z'
-updated_at: '2026-08-01T21:29:54.100832Z'
+updated_at: '2026-08-01T21:34:31.134678Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -43,6 +43,30 @@ oompah.task_costs:
     recorded_at: '2026-07-25T19:14:08.244302+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-173a3cf407d8: '2026-08-01T21:34:28.950158+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-113
+    target_state: Archived
+    evidence_fingerprint: 2fbb22c84b8b5ff6596a1e1c89a27d00a94389ffc91871d379e6a69e91583c69
+    audit_ids:
+    - audit-f49bdb4e5e1d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:34:28.950169+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-113
+    audit_id: audit-f49bdb4e5e1d
+    attempt_id: attempt-173a3cf407d8
+    target_state: Archived
+    evidence_fingerprint: 2fbb22c84b8b5ff6596a1e1c89a27d00a94389ffc91871d379e6a69e91583c69
+    status: Archived
+    audit_ids:
+    - audit-f49bdb4e5e1d
+    applied: false
+    created_at: '2026-08-01T21:34:28.950185+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -50,7 +74,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-113
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -59,7 +83,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-173a3cf407d8
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -69,13 +93,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:29:48.005910+00:00'
       branch_key: epic-EXOCOMP-110
+      verdict: pass
+      completed_at: '2026-08-01T21:34:28.949993+00:00'
+      ended_at: '2026-08-01T21:34:28.949993+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:18:33.960380+00:00'
-    updated_at: '2026-08-01T21:29:48.005910+00:00'
+    updated_at: '2026-08-01T21:34:28.949993+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-173a3cf407d8
@@ -374,5 +401,20 @@ author: oompah
 created: 2026-08-01 21:29
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:34
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- recovery_commit_on_main: cad1c28b6468020c7a9c87b928cf62ab897fa5d6
+- epic_merge_commit: 2085e441 Merge pull request #14 from NVShawn/epic-EXOCOMP-110
+- recovered_files_verified: m3_acceptance_test.exs, fault_injection_test.exs, state_machine.ex (@valid_states + restore/5 guards), approval_gate.ex (nil node_id fallback), vacuum_bounds.ex (/home /root exact match), privilege_test.exs
+- recovered_lines_added: 2752 insertions across 8 files
+- reported_test_result: 1,564 passed, 10 excluded (make test); 73 focused M3+M4 tests passed
+- archive_reason: Aged Merged auto-archive (closed 7 days ago), work fully integrated into main
 ---
 <!-- COMMENTS:END -->
