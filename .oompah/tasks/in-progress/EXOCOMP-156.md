@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-08-01T15:07:04.256951Z'
+updated_at: '2026-08-01T15:19:46.842912Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 target_branch: null
 review_url: null
@@ -163,5 +163,34 @@ Discovery: Merged EXOCOMP-154's incident scaffold into current branch. Found:
 - No fields yet for: assignment, snooze, resolution_reason, operator audit trail
 
 Next: Extend Incident struct for assignment/snooze/reason, add new event types for operator mutations, implement context functions with role-based authorization, and add comprehensive tests.
+---
+author: oompah
+created: 2026-08-01 15:19
+---
+Implementation: Added incident mutation operations with comprehensive test coverage
+
+Changes:
+- Extended IncidentEvent with 6 new event types: acknowledged_by_operator, assigned, snoozed, unsnoozed, manually_resolved, reopened
+- Extended Incident struct with: assigned_to, snoozed_until, resolution_reason fields
+- Implemented 6 context functions with role-based authorization:
+  * acknowledge (state guard: :open only)
+  * assign/unassign
+  * snooze/unsnooze (validates future time)
+  * resolve (requires reason, records resolution_reason)
+- Updated replay logic to compute current assignment, snooze, and reason from event timeline
+- Implemented auto-reopening: new unhealthy evidence reopens manually resolved incidents
+- All event payloads record: operator_subject, operator_organization, operator_role (+ type-specific data)
+- Authorization: viewers denied, operator/admin allowed, cross-org IDs rejected
+
+Test coverage (511 tests pass):
+- Role-matrix tests (viewer denied, operator/admin success)
+- Invalid transitions (e.g., acknowledge non-open incident)
+- Snooze expiry validation (must be future)
+- Reassignment (multiple assigns update current state)
+- Concurrent mutations (atomically ordered)
+- Cross-organization checks (rejected)
+- Manual resolution reopening on new unhealthy evidence
+
+Quality gates: make test, make fmt-check, make lint all pass
 ---
 <!-- COMMENTS:END -->
