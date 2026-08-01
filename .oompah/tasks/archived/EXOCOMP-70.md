@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-08-01T03:03:53.333147Z'
+updated_at: '2026-08-01T03:04:03.772511Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: cb20a695-acf4-45da-af24-e389935863a5
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 77
-  total_output_tokens: 6582
+  total_input_tokens: 90
+  total_output_tokens: 10248
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 77
-      output_tokens: 6582
+      input_tokens: 90
+      output_tokens: 10248
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 915
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:32:57.695908+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 13
+    output_tokens: 3666
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T03:04:02.222740+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -66,8 +72,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-1fad7258de2b
-    applied: false
+    applied: true
     created_at: '2026-08-01T03:03:51.341453+00:00'
+    applied_at: '2026-08-01T03:03:55.052468+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -373,5 +380,15 @@ Safe evidence:
 - deliverable_cleanup_sh: test/fixtures/exocomp_fixture/cleanup.sh present (idempotent, non-interactive, root-required, fixture-scoped)
 - deliverable_readme: test/fixtures/exocomp_fixture/README.md contains VM/privileged-container requirement
 - makefile_targets: fixture-install and fixture-cleanup targets present in Makefile (lines 192, 195)
+---
+author: oompah
+created: 2026-08-01 03:04
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 21, Tool calls: 16
+- Tokens: 13 in / 3.7K out [3.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 21s
+- Log: EXOCOMP-70__20260801T030246Z.jsonl
 ---
 <!-- COMMENTS:END -->
