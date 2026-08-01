@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-08-01T01:55:18.158194Z'
+updated_at: '2026-08-01T01:55:35.104003Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 1ce4bb7b-ddd1-44d2-bbe0-3ca2a648eaa7
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 159939
-  total_output_tokens: 76081
+  total_input_tokens: 159990
+  total_output_tokens: 86580
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 159939
-      output_tokens: 76081
+      input_tokens: 159990
+      output_tokens: 86580
       cost_usd: 0.0
   runs:
   - profile: default
@@ -43,6 +43,12 @@ oompah.task_costs:
     output_tokens: 74197
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:32:59.577474+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 51
+    output_tokens: 10499
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T01:55:33.095959+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -542,5 +548,15 @@ Safe evidence:
 - target_state: Archived
 - previous_audit_failure_cause: historical worktree checkout of deleted origin/epic-EXOCOMP-2 (infrastructure, not implementation)
 - recovery_note: operator rearmed after OOMPAH-671 detached historical audit workspace recovery deployed
+---
+author: oompah
+created: 2026-08-01 01:55
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 55, Tool calls: 45
+- Tokens: 51 in / 10.5K out [10.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 2s
+- Log: EXOCOMP-76__20260801T014835Z.jsonl
 ---
 <!-- COMMENTS:END -->
