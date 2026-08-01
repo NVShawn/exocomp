@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-34
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Verify the M4 minimal-impact recovery milestone
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:49.457512Z'
-updated_at: '2026-08-01T03:09:05.748460Z'
+updated_at: '2026-08-01T03:14:56.629987Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -23,6 +23,30 @@ oompah.agent_run_id: ee29a420-044e-4927-9066-1293784b6ab4
 oompah.work_branch: epic-EXOCOMP-4
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-a2d5a3ce2acd: '2026-08-01T03:14:53.794850+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-34
+    target_state: Archived
+    evidence_fingerprint: 33f0fe3b7eaf38890ae99c6f42c287ccccbaed4f99a8b1abfef87de49fd001b5
+    audit_ids:
+    - audit-79bc5cfb99cf
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:14:53.794862+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-34
+    audit_id: audit-79bc5cfb99cf
+    attempt_id: attempt-a2d5a3ce2acd
+    target_state: Archived
+    evidence_fingerprint: 33f0fe3b7eaf38890ae99c6f42c287ccccbaed4f99a8b1abfef87de49fd001b5
+    status: Archived
+    audit_ids:
+    - audit-79bc5cfb99cf
+    applied: false
+    created_at: '2026-08-01T03:14:53.794877+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -30,7 +54,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-34
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -39,7 +63,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-a2d5a3ce2acd
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -49,13 +73,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:09:01.898025+00:00'
       branch_key: epic-EXOCOMP-4
+      verdict: pass
+      completed_at: '2026-08-01T03:14:53.794595+00:00'
+      ended_at: '2026-08-01T03:14:53.794595+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:25.907199+00:00'
-    updated_at: '2026-08-01T03:09:01.898025+00:00'
+    updated_at: '2026-08-01T03:14:53.794595+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a2d5a3ce2acd
@@ -159,5 +186,24 @@ author: oompah
 created: 2026-08-01 03:09
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:14
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- parent_epic: EXOCOMP-4 (Merged, PR https://github.com/NVShawn/exocomp/pull/10)
+- plan_file: plans/milestone-4-service-recovery.md — all M4-CRIT-1..8 marked [x] with test file references
+- plan_completion_commits: fa241b2 (docs: reconcile milestone acceptance criteria), 19ae18e (feat: harden production A2A service recovery)
+- m4_test_files_on_main: apps/exocomp_coordinator/test/integration/m4_a2a_recovery_test.exs (commit eabc4e1); apps/exocomp_node/test/integration/m4_acceptance_test.exs (commits d3c4488, eabc4e1); apps/exocomp_node/test/exocomp/node/recovery/failed_service_test.exs; apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs
+- downstream_delivery: EXOCOMP-126 wired and hardened A2A recovery; EXOCOMP-125 delivered M5 soak/load harness; EXOCOMP-123 delivered rc.23 release evidence — all merged to main
+- sibling_precedent: EXOCOMP-32 (approval-required active/degraded recovery) archived via same auto-archive PASS audit at 2026-08-01T03:08:41Z
+- task_status_pre_audit: Merged (moved to In Validation at 44ee0e9 as part of audit queueing)
+- auto_archive_reason: Aged Merged auto-archive (closed 7 days ago)
+- task_worktree_status: not currently on any branch; working tree clean; no local pending changes
+- caveat_missing_task_verification_comments: EXOCOMP-34 comment stream contains only the duplicate-detector handoff plus audit-queue metadata; no dedicated release-like verification run was recorded on this task before it was moved to Merged. The verification described in the task body was effectively delivered by downstream tasks whose commits are on main.
 ---
 <!-- COMMENTS:END -->
