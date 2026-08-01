@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-08-01T02:44:21.239104Z'
+updated_at: '2026-08-01T02:44:30.218566Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 828ca41c-01f5-4f7b-bfa8-3d026c8adbbd
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 516581
-  total_output_tokens: 59969
+  total_input_tokens: 516622
+  total_output_tokens: 67083
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 516581
-      output_tokens: 59969
+      input_tokens: 516622
+      output_tokens: 67083
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 56765
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:00:53.927782+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 41
+    output_tokens: 7114
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:44:28.743957+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -561,5 +567,15 @@ Safe evidence:
 - redaction_boundary: Exocomp.Coordinator.Audit.emit calls redact/1 (recursive) with sensitive_keys covering api_key/authorization/cookie/credential(s)/password/passwd/private_key/secret/token and *_suffix normalization
 - audit_failure_handling: emit_audit catches :exit in orchestrator.ex:954 and goal_store.ex:480; Audit deliver returns {:error, Error} and Health.check.healthy_audit? maps to :degraded
 - prior_audit_failure_root_cause: git worktree add against deleted origin/epic-EXOCOMP-2 (infrastructure); project owner confirmed recovery deployed and rearmed audit
+---
+author: oompah
+created: 2026-08-01 02:44
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 43, Tool calls: 35
+- Tokens: 41 in / 7.1K out [7.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 50s
+- Log: EXOCOMP-103__20260801T024143Z.jsonl
 ---
 <!-- COMMENTS:END -->
