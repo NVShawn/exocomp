@@ -10,18 +10,24 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
   - `POST /v1/renew` → `RenewalHandler` (mTLS client certificate required)
   - `POST /api/v1/cluster-invitations` → `ClusterInvitationHandler`
     (OIDC-authenticated admin required)
+  - `POST /api/v1/clusters/enroll` → `ClusterEnrollmentHandler` (Cluster invitation, no mTLS required)
   - All other paths → `A2ARouter` (mTLS required, A2A version header required)
 
   The coordinator listener uses `fail_if_no_peer_cert: false` so that
-  enrollment connections (nodes without certificates) can reach the
-  `/v1/enroll` handler. The mTLS requirement for A2A routes is enforced
+  enrollment connections (nodes and clusters without certificates) can reach the
+  enrollment handlers. The mTLS requirement for A2A routes is enforced
   inside `A2ARouter` via the `authenticate_mtls` plug.
   """
 
   @behaviour Plug
 
   alias Exocomp.Coordinator.A2ARouter
-  alias Exocomp.Coordinator.Handlers.{ClusterInvitationHandler, EnrollmentHandler, RenewalHandler}
+  alias Exocomp.Coordinator.Handlers.{
+    ClusterInvitationHandler,
+    ClusterEnrollmentHandler,
+    EnrollmentHandler,
+    RenewalHandler
+  }
 
   @impl true
   def init(opts), do: A2ARouter.init(opts)
@@ -40,6 +46,10 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
         opts
       ) do
     ClusterInvitationHandler.call(conn, ClusterInvitationHandler.init(router_opts(opts)))
+  end
+
+  def call(%Plug.Conn{method: "POST", path_info: ["api", "v1", "clusters", "enroll"]} = conn, _opts) do
+    ClusterEnrollmentHandler.call(conn, ClusterEnrollmentHandler.init([]))
   end
 
   def call(conn, opts) do

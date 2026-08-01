@@ -93,13 +93,13 @@ defmodule Exocomp.Coordinator.Application do
     else
       case Bootstrap.load_online_state(online_state: online_state) do
         {:ok, metadata} ->
-          store_path =
+          enrollment_store_path =
             Application.get_env(:exocomp_coordinator, :enrollment_token_store_path) ||
               Path.join(Path.dirname(online_state), "enrollment-tokens")
 
           children = [
             {State, [metadata: metadata]},
-            {EnrollmentToken, [store_path: store_path, audit_server: Audit]},
+            {EnrollmentToken, [store_path: enrollment_store_path, audit_server: Audit]},
             {Listener, Application.get_env(:exocomp_coordinator, :listener, [])}
           ]
 
