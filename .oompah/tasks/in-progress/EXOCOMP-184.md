@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:46:47.861302Z'
+updated_at: '2026-08-01T13:48:13.940025Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -508,5 +508,10 @@ author: oompah
 created: 2026-08-01 13:46
 ---
 DISCOVERY (docs): The current epic base documents M6 clean-host qualification but has no M7 operator runbook and no test-m7-qualification Make target. Dependency branch EXOCOMP-176 defines build-mission-control-{amd64,arm64}, Mission Control packaging/image tests, OCI manifests/SBOM/provenance, and a separate migrate command; EXOCOMP-181 defines the security target. The M7 plan requires the full two-cluster workflow, 100-cluster/10,000-node scale gate, retention, and all twelve criteria. The docs therefore need an explicit integrated-target prerequisite plus a signed evidence contract that prevents ad hoc or weakened qualification.
+---
+author: oompah
+created: 2026-08-01 13:48
+---
+IMPLEMENTATION (docs): Added docs/mission-control-qualification.md and linked it from docs/README.md. The runbook defines pass/fail conditions, the required integrated Make interface, signed-tag and host identity capture, frozen amd64/arm64 artifact handling, repository and shipped-artifact gates, migration/recovery, the complete two-cluster scenario, security negatives, scale/retention thresholds, an architecture-symmetric evidence layout, an M7-CRIT-1..12 evidence map, strict override rules, and deterministic evidence signing. It explicitly blocks qualification when the dependency-provided targets are absent and keeps public release creation out of scope.
 ---
 <!-- COMMENTS:END -->
