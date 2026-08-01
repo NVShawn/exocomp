@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:57:22.438962Z'
+updated_at: '2026-08-01T14:57:30.665541Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -197,5 +197,10 @@ author: oompah
 created: 2026-08-01 14:57
 ---
 **Implementation**: Resolved two bugs found after rebasing: (1) In collect_and_build, Task.yield wraps the inner function return in {:ok, ...}, so pattern matching needed {{:ok, {:ok, systemd_obs}}, {:ok, {:ok, probe_results}}} instead of {{:ok, systemd_obs}, {:ok, probe_obs}}. (2) Used Erlang infix div syntax instead of Elixir function call — fixed timeout_ms div expr to div(timeout_ms, expr). Also merged dispatcher.ex to register both ServiceInventory (EXOCOMP-190) and ServiceObserve (EXOCOMP-191).
+---
+author: oompah
+created: 2026-08-01 14:57
+---
+**Verification**: All tests pass after fixes — 919 passed (10 excluded) in exocomp_node, 537 passed in exocomp_coordinator, 128 in exocomp_core, 201 in bench. make test exits 0. The 13 ServiceObserve failures are now resolved. Pushed to epic-EXOCOMP-185--task-EXOCOMP-191 (7b3ff4a8).
 ---
 <!-- COMMENTS:END -->
