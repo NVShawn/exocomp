@@ -37,7 +37,16 @@ config :exocomp_node, :recovery_audit_path, recovery_audit_path
 
 # Mission Control configuration
 config :exocomp_mission_control,
-  ecto_repos: [Exocomp.MissionControl.Repo]
+  ecto_repos: [Exocomp.MissionControl.Repo],
+  event_store_path:
+    if(config_env() == :prod,
+      do:
+        System.get_env(
+          "EXOCOMP_MISSION_CONTROL_EVENT_STORE",
+          "/var/lib/exocomp-mission-control/events.bin"
+        ),
+      else: nil
+    )
 
 config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
   adapter: Bandit.PhoenixAdapter,

@@ -20,4 +20,11 @@ defmodule Exocomp.MissionControl.ApplicationTest do
   test "supervises the repository" do
     assert Exocomp.MissionControl.Repo in Exocomp.MissionControl.Application.children()
   end
+
+  test "supervises the cluster event ingestor" do
+    assert Enum.any?(Exocomp.MissionControl.Application.children(), fn
+             {Exocomp.MissionControl.ClusterEventIngestor, _opts} -> true
+             _child -> false
+           end)
+  end
 end

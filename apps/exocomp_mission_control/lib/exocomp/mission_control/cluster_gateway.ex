@@ -7,13 +7,14 @@ defmodule Exocomp.MissionControl.ClusterGateway do
   TLS is configured by the Mission Control listener with peer verification
   and `fail_if_no_peer_cert`.  This Plug repeats the certificate-presence and
   identity checks at the application boundary, then upgrades only an
-  authenticated request.  Incoming payloads are acknowledged but never used
-  to determine organization or cluster identity.
+  authenticated request. Incoming payloads are committed and acknowledged only
+  through the event ingestor; they never determine organization or cluster
+  identity.
   """
 
   @behaviour Plug
 
-  alias Exocomp.MissionControl.{CertificateIdentity, ClusterSessions}
+  alias Exocomp.MissionControl.{CertificateIdentity, ClusterEventIngestor, ClusterSessions}
 
   @connect_path ["api", "v1", "clusters", "connect"]
   @connect_request_path "/api/v1/clusters/connect"
@@ -40,6 +41,7 @@ defmodule Exocomp.MissionControl.ClusterGateway do
   def init(opts) do
     %{
       session_registry: Keyword.get(opts, :session_registry, ClusterSessions),
+      event_ingestor: Keyword.get(opts, :event_ingestor, ClusterEventIngestor),
       identity_opts: Keyword.get(opts, :identity_opts, []),
       websocket_opts: Keyword.get(opts, :websocket_opts, [])
     }
@@ -83,6 +85,7 @@ defmodule Exocomp.MissionControl.ClusterGateway do
   defp upgrade(conn, opts, identity, session_id) do
     state = %{
       session_registry: opts.session_registry,
+      event_ingestor: opts.event_ingestor,
       identity: identity,
       session_id: session_id
     }
@@ -145,7 +148,12 @@ defmodule Exocomp.MissionControl.ClusterGateway do
     @moduledoc false
     @behaviour WebSock
 
-    alias Exocomp.MissionControl.ClusterSessions
+    alias Exocomp.MissionControl.{
+      ClusterEvent,
+      ClusterEventIngestor,
+      ClusterSessions,
+      EventIngestionError
+    }
 
     @impl WebSock
     def init(state) do
@@ -153,15 +161,14 @@ defmodule Exocomp.MissionControl.ClusterGateway do
     end
 
     @impl WebSock
-    def handle_in({_payload, opcode: opcode}, state) when opcode in [:text, :binary] do
-      {:push,
-       {:text,
-        Jason.encode!(%{
-          "type" => "ack",
-          "session_id" => state.session_id,
-          "organization_id" => state.identity.organization_id,
-          "cluster_id" => state.identity.cluster_id
-        })}, state}
+    def handle_in({payload, opcode: opcode}, state) when opcode in [:text, :binary] do
+      case ingest(payload, state) do
+        {:ok, result} ->
+          {:push, {:text, Jason.encode!(acknowledgement_payload(state, result))}, state}
+
+        {:error, error} ->
+          {:push, {:text, Jason.encode!(rejection_payload(state, error))}, state}
+      end
     end
 
     @impl WebSock
@@ -185,12 +192,54 @@ defmodule Exocomp.MissionControl.ClusterGateway do
       :ok
     end
 
+    defp ingest(payload, state) do
+      with {:ok, envelope} <- decode_envelope(payload),
+           {:ok, result} <-
+             ClusterEventIngestor.ingest(
+               envelope,
+               state.identity,
+               Map.get(state, :event_ingestor, ClusterEventIngestor)
+             ) do
+        {:ok, result}
+      end
+    end
+
+    defp decode_envelope(payload) do
+      case Jason.decode(payload) do
+        {:ok, envelope} when is_map(envelope) -> {:ok, envelope}
+        _other -> {:error, EventIngestionError.new(:invalid_event_schema, "event must be JSON")}
+      end
+    end
+
+    defp acknowledgement_payload(state, result) do
+      %{
+        "type" => "ack",
+        "session_id" => state.session_id,
+        "organization_id" => state.identity.organization_id,
+        "cluster_id" => state.identity.cluster_id,
+        "acknowledged_sequence" => result.acknowledgement
+      }
+    end
+
+    defp rejection_payload(state, %EventIngestionError{} = error) do
+      %{
+        "type" => "error",
+        "session_id" => state.session_id,
+        "error" => Atom.to_string(error.code)
+      }
+    end
+
+    defp rejection_payload(state, _error) do
+      %{"type" => "error", "session_id" => state.session_id, "error" => "event_rejected"}
+    end
+
     defp connected_payload(state) do
       %{
         "type" => "connected",
         "session_id" => state.session_id,
         "organization_id" => state.identity.organization_id,
-        "cluster_id" => state.identity.cluster_id
+        "cluster_id" => state.identity.cluster_id,
+        "schema_version" => ClusterEvent.schema_version()
       }
     end
   end

@@ -5,7 +5,13 @@ defmodule Exocomp.MissionControl.ClusterGatewayTest do
 
   import Plug.Test
 
-  alias Exocomp.MissionControl.{CertificateIdentity, ClusterGateway, ClusterSessions}
+  alias Exocomp.MissionControl.{
+    CertificateIdentity,
+    ClusterEventIngestor,
+    ClusterGateway,
+    ClusterSessions
+  }
+
   alias X509.Certificate.Extension
 
   @identity "spiffe://exocomp/organizations/acme/clusters/cluster-a"
@@ -135,24 +141,29 @@ defmodule Exocomp.MissionControl.ClusterGatewayTest do
     assert identity.organization_id == "acme"
   end
 
-  test "socket acknowledgements retain certificate identity despite spoofed payload" do
-    state = %{session_registry: self(), session_id: "sess_test", identity: identity()}
+  test "socket acknowledgements retain certificate identity" do
+    ingestor = start_ingestor()
+
+    state = %{
+      session_registry: self(),
+      event_ingestor: ingestor,
+      session_id: "sess_test",
+      identity: identity()
+    }
 
     {:push, {:text, connected}, ^state} = ClusterGateway.Socket.init(state)
     assert Jason.decode!(connected)["organization_id"] == "acme"
 
     {:push, {:text, ack}, ^state} =
       ClusterGateway.Socket.handle_in(
-        {Jason.encode!(%{
-           "organization_id" => "attacker",
-           "cluster_id" => "other-cluster"
-         }), opcode: :text},
+        {Jason.encode!(event()), opcode: :text},
         state
       )
 
     decoded = Jason.decode!(ack)
     assert decoded["organization_id"] == "acme"
     assert decoded["cluster_id"] == "cluster-a"
+    assert decoded["acknowledged_sequence"] == 1
   end
 
   test "Mission Control server TLS requires peer certificates and TLS 1.3" do
@@ -172,6 +183,24 @@ defmodule Exocomp.MissionControl.ClusterGatewayTest do
     name = :"mission_control_sessions_#{System.unique_integer([:positive])}"
     start_supervised!({ClusterSessions, name: name})
     name
+  end
+
+  defp start_ingestor do
+    name = :"mission_control_event_ingestor_#{System.unique_integer([:positive])}"
+    start_supervised!({ClusterEventIngestor, name: name})
+    name
+  end
+
+  defp event do
+    %{
+      "schema_version" => 1,
+      "event_id" => "gateway-event-#{System.unique_integer([:positive])}",
+      "cluster_seq" => 1,
+      "kind" => "cluster.heartbeat",
+      "occurred_at" => "2026-08-03T00:00:00Z",
+      "correlation_id" => "corr-gateway",
+      "payload" => %{}
+    }
   end
 
   defp identity do

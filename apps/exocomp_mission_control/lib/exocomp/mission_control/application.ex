@@ -26,6 +26,8 @@ defmodule Exocomp.MissionControl.Application do
       {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
       Exocomp.MissionControl.OIDCConfigCache,
       Exocomp.MissionControl.ClusterSessions,
+      {Exocomp.MissionControl.ClusterEventIngestor,
+       store_path: Application.get_env(:exocomp_mission_control, :event_store_path)},
       Exocomp.MissionControl.Repo,
       Exocomp.MissionControl.Endpoint
     ]
