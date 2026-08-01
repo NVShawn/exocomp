@@ -18,7 +18,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-08-01T03:34:46.454710Z'
+updated_at: '2026-08-01T03:34:59.609729Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -27,13 +27,13 @@ merged_at: null
 oompah.agent_run_id: 7b9bf218-0597-426e-82dd-2ab6481022fd
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 639279
-  total_output_tokens: 20412
+  total_input_tokens: 639319
+  total_output_tokens: 21767
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 639279
-      output_tokens: 20412
+      input_tokens: 639319
+      output_tokens: 21767
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 17316
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:14:51.663123+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 40
+    output_tokens: 1355
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T03:34:58.229466+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -322,5 +328,15 @@ Safe evidence:
 - tests_on_main: approval_verifier_test.exs, precondition_checker_test.exs, replay_ledger_test.exs, approval_gate_test.exs present in apps/exocomp_node/test/exocomp/node/safety/
 - merge_commits: 7b477ce (95), e1fc626 (96), 1282f31 (97), 0c58ab7 (98)
 - trigger: Aged Merged auto-archive (7 days after close)
+---
+author: oompah
+created: 2026-08-01 03:34
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 25
+- Tokens: 40 in / 1.4K out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 43s
+- Log: EXOCOMP-24__20260801T033219Z.jsonl
 ---
 <!-- COMMENTS:END -->
