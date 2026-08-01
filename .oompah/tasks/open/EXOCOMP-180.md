@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-180
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Add reconnect and multi-replica integration tests
 parent: EXOCOMP-135
@@ -14,10 +14,12 @@ blocked_by:
 - EXOCOMP-151
 - EXOCOMP-179
 start_blocked_by: []
-labels: []
+labels:
+- needs:backend
+- focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:16:37.536790Z'
+updated_at: '2026-08-01T13:17:56.370419Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -145,5 +147,21 @@ author: oompah
 created: 2026-08-01 13:16
 ---
 UNDERSTANDING: Task requires building an integration harness to test Mission Control reconnection, multi-replica failover, and durable event handling. Deliverables include a deterministic test harness with PostgreSQL + 1 coordinator + 2 Mission Control replicas, tests for disconnect/reconnect scenarios, a Make target for CI, and validation that WebSocket affinity is not required. This appears to be backend/integration testing work, not frontend UI work. Currently investigating whether there's frontend involvement or if this needs a backend focus.
+---
+author: oompah
+created: 2026-08-01 13:17
+---
+FOCUS HANDOFF: This task requires building backend integration tests for Mission Control reconnection and multi-replica failover scenarios. The work involves:
+
+(1) Building an integration harness with PostgreSQL, one coordinator, and two Mission Control replicas
+(2) Creating deterministic test scenarios for disconnect/reconnect, durable event replay, command idempotency, sequence gap handling, and replica termination
+(3) Implementing a Make target for running tests in CI containers
+(4) Proving WebSocket affinity is not required for correctness
+
+This is infrastructure/backend testing work, not user-facing UI development. My focus as a Frontend Developer is not appropriate for this task. A backend or test specialist should handle this work.
+
+Blockers: EXOCOMP-147, EXOCOMP-148, EXOCOMP-149, EXOCOMP-150, EXOCOMP-151 (dependency chain), EXOCOMP-179 (epic sibling). The git history shows these tasks have active branches but are not yet merged to the epic parent or main.
+
+Recommendation: Route to needs:backend or needs:test focus.
 ---
 <!-- COMMENTS:END -->
