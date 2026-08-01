@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-199
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Correlate Ceph topology with coordinator inventory nodes
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T21:32:39.664647Z'
+updated_at: '2026-08-01T21:41:43.526649Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -156,6 +156,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T18:55:27.535355+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-628c7175e18e: '2026-08-01T21:41:41.277667+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-199
+    target_state: Done
+    evidence_fingerprint: 7e165d434ca151379bac98cd423b629dabdfb3e9d33b247b495f941f248038cc
+    audit_ids:
+    - audit-46351ce3470d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:41:41.277678+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-199
+    audit_id: audit-46351ce3470d
+    attempt_id: attempt-628c7175e18e
+    target_state: Done
+    evidence_fingerprint: 7e165d434ca151379bac98cd423b629dabdfb3e9d33b247b495f941f248038cc
+    status: Done
+    audit_ids:
+    - audit-46351ce3470d
+    applied: false
+    created_at: '2026-08-01T21:41:41.277693+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -163,7 +187,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-199
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -172,7 +196,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-628c7175e18e
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -182,13 +206,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:32:35.382983+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-199
+      verdict: pass
+      completed_at: '2026-08-01T21:41:41.277484+00:00'
+      ended_at: '2026-08-01T21:41:41.277484+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T21:31:48.734624+00:00'
-    updated_at: '2026-08-01T21:32:35.382983+00:00'
+    updated_at: '2026-08-01T21:41:41.277484+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-628c7175e18e
@@ -312,5 +339,23 @@ author: oompah
 created: 2026-08-01 21:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:41
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_sha: 0314c58199acb476c7384be42e88291af1beea95
+- remote_ref: origin/epic-EXOCOMP-186--task-EXOCOMP-199
+- worktree_clean: true
+- topology_module: apps/exocomp_coordinator/lib/exocomp/coordinator/ceph_topology.ex
+- topology_tests: apps/exocomp_coordinator/test/exocomp/coordinator/ceph_topology_test.exs (10 tests)
+- collector_change: apps/exocomp_coordinator/lib/exocomp/coordinator/collectors/ceph.ex (put_cluster_fsid preserves ceph status.fsid)
+- collector_test: apps/exocomp_coordinator/test/exocomp/coordinator/collectors/ceph_test.exs (adds cluster FSID preservation test)
+- shared_resolver_hook: DesiredService.cluster_profile with profile_context cluster:ceph -> recovery_authority_source :shipped_profile
+- make_test_run: blocked-by-auditor-policy-and-runtime-container-limitation; prior worker offline harness passed 15/15
 ---
 <!-- COMMENTS:END -->
