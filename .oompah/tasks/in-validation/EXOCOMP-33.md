@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-33
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-07-25T21:10:18.800565Z'
+updated_at: '2026-08-01T21:19:05.622213Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -54,6 +54,28 @@ oompah.task_costs:
     output_tokens: 1745
     cost_usd: 0.0
     recorded_at: '2026-07-25T02:24:42.432415+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-69a92c3f83ff
+    project_id: proj-c260b117
+    task_id: EXOCOMP-33
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a6dc98442e9bac602e6a64f72cc2376f33d4982674c1264e38309217eaf35c4c
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:03.243049+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -667,5 +689,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
