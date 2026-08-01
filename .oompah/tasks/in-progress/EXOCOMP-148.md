@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-148
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Persist the coordinator event outbox
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-01T12:17:24.730191Z'
+updated_at: '2026-08-01T12:22:53.437951Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -23,17 +23,21 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: f59fe47a4d808fae3f7bde52d11c9cebc550871a749779803f03f675c00a91dd
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T12:22:31.859429+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: f5e1f5cb-54b4-48ca-9009-3530b9895ade
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T12:17:16.087911+00:00'
-  claim_expires_at: '2026-08-01T12:47:16.087911+00:00'
+  evidence: "Focus handoff: duplicate_detector\n\nDuplicate preflight verdict: no_duplicate\n\
+    \nMatches: none\n\nEvidence: Reviewed active EXOCOMP-145, EXOCOMP-139, EXOCOMP-147,\
+    \ EXOCOMP-149, EXOCOMP-150, EXOCOMP-151, and EXOCOMP-180. Their scopes cover configuration,\
+    \ envelopes, reconnect behavior, server ingestion/commands, and integration testing;\
+    \ none duplicates EXOCOMP-148\u2019s coordinator event outbox persistence."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: dd89db7b-0de3-4f23-b9e7-bfde014376d8
+oompah.agent_run_id: 92ee7e48-f765-427a-9547-3c75ccb876c1
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 oompah.integration:
   version: 2
@@ -42,7 +46,33 @@ oompah.integration:
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-148
   base_branch: epic-EXOCOMP-130
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:17:22.047141+00:00'
+  updated_at: '2026-08-01T12:22:51.490790+00:00'
+oompah.task_costs:
+  total_input_tokens: 739579
+  total_output_tokens: 11575
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 739579
+      output_tokens: 11575
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 739579
+    output_tokens: 11575
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:22:31.858542+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-148__20260801T121725Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-130--task-EXOCOMP-148
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T12:22:31.884686+00:00'
 ---
 ## Summary
 
@@ -78,5 +108,25 @@ author: oompah
 created: 2026-08-01 12:17
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 12:22
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 2, Tool calls: 29
+- Tokens: 739.6K in / 11.6K out [751.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 14s
+- Log: EXOCOMP-148__20260801T121725Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:22
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 12:22
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
