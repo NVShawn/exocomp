@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-08-01T21:28:14.898184Z'
+updated_at: '2026-08-01T21:31:15.730828Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -75,6 +75,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:40:35.330628+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6b49101d95d0: '2026-08-01T21:31:13.708019+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-56
+    target_state: Archived
+    evidence_fingerprint: 16fd63f356a53269c1ea0169f8b8c3a44478aa2735dcc9d2c0bcbb81377f558a
+    audit_ids:
+    - audit-a398a2fe05c9
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:31:13.708031+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-56
+    audit_id: audit-a398a2fe05c9
+    attempt_id: attempt-6b49101d95d0
+    target_state: Archived
+    evidence_fingerprint: 16fd63f356a53269c1ea0169f8b8c3a44478aa2735dcc9d2c0bcbb81377f558a
+    status: Archived
+    audit_ids:
+    - audit-a398a2fe05c9
+    applied: false
+    created_at: '2026-08-01T21:31:13.708047+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -82,7 +106,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-56
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -91,7 +115,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6b49101d95d0
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -101,13 +125,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:28:08.760770+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-08-01T21:31:13.707878+00:00'
+      ended_at: '2026-08-01T21:31:13.707878+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:40.915453+00:00'
-    updated_at: '2026-08-01T21:28:08.760770+00:00'
+    updated_at: '2026-08-01T21:31:13.707878+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6b49101d95d0
@@ -632,5 +659,19 @@ author: oompah
 created: 2026-08-01 21:28
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:31
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- host_sampler_commit: c958c8fc EXOCOMP-56: implement Linux host sampler
+- recovery_merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce (PR #14, epic-EXOCOMP-110, EXOCOMP-115)
+- ancestor_of_main: true (git branch --contains c958c8fc lists main)
+- main_files_present: apps/bench/lib/bench/host_sampler.ex, apps/bench/test/bench/host_sampler_test.exs
+- aged_reason: Aged Merged auto-archive queued after 7-day idle (2026-08-01)
 ---
 <!-- COMMENTS:END -->
