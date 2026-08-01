@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-148
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Persist the coordinator event outbox
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-01T12:39:30.220840Z'
+updated_at: '2026-08-01T12:41:07.818273Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 92ee7e48-f765-427a-9547-3c75ccb876c1
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-148
-  base_branch: epic-EXOCOMP-130
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:22:51.490790+00:00'
+  head_sha: 6e22ba093d545acf8c1d24af8ddd38c5cea8e3ae
+  submitted_at: '2026-08-01T12:41:03.439762+00:00'
+  updated_at: '2026-08-01T12:41:03.439762+00:00'
 oompah.task_costs:
   total_input_tokens: 739579
   total_output_tokens: 11575
@@ -148,5 +148,15 @@ author: oompah
 created: 2026-08-01 12:39
 ---
 Verification: focused EventOutbox tests ran in a local Elixir harness with the OTP JSON adapter (8 tests, 0 failures), and mix format --check-formatted plus syntax parsing pass. make test and make lint completed offline checks but their pinned Elixir container steps were blocked by the environment's read-only podman configuration; make fmt-check was blocked for the same reason. Host mix cannot run the project because it is Elixir 1.18.3 versus the declared 1.20.2.
+---
+author: oompah
+created: 2026-08-01 12:40
+---
+Completion: commit 6e22ba09 adds and wires the durable EventOutbox, configures /var/lib/exocomp-coordinator/event_outbox.json with runtime cluster identity, and adds focused persistence coverage. Branch was pulled/rebased, pushed, and is clean and up to date with origin. Focused tests pass; containerized make test/fmt-check/lint were attempted and blocked only by the read-only podman configuration.
+---
+author: oompah
+created: 2026-08-01 12:41
+---
+Implemented durable coordinator event outbox with atomic persistence, monotonic per-cluster sequences, stable IDs, snapshot coalescing, validation/redaction, contiguous acknowledgements, restart/corruption/capacity coverage, and supervised production configuration.
 ---
 <!-- COMMENTS:END -->

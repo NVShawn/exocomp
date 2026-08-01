@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T12:15:55.279679Z'
+updated_at: '2026-08-01T12:41:07.200514Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 78c3ce40-8d49-4542-b20c-d428a58e515c
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
-  base_branch: epic-EXOCOMP-130
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:11:09.556205+00:00'
+  head_sha: 462ad73333f008d60a001f5c14c067d06662457a
+  submitted_at: '2026-08-01T12:41:04.371421+00:00'
+  updated_at: '2026-08-01T12:41:04.371421+00:00'
 oompah.task_costs:
   total_input_tokens: 744316
   total_output_tokens: 4014
@@ -138,5 +138,20 @@ author: oompah
 created: 2026-08-01 12:15
 ---
 Discovery: Extended Config module to support optional Mission Control configuration block with versioned schema (v1). Config includes URL, trust root, client cert/key paths, heartbeat interval, reconnect bounds, and outbox path. Validation handles: required field checks when enabled, file path existence, numeric bounds (heartbeat > 0, min_backoff > 0, max_backoff >= min_backoff), and directory writable checks. All 518 existing tests still pass. Now creating supervision tree for optional Mission Control client.
+---
+author: oompah
+created: 2026-08-01 12:40
+---
+Implementation: Extended Config module with versioned MissionControl configuration block (URL, trust_root, client_cert, client_key, heartbeat_interval_seconds, reconnect_min/max_backoff_seconds, outbox_path, enabled flag). Comprehensive validation of required fields when enabled, file paths, TLS settings, and numeric bounds. Created MissionControl supervision tree with Outbox (durable event/command persistence) and Connection (connection state, heartbeats, exponential backoff reconnection) components. Conditional startup only when config present and enabled. All 533 tests pass, lint/format checks pass.
+---
+author: oompah
+created: 2026-08-01 12:41
+---
+Verification: All test suites pass (533/533 tests). make fmt-check, make lint all pass. Acceptance criteria met: (1) Versioned coordinator configuration block with all required fields for Mission Control. (2) Startup validation of paths, TLS settings, and numeric bounds. (3) Mission Control client supervision subtree starts only when config present and enabled. (4) Existing coordinator behavior unchanged when config absent (all base tests unchanged). (5) Invalid partial configuration fails with bounded errors. (6) Tests prove local inventory/diagnostics/recovery unaffected by Mission Control disablement (Connection and Orchestrator tests independent).
+---
+author: oompah
+created: 2026-08-01 12:41
+---
+Added optional Mission Control coordinator configuration with validation and supervision tree. Configuration block supports URL, TLS paths, heartbeat interval, reconnect bounds, and outbox path. Supervision tree (Outbox, Connection) starts conditionally only when enabled. All tests pass (533/533), lint/format checks pass. Existing coordinator behavior unchanged when config absent.
 ---
 <!-- COMMENTS:END -->

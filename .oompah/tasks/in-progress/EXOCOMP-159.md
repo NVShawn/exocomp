@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-01T12:38:52.524937Z'
+updated_at: '2026-08-01T12:41:10.737635Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -148,5 +148,39 @@ author: oompah
 created: 2026-08-01 12:38
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:41
+---
+## Understanding
+
+Task: Implement the coordinator exocomp.cluster.chat skill for conversation with a local model.
+
+Key requirements:
+- Add skill to coordinator Agent Card and A2A dispatcher
+- Implement handler that accepts operator message + bounded thread context
+- Collect fresh cluster/node diagnostics through existing typed paths
+- Call configured local OpenAI-compatible inference endpoint
+- Validate schema-constrained output: Markdown text, evidence citations (IDs, node IDs, timestamps), and at most one typed proposal
+- Messages max 16 KiB; model context limited to newest 50 messages or 64 KiB
+- Every reply must cite evidence by ID, node identity, and timestamp
+
+Test coverage required:
+- Valid reply with citations
+- No model configured error
+- Timeout handling
+- Invalid/truncated schema response
+- Stale evidence handling
+- Missing citation detection
+- Oversized context rejection
+- Model crash graceful handling
+
+Approach:
+1. Create ClusterChat skill module with behaviour implementation
+2. Add to dispatcher skill map
+3. Add to Agent Card skills list
+4. Implement handler logic with orchestrator delegation and model integration
+5. Add comprehensive unit tests covering all scenarios
+6. Run quality gates: make test, make fmt-check, make lint
 ---
 <!-- COMMENTS:END -->
