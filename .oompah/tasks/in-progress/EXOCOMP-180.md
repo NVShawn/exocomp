@@ -15,11 +15,10 @@ blocked_by:
 - EXOCOMP-179
 start_blocked_by: []
 labels:
-- needs:backend
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:18:24.345670Z'
+updated_at: '2026-08-01T13:19:46.786089Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -51,7 +50,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 7bcd7e9e-34fe-4814-ae41-29219a9d5b69
+oompah.agent_run_id: b1b401a1-2421-4274-bbf7-1f82b1211e6c
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 oompah.integration:
   version: 2
@@ -60,7 +59,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-180
   base_branch: epic-EXOCOMP-135
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:15:33.867633+00:00'
+  updated_at: '2026-08-01T13:19:44.415638+00:00'
 oompah.task_costs:
   total_input_tokens: 536646
   total_output_tokens: 3962
@@ -179,5 +178,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 2m 39s
 - Log: EXOCOMP-180__20260801T131539Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:19
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 13:19
+---
+Focus: Test Engineer
 ---
 <!-- COMMENTS:END -->
