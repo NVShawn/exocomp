@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:15:22.454250Z'
+updated_at: '2026-08-01T16:15:52.482742Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -73,8 +73,8 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-137: e9fb31b08db1442238755c5c4a45dc1dcdc1b02c
 oompah.task_costs:
-  total_input_tokens: 28763003
-  total_output_tokens: 97735
+  total_input_tokens: 28763054
+  total_output_tokens: 106793
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -84,6 +84,10 @@ oompah.task_costs:
     sonnet:
       input_tokens: 1877733
       output_tokens: 25784
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 51
+      output_tokens: 9058
       cost_usd: 0.0
   runs:
   - profile: default
@@ -110,6 +114,12 @@ oompah.task_costs:
     output_tokens: 18235
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:09:03.806529+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 51
+    output_tokens: 9058
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:15:51.237504+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-138__20260801T144129Z
@@ -503,5 +513,15 @@ Safe evidence:
 - db_isolation_tests: apps/exocomp_mission_control/test/exocomp/mission_control/database_test.exs (gated by EXOCOMP_RUN_DB_TESTS=1, runnable via make test-mission-control-db)
 - quality_gate_status: focused ExUnit tests present; make fmt-check/lint/test-mission-control-db are container targets and reported blocked in sandbox but format-check on changed files was passed by prior agent
 - config_env_test_present: config/test.exs configures SQL sandbox pool for Ecto Repo
+---
+author: oompah
+created: 2026-08-01 16:15
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 45
+- Tokens: 51 in / 9.1K out [9.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 6m 10s
+- Log: EXOCOMP-138__20260801T160943Z.jsonl
 ---
 <!-- COMMENTS:END -->
