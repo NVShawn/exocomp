@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T14:57:03.444319Z'
+updated_at: '2026-08-01T15:00:42.042297Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -152,5 +152,10 @@ author: oompah
 created: 2026-08-01 14:57
 ---
 Implementation: added apps/exocomp_mission_control with Ecto SQL/Postgrex dependencies, supervised Repo, test-support DataCase sandbox ownership, and reversible 20260801000000 baseline migration. Added dev/test/prod database config using DATABASE_URL/PG* environment values, production runtime validation, root release/config wiring, focused Make target, and tests covering config edge cases, supervision, migration round-trip, and concurrent sandbox isolation. Database tests are opt-in via EXOCOMP_RUN_DB_TESTS=1 so ordinary tests remain service-independent; the focused target enables them.
+---
+author: oompah
+created: 2026-08-01 15:00
+---
+Verification: focused config/application tests passed (7 tests); the full Mission Control test run passed 9 tests with the 2 PostgreSQL tests skipped unless EXOCOMP_RUN_DB_TESTS=1. New files pass local format-check, parse checks, and warnings-as-errors compilation under the available toolchain. Production runtime config loads with DATABASE_URL and fails without it using the bounded actionable message. make fmt-check, make lint, and make test-mission-control-db could not enter the pinned container because Docker is backed by Podman and the sandbox rejects chmod on /run/user/1000/libpod.
 ---
 <!-- COMMENTS:END -->
