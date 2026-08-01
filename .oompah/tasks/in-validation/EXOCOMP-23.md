@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-07-25T02:16:17.411375Z'
+updated_at: '2026-08-01T02:59:52.262753Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -44,6 +44,28 @@ oompah.task_costs:
     output_tokens: 2629
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:37:03.097737+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-f44665884eb4
+    project_id: proj-c260b117
+    task_id: EXOCOMP-23
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 05158a8b12cf995fa2fbfe8bbeb77718c3eaeb93e1242856b822465f068c5e51
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T02:59:50.116606+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -215,5 +237,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 12s
 - Log: EXOCOMP-23__20260724T023352Z.jsonl
+---
+author: oompah
+created: 2026-08-01 02:59
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
