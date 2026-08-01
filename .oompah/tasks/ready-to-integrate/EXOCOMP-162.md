@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-162
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement operator approval and denial guards
 parent: EXOCOMP-132
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:20.549186Z'
-updated_at: '2026-08-01T13:15:32.147699Z'
+updated_at: '2026-08-01T13:16:29.053846Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-162
 target_branch: null
 review_url: null
@@ -52,12 +52,12 @@ oompah.agent_run_id: 253749ce-28b4-4ff3-b8e3-aa407e89578f
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-162
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-162
-  base_branch: epic-EXOCOMP-132
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:58:38.299315+00:00'
+  head_sha: 3cd1ec79bfcec392c2ee64213e2d634399d21d91
+  submitted_at: '2026-08-01T13:16:26.793224+00:00'
+  updated_at: '2026-08-01T13:16:26.793224+00:00'
 oompah.task_costs:
   total_input_tokens: 785067
   total_output_tokens: 3700
@@ -159,5 +159,15 @@ author: oompah
 created: 2026-08-01 13:15
 ---
 Verification: focused Mission Control tests pass (143 tests, 0 failures) and the app compiles with warnings-as-errors; formatter check and git diff check pass in the local compatibility harness. Required make fmt-check, make lint, and make test reach the pinned Docker builder but are blocked by the host Podman wrapper: read-only /run/user/1000/libpod prevents container startup; offline builder checks themselves pass.
+---
+author: oompah
+created: 2026-08-01 13:16
+---
+Completion: pushed commit 3cd1ec79 on epic-EXOCOMP-132--task-EXOCOMP-162. Delivered transactional operator/admin proposal approve/deny guards, liveness and freshness fail-closed behavior, actor audit persistence, typed outbox commands, rollback protection, migration, and 143 passing focused Mission Control tests. Ready for oompah submission.
+---
+author: oompah
+created: 2026-08-01 13:16
+---
+Implemented transactional operator/admin approval and denial guards with typed outbox commands, audit attribution, fail-closed liveness/freshness checks, rollback protection, migration, and focused tests.
 ---
 <!-- COMMENTS:END -->
