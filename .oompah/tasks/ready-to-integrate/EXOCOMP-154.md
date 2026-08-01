@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-154
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add incident records and deterministic fingerprints
 parent: EXOCOMP-131
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:38.872090Z'
-updated_at: '2026-08-01T12:44:13.521675Z'
+updated_at: '2026-08-01T12:46:18.457648Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-154
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: d6ac0ad4-a998-41c0-a65a-75022192d02d
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-154
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-154
-  base_branch: epic-EXOCOMP-131
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:32:30.223926+00:00'
+  head_sha: 820b4ea23d864b4bee93d32e8fa114d065bdf407
+  submitted_at: '2026-08-01T12:46:16.141068+00:00'
+  updated_at: '2026-08-01T12:46:16.141068+00:00'
 oompah.task_costs:
   total_input_tokens: 614786
   total_output_tokens: 3786
@@ -147,5 +147,10 @@ author: oompah
 created: 2026-08-01 12:44
 ---
 Verification: focused incident suite passes (8 tests, 0 failures) via direct Elixir compilation; formatter comparison and git diff --check pass. make fmt-check, make lint, and make test were attempted and each stopped before project execution because Docker/Podman cannot initialize in this sandbox; direct Mix also rejects installed Elixir 1.18.3 against the repository's declared 1.20.2. No application test failure was observed.
+---
+author: oompah
+created: 2026-08-01 12:46
+---
+Added organization-scoped incident and incident-event records, deterministic six-field fingerprints, atomic concurrent upserts, recurrence reopening, acknowledgement/resolution states, and ordered correlated timelines with focused tests.
 ---
 <!-- COMMENTS:END -->
