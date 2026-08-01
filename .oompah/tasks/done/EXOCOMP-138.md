@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-138
 type: task
-status: In Validation
+status: Done
 priority: 2
 title: Add organizations and mandatory organization scoping
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:09:43.020812Z'
+updated_at: '2026-08-01T16:15:19.741950Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -122,6 +122,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:43:21.436299+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-4641d805c785: '2026-08-01T16:15:17.379838+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-138
+    target_state: Done
+    evidence_fingerprint: 338e39634ec6022c596466fb139ef68eb884ede707d84a018552cf503bd2a084
+    audit_ids:
+    - audit-1b866e476af2
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:15:17.379849+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-138
+    audit_id: audit-1b866e476af2
+    attempt_id: attempt-4641d805c785
+    target_state: Done
+    evidence_fingerprint: 338e39634ec6022c596466fb139ef68eb884ede707d84a018552cf503bd2a084
+    status: Done
+    audit_ids:
+    - audit-1b866e476af2
+    applied: false
+    created_at: '2026-08-01T16:15:17.379866+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -129,7 +153,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-138
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -138,7 +162,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-4641d805c785
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -148,13 +172,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:09:39.943959+00:00'
       branch_key: epic-EXOCOMP-128--task-EXOCOMP-138
+      verdict: pass
+      completed_at: '2026-08-01T16:15:17.379587+00:00'
+      ended_at: '2026-08-01T16:15:17.379587+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:09:19.524276+00:00'
-    updated_at: '2026-08-01T16:09:39.943959+00:00'
+    updated_at: '2026-08-01T16:15:17.379587+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4641d805c785
@@ -450,5 +477,30 @@ author: oompah
 created: 2026-08-01 16:09
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:15
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- task_head: f34b7d15612196d3963bcaa9378278ba2e142e50
+- task_head_message: EXOCOMP-138: verify organization scope with PostgreSQL
+- epic_head: f34b7d15612196d3963bcaa9378278ba2e142e50
+- branch_aligned_with_epic: yes
+- task_commits_on_epic: 90653c52,f34b7d15
+- organizations_migration: apps/exocomp_mission_control/priv/repo/migrations/20260801000200_create_organizations.exs
+- scope_example_migration: apps/exocomp_mission_control/priv/repo/migrations/20260801000300_create_organization_scope_examples.exs
+- organization_scope_module: apps/exocomp_mission_control/lib/exocomp/mission_control/organization_scope.ex
+- seed_module: apps/exocomp_mission_control/lib/exocomp/mission_control/seeds.ex
+- seed_script: apps/exocomp_mission_control/priv/repo/seeds.exs
+- unscoped_list_search: only def list found is organization_scoped_records.ex:49 def list(organization_id, opts \\ [])
+- no_unscoped_all_assertion: organization_scope_test.exs refute function_exported?(OrganizationScope, :all, 2)
+- no_zero_arity_list_assertion: organization_scoped_records_test.exs refute function_exported?(OrganizationScopedRecords, :list, 0)
+- db_isolation_tests: apps/exocomp_mission_control/test/exocomp/mission_control/database_test.exs (gated by EXOCOMP_RUN_DB_TESTS=1, runnable via make test-mission-control-db)
+- quality_gate_status: focused ExUnit tests present; make fmt-check/lint/test-mission-control-db are container targets and reported blocked in sandbox but format-check on changed files was passed by prior agent
+- config_env_test_present: config/test.exs configures SQL sandbox pool for Ecto Repo
 ---
 <!-- COMMENTS:END -->
