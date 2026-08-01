@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-180
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add reconnect and multi-replica integration tests
 parent: EXOCOMP-135
@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:13:54.291638Z'
+updated_at: '2026-08-01T13:15:37.348682Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -27,17 +27,29 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 75009ecfe2a90028fda3b6abed1de2ac849a1a206daf2fd9affa03d5a87c1791
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T13:15:20.787104+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: 50a0201f-76d0-47c9-b691-c602e7c9049a
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T13:13:44.728588+00:00'
-  claim_expires_at: '2026-08-01T13:43:44.728588+00:00'
+  evidence: 'Focus handoff: duplicate_detector
+
+
+    Duplicate preflight verdict: no_duplicate
+
+
+    Matches: none
+
+
+    Evidence: Reviewed active EXOCOMP-127, EXOCOMP-147, EXOCOMP-179, EXOCOMP-181,
+    EXOCOMP-182, EXOCOMP-183, and delivery dependencies EXOCOMP-145/146/148/149/150/151.
+    Their scopes are distinct; EXOCOMP-180 uniquely covers cross-replica end-to-end
+    reconnect and replay integration.'
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: f7d74e33-accc-41e0-9596-3255c4f08618
+oompah.agent_run_id: f16e91bc-b1ec-4c8c-850c-0280f6ad6dc0
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 oompah.integration:
   version: 2
@@ -46,7 +58,33 @@ oompah.integration:
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-180
   base_branch: epic-EXOCOMP-135
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:13:51.258456+00:00'
+  updated_at: '2026-08-01T13:15:33.867633+00:00'
+oompah.task_costs:
+  total_input_tokens: 536064
+  total_output_tokens: 3827
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 536064
+      output_tokens: 3827
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 536064
+    output_tokens: 3827
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:15:20.786434+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-180__20260801T131355Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-180
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T13:15:20.792775+00:00'
 ---
 ## Summary
 
@@ -82,5 +120,25 @@ author: oompah
 created: 2026-08-01 13:13
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 13:15
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 24
+- Tokens: 536.1K in / 3.8K out [539.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 34s
+- Log: EXOCOMP-180__20260801T131355Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:15
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:15
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
