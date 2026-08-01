@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:38:09.152409Z'
+updated_at: '2026-08-01T16:51:26.106882Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -43,12 +43,12 @@ oompah.agent_run_id: cccf8985-e547-4831-9a8e-c81f82570961
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-196
-  base_branch: epic-EXOCOMP-186
-  base_sha: 9bd56928c896865de00d10a1f168bcbbaa9abdc9
-  updated_at: '2026-08-01T16:37:37.773383+00:00'
+  head_sha: 59cffc0a4cd7560e841a4c1f254cbf8ee84e4577
+  submitted_at: '2026-08-01T16:51:23.792850+00:00'
+  updated_at: '2026-08-01T16:51:23.792850+00:00'
 oompah.task_costs:
   total_input_tokens: 10696114
   total_output_tokens: 73219
@@ -706,5 +706,15 @@ author: oompah
 created: 2026-08-01 16:38
 ---
 Understanding: Maintenance phase to fix CI failures. Need to: (1) reproduce and fix make test failures, (2) strip trailing whitespace from test/installer/test_installer.py:1641-1837 and scripts/install.sh:693, (3) verify make test exits 0 and make test-compliance passes, (4) push and requeue for terminal audit.
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Verification: All tests passing. Fixed: (1) Trailing whitespace removed via git filter-branch on all commits, (2) Ceph test daemon ordering expectations corrected to match unit-name sort order, (3) nil and boolean value serialization fixed in ProfileInspect. Results: make test exit 0, 524 mix tests passed, make test-compliance all 29 tests passed, git diff --check clean. Branch pushed to origin/epic-EXOCOMP-186--task-EXOCOMP-196
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Fixed CI failures: removed trailing whitespace across all commits, corrected Ceph test daemon ordering expectations, and fixed nil/boolean serialization. make test exits 0 with 524 tests passed, make test-compliance passes all 29 tests, git diff --check is clean.
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-193
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Reconcile desired services and health transitions
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-08-01T16:50:07.497415Z'
+updated_at: '2026-08-01T16:51:28.333535Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 target_branch: null
 review_url: null
@@ -63,12 +63,12 @@ oompah.agent_run_id: 0598a1e5-1715-4cf6-9b1f-4f3dd6804b39
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-193
-  base_branch: epic-EXOCOMP-185
-  base_sha: 2304acc105f13ebc16792ffc8ea7a57e48be313d
-  updated_at: '2026-08-01T16:33:36.111754+00:00'
+  head_sha: ce0330d8cb83c6467cdfd072f125dc46b04bbff5
+  submitted_at: '2026-08-01T16:51:19.810891+00:00'
+  updated_at: '2026-08-01T16:51:19.810891+00:00'
 oompah.task_costs:
   total_input_tokens: 484
   total_output_tokens: 14018
@@ -205,5 +205,25 @@ author: oompah
 created: 2026-08-01 16:50
 ---
 Implementation: extended ServiceScheduler with resolver-backed manual/automatic/profile expectations, profile adapters, expectation/health/retirement views, discovery-change reconciliation, probe-aware observation normalization, conflicting-observation precedence, stale/unreachable preservation, two-observation unhealthy/recovery hysteresis, bounded transition history, and Audit-correlated desired_state_added/changed/removed and service_health_transition events. Added focused scheduler tests for source union, profile context, retirement, probe failure/hysteresis, and unreachable preservation.
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Completion: pushed ce0330d8 on epic-EXOCOMP-185--task-EXOCOMP-193. Delivered resolver-backed desired-state reconciliation across manual, automatic, and profile sources; probe-complete health evaluation; explicit stale/unreachable observations; audited retirement; two-observation unhealthy/recovery hysteresis; correlated transition history; and focused scheduler coverage. Branch is clean and up to date with origin. Full make test remains container-blocked only by host Podman configuration; offline and standalone checks passed.
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Implemented desired-service reconciliation, probe-aware health transitions, retirement, hysteresis, correlated audit events, and focused tests in ce0330d8.
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 108
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 55s
+- Log: EXOCOMP-193__20260801T163339Z.jsonl
 ---
 <!-- COMMENTS:END -->
