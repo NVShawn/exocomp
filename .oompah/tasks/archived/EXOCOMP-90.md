@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-90
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement poll scheduling, backoff, and registry state transitions
 parent: EXOCOMP-15
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-08-01T02:19:40.641715Z'
+updated_at: '2026-08-01T02:23:45.835329Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -39,6 +39,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-478202836c55-3: '2026-07-31T19:59:05.163100+00:00'
+    attempt-a9c3a02b16a9: '2026-08-01T02:23:43.690840+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-90
@@ -46,6 +47,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 0345e34e3b5b812463b184e8434eb4e9f889d38a064b937da0f7700d3a435d37
     audit_ids:
     - audit-478202836c55
+    - audit-12c708f03f0c
     kind: result
     applied: true
     retired_at: '2026-07-31T19:59:05.163111+00:00'
@@ -62,6 +64,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T19:59:05.163127+00:00'
     applied_at: '2026-07-31T19:59:07.446737+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-90
+    audit_id: audit-12c708f03f0c
+    attempt_id: attempt-a9c3a02b16a9
+    target_state: Archived
+    evidence_fingerprint: 0345e34e3b5b812463b184e8434eb4e9f889d38a064b937da0f7700d3a435d37
+    status: Archived
+    audit_ids:
+    - audit-12c708f03f0c
+    applied: false
+    created_at: '2026-08-01T02:23:43.690873+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -152,7 +165,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-90
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -161,7 +174,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-a9c3a02b16a9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -171,13 +184,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:19:36.409332+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:23:43.690585+00:00'
+      ended_at: '2026-08-01T02:23:43.690585+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:44.004295+00:00'
-    updated_at: '2026-08-01T02:19:36.409332+00:00'
+    updated_at: '2026-08-01T02:23:43.690585+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-0bbd4acabe18
@@ -449,5 +465,34 @@ author: oompah
 created: 2026-08-01 02:19
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:23
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- implementation_commit: cfec4d2d30ce3e1e3d4768c4ac1924943e0bc15e
+- commit_stat: 4 files changed, 709 insertions(+), 46 deletions(-)
+- current_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- commit_reachable_from_head: true (git log HEAD --grep=EXOCOMP-90 lists cfec4d2)
+- commit_on_main: true (git branch --contains cfec4d2 includes main)
+- registry_module_path: apps/exocomp_coordinator/lib/exocomp/coordinator/registry.ex
+- registry_test_path: apps/exocomp_coordinator/test/exocomp/coordinator/registry_test.exs
+- node_prober_module_path: apps/exocomp_coordinator/lib/exocomp/coordinator/node_prober.ex
+- node_prober_test_path: apps/exocomp_coordinator/test/exocomp/coordinator/node_prober_test.exs
+- registry_test_count: 11
+- node_prober_test_count: 34
+- default_poll_interval_ms: 30000
+- default_jitter_ms: 3000
+- default_backoff_cap_ms: 900000 (15min)
+- freshness_thresholds_ms: degraded<60000, stale<300000, else unreachable
+- reachability_states: [:unknown, :healthy, :degraded, :stale, :unreachable]
+- audit_event_type: node_poll_transition (emitted only when reachability changes)
+- stale_callback_defense: monotonic active_poll_token; begin_poll/2 -> record_observation/4; late tokens => {:ignored, :stale}
+- prior_verification: Focused Registry+NodeProber 45/45 pass, make lint pass, full make test pass, release smoke pass (2026-07-24 per task history)
+- prior_audit_failure_cause: infrastructure only (git worktree add on origin/epic-EXOCOMP-2), operator remediated
 ---
 <!-- COMMENTS:END -->
