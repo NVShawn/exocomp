@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-08-01T21:23:56.514553Z'
+updated_at: '2026-08-01T21:24:19.962446Z'
 work_branch: epic-EXOCOMP-3
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/12
@@ -141,6 +141,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T21:19:04.163564+00:00'
     branch_key: epic-EXOCOMP-3
+oompah.task_costs:
+  total_input_tokens: 33
+  total_output_tokens: 4731
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 33
+      output_tokens: 4731
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 33
+    output_tokens: 4731
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:24:18.293270+00:00'
 ---
 ## Summary
 
@@ -208,5 +224,15 @@ Safe evidence:
 - acceptance_criteria_checked: M3-CRIT-1..M3-CRIT-8 all [x] in plans/milestone-3-safety-validation.md
 - acceptance_test_recovery: EXOCOMP-113 recovered M3 acceptance suites (commit cad1c28b)
 - safety_modules_present: apps/exocomp_node/lib/exocomp/node/safety (14 modules) and matching tests
+---
+author: oompah
+created: 2026-08-01 21:24
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 34, Tool calls: 27
+- Tokens: 33 in / 4.7K out [4.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 6s
+- Log: EXOCOMP-3__20260801T211925Z.jsonl
 ---
 <!-- COMMENTS:END -->
