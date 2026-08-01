@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-08-01T02:29:25.309906Z'
+updated_at: '2026-08-01T02:29:39.475583Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ merged_at: null
 oompah.agent_run_id: d3bdff2a-775a-4938-9c68-8c9fc3e864be
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 525046
-  total_output_tokens: 62485
+  total_input_tokens: 525074
+  total_output_tokens: 63276
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 525046
-      output_tokens: 62485
+      input_tokens: 525074
+      output_tokens: 63276
       cost_usd: 0.0
   runs:
   - profile: default
@@ -45,6 +45,12 @@ oompah.task_costs:
     output_tokens: 60048
     cost_usd: 0.0
     recorded_at: '2026-07-24T04:22:44.648922+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 28
+    output_tokens: 791
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:29:37.962534+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -510,5 +516,15 @@ Safe evidence:
 - commit_on_main: yes (git branch --contains 9e9462b includes main)
 - prior_audit_failure_cause: git worktree add: invalid reference origin/epic-EXOCOMP-2 (infrastructure, not implementation)
 - operator_recovery_note: OOMPAH-671 deployed; audit rearmed by project owner
+---
+author: oompah
+created: 2026-08-01 02:29
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 15
+- Tokens: 28 in / 791 out [819 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 18s
+- Log: EXOCOMP-92__20260801T022723Z.jsonl
 ---
 <!-- COMMENTS:END -->
