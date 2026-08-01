@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T12:40:33.665348Z'
+updated_at: '2026-08-01T12:45:50.193729Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -146,5 +146,10 @@ author: oompah
 created: 2026-08-01 12:40
 ---
 Discovery: this branch predates the separate exocomp_mission_control app, but completed Mission Control foundation branches establish that namespace. I will add a standalone dependency-light domain app with pure schemas and a GenServer-backed conversation store; conversations require a cluster, optionally carry an incident, auto-record cluster membership, and enforce organization checks on every read/write.
+---
+author: oompah
+created: 2026-08-01 12:45
+---
+Implementation: added the standalone exocomp_mission_control app with Conversation, Membership, Message, EvidenceReference schemas and Conversations GenServer context. Messages are UTF-8 byte-bounded at 16 KiB, references are whitelist-only, context is newest-first bounded then restored to chronological order, and message transitions record state history.
 ---
 <!-- COMMENTS:END -->
