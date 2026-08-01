@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-176
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Package the Mission Control release and OCI image
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-08-01T13:29:41.474755Z'
+updated_at: '2026-08-01T16:30:45.729781Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 target_branch: null
 review_url: null
@@ -51,12 +51,15 @@ oompah.agent_run_id: 0da8f466-fed8-443f-9132-80271fe7a18f
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-176
+  base_branch: epic-EXOCOMP-135
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
+  integrated_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
   submitted_at: '2026-08-01T13:29:26.416726+00:00'
-  updated_at: '2026-08-01T13:29:26.416726+00:00'
+  updated_at: '2026-08-01T16:30:39.508241+00:00'
 oompah.task_costs:
   total_input_tokens: 1157401
   total_output_tokens: 4784
@@ -83,6 +86,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-176
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:11:05.995656+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-768b3d839034
+    project_id: proj-c260b117
+    task_id: EXOCOMP-176
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 8107312e1cd351f55f69c81825c8c6f70f854adbed0c657a5859bda3f953529a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T16:30:43.164049+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -255,5 +280,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 18m 18s
 - Log: EXOCOMP-176__20260801T131129Z.jsonl
+---
+author: oompah
+created: 2026-08-01 16:30
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->

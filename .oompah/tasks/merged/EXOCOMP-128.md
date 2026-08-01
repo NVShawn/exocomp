@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-01T16:30:19.678346Z'
+updated_at: '2026-08-01T16:30:42.873423Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -172,13 +172,13 @@ oompah.terminal_audit:
     started_at: '2026-08-01T16:25:53.991925+00:00'
     branch_key: epic-EXOCOMP-128
 oompah.task_costs:
-  total_input_tokens: 56
-  total_output_tokens: 9653
+  total_input_tokens: 103
+  total_output_tokens: 11035
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 56
-      output_tokens: 9653
+      input_tokens: 103
+      output_tokens: 11035
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -187,6 +187,12 @@ oompah.task_costs:
     output_tokens: 9653
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:25:41.238539+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 47
+    output_tokens: 1382
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:30:41.631121+00:00'
 ---
 ## Summary
 
@@ -289,5 +295,15 @@ Safe evidence:
 - insertions: 3058
 - organization_scope_module: apps/exocomp_mission_control/lib/exocomp/mission_control/organization_scope.ex
 - baseline_migration: apps/exocomp_mission_control/priv/repo/migrations/20260801000000_create_mission_control_schema.exs
+---
+author: oompah
+created: 2026-08-01 16:30
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 28
+- Tokens: 47 in / 1.4K out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 47s
+- Log: EXOCOMP-128__20260801T162559Z.jsonl
 ---
 <!-- COMMENTS:END -->
