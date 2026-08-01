@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-104
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Recover coordinator live state after volatile restart
 parent: EXOCOMP-18
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-08-01T02:45:47.363036Z'
+updated_at: '2026-08-01T02:47:14.196436Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,6 +47,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-486a9fb6892a-3: '2026-07-31T21:16:13.950344+00:00'
+    attempt-db804d16a89c: '2026-08-01T02:47:11.712970+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-104
@@ -54,6 +55,7 @@ oompah.terminal_audit:
     evidence_fingerprint: d3b8a351a17f96f6df9e17bd126f87c5167d8bcf0e7b35c496ba88d8c8478c09
     audit_ids:
     - audit-486a9fb6892a
+    - audit-b1b301c29492
     kind: result
     applied: true
     retired_at: '2026-07-31T21:16:13.950356+00:00'
@@ -70,6 +72,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:16:13.950373+00:00'
     applied_at: '2026-07-31T21:16:15.891912+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-104
+    audit_id: audit-b1b301c29492
+    attempt_id: attempt-db804d16a89c
+    target_state: Archived
+    evidence_fingerprint: d3b8a351a17f96f6df9e17bd126f87c5167d8bcf0e7b35c496ba88d8c8478c09
+    status: Archived
+    audit_ids:
+    - audit-b1b301c29492
+    applied: false
+    created_at: '2026-08-01T02:47:11.713002+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -160,7 +173,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-104
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -169,7 +182,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-db804d16a89c
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -179,13 +192,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:45:42.972439+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:47:11.712810+00:00'
+      ended_at: '2026-08-01T02:47:11.712810+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:44:20.274036+00:00'
-    updated_at: '2026-08-01T02:45:42.972439+00:00'
+    updated_at: '2026-08-01T02:47:11.712810+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ed5cbeaf040e
@@ -509,5 +525,24 @@ author: oompah
 created: 2026-08-01 02:45
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:47
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 6a17f23
+- commit_title: EXOCOMP-104: Document coordinator volatile restart recovery
+- doc_added: docs/coordinator-restart-recovery.md
+- doc_line_count: 282
+- readme_updated: docs/README.md links coordinator-restart-recovery.md
+- on_main: true (git log main -- docs/coordinator-restart-recovery.md returns 6a17f23)
+- revert_found: none
+- previous_state: Merged
+- requested_target: Archived
+- trigger: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
