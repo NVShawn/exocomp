@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-08-01T02:17:49.391002Z'
+updated_at: '2026-08-01T02:18:02.956268Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: d93bd5ab-7fd0-47f8-a081-379a97aee8ab
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 357476
-  total_output_tokens: 56340
+  total_input_tokens: 357504
+  total_output_tokens: 62678
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 357476
-      output_tokens: 56340
+      input_tokens: 357504
+      output_tokens: 62678
       cost_usd: 0.0
   runs:
   - profile: default
@@ -49,6 +49,12 @@ oompah.task_costs:
     output_tokens: 47008
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:13:05.624654+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 28
+    output_tokens: 6338
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:18:01.806649+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -390,5 +396,15 @@ Safe evidence:
 - ac3_deletion_unrepresentable: verified: check_deletion_eligibility(:deletion, :protected_user_data) -> {:error, :user_data_deletion_ineligible}
 - ac4_tests_pass: prior recorded verification: 180 tests, 0 failures; make lint PASS
 - aging: In Merged since 2026-07-23; audit dispatched 2026-08-01 (>7 days)
+---
+author: oompah
+created: 2026-08-01 02:18
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 29, Tool calls: 22
+- Tokens: 28 in / 6.3K out [6.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 31s
+- Log: EXOCOMP-21__20260801T021337Z.jsonl
 ---
 <!-- COMMENTS:END -->
