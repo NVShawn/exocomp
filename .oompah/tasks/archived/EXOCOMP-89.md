@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-89
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Verify node mTLS identity and safely adopt resolved addresses
 parent: EXOCOMP-15
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:42:56.090929Z'
-updated_at: '2026-08-01T02:16:45.105935Z'
+updated_at: '2026-08-01T02:19:16.569744Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -46,6 +46,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-39a1ee39b785-3: '2026-07-31T19:58:05.672083+00:00'
+    attempt-6f513b822fb4: '2026-08-01T02:19:14.504156+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-89
@@ -53,6 +54,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 7fd8648fd2a3bb7deedcc4992c2cade4c73a78bad6666bdcb7f2c2aee34bc812
     audit_ids:
     - audit-39a1ee39b785
+    - audit-cfcfa9102ebe
     kind: result
     applied: true
     retired_at: '2026-07-31T19:58:05.672091+00:00'
@@ -69,6 +71,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T19:58:05.672102+00:00'
     applied_at: '2026-07-31T19:58:08.013816+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-89
+    audit_id: audit-cfcfa9102ebe
+    attempt_id: attempt-6f513b822fb4
+    target_state: Archived
+    evidence_fingerprint: 7fd8648fd2a3bb7deedcc4992c2cade4c73a78bad6666bdcb7f2c2aee34bc812
+    status: Archived
+    audit_ids:
+    - audit-cfcfa9102ebe
+    applied: false
+    created_at: '2026-08-01T02:19:14.504184+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -159,7 +172,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-89
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -168,7 +181,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6f513b822fb4
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -178,13 +191,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:16:40.984083+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:19:14.503976+00:00'
+      ended_at: '2026-08-01T02:19:14.503976+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:40.859850+00:00'
-    updated_at: '2026-08-01T02:16:40.984083+00:00'
+    updated_at: '2026-08-01T02:19:14.503976+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-78e4d7cd319f
@@ -463,5 +479,26 @@ author: oompah
 created: 2026-08-01 02:16
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:19
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- impl_file: apps/exocomp_coordinator/lib/exocomp/coordinator/node_prober.ex
+- impl_lines: 341
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/node_prober_test.exs
+- test_lines: 660
+- merge_commit: aa0c08a
+- on_main: true
+- downstream_extenders: EXOCOMP-90 (cfec4d2), EXOCOMP-91 (c88cf3e), EXOCOMP-114 (50cd48c)
+- previous_state: Merged
+- prior_audit_failure_root_cause: deleted origin/epic-EXOCOMP-2 branch reference; recovered by operator per OOMPAH-671
+- typed_outcomes: :healthy | :degraded | :timeout | :unreachable | :identity_mismatch
+- identity_mismatch_halts_probe: verified (test 'wrong identity: stops probing after first mismatch')
+- address_preservation_verified: empty candidates, timeout, unreachable, and mismatch tests all confirm Registry.addresses preserved
 ---
 <!-- COMMENTS:END -->
