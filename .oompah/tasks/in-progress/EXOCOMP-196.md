@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:38:44.900482Z'
+updated_at: '2026-08-01T15:38:55.693502Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -351,5 +351,10 @@ Implementation: Created the following files/changes:
 5. apps/exocomp_coordinator/lib/exocomp/coordinator/config.ex - Extended to parse cluster_profiles.ceph (version check, absolute path validation, env overrides EXOCOMP_CEPH_BINARY_PATH/CONF_PATH/KEYRING_PATH)
 6. Tests: ceph_test.exs (profile behaviour), validator_test.exs (all 7 scenarios: valid, missing files, relative paths, unsafe permissions, wrong ownership, absent binary, secret redaction), config_test.exs (Ceph parsing tests)
 7. Fixed existing tests: registry_test.exs and a2a_router_test.exs (ceph now in shipped profiles)
+---
+author: oompah
+created: 2026-08-01 15:38
+---
+Verification: make test passes - 866 passed / 10 excluded (coordinator+core suite) and 518 passed (node suite). All new tests pass: ceph profile behaviour, all 7 validator scenarios (valid config, missing files, relative paths, unsafe permissions, wrong ownership, absent binary, secret redaction), and coordinator Ceph config parsing/rejection. Existing tests updated to reflect Ceph now being in the shipped registry.
 ---
 <!-- COMMENTS:END -->
