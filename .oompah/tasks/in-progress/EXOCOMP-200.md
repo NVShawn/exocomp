@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T14:14:22.170344Z'
+updated_at: '2026-08-01T21:42:20.725380Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 607b0ac7-b56a-4c99-95b7-30162cd6bb3c
+oompah.agent_run_id: 5eb9d376-8230-40be-92a6-80d42f095781
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 oompah.integration:
   version: 2
@@ -46,8 +46,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-200
   base_branch: epic-EXOCOMP-186
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:12:43.715403+00:00'
+  base_sha: 0314c58199acb476c7384be42e88291af1beea95
+  updated_at: '2026-08-01T21:42:18.900556+00:00'
 oompah.task_costs:
   total_input_tokens: 606833
   total_output_tokens: 4046
@@ -118,5 +118,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 39s
 - Log: EXOCOMP-200__20260801T141247Z.jsonl
+---
+author: oompah
+created: 2026-08-01 21:42
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 21:42
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
