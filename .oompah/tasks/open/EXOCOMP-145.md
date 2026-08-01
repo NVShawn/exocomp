@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T21:37:40.385428Z'
+updated_at: '2026-08-01T21:55:35.277937Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -123,6 +123,7 @@ oompah.terminal_audit:
     attempt-e703af1125bb: '2026-08-01T17:02:57.255195+00:00'
     attempt-611078876978: '2026-08-01T17:52:15.037145+00:00'
     attempt-b9a9121becd5: '2026-08-01T18:22:54.722491+00:00'
+    attempt-c4a67d6b0f6d: '2026-08-01T21:55:32.048140+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -160,6 +161,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T18:22:54.722513+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    evidence_fingerprint: a5f0a46e61cd5498dd07348602f243d09c81a8e47727fd342020773b5926ad29
+    audit_ids:
+    - audit-5d48fc106d6e
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:55:32.048165+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -209,6 +219,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T18:22:54.722538+00:00'
     applied_at: '2026-08-01T18:22:58.346094+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    audit_id: audit-5d48fc106d6e
+    attempt_id: attempt-c4a67d6b0f6d
+    target_state: Done
+    evidence_fingerprint: a5f0a46e61cd5498dd07348602f243d09c81a8e47727fd342020773b5926ad29
+    status: Open
+    audit_ids:
+    - audit-5d48fc106d6e
+    applied: true
+    created_at: '2026-08-01T21:55:32.048190+00:00'
+    applied_at: '2026-08-01T21:55:34.569631+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -356,7 +378,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -365,7 +387,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-c4a67d6b0f6d
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -375,13 +397,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:37:34.271130+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+      verdict: fail
+      failure_classification: missing_evidence
+      completed_at: '2026-08-01T21:55:32.047939+00:00'
+      ended_at: '2026-08-01T21:55:32.047939+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T21:37:05.378873+00:00'
-    updated_at: '2026-08-01T21:37:34.271130+00:00'
+    updated_at: '2026-08-01T21:55:32.047939+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -935,5 +961,17 @@ author: oompah
 created: 2026-08-01 21:37
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:55
+---
+Audit FAIL — missing evidence. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Post an inline task comment containing the RAW UNTRUNCATED output of `make test 2>&1 | tail -5`, `make fmt-check 2>&1 | tail -3`, and `make lint 2>&1 | tail -3` executed inside the pinned builder container. Do not paraphrase and do not report only the supervisor test file.
+- If the pinned container/podman toolchain remains unrunnable in this environment (as reported in the 18:01 verification comment), stop retrying Done; instead route the task to Needs Human with a clear escalation comment describing the container failure, per the prior auditor's explicit instruction.
+- Do not request Done again until either (a) the raw make test/fmt-check/lint tails are posted inline and show all suites/checks passing, or (b) Needs Human is set with the container-toolchain escalation documented.
 ---
 <!-- COMMENTS:END -->
