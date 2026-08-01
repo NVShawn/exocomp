@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T15:56:36.588996Z'
+updated_at: '2026-08-01T15:57:06.768709Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -54,13 +54,17 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-136: 074712f0af1ff18d286cd2d4ff12b9399798ffdc
 oompah.task_costs:
-  total_input_tokens: 820106
-  total_output_tokens: 12567
+  total_input_tokens: 820112
+  total_output_tokens: 12830
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 820106
       output_tokens: 12567
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 6
+      output_tokens: 263
       cost_usd: 0.0
   runs:
   - profile: default
@@ -81,6 +85,12 @@ oompah.task_costs:
     output_tokens: 822
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:12:37.548256+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 263
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:57:05.223891+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-139__20260801T144343Z
@@ -381,5 +391,15 @@ Safe evidence:
 - test_deps_result: 9 passed, 0 failed
 - test_builders_result: 13 passed, 0 failed
 - make_test_output_bytes: ~93000 (consistent with full 573-test suite completion; auditor cannot read truncated file)
+---
+author: oompah
+created: 2026-08-01 15:57
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 56, Tool calls: 40
+- Tokens: 6 in / 263 out [269 total]
+- Cost: $0.0000
+- Exit: normal, Duration: 10m 48s
+- Log: EXOCOMP-139__20260801T154620Z.jsonl
 ---
 <!-- COMMENTS:END -->
