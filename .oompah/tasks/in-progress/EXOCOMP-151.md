@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-01T12:28:39.018568Z'
+updated_at: '2026-08-01T12:28:56.154204Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-08-01 12:28
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:28
+---
+Understanding: I will trace the coordinator command, replay, and durable event boundaries, then implement command-id validation/expiry, idempotent duplicate handling, separate receipt acknowledgement, and correlated terminal results with focused tests. I will run the required Makefile quality gates before committing and submitting.
 ---
 <!-- COMMENTS:END -->
