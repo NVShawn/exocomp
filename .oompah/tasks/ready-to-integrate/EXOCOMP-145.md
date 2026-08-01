@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T12:41:07.200514Z'
+updated_at: '2026-08-01T12:41:23.721662Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -48,13 +48,13 @@ oompah.integration:
   submitted_at: '2026-08-01T12:41:04.371421+00:00'
   updated_at: '2026-08-01T12:41:04.371421+00:00'
 oompah.task_costs:
-  total_input_tokens: 744316
-  total_output_tokens: 4014
+  total_input_tokens: 745730
+  total_output_tokens: 4341
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 744316
-      output_tokens: 4014
+      input_tokens: 745730
+      output_tokens: 4341
       cost_usd: 0.0
   runs:
   - profile: default
@@ -63,6 +63,12 @@ oompah.task_costs:
     output_tokens: 4014
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:10:57.089805+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1414
+    output_tokens: 327
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:41:22.294037+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-145__20260801T120915Z
@@ -153,5 +159,15 @@ author: oompah
 created: 2026-08-01 12:41
 ---
 Added optional Mission Control coordinator configuration with validation and supervision tree. Configuration block supports URL, TLS paths, heartbeat interval, reconnect bounds, and outbox path. Supervision tree (Outbox, Connection) starts conditionally only when enabled. All tests pass (533/533), lint/format checks pass. Existing coordinator behavior unchanged when config absent.
+---
+author: oompah
+created: 2026-08-01 12:41
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 84
+- Tokens: 1.4K in / 327 out [1.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 30m 17s
+- Log: EXOCOMP-145__20260801T121112Z.jsonl
 ---
 <!-- COMMENTS:END -->
