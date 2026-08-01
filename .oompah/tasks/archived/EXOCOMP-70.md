@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-70
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Create systemd unit file and fixture installer/cleanup scripts
 parent: EXOCOMP-29
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-08-01T03:02:46.632276Z'
+updated_at: '2026-08-01T03:03:53.333147Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -44,6 +44,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:32:57.695908+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-3e2586fc470e: '2026-08-01T03:03:51.341424+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-70
+    target_state: Archived
+    evidence_fingerprint: c46b41873b028646173d7283743fdc1bb5db464396191ab29ba819deddb455c4
+    audit_ids:
+    - audit-1fad7258de2b
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:03:51.341435+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-70
+    audit_id: audit-1fad7258de2b
+    attempt_id: attempt-3e2586fc470e
+    target_state: Archived
+    evidence_fingerprint: c46b41873b028646173d7283743fdc1bb5db464396191ab29ba819deddb455c4
+    status: Archived
+    audit_ids:
+    - audit-1fad7258de2b
+    applied: false
+    created_at: '2026-08-01T03:03:51.341453+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -51,7 +75,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-70
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -60,7 +84,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-3e2586fc470e
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -70,13 +94,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:02:36.242028+00:00'
       branch_key: epic-EXOCOMP-4
+      verdict: pass
+      completed_at: '2026-08-01T03:03:51.341225+00:00'
+      ended_at: '2026-08-01T03:03:51.341225+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:30.243317+00:00'
-    updated_at: '2026-08-01T03:02:36.242028+00:00'
+    updated_at: '2026-08-01T03:03:51.341225+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-3e2586fc470e
@@ -329,5 +356,22 @@ author: oompah
 created: 2026-08-01 03:02
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:03
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- commit_sha: 62d0171
+- commit_subject: EXOCOMP-70: add systemd unit file, install.sh, and cleanup.sh for exocomp-fixture
+- in_main: true
+- deliverable_service_unit: test/fixtures/exocomp_fixture/exocomp-fixture.service present with Restart=on-failure, StartLimitBurst=3, RuntimeDirectory=exocomp-fixture, WorkingDirectory=/run/exocomp-fixture, ExecStartPost health probe
+- deliverable_install_sh: test/fixtures/exocomp_fixture/install.sh present (idempotent, non-interactive, root-required)
+- deliverable_cleanup_sh: test/fixtures/exocomp_fixture/cleanup.sh present (idempotent, non-interactive, root-required, fixture-scoped)
+- deliverable_readme: test/fixtures/exocomp_fixture/README.md contains VM/privileged-container requirement
+- makefile_targets: fixture-install and fixture-cleanup targets present in Makefile (lines 192, 195)
 ---
 <!-- COMMENTS:END -->
