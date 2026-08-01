@@ -20,7 +20,7 @@ labels:
 - focus-complete:callback_auth
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:13:15.216984Z'
+updated_at: '2026-08-01T18:22:40.372360Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -767,5 +767,10 @@ author: oompah
 created: 2026-08-01 18:13
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 18:22
+---
+UNDERSTANDING (software-engineer): Reviewing the codebase after callback_auth focus (committed at cb7660e9). The M7 qualification harness is fully implemented across: scripts/test-m7-qualification.sh (live orchestrator), scripts/m7_qualification.py (input verification + result writing), scripts/finalize_m7_evidence.py (dual-arch finalization + signing). Hardening from the callback_auth focus includes: credential-bearing redacted-config rejection, query/fragment URL rejection, canonical M7 evidence enforcement, and symlink rejection before signing. All 156 Python offline tests pass (18 M7 contract + 53 release-check + 85 others). My role is to audit for any remaining software engineering gaps, verify quality gates, and hand off cleanly to devops once the qualification dependencies (EXOCOMP-176/178/181/182/183) are integrated.
 ---
 <!-- COMMENTS:END -->
