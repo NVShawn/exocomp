@@ -17,9 +17,10 @@ labels:
 - focus-complete:security
 - focus-complete:docs
 - focus-complete:devops
+- focus-complete:callback_auth
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:11:44.939032Z'
+updated_at: '2026-08-01T18:12:26.075754Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -709,5 +710,18 @@ author: oompah
 created: 2026-08-01 18:11
 ---
 VERIFICATION (callback_auth): PASS: make test-m7-qualification-contract (18 offline tests); PASS: make release-check (53 compliance/qualification/docs/packaging tests); PASS: make check-links, Python compilation, and git diff --check. make lint reached its containerized Mix step but cannot run in this managed guest because the docker command is a Podman wrapper that cannot create /run/user/1000/libpod (read-only filesystem); its preceding offline builder/docs/package checks passed. Live test-m7-qualification remains intentionally unavailable pending the signed candidate, supported systemd guests, and dependent scenario/scale/lifecycle targets.
+---
+author: oompah
+created: 2026-08-01 18:12
+---
+Focus handoff: callback_auth
+
+OUTCOME: Callback/auth evidence-boundary hardening is complete and pushed at cb7660e9.
+
+FILES / EVIDENCE: scripts/m7_qualification.py now blocks credential/key-bearing redacted-config values, query/fragment credentials in the service URL, and secret-bearing overrides. scripts/finalize_m7_evidence.py independently enforces the complete M7-CRIT-1..12 evidence mapping, passing phase records, well-formed candidate/operator identity, and no symlinked evidence before signing. docs/mission-control-qualification.md states the stricter contract; tests/test_m7_qualification.py has 18 focused regression tests. PASS: make test-m7-qualification-contract; make release-check (53 tests); make check-links; Python compilation; diff check. make lint is blocked only by the managed guest's read-only Podman runtime directory, after its offline checks passed.
+
+REMAINING WORK / RISKS: Do not submit EXOCOMP-184 yet. A signed final candidate, supported amd64/arm64 systemd guests, and integrated Mission Control scenario/scale/lifecycle targets are still required to execute the live qualification and signed dual-architecture evidence finalization. The harness continues to fail closed until then.
+
+RECOMMENDED NEXT FOCUS: devops, after EXOCOMP-178/181/182/183 integration, to run both guest qualifications and finalize signed evidence.
 ---
 <!-- COMMENTS:END -->
