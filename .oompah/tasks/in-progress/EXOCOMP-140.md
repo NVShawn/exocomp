@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:00:35.694320Z'
+updated_at: '2026-08-01T17:13:26.209366Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -417,5 +417,10 @@ author: oompah
 created: 2026-08-01 17:00
 ---
 Implementation: rebased onto epic-EXOCOMP-128 (including EXOCOMP-136/138), added OIDCConfigCache GenServer, encrypted per-session PKCE verifier, signed JWKS-backed JOSE JWT verification with issuer/audience/nonce/expiry checks, safe callback/logout handling, and a real signed fake provider. Replaced placeholder client/controller/integration tests with end-to-end scenarios and session-cookie assertions.
+---
+author: oompah
+created: 2026-08-01 17:13
+---
+Verification: focused OIDC test command was attempted but the host Elixir 1.18/OTP 27 environment lacks Erlang syntax_tools, so x509 dependency compilation stops before tests run. make fmt-check, make lint, and make test all pass their offline/structural portions but cannot start the pinned Docker/Podman container because /run/user/1000/libpod is read-only. make compliance-check passes; git diff --check is clean.
 ---
 <!-- COMMENTS:END -->
