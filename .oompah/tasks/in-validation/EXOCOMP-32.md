@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-32
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement approval-required active and degraded recovery
 parent: EXOCOMP-4
@@ -15,7 +15,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T19:10:47.855632Z'
-updated_at: '2026-07-25T02:22:50.403110Z'
+updated_at: '2026-08-01T03:00:24.086766Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -45,6 +45,28 @@ oompah.task_costs:
     output_tokens: 6529
     cost_usd: 0.0
     recorded_at: '2026-07-24T19:01:02.802293+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-9d1bcb9ceaf3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-32
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a305e5c3a398a561e36d759d664d8c1b92bf80d219a87eb9cbc1c3ac7a4564d9
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:21.599854+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -260,5 +282,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 17m 39s
 - Log: EXOCOMP-32__20260724T190140Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
