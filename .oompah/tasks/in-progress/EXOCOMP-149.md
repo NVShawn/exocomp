@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-01T12:27:10.970949Z'
+updated_at: '2026-08-01T12:35:25.720428Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -150,5 +150,10 @@ author: oompah
 created: 2026-08-01 12:27
 ---
 Discovery: the current branch contains only the Mission Control protocol plan; no gateway, event schema, database, or ingestion store exists yet. The existing coordinator uses GenServer-owned state and staged file persistence, while cluster identity is certificate-derived (DNS SAN in current coordinator PKI; Mission Control’s planned identity is SPIFFE organization/cluster). I’ll add a focused durable ingestion boundary with injectable authenticated identity and storage, then wire the coordinator HTTP route without coupling event reduction.
+---
+author: oompah
+created: 2026-08-01 12:35
+---
+Implementation: added ClusterIdentity certificate/SPIFFE parsing, strict ClusterEvent envelope validation (version, vocabulary, types, timestamps, bounds, and size), and serialized ClusterEventIngestor state transitions. Events, event-ID indexes, sequence indexes, and contiguous cursors persist together via staged snapshot rename; failed persistence leaves state and acknowledgements unchanged. Added EventIngestor alias, authenticated  handler, router/application wiring, production event-store configuration, and focused contract tests.
 ---
 <!-- COMMENTS:END -->
