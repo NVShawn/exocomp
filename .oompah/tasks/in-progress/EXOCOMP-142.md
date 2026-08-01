@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-01T11:56:38.227547Z'
+updated_at: '2026-08-01T11:57:48.535291Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -135,5 +135,10 @@ author: oompah
 created: 2026-08-01 11:56
 ---
 Understanding: I will trace the existing organization auth, schema, persistence, and test patterns; implement scoped one-use cluster invitation creation and atomic consumption with digest-only storage; add focused coverage for expiry, replay, organization/role/name conflicts, and concurrency; then run the required quality gates.
+---
+author: oompah
+created: 2026-08-01 11:57
+---
+Discovery: this branch has no Ecto/database layer or Mission Control app yet; the coordinator Plug router and GenServer-backed EnrollmentToken are the available integration points. I will follow that existing pattern with cryptographic digest-only storage, injected clocks/randomness, serialized atomic consumption, persistence, redacted audit metadata, and organization/role enforcement.
 ---
 <!-- COMMENTS:END -->
