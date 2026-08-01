@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-97
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement durable replay ledger with write-ahead semantics, concurrent serialization,
   and restart reconciliation
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:13:24.988532Z'
-updated_at: '2026-07-25T02:18:11.331434Z'
+updated_at: '2026-08-01T03:01:05.979526Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 620
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:14:54.545603+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-2b09d04949f5
+    project_id: proj-c260b117
+    task_id: EXOCOMP-97
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e5b6c51afa4e2e9e5492481373e4d0967f053efe30c469be3503fa1a5d4c1fb8
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:01:03.833580+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -306,5 +328,10 @@ author: oompah
 created: 2026-07-24 16:25
 ---
 Implemented and pushed a supervised DETS replay ledger with write-ahead durability, crash reconciliation, concurrent duplicate handling, fail-closed storage behavior, and comprehensive passing tests.
+---
+author: oompah
+created: 2026-08-01 03:01
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
