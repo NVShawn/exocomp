@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:38.872090Z'
-updated_at: '2026-08-01T12:32:32.175626Z'
+updated_at: '2026-08-01T12:32:44.376981Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-154
 target_branch: null
 review_url: null
@@ -127,5 +127,10 @@ author: oompah
 created: 2026-08-01 12:32
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:32
+---
+Understanding: I will inspect the existing model, storage, and migration/test patterns plus plans/mission-control.md; implement organization-scoped incidents/events, deterministic secret-free fingerprints, atomic repeated-evidence upsert, and correlated event ordering; then run focused tests and all required quality gates before committing, pushing, and submitting.
 ---
 <!-- COMMENTS:END -->
