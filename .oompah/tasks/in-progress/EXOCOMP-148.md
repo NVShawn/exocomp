@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-01T12:36:42.947502Z'
+updated_at: '2026-08-01T12:39:30.220840Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -143,5 +143,10 @@ author: oompah
 created: 2026-08-01 12:36
 ---
 Implementation: added EventOutbox with versioned atomic JSON persistence, per-cluster monotonic counters, stable generated/supplied event IDs, duplicate idempotency, unsent status.snapshot coalescing with sequence reuse, sent marking, contiguous acknowledgements, size/schema/redaction validation, corrupt/full-storage handling, supervised startup, and production/test path configuration. Added focused ExUnit coverage for restart, duplicates, coalescing, durable kinds, acknowledgements, redaction/schema, full storage, and corruption.
+---
+author: oompah
+created: 2026-08-01 12:39
+---
+Verification: focused EventOutbox tests ran in a local Elixir harness with the OTP JSON adapter (8 tests, 0 failures), and mix format --check-formatted plus syntax parsing pass. make test and make lint completed offline checks but their pinned Elixir container steps were blocked by the environment's read-only podman configuration; make fmt-check was blocked for the same reason. Host mix cannot run the project because it is Elixir 1.18.3 versus the declared 1.20.2.
 ---
 <!-- COMMENTS:END -->

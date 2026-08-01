@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-01T12:36:25.776260Z'
+updated_at: '2026-08-01T12:39:33.960944Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: f9a51151-476f-4930-82ab-b57021b5a8a3
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
-  base_branch: epic-EXOCOMP-130
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:14:59.554141+00:00'
+  head_sha: 5561520058dc075938bf595a25e2b84cbafef6bd
+  submitted_at: '2026-08-01T12:39:32.086390+00:00'
+  updated_at: '2026-08-01T12:39:32.086390+00:00'
 oompah.task_costs:
   total_input_tokens: 467252
   total_output_tokens: 4252
@@ -157,5 +157,15 @@ author: oompah
 created: 2026-08-01 12:36
 ---
 Verification update: focused tests now cover certificate-derived identity, wrong trust root, missing/wrong client credentials, revoked identities, payload spoofing, random session IDs, and session replacement; the integration fixture exercises a real Bandit TLS 1.3 WebSocket handshake and masked frame exchange. Local Elixir execution is blocked because the host has Elixir 1.18.3 (project requires 1.20.2) and lacks OTP syntax_tools; the required Make targets also cannot start their pinned Podman container because the runtime filesystem is read-only. Source parsing, formatted-file checks, compile-with-stub checks, and git diff checks pass.
+---
+author: oompah
+created: 2026-08-01 12:39
+---
+Completion: delivered commit 5561520 and pushed branch epic-EXOCOMP-130--task-EXOCOMP-146. The outbound coordinator client is wss/TLS-1.3 mTLS with server trust and enrolled client-cert validation; the standalone Mission Control gateway derives SPIFFE organization/cluster identity from the authenticated certificate, rejects revoked identities, issues random session IDs, and supersedes prior sessions. Focused unit/integration tests cover success, certificate/trust failures, revocation, spoofing, and replacement. Required containerized gates remain environment-blocked by read-only Podman; source parse/format/stub compilation and offline builder checks passed.
+---
+author: oompah
+created: 2026-08-01 12:39
+---
+Implemented outbound TLS 1.3 mTLS WebSocket coordinator client and validated Mission Control gateway with certificate-derived identity, revocation rejection, random sessions, replacement, and focused integration coverage.
 ---
 <!-- COMMENTS:END -->
