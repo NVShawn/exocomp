@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-08-01T01:46:41.151290Z'
+updated_at: '2026-08-01T01:47:22.843371Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-71
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/4
@@ -173,13 +173,32 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-71 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-71, origin/EXOCOMP-71)'
       next_retry_at: '2026-08-01T01:46:45.083658+00:00'
+    - version: 1
+      attempt_id: attempt-86f57d702524
+      target_state: Archived
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 2a24896797cca78fd5b82b7bfbfd637693342775b2e9c7872132a7f0860ec5fc
+      created_at: '2026-08-01T01:47:13.376287+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-01T01:47:13.376287+00:00'
+      branch_key: epic-EXOCOMP-29--task-EXOCOMP-71
+      candidate_rotation_count: 1
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-01T01:47:20.530652+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-71 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-71, origin/EXOCOMP-71)'
+      next_retry_at: '2026-08-01T01:47:40.530622+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Needs Human
     created_at: '2026-08-01T01:45:35.896842+00:00'
-    updated_at: '2026-08-01T01:46:35.083685+00:00'
+    updated_at: '2026-08-01T01:47:20.530652+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-26fe706cea4e
@@ -249,6 +268,25 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-71 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-71, origin/EXOCOMP-71)'
     next_retry_at: '2026-08-01T01:46:45.083658+00:00'
+  - version: 1
+    attempt_id: attempt-86f57d702524
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2a24896797cca78fd5b82b7bfbfd637693342775b2e9c7872132a7f0860ec5fc
+    created_at: '2026-08-01T01:47:13.376287+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-01T01:47:13.376287+00:00'
+    branch_key: epic-EXOCOMP-29--task-EXOCOMP-71
+    candidate_rotation_count: 1
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-01T01:47:20.530652+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-71 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-71, origin/EXOCOMP-71)'
+    next_retry_at: '2026-08-01T01:47:40.530622+00:00'
 oompah.integration:
   version: 1
   state: working
@@ -650,6 +688,25 @@ Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
 ---
 author: oompah
 created: 2026-08-01 01:46
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-71 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-71, origin/EXOCOMP-71). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 01:47
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-01 01:47
+---
+Run #2 [attempt=2, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 2s
+---
+author: oompah
+created: 2026-08-01 01:47
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-71 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-71, origin/EXOCOMP-71). A different independent auditor will be tried on the next scheduler tick.
 ---
