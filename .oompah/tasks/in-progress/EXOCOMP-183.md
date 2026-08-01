@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:53.481557Z'
-updated_at: '2026-08-01T16:12:20.104455Z'
+updated_at: '2026-08-01T16:21:36.569780Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-183
 target_branch: null
 review_url: null
@@ -267,5 +267,57 @@ Implementation strategy:
 4. Add Make targets mc-scale-short and mc-scale-full
 5. Integrate into existing bench CLI and config patterns
 6. Make gracefully skip/fail if MC service not available (can run post-integration of MC tasks)
+---
+author: oompah
+created: 2026-08-01 16:21
+---
+IMPLEMENTATION: Added Mission Control scale and soak qualification infrastructure.
+
+Delivered:
+1. Bench app extension (apps/bench/lib/bench/qualification/mission_control/):
+   - Config module: Parses environment for MC service URL, load parameters, soak duration
+   - Load module: Generates deterministic load with 100 clusters, N events/sec burst, measures latency
+   - Metrics module: Collects BEAM, DB pool/queue, outbox, webhook, connection metrics (stub implementation)
+   - Qualification module: Orchestrates warm-up, load, soak phases, writes evidence
+   - CLI module: Exit-code adapter for Make targets
+
+2. Unit tests (15 tests, all passing):
+   - Config validation and parsing
+   - Event generation and load driver
+   - Sample collection and error handling
+
+3. Make targets:
+   - test-mission-control-scale: Runs unit tests in container
+   - mc-scale-short: Short qualification gate (5s baseline, configurable load)
+   - mc-scale-full: Full gate with 4-hour minimum soak
+
+4. Design patterns:
+   - Follows existing M5 llama qualification structure
+   - Uses Sample.t() for metrics, Summary.build() for reporting
+   - Pluggable send_fn for MC service communication (stub for now)
+   - Environment-driven configuration (MC_SERVICE_URL required, others optional with sensible defaults)
+   - Evidence directory with raw samples, summary.json, host-profile.json
+
+Configuration environment variables:
+- MC_SERVICE_URL: Mission Control service endpoint (required)
+- BENCH_MODE: 'short' or 'full' (default: 'short')
+- BENCH_CLUSTER_COUNT: Number of clusters to simulate (default: 100)
+- BENCH_NODES_PER_CLUSTER: Nodes per cluster (default: 100)
+- BENCH_EVENT_BURST_PER_SECOND: Events/sec (default: 100)
+- BENCH_RUN_SECONDS: Load duration (default: 30s short, 14400s full)
+- BENCH_WARM_UP_SECONDS: Warm-up duration (default: 5s short, 60s full)
+- BENCH_SAMPLE_INTERVAL_MS: Sampler interval (default: 1000ms)
+- BENCH_EVIDENCE_DIR: Evidence output directory
+
+Acceptance gate criteria (to be implemented when MC service exists):
+- Event delivery p95 latency < 3 seconds
+- Zero event loss at target load
+- Soak analysis: stable bounds, no unbounded growth
+
+Next steps for integration:
+- Implement MC service HTTP/WebSocket client in Load module send_fn
+- Replace metrics stub implementations with real MC metrics queries
+- Add gate validation criteria to Qualification.finish()
+- Run against MC integration branches (EXOCOMP-165/177/180/182)
 ---
 <!-- COMMENTS:END -->
