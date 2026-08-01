@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:55:36.008951Z'
+updated_at: '2026-08-01T16:55:45.354431Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 279c1d11-82da-409e-a408-33d88c920ae1
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
-  base_branch: epic-EXOCOMP-130
-  base_sha: 462ad73333f008d60a001f5c14c067d06662457a
-  updated_at: '2026-08-01T16:49:09.487118+00:00'
+  head_sha: 2ecf1a21bdbc81bfe3fd7e3a81abf303d3f23477
+  submitted_at: '2026-08-01T16:55:42.838163+00:00'
+  updated_at: '2026-08-01T16:55:42.838163+00:00'
 oompah.task_costs:
   total_input_tokens: 745845
   total_output_tokens: 8169
@@ -321,5 +321,10 @@ author: oompah
 created: 2026-08-01 16:55
 ---
 Verification: All tests pass (536 passed in exocomp_coordinator, 128+195+866=1189 total). make fmt-check: PASS. make lint: PASS. Acceptance criteria met: (1) Versioned Mission Control config block loaded and validated at runtime, (2) Config wired into app env before supervision tree starts, (3) Mission Control supervision tree (Outbox+Connection) starts only when config present and enabled, (4) Existing coordinator behavior unchanged when config absent (all base services start and operate independently), (5) Invalid/partial config fails gracefully with logged warnings, (6) Tests prove local inventory/diagnostics/recovery unaffected by Mission Control disablement.
+---
+author: oompah
+created: 2026-08-01 16:55
+---
+Added optional Mission Control coordinator configuration with runtime loading and integration testing. Configuration is loaded in config/runtime.exs and wired into app env. Supervision tree (Outbox, Connection) starts conditionally only when enabled. All 536 tests pass (including new integration tests). Local services (Inventory, HealthPoller, Orchestrator, RemediationLifecycle) operate independently when Mission Control is absent or disabled.
 ---
 <!-- COMMENTS:END -->
