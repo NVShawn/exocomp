@@ -319,7 +319,33 @@ fi
 cp -rf "${REPO_ROOT}/release" "${BUNDLE_STAGE}/release"
 log "  staged: release/"
 
-# 2e. Installer scripts
+# 2e. Profile-action helper (Ceph profile execution)
+# The helper is separately compiled for each architecture and used by the node
+# to execute profile-based actions (like restart_failed_daemon) without shell.
+PROFILE_HELPER_PATH="${REPO_ROOT}/_build/profile-action-helper/profile_action_helper"
+if [[ ! -f "${PROFILE_HELPER_PATH}" ]]; then
+    log "  profile-action-helper not found; building..."
+    if command -v make >/dev/null 2>&1; then
+        if make -C "${REPO_ROOT}" build-profile-action-helper >/dev/null 2>&1; then
+            log "  profile-action-helper built successfully"
+        else
+            die "failed to build profile-action-helper; check compiler setup"
+        fi
+    else
+        die "make is required to build profile-action-helper"
+    fi
+fi
+
+if [[ -f "${PROFILE_HELPER_PATH}" ]]; then
+    mkdir -p "${BUNDLE_STAGE}/bin"
+    cp -f "${PROFILE_HELPER_PATH}" "${BUNDLE_STAGE}/bin/profile-action-helper"
+    chmod 755 "${BUNDLE_STAGE}/bin/profile-action-helper"
+    log "  staged: bin/profile-action-helper"
+else
+    die "profile-action-helper could not be staged; binary not found at ${PROFILE_HELPER_PATH}"
+fi
+
+# 2f. Installer scripts
 mkdir -p "${BUNDLE_STAGE}/scripts"
 cp -f "${SCRIPT_DIR}/install.sh"     "${BUNDLE_STAGE}/scripts/"
 cp -f "${SCRIPT_DIR}/uninstall.sh"   "${BUNDLE_STAGE}/scripts/"
@@ -328,7 +354,7 @@ cp -f "${SCRIPT_DIR}/verify-bundle.sh" "${BUNDLE_STAGE}/scripts/"
 chmod 755 "${BUNDLE_STAGE}/scripts/"*.sh
 log "  staged: scripts/"
 
-# 2f. License texts
+# 2g. License texts
 # Assembly fails closed when the required LICENSES directory is absent or empty.
 # Every governed component that ships in the bundle must have its license text present.
 LICENSES_SRC="${REPO_ROOT}/${LICENSES_DIR}"

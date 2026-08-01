@@ -133,6 +133,7 @@ render_sudoers() {
     local account="$1"
     local allow_list="$2"  # comma-separated service names
     local vacuum_size="${3:-100M}"
+    local profile_helper_path="${4:-}"  # optional path to profile-action-helper
 
     # Validate account: alphanumeric + underscore + hyphen, starting with letter/underscore
     if ! echo "${account}" | grep -qE '^[a-zA-Z_][a-zA-Z0-9_-]*$'; then
@@ -140,6 +141,12 @@ render_sudoers() {
     fi
 
     local entries=()
+
+    # Add exact entry for profile-action-helper if provided
+    # This grants ONLY the exact helper path with no arguments
+    if [[ -n "${profile_helper_path}" ]]; then
+        entries+=("${profile_helper_path}")
+    fi
 
     # Add restart entries for each allow-listed service
     if [[ -n "${allow_list}" ]]; then
@@ -511,6 +518,35 @@ install_release() {
     log "  release ${VERSION} staged"
 }
 
+# ── Phase 3b: INSTALL PROFILE-ACTION HELPER ──────────────────────────────────
+
+install_profile_action_helper() {
+    log "==> PROFILE-ACTION HELPER"
+
+    local account="exocomp-${COMPONENT}"
+    local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local bin_dir="${install_dir}/bin"
+    local helper_dest="${bin_dir}/profile-action-helper"
+    local helper_src="${BUNDLE_ROOT}/bin/profile-action-helper"
+
+    if [[ ! -f "${helper_src}" ]]; then
+        log "  profile-action-helper not found in bundle; skipping"
+        return
+    fi
+
+    if [[ "${DRY_RUN}" -eq 1 ]]; then
+        log "  [dry-run] would install helper to ${helper_dest}"
+        return
+    fi
+
+    mkdir -p "${bin_dir}"
+    cp -f "${helper_src}" "${helper_dest}"
+    chmod 755 "${helper_dest}"
+    do_chown root:root "${helper_dest}"
+
+    log "  helper installed: ${helper_dest}"
+}
+
 # ── Phase 4: CONFIGURATION TEMPLATE ──────────────────────────────────────────
 
 install_config() {
@@ -650,9 +686,17 @@ install_sudoers() {
     log "==> SUDOERS POLICY"
 
     local account="exocomp-${COMPONENT}"
+    local install_dir="${INSTALL_BASE}/${COMPONENT}"
+    local helper_path="${install_dir}/bin/profile-action-helper"
     local sudoers_dest="${EXOCOMP_SUDOERS_DIR}/${account}"
     local policy
-    policy="$(render_sudoers "${account}" "${ALLOW_LIST}")"
+    
+    # Only include profile-action-helper path in sudoers for node component
+    if [[ "${COMPONENT}" == "node" && -f "${install_dir}/bin/profile-action-helper" ]]; then
+        policy="$(render_sudoers "${account}" "${ALLOW_LIST}" "100M" "${helper_path}")"
+    else
+        policy="$(render_sudoers "${account}" "${ALLOW_LIST}")"
+    fi
 
     if [[ -z "${policy}" ]]; then
         log "  allow-list is empty; no sudoers entries installed"
@@ -925,11 +969,14 @@ write_manifest() {
 #
 # Remove only if --purge category is specified.
 
+# Profile-action helper (if installed)
+$(if [[ -f "${install_dir}/bin/profile-action-helper" ]]; then echo "${install_dir}/bin/profile-action-helper"; fi)
+
 # Systemd unit
 ${EXOCOMP_SYSTEMD_DIR}/${unit_name}.service
 
 # Sudoers policy (if installed)
-$(if [[ -n "${ALLOW_LIST}" ]]; then echo "${EXOCOMP_SUDOERS_DIR}/${account}"; fi)
+$(if [[ -n "${ALLOW_LIST}" ]] || [[ -f "${install_dir}/bin/profile-action-helper" ]]; then echo "${EXOCOMP_SUDOERS_DIR}/${account}"; fi)
 
 # Current version symlink
 ${install_dir}/current
@@ -954,6 +1001,7 @@ main() {
     preflight
     setup_users_and_dirs
     install_release
+    install_profile_action_helper
     install_config
     install_release_cookie
     validate_config

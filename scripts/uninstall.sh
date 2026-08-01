@@ -236,6 +236,9 @@ remove_manifest_files() {
         manifest_file="${install_dir}/manifest-${VERSION}.txt"
     fi
 
+    # Remove profile-action helper (if installed)
+    remove_if_exists "${install_dir}/bin/profile-action-helper"
+
     # Remove systemd unit
     remove_if_exists "${EXOCOMP_SYSTEMD_DIR}/${unit_name}.service"
 
