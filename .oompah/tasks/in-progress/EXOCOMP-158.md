@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T12:50:22.858098Z'
+updated_at: '2026-08-01T12:52:03.723095Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -156,5 +156,10 @@ author: oompah
 created: 2026-08-01 12:50
 ---
 Verification update: focused conversation tests pass (8 tests, 0 failures) under a direct ExUnit runner because host Mix rejects the declared Elixir 1.20.2 on local Elixir 1.18.3. Syntax validation passes. make init cannot access the pinned builder because Docker is unavailable; I will still attempt make test, make fmt-check, and make lint and record their results.
+---
+author: oompah
+created: 2026-08-01 12:52
+---
+Verification: focused conversation suite passes 8 tests with 0 failures after final malformed-evidence handling fix; host syntax and formatter idempotence checks pass. Offline builder checks pass (13 structural/fixture checks). Required container-backed make test/fmt-check/lint remain environment-blocked by the read-only libpod runtime configuration.
 ---
 <!-- COMMENTS:END -->

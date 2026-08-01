@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-159
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement the coordinator exocomp.cluster.chat skill
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-01T12:50:54.451096Z'
+updated_at: '2026-08-01T12:52:05.865027Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -61,12 +61,12 @@ oompah.agent_run_id: 9f8d32f2-7e1d-4d03-b760-64328acff0bb
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-159
-  base_branch: epic-EXOCOMP-132
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:38:50.250161+00:00'
+  head_sha: 3c529fec0978dd2460eb4bd5e98b7348a7e6abad
+  submitted_at: '2026-08-01T12:52:03.870189+00:00'
+  updated_at: '2026-08-01T12:52:03.870189+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 874
@@ -229,5 +229,37 @@ Key capabilities verified:
 ✓ Bounded context: thread limited to 50 messages or 64 KiB
 ✓ Evidence summarization in prompt
 ✓ Schema-constrained output validation
+---
+author: oompah
+created: 2026-08-01 12:52
+---
+## Verification
+
+Quality gates passed:
+✓ make test: 562 passed (coordinator) + 866 passed (full suite)
+✓ make fmt-check: all files formatted correctly
+✓ make lint: no warnings or errors
+
+Test execution confirms:
+✓ ClusterChat skill correctly dispatches to client
+✓ ClusterChatClient handles all error paths (unavailable, timeout, schema errors)
+✓ ClusterChatSchema validates all response formats and structures
+✓ Evidence citations properly formatted and validated
+✓ Proposal validation enforces schema constraints
+✓ Context truncation at max_bytes
+✓ Audit logging with redacted output
+
+Implementation follows existing patterns:
+- Matches ClusterHealth/ClusterDiagnose/ClusterRecover structure
+- Uses injectable client for testing
+- Comprehensive error handling and logging
+- Schema validation pipeline identical to ProposalClient pattern
+
+Ready for integration with Mission Control conversation flow.
+---
+author: oompah
+created: 2026-08-01 12:52
+---
+Implemented exocomp.cluster.chat skill for coordinator with schema-validated responses, evidence citations, optional proposals, bounded context, and comprehensive test coverage. All quality gates passing.
 ---
 <!-- COMMENTS:END -->
