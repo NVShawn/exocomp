@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-08-01T01:48:09.733282Z'
+updated_at: '2026-08-01T01:48:12.398584Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-71
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/4
@@ -80,7 +80,19 @@ oompah.terminal_audit:
       that merge commit is an ancestor of current origin/main, and the systemd integration
       test suite is present. Legacy audit metadata lacks a resolvable source revision.'
     created_at: '2026-08-01T01:48:06.817820+00:00'
-    applied: false
+    applied: true
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-71
+    target_state: Archived
+    evidence_fingerprint: 2a24896797cca78fd5b82b7bfbfd637693342775b2e9c7872132a7f0860ec5fc
+    audit_ids:
+    - audit-7aa9b99b1cdd
+    - audit-8d1d090b50b1
+    kind: override
+    applied: true
+    retired_at: '2026-08-01T01:48:11.527231+00:00'
+  oompah.terminal_audit_result_intents: []
   version: 1
   pending_chain:
   - version: 1
@@ -168,7 +180,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-71
     target_state: Archived
-    request_state: pending
+    request_state: cancelled
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -217,7 +229,7 @@ oompah.terminal_audit:
       source: api
     previous_state: Needs Human
     created_at: '2026-08-01T01:45:35.896842+00:00'
-    updated_at: '2026-08-01T01:47:20.530652+00:00'
+    updated_at: '2026-08-01T01:48:11.527203+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-26fe706cea4e

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-08-01T01:47:28.664998Z'
+updated_at: '2026-08-01T01:48:17.591453Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-72
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/3
@@ -54,6 +54,25 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-03be0d4ba4e2-3: '2026-07-30T21:59:02.987658+00:00'
+  oompah.terminal_override_records:
+  - version: 1
+    override_id: override-cf6e90126534
+    project_id: proj-c260b117
+    task_id: EXOCOMP-72
+    target_state: Archived
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f98ed9054e723cac9a94a8a2a5f772957c3b8f181e016f2703b64d73c33ccbb4
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: 'Owner-verified immutable evidence: PR #3 merged as 1db113533285bdbf2983576d9a77b0bd0352d421,
+      that merge commit is an ancestor of current origin/main, and docs/testing-systemd-fixture.md
+      is present. Legacy audit metadata lacks a resolvable source revision.'
+    created_at: '2026-08-01T01:48:15.279001+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
@@ -614,5 +633,12 @@ author: oompah
 created: 2026-08-01 01:47
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-72 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-72, origin/EXOCOMP-72). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 01:48
+---
+Override by oompah-cli: terminal transition to Archived applied by project owner.
+
+Reason: Owner-verified immutable evidence: PR #3 merged as 1db113533285bdbf2983576d9a77b0bd0352d421, that merge commit is an ancestor of current origin/main, and docs/testing-systemd-fixture.md is present. Legacy audit metadata lacks a resolvable source revision.
 ---
 <!-- COMMENTS:END -->
