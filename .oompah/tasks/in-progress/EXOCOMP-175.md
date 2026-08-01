@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:39.520334Z'
-updated_at: '2026-08-01T15:46:57.108118Z'
+updated_at: '2026-08-01T15:52:38.325333Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 target_branch: null
 review_url: null
@@ -141,5 +141,10 @@ author: oompah
 created: 2026-08-01 15:46
 ---
 **Understanding:** Task is to implement configurable retention policy for Mission Control history (incidents, conversations, proposals, audit events, webhook history). Default one-year for incidents/messages/proposals/audits, 90 days for status history. Must delete in bounded batches without blocking ingestion, preserve open/pending records, and record job stats. Checking codebase for existing schema and dependencies.
+---
+author: oompah
+created: 2026-08-01 15:52
+---
+**Discovery:** Merged blocking task branches (EXOCOMP-174, EXOCOMP-158, EXOCOMP-173, EXOCOMP-161) to access schema and models. Found mission_control app with audit_event, conversation, message, proposal, and webhook modules. Need to implement: (1) Retention.Janitor module for bounded deletion, (2) retention settings per organization, (3) tests covering cutoff boundaries, open/pending preservation, multiple organizations, concurrent ingest. Database schema layer still TBD by blocking tasks.
 ---
 <!-- COMMENTS:END -->

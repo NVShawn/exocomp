@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-138
 type: task
-status: Ready to Integrate
+status: Needs Rebase
 priority: 2
 title: Add organizations and mandatory organization scoping
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T15:10:38.531348Z'
+updated_at: '2026-08-01T15:52:33.249644Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -61,12 +61,30 @@ oompah.agent_run_id: a2b5866b-0502-4e8e-93a7-d61e62041633
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-138
+  base_branch: epic-EXOCOMP-128
+  base_sha: 778b0ae585f105fdcad710ed272f129950a44d54
   head_sha: 29426a2f8932790ce2322fcab0ba513aca611c2a
   submitted_at: '2026-08-01T15:09:28.250422+00:00'
-  updated_at: '2026-08-01T15:09:28.250422+00:00'
+  updated_at: '2026-08-01T15:52:30.757725+00:00'
+  last_error: 'Rebase onto the latest epic head conflicted: Rebasing (1/1)
+
+    error: could not apply 29426a2f... EXOCOMP-138: add organization scoping
+
+    hint: Resolve all conflicts manually, mark them as resolved with
+
+    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+
+    hint: You can instead skip this commit: run "git rebase --skip".
+
+    hint: To abort and get back to the state before "git rebase", run "git rebase
+    --abort".
+
+    hint: Disable this message with "git config set advice.mergeConflict false"
+
+    Could not apply 29426a2f... # EXOCOMP-138: add organization scoping'
 oompah.task_costs:
   total_input_tokens: 26885270
   total_output_tokens: 71951
@@ -255,5 +273,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 27m 6s
 - Log: EXOCOMP-138__20260801T144338Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:52
+---
+Integration found a rebase conflict on `epic-EXOCOMP-128--task-EXOCOMP-138`. Resolve it against `epic-EXOCOMP-128`, run the required tests, push the same private branch, and `oompah task submit` it again.
 ---
 <!-- COMMENTS:END -->
