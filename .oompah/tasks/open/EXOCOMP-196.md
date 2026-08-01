@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:11:14.534695Z'
+updated_at: '2026-08-01T15:12:53.618879Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null

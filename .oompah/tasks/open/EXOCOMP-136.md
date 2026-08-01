@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-136
 type: task
-status: In Progress
+status: Open
 priority: 2
 title: Scaffold the Mission Control Phoenix application
 parent: EXOCOMP-128
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T15:11:03.935785Z'
+updated_at: '2026-08-01T15:12:52.716152Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
