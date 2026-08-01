@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T16:40:39.537931Z'
+updated_at: '2026-08-01T16:40:52.222232Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -59,8 +59,8 @@ oompah.integration:
   submitted_at: '2026-08-01T16:17:43.441713+00:00'
   updated_at: '2026-08-01T16:18:37.304471+00:00'
 oompah.task_costs:
-  total_input_tokens: 7366627
-  total_output_tokens: 64871
+  total_input_tokens: 7366833
+  total_output_tokens: 73760
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -68,8 +68,8 @@ oompah.task_costs:
       output_tokens: 32245
       cost_usd: 0.0
     unknown:
-      input_tokens: 131
-      output_tokens: 32626
+      input_tokens: 337
+      output_tokens: 41515
       cost_usd: 0.0
   runs:
   - profile: default
@@ -96,6 +96,12 @@ oompah.task_costs:
     output_tokens: 26796
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:18:12.603563+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 206
+    output_tokens: 8889
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:40:50.883493+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-202__20260801T141709Z
@@ -588,5 +594,15 @@ Safe evidence:
 - bundle_tests: tests/test_bundle.py: test_profile_action_helper_present_and_authenticated, TestProfileActionHelperArchitecture (parametrized amd64/arm64, wrong-arch rejection), test_profile_action_helper_package_present_and_hash_pinned, test_tampered_profile_action_helper_fails_verification
 - installer_tests: test/installer/test_installer.py TestProfileActionHelperInstall (8 cases) + test_visudo_failure_does_not_install_sudoers_policy at line 1833
 - prior_audit_gaps_status: test_bundle helper coverage: closed; SBOM SPDX entry: closed; visudo-fail rollback test: closed; per-arch helper input + ELF verification: closed
+---
+author: oompah
+created: 2026-08-01 16:40
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 161
+- Tokens: 206 in / 8.9K out [9.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 21m 10s
+- Log: EXOCOMP-202__20260801T161943Z.jsonl
 ---
 <!-- COMMENTS:END -->
