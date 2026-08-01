@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-23
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement signed task-bound approval issuance
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-08-01T03:27:08.872186Z'
+updated_at: '2026-08-01T03:31:58.980175Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -46,6 +46,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T02:37:03.097737+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-8bbb39afb67b: '2026-08-01T03:31:56.716811+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-23
+    target_state: Archived
+    evidence_fingerprint: 05158a8b12cf995fa2fbfe8bbeb77718c3eaeb93e1242856b822465f068c5e51
+    audit_ids:
+    - audit-f44665884eb4
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:31:56.716824+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-23
+    audit_id: audit-f44665884eb4
+    attempt_id: attempt-8bbb39afb67b
+    target_state: Archived
+    evidence_fingerprint: 05158a8b12cf995fa2fbfe8bbeb77718c3eaeb93e1242856b822465f068c5e51
+    status: Archived
+    audit_ids:
+    - audit-f44665884eb4
+    applied: false
+    created_at: '2026-08-01T03:31:56.716842+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -53,7 +77,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-23
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -62,7 +86,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-8bbb39afb67b
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -72,13 +96,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:27:05.564432+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:31:56.716634+00:00'
+      ended_at: '2026-08-01T03:31:56.716634+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T02:59:50.116606+00:00'
-    updated_at: '2026-08-01T03:27:05.564432+00:00'
+    updated_at: '2026-08-01T03:31:56.716634+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-8bbb39afb67b
@@ -279,5 +306,22 @@ author: oompah
 created: 2026-08-01 03:27
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:31
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- epic_branch_tip: 3949c53
+- coordinator_module: apps/exocomp_coordinator/lib/exocomp/coordinator/safety/approval_token.ex
+- coordinator_commit: 377679d
+- node_verifier: apps/exocomp_node/lib/exocomp/node/safety/approval_verifier.ex
+- node_verifier_commit: 7b477ce
+- pki_key_source: apps/exocomp_coordinator/lib/exocomp/coordinator/pki/bootstrap.ex
+- milestone_gate: plans/milestone-3-safety-validation.md M3-CRIT-6 marked complete
+- aging_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
