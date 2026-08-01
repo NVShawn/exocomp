@@ -24,7 +24,9 @@ defmodule Exocomp.MissionControl.MixProject do
   defp deps do
     [
       {:jason, "~> 1.4"},
-      {:plug, "~> 1.17"}
+      {:plug, "~> 1.17"},
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, "~> 0.18"}
     ]
   end
 end
