@@ -19,7 +19,7 @@ labels:
 - focus-complete:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:05:46.888291Z'
+updated_at: '2026-08-01T18:06:59.725518Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -694,5 +694,10 @@ author: oompah
 created: 2026-08-01 18:05
 ---
 UNDERSTANDING (callback_auth): I will audit the M7 qualification and evidence-finalization boundary for signing-key safety, signer identity validation, and tamper/failure handling. I will add focused offline regression tests for any missing fail-closed behavior, keeping the existing release interfaces backward compatible; I will not run unsupported live guest qualification.
+---
+author: oompah
+created: 2026-08-01 18:06
+---
+DISCOVERY (callback_auth): The M7 harness already uses ssh-keygen allowed-signers verification, but two fail-closed gaps remain at the evidence boundary: M7_MC_SERVICE_URL permits query/fragment secrets, and redacted-config checks omit credential/API/signing-key fields. The finalizer also trusts a mutable per-architecture result's claimed required-evidence list rather than enforcing the canonical M7 phase evidence contract before signing.
 ---
 <!-- COMMENTS:END -->
