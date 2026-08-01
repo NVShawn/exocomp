@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T15:00:56.392822Z'
+updated_at: '2026-08-01T15:11:45.262544Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -132,5 +132,10 @@ author: oompah
 created: 2026-08-01 15:00
 ---
 Understanding: Implement the Ceph branch of exocomp.profile.inspect for fixed systemd discovery of traditional and cephadm monitor, manager, OSD, MDS, and gateway units. I will audit command construction, strict unit-name parsing, bounded/timeout output handling, and no-installation behavior, then add focused fixture tests and run make test.
+---
+author: oompah
+created: 2026-08-01 15:11
+---
+Discovery: No profile-inspection code existed. The node skill dispatcher and Agent Card are the integration points; existing Systemd collectors establish the direct System.cmd/MFA seam. The parent registry is intentionally static and Ceph config/topology are owned by sibling tasks, so this change stays in exocomp_node and performs only local systemd discovery.
 ---
 <!-- COMMENTS:END -->
