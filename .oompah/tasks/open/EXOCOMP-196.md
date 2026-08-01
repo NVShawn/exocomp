@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:08:40.798664Z'
+updated_at: '2026-08-01T15:10:36.630820Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -210,5 +210,25 @@ Reference implementation: apps/exocomp_core/lib/exocomp/cluster_profile/default.
 Reference tests: apps/exocomp_core/test/exocomp/cluster_profile/registry_test.exs
 
 Note: EXOCOMP-195 established profile infrastructure; this builds on that foundation.
+---
+author: oompah
+created: 2026-08-01 15:10
+---
+Completion: Documentation phase complete and handed off.
+
+Delivered:
+- docs/ceph-profile-configuration.md with complete operator guidance for Ceph integration
+- Specification of absolute path requirements, validation rules, and fail-safe degradation behavior
+- Cephx capability recommendations (mon, mgr, osd, mds read-only)
+- Configuration examples and environment variable overrides
+- Troubleshooting guide and validation checklist
+
+Branch: epic-EXOCOMP-186--task-EXOCOMP-196
+Commit: f621e163 (Ceph profile configuration documentation)
+
+Status: Handed off to backend/feature developer with detailed implementation guidance
+Label: needs:feature (for backend implementation phase)
+
+Next phase: Backend developer implements Ceph profile module, coordinator configuration support, startup validation with audit events, and comprehensive tests.
 ---
 <!-- COMMENTS:END -->

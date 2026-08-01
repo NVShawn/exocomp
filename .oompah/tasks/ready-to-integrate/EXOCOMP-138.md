@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T15:09:31.183320Z'
+updated_at: '2026-08-01T15:10:38.531348Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -68,13 +68,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:09:28.250422+00:00'
   updated_at: '2026-08-01T15:09:28.250422+00:00'
 oompah.task_costs:
-  total_input_tokens: 146
-  total_output_tokens: 5601
+  total_input_tokens: 26885270
+  total_output_tokens: 71951
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 146
-      output_tokens: 5601
+      input_tokens: 26885270
+      output_tokens: 71951
       cost_usd: 0.0
   runs:
   - profile: default
@@ -83,6 +83,12 @@ oompah.task_costs:
     output_tokens: 5601
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:43:21.429838+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 26885124
+    output_tokens: 66350
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:10:37.128906+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-138__20260801T144129Z
@@ -239,5 +245,15 @@ author: oompah
 created: 2026-08-01 15:09
 ---
 Added UUID-backed organizations, initial seed, mandatory organization scoping, scoped CRUD examples with FK/composite uniqueness constraints, and cross-organization isolation tests. Focused tests pass; Makefile container gates were unavailable because Docker/Podman could not initialize.
+---
+author: oompah
+created: 2026-08-01 15:10
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 217
+- Tokens: 26.9M in / 66.3K out [27.0M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 27m 6s
+- Log: EXOCOMP-138__20260801T144338Z.jsonl
 ---
 <!-- COMMENTS:END -->
