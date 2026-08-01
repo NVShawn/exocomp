@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:10:44.047159Z'
+updated_at: '2026-08-01T16:11:11.643205Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -43,12 +43,15 @@ oompah.agent_run_id: b67013e1-4079-46a6-8ef9-2fd2d22f9f15
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-196
-  head_sha: f6f24f96d83e6fccb7081fdb4840c44c73b89c0a
+  base_branch: epic-EXOCOMP-186
+  base_sha: 7b4b2af51f12b228fbaabe25bbaa3a757e776022
+  head_sha: 01e47253725924bee714d2c28cf6063fa6788d97
+  integrated_sha: 01e47253725924bee714d2c28cf6063fa6788d97
   submitted_at: '2026-08-01T16:10:39.544583+00:00'
-  updated_at: '2026-08-01T16:10:39.544583+00:00'
+  updated_at: '2026-08-01T16:11:07.866490+00:00'
 oompah.task_costs:
   total_input_tokens: 1289389
   total_output_tokens: 25834
@@ -149,7 +152,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-196
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -179,6 +182,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:42:15.964381+00:00'
     updated_at: '2026-08-01T15:52:10.980977+00:00'
+  - version: 1
+    audit_id: audit-afbda93182c6
+    project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e40d35346dc9b9710024dc82b52687cdf131389ea93c1d846ae38db7002dd880
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T16:11:10.123535+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d465f6bfc92e
