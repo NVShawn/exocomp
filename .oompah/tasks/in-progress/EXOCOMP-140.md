@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T11:57:08.140895Z'
+updated_at: '2026-08-01T12:08:17.604520Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -209,5 +209,40 @@ created: 2026-08-01 11:57
 - Session-based authentication with PKCE flow
 - Comprehensive test suite with unit and integration tests
 - Configuration for dev/test/prod environments
+---
+author: oompah
+created: 2026-08-01 12:08
+---
+**Implementation Complete:** OIDC login, callback, and logout routes are fully implemented.
+
+**What was built:**
+- exocomp_mission_control Phoenix app with complete OIDC flow
+- AuthController with /auth/login, /auth/callback, /auth/logout routes
+- OIDCClient module implementing:
+  * Authorization Code flow with PKCE (code_challenge/code_verifier)
+  * Token exchange with secure code verification
+  * ID token validation (issuer, audience, nonce, expiration)
+  * OIDC configuration discovery and caching with 1-hour TTL
+
+**Session Security:**
+- HTTP-only cookies (XSS protection)
+- Secure flag (HTTPS enforcement)  
+- SameSite=Lax (CSRF protection)
+- Session rotation on login (fixation prevention)
+- 7-day expiration
+
+**Claims Storage:**
+- Only stable claims stored: subject, email, name, issuer
+- Tokens never stored in session (logged out after validation)
+- Client secrets never logged
+
+**Testing:**
+- Unit tests for OIDC client validation logic
+- Integration tests with FakeOIDCProvider for full flows
+- Tests cover: state validation, nonce mismatch, invalid issuer/audience, denied login, logout
+
+**Files changed:** 23 files (1551 LOC added)
+**Branch:** epic-EXOCOMP-129--task-EXOCOMP-140
+**Status:** Ready for code review and compliance check (license notices pending)
 ---
 <!-- COMMENTS:END -->
