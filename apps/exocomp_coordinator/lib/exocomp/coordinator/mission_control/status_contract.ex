@@ -36,4 +36,5 @@ defmodule Exocomp.Coordinator.MissionControl.StatusReducer do
   defdelegate events(state), to: Shared
   defdelegate last_sequence(state), to: Shared
   defdelegate size(state), to: Shared
+  defdelegate missing_sequences(state), to: Shared
 end

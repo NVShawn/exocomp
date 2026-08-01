@@ -1,0 +1,100 @@
+[
+  {
+    "schema_version": 1,
+    "event_id": "evt-hello-001",
+    "cluster_seq": 0,
+    "kind": "cluster.hello",
+    "occurred_at": "2026-08-01T18:00:00Z",
+    "correlation_id": "corr-hello-001",
+    "payload": {"cluster_name": "prod-1", "version": "1.0.0"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-heartbeat-001",
+    "cluster_seq": 1,
+    "kind": "cluster.heartbeat",
+    "occurred_at": "2026-08-01T18:00:30Z",
+    "payload": {}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-snapshot-001",
+    "cluster_seq": 2,
+    "kind": "status.snapshot",
+    "occurred_at": "2026-08-01T18:01:00Z",
+    "correlation_id": "corr-snapshot-001",
+    "payload": {"cluster_health": "healthy", "nodes": [], "services": []}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-alert-opened-001",
+    "cluster_seq": 3,
+    "kind": "alert.opened",
+    "occurred_at": "2026-08-01T18:01:30Z",
+    "correlation_id": "corr-alert-001",
+    "payload": {"alert_type": "degraded_node", "node_id": "node-a"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-alert-updated-001",
+    "cluster_seq": 4,
+    "kind": "alert.updated",
+    "occurred_at": "2026-08-01T18:02:00Z",
+    "correlation_id": "corr-alert-001",
+    "payload": {"alert_id": "alert-001", "severity": "high"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-alert-resolved-001",
+    "cluster_seq": 5,
+    "kind": "alert.resolved",
+    "occurred_at": "2026-08-01T18:02:30Z",
+    "correlation_id": "corr-alert-001",
+    "payload": {"alert_id": "alert-001", "resolution": "health_restored"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-reply-001",
+    "cluster_seq": 6,
+    "kind": "conversation.reply",
+    "occurred_at": "2026-08-01T18:03:00Z",
+    "correlation_id": "corr-chat-001",
+    "payload": {"conversation_id": "conversation-001", "message": "Investigation complete"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-proposal-001",
+    "cluster_seq": 7,
+    "kind": "proposal.created",
+    "occurred_at": "2026-08-01T18:03:30Z",
+    "correlation_id": "corr-proposal-001",
+    "payload": {"proposal_id": "proposal-001", "action": "restart_service"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-approval-001",
+    "cluster_seq": 8,
+    "kind": "approval.result",
+    "occurred_at": "2026-08-01T18:04:00Z",
+    "correlation_id": "corr-proposal-001",
+    "payload": {"approval_id": "approval-001", "decision": "approve"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-action-001",
+    "cluster_seq": 9,
+    "kind": "action.status",
+    "occurred_at": "2026-08-01T18:04:30Z",
+    "correlation_id": "corr-proposal-001",
+    "payload": {"action_id": "action-001", "status": "completed"}
+  },
+  {
+    "schema_version": 1,
+    "event_id": "evt-audit-001",
+    "cluster_seq": 10,
+    "kind": "audit.event",
+    "occurred_at": "2026-08-01T18:05:00Z",
+    "correlation_id": "corr-proposal-001",
+    "payload": {"operation": "restart_service", "result": "success"}
+  }
+]

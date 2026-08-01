@@ -46,7 +46,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 .PHONY: help init init-amd64 init-arm64 fmt fmt-check build build-amd64 \
 	build-arm64 build-mission-control build-mission-control-amd64 \
 	build-mission-control-arm64 test test-builders test-deps test-release-matrix test-release-packaging \
-	test-mission-control-packaging test-mission-control-image test-compliance \
+	test-mission-control-packaging test-mission-control-image test-mission-control-contract test-compliance \
 	inspect-deps-amd64 inspect-deps-arm64 inspect-mission-control-deps-amd64 \
 	inspect-mission-control-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
@@ -177,6 +177,12 @@ test-release-packaging: ## Test deterministic archives, secret omission, manifes
 
 test-mission-control-packaging: ## Test Mission Control image hardening and supply-chain packaging without Docker.
 	$(PYTHON) -m unittest discover -s tests -p 'test_mission_control_packaging.py' -v
+
+test-mission-control-contract: ## Run the shared Mission Control contract suite without live VMs.
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
+		MIX_ENV=test mix test \
+			apps/exocomp_core/test/exocomp/mission_control \
+			apps/exocomp_coordinator/test/exocomp/coordinator/mission_control'
 
 test-mission-control-image: ## Start a built Mission Control image against digest-pinned PostgreSQL and test restart safety.
 	@test -n "$(IMAGE)" || { echo "IMAGE is required; use make test-mission-control-image IMAGE=... POSTGRES_IMAGE=..." >&2; exit 2; }

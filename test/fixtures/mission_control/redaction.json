@@ -1,0 +1,16 @@
+{
+  "input": {
+    "safe": "retain",
+    "nested": {
+      "api_key": "do-not-send",
+      "details": [{"token": "also-do-not-send"}]
+    }
+  },
+  "expected": {
+    "safe": "retain",
+    "nested": {
+      "api_key": "[REDACTED]",
+      "details": [{"token": "[REDACTED]"}]
+    }
+  }
+}
