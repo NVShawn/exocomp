@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-187
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Integrate the three-path desired-state design into project plans
 parent: EXOCOMP-185
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T13:40:50.518449Z'
+updated_at: '2026-08-01T13:41:35.614864Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 target_branch: null
 review_url: null
@@ -39,12 +39,15 @@ oompah.agent_run_id: 0e98aea7-92e8-4111-a166-4c0b10dbc8f5
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-187
+  base_branch: epic-EXOCOMP-185
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
+  integrated_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
   submitted_at: '2026-08-01T13:40:19.872477+00:00'
-  updated_at: '2026-08-01T13:40:19.872477+00:00'
+  updated_at: '2026-08-01T13:41:31.457005+00:00'
 oompah.task_costs:
   total_input_tokens: 377861
   total_output_tokens: 2727
@@ -77,6 +80,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-185--task-EXOCOMP-187
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:36:42.939344+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-77d966f51e97
+    project_id: proj-c260b117
+    task_id: EXOCOMP-187
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e86ccf0792fe6f7bdb3f16f14bf794d9c8e7438a76c019d2b4c723d44d7abfc0
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T13:41:32.857003+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -162,5 +187,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 56s
 - Log: EXOCOMP-187__20260801T133658Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:41
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
