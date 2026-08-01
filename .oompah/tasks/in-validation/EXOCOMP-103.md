@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-103
 type: feature
-status: Needs Human
+status: In Validation
 priority: 1
 title: Audit every correlated diagnostic task transition
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:52.079956Z'
-updated_at: '2026-08-01T00:59:08.034583Z'
+updated_at: '2026-08-01T01:44:18.152440Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -76,7 +76,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-103
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -153,7 +153,24 @@ oompah.terminal_audit:
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:13.577107+00:00'
-    updated_at: '2026-07-31T21:16:11.030514+00:00'
+    updated_at: '2026-08-01T01:44:15.465947+00:00'
+  - version: 1
+    audit_id: audit-6e95953006f4
+    project_id: proj-c260b117
+    task_id: EXOCOMP-103
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 3e66c2b51b1f138762ff7cd66cdfa371dcdd5060bbb6cf59c64009303708116e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Merged
+    created_at: '2026-08-01T01:44:15.465947+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-fadcb3f1dbf8
@@ -463,5 +480,10 @@ author: oompah
 created: 2026-08-01 00:59
 ---
 Direct operator recovery claimed at the project owner's request. This is a failed Archived audit caused by deleted historical branch checkout, not incomplete implementation. Keep Needs Human as a scheduler hold until OOMPAH-671 is deployed; I will rearm and oversee the existing archive audit without reopening implementation.
+---
+author: oompah
+created: 2026-08-01 01:44
+---
+Terminal audit rearmed by project owner after recovery: Detached historical audit workspace recovery is deployed; retry the existing Archived audit without reopening implementation.
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-104
 type: feature
-status: Needs Human
+status: In Validation
 priority: 1
 title: Recover coordinator live state after volatile restart
 parent: EXOCOMP-18
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-24T04:29:59.527638Z'
-updated_at: '2026-08-01T00:59:09.233291Z'
+updated_at: '2026-08-01T01:44:22.680324Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -77,7 +77,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-104
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -154,7 +154,24 @@ oompah.terminal_audit:
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:17.455076+00:00'
-    updated_at: '2026-07-31T21:16:13.950189+00:00'
+    updated_at: '2026-08-01T01:44:20.274036+00:00'
+  - version: 1
+    audit_id: audit-b1b301c29492
+    project_id: proj-c260b117
+    task_id: EXOCOMP-104
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d3b8a351a17f96f6df9e17bd126f87c5167d8bcf0e7b35c496ba88d8c8478c09
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Merged
+    created_at: '2026-08-01T01:44:20.274036+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ed5cbeaf040e
@@ -450,5 +467,10 @@ author: oompah
 created: 2026-08-01 00:59
 ---
 Direct operator recovery claimed at the project owner's request. This is a failed Archived audit caused by deleted historical branch checkout, not incomplete implementation. Keep Needs Human as a scheduler hold until OOMPAH-671 is deployed; I will rearm and oversee the existing archive audit without reopening implementation.
+---
+author: oompah
+created: 2026-08-01 01:44
+---
+Terminal audit rearmed by project owner after recovery: Detached historical audit workspace recovery is deployed; retry the existing Archived audit without reopening implementation.
 ---
 <!-- COMMENTS:END -->
