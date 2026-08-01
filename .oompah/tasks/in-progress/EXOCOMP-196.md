@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T17:01:23.890481Z'
+updated_at: '2026-08-01T17:01:32.996163Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -884,5 +884,10 @@ author: oompah
 created: 2026-08-01 17:01
 ---
 Verification: make test-compliance passed (Ran 29 tests in 2.161s; OK); make build-profile-action-helper completed; make test-installer passed (87 passed in 15.55s); git diff --check origin/main..HEAD exited 0. Full make test ran all offline checks (13 passed, 0 failed) and Python suites, then exited 2 before Mix because the pinned container command failed: . The branch is pushed at 86a4eef2 and has no uncommitted changes.
+---
+author: oompah
+created: 2026-08-01 17:01
+---
+Verification correction: exact full make test tail was: Failed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system; make[1]: *** [Makefile:138: test] Error 1. The command exited 2 before Mix. Other results remain: make test-compliance 29 tests OK; make test-installer 87 passed in 15.55s; git diff --check origin/main..HEAD exited 0. Pushed commit: 86a4eef2.
 ---
 <!-- COMMENTS:END -->
