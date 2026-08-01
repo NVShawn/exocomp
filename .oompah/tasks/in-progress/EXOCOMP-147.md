@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:45:26.874172Z'
+updated_at: '2026-08-01T13:48:53.340133Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -278,5 +278,10 @@ author: oompah
 created: 2026-08-01 13:45
 ---
 Discovery: the current branch has transport-independent Connection and SessionLiveness state machines. Connection schedules one generation-tagged heartbeat per active session, runs connect attempts in monitored workers, and applies 0..cap full-jitter bounds; SessionLiveness records each valid heartbeat and retries failed durable commits before publishing. Focused tests are format-clean, but host Elixir 1.18.3 cannot run the pinned 1.20.2 Mix suite. I’m hardening stale liveness timer handling and adding coverage for connect-worker races and duplicate reconnect signals.
+---
+author: oompah
+created: 2026-08-01 13:48
+---
+Implementation: hardened the existing liveness state machines. Connection now ignores stale stability signals unless the session is still authenticated/connected and stops an obsolete in-flight connect worker when a session is installed. SessionLiveness now tags timeout vs commit-retry timers, retries the requested connected/disconnected transition, clears pending transitions after commit, and ignores duplicate fired/canceled timer signals. Added deterministic tests for stale stability, worker replacement, duplicate disconnect signals, and connected-state commit retry.
 ---
 <!-- COMMENTS:END -->
