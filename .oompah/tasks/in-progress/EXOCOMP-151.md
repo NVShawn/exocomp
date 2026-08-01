@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-01T12:28:56.154204Z'
+updated_at: '2026-08-01T12:31:08.749486Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -154,5 +154,10 @@ author: oompah
 created: 2026-08-01 12:28
 ---
 Understanding: I will trace the coordinator command, replay, and durable event boundaries, then implement command-id validation/expiry, idempotent duplicate handling, separate receipt acknowledgement, and correlated terminal results with focused tests. I will run the required Makefile quality gates before committing and submitting.
+---
+author: oompah
+created: 2026-08-01 12:31
+---
+Discovery: no Mission Control command module exists yet. Existing  is an in-memory lifecycle boundary, while node  demonstrates the required claim-before-execute and completed-result replay semantics. I will add a coordinator-local durable command processor using DETS for atomic command claims/results and a synced JSONL terminal-event outbox, with injected handlers/time for focused tests.
 ---
 <!-- COMMENTS:END -->

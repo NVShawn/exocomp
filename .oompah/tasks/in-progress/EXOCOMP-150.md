@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-01T12:26:31.034632Z'
+updated_at: '2026-08-01T12:31:04.236068Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -154,5 +154,10 @@ author: oompah
 created: 2026-08-01 12:26
 ---
 Understanding: I will trace the Mission Control command/session and database patterns, add a durable validated command outbox with ownership-aware delivery and exactly-once acknowledgement/expiry semantics, cover the listed failure cases, then run focused tests and the required Makefile quality gates.
+---
+author: oompah
+created: 2026-08-01 12:31
+---
+Discovery: the task graph confirms EXOCOMP-137 will provide the Mission Control Ecto/Postgrex Repo, EXOCOMP-139 the protocol allow-list/validation, and EXOCOMP-146 the authenticated session owner. This checkout contains none of those merged yet. I will keep the outbox boundary isolated in Exocomp.MissionControl.CommandOutbox, use an organization/cluster-scoped durable schema, and make delivery session-targeted so a reconnecting/new replica can drain the same pending rows without coupling to transport internals.
 ---
 <!-- COMMENTS:END -->
