@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-01T12:20:15.522355Z'
+updated_at: '2026-08-01T12:31:23.395151Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -147,5 +147,10 @@ author: oompah
 created: 2026-08-01 12:20
 ---
 Discovery: the branch has no Mission Control app yet, so I will keep the coordinator client and gateway primitives dependency-light inside the umbrella's existing coordinator app. The gateway will be a standalone Plug/Bandit-compatible WebSocket endpoint that future Mission Control routing can mount; the coordinator Application will not start it or add any listener. Bandit already provides WebSock server support, while the coordinator client will use :ssl with a small RFC 6455 transport to avoid introducing an unapproved client dependency.
+---
+author: oompah
+created: 2026-08-01 12:31
+---
+Implementation: added an outbound coordinator MissionControl.WebSocket transport over :ssl with wss-only URLs, TLS 1.3, CA/server-name verification, enrolled client cert/key, RFC 6455 masking/handshake/frame handling, and an optional Client GenServer. Added a Bandit-compatible Mission Control ClusterGateway Plug, strict peer-certificate SPIFFE identity extraction, revocation-aware ClusterSessions with cryptographically random IDs and replacement signaling, plus strict server TLS option construction. The coordinator Application and inbound listener were left unchanged.
 ---
 <!-- COMMENTS:END -->
