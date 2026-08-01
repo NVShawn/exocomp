@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:43:04.552557Z'
+updated_at: '2026-08-01T22:54:01.279271Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -42,12 +42,15 @@ oompah.agent_run_id: d1cbe3b9-53ce-4fb9-add4-c4aea4d34ffa
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-200
+  base_branch: epic-EXOCOMP-186
+  base_sha: 00c63accc25af449949cf9ed3550a164e88879bf
   head_sha: 04f4ea53956dd19036a6244ce848566495296f76
+  integrated_sha: 04f4ea53956dd19036a6244ce848566495296f76
   submitted_at: '2026-08-01T22:42:45.799275+00:00'
-  updated_at: '2026-08-01T22:42:45.799275+00:00'
+  updated_at: '2026-08-01T22:53:52.994599+00:00'
 oompah.task_costs:
   total_input_tokens: 608104
   total_output_tokens: 85058
@@ -211,7 +214,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-200
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -241,6 +244,37 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T22:24:43.993064+00:00'
     updated_at: '2026-08-01T22:36:46.714101+00:00'
+  - version: 1
+    audit_id: audit-9415dd8f6123
+    project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d1b9de150fc045e88dcae7cac965d07d8eea75d2f61085843dd823a7314abcc8
+    attempts:
+    - version: 1
+      attempt_id: attempt-634f1b64a6ee
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: d1b9de150fc045e88dcae7cac965d07d8eea75d2f61085843dd823a7314abcc8
+      created_at: '2026-08-01T22:53:57.557649+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T22:53:57.557649+00:00'
+      branch_key: epic-EXOCOMP-186--task-EXOCOMP-200
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T22:53:55.261945+00:00'
+    updated_at: '2026-08-01T22:53:57.557649+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-527f89c35566
@@ -267,6 +301,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-01T22:24:48.532088+00:00'
+    branch_key: epic-EXOCOMP-186--task-EXOCOMP-200
+  - version: 1
+    attempt_id: attempt-634f1b64a6ee
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d1b9de150fc045e88dcae7cac965d07d8eea75d2f61085843dd823a7314abcc8
+    created_at: '2026-08-01T22:53:57.557649+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T22:53:57.557649+00:00'
     branch_key: epic-EXOCOMP-186--task-EXOCOMP-200
 ---
 ## Summary
@@ -556,5 +603,15 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: terminated, Duration: 5m 2s
 - Log: EXOCOMP-200__20260801T223807Z.jsonl
+---
+author: oompah
+created: 2026-08-01 22:53
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 22:54
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
