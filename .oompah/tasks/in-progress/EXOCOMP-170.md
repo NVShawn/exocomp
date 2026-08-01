@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-08-01T15:43:30.768155Z'
+updated_at: '2026-08-01T15:46:16.932749Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 target_branch: null
 review_url: null
@@ -155,5 +155,65 @@ author: oompah
 created: 2026-08-01 15:43
 ---
 Implementation: added organization-scoped Administration context and safe admin records, expanded /admin into invitations, clusters/certificates, role mappings, retention, and webhook pages, added confirmation-gated cluster revocation with recorded AdminAction, transient one-time invitation token rendering/clearing, and focused context/LiveView tests. Secret material is excluded from records and templates.
+---
+author: oompah
+created: 2026-08-01 15:46
+---
+Verification: local mix format and git diff --check pass; all Mission Control .ex/.exs files parse, and an OTP smoke run passed invitation digest/one-time consumption, invalid-role, and retention-bound checks.  cannot start because local Elixir 1.18.3 is below the project's 1.20.2 requirement. make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-170'
+docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-170:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && mix format --check-formatted'
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-170' and make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-170'
+./scripts/test-release-builders.sh
+Test 1: valid release (amd64) — expect PASS
+  PASS: valid amd64 release accepted
+Test 2: valid release (arm64) — expect PASS
+  PASS: valid arm64 release accepted
+Test 3: release with undeclared dependency — expect FAIL
+  PASS: release with undeclared dependency correctly rejected
+Test 4: dep-report.json produced after valid run
+  PASS: dep-report.json includes parsed dependencies and interpreter
+Test 5: dep-report.json produced after failing run
+  PASS: dep-report.json produced on failure and starts with '{'
+Test 6: release without ERTS directory — expect exit 2
+  PASS: missing ERTS directory correctly rejected with exit code 2
+Test 7: unsupported architecture — expect exit 2
+  PASS: unsupported architecture correctly rejected
+Test 8: missing baseline file — expect exit 2
+  PASS: missing baseline file correctly rejected
+Test 9: readelf failure — expect exit 2
+  PASS: readelf failure correctly rejected with exit code 2
+
+Results: 9 passed, 0 failed
+
+=== Offline structural checks ===
+  PASS: test-clean-container.sh exists and is executable
+  PASS: test-release-matrix.sh is non-interactive
+  PASS: test-clean-container.sh is non-interactive
+  PASS: docs/release-qualification.md exists
+  PASS: docs/release-qualification.md documents emulated execution
+  PASS: docs/release-qualification.md documents wrong-arch diagnostic
+  PASS: Makefile has test-release-matrix target
+
+=== Offline fixture: wrong-arch detection ===
+  PASS: wrong-arch produces actionable diagnostic
+
+=== Offline fixture: missing runtime dependency detection ===
+  PASS: missing dep produces actionable diagnostic
+
+=== Offline fixture: path-independent content digest ===
+  PASS: identical trees at different root paths have matching digests
+  PASS: one-byte runtime cookie change produces a different tree digest
+  PASS: deterministic release packagers exist and are executable
+  PASS: packager excludes reusable release cookies
+
+=== Offline mode: skipping build, container, and live negative tests ===
+
+==========================================
+Results: 13 passed, 0 failed
+==========================================
+release builder definitions are pinned and valid
+docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-170:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && mix deps.get && \
+	mix format --check-formatted && \
+	MIX_ENV=test mix compile --force --warnings-as-errors'
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-170' reach their Docker steps but are blocked by the sandbox podman error: unable to chmod /run/user/1000/libpod (read-only filesystem).
 ---
 <!-- COMMENTS:END -->
