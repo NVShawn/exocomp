@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-01T12:06:39.789686Z'
+updated_at: '2026-08-01T12:06:52.027168Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -57,13 +57,13 @@ oompah.integration:
   submitted_at: '2026-08-01T12:06:29.569205+00:00'
   updated_at: '2026-08-01T12:06:29.569205+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 416
+  total_input_tokens: 962
+  total_output_tokens: 659
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10
-      output_tokens: 416
+      input_tokens: 962
+      output_tokens: 659
       cost_usd: 0.0
   runs:
   - profile: default
@@ -72,6 +72,12 @@ oompah.task_costs:
     output_tokens: 416
     cost_usd: 0.0
     recorded_at: '2026-08-01T11:58:08.351339+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 952
+    output_tokens: 243
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:06:50.435871+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-143__20260801T115618Z
@@ -168,5 +174,15 @@ author: oompah
 created: 2026-08-01 12:06
 ---
 **Completion**: EXOCOMP-143 submitted for integration. Implemented full cluster certificate issuance pipeline: (1) ClusterInvitation service (durable, org-cluster-bound, single-use, replay-protected); (2) ClusterIssuer PKI module (SPIFFE URI identity, 30-day validity, key validation); (3) ClusterEnrollmentHandler HTTP endpoint; (4) Router integration; (5) Application supervision tree updates; (6) Unit + integration test coverage. Code follows established patterns (EnrollmentToken/EnrollmentHandler), includes audit trail, fail-closed security gates, and no private key retention. Branch: epic-EXOCOMP-129--task-EXOCOMP-143, commits 1cd3f73 and d6b9634.
+---
+author: oompah
+created: 2026-08-01 12:06
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 62
+- Tokens: 952 in / 243 out [1.2K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 8m 25s
+- Log: EXOCOMP-143__20260801T115833Z.jsonl
 ---
 <!-- COMMENTS:END -->
