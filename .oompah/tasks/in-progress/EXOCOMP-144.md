@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:12:19.083318Z'
+updated_at: '2026-08-01T12:12:26.547312Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -194,5 +194,10 @@ author: oompah
 created: 2026-08-01 12:12
 ---
 Verification: Confirmed the worktree is clean and inspected the relevant implementation and test locations. No frontend code change is warranted; therefore no UI test or repository quality gate applies in this focus-only session.
+---
+author: oompah
+created: 2026-08-01 12:12
+---
+Focus handoff: frontend\n\nOutcome: no UI work is in scope or required; the issue is fully backend PKI/API work.\nEvidence: plans/mission-control.md:127-160 defines the authenticated renewal endpoint and certificate-derived identity. Relevant code is apps/exocomp_coordinator/lib/exocomp/coordinator/coordinator_router.ex, handlers/renewal_handler.ex, pki/{issuer,state}.ex, with existing tests under apps/exocomp_coordinator/test/exocomp/coordinator/pki and test/integration/coordinator_pki_enrollment_test.exs.\nRemaining work/risks: implement renewal eligibility, transactional serial rotation and revocation, deterministic gateway lookup, and the listed failure/concurrency tests while retaining coordinator-local private-key ownership.\nRecommended next focus: feature.
 ---
 <!-- COMMENTS:END -->
