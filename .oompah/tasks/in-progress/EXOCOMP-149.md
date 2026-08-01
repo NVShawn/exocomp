@@ -1,0 +1,134 @@
+---
+id: EXOCOMP-149
+type: task
+status: In Progress
+priority: 1
+title: Ingest cluster events idempotently and acknowledge sequences
+parent: EXOCOMP-130
+children: []
+blocked_by:
+- EXOCOMP-138
+- EXOCOMP-139
+- EXOCOMP-146
+- EXOCOMP-171
+start_blocked_by: []
+labels: []
+assignee: null
+created_at: '2026-07-30T14:15:06.077566Z'
+updated_at: '2026-08-01T12:24:41.873181Z'
+work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
+target_branch: null
+review_url: null
+review_number: null
+merged_at: null
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: bc4016ff4d611f0eb6ae1e60f884ca1c34eec279f8ede0c7e359de80c954461d
+  detector_version: duplicate-detector-v1
+  verdict: no_duplicate
+  checked_at: '2026-08-01T12:24:33.480535+00:00'
+  matched_identifiers: []
+  evidence: "Acknowledged. EXOCOMP-148's peer start doesn't affect the duplicate investigation\
+    \ outcome. My search covered coordination peers and sibling tasks\u2014EXOCOMP-148\
+    \ is a separate epic-sibling component of Mission Control, not a duplicate of\
+    \ EXOCOMP-149's event ingestion focus.\n\nMy final verdict remains:\n\n---\n\n\
+    **Focus handoff: duplicate_detector**\n\n**Duplicate preflight verdict: no_duplicate**\n\
+    \n**Matches: none**\n\n**Evidence:** Comprehensive search across codebase, plans,\
+    \ and task documentation found no active or terminal task implementing event ingestion,\
+    \ sequence acknowledgement, or idempotent deduplication of cluster events. The\
+    \ detailed specification exists in `plans/mission-control.md` under \"Connection\
+    \ and Delivery Protocol,\" but no implementation code or competing task exists.\
+    \ The blocking dependencies (EXOCOMP-138, EXOCOMP-139, EXOCOMP-146, EXOCOMP-171)\
+    \ and peer/sibling tasks (EXOCOMP-145, EXOCOMP-147, EXOCOMP-148, EXOCOMP-150,\
+    \ EXOCOMP-151) reference different components of Mission Control. EXOCOMP-149\
+    \ is a unique, focused task addressing idempotent event ingestion and sequence\
+    \ acknowledgement, ready for implementation once its blockers clear."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
+  retry_count: 0
+  retry_after: null
+oompah.agent_run_id: 2bdb82fc-321f-411e-8584-bc81ce8634eb
+oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-130--task-EXOCOMP-149
+  base_branch: epic-EXOCOMP-130
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  updated_at: '2026-08-01T12:22:42.872517+00:00'
+oompah.task_costs:
+  total_input_tokens: 10
+  total_output_tokens: 453
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 10
+      output_tokens: 453
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 10
+    output_tokens: 453
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:24:33.467591+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-149__20260801T122245Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: haiku
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-130--task-EXOCOMP-149
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T12:24:33.492636+00:00'
+---
+## Summary
+
+Plan: plans/mission-control.md, Connection and Delivery Protocol.
+
+Deliverables:
+- Validate incoming event envelopes against the negotiated schema version and authenticated cluster identity.
+- Commit accepted events and a per-cluster sequence cursor transactionally.
+- Deduplicate by organization, cluster, and event ID; identify sequence gaps without accepting identity overrides.
+- Return the highest contiguous committed sequence as the acknowledgement.
+
+Acceptance:
+- Contract tests cover duplicates, replay, out-of-order delivery, gaps, invalid payloads, oversized payloads, unsupported versions, and transaction rollback.
+- An acknowledgement is never sent for an uncommitted event.
+
+Out of scope: reducing events into fleet/incidents.
+Quality gate: focused ingestion tests plus make test, make fmt-check, and make lint.
+
+## Acceptance Criteria
+
+- [ ] Define acceptance criteria.
+
+## Notes
+
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 12:22
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-01 12:22
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 12:24
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 43, Tool calls: 20
+- Tokens: 10 in / 453 out [463 total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 55s
+- Log: EXOCOMP-149__20260801T122245Z.jsonl
+---
+<!-- COMMENTS:END -->
