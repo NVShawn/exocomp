@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-116
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Verify recovered exocomp delivery is complete on main
 parent: EXOCOMP-110
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:27.708830Z'
-updated_at: '2026-08-01T21:45:18.094951Z'
+updated_at: '2026-08-01T21:49:37.742502Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -42,6 +42,30 @@ oompah.task_costs:
     recorded_at: '2026-07-25T21:07:20.653619+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-91ecfd3e94cf: '2026-08-01T21:49:35.499324+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-116
+    target_state: Archived
+    evidence_fingerprint: f32282159d1a058df0b2f313d7c8e587f8f25714d38bc8d668bf37cda2c95f6c
+    audit_ids:
+    - audit-84dd8ae9f69c
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:49:35.499333+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-116
+    audit_id: audit-84dd8ae9f69c
+    attempt_id: attempt-91ecfd3e94cf
+    target_state: Archived
+    evidence_fingerprint: f32282159d1a058df0b2f313d7c8e587f8f25714d38bc8d668bf37cda2c95f6c
+    status: Archived
+    audit_ids:
+    - audit-84dd8ae9f69c
+    applied: false
+    created_at: '2026-08-01T21:49:35.499345+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -49,7 +73,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-116
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -58,7 +82,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-91ecfd3e94cf
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -68,13 +92,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:45:10.647799+00:00'
       branch_key: epic-EXOCOMP-110
+      verdict: pass
+      completed_at: '2026-08-01T21:49:35.499189+00:00'
+      ended_at: '2026-08-01T21:49:35.499189+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:18:46.376597+00:00'
-    updated_at: '2026-08-01T21:45:10.647799+00:00'
+    updated_at: '2026-08-01T21:49:35.499189+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-91ecfd3e94cf
@@ -303,5 +330,20 @@ author: oompah
 created: 2026-08-01 21:45
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:49
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- pr_merge_commit: 2085e441 Merge pull request #14 from NVShawn/epic-EXOCOMP-110
+- current_origin_main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- merge_commit_still_on_main: yes; 2085e441 is an ancestor of origin/main with 60+ subsequent commits
+- prior_state: Merged (closed 2026-07-25, 7-day auto-archive queued 2026-08-01)
+- quality_gates_recorded_pass: fmt-check, lint, 1592 ExUnit tests, installer 63/63, release-packaging 12/12, bundle 69/69, governance 21/21, release smokes, amd64 matrix 69/69
+- task_type: verification chore (no code delivery of its own)
 ---
 <!-- COMMENTS:END -->
