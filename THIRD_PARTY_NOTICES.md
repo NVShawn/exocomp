@@ -171,6 +171,86 @@ upstream license or notice named by their build-specific inventory.
 - Version: 0.7.1.
 - License: [Apache-2.0](https://github.com/okeuday/unicode_util_compat/blob/master/LICENSE).
 
+### CAStore
+
+- Version: 1.0.20.
+- License: [Apache-2.0](https://github.com/elixir-mint/castore/blob/main/LICENSE).
+
+### Expo
+
+- Version: 1.1.1.
+- License: [MIT](https://github.com/elixir-gettext/expo/blob/main/LICENSE).
+
+### Floki
+
+- Version: 0.38.4.
+- License: [MIT](https://github.com/philss/floki/blob/main/LICENSE).
+
+### Gettext
+
+- Version: 0.26.2.
+- License: [Apache-2.0](https://github.com/elixir-gettext/gettext/blob/master/LICENSE).
+
+### OAuth2
+
+- Version: 2.1.1.
+- License: [MIT](https://github.com/scrogson/oauth2/blob/master/LICENSE).
+
+### Phoenix
+
+- Version: 1.7.24.
+- License: [MIT](https://github.com/phoenixframework/phoenix/blob/main/LICENSE.md).
+
+### Phoenix HTML
+
+- Version: 4.3.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_html/blob/master/LICENSE.md).
+
+### Phoenix LiveDashboard
+
+- Version: 0.8.7.
+- License: [MIT](https://github.com/phoenixframework/phoenix_live_dashboard/blob/master/LICENSE).
+
+### Phoenix LiveView
+
+- Version: 0.20.17.
+- License: [MIT](https://github.com/phoenixframework/phoenix_live_view/blob/main/LICENSE.md).
+
+### Phoenix PubSub
+
+- Version: 2.2.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_pubsub/blob/master/LICENSE).
+
+### Phoenix Template
+
+- Version: 1.0.4.
+- License: [MIT](https://github.com/phoenixframework/phoenix_template/blob/master/LICENSE).
+
+### Phoenix Test
+
+- Version: 0.7.1.
+- License: [MIT](https://github.com/germsvel/phoenix_test/blob/main/LICENSE).
+
+### Telemetry Metrics
+
+- Version: 0.6.2.
+- License: [Apache-2.0](https://github.com/beam-telemetry/telemetry_metrics/blob/main/LICENSE).
+
+### Telemetry Poller
+
+- Version: 1.3.0.
+- License: [Apache-2.0](https://github.com/beam-telemetry/telemetry_poller/blob/main/LICENSE).
+
+### Tesla
+
+- Version: 1.20.0.
+- License: [MIT](https://github.com/elixir-tesla/tesla/blob/master/LICENSE).
+
+### Websock Adapter
+
+- Version: 0.5.9.
+- License: [MIT](https://github.com/mtrudel/websock_adapter/blob/main/LICENSE).
+
 ### llama.cpp
 
 - Use: bundled `llama-server` inference runtime.

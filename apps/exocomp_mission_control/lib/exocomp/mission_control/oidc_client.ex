@@ -254,8 +254,6 @@ defmodule Exocomp.MissionControl.OIDCClient do
     _ -> {:error, "ID token signature validation failed"}
   end
 
-  defp validate_id_token(_, _), do: {:error, "ID token not provided"}
-
   defp peek_header(id_token) do
     case JOSE.JWT.peek_protected(id_token) do
       %JOSE.JWS{fields: fields} when is_map(fields) -> {:ok, fields}
