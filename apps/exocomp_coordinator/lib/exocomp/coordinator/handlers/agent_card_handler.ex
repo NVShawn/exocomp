@@ -31,6 +31,12 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
       name: "Cluster Recover",
       description:
         "Execute one audited, idempotent automatic restart of an allow-listed failed service on a target cluster node."
+    },
+    %AgentSkill{
+      id: "exocomp.cluster.chat",
+      name: "Cluster Chat",
+      description:
+        "Converse with a cluster-local model about diagnostic observations. Response includes evidence citations and optional typed proposals."
     }
   ]
 
