@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-01T12:06:32.150396Z'
+updated_at: '2026-08-01T12:06:39.789686Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -163,5 +163,10 @@ author: oompah
 created: 2026-08-01 12:06
 ---
 Implemented POST /api/v1/clusters/enroll endpoint for Mission Control cluster certificate issuance from validated CSRs. Includes ClusterInvitation service for single-use invitations, ClusterIssuer PKI module for 30-day SPIFFE URI certificate issuance, ClusterEnrollmentHandler HTTP handler, and comprehensive test coverage (cluster_invitation_test.exs, cluster_enrollment_test.exs) covering valid/malformed CSR validation, key algorithm restrictions, invitation expiry/replay protection, org/cluster binding, and signing failure handling. Certificates validated with proper chain structure (leaf + intermediate), no private key retention, and metadata persistence via audit trail.
+---
+author: oompah
+created: 2026-08-01 12:06
+---
+**Completion**: EXOCOMP-143 submitted for integration. Implemented full cluster certificate issuance pipeline: (1) ClusterInvitation service (durable, org-cluster-bound, single-use, replay-protected); (2) ClusterIssuer PKI module (SPIFFE URI identity, 30-day validity, key validation); (3) ClusterEnrollmentHandler HTTP endpoint; (4) Router integration; (5) Application supervision tree updates; (6) Unit + integration test coverage. Code follows established patterns (EnrollmentToken/EnrollmentHandler), includes audit trail, fail-closed security gates, and no private key retention. Branch: epic-EXOCOMP-129--task-EXOCOMP-143, commits 1cd3f73 and d6b9634.
 ---
 <!-- COMMENTS:END -->
