@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:03:40.194339Z'
+updated_at: '2026-08-01T17:04:31.915681Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
