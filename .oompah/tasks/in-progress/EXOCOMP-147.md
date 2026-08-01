@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:48:53.340133Z'
+updated_at: '2026-08-01T13:49:22.853615Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -283,5 +283,10 @@ author: oompah
 created: 2026-08-01 13:48
 ---
 Implementation: hardened the existing liveness state machines. Connection now ignores stale stability signals unless the session is still authenticated/connected and stops an obsolete in-flight connect worker when a session is installed. SessionLiveness now tags timeout vs commit-retry timers, retries the requested connected/disconnected transition, clears pending transitions after commit, and ignores duplicate fired/canceled timer signals. Added deterministic tests for stale stability, worker replacement, duplicate disconnect signals, and connected-state commit retry.
+---
+author: oompah
+created: 2026-08-01 13:49
+---
+Verification: focused deterministic liveness tests pass (11 tests, 0 failures) using direct Elixir execution; focused mix format check and git diff --check pass. make test, make fmt-check, and make lint each pass their offline structural/release/package/document checks, then stop at the environment boundary because Podman cannot chmod /run/user/1000/libpod (read-only filesystem), so the pinned Elixir 1.20.2 container gates remain for CI/privileged runner.
 ---
 <!-- COMMENTS:END -->
