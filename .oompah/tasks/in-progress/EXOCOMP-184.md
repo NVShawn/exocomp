@@ -18,9 +18,10 @@ labels:
 - focus-complete:docs
 - focus-complete:devops
 - focus-complete:callback_auth
+- needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:12:26.075754Z'
+updated_at: '2026-08-01T18:12:29.288471Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
