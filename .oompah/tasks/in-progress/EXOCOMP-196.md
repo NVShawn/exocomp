@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:08:09.289185Z'
+updated_at: '2026-08-01T15:08:26.518059Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -167,5 +167,47 @@ Task requires both documentation AND code implementation. As Technical Writer, I
 2. Add cluster_profiles config support to Coordinator.Config
 3. Implement startup validation with audit events
 4. Write comprehensive tests per acceptance criteria
+---
+author: oompah
+created: 2026-08-01 15:08
+---
+HANDOFF: Documentation phase complete. 
+
+Summary of documentation work:
+- Created docs/ceph-profile-configuration.md with complete operator guidance
+- Documented absolute path requirements and validation rules
+- Specified Ceph read-only capabilities (mon, mgr, osd, mds)
+- Provided configuration examples and troubleshooting guide
+- Documented that validation failures degrade profile coverage instead of crashing
+
+What a backend developer needs to implement:
+1. Create apps/exocomp_core/lib/exocomp/cluster_profile/ceph.ex implementing ClusterProfile behavior
+   - id() -> "ceph"
+   - version() -> 1
+   - Implement required callbacks per ClusterProfile contract
+   - Include validation metadata for file paths, permissions, ownership
+
+2. Extend Exocomp.Coordinator.Config to support cluster_profiles configuration section with:
+   - ceph_binary_path, ceph_conf_path, keyring_path
+   - Environment variable overrides (EXOCOMP_CEPH_*)
+
+3. Implement coordinator startup validation:
+   - Check file existence, ownership, permissions during startup
+   - Emit audit events on validation failures (without logging secrets)
+   - Degrade profile coverage on failure (don't crash coordinator)
+
+4. Add tests per acceptance criteria:
+   - Valid configuration (all files present, correct permissions)
+   - Missing files (binary, ceph.conf, keyring)
+   - Relative paths (should be rejected)
+   - Unsafe permissions (world-readable keyring, etc.)
+   - Wrong ownership (root-owned files, etc.)
+   - Absent binary (validation failure)
+   - Secret redaction (no key material in logs)
+
+Reference implementation: apps/exocomp_core/lib/exocomp/cluster_profile/default.ex
+Reference tests: apps/exocomp_core/test/exocomp/cluster_profile/registry_test.exs
+
+Note: EXOCOMP-195 established profile infrastructure; this builds on that foundation.
 ---
 <!-- COMMENTS:END -->

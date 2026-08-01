@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T15:06:34.362601Z'
+updated_at: '2026-08-01T15:08:25.087488Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -56,13 +56,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:06:31.639313+00:00'
   updated_at: '2026-08-01T15:06:31.639313+00:00'
 oompah.task_costs:
-  total_input_tokens: 1048912
-  total_output_tokens: 4341
+  total_input_tokens: 19276926
+  total_output_tokens: 75447
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 1048912
-      output_tokens: 4341
+      input_tokens: 19276926
+      output_tokens: 75447
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +71,12 @@ oompah.task_costs:
     output_tokens: 4341
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:39:05.003524+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 18228014
+    output_tokens: 71106
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:08:23.474961+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-137__20260801T143719Z
@@ -167,5 +173,15 @@ author: oompah
 created: 2026-08-01 15:06
 ---
 Added the Mission Control Ecto/Postgrex Repo, environment-safe database configuration and production validation, reversible baseline migration, SQL-sandbox harness/tests, and focused database Make target; rebased onto EXOCOMP-136 and pushed commit e9fb31b0.
+---
+author: oompah
+created: 2026-08-01 15:08
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 205
+- Tokens: 18.2M in / 71.1K out [18.3M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 29m 2s
+- Log: EXOCOMP-137__20260801T143927Z.jsonl
 ---
 <!-- COMMENTS:END -->
