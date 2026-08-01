@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T21:57:53.538351Z'
+updated_at: '2026-08-01T21:58:28.121932Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -1001,5 +1001,10 @@ author: oompah
 created: 2026-08-01 21:57
 ---
 Understanding: I will reconcile the recovered branch, inspect the Mission Control configuration/supervision implementation and tests, fix any remaining issues, run the required Makefile quality gates with raw tails, then commit, push, and submit.
+---
+author: oompah
+created: 2026-08-01 21:58
+---
+Discovery: The recovered branch contains the runtime wiring, bounded Config validation, custom MissionControl.Supervisor child_spec/1, and the repaired supervisor tests at apps/exocomp_coordinator/test/exocomp/coordinator/mission_control/supervisor_test.exs. The enabled test now destructures test_config/0 and restores app env deterministically; no tracked apps/fixtures artifacts remain. I’m proceeding with the pinned Makefile gates and will preserve their raw tails.
 ---
 <!-- COMMENTS:END -->
