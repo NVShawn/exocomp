@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-45
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Write installation, PKI, policy, and operations guides
 parent: EXOCOMP-6
@@ -13,12 +13,34 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:04.573016Z'
-updated_at: '2026-07-25T21:10:35.557967Z'
+updated_at: '2026-08-01T21:19:19.372111Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-0a86ff1cb892
+    project_id: proj-c260b117
+    task_id: EXOCOMP-45
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d9d9656d8a8c6458afc468beb3f2dad49f131bdad32512711c0c133e7f78d3c3
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:17.205724+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -74,5 +96,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
