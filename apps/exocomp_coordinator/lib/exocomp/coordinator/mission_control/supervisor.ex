@@ -21,13 +21,38 @@ defmodule Exocomp.Coordinator.MissionControl.Supervisor do
   alias Exocomp.Coordinator.Config
 
   @doc """
+  Returns a child spec for use in a supervision tree.
+
+  Accepts either a config struct or a {config, opts} tuple. The resulting
+  child spec ensures the supervisor is registered under
+  Exocomp.Coordinator.MissionControlSupervisor and has type :supervisor.
+  """
+  def child_spec(init_arg) do
+    {config, opts} =
+      case init_arg do
+        {c, o} when is_list(o) -> {c, o}
+        c -> {c, []}
+      end
+
+    %{
+      id: __MODULE__,
+      start: {__MODULE__, :start_link, [config, opts]},
+      type: :supervisor,
+      restart: :permanent,
+      shutdown: :infinity
+    }
+  end
+
+  @doc """
   Starts the Mission Control supervision subtree with the given configuration.
 
   Returns `{:ok, pid}` on success or `{:error, reason}` on failure.
   """
   @spec start_link(Config.MissionControl.t(), keyword()) :: {:ok, pid()} | {:error, term()}
   def start_link(mission_control_config, opts \\ []) do
-    Supervisor.start_link(__MODULE__, mission_control_config, opts)
+    # Merge registration name into opts
+    supervisor_opts = [name: Exocomp.Coordinator.MissionControlSupervisor] ++ opts
+    Supervisor.start_link(__MODULE__, mission_control_config, supervisor_opts)
   end
 
   @impl true

@@ -97,10 +97,7 @@ defmodule Exocomp.Coordinator.Application do
 
       mc_config when is_map(mc_config) ->
         if Map.get(mc_config, :enabled) == true do
-          [
-            {Exocomp.Coordinator.MissionControl.Supervisor,
-             [mc_config, name: Exocomp.Coordinator.MissionControlSupervisor]}
-          ]
+          [{Exocomp.Coordinator.MissionControl.Supervisor, mc_config}]
         else
           []
         end
