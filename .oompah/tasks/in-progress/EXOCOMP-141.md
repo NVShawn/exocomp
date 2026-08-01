@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-141
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Enforce viewer, operator, and admin authorization
 parent: EXOCOMP-129
@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T11:55:36.039602Z'
+updated_at: '2026-08-01T11:56:05.983631Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 2bd7c99f-c9bc-407c-a231-fddbe8c6acc3
+oompah.agent_run_id: 4c3fd655-6a16-416c-bc48-5bb0cc55cdc0
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 oompah.integration:
   version: 2
@@ -49,13 +49,13 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T11:54:18.958355+00:00'
 oompah.task_costs:
-  total_input_tokens: 392325
-  total_output_tokens: 4671
+  total_input_tokens: 392651
+  total_output_tokens: 4736
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 392325
-      output_tokens: 4671
+      input_tokens: 392651
+      output_tokens: 4736
       cost_usd: 0.0
   runs:
   - profile: default
@@ -64,6 +64,12 @@ oompah.task_costs:
     output_tokens: 4671
     cost_usd: 0.0
     recorded_at: '2026-08-01T11:53:47.765349+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 326
+    output_tokens: 65
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T11:55:51.936316+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-141__20260801T115045Z
@@ -159,5 +165,15 @@ The frontend aspect mentioned in acceptance criteria ("Removing a UI control doe
 - Write comprehensive role matrix tests
 
 The Frontend Developer role is not the right fit for the core implementation. Request dispatch to backend-capable focus.
+---
+author: oompah
+created: 2026-08-01 11:56
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 15
+- Tokens: 326 in / 65 out [391 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 38s
+- Log: EXOCOMP-141__20260801T115422Z.jsonl
 ---
 <!-- COMMENTS:END -->

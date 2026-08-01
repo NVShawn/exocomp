@@ -1,0 +1,134 @@
+---
+id: EXOCOMP-142
+type: task
+status: In Progress
+priority: 1
+title: Create one-use cluster invitations
+parent: EXOCOMP-129
+children: []
+blocked_by:
+- EXOCOMP-141
+- EXOCOMP-171
+start_blocked_by: []
+labels: []
+assignee: null
+created_at: '2026-07-30T14:14:24.463171Z'
+updated_at: '2026-08-01T11:56:26.747274Z'
+work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
+target_branch: null
+review_url: null
+review_number: null
+merged_at: null
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: a878dc9c2770ae74c029518ed160ca9480609de0e2d6c26628971002a325ce17
+  detector_version: duplicate-detector-v1
+  verdict: no_duplicate
+  checked_at: '2026-08-01T11:56:05.509706+00:00'
+  matched_identifiers: []
+  evidence: "Focus handoff: duplicate_detector\n\nDuplicate preflight verdict: no_duplicate\n\
+    \nMatches: none\n\nEvidence: Reviewed active EXOCOMP-127, EXOCOMP-128, EXOCOMP-129,\
+    \ EXOCOMP-138, EXOCOMP-141, EXOCOMP-143, EXOCOMP-144, EXOCOMP-170, EXOCOMP-171,\
+    \ and EXOCOMP-181. They cover parent planning, organization scoping, authorization,\
+    \ CSR enrollment, UI display, audit storage, or security tests; none duplicate\
+    \ EXOCOMP-142\u2019s invitation creation and atomic single-use backend scope."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
+  retry_count: 0
+  retry_after: null
+oompah.agent_run_id: 962749f5-b91a-428a-b530-5c134ad09e35
+oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-129--task-EXOCOMP-142
+  base_branch: epic-EXOCOMP-129
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  updated_at: '2026-08-01T11:56:24.877363+00:00'
+oompah.task_costs:
+  total_input_tokens: 801245
+  total_output_tokens: 3780
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 801245
+      output_tokens: 3780
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 801245
+    output_tokens: 3780
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T11:56:05.509321+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-142__20260801T115430Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-129--task-EXOCOMP-142
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T11:56:05.515247+00:00'
+---
+## Summary
+
+Plan: plans/mission-control.md, Cluster Enrollment and Identity.
+
+Deliverables:
+- Add cluster and invitation schemas scoped to an organization.
+- Add an admin-only POST /api/v1/cluster-invitations endpoint.
+- Generate a random invitation, show it once, store only its digest, and bind it to cluster name and optional labels.
+- Add expiry and atomic single-use consumption helpers.
+
+Acceptance:
+- Tests cover creation, expiry, replay, wrong organization, duplicate cluster names, and concurrent consumption.
+- Invitation plaintext is absent from the database and logs.
+- Viewer and operator roles receive a forbidden response.
+
+Out of scope: CSR signing and certificate renewal.
+Quality gate: focused context/API tests plus make fmt-check and make lint.
+
+## Acceptance Criteria
+
+- [ ] Define acceptance criteria.
+
+## Notes
+
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 11:54
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-01 11:54
+---
+Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 11:56
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 25
+- Tokens: 801.2K in / 3.8K out [805.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 49s
+- Log: EXOCOMP-142__20260801T115430Z.jsonl
+---
+author: oompah
+created: 2026-08-01 11:56
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 11:56
+---
+Focus: Maintenance Engineer
+---
+<!-- COMMENTS:END -->
