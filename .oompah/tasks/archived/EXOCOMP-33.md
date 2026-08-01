@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-33
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Test recovery idempotency and failure modes
 parent: EXOCOMP-4
@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-08-01T21:32:34.094342Z'
+updated_at: '2026-08-01T21:36:35.921621Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -56,6 +56,30 @@ oompah.task_costs:
     recorded_at: '2026-07-25T02:24:42.432415+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-a9c3324b0a24: '2026-08-01T21:36:33.617478+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-33
+    target_state: Archived
+    evidence_fingerprint: a6dc98442e9bac602e6a64f72cc2376f33d4982674c1264e38309217eaf35c4c
+    audit_ids:
+    - audit-69a92c3f83ff
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:36:33.617490+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-33
+    audit_id: audit-69a92c3f83ff
+    attempt_id: attempt-a9c3324b0a24
+    target_state: Archived
+    evidence_fingerprint: a6dc98442e9bac602e6a64f72cc2376f33d4982674c1264e38309217eaf35c4c
+    status: Archived
+    audit_ids:
+    - audit-69a92c3f83ff
+    applied: false
+    created_at: '2026-08-01T21:36:33.617507+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -63,7 +87,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-33
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -72,7 +96,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-a9c3324b0a24
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -82,13 +106,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:32:24.462885+00:00'
       branch_key: epic-EXOCOMP-4
+      verdict: pass
+      completed_at: '2026-08-01T21:36:33.617312+00:00'
+      ended_at: '2026-08-01T21:36:33.617312+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:03.243049+00:00'
-    updated_at: '2026-08-01T21:32:24.462885+00:00'
+    updated_at: '2026-08-01T21:36:33.617312+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a9c3324b0a24
@@ -731,5 +758,21 @@ author: oompah
 created: 2026-08-01 21:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:36
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- recovery_commit_on_main: cad1c28b6468020c7a9c87b928cf62ab897fa5d6
+- merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- original_task_commit: 47fbb61a
+- fault_injection_test_file: apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs
+- test_scenarios_covered: 12 scenarios / 29 tests (pre/post partitions, coordinator restart, node restart, duplicate/concurrent, replay, audit failure, restart failure, health failure, flapping, cooldown reconciliation, cross-cutting exactly-once)
+- recovery_task: EXOCOMP-113
+- audit_type: aged Merged auto-archive
 ---
 <!-- COMMENTS:END -->
