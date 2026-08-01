@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-01T12:39:33.960944Z'
+updated_at: '2026-08-01T12:40:02.446537Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -58,13 +58,13 @@ oompah.integration:
   submitted_at: '2026-08-01T12:39:32.086390+00:00'
   updated_at: '2026-08-01T12:39:32.086390+00:00'
 oompah.task_costs:
-  total_input_tokens: 467252
-  total_output_tokens: 4252
+  total_input_tokens: 20434066
+  total_output_tokens: 71814
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 467252
-      output_tokens: 4252
+      input_tokens: 20434066
+      output_tokens: 71814
       cost_usd: 0.0
   runs:
   - profile: default
@@ -73,6 +73,12 @@ oompah.task_costs:
     output_tokens: 4252
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:14:39.385281+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 19966814
+    output_tokens: 67562
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:40:00.995048+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-146__20260801T121119Z
@@ -167,5 +173,15 @@ author: oompah
 created: 2026-08-01 12:39
 ---
 Implemented outbound TLS 1.3 mTLS WebSocket coordinator client and validated Mission Control gateway with certificate-derived identity, revocation rejection, random sessions, replacement, and focused integration coverage.
+---
+author: oompah
+created: 2026-08-01 12:40
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 103
+- Tokens: 20.0M in / 67.6K out [20.0M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 25m 6s
+- Log: EXOCOMP-146__20260801T121501Z.jsonl
 ---
 <!-- COMMENTS:END -->
