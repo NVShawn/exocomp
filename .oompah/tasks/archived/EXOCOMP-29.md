@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-29
 type: feature
-status: In Validation
+status: Archived
 priority: 0
 title: Create the isolated systemd recovery fixture
 parent: EXOCOMP-4
@@ -17,7 +17,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:10:45.456680Z'
-updated_at: '2026-08-01T03:15:18.167992Z'
+updated_at: '2026-08-01T03:17:09.768567Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -76,6 +76,30 @@ oompah.review_number: '10'
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-3885f08a1dd4: '2026-08-01T03:17:07.658859+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-29
+    target_state: Archived
+    evidence_fingerprint: e5383d4cbd6da2ab48e9ed28ddc36ee40b2758792e8c700500aabc6f3f23a17e
+    audit_ids:
+    - audit-28c579961f9d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:17:07.658870+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-29
+    audit_id: audit-28c579961f9d
+    attempt_id: attempt-3885f08a1dd4
+    target_state: Archived
+    evidence_fingerprint: e5383d4cbd6da2ab48e9ed28ddc36ee40b2758792e8c700500aabc6f3f23a17e
+    status: Archived
+    audit_ids:
+    - audit-28c579961f9d
+    applied: false
+    created_at: '2026-08-01T03:17:07.658885+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -83,7 +107,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-29
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -92,7 +116,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-3885f08a1dd4
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -102,13 +126,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:15:14.537183+00:00'
       branch_key: epic-EXOCOMP-4
+      verdict: pass
+      completed_at: '2026-08-01T03:17:07.658657+00:00'
+      ended_at: '2026-08-01T03:17:07.658657+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:12.999525+00:00'
-    updated_at: '2026-08-01T03:15:14.537183+00:00'
+    updated_at: '2026-08-01T03:17:07.658657+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-3885f08a1dd4
@@ -513,5 +540,23 @@ author: oompah
 created: 2026-08-01 03:15
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:17
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- parent_commit: 221e9c9 EXOCOMP-29: Add fixture design document and decompose into child tasks
+- child_EXOCOMP_69: beb2d9f EXOCOMP-69: add crashable fixture service with health endpoint and state controls
+- child_EXOCOMP_70: 62d0171 EXOCOMP-70: add systemd unit file, install.sh, and cleanup.sh for exocomp-fixture
+- child_EXOCOMP_71: f6bebb2 EXOCOMP-71: add ExUnit integration tests for all fixture states (merged via PR #4)
+- child_EXOCOMP_72: 6b2ba23 EXOCOMP-72: document VM/privileged-container requirements for systemd fixture tests (merged via PR #3)
+- fixture_files: test/fixtures/exocomp_fixture/ contains bin/exocomp-fixture, exocomp-fixture.service, install.sh, cleanup.sh, README.md, test/test_fixture.py
+- docs_file: docs/testing-systemd-fixture.md present
+- design_doc: plans/fixture-design.md present
+- merge_note: Task closed via PR #10 on 2026-07-25 per YOLO merge comment; 7-day aged-merge auto-archive triggered 2026-08-01
 ---
 <!-- COMMENTS:END -->
