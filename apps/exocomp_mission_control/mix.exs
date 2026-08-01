@@ -18,11 +18,17 @@ defmodule Exocomp.MissionControl.MixProject do
   end
 
   def application do
-    [extra_applications: [:crypto, :logger]]
+    [
+      extra_applications: [:crypto, :logger],
+      mod: {Exocomp.MissionControl.Application, []}
+    ]
+>>>>>>> 5977f064 (EXOCOMP-150: persist and deliver cluster commands)
   end
 
   defp deps do
     [
+      {:ecto_sql, "~> 3.12"},
+      {:postgrex, "~> 0.21"},
       {:jason, "~> 1.4"},
       {:plug, "~> 1.17"}
     ]
