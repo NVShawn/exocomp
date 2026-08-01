@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-01T13:27:40.228491Z'
+updated_at: '2026-08-01T13:27:55.448856Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -58,13 +58,13 @@ oompah.integration:
   submitted_at: '2026-08-01T13:27:29.756586+00:00'
   updated_at: '2026-08-01T13:27:29.756586+00:00'
 oompah.task_costs:
-  total_input_tokens: 418683
-  total_output_tokens: 3179
+  total_input_tokens: 420441
+  total_output_tokens: 3637
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 418683
-      output_tokens: 3179
+      input_tokens: 420441
+      output_tokens: 3637
       cost_usd: 0.0
   runs:
   - profile: default
@@ -73,6 +73,12 @@ oompah.task_costs:
     output_tokens: 3179
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:08:32.877347+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1758
+    output_tokens: 458
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:27:54.071729+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-173__20260801T130716Z
@@ -163,5 +169,15 @@ author: oompah
 created: 2026-08-01 13:27
 ---
 Completion: Task EXOCOMP-173 submitted for integration. Implemented webhook signing, delivery, retry, and replay functionality for Mission Control. Key features: (1) Durable webhook events with unique IDs; (2) HMAC-SHA256 signing covering event ID, delivery timestamp, and exact JSON body; (3) Jittered exponential retry (base 2^(n-1), capped at 3600s) for up to 24 hours; (4) Admin inspection of webhook endpoints and delivery attempts; (5) Manual replay capability creating new delivery attempts. Comprehensive test coverage (511 tests passed) for signature vectors, byte-identical payloads, successful/failed delivery, timeout handling, 4xx/5xx responses, retry scheduling, terminal failures, and endpoint management. All quality gates passing: make test, make fmt-check, make lint.
+---
+author: oompah
+created: 2026-08-01 13:27
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 107
+- Tokens: 1.8K in / 458 out [2.2K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 19m 5s
+- Log: EXOCOMP-173__20260801T130854Z.jsonl
 ---
 <!-- COMMENTS:END -->
