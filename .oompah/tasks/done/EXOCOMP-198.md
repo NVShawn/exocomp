@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T18:37:09.282328Z'
+updated_at: '2026-08-01T18:37:28.074140Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -51,8 +51,8 @@ oompah.integration:
   submitted_at: '2026-08-01T18:17:46.169201+00:00'
   updated_at: '2026-08-01T18:23:54.460966+00:00'
 oompah.task_costs:
-  total_input_tokens: 663689
-  total_output_tokens: 50599
+  total_input_tokens: 663773
+  total_output_tokens: 53639
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -60,8 +60,8 @@ oompah.task_costs:
       output_tokens: 3487
       cost_usd: 0.0
     unknown:
-      input_tokens: 40
-      output_tokens: 8556
+      input_tokens: 124
+      output_tokens: 11596
       cost_usd: 0.0
     sonnet:
       input_tokens: 194423
@@ -92,6 +92,12 @@ oompah.task_costs:
     output_tokens: 33917
     cost_usd: 0.0
     recorded_at: '2026-08-01T18:18:07.063930+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 84
+    output_tokens: 3040
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:37:26.353221+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-198__20260801T140828Z
@@ -535,5 +541,15 @@ Safe evidence:
 - skill_id: exocomp.profile.inspect
 - fixtures: traditional.list, cephadm.list, mixed.list, none.list, malformed.list
 - test_compliance_result: 29/29 ok
+---
+author: oompah
+created: 2026-08-01 18:37
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 56
+- Tokens: 84 in / 3.0K out [3.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 13m 3s
+- Log: EXOCOMP-198__20260801T182429Z.jsonl
 ---
 <!-- COMMENTS:END -->
