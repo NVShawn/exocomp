@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T21:43:01.076732Z'
+updated_at: '2026-08-01T21:49:04.906363Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -133,5 +133,10 @@ author: oompah
 created: 2026-08-01 21:43
 ---
 UNDERSTANDING: Task is to reduce Ceph CLI evidence, topology mappings, and node observations into health states. Acceptance criteria: map HEALTH_OK/WARN/ERR to healthy/degraded/critical; distinguish reasons for stale/missing evidence; validate daemon units against systemd state and profile evidence; bounded evidence references with deterministic severity. Approach: explore existing code from integrated dependencies, identify what health reduction logic is needed, implement with table-driven tests covering health levels, stale evidence, partial evidence, missing daemons, unreachable nodes, unsupported profiles, and recovery scenarios.
+---
+author: oompah
+created: 2026-08-01 21:49
+---
+DISCOVERY: Found integrated dependencies including Ceph evidence collector (EXOCOMP-197), topology correlation (EXOCOMP-199), and profile infrastructure. Existing code provides: raw CLI evidence collection, topology-to-inventory mapping, profile coverage tracking, and basic health_reduction in ClusterProfile.Ceph. Task requires implementing a comprehensive health reduction system that: (1) converts Ceph status (HEALTH_OK/WARN/ERR) to severity states (healthy/degraded/critical); (2) tracks stale/missing evidence and coverage gaps; (3) validates daemon units against systemd and profile evidence; (4) bounds evidence references. Plan to create CephHealthReducer module with table-driven tests covering health levels, partial evidence, missing daemons, unreachable nodes, and profile version issues.
 ---
 <!-- COMMENTS:END -->
