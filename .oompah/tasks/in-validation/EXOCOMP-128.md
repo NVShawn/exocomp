@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-01T16:25:32.110191Z'
+updated_at: '2026-08-01T16:25:42.683840Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -119,6 +119,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T16:18:25.073295+00:00'
     branch_key: epic-EXOCOMP-128
+oompah.task_costs:
+  total_input_tokens: 56
+  total_output_tokens: 9653
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 56
+      output_tokens: 9653
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 56
+    output_tokens: 9653
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:25:41.238539+00:00'
 ---
 ## Summary
 
@@ -174,5 +190,15 @@ Safe evidence:
 - codec_test_path: apps/exocomp_coordinator/test/exocomp/coordinator/mission_control/codec_test.exs
 - migrations_dir: apps/exocomp_mission_control/priv/repo/migrations
 - makefile_db_target: test-mission-control-db
+---
+author: oompah
+created: 2026-08-01 16:25
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 58, Tool calls: 50
+- Tokens: 56 in / 9.7K out [9.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 14s
+- Log: EXOCOMP-128__20260801T161837Z.jsonl
 ---
 <!-- COMMENTS:END -->
