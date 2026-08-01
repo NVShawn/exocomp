@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:52:37.335927Z'
-updated_at: '2026-08-01T21:18:23.897199Z'
+updated_at: '2026-08-01T21:19:32.796299Z'
 work_branch: epic-EXOCOMP-110
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/14
@@ -35,19 +35,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-110
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 863b79059911139f5e21e5244df081224f3ff7b19d65cc48e0d375048ec48488
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-13563274de7d
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 863b79059911139f5e21e5244df081224f3ff7b19d65cc48e0d375048ec48488
+      created_at: '2026-08-01T21:19:28.683792+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T21:19:28.683792+00:00'
+      branch_key: epic-EXOCOMP-110
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:18:21.821998+00:00'
-  attempt_history: []
+    updated_at: '2026-08-01T21:19:28.683792+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-13563274de7d
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 863b79059911139f5e21e5244df081224f3ff7b19d65cc48e0d375048ec48488
+    created_at: '2026-08-01T21:19:28.683792+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T21:19:28.683792+00:00'
+    branch_key: epic-EXOCOMP-110
 ---
 ## Summary
 

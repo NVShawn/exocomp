@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-51
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Pin A2A 1.0 fixture files and add comprehensive protocol test suite
 parent: EXOCOMP-8
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T20:36:38.184380Z'
-updated_at: '2026-07-25T21:10:53.949447Z'
+updated_at: '2026-08-01T21:19:35.155407Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 27892
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:50:39.253045+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3e1a48e10e14
+    project_id: proj-c260b117
+    task_id: EXOCOMP-51
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: cedb438a82c95ddf2702c27cd0939163b18bc9c2478cb5d08d1690b47ecdd7a2
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:32.972054+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -237,5 +259,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
