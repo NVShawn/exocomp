@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-68
 type: task
-status: In Validation
+status: Archived
 priority: 2
 title: Qualify multi-architecture OTP releases and reproducibility
 parent: EXOCOMP-42
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-08-01T21:40:20.336383Z'
+updated_at: '2026-08-01T21:47:10.609075Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -64,6 +64,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:14:12.968770+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-1e6d5a033fba: '2026-08-01T21:47:08.068775+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-68
+    target_state: Archived
+    evidence_fingerprint: 38a2fb62acd5bc73944059177893dc0430790e381ff3b041407642b48fccf38f
+    audit_ids:
+    - audit-505a8e5ec82b
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:47:08.068786+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-68
+    audit_id: audit-505a8e5ec82b
+    attempt_id: attempt-1e6d5a033fba
+    target_state: Archived
+    evidence_fingerprint: 38a2fb62acd5bc73944059177893dc0430790e381ff3b041407642b48fccf38f
+    status: Archived
+    audit_ids:
+    - audit-505a8e5ec82b
+    applied: false
+    created_at: '2026-08-01T21:47:08.068800+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -71,7 +95,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-68
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -80,7 +104,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-1e6d5a033fba
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -90,13 +114,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:40:16.068623+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-01T21:47:08.068640+00:00'
+      ended_at: '2026-08-01T21:47:08.068640+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:20:01.171375+00:00'
-    updated_at: '2026-08-01T21:40:16.068623+00:00'
+    updated_at: '2026-08-01T21:47:08.068640+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-1e6d5a033fba
@@ -370,5 +397,24 @@ author: oompah
 created: 2026-08-01 21:40
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:47
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- origin_main_recovery_commit: 50cd48c23a0fdc0810441c8c16357f77a112cfdd
+- origin_main_merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- recovery_pr: #14 (EXOCOMP-115)
+- test_release_matrix_lines: 686
+- test_clean_container_lines: 361
+- test_release_builders_lines: 171
+- release_qualification_doc_lines: 218
+- makefile_target_line: 82-83
+- branch_head_ef77ff36_on_origin_EXOCOMP-68: true
+- aged_days_at_queue: 7
 ---
 <!-- COMMENTS:END -->
