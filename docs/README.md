@@ -23,6 +23,7 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 - [Release-notes template](release-notes-template.md)
 - [Release qualification](release-qualification.md)
 - [Runtime dependencies](runtime-dependencies.md)
+- [Mission Control OCI image](mission-control-operations.md)
 
 ## Keeping Docs In Sync
 

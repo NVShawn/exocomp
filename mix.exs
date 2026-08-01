@@ -15,7 +15,7 @@ defmodule Exocomp.MixProject do
   end
 
   defp releases do
-    [
+    releases = [
       exocomp_node: [
         applications: [
           exocomp_core: :permanent,
@@ -33,5 +33,22 @@ defmodule Exocomp.MixProject do
         include_executables_for: [:unix]
       ]
     ]
+
+    # Mission Control is introduced by the Milestone 7 application task. Keep
+    # the release contract in the root project now, but do not make the
+    # pre-Mission-Control checkout uncompilable while that application is
+    # still being integrated.
+    if File.dir?("apps/exocomp_mission_control") do
+      Keyword.put(releases, :mission_control,
+        applications: [
+          exocomp_core: :permanent,
+          exocomp_mission_control: :permanent
+        ],
+        include_erts: true,
+        include_executables_for: [:unix]
+      )
+    else
+      releases
+    end
   end
 end

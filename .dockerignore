@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
+# Keep the Mission Control build context reproducible and free of local state.
+.git
+.oompah
+.agents
+.codex
+_build
+deps
+dist
+cover
+doc
+tests
+test/fixtures
+docs/release-evidence
+*.env
+*.env.*
+*.pem
+*.key
+*.crt
+*.secret
