@@ -20,7 +20,7 @@ labels:
 - focus-complete:callback_auth
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:22:40.372360Z'
+updated_at: '2026-08-01T18:24:54.716476Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -772,5 +772,10 @@ author: oompah
 created: 2026-08-01 18:22
 ---
 UNDERSTANDING (software-engineer): Reviewing the codebase after callback_auth focus (committed at cb7660e9). The M7 qualification harness is fully implemented across: scripts/test-m7-qualification.sh (live orchestrator), scripts/m7_qualification.py (input verification + result writing), scripts/finalize_m7_evidence.py (dual-arch finalization + signing). Hardening from the callback_auth focus includes: credential-bearing redacted-config rejection, query/fragment URL rejection, canonical M7 evidence enforcement, and symlink rejection before signing. All 156 Python offline tests pass (18 M7 contract + 53 release-check + 85 others). My role is to audit for any remaining software engineering gaps, verify quality gates, and hand off cleanly to devops once the qualification dependencies (EXOCOMP-176/178/181/182/183) are integrated.
+---
+author: oompah
+created: 2026-08-01 18:24
+---
+DISCOVERY (software-engineer): Found one real code gap: scripts/test-m7-qualification.sh line 208 calls 'make security' (writing to \${M7_EVIDENCE_DIR}/security/security.json which is required for M7-CRIT-2, M7-CRIT-7, and M7-CRIT-9) but 'security' is absent from the has_target() pre-flight check at line 156. The three scenario targets (test-mission-control-scenario, mc-scale-full, test-mission-control-lifecycle) are pre-checked and would fail fast. 'security' is not, so qualification would fail mid-run after spending time on the earlier phases. Fix: add 'security' to the has_target for-loop and add a contract-test assertion confirming it is covered by the pre-flight check.
 ---
 <!-- COMMENTS:END -->
