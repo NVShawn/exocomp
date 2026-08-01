@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T12:41:23.721662Z'
+updated_at: '2026-08-01T16:31:57.682625Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,15 @@ oompah.agent_run_id: 78c3ce40-8d49-4542-b20c-d428a58e515c
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
+  base_branch: epic-EXOCOMP-130
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 462ad73333f008d60a001f5c14c067d06662457a
+  integrated_sha: 462ad73333f008d60a001f5c14c067d06662457a
   submitted_at: '2026-08-01T12:41:04.371421+00:00'
-  updated_at: '2026-08-01T12:41:04.371421+00:00'
+  updated_at: '2026-08-01T16:31:54.001052+00:00'
 oompah.task_costs:
   total_input_tokens: 745730
   total_output_tokens: 4341
@@ -79,6 +82,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-145
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:10:57.105971+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-1ca7a0a1a622
+    project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0fa719975e1ddff31da808392e4b98ae778fdfe7712001d762cb00dc5aa8e058
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T16:31:55.146207+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -169,5 +194,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 30m 17s
 - Log: EXOCOMP-145__20260801T121112Z.jsonl
+---
+author: oompah
+created: 2026-08-01 16:31
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
