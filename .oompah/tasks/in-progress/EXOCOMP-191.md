@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-191
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Implement bounded read-only service observation
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T13:54:27.378837Z'
+updated_at: '2026-08-01T14:11:59.187927Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -45,7 +45,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: d597f579-4975-4229-8cf3-efe130b32112
+oompah.agent_run_id: 5684be9d-6fdd-4ce7-935a-6c0f0bc44d39
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 oompah.integration:
   version: 2
@@ -53,8 +53,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-191
   base_branch: epic-EXOCOMP-185
-  base_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
-  updated_at: '2026-08-01T13:52:58.536988+00:00'
+  base_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
+  updated_at: '2026-08-01T14:11:57.213977+00:00'
 oompah.task_costs:
   total_input_tokens: 562588
   total_output_tokens: 2938
@@ -126,5 +126,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 30s
 - Log: EXOCOMP-191__20260801T135300Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:11
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 14:11
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
