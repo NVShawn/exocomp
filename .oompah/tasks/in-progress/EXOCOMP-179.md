@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T18:14:31.288386Z'
+updated_at: '2026-08-01T18:14:38.887517Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -184,5 +184,10 @@ author: oompah
 created: 2026-08-01 18:14
 ---
 Verification: the inherited Mission Control protocol/status tests plus the new contract tests pass in a standalone Elixir 1.18 harness: 82 tests, 0 failures. JSON corpus parsing, Elixir syntax/format checks, and git diff --check pass. make test-mission-control-contract, make fmt-check, and make lint cannot start their pinned builder because the sandbox Podman runtime reports ; no code/test failure was observed.
+---
+author: oompah
+created: 2026-08-01 18:14
+---
+Verification correction: inherited Mission Control protocol/status tests plus new contract tests pass in a standalone Elixir 1.18 harness: 82 tests, 0 failures. JSON corpus parsing, Elixir syntax/format checks, and git diff --check pass. The three Make quality targets cannot start the pinned builder because the sandbox Podman runtime reports a read-only /run/user/1000/libpod; no code or test failure was observed.
 ---
 <!-- COMMENTS:END -->
