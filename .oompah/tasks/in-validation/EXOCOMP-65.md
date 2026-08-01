@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-65
 type: feature
-status: Merged
+status: In Validation
 priority: 2
 title: Pin multi-architecture OTP release builders
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-07-25T21:11:12.509565Z'
+updated_at: '2026-08-01T21:19:47.897286Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -55,6 +55,28 @@ oompah.task_costs:
     output_tokens: 1428
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:26:17.629462+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-2e92cbdf6707
+    project_id: proj-c260b117
+    task_id: EXOCOMP-65
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ceba94a9965482a561612feb7c27263f36d9d490fec4a6d1c944d53fccd50f96
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:45.121349+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -387,5 +409,10 @@ author: oompah
 created: 2026-07-25 21:11
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
