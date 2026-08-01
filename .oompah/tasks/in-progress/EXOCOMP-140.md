@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:15:08.323302Z'
+updated_at: '2026-08-01T18:15:33.723283Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -89,19 +89,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 320eda88-85a2-46df-b750-3173c5387f2a
+oompah.agent_run_id: 0c0f29e0-d782-48eb-8ee9-a87c4aba601b
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
   base_branch: epic-EXOCOMP-129
-  base_sha: da00228fa34111b6cce19eca7d8c65491a4fd6cf
-  head_sha: a32e40695d6c0f67fa3cc823cf8cfcfc6525cbee
-  integrated_sha: a32e40695d6c0f67fa3cc823cf8cfcfc6525cbee
-  submitted_at: '2026-08-01T17:59:43.467642+00:00'
-  updated_at: '2026-08-01T18:01:03.696614+00:00'
+  base_sha: a32e40695d6c0f67fa3cc823cf8cfcfc6525cbee
+  updated_at: '2026-08-01T18:15:31.603602+00:00'
 oompah.task_costs:
   total_input_tokens: 22346107
   total_output_tokens: 127507
@@ -802,5 +799,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 11m 0s
 - Log: EXOCOMP-140__20260801T180149Z.jsonl
+---
+author: oompah
+created: 2026-08-01 18:15
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 18:15
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
