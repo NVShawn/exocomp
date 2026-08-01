@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-100
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement volatile diagnostic task store and idempotency
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:30.794767Z'
-updated_at: '2026-08-01T02:32:53.812211Z'
+updated_at: '2026-08-01T02:35:13.323454Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -51,6 +51,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-84dd878d6ea3-3: '2026-07-31T21:16:07.138357+00:00'
+    attempt-caef0642fa2a: '2026-08-01T02:35:10.698970+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-100
@@ -58,6 +59,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 73c4d75ef3c0aa77d8940cf4cffaf962a743e0a6ffc7ea1a327a1ca18f629b51
     audit_ids:
     - audit-84dd878d6ea3
+    - audit-985e9f6924d5
     kind: result
     applied: true
     retired_at: '2026-07-31T21:16:07.138371+00:00'
@@ -74,6 +76,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:16:07.138390+00:00'
     applied_at: '2026-07-31T21:16:10.174385+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-100
+    audit_id: audit-985e9f6924d5
+    attempt_id: attempt-caef0642fa2a
+    target_state: Archived
+    evidence_fingerprint: 73c4d75ef3c0aa77d8940cf4cffaf962a743e0a6ffc7ea1a327a1ca18f629b51
+    status: Archived
+    audit_ids:
+    - audit-985e9f6924d5
+    applied: false
+    created_at: '2026-08-01T02:35:10.699001+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -164,7 +177,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-100
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -173,7 +186,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-caef0642fa2a
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -183,13 +196,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:32:50.040681+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:35:10.698740+00:00'
+      ended_at: '2026-08-01T02:35:10.698740+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:44:03.116094+00:00'
-    updated_at: '2026-08-01T02:32:50.040681+00:00'
+    updated_at: '2026-08-01T02:35:10.698740+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-5eec6bdb4ca5
@@ -503,5 +519,23 @@ author: oompah
 created: 2026-08-01 02:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:35
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- impl_commit: f5e9dcb EXOCOMP-100: implement GoalStore volatile diagnostic task store
+- impl_files_on_main: apps/exocomp_coordinator/lib/exocomp/coordinator/goal_store.ex, diagnostic_goal.ex, node_outcome.ex
+- test_file_on_main: apps/exocomp_coordinator/test/exocomp/coordinator/goal_store_test.exs
+- test_describe_blocks: accept/4, duplicate submission, concurrent duplicate race, get/2, list/1, transition/4, put_node_outcome/4, append_output/3, put_artifact/3, cancel/2, max_active bound, max_history bound and eviction, downstream_key/2, DiagnosticGoal.terminal?/1, NodeOutcome.terminal?/1
+- downstream_key_algorithm: hex(SHA-256(goal_id:node_id))
+- goal_state_machine: accepted -> dispatching -> running -> completed|failed|canceled
+- node_outcome_states: pending, running, succeeded, failed, unreachable, canceled, cancel_failed
+- previous_audit_failure_cause: prior 3 attempts failed with 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2' — infrastructure error, since recovered per operator
+- aged_merged_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
