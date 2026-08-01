@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:02.009432Z'
-updated_at: '2026-08-01T15:58:44.715830Z'
+updated_at: '2026-08-01T16:02:30.776741Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-192
 target_branch: null
 review_url: null
@@ -211,5 +211,10 @@ author: oompah
 created: 2026-08-01 15:58
 ---
 Understanding: add coordinator scheduling for startup and five-minute automatic-service discovery plus 30-second effective-service observations, using injectable-clock tests and existing jitter, bounded concurrency, node timeout, backoff/isolation, cache, inventory-reload, and cancellation patterns.
+---
+author: oompah
+created: 2026-08-01 16:02
+---
+Discovery: existing HealthPoller/Registry already provide 30-second jittered health cadence, bounded async workers, timeout isolation, and exponential backoff. Inventory v2 supplies automatic/manual service configuration; node skills expose exocomp.service.inventory and exocomp.service.observe. I will add a supervised ServiceScheduler around those seams, with generation guards and successful-discovery cache preservation.
 ---
 <!-- COMMENTS:END -->

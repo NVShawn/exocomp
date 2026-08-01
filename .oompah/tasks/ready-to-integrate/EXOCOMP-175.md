@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:39.520334Z'
-updated_at: '2026-08-01T16:01:51.335160Z'
+updated_at: '2026-08-01T16:02:43.370113Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 target_branch: null
 review_url: null
@@ -57,13 +57,13 @@ oompah.integration:
   submitted_at: '2026-08-01T16:01:49.021001+00:00'
   updated_at: '2026-08-01T16:01:49.021001+00:00'
 oompah.task_costs:
-  total_input_tokens: 717617
-  total_output_tokens: 3651
+  total_input_tokens: 718283
+  total_output_tokens: 29327
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 717617
-      output_tokens: 3651
+      input_tokens: 718283
+      output_tokens: 29327
       cost_usd: 0.0
   runs:
   - profile: default
@@ -72,6 +72,12 @@ oompah.task_costs:
     output_tokens: 3651
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:41:26.811700+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 666
+    output_tokens: 25676
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:02:41.699065+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-175__20260801T153949Z
@@ -161,5 +167,15 @@ author: oompah
 created: 2026-08-01 16:01
 ---
 Implemented configurable retention policies and bounded batch deletion for Mission Control data (incidents, conversations, proposals, audit events, webhook history). Policy module with default 1-year retention for incidents/messages/proposals/audits/webhooks and 90-day for status history. Janitor module performs bounded batch deletion without blocking ingestion, preserves open/pending records, tracks statistics. 32 comprehensive tests covering cutoff boundaries, dependency ordering, multiple organizations, concurrent safety, and interruption/resume. All quality gates pass (511 tests, fmt-check, lint).
+---
+author: oompah
+created: 2026-08-01 16:02
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 99
+- Tokens: 666 in / 25.7K out [26.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 20m 1s
+- Log: EXOCOMP-175__20260801T154245Z.jsonl
 ---
 <!-- COMMENTS:END -->
