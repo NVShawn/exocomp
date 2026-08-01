@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:20:11.879013Z'
+updated_at: '2026-08-01T17:39:24.235807Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,12 +93,12 @@ oompah.agent_run_id: c102fe23-063e-46c2-b552-1f8c231e55f6
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
-  base_branch: epic-EXOCOMP-129
-  base_sha: b1a07ccf6044357ada26260ea1e71b052ae17c94
-  updated_at: '2026-08-01T17:15:53.085875+00:00'
+  head_sha: da00228fa34111b6cce19eca7d8c65491a4fd6cf
+  submitted_at: '2026-08-01T17:39:22.203633+00:00'
+  updated_at: '2026-08-01T17:39:22.203633+00:00'
 oompah.task_costs:
   total_input_tokens: 21150479
   total_output_tokens: 102168
@@ -481,5 +481,21 @@ author: oompah
 created: 2026-08-01 17:20
 ---
 Understanding: The integration conflict stems from our task branch having sibling task commits (EXOCOMP-136/137/138/139) mixed in with our OIDC work. The epic (epic-EXOCOMP-129) at b1a07ccf has an initial OIDC implementation but without those sibling task commits. Our task branch needs to be rebased so only the EXOCOMP-140 hardening work (oidc_client.ex improvements, OIDCConfigCache, improved auth_controller, real integration tests, license inventory) sits on top of the epic - without the sibling task code which will be integrated separately. Plan: rebase just our two EXOCOMP-140 commits onto epic-EXOCOMP-129, resolving conflicts in application.ex, router.ex, and mix.exs to leave only OIDC-specific additions.
+---
+author: oompah
+created: 2026-08-01 17:39
+---
+Implementation: Resolved the integration conflict by rebasing our EXOCOMP-140 OIDC work cleanly onto epic-EXOCOMP-129 (at b1a07ccf). The previous branch had sibling task commits (EXOCOMP-136/137/138/139) mixed in; now only our OIDC-specific work is on top of the epic.
+
+Changes in the rebased branch (2 commits on top of epic):
+1. Harden OIDC PKCE flow: OIDCConfigCache GenServer for per-process TTL caching of discovery/JWKS docs; code_verifier stored only in session cookie; real JWKS signature verification via JOSE.JWT.verify_strict; hardened auth_controller.ex with with-pipeline; GET+POST /auth/logout routes; session_options() accessor on Endpoint; integration tests with FakeOIDCProvider (success/bad-state/bad-nonce/invalid-issuer/invalid-audience/denied/logout scenarios)
+2. Fix lint warning (unreachable validate_id_token catch-all clause removed) and add all missing license inventory entries for Phoenix ecosystem deps
+
+Verification: make fmt-check passes, make lint passes (compliance: all checks passed). Branch force-pushed to da00228f.
+---
+author: oompah
+created: 2026-08-01 17:39
+---
+Rebased OIDC hardening cleanly onto epic-EXOCOMP-129: OIDCConfigCache GenServer, session-stored PKCE verifier, real JWKS signature verification, hardened auth controller, GET/POST logout routes, end-to-end integration tests with FakeOIDCProvider covering all 7 scenarios, license compliance for all Phoenix deps. make fmt-check and make lint both pass.
 ---
 <!-- COMMENTS:END -->
