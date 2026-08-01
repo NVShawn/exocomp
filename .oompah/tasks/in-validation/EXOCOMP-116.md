@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-116
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Verify recovered exocomp delivery is complete on main
 parent: EXOCOMP-110
@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:27.708830Z'
-updated_at: '2026-07-25T21:15:02.650024Z'
+updated_at: '2026-08-01T21:18:48.834828Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -40,6 +40,28 @@ oompah.task_costs:
     output_tokens: 4932
     cost_usd: 0.0
     recorded_at: '2026-07-25T21:07:20.653619+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-84dd8ae9f69c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-116
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f32282159d1a058df0b2f313d7c8e587f8f25714d38bc8d668bf37cda2c95f6c
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:46.376597+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -239,5 +261,10 @@ author: oompah
 created: 2026-07-25 21:15
 ---
 Completion: Recovered delivery is complete on main. The remote source-branch audit found zero stranded deliverable paths, PR #14 merged as 2085e44, origin/main exactly matches the recovery tree, all requested quality/release gates pass, temporary verification files were removed, and the pushed recovery branch is clean and up to date. EXOCOMP-110 and EXOCOMP-111 through EXOCOMP-116 are already in the terminal Merged state; no repository change or follow-up task is required.
+---
+author: oompah
+created: 2026-08-01 21:18
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
