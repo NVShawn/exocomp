@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:16:52.944137Z'
+updated_at: '2026-08-01T22:17:19.417323Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -52,13 +52,17 @@ oompah.integration:
   submitted_at: '2026-08-01T21:54:39.809011+00:00'
   updated_at: '2026-08-01T21:56:27.590703+00:00'
 oompah.task_costs:
-  total_input_tokens: 607291
-  total_output_tokens: 25570
+  total_input_tokens: 607395
+  total_output_tokens: 57175
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 607291
       output_tokens: 25570
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 104
+      output_tokens: 31605
       cost_usd: 0.0
   runs:
   - profile: default
@@ -73,6 +77,12 @@ oompah.task_costs:
     output_tokens: 21524
     cost_usd: 0.0
     recorded_at: '2026-08-01T21:55:10.943097+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 104
+    output_tokens: 31605
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T22:17:17.949359+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-200__20260801T141247Z
@@ -295,5 +305,15 @@ Instructions:
 - Prefix the unused profile_coverage parameter in determine_daemon_severity_and_reasons/4 with an underscore or actually consult it.
 - Delete or rework the unreachable :error clause in check_staleness/2 (line 357) since DateTime.from_iso8601 never returns bare :error.
 - Re-run make test in an environment that can capture the summary and confirm 0 failures before requesting a Done audit again.
+---
+author: oompah
+created: 2026-08-01 22:17
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 98
+- Tokens: 104 in / 31.6K out [31.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 20m 29s
+- Log: EXOCOMP-200__20260801T215652Z.jsonl
 ---
 <!-- COMMENTS:END -->
