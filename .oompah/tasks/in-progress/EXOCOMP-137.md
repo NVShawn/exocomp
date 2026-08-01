@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T14:39:41.098691Z'
+updated_at: '2026-08-01T14:43:00.162165Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -142,5 +142,10 @@ author: oompah
 created: 2026-08-01 14:39
 ---
 Understanding: configure the Mission Control Ecto/Postgrex repository, environment-specific database settings, initial migration, and SQL-sandbox test harness. I will inspect the existing Mix/application/test structure, add behavior-focused coverage for migration/configuration/sandbox isolation, run focused tests plus make fmt-check and make lint, then commit, push, and submit.
+---
+author: oompah
+created: 2026-08-01 14:43
+---
+Discovery: the umbrella has only a root config/config.exs and runtime.exs, with no environment-specific config files or Mission Control app. Existing git history confirms the app contract (, ) but not this task’s infrastructure. I’ll add a minimal database-only app, env config using DATABASE_URL/PG* variables without credential literals, production validation in a testable helper, a no-op baseline migration (domain tables remain out of scope), and a DataCase SQL-sandbox harness.
 ---
 <!-- COMMENTS:END -->
