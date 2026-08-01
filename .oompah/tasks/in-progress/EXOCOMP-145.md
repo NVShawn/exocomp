@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T21:57:32.011324Z'
+updated_at: '2026-08-01T21:57:34.890919Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -991,5 +991,10 @@ author: oompah
 created: 2026-08-01 21:57
 ---
 Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 21:57
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
