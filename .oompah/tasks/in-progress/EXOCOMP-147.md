@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:42:40.347918Z'
+updated_at: '2026-08-01T13:43:03.646639Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -268,5 +268,10 @@ author: oompah
 created: 2026-08-01 13:42
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 13:43
+---
+Understanding: I will verify the existing Mission Control liveness implementation against the heartbeat, disconnect, jittered reconnect, stable-auth reset, duplicate-timer, commit-before-publish, and local-work resilience requirements; then add only missing focused tests/code, run the required Makefile gates, and push/submit the branch.
 ---
 <!-- COMMENTS:END -->
