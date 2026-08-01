@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:48:11.900612Z'
+updated_at: '2026-08-01T16:48:27.288096Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -37,7 +37,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 78c3ce40-8d49-4542-b20c-d428a58e515c
+oompah.agent_run_id: c3709b53-7045-4aa1-935b-a8e1422b15e4
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
