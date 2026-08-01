@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:03.724012Z'
-updated_at: '2026-08-01T02:23:48.225704Z'
+updated_at: '2026-08-01T02:24:01.587810Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -20,13 +20,13 @@ merged_at: null
 oompah.agent_run_id: 5b537988-9c46-4c92-a27a-d86a2680551b
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 560598
-  total_output_tokens: 2923
+  total_input_tokens: 560639
+  total_output_tokens: 12470
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 560598
-      output_tokens: 2923
+      input_tokens: 560639
+      output_tokens: 12470
       cost_usd: 0.0
   runs:
   - profile: default
@@ -35,6 +35,12 @@ oompah.task_costs:
     output_tokens: 2923
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:05:49.867930+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 41
+    output_tokens: 9547
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:23:59.872839+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -495,5 +501,15 @@ Safe evidence:
 - stale_callback_defense: monotonic active_poll_token; begin_poll/2 -> record_observation/4; late tokens => {:ignored, :stale}
 - prior_verification: Focused Registry+NodeProber 45/45 pass, make lint pass, full make test pass, release smoke pass (2026-07-24 per task history)
 - prior_audit_failure_cause: infrastructure only (git worktree add on origin/epic-EXOCOMP-2), operator remediated
+---
+author: oompah
+created: 2026-08-01 02:24
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 46, Tool calls: 35
+- Tokens: 41 in / 9.5K out [9.6K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 23s
+- Log: EXOCOMP-90__20260801T021941Z.jsonl
 ---
 <!-- COMMENTS:END -->
