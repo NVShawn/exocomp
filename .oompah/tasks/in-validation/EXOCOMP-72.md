@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-08-01T01:46:43.910182Z'
+updated_at: '2026-08-01T01:46:47.378348Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-72
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/3
@@ -552,5 +552,10 @@ Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
 - Exit: error, Duration: 6s
+---
+author: oompah
+created: 2026-08-01 01:46
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-72 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-72, origin/EXOCOMP-72). A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
