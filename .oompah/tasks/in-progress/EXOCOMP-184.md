@@ -17,7 +17,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:48:13.940025Z'
+updated_at: '2026-08-01T13:48:38.590048Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -513,5 +513,10 @@ author: oompah
 created: 2026-08-01 13:48
 ---
 IMPLEMENTATION (docs): Added docs/mission-control-qualification.md and linked it from docs/README.md. The runbook defines pass/fail conditions, the required integrated Make interface, signed-tag and host identity capture, frozen amd64/arm64 artifact handling, repository and shipped-artifact gates, migration/recovery, the complete two-cluster scenario, security negatives, scale/retention thresholds, an architecture-symmetric evidence layout, an M7-CRIT-1..12 evidence map, strict override rules, and deterministic evidence signing. It explicitly blocks qualification when the dependency-provided targets are absent and keeps public release creation out of scope.
+---
+author: oompah
+created: 2026-08-01 13:48
+---
+VERIFICATION (docs): PASS: make check-links; PASS: make test-release-packaging (16 package/normalizer/operator-documentation tests); PASS: make release-check (29 compliance, qualification-workflow, docs, packaging, and input-normalizer tests); PASS: all new shell blocks parse with bash -n; PASS: git diff --check. Live test-m7-qualification execution remains unavailable because the M7 target and outstanding dependency implementations are not integrated into this branch.
 ---
 <!-- COMMENTS:END -->
