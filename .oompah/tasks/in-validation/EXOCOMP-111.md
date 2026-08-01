@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-111
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Recover omitted M1 A2A codec and fixture work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:20.183018Z'
-updated_at: '2026-07-25T21:09:00.856321Z'
+updated_at: '2026-08-01T21:18:27.981147Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -35,6 +35,28 @@ oompah.task_costs:
     output_tokens: 3503
     cost_usd: 0.0
     recorded_at: '2026-07-25T18:31:26.141248+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-372e03af2ac1
+    project_id: proj-c260b117
+    task_id: EXOCOMP-111
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 964ae9d5d443ce80fc8851e817b8eff6dffd52a25bb1da4e66e02d83393bcfcf
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:25.734136+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -159,5 +181,10 @@ author: oompah
 created: 2026-07-25 18:42
 ---
 Recovered the stranded EXOCOMP-49 A2A codec/version work and EXOCOMP-51 fixture/protocol suite onto epic-EXOCOMP-110, resolved dependencies and Makefile behavior against current main, verified the affected core suite and quality checks, and pushed commit 2da861a.
+---
+author: oompah
+created: 2026-08-01 21:18
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
