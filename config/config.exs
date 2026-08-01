@@ -30,6 +30,24 @@ replay_ledger_path =
 
 config :exocomp_node, :replay_ledger_path, replay_ledger_path
 
+command_ledger_path =
+  if config_env() == :prod do
+    "/var/lib/exocomp-coordinator/commands.dets"
+  else
+    Path.join(System.tmp_dir!(), "exocomp_coordinator_commands_#{config_env()}.dets")
+  end
+
+command_event_path =
+  if config_env() == :prod do
+    "/var/lib/exocomp-coordinator/command-results.jsonl"
+  else
+    Path.join(System.tmp_dir!(), "exocomp_coordinator_command_results_#{config_env()}.jsonl")
+  end
+
+config :exocomp_coordinator,
+  command_ledger_path: command_ledger_path,
+  command_event_path: command_event_path
+
 recovery_audit_path =
   if config_env() == :prod do
     "/var/lib/exocomp-node/recovery-audit.jsonl"
