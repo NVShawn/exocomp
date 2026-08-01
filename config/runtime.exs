@@ -37,12 +37,14 @@ if config_env() == :prod do
       Application.put_env(:exocomp_coordinator, :mission_control_config, config.mission_control)
 
     {:error, reason} ->
-      # Log but don't fail startup; Mission Control is optional and coordinator
-      # can operate without it.
-      require Logger
+      fields =
+        case reason do
+          {:missing_fields, values} when is_list(values) -> Enum.join(values, ", ")
+          {:type_errors, values} when is_list(values) -> Enum.join(values, ", ")
+          _ -> inspect(reason, limit: 10, printable_limit: 512)
+        end
 
-      Logger.warning(
-        "[CoordinatorApp] Failed to load mission_control configuration: #{inspect(reason)}"
-      )
+      raise "Invalid coordinator configuration: #{fields}. " <>
+              "Fix the file referenced by EXOCOMP_COORDINATOR_CONFIG_FILE before startup."
   end
 end

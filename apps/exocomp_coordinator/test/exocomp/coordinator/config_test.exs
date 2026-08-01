@@ -363,4 +363,32 @@ defmodule Exocomp.Coordinator.ConfigTest do
 
     File.rm(fixture_path)
   end
+
+  test "load/1 returns a bounded type error for a non-object mission_control block" do
+    fixture_path =
+      Path.join(
+        System.tmp_dir!(),
+        "exocomp-coordinator-mc-invalid-shape-#{System.unique_integer([:positive])}.json"
+      )
+
+    File.write!(
+      fixture_path,
+      Jason.encode!(%{
+        "version" => 1,
+        "coordinator_id" => "coord-test",
+        "tls" => %{
+          "ca_cert" => "/tmp/ca.crt",
+          "coord_cert" => "/tmp/c.crt",
+          "coord_key" => "/tmp/k.key"
+        },
+        "listen" => %{"host" => "0.0.0.0", "port" => 4443},
+        "mission_control" => ["enabled", true]
+      })
+    )
+
+    on_exit(fn -> File.rm(fixture_path) end)
+
+    assert {:error, {:type_errors, errors}} = Config.load(fixture_path)
+    assert "mission_control" in errors
+  end
 end

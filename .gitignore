@@ -42,6 +42,8 @@ htmlcov/
 /.elixir_ls/
 /erl_crash.dump
 /apps/*/tmp/
+apps/fixtures/mc-*
+apps/fixtures/coordinator_config_mc-*
 *.ez
 /.mix/
 
