@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:32:26.167975Z'
+updated_at: '2026-08-01T18:32:44.963094Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -100,13 +100,13 @@ oompah.integration:
   submitted_at: '2026-08-01T18:31:49.494689+00:00'
   updated_at: '2026-08-01T18:31:49.494689+00:00'
 oompah.task_costs:
-  total_input_tokens: 22346107
-  total_output_tokens: 127507
+  total_input_tokens: 22347065
+  total_output_tokens: 127707
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 22345705
-      output_tokens: 90445
+      input_tokens: 22346663
+      output_tokens: 90645
       cost_usd: 0.0
     unknown:
       input_tokens: 233
@@ -165,6 +165,12 @@ oompah.task_costs:
     output_tokens: 9372
     cost_usd: 0.0
     recorded_at: '2026-08-01T18:12:47.039056+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 958
+    output_tokens: 200
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:32:43.483768+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-140__20260801T114901Z
@@ -839,5 +845,15 @@ author: oompah
 created: 2026-08-01 18:32
 ---
 Completion: EXOCOMP-140 is complete and submitted. The OIDC login/callback/logout implementation with secure server-side sessions is fully tested and verified. Key achievements: (1) Fixed ConnCase import conflicts, (2) All 511 tests pass including full OIDC test suite, (3) Session cookies configured with encryption, secure, HTTP-only, same-site flags, (4) fmt-check and lint pass cleanly, (5) Code committed and pushed to branch epic-EXOCOMP-129--task-EXOCOMP-140, commit 459fb901.
+---
+author: oompah
+created: 2026-08-01 18:32
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 49
+- Tokens: 958 in / 200 out [1.2K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 16s
+- Log: EXOCOMP-140__20260801T181535Z.jsonl
 ---
 <!-- COMMENTS:END -->
