@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T18:13:16.091228Z'
+updated_at: '2026-08-01T18:14:31.288386Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -179,5 +179,10 @@ author: oompah
 created: 2026-08-01 18:13
 ---
 Implementation: Reconciled EXOCOMP-139 and EXOCOMP-194 dependency commits, added a manifest-driven shared Mission Control corpus (events, commands, acknowledgements, mutation errors, replay/gap metadata, redaction, and schema versions), shared fixture loader with field-level drift errors, coordinator/core contract tests, and make test-mission-control-contract. Required event/command payload omission now fails explicitly; sequence gaps are detected by StatusReducer.missing_sequences/1 and exposed through the coordinator facade.
+---
+author: oompah
+created: 2026-08-01 18:14
+---
+Verification: the inherited Mission Control protocol/status tests plus the new contract tests pass in a standalone Elixir 1.18 harness: 82 tests, 0 failures. JSON corpus parsing, Elixir syntax/format checks, and git diff --check pass. make test-mission-control-contract, make fmt-check, and make lint cannot start their pinned builder because the sandbox Podman runtime reports ; no code/test failure was observed.
 ---
 <!-- COMMENTS:END -->
