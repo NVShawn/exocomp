@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-180
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add reconnect and multi-replica integration tests
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:18:09.715151Z'
+updated_at: '2026-08-01T13:18:24.345670Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -51,7 +51,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: f16e91bc-b1ec-4c8c-850c-0280f6ad6dc0
+oompah.agent_run_id: 7bcd7e9e-34fe-4814-ae41-29219a9d5b69
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 oompah.integration:
   version: 2
