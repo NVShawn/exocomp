@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:43:03.646639Z'
+updated_at: '2026-08-01T13:45:26.874172Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -273,5 +273,10 @@ author: oompah
 created: 2026-08-01 13:43
 ---
 Understanding: I will verify the existing Mission Control liveness implementation against the heartbeat, disconnect, jittered reconnect, stable-auth reset, duplicate-timer, commit-before-publish, and local-work resilience requirements; then add only missing focused tests/code, run the required Makefile gates, and push/submit the branch.
+---
+author: oompah
+created: 2026-08-01 13:45
+---
+Discovery: the current branch has transport-independent Connection and SessionLiveness state machines. Connection schedules one generation-tagged heartbeat per active session, runs connect attempts in monitored workers, and applies 0..cap full-jitter bounds; SessionLiveness records each valid heartbeat and retries failed durable commits before publishing. Focused tests are format-clean, but host Elixir 1.18.3 cannot run the pinned 1.20.2 Mix suite. I’m hardening stale liveness timer handling and adding coverage for connect-worker races and duplicate reconnect signals.
 ---
 <!-- COMMENTS:END -->
