@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-08-01T17:58:44.680063Z'
+updated_at: '2026-08-01T18:03:15.019730Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-152
 target_branch: null
 review_url: null
@@ -193,5 +193,22 @@ author: oompah
 created: 2026-08-01 17:58
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 18:03
+---
+UNDERSTANDING: Task is to persist current cluster and node status by:
+1. Adding organization-scoped cluster and node current-state schemas (Ecto models)
+2. Implementing reducers to process cluster.hello, heartbeat, and status.snapshot events
+3. Rejecting stale snapshots via sequence/observation ordering
+4. Providing tests for initial state, partial updates, stale updates, node removal, reconnect, duplicates, org isolation
+
+PLAN:
+- Explore the existing Mission Control database schema from EXOCOMP-149 
+- Define ClusterCurrentState and NodeCurrentState Ecto schemas with: connectivity, health, versions, capabilities, labels, node counts, last contact
+- Implement event reducer functions to transactionally apply cluster.hello, heartbeat, status.snapshot events
+- Add stale update rejection using sequence/observation numbers
+- Write focused reducer tests covering all acceptance criteria
+- Verify with: make test, make fmt-check, make lint
 ---
 <!-- COMMENTS:END -->
