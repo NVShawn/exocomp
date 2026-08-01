@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-198
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Discover local traditional and cephadm daemon units
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T18:24:26.043876Z'
+updated_at: '2026-08-01T18:37:06.379165Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -122,6 +122,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-79028d8df83b: '2026-08-01T15:22:39.233299+00:00'
+    attempt-eca469ea424b: '2026-08-01T18:37:03.922002+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-198
@@ -132,6 +133,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T15:22:39.233312+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-198
+    target_state: Done
+    evidence_fingerprint: 4aa5a460f268d1ebb10c72c6b66661ea5bf9893f52706e036e1b2aeb9aac1260
+    audit_ids:
+    - audit-b2ff4464f9b1
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T18:37:03.922020+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-198
@@ -145,6 +155,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T15:22:39.233328+00:00'
     applied_at: '2026-08-01T15:22:41.960258+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-198
+    audit_id: audit-b2ff4464f9b1
+    attempt_id: attempt-eca469ea424b
+    target_state: Done
+    evidence_fingerprint: 4aa5a460f268d1ebb10c72c6b66661ea5bf9893f52706e036e1b2aeb9aac1260
+    status: Done
+    audit_ids:
+    - audit-b2ff4464f9b1
+    applied: false
+    created_at: '2026-08-01T18:37:03.922042+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -187,7 +208,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-198
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -196,7 +217,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-eca469ea424b
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -206,13 +227,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T18:24:22.648090+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-198
+      verdict: pass
+      completed_at: '2026-08-01T18:37:03.921834+00:00'
+      ended_at: '2026-08-01T18:37:03.921834+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T18:23:57.672941+00:00'
-    updated_at: '2026-08-01T18:24:22.648090+00:00'
+    updated_at: '2026-08-01T18:37:03.921834+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-79028d8df83b
@@ -493,5 +517,22 @@ author: oompah
 created: 2026-08-01 18:24
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 18:37
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: a929517cafea443b9d66d601bfd7d7e439e5aaec
+- remote_branch: origin/epic-EXOCOMP-186--task-EXOCOMP-198
+- head_matches_remote: true
+- collector_module: Exocomp.Node.Collectors.Ceph
+- skill_module: Exocomp.Node.Skills.ProfileInspect
+- skill_id: exocomp.profile.inspect
+- fixtures: traditional.list, cephadm.list, mixed.list, none.list, malformed.list
+- test_compliance_result: 29/29 ok
 ---
 <!-- COMMENTS:END -->
