@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:24:51.566151Z'
+updated_at: '2026-08-01T22:36:50.608993Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -111,6 +111,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-527f89c35566: '2026-08-01T22:16:49.365453+00:00'
+    attempt-cd2fda27c3e6: '2026-08-01T22:36:46.714346+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-200
@@ -121,6 +122,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T22:16:49.365461+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    target_state: Done
+    evidence_fingerprint: fcbd21f9218b7c4571d7c584ad43ae7a223227d39a2184a79adce0ab02aba926
+    audit_ids:
+    - audit-14594c694c00
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T22:36:46.714362+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-200
@@ -134,6 +144,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T22:16:49.365472+00:00'
     applied_at: '2026-08-01T22:16:52.169992+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    audit_id: audit-14594c694c00
+    attempt_id: attempt-cd2fda27c3e6
+    target_state: Done
+    evidence_fingerprint: fcbd21f9218b7c4571d7c584ad43ae7a223227d39a2184a79adce0ab02aba926
+    status: Needs CI Fix
+    audit_ids:
+    - audit-14594c694c00
+    applied: true
+    created_at: '2026-08-01T22:36:46.714380+00:00'
+    applied_at: '2026-08-01T22:36:49.849836+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -176,7 +198,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-200
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -185,7 +207,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-cd2fda27c3e6
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -195,13 +217,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T22:24:48.532088+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-200
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T22:36:46.714101+00:00'
+      ended_at: '2026-08-01T22:36:46.714101+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T22:24:43.993064+00:00'
-    updated_at: '2026-08-01T22:24:48.532088+00:00'
+    updated_at: '2026-08-01T22:36:46.714101+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-527f89c35566
@@ -424,5 +450,22 @@ author: oompah
 created: 2026-08-01 22:24
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 22:36
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Questions:
+- Should :critical_health_status be added to cluster_health.reasons when ceph_status is HEALTH_ERR, or should the test assertion be dropped?
+- For daemon health, should an empty local.state observation be treated as healthy (systemd-only gate) or should the fixtures supply enablement/load_state/active_state so profile-evidence gating is meaningful?
+
+Instructions:
+- Add `:critical_health_status` to reasons in determine_cluster_severity_and_reasons/5 when ceph_status == "HEALTH_ERR" (or amend the tests, but the type spec and docs claim the reason exists).
+- Fix determine_daemon_severity_and_reasons/4 or check_profile_evidence_health/1 so that a systemd-healthy daemon with an empty local.state (as used across the test fixtures) reports :healthy — either drop the profile-evidence AND gate, or make it a no-op when the observation is absent.
+- After the code fixes, run `make test` in an environment where you can capture the summary line (e.g. tee to a file inside the worktree) and confirm 0 failures before re-requesting a Done audit.
+- Consider adding a regression test that reads back `Exocomp.ClusterProfile.CephHealthReducer.reduce/*` typespec's declared reasons and ensures every declared reason atom is exercised by at least one code path, so future dead reason atoms are caught locally.
 ---
 <!-- COMMENTS:END -->
