@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T16:19:42.907817Z'
+updated_at: '2026-08-01T16:40:36.870499Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -110,6 +110,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-ac94c3968d07: '2026-08-01T16:05:28.240270+00:00'
+    attempt-87605aca12b8: '2026-08-01T16:40:33.933442+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-202
@@ -120,6 +121,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T16:05:28.240278+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-202
+    target_state: Done
+    evidence_fingerprint: ce546dd6cf4af22bb88a74c32f3151ed90bd1478bae37504e56c2f668c1867c0
+    audit_ids:
+    - audit-13b1c1068554
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:40:33.933461+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-202
@@ -133,6 +143,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T16:05:28.240288+00:00'
     applied_at: '2026-08-01T16:05:31.171744+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-202
+    audit_id: audit-13b1c1068554
+    attempt_id: attempt-87605aca12b8
+    target_state: Done
+    evidence_fingerprint: ce546dd6cf4af22bb88a74c32f3151ed90bd1478bae37504e56c2f668c1867c0
+    status: Done
+    audit_ids:
+    - audit-13b1c1068554
+    applied: false
+    created_at: '2026-08-01T16:40:33.933484+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -175,7 +196,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-202
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -184,7 +205,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-87605aca12b8
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -194,13 +215,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:19:39.063455+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-202
+      verdict: pass
+      completed_at: '2026-08-01T16:40:33.933148+00:00'
+      ended_at: '2026-08-01T16:40:33.933148+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:18:40.536055+00:00'
-    updated_at: '2026-08-01T16:19:39.063455+00:00'
+    updated_at: '2026-08-01T16:40:33.933148+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ac94c3968d07
@@ -541,5 +565,27 @@ author: oompah
 created: 2026-08-01 16:19
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:40
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_sha: 9bd56928c896865de00d10a1f168bcbbaa9abdc9
+- upstream_sha: 9bd56928c896865de00d10a1f168bcbbaa9abdc9
+- branch: epic-EXOCOMP-186--task-EXOCOMP-202
+- helper_bundle_stage: scripts/assemble-bundle.sh phase 2e requires --profile-helper for cross-arch, validates ELF machine (dies on mismatch), stages bin/profile-action-helper 0755
+- manifest_records: manifest.sha256 hashes bin/profile-action-helper; manifest.json includes {path,sha256} in files array and components.profile_action_helper
+- sbom_records: scripts/generate-sbom.sh emits SPDXRef-Package-ProfileActionHelper with SHA256 checksum and Bundle CONTAINS relationship
+- install_permissions: scripts/install.sh install_profile_action_helper: cp -f, chmod 755, do_chown root:root; node-only; dry-run guard
+- sudoers_policy: render_sudoers appends helper path as exact 'account ALL=(root) NO[REDACTED-credential] with no argument wildcards; other entries use exact 'systemctl restart <svc>' or vacuum
+- sudoers_atomic_visudo: install_sudoers writes ${dest}.tmp.$$; visudo -c -f tmp; rm+die on failure; mv -f only on success
+- uninstall_paths: scripts/uninstall.sh remove_manifest_files removes ${install}/bin/profile-action-helper and ${sudoers_dir}/exocomp-<component>
+- bundle_tests: tests/test_bundle.py: test_profile_action_helper_present_and_authenticated, TestProfileActionHelperArchitecture (parametrized amd64/arm64, wrong-arch rejection), test_profile_action_helper_package_present_and_hash_pinned, test_tampered_profile_action_helper_fails_verification
+- installer_tests: test/installer/test_installer.py TestProfileActionHelperInstall (8 cases) + test_visudo_failure_does_not_install_sudoers_policy at line 1833
+- prior_audit_gaps_status: test_bundle helper coverage: closed; SBOM SPDX entry: closed; visudo-fail rollback test: closed; per-arch helper input + ELF verification: closed
 ---
 <!-- COMMENTS:END -->
