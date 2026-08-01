@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:01:04.370479Z'
+updated_at: '2026-08-01T18:01:27.964147Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -279,7 +279,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-140
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -309,6 +309,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T17:39:51.248455+00:00'
     updated_at: '2026-08-01T17:53:25.973867+00:00'
+  - version: 1
+    audit_id: audit-ac859472d5d0
+    project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: aacb378b4af818ec8f819bf025d1a1fdd8f8e3c942a7075c933227be6e0564eb
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T18:01:26.205090+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-31573855ceed
