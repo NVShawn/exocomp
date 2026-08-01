@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-01T13:27:32.532568Z'
+updated_at: '2026-08-01T13:27:40.228491Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-08-01 13:27
 ---
 Implemented webhook event signing, delivery, retry, and replay for Mission Control. Includes durable event storage, HMAC-SHA256 signing, jittered exponential retry for 24 hours, and admin inspection/replay. All tests passing (511). Dependencies added: ecto_sql, postgrex. Quality gates: make test, make fmt-check, make lint.
+---
+author: oompah
+created: 2026-08-01 13:27
+---
+Completion: Task EXOCOMP-173 submitted for integration. Implemented webhook signing, delivery, retry, and replay functionality for Mission Control. Key features: (1) Durable webhook events with unique IDs; (2) HMAC-SHA256 signing covering event ID, delivery timestamp, and exact JSON body; (3) Jittered exponential retry (base 2^(n-1), capped at 3600s) for up to 24 hours; (4) Admin inspection of webhook endpoints and delivery attempts; (5) Manual replay capability creating new delivery attempts. Comprehensive test coverage (511 tests passed) for signature vectors, byte-identical payloads, successful/failed delivery, timeout handling, 4xx/5xx responses, retry scheduling, terminal failures, and endpoint management. All quality gates passing: make test, make fmt-check, make lint.
 ---
 <!-- COMMENTS:END -->
