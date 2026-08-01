@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-188
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Add coordinator inventory v2 service-monitoring fields
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:57.890248Z'
-updated_at: '2026-08-01T13:58:38.399138Z'
+updated_at: '2026-08-01T13:59:03.129030Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 target_branch: null
 review_url: null
@@ -61,12 +61,15 @@ oompah.agent_run_id: 761000a1-46fb-4fa4-99cd-6fe5cf7b91f2
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-188
+  base_branch: epic-EXOCOMP-185
+  base_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
   head_sha: e211afce695af9a158376ffc5e5eac66044c88c5
+  integrated_sha: e211afce695af9a158376ffc5e5eac66044c88c5
   submitted_at: '2026-08-01T13:58:23.730368+00:00'
-  updated_at: '2026-08-01T13:58:23.730368+00:00'
+  updated_at: '2026-08-01T13:58:59.497904+00:00'
 oompah.task_costs:
   total_input_tokens: 1136
   total_output_tokens: 5761
@@ -99,6 +102,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-185--task-EXOCOMP-188
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:40:27.227347+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-e734e02e8d0d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-188
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f5a91af2fc653d72ddff070ab74e7f62f4e1296277e4ab43bf353bed0ccc53bd
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T13:59:00.538419+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -231,5 +256,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 11m 55s
 - Log: EXOCOMP-188__20260801T134649Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:59
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
