@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:56:29.519294Z'
+updated_at: '2026-08-01T17:03:01.159710Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -96,6 +96,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-ba2e9268bfd5: '2026-08-01T16:47:56.556258+00:00'
+    attempt-e703af1125bb: '2026-08-01T17:02:57.255195+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -106,6 +107,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T16:47:56.556273+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    evidence_fingerprint: 5fad4b2733e9c252961ad316d80be44c6bdd2a2e4d298f861bfef43cdb1bdc2a
+    audit_ids:
+    - audit-9c6d2c78ef38
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T17:02:57.255207+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -119,6 +129,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T16:47:56.556292+00:00'
     applied_at: '2026-08-01T16:47:59.365133+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    audit_id: audit-9c6d2c78ef38
+    attempt_id: attempt-e703af1125bb
+    target_state: Done
+    evidence_fingerprint: 5fad4b2733e9c252961ad316d80be44c6bdd2a2e4d298f861bfef43cdb1bdc2a
+    status: Open
+    audit_ids:
+    - audit-9c6d2c78ef38
+    applied: true
+    created_at: '2026-08-01T17:02:57.255221+00:00'
+    applied_at: '2026-08-01T17:03:00.380505+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -161,7 +183,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -170,7 +192,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-e703af1125bb
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -180,13 +202,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:56:25.922770+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-01T17:02:57.255014+00:00'
+      ended_at: '2026-08-01T17:02:57.255014+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:56:00.519406+00:00'
-    updated_at: '2026-08-01T16:56:25.922770+00:00'
+    updated_at: '2026-08-01T17:02:57.255014+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -415,5 +441,19 @@ author: oompah
 created: 2026-08-01 16:56
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 17:02
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Give MissionControl.Supervisor a custom child_spec/1 that takes the %Config.MissionControl{} struct (or the {struct, opts} tuple) and produces %{id: __MODULE__, start: {__MODULE__, :start_link, [struct, opts]}, type: :supervisor}, and change Application.mission_control_children/0 to emit `{MissionControl.Supervisor, mc_config}` (struct as the sole init_arg) so start_link receives the struct and the supervisor is registered under Exocomp.Coordinator.MissionControlSupervisor.
+- Replace the module-name-only assertion in supervisor_test.exs with a test that puts an enabled %Config.MissionControl{} struct into :mission_control_config app env, then actually starts the child spec returned by Application.mission_control_children_for_test/0 (e.g. Supervisor.start_link(children, strategy: :one_for_one, name: :test_root)) and asserts Outbox and Connection are alive under the registered MissionControlSupervisor and receive the struct (not a list).
+- Add a paired negative test that would have caught the current bug: build the child spec exactly as the Application emits it and assert start_link with that spec succeeds and both Outbox and Connection successfully complete their init/1 (i.e. Process.whereis and Process.alive?/1 for the Outbox/Connection children).
+- Re-run make test, make fmt-check, and make lint AND paste an inline transcript ending in the `mix test 2>&1 | tail -5` summary in a task comment so the next auditor can independently verify pass counts (previous auditor explicitly required this).
+- Optional but recommended: extend the runtime.exs load path with a focused test that a partial (invalid) mission_control block causes startup to fail with an actionable bounded error rather than the current 'log a warning and drop the config' behavior — deliverable #2 asks for `Invalid partial configuration fails with actionable bounded errors`, but runtime.exs currently swallows Config.load errors as a Logger.warning.
 ---
 <!-- COMMENTS:END -->
