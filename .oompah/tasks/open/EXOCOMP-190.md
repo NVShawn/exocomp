@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T13:46:02.973799Z'
+updated_at: '2026-08-01T13:52:35.466682Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -23,14 +23,17 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: efeecae4d6a578a0eabde567f98eca502fb2e14c34dc6df060c7ebb67e9012f4
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T13:52:32.116194+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: 80de4583-d2d2-4f81-9db2-4b5a2f67c748
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T13:45:54.985387+00:00'
-  claim_expires_at: '2026-08-01T14:15:54.985387+00:00'
+  evidence: "Focus handoff: duplicate_detector  \nDuplicate preflight verdict: no_duplicate\
+    \  \nMatches: none  \nEvidence: No `.oompah/tasks` records or matching active\
+    \ task descriptions are present. Closest reviewed item, EXOCOMP-187, is a plan-only\
+    \ architecture update and does not duplicate this implementation."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
 oompah.agent_run_id: 817ae23f-78ad-42be-b8b0-c88725df78ef
@@ -43,6 +46,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-185
   base_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
   updated_at: '2026-08-01T13:46:00.810756+00:00'
+oompah.task_costs:
+  total_input_tokens: 795292
+  total_output_tokens: 14641
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 795292
+      output_tokens: 14641
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 795292
+    output_tokens: 14641
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:52:32.115709+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-190__20260801T134604Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-185--task-EXOCOMP-190
+    source_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
+    completed_at: '2026-08-01T13:52:32.146188+00:00'
 ---
 ## Summary
 
@@ -77,5 +106,15 @@ author: oompah
 created: 2026-08-01 13:46
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 13:52
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 2, Tool calls: 21
+- Tokens: 795.3K in / 14.6K out [809.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 35s
+- Log: EXOCOMP-190__20260801T134604Z.jsonl
 ---
 <!-- COMMENTS:END -->
