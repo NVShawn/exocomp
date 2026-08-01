@@ -22,7 +22,6 @@ defmodule Exocomp.MissionControl.MixProject do
       extra_applications: [:crypto, :logger],
       mod: {Exocomp.MissionControl.Application, []}
     ]
->>>>>>> 5977f064 (EXOCOMP-150: persist and deliver cluster commands)
   end
 
   defp deps do
