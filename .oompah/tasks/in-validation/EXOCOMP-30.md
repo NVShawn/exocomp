@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-30
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-07-25T02:13:28.264002Z'
+updated_at: '2026-08-01T03:00:19.458053Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 58699
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:42:25.138080+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3277759ea447
+    project_id: proj-c260b117
+    task_id: EXOCOMP-30
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: fd1b19051c47abacd08e52357a80285959ea8454fa358610966446540c9496ac
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:16.993694+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -335,5 +357,10 @@ author: oompah
 created: 2026-07-24 18:47
 ---
 Implemented and verified the service-recovery state machine; 85 focused tests pass and PR #10 is open.
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
