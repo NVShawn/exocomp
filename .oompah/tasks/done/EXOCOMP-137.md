@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-137
 type: task
-status: In Validation
+status: Done
 priority: 2
 title: Configure PostgreSQL and the Ecto migration test harness
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T15:45:07.379486Z'
+updated_at: '2026-08-01T15:51:54.908820Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -94,6 +94,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:39:05.011935+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-108d45f3d64c: '2026-08-01T15:51:52.861077+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-137
+    target_state: Done
+    evidence_fingerprint: b1b26974021f72cbbff5734580bb4327d7526887090aa91c188850db1d4e6f05
+    audit_ids:
+    - audit-cfa657aa17a7
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T15:51:52.861084+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-137
+    audit_id: audit-cfa657aa17a7
+    attempt_id: attempt-108d45f3d64c
+    target_state: Done
+    evidence_fingerprint: b1b26974021f72cbbff5734580bb4327d7526887090aa91c188850db1d4e6f05
+    status: Done
+    audit_ids:
+    - audit-cfa657aa17a7
+    applied: false
+    created_at: '2026-08-01T15:51:52.861095+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -101,7 +125,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-137
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -110,7 +134,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-108d45f3d64c
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -120,13 +144,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T15:45:00.939996+00:00'
       branch_key: epic-EXOCOMP-128--task-EXOCOMP-137
+      verdict: pass
+      completed_at: '2026-08-01T15:51:52.860953+00:00'
+      ended_at: '2026-08-01T15:51:52.860953+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:44:30.666415+00:00'
-    updated_at: '2026-08-01T15:45:00.939996+00:00'
+    updated_at: '2026-08-01T15:51:52.860953+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-108d45f3d64c
@@ -252,5 +279,24 @@ author: oompah
 created: 2026-08-01 15:45
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 15:51
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: f1d8f1c0d43b498a62abccd78db2c46bcf3ffd52
+- commit_message: EXOCOMP-137: configure Mission Control PostgreSQL test harness
+- pushed_branches: origin/epic-EXOCOMP-128, origin/epic-EXOCOMP-128--task-EXOCOMP-137, origin/epic-EXOCOMP-128--task-EXOCOMP-139
+- files_changed: 16 files, +390 -6
+- repo_supervised_in: apps/exocomp_mission_control/lib/exocomp/mission_control/application.ex
+- runtime_validation: config/runtime.exs raises RuntimeError with 'DATABASE_URL' when missing in :prod
+- migration_file: apps/exocomp_mission_control/priv/repo/migrations/20260801000000_create_mission_control_schema.exs (reversible)
+- sandbox_module: apps/exocomp_mission_control/test/support/data_case.ex uses Ecto.Adapters.SQL.Sandbox.start_owner!
+- make_target: test-mission-control-db sets EXOCOMP_RUN_DB_TESTS=1 and runs mix ecto.create/migrate + mix test
+- container_gates_note: Container-based fmt-check/lint/test-mission-control-db could not be executed in the auditor sandbox (no container engine); static inspection shows consistent formatting and code structure
 ---
 <!-- COMMENTS:END -->
