@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-77
 type: task
-status: In Validation
+status: Archived
 priority: 1
 title: Integrate coordinator PKI initialization and enrollment operations
 parent: EXOCOMP-16
@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-08-01T01:56:01.536250Z'
+updated_at: '2026-08-01T01:59:22.313604Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -61,6 +61,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-1cb162523072-3: '2026-07-31T21:13:13.382514+00:00'
+    attempt-aeca55785c43: '2026-08-01T01:59:19.935745+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-77
@@ -68,6 +69,7 @@ oompah.terminal_audit:
     evidence_fingerprint: ec43c3a85218b323be7e9b2609255990d2c4a210af984e6ac5f487e4daffda0b
     audit_ids:
     - audit-1cb162523072
+    - audit-be571f9dda93
     kind: result
     applied: true
     retired_at: '2026-07-31T21:13:13.382521+00:00'
@@ -84,6 +86,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:13:13.382533+00:00'
     applied_at: '2026-07-31T21:13:15.436103+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-77
+    audit_id: audit-be571f9dda93
+    attempt_id: attempt-aeca55785c43
+    target_state: Archived
+    evidence_fingerprint: ec43c3a85218b323be7e9b2609255990d2c4a210af984e6ac5f487e4daffda0b
+    status: Archived
+    audit_ids:
+    - audit-be571f9dda93
+    applied: false
+    created_at: '2026-08-01T01:59:19.935776+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -174,7 +187,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-77
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -183,7 +196,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-aeca55785c43
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -193,13 +206,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T01:55:58.166759+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T01:59:19.935547+00:00'
+      ended_at: '2026-08-01T01:59:19.935547+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:31.231480+00:00'
-    updated_at: '2026-08-01T01:55:58.166759+00:00'
+    updated_at: '2026-08-01T01:59:19.935547+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-db10a13e1b74
@@ -780,5 +796,22 @@ author: oompah
 created: 2026-08-01 01:56
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 01:59
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- original_work_branch: epic-EXOCOMP-16
+- task_commits: 867836d (security hardening); 9afb6f8 (integration)
+- integration_into_main_commit: af0065d7 (EXOCOMP-20: integrate PKI and enrollment modules from EXOCOMP-87/epic-EXOCOMP-16)
+- deliverables_present_on_main: enrollment_token.ex; pki/bootstrap.ex; pki/state.ex; pki/issuer.ex; mix/tasks/exocomp.coordinator.init.ex; integration_test.exs; pki/bootstrap_test.exs; pki/issuer_test.exs; mix/tasks/exocomp_coordinator_init_test.exs; config/config.exs updates
+- downstream_dependents: EXOCOMP-119 c8296bf (Start production coordinator PKI and enrollment services); EXOCOMP-123 44c3e19 (qualify coordinator diagnostic TLS)
+- previous_state: Merged
+- auto_archive_trigger: Aged Merged auto-archive (closed 7 days ago)
+- prior_audit_failure_cause: infrastructure_error: git worktree add failed on origin/epic-EXOCOMP-2 (recovered after OOMPAH-671 deploy)
 ---
 <!-- COMMENTS:END -->
