@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-01T12:22:53.437951Z'
+updated_at: '2026-08-01T12:23:15.765919Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -128,5 +128,10 @@ author: oompah
 created: 2026-08-01 12:22
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:23
+---
+Understanding: implement a durable coordinator event outbox with monotonic per-cluster sequencing, stable IDs, atomic persistence/acknowledgement, snapshot-only coalescing, validation/redaction, and restart/corruption tests; first I am locating the coordinator protocol and existing storage patterns.
 ---
 <!-- COMMENTS:END -->
