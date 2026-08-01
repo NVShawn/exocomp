@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-101
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Orchestrate bounded diagnostic fan-out and partial results
 parent: EXOCOMP-18
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-08-01T02:35:33.557249Z'
+updated_at: '2026-08-01T02:37:56.594887Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,6 +47,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-33eb614b1287-3: '2026-07-31T21:14:13.730510+00:00'
+    attempt-902528d9d44c: '2026-08-01T02:37:53.871055+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-101
@@ -54,6 +55,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 1671225bea85022c0649510b307876d1edce23d1b5eef25f2cb674a7d16b0359
     audit_ids:
     - audit-33eb614b1287
+    - audit-69053c1937cd
     kind: result
     applied: true
     retired_at: '2026-07-31T21:14:13.730517+00:00'
@@ -70,6 +72,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:14:13.730528+00:00'
     applied_at: '2026-07-31T21:14:16.966059+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-101
+    audit_id: audit-69053c1937cd
+    attempt_id: attempt-902528d9d44c
+    target_state: Archived
+    evidence_fingerprint: 1671225bea85022c0649510b307876d1edce23d1b5eef25f2cb674a7d16b0359
+    status: Archived
+    audit_ids:
+    - audit-69053c1937cd
+    applied: false
+    created_at: '2026-08-01T02:37:53.871086+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -160,7 +173,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-101
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -169,7 +182,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-902528d9d44c
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -179,13 +192,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:35:30.166783+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:37:53.870807+00:00'
+      ended_at: '2026-08-01T02:37:53.870807+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:44:06.529095+00:00'
-    updated_at: '2026-08-01T02:35:30.166783+00:00'
+    updated_at: '2026-08-01T02:37:53.870807+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-992c3fceac85
@@ -462,5 +478,21 @@ author: oompah
 created: 2026-08-01 02:35
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:37
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merged_commit: 32829b8 EXOCOMP-101: implement bounded diagnostic fan-out orchestrator
+- commit_on_main: reachable from origin/main via `git log origin/main --grep=EXOCOMP-101`
+- orchestrator_file: apps/exocomp_coordinator/lib/exocomp/coordinator/orchestrator.ex present in worktree tree
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/orchestrator_test.exs present, 27+ test blocks (three-node success, partial failure, unreachable, configuration error, per-node timeout, overall timeout, overall+pending timeout, concurrency limit, cross-goal concurrency, late-result discard, idempotent caller_key, empty node list, at_capacity, polling loop, node lifecycle visibility, multi-goal isolation, artifacts, downstream_key determinism, cancel scenarios)
+- dependencies_present: EXOCOMP-99 (b7677e2 diagnostic A2A client adapter) and EXOCOMP-100 (f5e9dcb GoalStore) present in main history
+- downstream_evolution: orchestrator.ex has been further modified by later merged commits ec7816a (EXOCOMP-102 cancellation propagation), 20dfb88 (EXOCOMP-103 audit), e32a175 (EXOCOMP-105 integration tests), 50cd48c (EXOCOMP-114) — the merged code has been in continuous use for weeks
+- prior_audit_failure_cause: three prior attempts errored with `git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2` — the epic branch was pruned after merge (infrastructure); OOMPAH-671 recovery unblocked this attempt
 ---
 <!-- COMMENTS:END -->
