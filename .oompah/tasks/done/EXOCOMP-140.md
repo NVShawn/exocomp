@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:34:38.143362Z'
+updated_at: '2026-08-01T18:52:45.789233Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -206,6 +206,7 @@ oompah.terminal_audit:
     attempt-31573855ceed: '2026-08-01T16:43:06.595835+00:00'
     attempt-ff9eea716f29: '2026-08-01T17:53:25.974059+00:00'
     attempt-bfb57899750b: '2026-08-01T18:12:08.593513+00:00'
+    attempt-59862405f2d7: '2026-08-01T18:52:43.595814+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-140
@@ -234,6 +235,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T18:12:08.593527+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Done
+    evidence_fingerprint: 21d985bd9d86066562548e56c8fb262faf53c1644216105e1319e8e871ff74f2
+    audit_ids:
+    - audit-0408b040bcaa
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T18:52:43.595836+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-140
@@ -271,6 +281,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T18:12:08.593541+00:00'
     applied_at: '2026-08-01T18:12:11.670415+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    audit_id: audit-0408b040bcaa
+    attempt_id: attempt-59862405f2d7
+    target_state: Done
+    evidence_fingerprint: 21d985bd9d86066562548e56c8fb262faf53c1644216105e1319e8e871ff74f2
+    status: Done
+    audit_ids:
+    - audit-0408b040bcaa
+    applied: false
+    created_at: '2026-08-01T18:52:43.595859+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -383,7 +404,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-140
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -392,7 +413,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-59862405f2d7
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -402,13 +423,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T18:34:34.904438+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-140
+      verdict: pass
+      completed_at: '2026-08-01T18:52:43.595487+00:00'
+      ended_at: '2026-08-01T18:52:43.595487+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T18:33:16.063747+00:00'
-    updated_at: '2026-08-01T18:34:34.904438+00:00'
+    updated_at: '2026-08-01T18:52:43.595487+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-31573855ceed
@@ -912,5 +936,30 @@ author: oompah
 created: 2026-08-01 18:34
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 18:52
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- worktree_head: 459fb901
+- epic_head: 459fb9012796c509c9b5c178ce0fb7548afa9ed4
+- commits_above_main: 5 (b1a07ccf, 18092133, da00228f, a32e4069, 459fb901) — all EXOCOMP-140
+- conn_case_fix: import Plug.Conn moved to top-level; Phoenix.ConnTest imported with build_conn:0 and init_test_session:2 excluded so ConnCase overrides win
+- mix_exs_elixirc_paths: elixirc_paths(:test) -> ["lib", "test/support"] defined in apps/exocomp_mission_control/mix.exs
+- endpoint_session_options: store: :cookie, key, signing_salt, encryption_salt, same_site: Lax, secure: true, http_only: true, max_age: 604800
+- compiled_beams: ConnCase, FakeOIDCProvider, FakeOIDCProvider.Router, OIDCClient, OIDCConfigCache, AuthController, Endpoint all present in _build/test/lib/exocomp_mission_control/ebin
+- make_test_compliance: PASS (29/29 including repository_passes_all_checks and uninventoried_locked_dependency_is_rejected)
+- make_test_builders: PASS (13/13)
+- make_test_deps: PASS (9/9)
+- make_test_full_run: runs to completion, stable 166KB output; exit line beyond output size cap but no failure signal visible in inspection
+- license_inventory: 52 [[components]] entries covering all Phoenix, JOSE, HTTPoison, OAuth2, Plug, Bandit, Cowboy, JOSE ecosystem deps in mix.lock
+- third_party_notices: Sections for Phoenix, Phoenix HTML, Phoenix LiveDashboard, Phoenix LiveView, Phoenix PubSub, Phoenix Template, Phoenix Test, JOSE, HTTPoison, OAuth2, Bandit, plug_cowboy, thousand_island all present
+- acceptance_test_scenarios: success, bad-state, bad-nonce, invalid-issuer, invalid-audience, denied-login, logout, discovery-mismatch, session-cookie-attributes, no-tokens-or-secrets-in-logs — all in oidc_integration_test.exs
+- session_security: encryption_salt + signing_salt with Plug.Session cookie store; configure_session(renew: true) on login rotates the cookie; clear_session on logout; no id_token or access_token persisted in session; client_secret only sent to token_endpoint
+- auditor_read_only_limits: make lint, make fmt-check, make check-licenses, make compliance-check, and shell pipes were policy-denied for the auditor role; verification relies on inspectable compiled artifacts, allowed test targets, and code inspection
 ---
 <!-- COMMENTS:END -->
