@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:27:21.383846Z'
+updated_at: '2026-08-01T17:27:40.778904Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,15 @@ oompah.agent_run_id: 11a45fd9-e720-48be-a948-3f1c5daeda9c
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
+  base_branch: epic-EXOCOMP-130
+  base_sha: 2ecf1a21bdbc81bfe3fd7e3a81abf303d3f23477
   head_sha: ac5d88a054b19141f021700bdcefc88cef878721
+  integrated_sha: ac5d88a054b19141f021700bdcefc88cef878721
   submitted_at: '2026-08-01T17:27:19.058597+00:00'
-  updated_at: '2026-08-01T17:27:19.058597+00:00'
+  updated_at: '2026-08-01T17:27:34.275484+00:00'
 oompah.task_costs:
   total_input_tokens: 745901
   total_output_tokens: 9963
@@ -186,7 +189,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -216,6 +219,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:56:00.519406+00:00'
     updated_at: '2026-08-01T17:02:57.255014+00:00'
+  - version: 1
+    audit_id: audit-7e1e2eb1d100
+    project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 152158364119718c9c8437590a2caacf7da003059fa594be879ea0a4abd63975
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T17:27:35.594556+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -503,5 +523,59 @@ author: oompah
 created: 2026-08-01 17:27
 ---
 Added custom child_spec/1 to MissionControl.Supervisor to properly handle config struct and registration. Updated Application.mission_control_children() to use {Module, config} tuple format. Replaced tests with comprehensive coverage for nil, disabled, and enabled configs. All 535 tests pass, fmt-check and lint pass.
+---
+author: oompah
+created: 2026-08-01 17:27
+---
+Completion: Successfully implemented auditor feedback for EXOCOMP-145. Changes:
+
+1. **MissionControl.Supervisor**: Added custom child_spec/1 that accepts config struct and returns proper supervisor child spec with registration under Exocomp.Coordinator.MissionControlSupervisor and type:supervisor
+
+2. **Application.mission_control_children()**: Changed from [Module, [args...]] format to {Module, config} tuple format, allowing OTP Supervisor to properly call child_spec/1
+
+3. **Supervisor Tests**: Replaced placeholder tests with four comprehensive test cases covering:
+   - nil config → empty supervision tree
+   - disabled config → empty supervision tree  
+   - enabled config → returns proper child spec tuple
+   - direct supervisor start → verifies Outbox and Connection children are alive
+
+4. **Quality Gates**: All pass:
+   - 535/535 tests pass (exocomp_coordinator)
+   - make fmt-check: PASS
+   - make lint: PASS
+
+Ready for integration.
+---
+author: oompah
+created: 2026-08-01 17:27
+---
+Agent failed: Path "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145" does not exist; Error: Failed to load marketplace configuration: JSON Parse error: Unexpected EOF
+    at Hz (/$bunfs/root/src/entrypoints/cli.js:4478:14157)
+    at async o85 (/$bunfs/root/src/entrypoints/cli.js:6361:4914)
+    at async <anonymous> (/$bunfs/root/src/entrypoints/cli.js:6361:6578)
+    at processTicksAndRejections (native:7:39); Error: Failed to load marketplace configuration: JSON Parse error: Unexpected EOF
+    at Hz (/$bunfs/root/src/entrypoints/cli.js:4478:14157)
+    at async gX8 (/$bunfs/root/src/entrypoints/cli.js:9256:29184)
+    at async KhH (/$bunfs/root/src/entrypoints/cli.js:131:247)
+    at async Cm4 (/$bunfs/root/src/entrypoints/cli.js:18740:26710)
+    at async kH (/$bunfs/root/src/entrypoints/cli.js:18764:9376)
+    at processTicksAndRejections (native:7:39); Error: Failed to load marketplace configuration: JSON Parse error: Unexpected EOF
+    at Hz (/$bunfs/root/src/entrypoints/cli.js:4478:14157)
+    at async dOH (/$bunfs/root/src/entrypoints/cli.js:4521:72)
+    at async gX8 (/$bunfs/root/src/entrypoints/cli.js:9256:30037)
+    at async KhH (/$bunfs/root/src/entrypoints/cli.js:131:247)
+    at async Cm4 (/$bunfs/root/src/entrypoints/cli.js:18740:26710)
+    at async kH (/$bunfs/root/src/entrypoints/cli.js:18764:9376)
+    at processTicksAndRejections (native:7:39). Retrying in 10s (attempt #1)
+---
+author: oompah
+created: 2026-08-01 17:27
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 142, Tool calls: 48
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 22m 58s
+- Log: EXOCOMP-145__20260801T170446Z.jsonl
 ---
 <!-- COMMENTS:END -->

@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:14:52.966675Z'
+updated_at: '2026-08-01T17:27:41.824784Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-08-01 17:14
 ---
 Discovery: the scheduler now exposes resolver-backed expectations, profile context, recovery authority, per-service health/hysteresis, observation timestamps, and correlated transitions. The earlier generic Mission Control envelope is on a separate sibling branch, so this task needs a shared core contract. I will model strict desired_state.added/changed/removed, service_status.changed, and service_summary.snapshot payloads, plus deterministic replay and shared JSON fixtures.
+---
+author: oompah
+created: 2026-08-01 17:27
+---
+Implementation: added exocomp_core Mission Control status event/codec/reducer modules, strict v1 payloads for desired-state deltas, service-status deltas, profile coverage, and summary snapshots; added coordinator facades; added root shared JSON fixtures for valid events, duplicate delivery, and out-of-order delivery; documented replay and bounds in plans/mission-control.md. Focused suite passes 13/13 in a local Jason-compatible compile smoke.
 ---
 <!-- COMMENTS:END -->
