@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:11.382930Z'
-updated_at: '2026-08-01T02:27:02.308529Z'
+updated_at: '2026-08-01T02:27:17.244322Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 443dd384-9d26-422e-b505-b643b9e3181c
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 20
-  total_output_tokens: 4937
+  total_input_tokens: 70
+  total_output_tokens: 6404
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 20
-      output_tokens: 4937
+      input_tokens: 70
+      output_tokens: 6404
       cost_usd: 0.0
   runs:
   - profile: default
@@ -37,6 +37,12 @@ oompah.task_costs:
     output_tokens: 4937
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:53:03.532221+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 50
+    output_tokens: 1467
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:27:15.689612+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -508,5 +514,15 @@ Safe evidence:
 - application_wiring: Exocomp.Coordinator.PollTaskSupervisor + HealthPoller registered in Application.base_children/0
 - downstream_task_merged: EXOCOMP-92 (multi-node integration) commit 9e9462b on main
 - prior_audit_failure: infrastructure_error (missing origin/epic-EXOCOMP-2), reported recovered by operator
+---
+author: oompah
+created: 2026-08-01 02:27
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 27
+- Tokens: 50 in / 1.5K out [1.5K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 11s
+- Log: EXOCOMP-91__20260801T022407Z.jsonl
 ---
 <!-- COMMENTS:END -->
