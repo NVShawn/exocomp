@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:49:48.676426Z'
+updated_at: '2026-08-01T16:55:36.008951Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -311,5 +311,15 @@ author: oompah
 created: 2026-08-01 16:49
 ---
 Understanding: Auditor feedback identifies incomplete wiring. Need to: (1) Load mission_control config in config/runtime.exs and wire into app env, (2) Replace 'assert true' supervisor test with real test coverage for three scenarios: nil config, disabled config, enabled config, (3) Add acceptance test proving local inventory/diagnostics/recovery work with Mission Control absent, (4) Re-run full test suite and capture results. Previous work has config validation and supervision tree ready; just needs integration and testing.
+---
+author: oompah
+created: 2026-08-01 16:55
+---
+Implementation: (1) Wired mission_control config loading into config/runtime.exs - loads full coordinator config and extracts mission_control block into :mission_control_config app env via Application.put_env, (2) Added public mission_control_children_for_test() function to Application module to enable test access, (3) Replaced 'assert true' with three real test cases: nil config returns empty list, disabled config returns empty list, enabled config returns MissionControl.Supervisor child spec, (4) Added acceptance test verifying Inventory, HealthPoller, Orchestrator, RemediationLifecycle all run when Mission Control is absent/disabled.
+---
+author: oompah
+created: 2026-08-01 16:55
+---
+Verification: All tests pass (536 passed in exocomp_coordinator, 128+195+866=1189 total). make fmt-check: PASS. make lint: PASS. Acceptance criteria met: (1) Versioned Mission Control config block loaded and validated at runtime, (2) Config wired into app env before supervision tree starts, (3) Mission Control supervision tree (Outbox+Connection) starts only when config present and enabled, (4) Existing coordinator behavior unchanged when config absent (all base services start and operate independently), (5) Invalid/partial config fails gracefully with logged warnings, (6) Tests prove local inventory/diagnostics/recovery unaffected by Mission Control disablement.
 ---
 <!-- COMMENTS:END -->
