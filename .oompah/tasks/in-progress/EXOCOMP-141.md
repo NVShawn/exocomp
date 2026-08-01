@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T12:00:23.999047Z'
+updated_at: '2026-08-01T12:04:27.002907Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -238,5 +238,10 @@ author: oompah
 created: 2026-08-01 12:00
 ---
 Understanding: I am the Maintenance Engineer focus. Based on prior agent handoffs, this task requires implementing Phoenix/Ecto backend authorization for Mission Control: operator identity schemas, OIDC role mapping, authorization plugs/hooks, and a mutation audit helper. I will read the plan, explore the current app structure, and implement the required authorization modules with a complete role matrix test.
+---
+author: oompah
+created: 2026-08-01 12:04
+---
+Discovery: No Mission Control app exists yet - the umbrella has only exocomp_core, exocomp_node, exocomp_coordinator, and bench. Elixir 1.20.2 is required (available in Docker via make targets). I will create apps/exocomp_mission_control with: (1) Identity.Operator and Identity.RoleBinding structs scoped to organization_id, (2) Auth.OIDCResolver mapping claims/groups to viewer/operator/admin roles, (3) Authorization module with can_read?/can_operate?/can_administer? context functions enforcing org scope, (4) Plug.RequireRole for HTTP requests, (5) LiveView.RequireRole on_mount hook, (6) Mutations.Attribution helper recording OIDC subject + correlation ID. Tests cover full role matrix and cross-org fail-closed semantics. No Phoenix or Ecto deps required - this is pure Elixir using only the already-locked plug and jason packages.
 ---
 <!-- COMMENTS:END -->
