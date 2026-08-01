@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -9,10 +9,11 @@ children: []
 blocked_by:
 - EXOCOMP-143
 start_blocked_by: []
-labels: []
+labels:
+- needs:feature
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:09:48.641716Z'
+updated_at: '2026-08-01T12:10:00.121639Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -141,5 +142,17 @@ Understanding: EXOCOMP-144 requires backend PKI implementation including:
 Tests needed for early/valid renewal, expired certs, revoked clusters, identity mismatches, concurrent renewal, signing failures.
 
 However, this task is marked for Frontend Developer focus. The deliverables are backend API and PKI operations with UI explicitly out of scope. No LiveView or UI work is required here. This appears to be a focus mismatch - the work needs a backend specialist, not frontend expertise.
+---
+author: oompah
+created: 2026-08-01 12:09
+---
+HANDOFF: This task requires backend implementation expertise, not frontend development. The deliverables are:
+- API endpoint implementation (POST /api/v1/clusters/renew)
+- PKI operations (certificate generation, serial rotation, revocation)
+- Database operations (storing certificate serials, revocation status)
+- Deterministic certificate lookup logic
+- Comprehensive test coverage for PKI scenarios
+
+The task explicitly states 'Out of scope: UI and active WebSocket disconnection,' confirming this is backend-only work. Task is blocked by EXOCOMP-143 (dependency). A backend specialist should take this to implement the certificate renewal/revocation logic in the coordinator app.
 ---
 <!-- COMMENTS:END -->
