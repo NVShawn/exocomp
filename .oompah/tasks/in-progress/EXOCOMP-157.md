@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-157
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Group related incidents deterministically
 parent: EXOCOMP-131
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:42.626270Z'
-updated_at: '2026-08-01T14:58:15.571429Z'
+updated_at: '2026-08-01T14:59:55.909481Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-157
 target_branch: null
 review_url: null
@@ -35,7 +35,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 8a3c3e96-b237-491d-9776-a306a9e84ed9
+oompah.agent_run_id: e3287d4b-05e3-4674-be5e-446c54b26a50
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-157
 oompah.integration:
   version: 2
@@ -44,7 +44,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-157
   base_branch: epic-EXOCOMP-131
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:56:20.580621+00:00'
+  updated_at: '2026-08-01T14:59:54.001520+00:00'
 oompah.task_costs:
   total_input_tokens: 568972
   total_output_tokens: 4159
@@ -115,5 +115,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 55s
 - Log: EXOCOMP-157__20260801T145623Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:59
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 14:59
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->

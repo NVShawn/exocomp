@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-191
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Implement bounded read-only service observation
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:59:06.250009Z'
+updated_at: '2026-08-01T14:59:37.947814Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -49,12 +49,15 @@ oompah.agent_run_id: 557e7257-92c6-4a8b-aa35-a64ebfb88155
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-191
+  base_branch: epic-EXOCOMP-185
+  base_sha: c3eeb34abbb045e4dcbe3e4703952b1053791cb3
   head_sha: 7b3ff4a831259ec5555de09214348b3da5eb554e
+  integrated_sha: 7b3ff4a831259ec5555de09214348b3da5eb554e
   submitted_at: '2026-08-01T14:57:51.470556+00:00'
-  updated_at: '2026-08-01T14:57:51.470556+00:00'
+  updated_at: '2026-08-01T14:59:33.967027+00:00'
 oompah.task_costs:
   total_input_tokens: 563693
   total_output_tokens: 3352
@@ -97,6 +100,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-185--task-EXOCOMP-191
     source_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
     completed_at: '2026-08-01T13:54:24.116526+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a4bea491a71f
+    project_id: proj-c260b117
+    task_id: EXOCOMP-191
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0adc7c82d1750fd07ff040472edb6a486add60decd5c7feb0d60785309ce6308
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T14:59:35.402849+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -232,5 +257,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: terminated, Duration: 37m 46s
 - Log: EXOCOMP-191__20260801T142126Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:59
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
