@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:03:04.957942Z'
+updated_at: '2026-08-01T16:05:48.661863Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -345,5 +345,10 @@ author: oompah
 created: 2026-08-01 16:03
 ---
 Discovery: origin/epic-EXOCOMP-128 now includes EXOCOMP-137's PostgreSQL harness and EXOCOMP-139's protocol work. This task's single commit diverged before both and overlaps Mission Control application/config/dependency files, explaining integration's rebase conflict. I will replay it on the current epic and preserve the new shared configuration.
+---
+author: oompah
+created: 2026-08-01 16:05
+---
+Implementation: rebased EXOCOMP-138 onto origin/epic-EXOCOMP-128 and resolved the four conflicts by preserving EXOCOMP-137's PostgreSQL runtime/test configuration and EXOCOMP-136's endpoint config-change hook, while retaining this task's Repo supervision, Ecto registration, and seed alias. I am also adding database-backed scope-isolation coverage through the new test-mission-control-db target.
 ---
 <!-- COMMENTS:END -->
