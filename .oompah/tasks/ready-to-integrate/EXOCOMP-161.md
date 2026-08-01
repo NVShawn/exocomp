@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:19.626537Z'
-updated_at: '2026-08-01T13:07:37.179231Z'
+updated_at: '2026-08-01T13:08:11.070722Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 target_branch: null
 review_url: null
@@ -49,13 +49,13 @@ oompah.integration:
   submitted_at: '2026-08-01T13:07:34.535288+00:00'
   updated_at: '2026-08-01T13:07:34.535288+00:00'
 oompah.task_costs:
-  total_input_tokens: 411207
-  total_output_tokens: 5101
+  total_input_tokens: 412351
+  total_output_tokens: 5364
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 411207
-      output_tokens: 5101
+      input_tokens: 412351
+      output_tokens: 5364
       cost_usd: 0.0
   runs:
   - profile: default
@@ -64,6 +64,12 @@ oompah.task_costs:
     output_tokens: 5101
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:55:54.276955+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1144
+    output_tokens: 263
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:08:09.680213+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-161__20260801T125219Z
@@ -192,5 +198,15 @@ author: oompah
 created: 2026-08-01 13:07
 ---
 Implemented organization-scoped typed remedy proposal storage with comprehensive validation against action catalog and parameter schema. Includes Proposal struct with all required fields, evidence reference support, expiry detection, and Proposals context for persistence. Full test coverage (511 tests) confirms valid proposals, unknown action rejection, unsupported field prevention, invalid parameter detection, stale/missing evidence handling, duplicate ID prevention, expiry validation, and organization mismatch protection. All quality gates pass.
+---
+author: oompah
+created: 2026-08-01 13:08
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 69
+- Tokens: 1.1K in / 263 out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 11m 39s
+- Log: EXOCOMP-161__20260801T125638Z.jsonl
 ---
 <!-- COMMENTS:END -->
