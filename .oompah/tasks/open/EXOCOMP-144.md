@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -9,10 +9,12 @@ children: []
 blocked_by:
 - EXOCOMP-143
 start_blocked_by: []
-labels: []
+labels:
+- needs:feature
+- focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:12:26.547312Z'
+updated_at: '2026-08-01T12:12:51.250618Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -47,13 +49,17 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T12:11:33.147330+00:00'
 oompah.task_costs:
-  total_input_tokens: 1573726
-  total_output_tokens: 15273
+  total_input_tokens: 1841667
+  total_output_tokens: 17478
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 1573726
       output_tokens: 15273
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 267941
+      output_tokens: 2205
       cost_usd: 0.0
   runs:
   - profile: default
@@ -68,6 +74,12 @@ oompah.task_costs:
     output_tokens: 49
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:10:12.567101+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 267941
+    output_tokens: 2205
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:12:46.704189+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-144__20260801T115823Z
@@ -78,6 +90,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-129--task-EXOCOMP-144
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:08:51.185286+00:00'
+  - run_id: EXOCOMP-144__20260801T121136Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-terra
+    focus: frontend
+    source_branch: epic-EXOCOMP-129--task-EXOCOMP-144
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T12:12:46.707573+00:00'
 ---
 ## Summary
 
@@ -199,5 +219,25 @@ author: oompah
 created: 2026-08-01 12:12
 ---
 Focus handoff: frontend\n\nOutcome: no UI work is in scope or required; the issue is fully backend PKI/API work.\nEvidence: plans/mission-control.md:127-160 defines the authenticated renewal endpoint and certificate-derived identity. Relevant code is apps/exocomp_coordinator/lib/exocomp/coordinator/coordinator_router.ex, handlers/renewal_handler.ex, pki/{issuer,state}.ex, with existing tests under apps/exocomp_coordinator/test/exocomp/coordinator/pki and test/integration/coordinator_pki_enrollment_test.exs.\nRemaining work/risks: implement renewal eligibility, transactional serial rotation and revocation, deterministic gateway lookup, and the listed failure/concurrency tests while retaining coordinator-local private-key ownership.\nRecommended next focus: feature.
+---
+author: oompah
+created: 2026-08-01 12:12
+---
+Agent completed successfully in 77s (270146 tokens)
+---
+author: oompah
+created: 2026-08-01 12:12
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 1, Tool calls: 12
+- Tokens: 267.9K in / 2.2K out [270.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 17s
+- Log: EXOCOMP-144__20260801T121136Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:12
+---
+Focus handoff from `frontend` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
