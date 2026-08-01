@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-01T13:21:24.440719Z'
+updated_at: '2026-08-01T13:21:50.171620Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -44,12 +44,12 @@ oompah.agent_run_id: 3f51ce77-d11c-490a-8473-b0140bd78a30
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
-  base_branch: epic-EXOCOMP-134
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:05:41.218802+00:00'
+  head_sha: 48d65b66e7bbbbe072dc0be4a0d89e136cabd0bd
+  submitted_at: '2026-08-01T13:21:48.285012+00:00'
+  updated_at: '2026-08-01T13:21:48.285012+00:00'
 oompah.task_costs:
   total_input_tokens: 880593
   total_output_tokens: 4076
@@ -161,5 +161,33 @@ Discovery & Implementation: Created exocomp_mission_control app with:
    - 26 Redaction tests: exact/suffix matches, case insensitivity, nested structures, real-world audit scenarios
 
 Quality gates: make test ✓ (79/79), make fmt-check ✓, make lint ✓
+---
+author: oompah
+created: 2026-08-01 13:21
+---
+Verification: All quality gates passed and changes committed/pushed.
+
+Test Results:
+- exocomp_mission_control: 79 tests passed (0 failures)
+- All project tests: 1,653 passed (0 failures)
+- make fmt-check: PASS
+- make lint: PASS
+
+Acceptance Criteria Met:
+✓ Immutable organization-scoped audit-event storage implemented
+✓ Stores actor/cluster identity, timestamp, event type, target, outcome, correlation IDs
+✓ Redaction module added for use before audit and webhook serialization
+✓ Tests cover actor types, correlation lookup, organization scoping, redaction
+✓ Secrets/tokens/keys never persisted (redaction enforces this)
+✓ Attempts to update/delete prevented by immutable design
+✓ Cross-organization access prevented via organization_id scoping
+
+Branch: epic-EXOCOMP-134--task-EXOCOMP-171
+Commit: 48d65b66
+---
+author: oompah
+created: 2026-08-01 13:21
+---
+Delivered: immutable organization-scoped audit-event storage with redaction module and comprehensive test coverage (79 tests, all quality gates pass)
 ---
 <!-- COMMENTS:END -->
