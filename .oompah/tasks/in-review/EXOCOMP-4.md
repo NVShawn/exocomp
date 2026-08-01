@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-4
 type: epic
-status: In Validation
+status: In Review
 priority: 1
 title: 'M4: Minimal-impact systemd service recovery'
 parent: null
@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-08-01T21:38:46.199021Z'
+updated_at: '2026-08-01T21:40:29.618384Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -33,6 +33,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-3a9cec45112b: '2026-08-01T21:31:35.545586+00:00'
+    infrastructure-exhausted-audit-62a193b86f6a-3: '2026-08-01T21:40:20.503981+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-4
@@ -43,6 +44,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T21:31:35.545593+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-4
+    target_state: Done
+    evidence_fingerprint: 695c8293f3da9f82ccfd12f9dc24b166695fe17be72a21ffa2d97f08ab972d28
+    audit_ids:
+    - audit-62a193b86f6a
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:40:20.503998+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-4
@@ -56,6 +66,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T21:31:35.545604+00:00'
     applied_at: '2026-08-01T21:31:38.002127+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-4
+    audit_id: audit-62a193b86f6a
+    attempt_id: infrastructure-exhausted-audit-62a193b86f6a-3
+    target_state: Done
+    evidence_fingerprint: 695c8293f3da9f82ccfd12f9dc24b166695fe17be72a21ffa2d97f08ab972d28
+    status: Needs Human
+    audit_ids:
+    - audit-62a193b86f6a
+    applied: true
+    created_at: '2026-08-01T21:40:20.504018+00:00'
+    applied_at: '2026-08-01T21:40:23.489517+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -97,7 +119,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-4
     target_state: Done
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -159,13 +181,25 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-4 (tried: origin/epic-EXOCOMP-4, origin/EXOCOMP-4)'
       next_retry_at: '2026-08-01T21:39:22.209973+00:00'
+    - version: 1
+      attempt_id: infrastructure-exhausted-audit-62a193b86f6a-3
+      target_state: Done
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 695c8293f3da9f82ccfd12f9dc24b166695fe17be72a21ffa2d97f08ab972d28
+      verdict: needs_human
+      failure_classification: infrastructure_error
+      created_at: '2026-08-01T21:40:20.503852+00:00'
+      completed_at: '2026-08-01T21:40:20.503852+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-01T21:22:40.212063+00:00'
-    updated_at: '2026-08-01T21:38:42.210006+00:00'
+    updated_at: '2026-08-01T21:40:20.503852+00:00'
   - version: 1
     audit_id: audit-8c5aea60bc95
     project_id: proj-c260b117
@@ -398,5 +432,12 @@ author: oompah
 created: 2026-08-01 21:38
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-4 (tried: origin/epic-EXOCOMP-4, origin/EXOCOMP-4). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 21:40
+---
+Needs Human — Done audit requires operator input.
+
+Independent auditor launches exhausted their retry budget because the audit workspace or transport failed before review began. Restore the audit infrastructure, then have a project owner rearm this terminal audit; do not reopen implementation work.
 ---
 <!-- COMMENTS:END -->
