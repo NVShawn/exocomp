@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-114
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Recover omitted M6 governance, builder, qualification, and bundle work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-08-01T21:35:42.366553Z'
+updated_at: '2026-08-01T21:40:42.595290Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -37,6 +37,30 @@ oompah.task_costs:
     recorded_at: '2026-07-25T19:20:06.174751+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-0725124eac73: '2026-08-01T21:40:40.023558+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-114
+    target_state: Archived
+    evidence_fingerprint: 74fe559ebcf42a6c6d71088d7e097e2b91e3241930c248dc9efb912ace652c7b
+    audit_ids:
+    - audit-ccb3d1c2c686
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:40:40.023566+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-114
+    audit_id: audit-ccb3d1c2c686
+    attempt_id: attempt-0725124eac73
+    target_state: Archived
+    evidence_fingerprint: 74fe559ebcf42a6c6d71088d7e097e2b91e3241930c248dc9efb912ace652c7b
+    status: Archived
+    audit_ids:
+    - audit-ccb3d1c2c686
+    applied: false
+    created_at: '2026-08-01T21:40:40.023577+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -44,7 +68,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-114
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -53,7 +77,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-0725124eac73
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -63,13 +87,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:35:34.634740+00:00'
       branch_key: epic-EXOCOMP-110
+      verdict: pass
+      completed_at: '2026-08-01T21:40:40.023436+00:00'
+      ended_at: '2026-08-01T21:40:40.023436+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:18:37.729269+00:00'
-    updated_at: '2026-08-01T21:35:34.634740+00:00'
+    updated_at: '2026-08-01T21:40:40.023436+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-0725124eac73
@@ -289,5 +316,24 @@ author: oompah
 created: 2026-08-01 21:35
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:40
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- recovery_commit: 50cd48c2
+- merge_commit: 2085e441 (PR #14 from epic-EXOCOMP-110)
+- origin_main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- worktree_head_matches_main: true
+- governance_files: LICENSE,NOTICE,CODE_OF_CONDUCT.md,SECURITY.md,CONTRIBUTING.md,THIRD_PARTY_NOTICES.md
+- builder_artifacts: release/builders.lock,scripts/build-releases.sh,scripts/check-builder-capability.sh,scripts/test-release-builders.sh
+- runtime_dep_artifacts: release/runtime-baseline.lock,scripts/inspect-release-deps.sh,scripts/test-runtime-deps.sh,docs/runtime-dependencies.md
+- qualification_artifacts: scripts/test-release-matrix.sh,scripts/test-clean-container.sh,docs/release-qualification.md
+- bundle_artifacts: scripts/assemble-bundle.sh,scripts/generate-sbom.sh,scripts/generate-provenance.sh,scripts/sign-bundle.sh,scripts/verify-bundle.sh,tests/test_bundle.py
+- prior_state: Merged (aged 7 days)
 ---
 <!-- COMMENTS:END -->
