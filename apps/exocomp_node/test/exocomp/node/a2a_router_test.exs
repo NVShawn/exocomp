@@ -98,6 +98,7 @@ defmodule Exocomp.Node.A2ARouterTest do
 
     assert card["url"] == "https://node-7.example/"
     assert card["capabilities"]["streaming"] == false
+    assert card["clusterProfiles"] == [%{"id" => "default", "versions" => [1]}]
 
     assert Enum.map(card["skills"], & &1["id"]) == [
              "exocomp.system.diagnose",

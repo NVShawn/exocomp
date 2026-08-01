@@ -63,6 +63,7 @@ defmodule Exocomp.A2A.Codec do
         "version" => value.version,
         "capabilities" => encode_optional(value.capabilities),
         "skills" => encode_list(value.skills),
+        "clusterProfiles" => value.clusterProfiles,
         "defaultInputModes" => value.defaultInputModes,
         "defaultOutputModes" => value.defaultOutputModes
       })
@@ -176,6 +177,10 @@ defmodule Exocomp.A2A.Codec do
          {:ok, version} <- required(value, "version", &is_binary/1),
          {:ok, capabilities} <- optional_nested(value, "capabilities", AgentCapabilities),
          {:ok, skills} <- optional_list(value, "skills", AgentSkill, []),
+         :ok <-
+           optional_type(value, "clusterProfiles", fn value ->
+             is_list(value) and Enum.all?(value, &is_map/1)
+           end),
          :ok <- optional_string_list(value, "defaultInputModes"),
          :ok <- optional_string_list(value, "defaultOutputModes") do
       {:ok,
@@ -186,6 +191,7 @@ defmodule Exocomp.A2A.Codec do
          version: version,
          capabilities: capabilities,
          skills: skills,
+         clusterProfiles: Map.get(value, "clusterProfiles"),
          defaultInputModes: Map.get(value, "defaultInputModes"),
          defaultOutputModes: Map.get(value, "defaultOutputModes")
        }}

@@ -83,6 +83,7 @@ defmodule Exocomp.A2A.CodecTest do
         version: "1.0.0",
         capabilities: %AgentCapabilities{streaming: true},
         skills: [%AgentSkill{id: "work", name: "Work"}],
+        clusterProfiles: [%{"id" => "default", "versions" => [1]}],
         defaultInputModes: ["text/plain"],
         defaultOutputModes: ["application/json"]
       },
@@ -110,6 +111,18 @@ defmodule Exocomp.A2A.CodecTest do
     refute Map.has_key?(encoded, "contextId")
     assert encoded["history"] == []
     assert encoded["artifacts"] == []
+  end
+
+  test "rejects a malformed cluster-profile advertisement" do
+    payload = %{
+      "name" => "Exocomp",
+      "description" => "A test agent",
+      "url" => "https://example.test/a2a",
+      "version" => "1.0.0",
+      "clusterProfiles" => "default"
+    }
+
+    assert {:error, %InvalidParamsError{}} = Codec.decode(payload, AgentCard)
   end
 
   test "returns InvalidParamsError for missing and wrongly typed required fields" do

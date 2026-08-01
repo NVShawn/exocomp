@@ -13,6 +13,7 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
   alias Exocomp.A2A.AgentCapabilities
   alias Exocomp.A2A.AgentCard
   alias Exocomp.A2A.AgentSkill
+  alias Exocomp.ClusterProfile.Registry, as: ClusterProfileRegistry
 
   @skills [
     %AgentSkill{
@@ -45,7 +46,8 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
       url: "https://#{coordinator_id}/",
       version: "0.1.0",
       capabilities: %AgentCapabilities{},
-      skills: @skills
+      skills: @skills,
+      clusterProfiles: ClusterProfileRegistry.advertised_profiles()
     }
 
     conn
@@ -60,11 +62,15 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
       url: card.url,
       version: card.version,
       capabilities: Map.from_struct(card.capabilities),
-      skills: Enum.map(card.skills, &skill_to_json/1)
+      skills: Enum.map(card.skills, &skill_to_json/1),
+      clusterProfiles: Enum.map(card.clusterProfiles, &profile_to_json/1)
     }
   end
 
   defp skill_to_json(%AgentSkill{} = skill) do
     %{id: skill.id, name: skill.name, description: skill.description}
   end
+
+  defp profile_to_json(%{id: id, versions: versions}),
+    do: %{"id" => id, "versions" => versions}
 end

@@ -11,7 +11,8 @@ defmodule Exocomp.A2A.AgentCard do
   and describes the agent's identity, capabilities, and skills to clients.
 
   Required fields: `name`, `description`, `url`, `version`.
-  Optional fields default to `nil` or an empty list.
+  Optional fields default to `nil` or an empty list. `clusterProfiles` is an
+  Exocomp extension listing the shipped cluster-profile IDs and versions.
   """
 
   @enforce_keys [:name, :description, :url, :version]
@@ -22,6 +23,7 @@ defmodule Exocomp.A2A.AgentCard do
             version: nil,
             capabilities: nil,
             skills: [],
+            clusterProfiles: nil,
             defaultInputModes: nil,
             defaultOutputModes: nil
 
@@ -32,6 +34,7 @@ defmodule Exocomp.A2A.AgentCard do
           version: String.t(),
           capabilities: Exocomp.A2A.AgentCapabilities.t() | nil,
           skills: [Exocomp.A2A.AgentSkill.t()],
+          clusterProfiles: [map()] | nil,
           defaultInputModes: [String.t()] | nil,
           defaultOutputModes: [String.t()] | nil
         }
