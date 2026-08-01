@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-08-01T15:38:07.138072Z'
+updated_at: '2026-08-01T15:40:52.176499Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 target_branch: null
 review_url: null
@@ -164,5 +164,10 @@ author: oompah
 created: 2026-08-01 15:38
 ---
 Implementation: composed the Mission Control scaffold and incident-domain prerequisites, added Incidents.Query for severity/status/cluster/label filtering and bounded pagination, added PubSub incident_changed broadcasts, and routed /incidents and /incidents/:id to accessible LiveViews. The inbox is organization-scoped and real-time; detail shows timeline/evidence/related incidents, snooze wake time, and operator-only acknowledge/assign/snooze/resolve controls with stale-state and required-reason handling.
+---
+author: oompah
+created: 2026-08-01 15:40
+---
+Verification: mix format --check-formatted, Code.string_to_quoted! parsing for all new Elixir/test files, and git diff --check pass. make lint runs its offline builder/governance checks successfully (13 builder checks plus Python suites), then stops because the pinned Docker/Podman container cannot start in this read-only environment; make fmt-check is blocked by the same Podman configuration error. Focused LiveView execution could not run on host Elixir 1.18.3 because the project requires 1.20.2 and the host lacks OTP syntax_tools/public_key headers.
 ---
 <!-- COMMENTS:END -->

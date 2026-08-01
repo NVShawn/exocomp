@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:40:00.714946Z'
+updated_at: '2026-08-01T15:40:45.965923Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -50,8 +50,8 @@ oompah.integration:
   submitted_at: '2026-08-01T15:39:58.539043+00:00'
   updated_at: '2026-08-01T15:39:58.539043+00:00'
 oompah.task_costs:
-  total_input_tokens: 1289380
-  total_output_tokens: 25095
+  total_input_tokens: 1289383
+  total_output_tokens: 25489
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -59,8 +59,8 @@ oompah.task_costs:
       output_tokens: 19611
       cost_usd: 0.0
     sonnet:
-      input_tokens: 363371
-      output_tokens: 5484
+      input_tokens: 363374
+      output_tokens: 5878
       cost_usd: 0.0
   runs:
   - profile: default
@@ -81,6 +81,12 @@ oompah.task_costs:
     output_tokens: 5484
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:15:38.871024+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 3
+    output_tokens: 394
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:40:44.694468+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -378,5 +384,15 @@ author: oompah
 created: 2026-08-01 15:40
 ---
 Implemented Ceph profile configuration and validation. Added Exocomp.ClusterProfile.Ceph (ClusterProfile behaviour, id=ceph, version=1, read-only), Ceph.Config struct, Ceph.Validator (absolute paths, file existence, binary identity, root ownership, keyring permissions 0600/0640); extended Coordinator.Config to parse cluster_profiles.ceph with version check and env overrides; registered Ceph in shipped registry; comprehensive tests covering all 7 acceptance criteria scenarios; make test passes (1384 tests).
+---
+author: oompah
+created: 2026-08-01 15:40
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 82
+- Tokens: 3 in / 394 out [397 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 24m 38s
+- Log: EXOCOMP-196__20260801T151614Z.jsonl
 ---
 <!-- COMMENTS:END -->

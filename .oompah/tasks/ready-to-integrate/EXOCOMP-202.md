@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T15:40:35.057557Z'
+updated_at: '2026-08-01T15:40:51.237042Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -49,12 +49,12 @@ oompah.agent_run_id: afab5f1a-b14b-4fbb-bb39-d1199ad5cf09
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-202
-  base_branch: epic-EXOCOMP-186
-  base_sha: 8e3debd59e5a3ca32307b8a0c2e8c219456cb58c
-  updated_at: '2026-08-01T15:31:09.037094+00:00'
+  head_sha: ec77cdcbf119c902919839b9309d3879e498e1f3
+  submitted_at: '2026-08-01T15:40:49.301806+00:00'
+  updated_at: '2026-08-01T15:40:49.301806+00:00'
 oompah.task_costs:
   total_input_tokens: 1054271
   total_output_tokens: 5174
@@ -246,5 +246,44 @@ Changes made:
    - All 86 tests pass (78 existing + 8 new)
 
 Verification complete: All quality gates passed
+---
+author: oompah
+created: 2026-08-01 15:40
+---
+## Verification
+
+All quality gates passed:
+
+✓ make test-installer: 86/86 tests passed (78 existing + 8 new)
+  - Profile-action-helper installation and permissions verified
+  - Sudoers policy format and no-wildcard constraints verified
+  - Manifest tracking verified
+  - Uninstall cleanup verified
+  - Idempotent upgrade handling verified
+  - Component-specific installation verified
+
+✓ make test-profile-action-helper: Helper parser, validator, and execution tests pass
+
+✓ make test-release-packaging: 16 tests pass for deterministic archives and metadata
+
+✓ make test-bundle: 103 tests pass for bundle assembly, SBOM, provenance, and tampering
+
+Commit: ec77cdcb (epic-EXOCOMP-186--task-EXOCOMP-202)
+Branch: origin/epic-EXOCOMP-186--task-EXOCOMP-202
+
+All acceptance criteria met:
+✓ Archives include both architectures (amd64 and arm64)
+✓ Helper packaged with manifests and SBOMs
+✓ Installer sets root ownership and non-writable (755) permissions
+✓ Sudoers grants only exact path with no arguments
+✓ No direct systemctl wildcard privileges added
+✓ Upgrade, dry-run, rollback, uninstall all handle helper idempotently
+✓ visudo validation handled (existing framework)
+✓ Extended installer, packaging, sudoers, and upgrade tests
+---
+author: oompah
+created: 2026-08-01 15:40
+---
+Packaged profile-action-helper with exact sudo authorization: installer installs root-owned binary with secure sudoers policy, uninstaller removes it idempotently, comprehensive tests verify all acceptance criteria (archives include architectures, exact sudoers grants, upgrade/dry-run/rollback/uninstall handle helper correctly). All 86 installer tests pass plus extended coverage for packaging and sudoers.
 ---
 <!-- COMMENTS:END -->
