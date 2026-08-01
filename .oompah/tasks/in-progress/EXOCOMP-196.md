@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:52:14.255804Z'
+updated_at: '2026-08-01T15:53:09.080424Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -39,7 +39,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 357fa239-34a6-4f97-89cf-ae5c98374fc5
+oompah.agent_run_id: 5846ac61-0049-4d52-b8f6-8242b336cf2e
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 oompah.integration:
   version: 2
@@ -53,8 +53,8 @@ oompah.integration:
   submitted_at: '2026-08-01T15:39:58.539043+00:00'
   updated_at: '2026-08-01T15:42:12.607295+00:00'
 oompah.task_costs:
-  total_input_tokens: 1289383
-  total_output_tokens: 25489
+  total_input_tokens: 1289389
+  total_output_tokens: 25834
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -64,6 +64,10 @@ oompah.task_costs:
     sonnet:
       input_tokens: 363374
       output_tokens: 5878
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 6
+      output_tokens: 345
       cost_usd: 0.0
   runs:
   - profile: default
@@ -90,6 +94,12 @@ oompah.task_costs:
     output_tokens: 394
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:40:44.694468+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 345
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:52:54.253315+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -504,5 +514,15 @@ Instructions:
 - Add a mechanism for Registry (or the profile lookup path) to reflect that Ceph coverage was degraded at startup, and add an integration test that exercises the wired startup path end-to-end with a bad keyring mode / missing binary / root ownership.
 - Repair the compile error in apps/exocomp_node/test/exocomp/node/collectors/ceph_test.exs (the second assert_receive block references ^unit without a bound `unit` variable). Coordinate with EXOCOMP-198 owners; the EXOCOMP-196 branch cannot pass `make test` while this file is broken.
 - After fixes, re-run `make test` and confirm it exits 0 before requeueing for terminal audit.
+---
+author: oompah
+created: 2026-08-01 15:52
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 43
+- Tokens: 6 in / 345 out [351 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 20s
+- Log: EXOCOMP-196__20260801T154236Z.jsonl
 ---
 <!-- COMMENTS:END -->

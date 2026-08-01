@@ -14,13 +14,28 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:02.009432Z'
-updated_at: '2026-08-01T11:52:28.728514Z'
+updated_at: '2026-08-01T15:53:24.513497Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
 oompah.start_blocked_by: *id001
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: c3d4b1c7dfae5adf41d81e0d95bc8fe379f913c49dca8ecc83be6db1423bea0c
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 41c12550-00ba-48da-ae9a-e93c74ad3898
+  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
+  claimed_at: '2026-08-01T15:53:20.006186+00:00'
+  claim_expires_at: '2026-08-01T16:23:20.006186+00:00'
+  retry_count: 0
+  retry_after: null
+oompah.agent_run_id: 576870a7-ce29-474c-a019-7382de1b9224
 ---
 ## Summary
 
@@ -45,3 +60,11 @@ Out of scope: Merge rules, status event schemas, incidents, and recovery.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 15:53
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+<!-- COMMENTS:END -->

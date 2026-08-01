@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T15:51:57.706332Z'
+updated_at: '2026-08-01T15:53:06.292218Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -61,13 +61,17 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-136: 074712f0af1ff18d286cd2d4ff12b9399798ffdc
 oompah.task_costs:
-  total_input_tokens: 19276926
-  total_output_tokens: 75447
+  total_input_tokens: 19276932
+  total_output_tokens: 75779
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 19276926
       output_tokens: 75447
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 6
+      output_tokens: 332
       cost_usd: 0.0
   runs:
   - profile: default
@@ -82,6 +86,12 @@ oompah.task_costs:
     output_tokens: 71106
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:08:23.474961+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 332
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:53:04.874795+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-137__20260801T143719Z
@@ -299,5 +309,15 @@ Safe evidence:
 - sandbox_module: apps/exocomp_mission_control/test/support/data_case.ex uses Ecto.Adapters.SQL.Sandbox.start_owner!
 - make_target: test-mission-control-db sets EXOCOMP_RUN_DB_TESTS=1 and runs mix ecto.create/migrate + mix test
 - container_gates_note: Container-based fmt-check/lint/test-mission-control-db could not be executed in the auditor sandbox (no container engine); static inspection shows consistent formatting and code structure
+---
+author: oompah
+created: 2026-08-01 15:53
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 45
+- Tokens: 6 in / 332 out [338 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 8m 0s
+- Log: EXOCOMP-137__20260801T154508Z.jsonl
 ---
 <!-- COMMENTS:END -->
