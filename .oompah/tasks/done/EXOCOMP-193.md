@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-08-01T17:10:10.155229Z'
+updated_at: '2026-08-01T17:10:31.594121Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 target_branch: null
 review_url: null
@@ -73,13 +73,17 @@ oompah.integration:
   submitted_at: '2026-08-01T16:51:19.810891+00:00'
   updated_at: '2026-08-01T16:51:55.566181+00:00'
 oompah.task_costs:
-  total_input_tokens: 484
-  total_output_tokens: 14018
+  total_input_tokens: 657
+  total_output_tokens: 21810
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 484
       output_tokens: 14018
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 173
+      output_tokens: 7792
       cost_usd: 0.0
   runs:
   - profile: default
@@ -94,6 +98,12 @@ oompah.task_costs:
     output_tokens: 6589
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:02:35.509250+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 173
+    output_tokens: 7792
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:10:30.117111+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-193__20260801T135444Z
@@ -343,5 +353,15 @@ Safe evidence:
 - offline_gates: make test-deps PASS 9/9; make test-builders PASS 13/13; make test-release-packaging PASS 16/16
 - compliance_finding: make test-compliance fails on pre-existing trailing whitespace in apps/exocomp_coordinator/test/exocomp/coordinator/inventory_test.exs at lines 90/99/123/133/136/149/156/158, introduced by EXOCOMP-188 (e211afce) before this task's parent 2304acc1; not modified by ce0330d8
 - make_test_status: containerized make test cannot execute in this environment (documented Podman sticky-bit failure on /run/user/1000/libpod); ce0330d8 does not touch container/Makefile/deps configuration
+---
+author: oompah
+created: 2026-08-01 17:10
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 138
+- Tokens: 173 in / 7.8K out [8.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 18m 18s
+- Log: EXOCOMP-193__20260801T165215Z.jsonl
 ---
 <!-- COMMENTS:END -->

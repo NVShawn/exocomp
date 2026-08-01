@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-194
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Define desired-service status events and contract fixtures
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T16:05:05.181132Z'
+updated_at: '2026-08-01T17:10:39.936249Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -47,7 +47,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 3df47a76-33d8-4d6d-a600-ace4d266f818
+oompah.agent_run_id: 9f0948b4-6486-4478-95ca-c4d1622bd1b3
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 oompah.integration:
   version: 2
@@ -55,8 +55,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-194
   base_branch: epic-EXOCOMP-185
-  base_sha: 7b3ff4a831259ec5555de09214348b3da5eb554e
-  updated_at: '2026-08-01T16:02:55.607305+00:00'
+  base_sha: ce0330d8cb83c6467cdfd072f125dc46b04bbff5
+  updated_at: '2026-08-01T17:10:37.951595+00:00'
 oompah.task_costs:
   total_input_tokens: 874472
   total_output_tokens: 5054
@@ -128,5 +128,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 10s
 - Log: EXOCOMP-194__20260801T160259Z.jsonl
+---
+author: oompah
+created: 2026-08-01 17:10
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 17:10
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
