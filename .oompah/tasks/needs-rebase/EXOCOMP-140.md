@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: Ready to Integrate
+status: Needs Rebase
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:15:21.586835Z'
+updated_at: '2026-08-01T17:15:37.958444Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,14 +93,31 @@ oompah.agent_run_id: f1322d61-b7eb-4ed0-a7cc-be61f17c64b2
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
-  base_branch: main
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  base_branch: epic-EXOCOMP-129
+  base_sha: b1a07ccf6044357ada26260ea1e71b052ae17c94
   head_sha: 406ad28de7e3e0e2d1985ba22d5e808aea77be9b
   submitted_at: '2026-08-01T17:15:07.653337+00:00'
-  updated_at: '2026-08-01T17:15:20.774132+00:00'
+  updated_at: '2026-08-01T17:15:35.901673+00:00'
+  last_error: 'Rebase onto the latest epic head conflicted: Rebasing (1/8)
+
+    error: could not apply 3a3d6e61... EXOCOMP-136: Scaffold Mission Control Phoenix
+    application
+
+    hint: Resolve all conflicts manually, mark them as resolved with
+
+    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+
+    hint: You can instead skip this commit: run "git rebase --skip".
+
+    hint: To abort and get back to the state before "git rebase", run "git rebase
+    --abort".
+
+    hint: Disable this message with "git config set advice.mergeConflict false"
+
+    Could not apply 3a3d6e61... # EXOCOMP-136: Scaffold Mission Control Phoenix application'
 oompah.task_costs:
   total_input_tokens: 21150479
   total_output_tokens: 102168
@@ -463,5 +480,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 31m 39s
 - Log: EXOCOMP-140__20260801T164344Z.jsonl
+---
+author: oompah
+created: 2026-08-01 17:15
+---
+Integration found a rebase conflict on `epic-EXOCOMP-129--task-EXOCOMP-140`. Resolve it against `epic-EXOCOMP-129`, run the required tests, push the same private branch, and `oompah task submit` it again.
 ---
 <!-- COMMENTS:END -->
