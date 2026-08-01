@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-69
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Create crashable fixture service script with health endpoint and state controls
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-08-01T01:47:15.686311Z'
+updated_at: '2026-08-01T01:48:01.735059Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-69
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/2
@@ -48,6 +48,25 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-8abde71876bf-3: '2026-07-30T21:58:05.198789+00:00'
+  oompah.terminal_override_records:
+  - version: 1
+    override_id: override-4f55d0b46a20
+    project_id: proj-c260b117
+    task_id: EXOCOMP-69
+    target_state: Archived
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ce094abf3ebb8e437111fc44351d166b9573e21f8c4675006502b7e48faf3e8a
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: 'Owner-verified immutable evidence: PR #2 merged as b153e2e600394b2e2d7fa1db6bdaa17467f0b90b,
+      that merge commit is an ancestor of current origin/main, and the fixture daemon
+      plus tests are present. Legacy audit metadata lacks a resolvable source revision.'
+    created_at: '2026-08-01T01:47:59.004536+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
@@ -630,5 +649,12 @@ author: oompah
 created: 2026-08-01 01:47
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-69 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-69, origin/EXOCOMP-69). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 01:48
+---
+Override by oompah-cli: terminal transition to Archived applied by project owner.
+
+Reason: Owner-verified immutable evidence: PR #2 merged as b153e2e600394b2e2d7fa1db6bdaa17467f0b90b, that merge commit is an ancestor of current origin/main, and the fixture daemon plus tests are present. Legacy audit metadata lacks a resolvable source revision.
 ---
 <!-- COMMENTS:END -->

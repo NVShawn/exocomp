@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-08-01T01:47:53.893865Z'
+updated_at: '2026-08-01T01:47:56.482204Z'
 work_branch: epic-EXOCOMP-9--task-EXOCOMP-57
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/1
@@ -78,7 +78,19 @@ oompah.terminal_audit:
       that merge commit is an ancestor of current origin/main, and the fixture certificate/config
       artifacts are present. Legacy audit metadata lacks a resolvable source revision.'
     created_at: '2026-08-01T01:47:51.560782+00:00'
-    applied: false
+    applied: true
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-57
+    target_state: Archived
+    evidence_fingerprint: 562e7b401c84a515c7451d1726affa3bdfa260a0522abaf210f64740a240c048
+    audit_ids:
+    - audit-b91028ba3205
+    - audit-158f15a16b6c
+    kind: override
+    applied: true
+    retired_at: '2026-08-01T01:47:55.659327+00:00'
+  oompah.terminal_audit_result_intents: []
   version: 1
   pending_chain:
   - version: 1
@@ -166,7 +178,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-57
     target_state: Archived
-    request_state: pending
+    request_state: cancelled
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -234,7 +246,7 @@ oompah.terminal_audit:
       source: api
     previous_state: Needs Human
     created_at: '2026-08-01T01:45:20.793926+00:00'
-    updated_at: '2026-08-01T01:47:07.641504+00:00'
+    updated_at: '2026-08-01T01:47:55.659297+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a965b4684476
