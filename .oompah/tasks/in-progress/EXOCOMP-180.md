@@ -18,7 +18,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:22:46.736475Z'
+updated_at: '2026-08-01T13:55:21.456839Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -215,5 +215,24 @@ Plan:
 5. Run make fmt-check and make lint
 
 The harness will be in-process (no Docker/real PostgreSQL for unit tests) but structured to use real module boundaries. A Docker-compose variant for the Make target will wire real PostgreSQL.
+---
+author: oompah
+created: 2026-08-01 13:55
+---
+VERIFICATION: All 10 integration tests pass. make fmt-check, make lint (--warnings-as-errors compilation), and make test-integration-mc all exit 0. Zero compiler warnings in the test file after prefixing unused bindings.
+
+Scenarios exercised:
+1. disconnect/reconnect — no lost durable event
+2. durable event replay after coordinator restart
+3. command replay after connection-owner replica restart
+4. duplicate event delivery is idempotent
+5. sequence gap — ack stays at highest contiguous seq
+6. certificate revocation rejected at identity boundary
+7. connection-owner replica termination — commands drain via replica-2
+8. WebSocket affinity not required (events via replica-2, commands via replica-1)
+9. SessionLiveness — missed heartbeats trigger disconnected transition
+10. Connection — full-jitter backoff resets on stable connection
+
+Bug fixes uncovered: ClusterEvent.validate_fields string key handling, Connection pipe-arg reversal, CommandOutbox dead-code clause, ClusterEventIngestorTest cursor assertion.
 ---
 <!-- COMMENTS:END -->
