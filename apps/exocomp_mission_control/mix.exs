@@ -13,6 +13,7 @@ defmodule Exocomp.MissionControl.MixProject do
       lockfile: "../../mix.lock",
       elixir: "1.20.2",
       start_permanent: Mix.env() == :prod,
+<<<<<<< HEAD
       deps: deps()
     ]
   end
