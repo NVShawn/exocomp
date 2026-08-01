@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T17:01:45.966273Z'
+updated_at: '2026-08-01T17:01:49.678031Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -894,5 +894,10 @@ author: oompah
 created: 2026-08-01 17:01
 ---
 Completion: pushed 86a4eef2 with the focused whitespace cleanup. Compliance (29/29), installer (87/87), and range whitespace checks pass; the only remaining verification issue is external Podman runtime availability preventing the pinned Elixir phase of make test from starting. Submitting for the terminal audit to rerun in the managed CI environment.
+---
+author: oompah
+created: 2026-08-01 17:01
+---
+Removed trailing whitespace from installer files; make test-compliance (29/29), make test-installer (87/87), and git diff --check pass. Full make test reached all offline checks but the pinned container could not start because Podman cannot modify the read-only /run/user/1000/libpod runtime path.
 ---
 <!-- COMMENTS:END -->
