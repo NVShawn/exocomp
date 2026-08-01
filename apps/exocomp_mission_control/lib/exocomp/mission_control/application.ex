@@ -7,10 +7,22 @@ defmodule Exocomp.MissionControl.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
-      Exocomp.MissionControl.Endpoint
-    ]
+    database_children =
+      if Application.get_env(:exocomp_mission_control, :database_enabled, false) do
+        [Exocomp.MissionControl.Repo]
+      else
+        []
+      end
+
+    children =
+      [
+        {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
+        Exocomp.MissionControl.Metrics
+      ] ++
+        database_children ++
+        [
+          Exocomp.MissionControl.Endpoint
+        ]
 
     Supervisor.start_link(children,
       strategy: :one_for_one,

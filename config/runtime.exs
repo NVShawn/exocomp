@@ -36,4 +36,24 @@ if config_env() == :prod do
     http: [ip: {0, 0, 0, 0}, port: mission_control_port],
     secret_key_base: System.fetch_env!("MISSION_CONTROL_SECRET_KEY_BASE"),
     server: true
+
+  database_url = System.get_env("DATABASE_URL")
+
+  if is_binary(database_url) and database_url != "" do
+    config :exocomp_mission_control, Exocomp.MissionControl.Repo,
+      url: database_url,
+      pool_size: String.to_integer(System.get_env("DATABASE_POOL_SIZE", "10"))
+
+    config :exocomp_mission_control,
+      repo: Exocomp.MissionControl.Repo,
+      database_enabled: true,
+      critical_processes: [
+        Exocomp.MissionControl.Metrics,
+        Exocomp.MissionControl.PubSub,
+        Exocomp.MissionControl.Repo
+      ]
+  end
+
+  config :exocomp_mission_control,
+    readiness_token: System.get_env("EXOCOMP_READINESS_TOKEN")
 end

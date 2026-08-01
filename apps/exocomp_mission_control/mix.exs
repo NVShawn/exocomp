@@ -30,6 +30,8 @@ defmodule Exocomp.MissionControl.MixProject do
       {:phoenix_live_view, "~> 1.1"},
       {:phoenix_pubsub, "~> 2.1"},
       {:bandit, "~> 1.0"},
+      {:ecto_sql, "~> 3.14"},
+      {:postgrex, "~> 0.22"},
       {:jason, "~> 1.4"}
     ]
   end

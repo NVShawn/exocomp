@@ -37,3 +37,8 @@ if config_env() != :prod do
   config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
     secret_key_base: "mission-control-test-secret-key-base"
 end
+
+config :exocomp_mission_control,
+  critical_processes: [Exocomp.MissionControl.Metrics, Exocomp.MissionControl.PubSub],
+  readiness_token: System.get_env("EXOCOMP_READINESS_TOKEN"),
+  ecto_repos: [Exocomp.MissionControl.Repo]

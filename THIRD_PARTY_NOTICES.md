@@ -26,6 +26,26 @@ upstream license or notice named by their build-specific inventory.
 - Version: 1.12.1.
 - License: [MIT](https://github.com/mtrudel/bandit/blob/HEAD/LICENSE).
 
+### DBConnection
+
+- Version: 2.10.2.
+- License: [Apache-2.0](https://github.com/elixir-ecto/db_connection/blob/v2.10.2/LICENSE).
+
+### Decimal
+
+- Version: 3.1.1.
+- License: [Apache-2.0](https://github.com/ericmj/decimal/blob/v3.1.1/LICENSE.txt).
+
+### Ecto
+
+- Version: 3.14.1.
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto/blob/v3.14.1/LICENSE).
+
+### Ecto SQL
+
+- Version: 3.14.0.
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto_sql/blob/v3.14.0/LICENSE).
+
 ### HPAX
 
 - Version: 1.0.4.
@@ -105,6 +125,11 @@ upstream license or notice named by their build-specific inventory.
 
 - Version: 0.9.2.
 - License: [BSD-3-Clause](https://github.com/voltone/x509/blob/HEAD/LICENSE).
+
+### Postgrex
+
+- Version: 0.22.3.
+- License: [Apache-2.0](https://github.com/elixir-ecto/postgrex/blob/v0.22.3/LICENSE).
 
 ### llama.cpp
 

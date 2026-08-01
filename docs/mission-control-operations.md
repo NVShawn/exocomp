@@ -80,3 +80,37 @@ make test-mission-control-image \
 The PostgreSQL image must be supplied with a complete digest. The harness
 generates disposable credentials at runtime, never writes them to the
 repository, and removes its containers, volumes, and network on exit.
+# Mission Control operations
+
+Mission Control exposes local service probes and aggregate Prometheus metrics
+from the same HTTP listener as the operator service.
+
+## Health probes
+
+| Endpoint | Purpose | Success | Failure |
+|---|---|---:|---:|
+| `GET /health` | Backward-compatible liveness probe | `200` | — |
+| `GET /health/live` | Process liveness; independent of PostgreSQL and clusters | `200` | — |
+| `GET /health/ready` | Database connectivity, migration state, and critical local workers | `200` | `401` when guarded or `503` when not ready |
+
+Liveness returns only `{"status":"ok"}`. Readiness returns fixed check names
+(`database`, `migrations`, and `supervision`) and fixed states; it never
+includes database errors, credentials, tenant records, cluster IDs, or node
+IDs. Set `EXOCOMP_READINESS_TOKEN` to require a bearer token for readiness.
+The token is compared in constant time and is never included in a response.
+
+Readiness intentionally does not require any cluster connection. A cluster may
+be disconnected while the control plane is ready to accept local work.
+
+## Prometheus
+
+`GET /metrics` returns Prometheus text exposition format. The metric schema is
+defined by `Exocomp.MissionControl.Metrics.definitions/0`; labels are limited
+to fixed lifecycle values such as `state`, `outcome`, `severity`, and
+`status`. Cluster, node, organization, tenant, URL, session, and event IDs are
+not labels.
+
+The exported families cover connection state, event ingest outcomes and lag,
+incidents, conversation/proposal latency, command state, webhook outcomes,
+database pool/queue state, retention status, and desired-service/recovery
+qualification outcomes.
