@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-26
 type: feature
-status: In Validation
+status: Needs Human
 priority: 1
 title: Implement bounded system-log cleanup action
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:12.273742Z'
-updated_at: '2026-08-01T03:37:37.588018Z'
+updated_at: '2026-08-01T03:40:17.477171Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -47,6 +47,31 @@ oompah.task_costs:
     recorded_at: '2026-07-24T01:41:36.160374+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-bcc2e2e51e2e: '2026-08-01T03:40:14.053291+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-26
+    target_state: Archived
+    evidence_fingerprint: 4290a2d9193ce5934a82d806b418ed1cd5498ef5b21b01dbfb92b55e31fe588e
+    audit_ids:
+    - audit-072a9fa6bdf4
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:40:14.053309+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-26
+    audit_id: audit-072a9fa6bdf4
+    attempt_id: attempt-bcc2e2e51e2e
+    target_state: Archived
+    evidence_fingerprint: 4290a2d9193ce5934a82d806b418ed1cd5498ef5b21b01dbfb92b55e31fe588e
+    status: Needs Human
+    audit_ids:
+    - audit-072a9fa6bdf4
+    applied: true
+    created_at: '2026-08-01T03:40:14.053324+00:00'
+    applied_at: '2026-08-01T03:40:16.646116+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -54,7 +79,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-26
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -63,7 +88,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-bcc2e2e51e2e
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -73,13 +98,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:37:32.291793+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: fail
+      failure_classification: unsafe_archive
+      completed_at: '2026-08-01T03:40:14.053128+00:00'
+      ended_at: '2026-08-01T03:40:14.053128+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:04.371591+00:00'
-    updated_at: '2026-08-01T03:37:32.291793+00:00'
+    updated_at: '2026-08-01T03:40:14.053128+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-bcc2e2e51e2e
@@ -223,5 +252,12 @@ author: oompah
 created: 2026-08-01 03:37
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:40
+---
+Needs Human — Archived audit requires operator input.
+
+[REDACTED] Please review the audit output, decide the next step, and update this task with your instructions.
 ---
 <!-- COMMENTS:END -->
