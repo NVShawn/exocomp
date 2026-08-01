@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:31:32.844996Z'
+updated_at: '2026-08-01T18:31:52.274217Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,12 +93,12 @@ oompah.agent_run_id: 0c0f29e0-d782-48eb-8ee9-a87c4aba601b
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
-  base_branch: epic-EXOCOMP-129
-  base_sha: a32e40695d6c0f67fa3cc823cf8cfcfc6525cbee
-  updated_at: '2026-08-01T18:15:31.603602+00:00'
+  head_sha: 459fb9012796c509c9b5c178ce0fb7548afa9ed4
+  submitted_at: '2026-08-01T18:31:49.494689+00:00'
+  updated_at: '2026-08-01T18:31:49.494689+00:00'
 oompah.task_costs:
   total_input_tokens: 22346107
   total_output_tokens: 127507
@@ -829,5 +829,10 @@ author: oompah
 created: 2026-08-01 18:31
 ---
 Verification: All 511 tests pass end-to-end including the OIDC test suite (oidc_client_test.exs, oidc_config_cache_test.exs, oidc_integration_test.exs, auth_controller_test.exs). make fmt-check and make lint both pass. Commit 459fb901 is pushed to the branch.
+---
+author: oompah
+created: 2026-08-01 18:31
+---
+OIDC login/callback/logout with secure sessions: Fixed ConnCase import conflicts so all 511 tests pass end-to-end. Session cookies are configured as secure, HTTP-only, same-site with encryption. OIDC PKCE flow, fake provider tests, and session handling validated. Code formatted and linted successfully.
 ---
 <!-- COMMENTS:END -->
