@@ -346,33 +346,17 @@ defmodule Exocomp.Coordinator.Config do
     top_missing = Enum.reject(@required_top_fields, &Map.has_key?(parsed, &1))
 
     tls_missing =
-      case parsed["tls"] do
-        nil ->
-          []
-
-        tls ->
-          @required_tls_fields
-          |> Enum.reject(&Map.has_key?(tls, &1))
-          |> Enum.map(&"tls.#{&1}")
-      end
+      collect_nested_missing(parsed["tls"], @required_tls_fields, "tls")
 
     listen_missing =
-      case parsed["listen"] do
-        nil ->
-          []
-
-        listen ->
-          @required_listen_fields
-          |> Enum.reject(&Map.has_key?(listen, &1))
-          |> Enum.map(&"listen.#{&1}")
-      end
+      collect_nested_missing(parsed["listen"], @required_listen_fields, "listen")
 
     mission_control_missing =
       case parsed["mission_control"] do
         nil ->
           []
 
-        mc ->
+        mc when is_map(mc) ->
           if Map.get(mc, "enabled") == true do
             @required_mission_control_fields
             |> Enum.reject(&Map.has_key?(mc, &1))
@@ -380,10 +364,21 @@ defmodule Exocomp.Coordinator.Config do
           else
             []
           end
+
+        _ ->
+          []
       end
 
     top_missing ++ tls_missing ++ listen_missing ++ mission_control_missing
   end
+
+  defp collect_nested_missing(value, required_fields, prefix) when is_map(value) do
+    required_fields
+    |> Enum.reject(&Map.has_key?(value, &1))
+    |> Enum.map(&"#{prefix}.#{&1}")
+  end
+
+  defp collect_nested_missing(_value, _required_fields, _prefix), do: []
 
   # ── Validation: field types ──────────────────────────────────────────────────
 
@@ -417,6 +412,12 @@ defmodule Exocomp.Coordinator.Config do
   end
 
   defp check_nested_type(errors, nil, _label, _key, _type_check, _expected_type), do: errors
+
+  defp check_nested_type(errors, nested_map, label, _key, _type_check, expected_type)
+       when not is_map(nested_map) do
+    Logger.warning("Config field #{inspect(label)} expected an object, got #{expected_type}")
+    [label | errors]
+  end
 
   defp check_nested_type(errors, nested_map, label, key, type_check, expected_type) do
     value = Map.get(nested_map, key)
@@ -480,7 +481,8 @@ defmodule Exocomp.Coordinator.Config do
     end
   end
 
-  defp validate_mission_control_types(errors, _mc, _parsed), do: errors
+  defp validate_mission_control_types(errors, _mc, _parsed),
+    do: ["mission_control" | errors]
 
   # ── Validation: Mission Control value constraints ───────────────────────────
 

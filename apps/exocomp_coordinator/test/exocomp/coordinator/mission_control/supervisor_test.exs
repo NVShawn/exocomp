@@ -1,17 +1,10 @@
 # SPDX-FileCopyrightText: 2026 Exocomp contributors
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   alias Exocomp.Coordinator.Config
   alias Exocomp.Coordinator.MissionControl.{Supervisor, Outbox, Connection}
-
-  @fixtures_dir Path.expand("../../../../../fixtures", __DIR__)
-
-  setup do
-    File.mkdir_p!(@fixtures_dir)
-    :ok
-  end
 
   # ---------------------------------------------------------------------------
   # Test: mission_control_children returns empty list when config is nil
@@ -71,15 +64,7 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
   # ---------------------------------------------------------------------------
 
   test "mission_control_children returns child spec when config is enabled" do
-    ca_cert_path = Path.join(@fixtures_dir, "mc-app-test-ca.crt")
-    client_cert_path = Path.join(@fixtures_dir, "mc-app-test-client.crt")
-    client_key_path = Path.join(@fixtures_dir, "mc-app-test-client.key")
-    outbox_dir = Path.join(@fixtures_dir, "mc-app-test-outbox")
-
-    File.write!(ca_cert_path, "ca cert")
-    File.write!(client_cert_path, "client cert")
-    File.write!(client_key_path, "client key")
-    File.mkdir_p!(outbox_dir)
+    {enabled_config, _tmp_dir} = test_config()
 
     old_value = Application.get_env(:exocomp_coordinator, :mission_control_config)
 
@@ -122,19 +107,75 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
   end
 
   # ---------------------------------------------------------------------------
-  # Test: Supervisor starts with enabled config and registers children
+  # Test: Application-emitted child spec starts with enabled config
   # ---------------------------------------------------------------------------
 
-  test "supervisor starts with enabled config and both children are alive" do
-    ca_cert_path = Path.join(@fixtures_dir, "mc-supervisor-ca.crt")
-    client_cert_path = Path.join(@fixtures_dir, "mc-supervisor-client.crt")
-    client_key_path = Path.join(@fixtures_dir, "mc-supervisor-client.key")
-    outbox_dir = Path.join(@fixtures_dir, "mc-supervisor-outbox")
+  test "Application child spec starts Outbox and Connection under MissionControlSupervisor" do
+    {enabled_config, _tmp_dir} = test_config()
+    old_value = Application.get_env(:exocomp_coordinator, :mission_control_config)
+    Application.put_env(:exocomp_coordinator, :mission_control_config, enabled_config)
+
+    on_exit(fn -> restore_app_env(:mission_control_config, old_value) end)
+
+    children = Exocomp.Coordinator.Application.mission_control_children_for_test()
+    assert [{Supervisor, ^enabled_config}] = children
+
+    {:ok, root_pid} =
+      Elixir.Supervisor.start_link(children, strategy: :one_for_one, name: :test_root)
+
+    on_exit(fn -> if Process.alive?(root_pid), do: GenServer.stop(root_pid) end)
+
+    mission_control_pid = Process.whereis(Exocomp.Coordinator.MissionControlSupervisor)
+    assert is_pid(mission_control_pid)
+    assert Process.alive?(mission_control_pid)
+
+    assert is_pid(Process.whereis(Outbox))
+    assert Process.alive?(Process.whereis(Outbox))
+    assert is_pid(Process.whereis(Connection))
+    assert Process.alive?(Process.whereis(Connection))
+
+    assert :sys.get_state(Process.whereis(Outbox)).config == enabled_config
+    assert :sys.get_state(Process.whereis(Connection)).config == enabled_config
+  end
+
+  test "Application child spec passes the config struct through to both child init callbacks" do
+    {enabled_config, _tmp_dir} = test_config()
+    old_value = Application.get_env(:exocomp_coordinator, :mission_control_config)
+    Application.put_env(:exocomp_coordinator, :mission_control_config, enabled_config)
+
+    on_exit(fn -> restore_app_env(:mission_control_config, old_value) end)
+
+    children = Exocomp.Coordinator.Application.mission_control_children_for_test()
+    assert [{Supervisor, ^enabled_config}] = children
+
+    {:ok, root_pid} =
+      Elixir.Supervisor.start_link(
+        children,
+        strategy: :one_for_one,
+        name: :test_root_struct
+      )
+
+    on_exit(fn -> if Process.alive?(root_pid), do: GenServer.stop(root_pid) end)
+
+    assert %{config: ^enabled_config} = :sys.get_state(Process.whereis(Outbox))
+    assert %{config: ^enabled_config} = :sys.get_state(Process.whereis(Connection))
+  end
+
+  defp test_config do
+    tmp_dir =
+      Path.join(System.tmp_dir!(), "exocomp-mc-supervisor-#{System.unique_integer([:positive])}")
+
+    File.mkdir_p!(tmp_dir)
+    ca_cert_path = Path.join(tmp_dir, "ca.crt")
+    client_cert_path = Path.join(tmp_dir, "client.crt")
+    client_key_path = Path.join(tmp_dir, "client.key")
+    outbox_dir = Path.join(tmp_dir, "outbox")
 
     File.write!(ca_cert_path, "ca cert")
     File.write!(client_cert_path, "client cert")
     File.write!(client_key_path, "client key")
     File.mkdir_p!(outbox_dir)
+    on_exit(fn -> File.rm_rf!(tmp_dir) end)
 
     config = %Config.MissionControl{
       enabled: true,
@@ -148,40 +189,11 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
       outbox_path: outbox_dir
     }
 
-    # Start the supervisor directly with the config
-    {:ok, supervisor_pid} =
-      Supervisor.start_link(config, name: :test_mc_supervisor_direct)
-
-    # Verify the supervisor is alive
-    assert is_pid(supervisor_pid)
-    assert Process.alive?(supervisor_pid)
-
-    # Verify Outbox and Connection are alive
-    children = :supervisor.which_children(supervisor_pid)
-    assert length(children) == 2
-
-    # Extract child modules
-    child_modules = Enum.map(children, fn {_id, pid, :worker, modules} -> {modules, pid} end)
-
-    # Verify both Outbox and Connection are present and alive
-    outbox_found =
-      Enum.any?(child_modules, fn {modules, pid} ->
-        modules == [Outbox] and is_pid(pid) and Process.alive?(pid)
-      end)
-
-    connection_found =
-      Enum.any?(child_modules, fn {modules, pid} ->
-        modules == [Connection] and is_pid(pid) and Process.alive?(pid)
-      end)
-
-    assert outbox_found, "Outbox child not found or not alive"
-    assert connection_found, "Connection child not found or not alive"
-
-    # Clean up
-    GenServer.stop(supervisor_pid)
-    File.rm!(ca_cert_path)
-    File.rm!(client_cert_path)
-    File.rm!(client_key_path)
-    File.rm_rf!(outbox_dir)
+    {config, tmp_dir}
   end
+
+  defp restore_app_env(key, nil), do: Application.delete_env(:exocomp_coordinator, key)
+
+  defp restore_app_env(key, value),
+    do: Application.put_env(:exocomp_coordinator, key, value)
 end
