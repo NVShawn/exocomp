@@ -1,134 +1,161 @@
 # SPDX-FileCopyrightText: 2026 Exocomp contributors
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.MissionControl.ConnectionTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
-  alias Exocomp.Coordinator.Config
   alias Exocomp.Coordinator.MissionControl.Connection
 
-  # ---------------------------------------------------------------------------
-  # Connection initialization and status
-  # ---------------------------------------------------------------------------
+  test "sends one heartbeat per cadence and ignores a cancelled heartbeat timer" do
+    owner = self()
 
-  test "connection starts in disconnected state" do
-    config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://mission-control.example.com:443",
-      trust_root: "/tmp/nonexistent.crt",
-      client_cert: "/tmp/nonexistent.crt",
-      client_key: "/tmp/nonexistent.key",
-      heartbeat_interval_seconds: 30,
-      reconnect_min_backoff_seconds: 1,
-      reconnect_max_backoff_seconds: 60,
-      outbox_path: "/tmp/nonexistent-outbox"
-    }
+    connection =
+      start_connection(
+        send_fn: fn session, event ->
+          send(owner, {:heartbeat_sent, session, event})
+          :ok
+        end
+      )
 
-    {:ok, pid} = Connection.start_link(config: config, name: :test_connection)
+    assert :ok = Connection.authenticated(:first_session, connection)
+    assert_receive {:timer_scheduled, {:heartbeat, first_generation}, 30_000}
+    assert_receive {:timer_scheduled, {:stable, _stable_generation}, 90_000}
 
-    # Initial status should be disconnected (trying to connect)
-    status = Connection.connection_status(pid)
-    assert status in [:disconnected, :connecting]
+    assert :ok = Connection.authenticated(:second_session, connection)
+    assert_receive {:timer_scheduled, {:heartbeat, second_generation}, 30_000}
+    assert second_generation > first_generation
 
-    Process.exit(pid, :kill)
+    send(connection, {:heartbeat, first_generation})
+    refute_receive {:heartbeat_sent, _, _}, 20
+
+    send(connection, {:heartbeat, second_generation})
+
+    assert_receive {:heartbeat_sent, :second_session,
+                    %{kind: "cluster.heartbeat", schema_version: 1}}
+
+    assert_receive {:timer_scheduled, {:heartbeat, next_generation}, 30_000}
+    assert next_generation > second_generation
   end
 
-  test "connection_status returns current connection status" do
-    config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://mission-control.example.com:443",
-      trust_root: "/tmp/nonexistent.crt",
-      client_cert: "/tmp/nonexistent.crt",
-      client_key: "/tmp/nonexistent.key",
-      heartbeat_interval_seconds: 30,
-      reconnect_min_backoff_seconds: 1,
-      reconnect_max_backoff_seconds: 60,
-      outbox_path: "/tmp/nonexistent-outbox"
-    }
+  test "uses bounded full-jitter exponential reconnect delays" do
+    owner = self()
 
-    {:ok, pid} = Connection.start_link(config: config, name: :test_connection_status)
+    connection =
+      start_connection(
+        random_fn: fn lower, upper ->
+          send(owner, {:random_bounds, lower, upper})
+          upper
+        end,
+        connect_fn: fn ->
+          send(owner, :connect_attempt)
+          {:error, :offline}
+        end
+      )
 
-    # Should return a valid status
-    status = Connection.connection_status(pid)
-    assert is_atom(status)
-    assert status in [:disconnected, :connecting, :connected]
+    assert :ok = Connection.authenticated(:session, connection)
+    assert :ok = Connection.disconnected(:transport_closed, connection)
 
-    Process.exit(pid, :kill)
+    expected_bounds = [1_000, 2_000, 4_000, 8_000, 16_000, 32_000, 60_000, 60_000]
+
+    expected_bounds
+    |> Enum.with_index()
+    |> Enum.each(fn {expected_bound, index} ->
+      assert_receive {:random_bounds, 0, ^expected_bound}
+      assert_receive {:timer_scheduled, {:reconnect, generation}, ^expected_bound}
+
+      if index < length(expected_bounds) - 1 do
+        send(connection, {:reconnect, generation})
+        assert_receive :connect_attempt
+      end
+    end)
+
+    assert %{backoff_attempts: 8, reconnect_delay_ms: 60_000, status: :disconnected} =
+             Connection.status(connection)
   end
 
-  # ---------------------------------------------------------------------------
-  # Configuration parameters
-  # ---------------------------------------------------------------------------
+  test "resets backoff only after the authenticated connection is stable" do
+    owner = self()
 
-  test "connection uses configured heartbeat interval" do
-    config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://mission-control.example.com:443",
-      trust_root: "/tmp/nonexistent.crt",
-      client_cert: "/tmp/nonexistent.crt",
-      client_key: "/tmp/nonexistent.key",
-      heartbeat_interval_seconds: 45,
-      reconnect_min_backoff_seconds: 2,
-      reconnect_max_backoff_seconds: 120,
-      outbox_path: "/tmp/nonexistent-outbox"
-    }
+    connection =
+      start_connection(
+        random_fn: fn lower, upper ->
+          send(owner, {:random_bounds, lower, upper})
+          upper
+        end
+      )
 
-    {:ok, pid} = Connection.start_link(config: config, name: :test_connection_heartbeat)
+    assert :ok = Connection.authenticated(:first_session, connection)
+    assert :ok = Connection.disconnected(:early_loss, connection)
+    assert_receive {:random_bounds, 0, 1_000}
+    assert %{backoff_attempts: 1, stable: false} = Connection.status(connection)
 
-    # The connection should be initialized with the configured parameters
-    # We can verify this by checking that the process is alive
-    assert Process.alive?(pid)
+    assert :ok = Connection.authenticated(:second_session, connection)
+    assert %{backoff_attempts: 1, stable: false} = Connection.status(connection)
 
-    Process.exit(pid, :kill)
+    %{stable_generation: stable_generation} = Connection.status(connection)
+    send(connection, {:stable, stable_generation})
+
+    assert %{backoff_attempts: 0, stable: true} = Connection.status(connection)
+    assert :ok = Connection.disconnected(:stable_loss, connection)
+    assert_receive {:random_bounds, 0, 1_000}
   end
 
-  test "connection uses configured reconnect bounds" do
-    config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://mission-control.example.com:443",
-      trust_root: "/tmp/nonexistent.crt",
-      client_cert: "/tmp/nonexistent.crt",
-      client_key: "/tmp/nonexistent.key",
-      heartbeat_interval_seconds: 30,
-      reconnect_min_backoff_seconds: 5,
-      reconnect_max_backoff_seconds: 300,
-      outbox_path: "/tmp/nonexistent-outbox"
-    }
+  test "connector and heartbeat failures cannot crash or block the manager" do
+    owner = self()
 
-    {:ok, pid} = Connection.start_link(config: config, name: :test_connection_bounds)
+    connection =
+      start_connection(
+        connect_fn: fn ->
+          send(owner, {:connect_started, self()})
 
-    # The connection should be initialized with the configured backoff bounds
-    assert Process.alive?(pid)
+          receive do
+            :release_connect -> {:error, :offline}
+          end
+        end,
+        send_fn: fn _session, _event -> raise "socket is closed" end
+      )
 
-    Process.exit(pid, :kill)
+    assert :ok = Connection.connect_now(connection)
+    assert_receive {:connect_started, worker}
+    assert %{status: :connecting} = Connection.status(connection)
+    assert Process.alive?(connection)
+
+    send(worker, :release_connect)
+    assert_receive {:timer_scheduled, {:reconnect, _generation}, _delay}
+
+    assert :ok = Connection.authenticated(:session, connection)
+    %{heartbeat_generation: heartbeat_generation} = Connection.status(connection)
+    send(connection, {:heartbeat, heartbeat_generation})
+
+    assert_receive {:timer_scheduled, {:reconnect, _generation}, _delay}
+    assert %{status: :disconnected, authenticated: false} = Connection.status(connection)
+    assert Process.alive?(connection)
   end
 
-  # ---------------------------------------------------------------------------
-  # Behavior when coordinator-local services are healthy
-  # ---------------------------------------------------------------------------
+  defp start_connection(opts) do
+    owner = self()
+    name = unique_name(:mission_control_connection)
 
-  test "connection failure does not stop the coordinator" do
-    config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://invalid-mission-control.internal:443",
-      trust_root: "/tmp/nonexistent.crt",
-      client_cert: "/tmp/nonexistent.crt",
-      client_key: "/tmp/nonexistent.key",
-      heartbeat_interval_seconds: 30,
-      reconnect_min_backoff_seconds: 1,
-      reconnect_max_backoff_seconds: 60,
-      outbox_path: "/tmp/nonexistent-outbox"
-    }
+    schedule_fn = fn message, delay ->
+      send(owner, {:timer_scheduled, message, delay})
+      make_ref()
+    end
 
-    # Connection should start even if Mission Control is unreachable
-    {:ok, pid} = Connection.start_link(config: config, name: :test_connection_failure)
+    cancel_timer_fn = fn timer_ref ->
+      send(owner, {:timer_cancelled, timer_ref})
+      :ok
+    end
 
-    # Process should remain alive despite connection failure
-    assert Process.alive?(pid)
-
-    # Status should reflect the inability to connect
-    status = Connection.connection_status(pid)
-    assert status in [:disconnected, :connecting]
-
-    Process.exit(pid, :kill)
+    start_supervised!(
+      {Connection,
+       [
+         name: name,
+         start_immediately: false,
+         schedule_fn: schedule_fn,
+         cancel_timer_fn: cancel_timer_fn
+       ] ++ opts},
+      id: name
+    )
   end
+
+  defp unique_name(prefix), do: String.to_atom("#{prefix}_#{System.unique_integer([:positive])}")
 end
