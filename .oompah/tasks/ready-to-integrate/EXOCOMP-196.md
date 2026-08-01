@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:10:40.351015Z'
+updated_at: '2026-08-01T16:10:44.047159Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -561,5 +561,10 @@ author: oompah
 created: 2026-08-01 16:10
 ---
 Completion: delivered f6f24f96 and pushed it. Coordinator startup now validates configured Ceph paths/version/files/ownership/mode, emits redacted actionable validation events, keeps unrelated startup alive, and marks Ceph degraded through ProfileCoverage/Agent Card lookup advertisement. Added startup integration coverage for bad keyring mode, missing binary, and root ownership; added audit redaction coverage; fixed the node test compile error; coordinated overlap with EXOCOMP-198. make check-links and offline builder checks pass; full make test remains blocked only at the pinned container launch by the read-only Podman libpod path. Branch is pushed and up to date.
+---
+author: oompah
+created: 2026-08-01 16:10
+---
+Implemented Ceph startup validation, redacted audit degradation, runtime profile coverage state, integration tests, and repaired the node Ceph test compile error. Pushed f6f24f96; make test offline checks pass but the pinned Elixir container is unavailable due the read-only Podman libpod runtime.
 ---
 <!-- COMMENTS:END -->
