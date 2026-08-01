@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:37.552915Z'
-updated_at: '2026-08-01T15:02:00.568963Z'
+updated_at: '2026-08-01T15:02:20.435258Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-153
 target_branch: null
 review_url: null
@@ -55,13 +55,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:01:58.413484+00:00'
   updated_at: '2026-08-01T15:01:58.413484+00:00'
 oompah.task_costs:
-  total_input_tokens: 544749
-  total_output_tokens: 3273
+  total_input_tokens: 545877
+  total_output_tokens: 3530
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 544749
-      output_tokens: 3273
+      input_tokens: 545877
+      output_tokens: 3530
       cost_usd: 0.0
   runs:
   - profile: default
@@ -70,6 +70,12 @@ oompah.task_costs:
     output_tokens: 3273
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:49:04.375693+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1128
+    output_tokens: 257
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:02:19.083965+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-153__20260801T144736Z
@@ -160,5 +166,15 @@ author: oompah
 created: 2026-08-01 15:02
 ---
 Implemented partition-ready status-history storage with clock-controlled recorder for cluster (5min) and node (1hr) checkpoints, change detection, duplicate deduplication, and bounded batch writes.
+---
+author: oompah
+created: 2026-08-01 15:02
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 67
+- Tokens: 1.1K in / 257 out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 12m 53s
+- Log: EXOCOMP-153__20260801T144934Z.jsonl
 ---
 <!-- COMMENTS:END -->
