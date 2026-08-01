@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T13:15:41.811654Z'
+updated_at: '2026-08-01T13:17:24.613783Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -24,14 +24,19 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 4d2521f31b73270188653d51b91f0b8a48292bb7d59b14b57561d3ba4334de1f
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T13:17:20.784124+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: 33212a7d-63d6-4000-bbb9-ca862d970952
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T13:15:30.580150+00:00'
-  claim_expires_at: '2026-08-01T13:45:30.580150+00:00'
+  evidence: "Focus handoff: duplicate_detector\n\nDuplicate preflight verdict: no_duplicate\n\
+    \nMatches: none\n\nEvidence: Reviewed active EXOCOMP-139, EXOCOMP-149, EXOCOMP-180,\
+    \ EXOCOMP-181, EXOCOMP-194, EXOCOMP-148, EXOCOMP-150, and EXOCOMP-151. They cover\
+    \ protocol definitions, ingestion, integration, security, desired-state fixtures,\
+    \ persistence, and command delivery respectively; none duplicates EXOCOMP-179\u2019\
+    s cross-application contract-test corpus and fixture-drift validation."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 1
   retry_after: null
 oompah.agent_run_id: ba7223ee-8d44-4b4b-90fa-38c2e08ede94
@@ -45,13 +50,13 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T13:15:39.489245+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 324
+  total_input_tokens: 781264
+  total_output_tokens: 4496
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10
-      output_tokens: 324
+      input_tokens: 781264
+      output_tokens: 4496
       cost_usd: 0.0
   runs:
   - profile: default
@@ -60,6 +65,12 @@ oompah.task_costs:
     output_tokens: 324
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:13:30.348873+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 781254
+    output_tokens: 4172
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:17:20.779279+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-179__20260801T131120Z
@@ -70,6 +81,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-179
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:13:30.365134+00:00'
+  - run_id: EXOCOMP-179__20260801T131542Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-179
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T13:17:20.796078+00:00'
 ---
 ## Summary
 
@@ -130,5 +149,15 @@ author: oompah
 created: 2026-08-01 13:15
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 13:17
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 35
+- Tokens: 781.3K in / 4.2K out [785.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 46s
+- Log: EXOCOMP-179__20260801T131542Z.jsonl
 ---
 <!-- COMMENTS:END -->
