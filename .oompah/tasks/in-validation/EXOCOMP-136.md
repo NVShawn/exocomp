@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T14:59:04.456185Z'
+updated_at: '2026-08-01T14:59:19.133325Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -70,13 +70,13 @@ oompah.integration:
   submitted_at: '2026-08-01T14:57:46.426001+00:00'
   updated_at: '2026-08-01T14:59:00.352029+00:00'
 oompah.task_costs:
-  total_input_tokens: 180
-  total_output_tokens: 6230
+  total_input_tokens: 12623497
+  total_output_tokens: 51964
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 180
-      output_tokens: 6230
+      input_tokens: 12623497
+      output_tokens: 51964
       cost_usd: 0.0
   runs:
   - profile: default
@@ -91,6 +91,12 @@ oompah.task_costs:
     output_tokens: 415
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:41:07.392368+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 12623317
+    output_tokens: 45734
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:59:17.514329+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-136__20260801T143445Z
@@ -241,5 +247,15 @@ author: oompah
 created: 2026-08-01 14:59
 ---
 Queued for terminal transition to Done. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-01 14:59
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 162
+- Tokens: 12.6M in / 45.7K out [12.7M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 18m 2s
+- Log: EXOCOMP-136__20260801T144123Z.jsonl
 ---
 <!-- COMMENTS:END -->

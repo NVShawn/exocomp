@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-08-01T14:56:15.108956Z'
+updated_at: '2026-08-01T14:59:15.692617Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 target_branch: null
 review_url: null
@@ -138,5 +138,19 @@ author: oompah
 created: 2026-08-01 14:56
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 14:59
+---
+Understanding: Task requires adding incident management context functions (acknowledge, assign/unassign, snooze/unsnooze, manually resolve) with role-based authorization and audit trail recording (subject, org, timestamp, correlation ID). Manual resolution requires a stored reason, and new unhealthy evidence should reopen manually resolved incidents.
+
+Planned approach:
+1. Explore existing incident/mission-control code structure
+2. Identify where incident schema/model exists (likely mission_control app)
+3. Implement context functions with authorization checks
+4. Add mutation recording with audit fields
+5. Implement edge case handling (snooze expiry, reassignment, concurrent mutations, cross-org checks)
+6. Add comprehensive test coverage for role matrix, invalid transitions, and unhealthy evidence reopening
+7. Run make test, make fmt-check, make lint
 ---
 <!-- COMMENTS:END -->
