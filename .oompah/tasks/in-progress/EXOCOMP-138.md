@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T14:45:46.528421Z'
+updated_at: '2026-08-01T14:57:46.261305Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-08-01 14:45
 ---
 Discovery: this branch has no Ecto or Mission Control app yet; later sibling branches independently add apps/exocomp_mission_control with Ecto/PostgreSQL. I’ll establish the minimal Mission Control Ecto foundation here so later contexts can consume an Organization schema, Repo, migrations, seed, and fail-closed scoped query helper.
+---
+author: oompah
+created: 2026-08-01 14:57
+---
+Implementation: added the Mission Control Ecto app/repository, UUID-backed Organization schema/context, idempotent initial seed, reusable fail-closed OrganizationScope query/changeset helpers, and OrganizationScopedRecord CRUD examples. Added organizations and scoped-record migrations with non-null FK, restrict-on-delete, slug uniqueness, and per-organization composite uniqueness. Focused tests cover missing-scope inserts plus cross-organization read/update/delete isolation.
 ---
 <!-- COMMENTS:END -->

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-191
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement bounded read-only service observation
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:57:30.665541Z'
+updated_at: '2026-08-01T14:57:53.227015Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -49,12 +49,12 @@ oompah.agent_run_id: 557e7257-92c6-4a8b-aa35-a64ebfb88155
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-191
-  base_branch: epic-EXOCOMP-185
-  base_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
-  updated_at: '2026-08-01T14:21:22.643371+00:00'
+  head_sha: 7b3ff4a831259ec5555de09214348b3da5eb554e
+  submitted_at: '2026-08-01T14:57:51.470556+00:00'
+  updated_at: '2026-08-01T14:57:51.470556+00:00'
 oompah.task_costs:
   total_input_tokens: 563690
   total_output_tokens: 3190
@@ -202,5 +202,15 @@ author: oompah
 created: 2026-08-01 14:57
 ---
 **Verification**: All tests pass after fixes — 919 passed (10 excluded) in exocomp_node, 537 passed in exocomp_coordinator, 128 in exocomp_core, 201 in bench. make test exits 0. The 13 ServiceObserve failures are now resolved. Pushed to epic-EXOCOMP-185--task-EXOCOMP-191 (7b3ff4a8).
+---
+author: oompah
+created: 2026-08-01 14:57
+---
+**Completion**: Delivered exocomp.service.observe bounded read-only service observation skill. Key files: apps/exocomp_node/lib/exocomp/node/skills/service_observe.ex (ServiceObserve handler), apps/exocomp_node/lib/exocomp/node/collectors/http_probe.ex (loopback-only HTTP prober), updated dispatcher.ex with both ServiceInventory and ServiceObserve. Acceptance criteria met: systemd queries via validated service names, optional loopback-only HTTP probes, timestamps and collector versions in response, service-count/probe-count/response-size/timeout limits enforced, skill is read-only (cannot execute/enable/disable/restart units).
+---
+author: oompah
+created: 2026-08-01 14:57
+---
+Implemented exocomp.service.observe bounded read-only service observation skill. Resolved rebase conflict with EXOCOMP-190 dispatcher changes. Fixed two bugs: double-wrapped Task.yield results in collect_and_build, and Elixir div/2 function call syntax. All 919 exocomp_node and 537 exocomp_coordinator tests pass.
 ---
 <!-- COMMENTS:END -->
