@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-08-01T15:41:30.945693Z'
+updated_at: '2026-08-01T15:42:30.396707Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 target_branch: null
 review_url: null
@@ -70,13 +70,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:41:25.835924+00:00'
   updated_at: '2026-08-01T15:41:25.835924+00:00'
 oompah.task_costs:
-  total_input_tokens: 194
-  total_output_tokens: 7614
+  total_input_tokens: 11185217
+  total_output_tokens: 50743
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 194
-      output_tokens: 7614
+      input_tokens: 11185217
+      output_tokens: 50743
       cost_usd: 0.0
   runs:
   - profile: default
@@ -85,6 +85,12 @@ oompah.task_costs:
     output_tokens: 7614
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:23:47.135229+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 11185023
+    output_tokens: 43129
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:42:29.156386+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-167__20260801T152107Z
@@ -179,5 +185,15 @@ author: oompah
 created: 2026-08-01 15:41
 ---
 Built incident inbox and detail LiveViews with scoped filtering, pagination, real-time updates, evidence/timeline/related views, operator controls, authorization and focused tests.
+---
+author: oompah
+created: 2026-08-01 15:42
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 122
+- Tokens: 11.2M in / 43.1K out [11.2M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 23s
+- Log: EXOCOMP-167__20260801T152516Z.jsonl
 ---
 <!-- COMMENTS:END -->

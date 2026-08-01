@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:03.450139Z'
-updated_at: '2026-08-01T15:39:39.081454Z'
+updated_at: '2026-08-01T15:42:26.815681Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-168
 target_branch: null
 review_url: null
@@ -204,5 +204,26 @@ author: oompah
 created: 2026-08-01 15:39
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 15:42
+---
+UNDERSTANDING: This task requires building the Phoenix LiveView component for the Mission Control conversation and evidence interface. Specific deliverables:
+
+1. Render ordered operator/cluster messages with structured evidence cards
+2. Show state indicators (queued/delivered/reasoning/completed/failed/expired)
+3. Allow operators to send bounded messages when cluster state permits
+4. Add retry/new-message affordances that create new commands vs rewriting history
+
+Acceptance requires tests covering: message limits, online/offline state, duplicate updates, failed/expired reasoning, evidence rendering, viewer read-only mode, and organization isolation. No raw HTML/attachments/arbitrary logs.
+
+PLANNED APPROACH:
+1. Explore existing app structure to find where Mission Control LiveView module should live
+2. Examine related tasks (EXOCOMP-164, 158, 160) dependencies to understand data models
+3. Create LiveView module with message rendering, state management, and delivery tracking
+4. Implement message input form with cluster state awareness and message bounds
+5. Add comprehensive test suite covering all acceptance criteria
+6. Run make fmt-check and make lint quality gates
+7. Commit and submit work
 ---
 <!-- COMMENTS:END -->

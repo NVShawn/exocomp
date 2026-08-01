@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-175
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Delete incident, conversation, proposal, and audit history by policy
 parent: EXOCOMP-134
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:39.520334Z'
-updated_at: '2026-08-01T15:41:33.603846Z'
+updated_at: '2026-08-01T15:42:45.264291Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 target_branch: null
 review_url: null
@@ -46,7 +46,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 824a03e4-d687-4168-a42e-d7d5b7603b00
+oompah.agent_run_id: 1d293055-4c25-4dc5-a498-c923c30f7dc1
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 oompah.integration:
   version: 2
@@ -55,7 +55,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-175
   base_branch: epic-EXOCOMP-134
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:39:45.253349+00:00'
+  updated_at: '2026-08-01T15:42:43.601429+00:00'
 oompah.task_costs:
   total_input_tokens: 717617
   total_output_tokens: 3651
@@ -126,5 +126,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 45s
 - Log: EXOCOMP-175__20260801T153949Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:42
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 15:42
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
