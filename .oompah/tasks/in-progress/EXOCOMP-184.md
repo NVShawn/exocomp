@@ -18,9 +18,10 @@ labels:
 - focus-complete:docs
 - focus-complete:devops
 - focus-complete:callback_auth
+- focus-complete:general
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:28:08.823683Z'
+updated_at: '2026-08-01T18:28:32.206046Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -787,5 +788,26 @@ author: oompah
 created: 2026-08-01 18:28
 ---
 VERIFICATION (software-engineer): PASS: make test-m7-qualification-contract (19 offline tests, was 18); PASS: make release-check (54 tests, was 53); PASS: python3 -m pytest tests/ (157 tests); PASS: make check-links; PASS: git diff --check (no whitespace issues); PASS: bash -n scripts/test-m7-qualification.sh (shell syntax OK). Branch pushed at 45286f59. Live qualification remains blocked pending EXOCOMP-176/178/181/182/183 integration and a signed candidate tag on real systemd VMs.
+---
+author: oompah
+created: 2026-08-01 18:28
+---
+Focus handoff: general
+
+OUTCOME: Software engineering is complete and pushed at 45286f59. One pre-flight gap was found and fixed: 'security' is now included in the has_target() loop in scripts/test-m7-qualification.sh so a missing security Make target (provided by the EXOCOMP-181 security dependency) causes an immediate fail-fast error rather than a mid-run failure after spending time on earlier phases. A new contract test locks this in.
+
+FILES / EVIDENCE:
+- scripts/test-m7-qualification.sh: security added to has_target for-loop (line 156)
+- tests/test_m7_qualification.py: test_live_wrapper_pre_checks_all_required_live_targets added
+
+CURRENT STATE: All offline quality gates pass — 19 M7 contract tests, 54 release-check tests, 157 total Python tests, check-links, shell syntax. The M7 harness (test-m7-qualification.sh, m7_qualification.py, finalize_m7_evidence.py) is fully implemented and hardened across devops, callback_auth, and now software-engineer focuses.
+
+REMAINING WORK / RISKS:
+1. Dependencies EXOCOMP-176/178/181/182/183 must be integrated before live qualification can run. These provide the 'security', 'test-mission-control-scenario', 'mc-scale-full', and 'test-mission-control-lifecycle' Make targets required by the harness.
+2. A signed candidate tag must be created and the full git tag verification path exercised.
+3. Live systemd amd64 and arm64 guests must run 'make test-m7-qualification' with frozen artifact inputs.
+4. After both runs, 'make finalize-m7-evidence' signs the dual-arch evidence index.
+
+RECOMMENDED NEXT FOCUS: devops, after EXOCOMP-178/181/182/183 are merged, to execute both guest qualifications and produce the signed evidence index. The harness fails closed until then.
 ---
 <!-- COMMENTS:END -->
