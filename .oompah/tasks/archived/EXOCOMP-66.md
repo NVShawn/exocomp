@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-08-01T21:31:28.944148Z'
+updated_at: '2026-08-01T21:31:53.374269Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 6b22c659-4f38-4d9c-98f4-da7bf1b93368
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 1417265
-  total_output_tokens: 8358
+  total_input_tokens: 1417305
+  total_output_tokens: 9695
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1417265
-      output_tokens: 8358
+      input_tokens: 1417305
+      output_tokens: 9695
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 2158
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:31:12.436920+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 40
+    output_tokens: 1337
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:31:51.768895+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -72,8 +78,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-0da68293e20d
-    applied: false
+    applied: true
     created_at: '2026-08-01T21:31:26.585329+00:00'
+    applied_at: '2026-08-01T21:31:30.760065+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -334,5 +341,15 @@ Safe evidence:
 - archive_matrix_verified: exocomp-node-1.2.3-linux-{amd64,arm64}.tar.gz + exocomp-coordinator-1.2.3-linux-{amd64,arm64}.tar.gz with per-archive .manifest.json
 - make_gate_target: test-release-packaging
 - packager_path: scripts/package_release.py
+---
+author: oompah
+created: 2026-08-01 21:31
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 24
+- Tokens: 40 in / 1.3K out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 5m 43s
+- Log: EXOCOMP-66__20260801T212615Z.jsonl
 ---
 <!-- COMMENTS:END -->

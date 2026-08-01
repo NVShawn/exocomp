@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-199
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Correlate Ceph topology with coordinator inventory nodes
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T21:29:30.086840Z'
+updated_at: '2026-08-01T21:31:50.813879Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -105,12 +105,15 @@ oompah.agent_run_id: 12f295fc-a215-4a76-9696-4470a1fbcb8a
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-199
+  base_branch: epic-EXOCOMP-186
+  base_sha: a929517cafea443b9d66d601bfd7d7e439e5aaec
   head_sha: 0314c58199acb476c7384be42e88291af1beea95
+  integrated_sha: 0314c58199acb476c7384be42e88291af1beea95
   submitted_at: '2026-08-01T18:55:19.511694+00:00'
-  updated_at: '2026-08-01T18:55:19.511694+00:00'
+  updated_at: '2026-08-01T21:31:46.526475+00:00'
 oompah.task_costs:
   total_input_tokens: 11512010
   total_output_tokens: 48597
@@ -151,6 +154,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-199
     source_sha: 0314c58199acb476c7384be42e88291af1beea95
     completed_at: '2026-08-01T18:55:27.535355+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-46351ce3470d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-199
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7e165d434ca151379bac98cd423b629dabdfb3e9d33b247b495f941f248038cc
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T21:31:48.734624+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -245,5 +270,10 @@ author: oompah
 created: 2026-08-01 21:29
 ---
 Manually reconciled the completed pushed branch after the worker task-handoff capability failed. Head 0314c581 contains the verified Ceph topology correlation implementation; resubmitting the same durable generation.
+---
+author: oompah
+created: 2026-08-01 21:31
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
