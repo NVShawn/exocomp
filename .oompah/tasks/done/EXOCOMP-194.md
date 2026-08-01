@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:57:38.655811Z'
+updated_at: '2026-08-01T17:58:32.203227Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -61,13 +61,17 @@ oompah.integration:
   submitted_at: '2026-08-01T17:29:52.148232+00:00'
   updated_at: '2026-08-01T17:30:29.981214+00:00'
 oompah.task_costs:
-  total_input_tokens: 874472
-  total_output_tokens: 5054
+  total_input_tokens: 874478
+  total_output_tokens: 5509
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 874472
       output_tokens: 5054
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 6
+      output_tokens: 455
       cost_usd: 0.0
   runs:
   - profile: default
@@ -76,6 +80,12 @@ oompah.task_costs:
     output_tokens: 5054
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:05:02.164613+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 455
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:58:30.912910+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-194__20260801T160259Z
@@ -298,5 +308,15 @@ Safe evidence:
 - schema_version: 1
 - max_event_bytes: 65536
 - max_payload_bytes: 49152
+---
+author: oompah
+created: 2026-08-01 17:58
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 71
+- Tokens: 6 in / 455 out [461 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 47s
+- Log: EXOCOMP-194__20260801T174048Z.jsonl
 ---
 <!-- COMMENTS:END -->

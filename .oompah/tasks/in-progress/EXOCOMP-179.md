@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-179
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add shared Mission Control protocol contract tests
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T13:17:24.613783Z'
+updated_at: '2026-08-01T17:58:48.899121Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -39,7 +39,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 1
   retry_after: null
-oompah.agent_run_id: ba7223ee-8d44-4b4b-90fa-38c2e08ede94
+oompah.agent_run_id: 6dda6ce5-8b62-4705-8763-a52e7f5ab85c
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 oompah.integration:
   version: 2
@@ -47,8 +47,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-179
   base_branch: epic-EXOCOMP-135
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:15:39.489245+00:00'
+  base_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
+  updated_at: '2026-08-01T17:58:46.870598+00:00'
 oompah.task_costs:
   total_input_tokens: 781264
   total_output_tokens: 4496
@@ -159,5 +159,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 46s
 - Log: EXOCOMP-179__20260801T131542Z.jsonl
+---
+author: oompah
+created: 2026-08-01 17:58
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 17:58
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

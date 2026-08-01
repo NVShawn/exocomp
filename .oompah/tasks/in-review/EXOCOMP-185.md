@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-185
 type: epic
-status: In Progress
+status: In Review
 priority: 1
 title: 'M7I: Host service desired state'
 parent: EXOCOMP-127
@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-08-01T15:59:20.923006Z'
+updated_at: '2026-08-01T17:58:54.305232Z'
 work_branch: null
 target_branch: null
 review_url: null
