@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-195
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Add the shipped cluster-profile registry and version contract
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:44:13.414594Z'
+updated_at: '2026-08-01T14:58:07.659689Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -78,6 +78,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:59:33.989984+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-980133c24157: '2026-08-01T14:58:05.084523+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-195
+    target_state: Done
+    evidence_fingerprint: f7da0ed368bc9eab3d5cb92f6fceadc27098da9a950d86fe10aa6104510ebefd
+    audit_ids:
+    - audit-a63d8fdf7553
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T14:58:05.084537+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-195
+    audit_id: audit-a63d8fdf7553
+    attempt_id: attempt-980133c24157
+    target_state: Done
+    evidence_fingerprint: f7da0ed368bc9eab3d5cb92f6fceadc27098da9a950d86fe10aa6104510ebefd
+    status: Done
+    audit_ids:
+    - audit-a63d8fdf7553
+    applied: false
+    created_at: '2026-08-01T14:58:05.084559+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -85,7 +109,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-195
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -94,7 +118,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-980133c24157
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -104,13 +128,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T14:44:09.747222+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-195
+      verdict: pass
+      completed_at: '2026-08-01T14:58:05.084228+00:00'
+      ended_at: '2026-08-01T14:58:05.084228+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T14:44:04.770796+00:00'
-    updated_at: '2026-08-01T14:44:09.747222+00:00'
+    updated_at: '2026-08-01T14:58:05.084228+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-980133c24157
@@ -239,5 +266,31 @@ author: oompah
 created: 2026-08-01 14:44
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 14:58
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
+- remote_branch: origin/epic-EXOCOMP-186--task-EXOCOMP-195
+- commit_stat: 12 files changed, 432 insertions(+), 5 deletions(-)
+- profile_registry_module: apps/exocomp_core/lib/exocomp/cluster_profile/registry.ex
+- default_profile_module: apps/exocomp_core/lib/exocomp/cluster_profile/default.ex
+- coverage_error_module: apps/exocomp_core/lib/exocomp/cluster_profile/coverage_error.ex
+- behavior_module: apps/exocomp_core/lib/exocomp/cluster_profile.ex
+- registry_tests: apps/exocomp_core/test/exocomp/cluster_profile/registry_test.exs (6 tests)
+- codec_test_updated: apps/exocomp_core/test/exocomp/a2a/codec_test.exs (clusterProfiles round-trip + malformed rejection)
+- node_card_test: apps/exocomp_node/test/exocomp/node/a2a_router_test.exs asserts clusterProfiles == [{id: default, versions: [1]}]
+- coordinator_card_test: apps/exocomp_coordinator/test/exocomp/coordinator/a2a_router_test.exs asserts clusterProfiles == [{id: default, versions: [1]}]
+- make_test_builders: 13 passed, 0 failed (verified in-session)
+- make_test_release_packaging: 6 + 3 + 7 = 16 Python tests all passed (verified in-session)
+- make_test_compliance: 29 tests OK (verified in-session)
+- mix_test_evidence: Registry.beam artifact timestamp 2026-08-01 14:48:08 precedes both node and coordinator release builds at 14:53:36-37, proving mix test and mix release stages of make test completed
+- advertised_profile_payload: [%{id: 'default', versions: [1]}]
+- coverage_error_codes: :unknown_profile, :unsupported_profile_version, :non_shipped_profile, :duplicate_profile_id, :invalid_profile
 ---
 <!-- COMMENTS:END -->
