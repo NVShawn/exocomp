@@ -18,7 +18,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:41:54.523161Z'
+updated_at: '2026-08-01T17:43:06.231139Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -585,5 +585,10 @@ author: oompah
 created: 2026-08-01 17:41
 ---
 UNDERSTANDING (devops): I will reconcile the branch with the integrated Mission Control packaging work, then provide a reproducible M7 qualification target that builds and validates the same candidate across amd64 and arm64. The harness will preserve strict pass/fail gates and produce signed, checksummed evidence with host/provenance identity; it will not permit overrides to bypass functional or security requirements.
+---
+author: oompah
+created: 2026-08-01 17:43
+---
+DISCOVERY (devops): Reconciled the branch with EXOCOMP-176 (d9cc09d7), which supplies the pinned Mission Control image build, packaging and image tests. The repository now has those real targets, but it still lacks test-m7-qualification and a single orchestration/evidence validator. EXOCOMP-178, -181, -182 and -183 remain separate dependencies; the harness must make their required interfaces explicit and fail closed until they are available.
 ---
 <!-- COMMENTS:END -->
