@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-01T13:22:16.973410Z'
+updated_at: '2026-08-01T13:22:39.298308Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -56,13 +56,13 @@ oompah.integration:
   submitted_at: '2026-08-01T13:22:14.774480+00:00'
   updated_at: '2026-08-01T13:22:14.774480+00:00'
 oompah.task_costs:
-  total_input_tokens: 336036
-  total_output_tokens: 2464
+  total_input_tokens: 337870
+  total_output_tokens: 2915
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 336036
-      output_tokens: 2464
+      input_tokens: 337870
+      output_tokens: 2915
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +71,12 @@ oompah.task_costs:
     output_tokens: 2464
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:06:48.492536+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1834
+    output_tokens: 451
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:22:38.019387+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-172__20260801T130549Z
@@ -225,5 +231,15 @@ author: oompah
 created: 2026-08-01 13:22
 ---
 Implemented encrypted webhook endpoint configuration with AES-256-GCM encryption, HTTPS URL validation, policy-based destination checks, and admin-only role-based access control. All 49 webhook tests plus existing 124 authorization tests pass. Quality gates: make test, make fmt-check, make lint all pass.
+---
+author: oompah
+created: 2026-08-01 13:22
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 122
+- Tokens: 1.8K in / 451 out [2.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 15m 36s
+- Log: EXOCOMP-172__20260801T130709Z.jsonl
 ---
 <!-- COMMENTS:END -->
