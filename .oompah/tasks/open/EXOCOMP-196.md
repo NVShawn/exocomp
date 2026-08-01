@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:11:00.855097Z'
+updated_at: '2026-08-01T15:11:03.170992Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -50,13 +50,13 @@ oompah.integration:
   base_sha: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
   updated_at: '2026-08-01T14:59:45.441950+00:00'
 oompah.task_costs:
-  total_input_tokens: 925743
-  total_output_tokens: 5957
+  total_input_tokens: 926009
+  total_output_tokens: 19611
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 925743
-      output_tokens: 5957
+      input_tokens: 926009
+      output_tokens: 19611
       cost_usd: 0.0
   runs:
   - profile: default
@@ -65,6 +65,12 @@ oompah.task_costs:
     output_tokens: 5957
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:05:12.912429+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 266
+    output_tokens: 13654
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:10:59.207201+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
