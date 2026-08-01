@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-08-01T02:17:27.981219Z'
+updated_at: '2026-08-01T02:17:30.798457Z'
 work_branch: EXOCOMP-107
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/11
@@ -76,8 +76,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-8733baf0e61c
-    applied: false
+    applied: true
     created_at: '2026-08-01T02:17:25.748527+00:00'
+    applied_at: '2026-08-01T02:17:30.106935+00:00'
   version: 1
   pending_chain:
   - version: 1
