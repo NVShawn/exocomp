@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T12:18:48.054393Z'
+updated_at: '2026-08-01T12:18:56.444924Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -286,5 +286,19 @@ Attribution coverage: uniqueness, timestamp bounds, correlation ID format (URL-s
 
 make fmt-check: pass
 make lint: pass (compliance: all checks passed)
+---
+author: oompah
+created: 2026-08-01 12:18
+---
+Completion: Delivered the Mission Control authorization foundation in apps/exocomp_mission_control.
+
+All acceptance criteria met:
+✅ Role matrix test covers every allowed and denied operation (full 18-case matrix + predicate tests).
+✅ Removing a UI control does not bypass context authorization — Authorization.authorize/3 is the enforcement boundary, not the LiveView hook or Plug; the LiveView hook and Plug both delegate to it.
+✅ Cross-organization role bindings fail closed — authorize/3 checks organization_id match before any role check; unknown orgs and mismatched orgs always return {:error, :cross_organization}.
+✅ Mutation attribution helper records stable OIDC subject and correlation ID.
+✅ OIDC claim/group → role mapping via OIDCResolver.
+
+Out of scope items (feature-specific mutations, admin pages, Phoenix/Ecto persistence, actual OIDC token validation) are intentionally not included per the task description.
 ---
 <!-- COMMENTS:END -->
