@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-156
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Add incident acknowledgement, assignment, snooze, and resolution
 parent: EXOCOMP-131
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-08-01T14:55:58.514241Z'
+updated_at: '2026-08-01T14:56:15.108956Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 target_branch: null
 review_url: null
@@ -47,7 +47,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: d341b2f8-f36b-4614-9ad8-5a57168860c0
+oompah.agent_run_id: a969e83e-f2d7-49e3-9803-5fcdb63ee8a0
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 oompah.integration:
   version: 2
@@ -56,7 +56,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-156
   base_branch: epic-EXOCOMP-131
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:53:13.207098+00:00'
+  updated_at: '2026-08-01T14:56:13.199785+00:00'
 oompah.task_costs:
   total_input_tokens: 1352093
   total_output_tokens: 5941
@@ -128,5 +128,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 46s
 - Log: EXOCOMP-156__20260801T145319Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:56
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 14:56
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
