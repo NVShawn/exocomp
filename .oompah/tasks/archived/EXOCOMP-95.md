@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-95
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement node-side approval token verifier (signature, bindings, freshness)
 parent: EXOCOMP-24
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-08-01T03:14:35.779167Z'
+updated_at: '2026-08-01T03:16:33.953063Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -37,6 +37,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T15:59:52.103138+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-e653bbf182a5: '2026-08-01T03:16:32.147792+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-95
+    target_state: Archived
+    evidence_fingerprint: 87928deddcc4f616910f2095f7cb88e470eaac4955fc101308e5c84939f092c3
+    audit_ids:
+    - audit-308bf0ecb161
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:16:32.147802+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-95
+    audit_id: audit-308bf0ecb161
+    attempt_id: attempt-e653bbf182a5
+    target_state: Archived
+    evidence_fingerprint: 87928deddcc4f616910f2095f7cb88e470eaac4955fc101308e5c84939f092c3
+    status: Archived
+    audit_ids:
+    - audit-308bf0ecb161
+    applied: false
+    created_at: '2026-08-01T03:16:32.147817+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -44,7 +68,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-95
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -53,7 +77,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-e653bbf182a5
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -63,13 +87,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:14:31.202362+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:16:32.147632+00:00'
+      ended_at: '2026-08-01T03:16:32.147632+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:55.899575+00:00'
-    updated_at: '2026-08-01T03:14:31.202362+00:00'
+    updated_at: '2026-08-01T03:16:32.147632+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-e653bbf182a5
@@ -343,5 +370,23 @@ author: oompah
 created: 2026-08-01 03:14
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:16
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merged_commit: 7b477ce9a3594a260e19370ffdf760208a207767
+- commit_title: EXOCOMP-95: verify signed approval tokens
+- verifier_file: apps/exocomp_node/lib/exocomp/node/safety/approval_verifier.ex
+- verifier_test_file: apps/exocomp_node/test/exocomp/node/safety/approval_verifier_test.exs
+- shared_encoder_file: apps/exocomp_core/lib/exocomp/core/approval_token.ex
+- shared_encoder_test_file: apps/exocomp_core/test/exocomp/core/approval_token_test.exs
+- commit_on_main: yes
+- files_added_by_commit: 4
+- insertions_by_commit: 471
 ---
 <!-- COMMENTS:END -->
