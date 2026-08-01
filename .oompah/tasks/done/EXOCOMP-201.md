@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-201
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Implement the restricted profile-action helper
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-08-01T15:26:47.629004Z'
+updated_at: '2026-08-01T15:30:37.322042Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 target_branch: null
 review_url: null
@@ -105,6 +105,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:16:37.431408+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-b45cdd63d55b: '2026-08-01T15:30:33.907984+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-201
+    target_state: Done
+    evidence_fingerprint: 7d9f260b165a6075dceee66b5a78ddf86e6321b79a443116f1594798ec66e4ef
+    audit_ids:
+    - audit-647771aadf64
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T15:30:33.907993+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-201
+    audit_id: audit-647771aadf64
+    attempt_id: attempt-b45cdd63d55b
+    target_state: Done
+    evidence_fingerprint: 7d9f260b165a6075dceee66b5a78ddf86e6321b79a443116f1594798ec66e4ef
+    status: Done
+    audit_ids:
+    - audit-647771aadf64
+    applied: false
+    created_at: '2026-08-01T15:30:33.908007+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -112,7 +136,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-201
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -121,7 +145,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b45cdd63d55b
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -131,13 +155,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T15:26:43.589683+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-201
+      verdict: pass
+      completed_at: '2026-08-01T15:30:33.907800+00:00'
+      ended_at: '2026-08-01T15:30:33.907800+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:26:32.952160+00:00'
-    updated_at: '2026-08-01T15:26:43.589683+00:00'
+    updated_at: '2026-08-01T15:30:33.907800+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-b45cdd63d55b
@@ -262,5 +289,25 @@ author: oompah
 created: 2026-08-01 15:26
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 15:30
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 8e3debd59e5a3ca32307b8a0c2e8c219456cb58c
+- branch: epic-EXOCOMP-186--task-EXOCOMP-201
+- pushed: origin HEAD matches local HEAD
+- integrated_into_epic: epic-EXOCOMP-186 HEAD == task HEAD (no diff)
+- helper_files: apps/exocomp_node/priv/profile_action_helper.{c,h}, apps/exocomp_node/test/native/profile_action_helper_test.c, docs/profile-action-helper.md
+- make_targets: Makefile: build-profile-action-helper, test-profile-action-helper
+- focused_gate_result: make test-profile-action-helper exit_code=0, 'profile-action-helper tests passed'
+- protocol_bounds: PAH_MAX_REQUEST_BYTES=4096, ASCII-only, exactly 5 tab fields, trailing newline required, argc==1 enforced in main
+- capability_table: Only {profile_id=ceph, version=1, action_id=restart_failed_daemon}
+- execution_boundary: execve('/usr/bin/systemctl', fixed argv, clean env); no shell/PATH; argv revalidated; unit revalidated pre-restart; show output must be exact 'loaded/inactive' or 'loaded/failed'; hard timeouts (5s state, 30s restart) with SIGKILL and bounded output (1024B)
+- negative_tests: injection (;id, $(id), |cat, ../1, ceph-osd@one), malformed UTF-8/NUL/extra-fields/oversized/missing-newline, unknown profile/action/protocol/profile-version, active/activating states, non-ceph units, subprocess timeout and non-zero exit
 ---
 <!-- COMMENTS:END -->
