@@ -1,0 +1,12 @@
+[
+  {
+    "acknowledged_at": "2026-08-01T18:12:00Z",
+    "highest_seq": 0,
+    "session_id": "session-001"
+  },
+  {
+    "acknowledged_at": "2026-08-01T18:12:30Z",
+    "highest_seq": 10,
+    "session_id": "session-001"
+  }
+]

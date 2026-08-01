@@ -148,11 +148,7 @@ defmodule Exocomp.Coordinator.MissionControl.Command do
         end
 
       nil ->
-        # Default to empty map if payload key is missing
-        case Map.has_key?(params, "payload") do
-          false -> {:ok, %{}}
-          true -> {:error, {:invalid_payload, nil}}
-        end
+        {:error, :missing_payload}
 
       other ->
         {:error, {:invalid_payload, other}}

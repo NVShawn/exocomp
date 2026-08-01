@@ -98,6 +98,17 @@ defmodule Exocomp.MissionControl.StatusReducer do
   @spec size(t()) :: non_neg_integer()
   def size(%__MODULE__{events: events}), do: map_size(events)
 
+  @doc "Returns sequence numbers missing between the first and last retained event."
+  @spec missing_sequences(t()) :: [non_neg_integer()]
+  def missing_sequences(%__MODULE__{sequence_index: sequence_index}) do
+    sequences = Map.keys(sequence_index)
+
+    case Enum.sort(sequences) do
+      [] -> []
+      [first | _] = sorted -> Enum.filter(first..List.last(sorted), &(&1 not in sequences))
+    end
+  end
+
   defp normalize_event(%StatusEvent{} = event), do: {:ok, event}
   defp normalize_event(event), do: StatusEvent.decode(event)
 

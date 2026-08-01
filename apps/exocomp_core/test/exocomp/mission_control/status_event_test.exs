@@ -7,11 +7,13 @@ defmodule Exocomp.MissionControl.StatusEventTest do
 
   @fixture_dir Path.expand("../../../../../test/fixtures/mission_control", __DIR__)
 
+  Code.require_file(Path.join(@fixture_dir, "contract_fixtures.exs"))
+
   test "decodes, encodes, and round-trips every shared status fixture" do
-    for file <- Path.wildcard(Path.join(@fixture_dir, "*.json")),
-        not String.contains?(file, ["duplicate", "out_of_order"]) do
-      raw = file |> File.read!() |> Jason.decode!()
-      assert {:ok, event} = StatusEvent.decode(raw), file
+    for filename <- Exocomp.MissionControl.ContractFixtures.manifest()["status_event_fixtures"],
+        filename not in ["duplicate_delivery.json", "out_of_order_delivery.json"] do
+      raw = fixture(filename)
+      assert {:ok, event} = StatusEvent.decode(raw), filename
       assert {:ok, json} = StatusEvent.encode_json(event)
       assert {:ok, decoded} = StatusEvent.decode_json(json)
       assert decoded == event

@@ -1,0 +1,23 @@
+[
+  {
+    "command_id": "cmd-approval-001",
+    "kind": "approval.decide",
+    "issued_at": "2026-08-01T18:10:00Z",
+    "expires_at": "2026-08-01T18:20:00Z",
+    "payload": {"approval_id": "approval-001", "decision": "approve"}
+  },
+  {
+    "command_id": "cmd-conversation-001",
+    "kind": "conversation.message",
+    "issued_at": "2026-08-01T18:10:30Z",
+    "expires_at": "2026-08-01T18:20:30Z",
+    "payload": {"conversation_id": "conversation-001", "message": "Please investigate"}
+  },
+  {
+    "command_id": "cmd-disconnect-001",
+    "kind": "cluster.disconnect",
+    "issued_at": "2026-08-01T18:11:00Z",
+    "expires_at": "2026-08-01T18:21:00Z",
+    "payload": {"reason": "maintenance"}
+  }
+]

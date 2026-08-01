@@ -1,0 +1,21 @@
+[
+  {"name": "event missing schema_version", "envelope": "event", "index": 0, "operation": {"op": "delete", "field": "schema_version"}, "expected": {"field": "schema_version", "reason": "missing_schema_version"}},
+  {"name": "event missing event_id", "envelope": "event", "index": 0, "operation": {"op": "delete", "field": "event_id"}, "expected": {"field": "event_id", "reason": "missing_event_id"}},
+  {"name": "event missing cluster_seq", "envelope": "event", "index": 0, "operation": {"op": "delete", "field": "cluster_seq"}, "expected": {"field": "cluster_seq", "reason": "missing_cluster_seq"}},
+  {"name": "event missing kind", "envelope": "event", "index": 0, "operation": {"op": "delete", "field": "kind"}, "expected": {"field": "kind", "reason": "missing_kind"}},
+  {"name": "event missing occurred_at", "envelope": "event", "index": 0, "operation": {"op": "delete", "field": "occurred_at"}, "expected": {"field": "occurred_at", "reason": "missing_occurred_at"}},
+  {"name": "event missing payload", "envelope": "event", "index": 0, "operation": {"op": "delete", "field": "payload"}, "expected": {"field": "payload", "reason": "missing_payload"}},
+  {"name": "event unknown kind", "envelope": "event", "index": 0, "operation": {"op": "put", "field": "kind", "value": "unknown.event"}, "expected": {"field": "kind", "reason": "unknown_kind"}},
+  {"name": "event unsupported version", "envelope": "event", "index": 0, "operation": {"op": "put", "field": "schema_version", "value": 2}, "expected": {"field": "schema_version", "reason": "unsupported_schema_version"}},
+  {"name": "event oversized payload", "envelope": "event", "index": 0, "operation": {"op": "oversize_payload"}, "expected": {"field": "payload", "reason": "payload_oversized"}},
+  {"name": "command missing command_id", "envelope": "command", "index": 0, "operation": {"op": "delete", "field": "command_id"}, "expected": {"field": "command_id", "reason": "missing_command_id"}},
+  {"name": "command missing kind", "envelope": "command", "index": 0, "operation": {"op": "delete", "field": "kind"}, "expected": {"field": "kind", "reason": "missing_kind"}},
+  {"name": "command missing issued_at", "envelope": "command", "index": 0, "operation": {"op": "delete", "field": "issued_at"}, "expected": {"field": "issued_at", "reason": "missing_issued_at"}},
+  {"name": "command missing expires_at", "envelope": "command", "index": 0, "operation": {"op": "delete", "field": "expires_at"}, "expected": {"field": "expires_at", "reason": "missing_expires_at"}},
+  {"name": "command missing payload", "envelope": "command", "index": 0, "operation": {"op": "delete", "field": "payload"}, "expected": {"field": "payload", "reason": "missing_payload"}},
+  {"name": "command unknown kind", "envelope": "command", "index": 0, "operation": {"op": "put", "field": "kind", "value": "unknown.command"}, "expected": {"field": "kind", "reason": "unknown_kind"}},
+  {"name": "command oversized payload", "envelope": "command", "index": 0, "operation": {"op": "oversize_payload"}, "expected": {"field": "payload", "reason": "payload_oversized"}},
+  {"name": "acknowledgement missing acknowledged_at", "envelope": "acknowledgement", "index": 0, "operation": {"op": "delete", "field": "acknowledged_at"}, "expected": {"field": "acknowledged_at", "reason": "missing_acknowledged_at"}},
+  {"name": "acknowledgement missing highest_seq", "envelope": "acknowledgement", "index": 0, "operation": {"op": "delete", "field": "highest_seq"}, "expected": {"field": "highest_seq", "reason": "missing_highest_seq"}},
+  {"name": "acknowledgement missing session_id", "envelope": "acknowledgement", "index": 0, "operation": {"op": "delete", "field": "session_id"}, "expected": {"field": "session_id", "reason": "missing_session_id"}}
+]
