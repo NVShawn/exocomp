@@ -12,7 +12,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-08-01T02:59:53.020756Z'
+updated_at: '2026-08-01T02:59:59.630214Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -288,5 +288,10 @@ author: oompah
 created: 2026-08-01 02:59
 ---
 Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 02:59
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->

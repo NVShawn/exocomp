@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-25
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement unprivileged systemd executor and exact sudoers policy
 parent: EXOCOMP-3
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:11.402376Z'
-updated_at: '2026-07-25T02:16:25.112433Z'
+updated_at: '2026-08-01T03:00:02.224940Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 58220
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:47:27.835633+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a6211a9fcafb
+    project_id: proj-c260b117
+    task_id: EXOCOMP-25
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a765788c2a9d91cc380245dc3b33d5c13d766ff95ef4251b48cd90de47a294a2
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T02:59:59.734365+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -310,5 +332,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 18m 32s
 - Log: EXOCOMP-25__20260723T222859Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
