@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-197
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Collect Ceph health and topology JSON
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:19.643459Z'
-updated_at: '2026-08-01T17:16:17.647399Z'
+updated_at: '2026-08-01T17:22:51.593665Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 target_branch: null
 review_url: null
@@ -60,12 +60,12 @@ oompah.agent_run_id: 13f8b6e3-2588-46dc-9190-3e56e6a5897b
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-197
-  base_branch: epic-EXOCOMP-186
-  base_sha: 86a4eef228b47d4cd898826045a2fb7ac6cf5b05
-  updated_at: '2026-08-01T17:12:59.353705+00:00'
+  head_sha: c596834e6b50082aaf3023e8695a651f0360ec5f
+  submitted_at: '2026-08-01T17:22:49.480341+00:00'
+  updated_at: '2026-08-01T17:22:49.480341+00:00'
 oompah.task_costs:
   total_input_tokens: 146
   total_output_tokens: 4753
@@ -157,5 +157,20 @@ author: oompah
 created: 2026-08-01 17:16
 ---
 DISCOVERY: Found infrastructure - Ceph profile config validated at startup via ProfileCoverage, node-side Ceph daemon discovery working as reference pattern. Need to implement coordinator-side Ceph health + topology JSON collector with fixed argv, bounded I/O/timeout, error handling, JSON normalization. Key files: Exocomp.ClusterProfile.Ceph, Exocomp.Coordinator.ProfileCoverage, docs/ceph-profile-configuration.md, Exocomp.Node.Collectors.Ceph (reference pattern).
+---
+author: oompah
+created: 2026-08-01 17:22
+---
+IMPLEMENTATION: Created Exocomp.Coordinator.Collectors.Ceph with fixed ceph status/mon/mgr/osd/mds/fs ls --format=json commands. Enforces 10s timeout, 1MiB output limit, no shell. Normalizes Ceph JSON into versioned structure with health/topology/errors. Partial failures preserved with ISO8601 timestamps, sanitized reasons (512 byte max), never exposes keyring/paths. Comprehensive test suite: 23 tests covering HEALTH_OK/WARN/ERR, empty clusters, malformed JSON, timeout, truncation, error handling, redaction. All 547 project tests pass.
+---
+author: oompah
+created: 2026-08-01 17:22
+---
+VERIFICATION: make test passed with 547/547 tests, including all 23 new Ceph collector tests covering: successful collection (HEALTH_OK/WARN/ERR, topology, empty clusters, filesystems), error handling (malformed JSON, partial failures, timestamps, redaction), limits (timeout, output size), data structure validation, schema version, ISO8601 timestamps. No compiler warnings for collector code. Ready for integration.
+---
+author: oompah
+created: 2026-08-01 17:22
+---
+Implemented unprivileged Ceph health and topology JSON collector with fixed argv, bounded I/O/timeout, error preservation, and comprehensive tests
 ---
 <!-- COMMENTS:END -->
