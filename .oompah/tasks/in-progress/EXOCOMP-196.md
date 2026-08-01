@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:37:39.519996Z'
+updated_at: '2026-08-01T16:38:09.152409Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -701,5 +701,10 @@ author: oompah
 created: 2026-08-01 16:37
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 16:38
+---
+Understanding: Maintenance phase to fix CI failures. Need to: (1) reproduce and fix make test failures, (2) strip trailing whitespace from test/installer/test_installer.py:1641-1837 and scripts/install.sh:693, (3) verify make test exits 0 and make test-compliance passes, (4) push and requeue for terminal audit.
 ---
 <!-- COMMENTS:END -->
