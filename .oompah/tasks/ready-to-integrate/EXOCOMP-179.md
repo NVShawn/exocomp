@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-179
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add shared Mission Control protocol contract tests
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T18:14:38.887517Z'
+updated_at: '2026-08-01T18:15:16.440598Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -43,12 +43,12 @@ oompah.agent_run_id: 6dda6ce5-8b62-4705-8763-a52e7f5ab85c
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-179
-  base_branch: epic-EXOCOMP-135
-  base_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
-  updated_at: '2026-08-01T17:58:46.870598+00:00'
+  head_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
+  submitted_at: '2026-08-01T18:15:13.751809+00:00'
+  updated_at: '2026-08-01T18:15:13.751809+00:00'
 oompah.task_costs:
   total_input_tokens: 781264
   total_output_tokens: 4496
@@ -189,5 +189,15 @@ author: oompah
 created: 2026-08-01 18:14
 ---
 Verification correction: inherited Mission Control protocol/status tests plus new contract tests pass in a standalone Elixir 1.18 harness: 82 tests, 0 failures. JSON corpus parsing, Elixir syntax/format checks, and git diff --check pass. The three Make quality targets cannot start the pinned builder because the sandbox Podman runtime reports a read-only /run/user/1000/libpod; no code or test failure was observed.
+---
+author: oompah
+created: 2026-08-01 18:15
+---
+Completion: commit 333c3b81 is pushed and the branch is up to date with origin. Delivered the shared manifest/corpus, field-level fixture drift checks, coordinator/core contract coverage for events, commands, acknowledgements, errors, versions, replay/gaps, bounds, and redaction, plus the standalone Make target.
+---
+author: oompah
+created: 2026-08-01 18:15
+---
+Added shared Mission Control contract corpus, field-level drift and mutation tests, replay/gap/redaction coverage, coordinator/core adapters, and make test-mission-control-contract.
 ---
 <!-- COMMENTS:END -->
