@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:08:54.431795Z'
+updated_at: '2026-08-01T12:09:09.941918Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -36,7 +36,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 72033011-f451-48af-a69f-40df843b0c92
+oompah.agent_run_id: b82246e9-5217-4e0a-83e5-514461d68dae
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
@@ -45,7 +45,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-144
   base_branch: epic-EXOCOMP-129
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T11:58:18.674280+00:00'
+  updated_at: '2026-08-01T12:09:06.831364+00:00'
 oompah.task_costs:
   total_input_tokens: 1573534
   total_output_tokens: 15224
@@ -118,5 +118,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 10m 37s
 - Log: EXOCOMP-144__20260801T115823Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:09
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 12:09
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
