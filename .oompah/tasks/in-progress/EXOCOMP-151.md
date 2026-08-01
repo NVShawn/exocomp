@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-01T12:31:08.749486Z'
+updated_at: '2026-08-01T12:41:51.709361Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-08-01 12:31
 ---
 Discovery: no Mission Control command module exists yet. Existing  is an in-memory lifecycle boundary, while node  demonstrates the required claim-before-execute and completed-result replay semantics. I will add a coordinator-local durable command processor using DETS for atomic command claims/results and a synced JSONL terminal-event outbox, with injected handlers/time for focused tests.
+---
+author: oompah
+created: 2026-08-01 12:41
+---
+Implementation: added  plus receipt/result structs. Commands are schema-checked and normalized, claimed and synced in a DETS ledger by command_id, dispatched only after the claim, and terminalized on success, handler failure, unsupported kind, expiry, or restart recovery. A synced JSONL  outbox carries command_id, kind, status, and correlation_id; duplicate delivery returns a receipt without rerunning the handler. The processor is supervised by the coordinator and uses production paths under /var/lib/exocomp-coordinator.
 ---
 <!-- COMMENTS:END -->
