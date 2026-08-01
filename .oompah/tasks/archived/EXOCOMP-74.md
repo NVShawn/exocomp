@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-74
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement PolicyEngine risk-ordered selection and comprehensive policy tests
 parent: EXOCOMP-22
@@ -13,7 +13,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-08-01T03:04:00.749560Z'
+updated_at: '2026-08-01T03:06:16.151558Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -45,6 +45,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T01:34:09.087751+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-2dcdb4fc3ee9: '2026-08-01T03:06:14.322320+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-74
+    target_state: Archived
+    evidence_fingerprint: 7c09cbee18e157550f43adcf58521d6dce36487fe9482387fab2fb31e54d17a6
+    audit_ids:
+    - audit-20bdbb175499
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:06:14.322327+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-74
+    audit_id: audit-20bdbb175499
+    attempt_id: attempt-2dcdb4fc3ee9
+    target_state: Archived
+    evidence_fingerprint: 7c09cbee18e157550f43adcf58521d6dce36487fe9482387fab2fb31e54d17a6
+    status: Archived
+    audit_ids:
+    - audit-20bdbb175499
+    applied: false
+    created_at: '2026-08-01T03:06:14.322337+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -52,7 +76,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-74
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -61,7 +85,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-2dcdb4fc3ee9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -71,13 +95,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:03:55.937896+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:06:14.322217+00:00'
+      ended_at: '2026-08-01T03:06:14.322217+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:38.990018+00:00'
-    updated_at: '2026-08-01T03:03:55.937896+00:00'
+    updated_at: '2026-08-01T03:06:14.322217+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-2dcdb4fc3ee9
@@ -355,5 +382,21 @@ author: oompah
 created: 2026-08-01 03:04
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:06
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- impl_commit: 6e48177 (EXOCOMP-74: implement PolicyEngine.evaluate/4 risk-ordered candidate selection)
+- tests_commit: 87132cb (EXOCOMP-74: add policy engine selection tests)
+- main_contains_files: apps/exocomp_node/lib/exocomp/node/safety/policy_engine.ex; apps/exocomp_node/test/exocomp/node/safety/policy_engine_test.exs
+- evaluate_arity_4_clauses: 3 (single-Evidence normalization, primary %Proposal+list+%PolicyContext, catchall deny)
+- test_count: 14
+- previous_state: Merged
+- requested_target: Archived
 ---
 <!-- COMMENTS:END -->
