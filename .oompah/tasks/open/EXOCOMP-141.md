@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-141
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Enforce viewer, operator, and admin authorization
 parent: EXOCOMP-129
@@ -10,10 +10,12 @@ blocked_by:
 - EXOCOMP-140
 - EXOCOMP-138
 start_blocked_by: []
-labels: []
+labels:
+- focus-complete:frontend
+- needs:feature
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T11:57:46.442855Z'
+updated_at: '2026-08-01T11:58:32.775320Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -194,5 +196,33 @@ author: oompah
 created: 2026-08-01 11:57
 ---
 Discovery: The current umbrella contains coordinator/node applications only; no Mission Control or Phoenix app exists in this worktree. The plan defines the authorization contract but no implementation boundary yet. I am checking dependency task interfaces before adding the foundational authorization modules.
+---
+author: oompah
+created: 2026-08-01 11:58
+---
+Focus handoff: frontend\n\nOutcome: No frontend work is actionable. EXOCOMP-141 is a backend authorization foundation and the current umbrella has no Mission Control/Phoenix application or OIDC/UI code.\n\nEvidence:  defines only exocomp_node and exocomp_coordinator releases;  contains exocomp_core, exocomp_node, exocomp_coordinator, and bench. The required contract is in  under Organization and Operator Identity (lines 105-125) and Persistence and Retention (lines 322-338).\n\nRemaining work/risks: create the Mission Control app and persistence boundary, add organization/operator/role schemas, OIDC role resolver, Plug/LiveView guards, context-level checks, mutation audit attribution, and the full role/cross-org matrix. UI visibility must remain only a presentation concern.\n\nRecommended next focus: feature (backend Phoenix/Ecto authorization).
+---
+author: oompah
+created: 2026-08-01 11:58
+---
+Focus handoff: frontend
+
+Outcome: No frontend work is actionable. EXOCOMP-141 is a backend authorization foundation and the current umbrella has no Mission Control/Phoenix application or OIDC/UI code.
+
+Evidence: the root mix.exs defines only exocomp_node and exocomp_coordinator releases; apps contains exocomp_core, exocomp_node, exocomp_coordinator, and bench. The required contract is in plans/mission-control.md under Organization and Operator Identity (lines 105-125) and Persistence and Retention (lines 322-338).
+
+Remaining work/risks: create the Mission Control app and persistence boundary, add organization/operator/role schemas, OIDC role resolver, Plug/LiveView guards, context-level checks, mutation audit attribution, and the full role/cross-org matrix. UI visibility must remain only a presentation concern.
+
+Recommended next focus: feature (backend Phoenix/Ecto authorization).
+---
+author: oompah
+created: 2026-08-01 11:58
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 0, Tool calls: 26
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 40s
+- Log: EXOCOMP-141__20260801T115658Z.jsonl
 ---
 <!-- COMMENTS:END -->
