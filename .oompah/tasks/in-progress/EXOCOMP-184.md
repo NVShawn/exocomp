@@ -19,7 +19,7 @@ labels:
 - focus-complete:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:57:03.243280Z'
+updated_at: '2026-08-01T17:57:25.864180Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -658,5 +658,10 @@ author: oompah
 created: 2026-08-01 17:57
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-08-01 17:57
+---
+UNDERSTANDING (test): Reviewing the devops handoff. The M7 qualification harness (scripts/test-m7-qualification.sh, scripts/m7_qualification.py, scripts/finalize_m7_evidence.py) was added in the devops focus with 12 contract tests in tests/test_m7_qualification.py. My role is to audit those tests for coverage gaps, add missing edge-case and regression tests for the qualification pipeline, and ensure all quality gates pass. I will not invoke live guest infrastructure — all tests must be offline/unit-level.
 ---
 <!-- COMMENTS:END -->
