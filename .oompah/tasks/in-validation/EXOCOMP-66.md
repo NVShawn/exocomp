@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-66
 type: feature
-status: Merged
+status: In Validation
 priority: 2
 title: Package deterministic OTP release archives and identity manifests
 parent: EXOCOMP-42
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-07-25T21:11:16.794100Z'
+updated_at: '2026-08-01T21:19:51.891867Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 2158
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:31:12.436920+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-0da68293e20d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-66
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 602c79a35e7220185f9a21851fb87b533c7dccba185f732c5e07af9826acfb78
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:49.644103+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -225,5 +247,10 @@ author: oompah
 created: 2026-07-25 21:11
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
