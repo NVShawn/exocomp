@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T17:12:25.744046Z'
+updated_at: '2026-08-01T17:12:52.569069Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -53,8 +53,8 @@ oompah.integration:
   submitted_at: '2026-08-01T17:01:45.184573+00:00'
   updated_at: '2026-08-01T17:02:29.319534+00:00'
 oompah.task_costs:
-  total_input_tokens: 12303172
-  total_output_tokens: 90869
+  total_input_tokens: 12303246
+  total_output_tokens: 107897
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -66,8 +66,8 @@ oompah.task_costs:
       output_tokens: 5878
       cost_usd: 0.0
     unknown:
-      input_tokens: 216
-      output_tokens: 14650
+      input_tokens: 290
+      output_tokens: 31678
       cost_usd: 0.0
   runs:
   - profile: default
@@ -130,6 +130,12 @@ oompah.task_costs:
     output_tokens: 9224
     cost_usd: 0.0
     recorded_at: '2026-08-01T17:02:10.024611+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 74
+    output_tokens: 17028
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:12:51.208536+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -1032,5 +1038,15 @@ Safe evidence:
 - validator_tests: apps/exocomp_core/test/exocomp/cluster_profile/ceph/validator_test.exs — all 7 acceptance scenarios (valid, missing files, relative paths, unsafe permissions, wrong ownership, absent binary, secret redaction)
 - integration_tests: apps/exocomp_coordinator/test/exocomp/coordinator/startup_profile_validation_test.exs — wired startup with bad keyring mode, missing binary, and root-owned files (audit event emitted, listener alive, coverage degraded, Ceph not advertised)
 - cephx_documentation: docs/ceph-profile-configuration.md documents 'mon allow r / mgr allow r / osd allow r / mds allow r' plus read-only capability table
+---
+author: oompah
+created: 2026-08-01 17:12
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 62
+- Tokens: 74 in / 17.0K out [17.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 15s
+- Log: EXOCOMP-196__20260801T170239Z.jsonl
 ---
 <!-- COMMENTS:END -->
