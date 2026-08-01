@@ -6,7 +6,8 @@ defmodule Exocomp.Coordinator.Application do
 
   Normal startup launches the full supervision tree: Audit, Registry,
   Inventory, Resolver, HealthPoller, GoalStore, Orchestrator, TaskRegistry,
-  and (when `require_pki` is true) PKI.State, EnrollmentToken, and Listener.
+  and (when `require_pki` is true) PKI.State, PKI.CertificateRegistry,
+  EnrollmentToken, and Listener.
 
   PKI validation is gated by the `:require_pki` application config (default
   true; set to false in test environment). When enabled, `Bootstrap.load_online_state/1`
@@ -23,7 +24,7 @@ defmodule Exocomp.Coordinator.Application do
   require Logger
 
   alias Exocomp.Coordinator.{Audit, ClusterInvitationStore, EnrollmentToken, Listener}
-  alias Exocomp.Coordinator.PKI.{Bootstrap, State}
+  alias Exocomp.Coordinator.PKI.{Bootstrap, CertificateRegistry, State}
 
   @impl true
   def start(_type, _args) do
@@ -83,8 +84,9 @@ defmodule Exocomp.Coordinator.Application do
   end
 
   # Loads the online PKI state and returns child specs for PKI.State,
-  # EnrollmentToken, and Listener. Returns {:error, reason} if the online
-  # PKI state is absent or invalid, causing the application to fail to start.
+  # PKI.CertificateRegistry, EnrollmentToken, and Listener. Returns
+  # {:error, reason} if the online PKI state is absent or invalid, causing
+  # the application to fail to start.
   defp pki_and_listener_children do
     online_state = Application.get_env(:exocomp_coordinator, :pki_online_state)
 
@@ -102,8 +104,13 @@ defmodule Exocomp.Coordinator.Application do
             Application.get_env(:exocomp_coordinator, :enrollment_token_store_path) ||
               Path.join(Path.dirname(online_state), "enrollment-tokens")
 
+          cert_registry_path =
+            Application.get_env(:exocomp_coordinator, :cert_registry_store_path) ||
+              Path.join(Path.dirname(online_state), "cert-registry")
+
           children = [
             {State, [metadata: metadata]},
+            {CertificateRegistry, [store_path: cert_registry_path]},
             {EnrollmentToken, [store_path: enrollment_store_path, audit_server: Audit]},
             {Listener, Application.get_env(:exocomp_coordinator, :listener, [])}
           ]
@@ -139,6 +146,8 @@ defmodule Exocomp.Coordinator.Application do
       defaults to `:supervisor_name` when not provided
     - `:store_path` — enrollment token store directory (default: derived from
       online_state as a sibling `enrollment-tokens` directory)
+    - `:cert_registry_store_path` — certificate registry store directory
+      (default: derived from online_state as a sibling `cert-registry` directory)
     - `:enrollment_token_opts` — extra keyword options merged into the
       EnrollmentToken child spec (e.g., `:inventory_fn`, `:now_fn`)
     - `:audit_opts` — extra keyword options merged into the Audit child spec
@@ -172,12 +181,20 @@ defmodule Exocomp.Coordinator.Application do
     pki_state_name = :"#{prefix}_pki_state"
     enrollment_name = :"#{prefix}_enrollment_token"
     invitation_name = :"#{prefix}_cluster_invitation_store"
+    cert_registry_name = :"#{prefix}_cert_registry"
 
     store_path =
       Keyword.get(
         opts,
         :store_path,
         Path.join(Path.dirname(metadata.online_state), "enrollment-tokens")
+      )
+
+    cert_registry_path =
+      Keyword.get(
+        opts,
+        :cert_registry_store_path,
+        Path.join(Path.dirname(metadata.online_state), "cert-registry")
       )
 
     enrollment_token_opts =
@@ -202,6 +219,8 @@ defmodule Exocomp.Coordinator.Application do
     children = [
       {Exocomp.Coordinator.Audit, audit_opts},
       {Exocomp.Coordinator.PKI.State, [metadata: metadata, name: pki_state_name]},
+      {Exocomp.Coordinator.PKI.CertificateRegistry,
+       [name: cert_registry_name, store_path: cert_registry_path]},
       {Exocomp.Coordinator.Registry, [name: registry_name]},
       {Exocomp.Coordinator.Inventory,
        [name: inventory_name, inventory_path: Keyword.get(opts, :inventory_path)]},
