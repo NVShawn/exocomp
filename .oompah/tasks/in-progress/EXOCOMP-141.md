@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T18:53:29.792059Z'
+updated_at: '2026-08-01T18:53:32.714519Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -335,5 +335,10 @@ author: oompah
 created: 2026-08-01 18:53
 ---
 Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 18:53
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
