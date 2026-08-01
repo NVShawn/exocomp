@@ -26,5 +26,9 @@ if config_env() == :prod do
     pki_online_state: System.get_env("EXOCOMP_PKI_ONLINE_STATE"),
     pki_offline_root_backup: System.get_env("EXOCOMP_PKI_OFFLINE_ROOT_BACKUP"),
     enrollment_token_store_path: System.get_env("EXOCOMP_ENROLLMENT_TOKEN_STORE"),
+    cluster_id: System.get_env("EXOCOMP_CLUSTER_ID"),
+    event_outbox_path:
+      System.get_env("EXOCOMP_EVENT_OUTBOX_PATH") ||
+        "/var/lib/exocomp-coordinator/event_outbox.json",
     a2a_tls: a2a_tls
 end
