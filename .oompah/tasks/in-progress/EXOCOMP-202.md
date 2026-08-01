@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T14:19:09.380992Z'
+updated_at: '2026-08-01T15:31:11.263742Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -45,7 +45,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 69ab5a61-c7d8-412b-a0e3-e9adca646d06
+oompah.agent_run_id: afab5f1a-b14b-4fbb-bb39-d1199ad5cf09
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 oompah.integration:
   version: 2
@@ -53,8 +53,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-202
   base_branch: epic-EXOCOMP-186
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:17:04.652999+00:00'
+  base_sha: 8e3debd59e5a3ca32307b8a0c2e8c219456cb58c
+  updated_at: '2026-08-01T15:31:09.037094+00:00'
 oompah.task_costs:
   total_input_tokens: 1054271
   total_output_tokens: 5174
@@ -126,5 +126,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 6s
 - Log: EXOCOMP-202__20260801T141709Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:31
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 15:31
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->

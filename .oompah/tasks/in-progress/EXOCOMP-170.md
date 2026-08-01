@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-170
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Build Mission Control administration LiveViews
 parent: EXOCOMP-133
@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-08-01T15:30:07.413961Z'
+updated_at: '2026-08-01T15:31:22.301397Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 target_branch: null
 review_url: null
@@ -50,7 +50,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: ab82b62e-4edc-4709-8ae7-cde0b7c780b3
+oompah.agent_run_id: b2a13da6-f3c7-44ef-8fe1-ba4aad82a43e
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 oompah.integration:
   version: 2
@@ -59,7 +59,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-170
   base_branch: epic-EXOCOMP-133
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:28:03.543858+00:00'
+  updated_at: '2026-08-01T15:31:20.028810+00:00'
 oompah.task_costs:
   total_input_tokens: 849994
   total_output_tokens: 4451
@@ -130,5 +130,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 4s
 - Log: EXOCOMP-170__20260801T152809Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:31
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 15:31
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->

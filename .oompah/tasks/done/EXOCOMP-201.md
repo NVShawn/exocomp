@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-08-01T15:30:40.205272Z'
+updated_at: '2026-08-01T15:30:59.012403Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 target_branch: null
 review_url: null
@@ -72,13 +72,17 @@ oompah.integration:
   submitted_at: '2026-08-01T15:24:01.462072+00:00'
   updated_at: '2026-08-01T15:26:31.597224+00:00'
 oompah.task_costs:
-  total_input_tokens: 5682432
-  total_output_tokens: 48061
+  total_input_tokens: 5682472
+  total_output_tokens: 49353
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 5682432
       output_tokens: 48061
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 40
+      output_tokens: 1292
       cost_usd: 0.0
   runs:
   - profile: default
@@ -93,6 +97,12 @@ oompah.task_costs:
     output_tokens: 43483
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:25:00.739944+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 40
+    output_tokens: 1292
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:30:57.259209+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-201__20260801T141435Z
@@ -310,5 +320,15 @@ Safe evidence:
 - capability_table: Only {profile_id=ceph, version=1, action_id=restart_failed_daemon}
 - execution_boundary: execve('/usr/bin/systemctl', fixed argv, clean env); no shell/PATH; argv revalidated; unit revalidated pre-restart; show output must be exact 'loaded/inactive' or 'loaded/failed'; hard timeouts (5s state, 30s restart) with SIGKILL and bounded output (1024B)
 - negative_tests: injection (;id, $(id), |cat, ../1, ceph-osd@one), malformed UTF-8/NUL/extra-fields/oversized/missing-newline, unknown profile/action/protocol/profile-version, active/activating states, non-ceph units, subprocess timeout and non-zero exit
+---
+author: oompah
+created: 2026-08-01 15:30
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 24
+- Tokens: 40 in / 1.3K out [1.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 12s
+- Log: EXOCOMP-201__20260801T152648Z.jsonl
 ---
 <!-- COMMENTS:END -->
