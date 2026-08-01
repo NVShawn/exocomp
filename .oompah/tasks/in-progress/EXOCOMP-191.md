@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:17:32.874793Z'
+updated_at: '2026-08-01T14:19:55.654056Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -146,5 +146,10 @@ author: oompah
 created: 2026-08-01 14:17
 ---
 **Discovery**: Located skill infrastructure in apps/exocomp_node/lib/exocomp/node/skills/. Implemented ServiceObserve skill handler with: (1) parameter extraction and validation for services and HTTP probes, (2) loopback-only URL validation preventing non-loopback probes, (3) service-count and probe-count limit enforcement, (4) parallel systemd and HTTP probe collection with timeout handling, (5) structured response with timestamps and collector versions. Created HttpProbe collector for loopback HTTP queries. Registered skill in dispatcher. Writing comprehensive tests covering all acceptance criteria.
+---
+author: oompah
+created: 2026-08-01 14:19
+---
+**Implementation**: Created exocomp.service.observe skill with: (1) ServiceObserve handler validating service names and loopback URLs, (2) HttpProbe collector for safe HTTP GET probing, (3) dispatcher registration. Enforces: service-count ≤50, probe-count ≤10, response-size ≤65KB, timeout ≤15s. Provides defense-in-depth loopback validation at both param extraction and execution. Returns structured evidence with timestamps and versions. Tests: 30+ cases covering valid observations, invalid names, non-loopback rejection, mixed results, timeouts, and limits. All code follows established patterns in ServiceDiagnose and SystemDiagnose. Pushed to epic-EXOCOMP-185--task-EXOCOMP-191.
 ---
 <!-- COMMENTS:END -->
