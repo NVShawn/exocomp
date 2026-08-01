@@ -18,7 +18,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:48.671360Z'
-updated_at: '2026-08-01T21:36:41.667033Z'
+updated_at: '2026-08-01T21:37:08.782894Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -27,13 +27,13 @@ merged_at: null
 oompah.agent_run_id: 1572d72a-c08b-48ac-a8d4-34834ff22fa1
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 65
-  total_output_tokens: 6164
+  total_input_tokens: 101
+  total_output_tokens: 7293
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 65
-      output_tokens: 6164
+      input_tokens: 101
+      output_tokens: 7293
       cost_usd: 0.0
   runs:
   - profile: default
@@ -54,6 +54,12 @@ oompah.task_costs:
     output_tokens: 1745
     cost_usd: 0.0
     recorded_at: '2026-07-25T02:24:42.432415+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 36
+    output_tokens: 1129
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:37:07.291412+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -775,5 +781,15 @@ Safe evidence:
 - test_scenarios_covered: 12 scenarios / 29 tests (pre/post partitions, coordinator restart, node restart, duplicate/concurrent, replay, audit failure, restart failure, health failure, flapping, cooldown reconciliation, cross-cutting exactly-once)
 - recovery_task: EXOCOMP-113
 - audit_type: aged Merged auto-archive
+---
+author: oompah
+created: 2026-08-01 21:37
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 21
+- Tokens: 36 in / 1.1K out [1.2K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 37s
+- Log: EXOCOMP-33__20260801T213234Z.jsonl
 ---
 <!-- COMMENTS:END -->
