@@ -16,6 +16,8 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
     :source,
     :target_type,
     :target_identity,
+    :service,
+    :software_version,
     :correlation_id,
     :opened_at,
     :acknowledged_at,
@@ -36,6 +38,8 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
           source: String.t(),
           target_type: String.t(),
           target_identity: String.t(),
+          service: String.t() | nil,
+          software_version: String.t() | nil,
           correlation_id: String.t(),
           opened_at: DateTime.t(),
           acknowledged_at: DateTime.t() | nil,
@@ -68,6 +72,8 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
           :target_identity
         ])
 
+      metadata = Map.take(attributes, [:service, :software_version])
+
       {:ok,
        %__MODULE__{
          id: Map.get(attributes, :id, generate_id()),
@@ -78,6 +84,8 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
          source: identity.source,
          target_type: identity.target_type,
          target_identity: identity.target_identity,
+         service: optional_string(Map.get(metadata, :service)),
+         software_version: optional_string(Map.get(metadata, :software_version)),
          correlation_id: Map.get(attributes, :correlation_id, generate_correlation_id()),
          opened_at: occurred_at,
          updated_at: occurred_at
@@ -129,6 +137,9 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
   end
 
   defp nonempty_binary?(value), do: is_binary(value) and byte_size(value) > 0
+
+  defp optional_string(value) when is_binary(value) and byte_size(value) > 0, do: value
+  defp optional_string(_value), do: nil
 
   defp timestamp(nil), do: {:ok, DateTime.utc_now()}
   defp timestamp(%DateTime{} = value), do: {:ok, value}

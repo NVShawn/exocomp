@@ -620,7 +620,8 @@ defmodule Exocomp.Coordinator.PKI.Bootstrap do
   end
 
   defp validate_approval_key(online) do
-    with {:ok, private} <- read_approval(Path.join(online, "approval_signing.key"), "PRIVATE", 32),
+    with {:ok, private} <-
+           read_approval(Path.join(online, "approval_signing.key"), "PRIVATE", 32),
          {:ok, public} <- read_approval(Path.join(online, "approval_signing.pub"), "PUBLIC", 32),
          derived <- derive_approval_public(private),
          true <- derived == public,

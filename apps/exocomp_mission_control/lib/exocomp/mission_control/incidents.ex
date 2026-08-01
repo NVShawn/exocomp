@@ -13,7 +13,7 @@ defmodule Exocomp.MissionControl.Incidents do
 
   use GenServer
 
-  alias Exocomp.MissionControl.Incidents.{Fingerprint, Incident, IncidentEvent}
+  alias Exocomp.MissionControl.Incidents.{Fingerprint, Grouping, Incident, IncidentEvent}
 
   @type evidence :: map()
 
@@ -89,6 +89,91 @@ defmodule Exocomp.MissionControl.Incidents do
   def list(organization_id, server) when is_binary(organization_id) do
     GenServer.call(server, {:list, organization_id})
   end
+
+  @doc "Returns active incidents in an organization, oldest first."
+  @spec list_open(String.t(), GenServer.server()) :: [Incident.t()]
+  def list_open(organization_id, server \\ __MODULE__) when is_binary(organization_id) do
+    GenServer.call(server, {:list_open, organization_id})
+  end
+
+  @doc "Alias for `list_open/2` for callers using the state name."
+  @spec open_incidents(String.t(), GenServer.server()) :: [Incident.t()]
+  def open_incidents(organization_id, server \\ __MODULE__),
+    do: list_open(organization_id, server)
+
+  @doc "Returns incidents updated at or after a timestamp, oldest first."
+  @spec recent(String.t(), DateTime.t() | non_neg_integer(), GenServer.server()) ::
+          [Incident.t()]
+  def recent(organization_id, since_or_seconds, server \\ __MODULE__)
+
+  def recent(organization_id, since_or_seconds, server) when is_binary(organization_id) do
+    GenServer.call(server, {:recent, organization_id, since_or_seconds})
+  end
+
+  @doc "Alias for `recent/3` for callers using list terminology."
+  @spec list_recent(String.t(), DateTime.t() | non_neg_integer(), GenServer.server()) ::
+          [Incident.t()]
+  def list_recent(organization_id, since_or_seconds, server \\ __MODULE__),
+    do: recent(organization_id, since_or_seconds, server)
+
+  @doc "Returns active or recent incidents related to a target incident."
+  @spec related(String.t(), String.t() | Incident.t(), keyword(), GenServer.server()) ::
+          {:ok, [Incident.t()]} | {:error, :not_found | :organization_mismatch}
+  def related(organization_id, %Incident{} = incident)
+      when is_binary(organization_id) do
+    related(organization_id, incident, [], __MODULE__)
+  end
+
+  def related(organization_id, incident_id)
+      when is_binary(organization_id) and is_binary(incident_id) do
+    related(organization_id, incident_id, [], __MODULE__)
+  end
+
+  def related(organization_id, %Incident{} = incident, server)
+      when is_binary(organization_id) and (is_atom(server) or is_pid(server)) do
+    related(organization_id, incident, [], server)
+  end
+
+  def related(organization_id, incident_id, server)
+      when is_binary(organization_id) and is_binary(incident_id) and
+             (is_atom(server) or is_pid(server)) do
+    related(organization_id, incident_id, [], server)
+  end
+
+  def related(organization_id, %Incident{} = incident, opts)
+      when is_binary(organization_id) and is_list(opts) do
+    related(organization_id, incident, opts, __MODULE__)
+  end
+
+  def related(organization_id, incident_id, opts)
+      when is_binary(organization_id) and is_binary(incident_id) and is_list(opts) do
+    related(organization_id, incident_id, opts, __MODULE__)
+  end
+
+  def related(organization_id, %Incident{} = incident, opts, server)
+      when is_binary(organization_id) and is_list(opts) do
+    case incident.organization_id do
+      ^organization_id -> {:ok, related_for(organization_id, incident, opts, server)}
+      _other -> {:error, :organization_mismatch}
+    end
+  end
+
+  def related(organization_id, incident_id, opts, server)
+      when is_binary(organization_id) and is_binary(incident_id) and is_list(opts) do
+    case get(organization_id, incident_id, server) do
+      {:ok, incident} ->
+        {:ok, related_for(organization_id, incident, opts, server)}
+
+      error ->
+        error
+    end
+  end
+
+  @doc "Alias for `related/4` for database-backed query callers."
+  @spec related_incidents(String.t(), String.t(), keyword(), GenServer.server()) ::
+          {:ok, [Incident.t()]} | {:error, :not_found | :organization_mismatch}
+  def related_incidents(organization_id, incident_id, opts \\ [], server \\ __MODULE__),
+    do: related(organization_id, incident_id, opts, server)
 
   @doc "Returns an incident by its organization-scoped fingerprint."
   @spec get_by_fingerprint(String.t(), GenServer.server()) ::
@@ -186,6 +271,23 @@ defmodule Exocomp.MissionControl.Incidents do
     {:reply, incidents, state}
   end
 
+  def handle_call({:list_open, organization_id}, _from, state) do
+    incidents =
+      state.incidents
+      |> Map.values()
+      |> Enum.filter(fn incident ->
+        incident.organization_id == organization_id and active?(incident)
+      end)
+      |> sort_incidents()
+
+    {:reply, incidents, state}
+  end
+
+  def handle_call({:recent, organization_id, since_or_seconds}, _from, state) do
+    reply = recent_incidents(state, organization_id, since_or_seconds)
+    {:reply, reply, state}
+  end
+
   def handle_call(:list, _from, state),
     do: {:reply, sort_incidents(Map.values(state.incidents)), state}
 
@@ -220,6 +322,8 @@ defmodule Exocomp.MissionControl.Incidents do
             source: evidence.source,
             target_type: evidence.target_type,
             target_identity: evidence.target_identity,
+            service: evidence.service,
+            software_version: evidence.software_version,
             correlation_id: evidence.correlation_id || Incident.generate_correlation_id(),
             opened_at: evidence.occurred_at,
             updated_at: evidence.occurred_at
@@ -319,6 +423,8 @@ defmodule Exocomp.MissionControl.Incidents do
          source: fetch(evidence, :source),
          target_type: fetch(evidence, :target_type),
          target_identity: fetch(evidence, :target_identity),
+         service: optional_string(fetch(evidence, :service)),
+         software_version: optional_string(fetch(evidence, :software_version)),
          occurred_at: occurred_at,
          received_at: received_at,
          correlation_id: fetch(evidence, :correlation_id),
@@ -383,6 +489,83 @@ defmodule Exocomp.MissionControl.Incidents do
   end
 
   defp nonempty_binary?(value), do: is_binary(value) and byte_size(value) > 0
+
+  defp optional_string(value) when is_binary(value) and byte_size(value) > 0, do: value
+  defp optional_string(_value), do: nil
+
+  defp active?(%Incident{state: state}), do: state in [:open, :acknowledged]
+
+  defp related_for(organization_id, incident, opts, server) do
+    candidates =
+      state_incidents(server)
+      |> Enum.filter(&(&1.organization_id == organization_id))
+      |> Enum.reject(&(&1.id == incident.id))
+      |> Enum.filter(&related_candidate?(&1, opts, server))
+
+    candidates
+    |> Enum.filter(&Grouping.related?(incident, &1, opts))
+    |> sort_incidents()
+  end
+
+  defp state_incidents(server) do
+    GenServer.call(server, :list)
+  end
+
+  defp related_candidate?(incident, opts, server) do
+    include_resolved = Keyword.get(opts, :include_resolved, false)
+
+    active?(incident) or
+      (include_resolved and recent?(incident, opts, server))
+  end
+
+  defp recent?(incident, opts, server) do
+    case Keyword.get(opts, :recent_since) do
+      %DateTime{} = since -> DateTime.compare(incident.updated_at, since) in [:eq, :gt]
+      nil -> recent_seconds?(incident, Keyword.get(opts, :recent_seconds), server)
+    end
+  end
+
+  defp recent_seconds?(_incident, nil, _server), do: false
+
+  defp recent_seconds?(incident, seconds, server) when is_integer(seconds) and seconds >= 0 do
+    case recent_now(server) do
+      {:ok, now} ->
+        cutoff = DateTime.add(now, -seconds, :second)
+        DateTime.compare(incident.updated_at, cutoff) in [:eq, :gt]
+
+      :error ->
+        false
+    end
+  end
+
+  defp recent_seconds?(_incident, _seconds, _server), do: false
+
+  defp recent_now(server) do
+    case :sys.get_state(server) do
+      %{now_fn: now_fn} when is_function(now_fn, 0) -> {:ok, now_fn.()}
+      _state -> :error
+    end
+  catch
+    :exit, _reason -> :error
+  end
+
+  defp recent_incidents(state, organization_id, %DateTime{} = since) do
+    state.incidents
+    |> Map.values()
+    |> Enum.filter(fn incident ->
+      incident.organization_id == organization_id and
+        DateTime.compare(incident.updated_at, since) in [:eq, :gt]
+    end)
+    |> sort_incidents()
+  end
+
+  defp recent_incidents(state, organization_id, seconds)
+       when is_integer(seconds) and seconds >= 0 do
+    cutoff = DateTime.add(state.now_fn.(), -seconds, :second)
+    recent_incidents(state, organization_id, cutoff)
+  end
+
+  defp recent_incidents(_state, _organization_id, _since), do: []
 
   defp sort_events(events),
     do: Enum.sort_by(events, &{DateTime.to_unix(&1.occurred_at, :microsecond), &1.sequence})
