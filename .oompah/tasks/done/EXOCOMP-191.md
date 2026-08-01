@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T15:09:54.367602Z'
+updated_at: '2026-08-01T15:10:24.463316Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -59,8 +59,8 @@ oompah.integration:
   submitted_at: '2026-08-01T14:57:51.470556+00:00'
   updated_at: '2026-08-01T14:59:33.967027+00:00'
 oompah.task_costs:
-  total_input_tokens: 563693
-  total_output_tokens: 3352
+  total_input_tokens: 563742
+  total_output_tokens: 15115
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -70,6 +70,10 @@ oompah.task_costs:
     sonnet:
       input_tokens: 3
       output_tokens: 162
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 49
+      output_tokens: 11763
       cost_usd: 0.0
   runs:
   - profile: default
@@ -90,6 +94,12 @@ oompah.task_costs:
     output_tokens: 162
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:59:04.670736+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 49
+    output_tokens: 11763
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:10:22.631229+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-191__20260801T135300Z
@@ -344,5 +354,15 @@ Safe evidence:
 - limits: service<=50, probe<=10, response<=65536 bytes, timeout<=15000 ms
 - test_files: service_observe_test.exs (18), http_probe_test.exs (11), dispatcher_test.exs (2 new)
 - prior_test_evidence: 919 exocomp_node + 537 exocomp_coordinator + 128 exocomp_core + 201 bench passing; make test exit 0 (per prior verification comment)
+---
+author: oompah
+created: 2026-08-01 15:10
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 58, Tool calls: 43
+- Tokens: 49 in / 11.8K out [11.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 10m 1s
+- Log: EXOCOMP-191__20260801T150025Z.jsonl
 ---
 <!-- COMMENTS:END -->

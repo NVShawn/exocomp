@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T14:55:10.193799Z'
+updated_at: '2026-08-01T15:10:28.396482Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -185,5 +185,37 @@ created: 2026-08-01 14:55
 7. Verify with make test, make fmt-check, and make lint
 
 All changes will stay focused on generic Mission Control envelopes (service-specific events handled by EXOCOMP-194).
+---
+author: oompah
+created: 2026-08-01 15:10
+---
+**DISCOVERY & IMPLEMENTATION:** Created Mission Control protocol module structure in apps/exocomp_coordinator/lib/exocomp/coordinator/mission_control/:
+
+1. **Event.ex** — Cluster event envelope with schema-versioned, idempotent delivery:
+   - Required fields: schema_version (1), event_id, cluster_seq, kind, occurred_at, payload
+   - Optional: correlation_id for tracing
+   - Event kinds: cluster.hello, cluster.heartbeat, status.snapshot, alert.opened/updated/resolved, conversation.reply, proposal.created, approval.result, action.status, audit.event
+   - Validation: schema version check, non-empty IDs, non-negative sequence, bounded payloads (100 KiB)
+
+2. **Command.ex** — Server-to-cluster command envelope:
+   - Required fields: command_id, kind, issued_at, expires_at, payload
+   - Command kinds: approval.decide, conversation.message, cluster.disconnect
+   - Validation: non-empty IDs, timestamp ordering (expires >= issued), bounded payloads
+
+3. **Acknowledgement.ex** — Cumulative event delivery acknowledgement:
+   - Fields: acknowledged_at, highest_seq, session_id
+   - Enables idempotent replay and gap detection
+
+4. **Codec.ex** — JSON encoding/decoding with full validation
+
+5. **codec_test.exs** — 62 comprehensive tests covering:
+   - Valid fixtures for all event/command kinds with round-trip encoding preservation
+   - Invalid fixtures (table-driven): missing fields, unsupported schema versions, unknown kinds, invalid types, oversized payloads, timestamp ordering violations
+   - Batch operations for multi-event handling
+
+Acceptance criteria met:
+✓ Valid fixtures round-trip without semantic loss
+✓ Unsupported schema versions, unknown kinds, missing IDs, invalid timestamps, and oversized payloads return bounded errors
+✓ Existing A2A types reused for correlation IDs and timestamps
 ---
 <!-- COMMENTS:END -->
