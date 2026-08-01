@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:18:41.133188Z'
+updated_at: '2026-08-01T22:18:50.660391Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -38,19 +38,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: c4c060a3-594a-43d7-b2d8-4fdb6f852e44
+oompah.agent_run_id: 39f49fa5-5ef8-4b15-b100-46b2a1438bca
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-200
   base_branch: epic-EXOCOMP-186
-  base_sha: 0314c58199acb476c7384be42e88291af1beea95
-  head_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
-  integrated_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
-  submitted_at: '2026-08-01T21:54:39.809011+00:00'
-  updated_at: '2026-08-01T21:56:27.590703+00:00'
+  base_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
+  updated_at: '2026-08-01T22:18:48.280935+00:00'
 oompah.task_costs:
   total_input_tokens: 607395
   total_output_tokens: 57175
@@ -315,5 +312,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 20m 29s
 - Log: EXOCOMP-200__20260801T215652Z.jsonl
+---
+author: oompah
+created: 2026-08-01 22:18
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 22:18
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
