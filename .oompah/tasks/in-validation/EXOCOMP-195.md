@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-195
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Add the shipped cluster-profile registry and version contract
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:43:44.361166Z'
+updated_at: '2026-08-01T14:44:13.414594Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -41,12 +41,15 @@ oompah.agent_run_id: ac6c0299-a9b9-4a71-a353-3f9cea999e35
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-195
+  base_branch: epic-EXOCOMP-186
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
+  integrated_sha: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
   submitted_at: '2026-08-01T14:43:26.071485+00:00'
-  updated_at: '2026-08-01T14:43:26.071485+00:00'
+  updated_at: '2026-08-01T14:44:03.364258+00:00'
 oompah.task_costs:
   total_input_tokens: 1059335
   total_output_tokens: 4793
@@ -73,6 +76,55 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-195
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:59:33.989984+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a63d8fdf7553
+    project_id: proj-c260b117
+    task_id: EXOCOMP-195
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f7da0ed368bc9eab3d5cb92f6fceadc27098da9a950d86fe10aa6104510ebefd
+    attempts:
+    - version: 1
+      attempt_id: attempt-980133c24157
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: f7da0ed368bc9eab3d5cb92f6fceadc27098da9a950d86fe10aa6104510ebefd
+      created_at: '2026-08-01T14:44:09.747222+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T14:44:09.747222+00:00'
+      branch_key: epic-EXOCOMP-186--task-EXOCOMP-195
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T14:44:04.770796+00:00'
+    updated_at: '2026-08-01T14:44:09.747222+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-980133c24157
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f7da0ed368bc9eab3d5cb92f6fceadc27098da9a950d86fe10aa6104510ebefd
+    created_at: '2026-08-01T14:44:09.747222+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T14:44:09.747222+00:00'
+    branch_key: epic-EXOCOMP-186--task-EXOCOMP-195
 ---
 ## Summary
 
@@ -172,5 +224,20 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 13m 16s
 - Log: EXOCOMP-195__20260801T143033Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:44
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-01 14:44
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 14:44
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
