@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-01T11:58:31.990185Z'
+updated_at: '2026-08-01T11:59:53.045759Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-08-01 11:58
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 11:59
+---
+**Understanding**: Need to implement POST /api/v1/clusters/enroll endpoint for Mission Control cluster certificate issuance (separate from existing node enrollment at POST /v1/enroll). Must: validate cluster CSR signature & key params, issue 30-day cert with SPIFFE URI identity, persist cert serial/metadata without storing coordinator private key. Acceptance: tests for valid/malformed CSR, unsupported key, expired/replayed invitation, wrong binding, signing failure; returned chain validates to trust root; org/cluster IDs match persisted records. Next: explore EXOCOMP-142 outputs, check if invitation infrastructure exists, implement cluster enrollment handler and PKI updates.
 ---
 <!-- COMMENTS:END -->
