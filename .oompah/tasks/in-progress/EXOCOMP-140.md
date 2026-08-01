@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T11:52:02.629964Z'
+updated_at: '2026-08-01T11:57:08.140895Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -190,5 +190,24 @@ created: 2026-08-01 11:52
 Acceptance criteria: Tests covering success/failure scenarios, secure cookie handling, and token/secret secrecy.
 
 **Initial approach:** Explore existing codebase to find Mission Control app structure, identify authentication patterns, and implement OIDC flow following Elixir/Phoenix best practices.
+---
+author: oompah
+created: 2026-08-01 11:57
+---
+**Discovery:** Created Exocomp Mission Control Phoenix app with complete OIDC implementation:
+
+**Key components:**
+- AuthController: Handles /auth/login, /auth/callback, /auth/logout routes
+- OIDCClient: Implements OIDC Authorization Code flow with PKCE
+- Secure session configuration: HTTP-only, Secure, SameSite=Lax, auto-rotating on login
+- Claims validation: issuer, audience, state, nonce, and token expiration checks
+- Fake OIDC provider for testing complete flows
+
+**Files created (38 files):**
+- apps/exocomp_mission_control/ (new Phoenix app)
+- mix.exs with Phoenix/OIDC dependencies (oauth2, jose, httpoison)
+- Session-based authentication with PKCE flow
+- Comprehensive test suite with unit and integration tests
+- Configuration for dev/test/prod environments
 ---
 <!-- COMMENTS:END -->
