@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-01T12:00:42.674882Z'
+updated_at: '2026-08-01T12:05:12.392138Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-08-01 12:00
 ---
 **Discovery**: Coordinator repo contains node PKI/enrollment infrastructure. Need to implement CLUSTER enrollment parallel to existing node system. Pattern: ClusterInvitation service (token mgmt like EnrollmentToken) + ClusterEnrollmentHandler (HTTP like EnrollmentHandler) + cluster PKI issuer extension for 30-day certs with SPIFFE URI identity. Router integration at POST /api/v1/clusters/enroll. Starting implementation...
+---
+author: oompah
+created: 2026-08-01 12:05
+---
+**Implementation**: Created cluster enrollment system parallel to node enrollment: (1) ClusterInvitation service for single-use, org-cluster-bound invitations with cryptographic digests; (2) ClusterIssuer PKI module for validating cluster CSRs and issuing 30-day certs with SPIFFE URI identity (spiffe://exocomp/organizations/{org_id}/clusters/{cluster_id}); (3) ClusterEnrollmentHandler HTTP handler for POST /api/v1/clusters/enroll; (4) CoordinatorRouter integration; (5) Application supervision tree updates; (6) Comprehensive tests covering valid/invalid CSR cases, invitation binding, expiry, replay protection, certificate validation. Next: verify compilation and tests pass.
 ---
 <!-- COMMENTS:END -->
