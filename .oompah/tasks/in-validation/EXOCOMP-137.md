@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-137
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 2
 title: Configure PostgreSQL and the Ecto migration test harness
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T15:08:25.087488Z'
+updated_at: '2026-08-01T15:44:33.053319Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -49,12 +49,17 @@ oompah.agent_run_id: 3b6ba07d-2fc1-492f-9e69-23132db34290
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-137
-  head_sha: e9fb31b08db1442238755c5c4a45dc1dcdc1b02c
+  base_branch: epic-EXOCOMP-128
+  base_sha: 074712f0af1ff18d286cd2d4ff12b9399798ffdc
+  head_sha: f1d8f1c0d43b498a62abccd78db2c46bcf3ffd52
+  integrated_sha: f1d8f1c0d43b498a62abccd78db2c46bcf3ffd52
   submitted_at: '2026-08-01T15:06:31.639313+00:00'
-  updated_at: '2026-08-01T15:06:31.639313+00:00'
+  updated_at: '2026-08-01T15:44:28.218467+00:00'
+  dependency_heads:
+    EXOCOMP-136: 074712f0af1ff18d286cd2d4ff12b9399798ffdc
 oompah.task_costs:
   total_input_tokens: 19276926
   total_output_tokens: 75447
@@ -87,6 +92,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-128--task-EXOCOMP-137
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:39:05.011935+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-cfa657aa17a7
+    project_id: proj-c260b117
+    task_id: EXOCOMP-137
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b1b26974021f72cbbff5734580bb4327d7526887090aa91c188850db1d4e6f05
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T15:44:30.666415+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -183,5 +210,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 29m 2s
 - Log: EXOCOMP-137__20260801T143927Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:44
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
