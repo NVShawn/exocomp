@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:52:48.315381Z'
+updated_at: '2026-08-01T18:53:08.910467Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -103,8 +103,8 @@ oompah.integration:
   submitted_at: '2026-08-01T18:31:49.494689+00:00'
   updated_at: '2026-08-01T18:33:14.215893+00:00'
 oompah.task_costs:
-  total_input_tokens: 22347065
-  total_output_tokens: 127707
+  total_input_tokens: 22347159
+  total_output_tokens: 147383
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -112,8 +112,8 @@ oompah.task_costs:
       output_tokens: 90645
       cost_usd: 0.0
     unknown:
-      input_tokens: 233
-      output_tokens: 32322
+      input_tokens: 327
+      output_tokens: 51998
       cost_usd: 0.0
     sonnet:
       input_tokens: 169
@@ -174,6 +174,12 @@ oompah.task_costs:
     output_tokens: 200
     cost_usd: 0.0
     recorded_at: '2026-08-01T18:32:43.483768+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 94
+    output_tokens: 19676
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:53:07.495213+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-140__20260801T114901Z
@@ -962,5 +968,15 @@ Safe evidence:
 - acceptance_test_scenarios: success, bad-state, bad-nonce, invalid-issuer, invalid-audience, denied-login, logout, discovery-mismatch, session-cookie-attributes, no-tokens-or-secrets-in-logs — all in oidc_integration_test.exs
 - session_security: encryption_salt + signing_salt with Plug.Session cookie store; configure_session(renew: true) on login rotates the cookie; clear_session on logout; no id_token or access_token persisted in session; client_secret only sent to token_endpoint
 - auditor_read_only_limits: make lint, make fmt-check, make check-licenses, make compliance-check, and shell pipes were policy-denied for the auditor role; verification relies on inspectable compiled artifacts, allowed test targets, and code inspection
+---
+author: oompah
+created: 2026-08-01 18:53
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 115, Tool calls: 88
+- Tokens: 94 in / 19.7K out [19.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 18m 31s
+- Log: EXOCOMP-140__20260801T183439Z.jsonl
 ---
 <!-- COMMENTS:END -->
