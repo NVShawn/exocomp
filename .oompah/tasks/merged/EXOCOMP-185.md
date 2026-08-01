@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-08-01T18:27:27.495944Z'
+updated_at: '2026-08-01T18:27:42.044436Z'
 work_branch: epic-EXOCOMP-185
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/22
@@ -270,6 +270,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T18:16:23.288309+00:00'
     branch_key: epic-EXOCOMP-185
+oompah.task_costs:
+  total_input_tokens: 79
+  total_output_tokens: 2970
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 79
+      output_tokens: 2970
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 79
+    output_tokens: 2970
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:27:40.497763+00:00'
 ---
 ## Summary
 
@@ -402,5 +418,15 @@ Safe evidence:
 - key_areas_added: coordinator service_scheduler + inventory v2, Mission Control status_contract facade, exocomp_core desired_service + status_event/codec/reducer, node http_probe + service_inventory + service_observe skills, shared JSON fixtures
 - plans_updated: plans/mission-control.md, plans/exocomp.md
 - prior_auditor_failure_note: Earlier attempts failed with infrastructure_error because they searched for origin/epic-EXOCOMP-185 or origin/EXOCOMP-185, which do not exist post-merge; the merge is preserved on origin/epic-EXOCOMP-127 (the epic's recorded target branch).
+---
+author: oompah
+created: 2026-08-01 18:27
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 55
+- Tokens: 79 in / 3.0K out [3.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 11m 16s
+- Log: EXOCOMP-185__20260801T181631Z.jsonl
 ---
 <!-- COMMENTS:END -->

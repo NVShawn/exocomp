@@ -20,7 +20,7 @@ labels:
 - focus-complete:callback_auth
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:24:54.716476Z'
+updated_at: '2026-08-01T18:27:46.405151Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -777,5 +777,10 @@ author: oompah
 created: 2026-08-01 18:24
 ---
 DISCOVERY (software-engineer): Found one real code gap: scripts/test-m7-qualification.sh line 208 calls 'make security' (writing to \${M7_EVIDENCE_DIR}/security/security.json which is required for M7-CRIT-2, M7-CRIT-7, and M7-CRIT-9) but 'security' is absent from the has_target() pre-flight check at line 156. The three scenario targets (test-mission-control-scenario, mc-scale-full, test-mission-control-lifecycle) are pre-checked and would fail fast. 'security' is not, so qualification would fail mid-run after spending time on the earlier phases. Fix: add 'security' to the has_target for-loop and add a contract-test assertion confirming it is covered by the pre-flight check.
+---
+author: oompah
+created: 2026-08-01 18:27
+---
+IMPLEMENTATION (software-engineer): Fixed a gap in the M7 qualification pre-flight check. scripts/test-m7-qualification.sh called 'make security' (line 208) to collect evidence for M7-CRIT-2/7/9 but did not include 'security' in the has_target() loop that guards the three scenario targets. Added 'security' as the first entry in the required for-loop so all four live targets (security, test-mission-control-scenario, mc-scale-full, test-mission-control-lifecycle) are validated before any evidence directory is created. Added a new contract test test_live_wrapper_pre_checks_all_required_live_targets that checks the exact for-loop line, which is stricter than the existing fragment checks (it proves the target is in the pre-flight check, not just anywhere in the script). Committed at 45286f59.
 ---
 <!-- COMMENTS:END -->
