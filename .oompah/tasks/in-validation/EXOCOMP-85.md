@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-85
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement installed vacuum bounds and eligibility gate
 parent: EXOCOMP-26
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T01:41:20.826005Z'
-updated_at: '2026-07-25T02:19:49.473512Z'
+updated_at: '2026-08-01T03:00:49.891707Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -41,6 +41,28 @@ oompah.task_costs:
     output_tokens: 26429
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:14:36.823644+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-07b818099856
+    project_id: proj-c260b117
+    task_id: EXOCOMP-85
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0058f5107cdcfac0b8a5ecd2d63b9f204016e03f9b188be7a7d00cf3e3b39fde
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:47.408551+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -241,5 +263,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 21m 41s
 - Log: EXOCOMP-85__20260724T025258Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
