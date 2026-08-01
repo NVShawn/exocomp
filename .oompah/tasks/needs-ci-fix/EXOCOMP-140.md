@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:01:48.741087Z'
+updated_at: '2026-08-01T18:12:12.363847Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -193,6 +193,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-31573855ceed: '2026-08-01T16:43:06.595835+00:00'
     attempt-ff9eea716f29: '2026-08-01T17:53:25.974059+00:00'
+    attempt-bfb57899750b: '2026-08-01T18:12:08.593513+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-140
@@ -212,6 +213,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T17:53:25.974078+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Done
+    evidence_fingerprint: aacb378b4af818ec8f819bf025d1a1fdd8f8e3c942a7075c933227be6e0564eb
+    audit_ids:
+    - audit-ac859472d5d0
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T18:12:08.593527+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-140
@@ -237,6 +247,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T17:53:25.974099+00:00'
     applied_at: '2026-08-01T17:53:28.672396+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    audit_id: audit-ac859472d5d0
+    attempt_id: attempt-bfb57899750b
+    target_state: Done
+    evidence_fingerprint: aacb378b4af818ec8f819bf025d1a1fdd8f8e3c942a7075c933227be6e0564eb
+    status: Needs CI Fix
+    audit_ids:
+    - audit-ac859472d5d0
+    applied: true
+    created_at: '2026-08-01T18:12:08.593541+00:00'
+    applied_at: '2026-08-01T18:12:11.670415+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -314,7 +336,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-140
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -323,7 +345,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-bfb57899750b
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -333,13 +355,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T18:01:45.817087+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-140
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T18:12:08.593367+00:00'
+      ended_at: '2026-08-01T18:12:08.593367+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T18:01:26.205090+00:00'
-    updated_at: '2026-08-01T18:01:45.817087+00:00'
+    updated_at: '2026-08-01T18:12:08.593367+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-31573855ceed
@@ -747,5 +773,18 @@ author: oompah
 created: 2026-08-01 18:01
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 18:12
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Instructions:
+- Move `import Plug.Conn` (and `import Phoenix.ConnTest` if needed) out of the `using do quote do ... end end` block so ConnCase itself imports the helpers that build_conn/0, init_test_session/2 and put_session_values/2 rely on — e.g. add a top-level `import Plug.Conn` in apps/exocomp_mission_control/test/support/conn_case.ex.
+- Re-run make test in the pinned container and confirm oidc_client_test.exs, oidc_config_cache_test.exs, oidc_integration_test.exs and controllers/auth_controller_test.exs all compile and pass end to end, including the encryption_salt/session-cookie assertions.
+- Re-run make fmt-check and make lint after the change so the added top-level import does not introduce formatter or Credo warnings, and confirm compliance-check still passes.
+- Only resubmit once the focused OIDC test suite is actually green (not just compile-clean) so the acceptance criteria for fake-provider coverage can be verified.
 ---
 <!-- COMMENTS:END -->
