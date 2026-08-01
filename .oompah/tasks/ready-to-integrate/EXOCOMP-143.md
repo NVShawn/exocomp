@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-143
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Issue cluster certificates from validated CSRs
 parent: EXOCOMP-129
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-01T12:06:06.951396Z'
+updated_at: '2026-08-01T12:06:32.150396Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -50,12 +50,12 @@ oompah.agent_run_id: 9e3454f8-3dde-4ffb-9c9d-ca487440253c
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-143
-  base_branch: epic-EXOCOMP-129
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T11:58:29.695935+00:00'
+  head_sha: 1cd3f733cabfb89da2990883442a8172668e0c4f
+  submitted_at: '2026-08-01T12:06:29.569205+00:00'
+  updated_at: '2026-08-01T12:06:29.569205+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 416
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-08-01 12:06
 ---
 **Verification - Test Coverage**: Comprehensive tests implemented covering all acceptance criteria: (1) Valid CSR → 30-day certificate issuance; (2) Malformed CSR rejection; (3) SPIFFE URI SAN validation and enforcement; (4) Key algorithm restrictions (RSA 3072+, approved EC curves); (5) Invitation expiry and replay protection (invitation_already_consumed); (6) Org/cluster binding validation (org_mismatch, cluster_mismatch); (7) Signing failure (503 service unavailable); (8) Chain structure with leaf + intermediate; (9) Certificate CN=cluster_id, O=Exocomp; (10) No private key retention in online PKI state; (11) HTTP endpoint with JSON validation and required fields. Test files: cluster_invitation_test.exs (unit), cluster_enrollment_test.exs (integration ~20 scenarios). Ready for QA and make test/fmt-check/lint verification.
+---
+author: oompah
+created: 2026-08-01 12:06
+---
+Implemented POST /api/v1/clusters/enroll endpoint for Mission Control cluster certificate issuance from validated CSRs. Includes ClusterInvitation service for single-use invitations, ClusterIssuer PKI module for 30-day SPIFFE URI certificate issuance, ClusterEnrollmentHandler HTTP handler, and comprehensive test coverage (cluster_invitation_test.exs, cluster_enrollment_test.exs) covering valid/malformed CSR validation, key algorithm restrictions, invitation expiry/replay protection, org/cluster binding, and signing failure handling. Certificates validated with proper chain structure (leaf + intermediate), no private key retention, and metadata persistence via audit trail.
 ---
 <!-- COMMENTS:END -->
