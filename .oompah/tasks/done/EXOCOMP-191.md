@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-191
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Implement bounded read-only service observation
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T15:00:24.349829Z'
+updated_at: '2026-08-01T15:09:51.771637Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -102,6 +102,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:54:24.116526+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-77e5cd1ff13e: '2026-08-01T15:09:49.571558+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-191
+    target_state: Done
+    evidence_fingerprint: 0adc7c82d1750fd07ff040472edb6a486add60decd5c7feb0d60785309ce6308
+    audit_ids:
+    - audit-a4bea491a71f
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T15:09:49.571570+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-191
+    audit_id: audit-a4bea491a71f
+    attempt_id: attempt-77e5cd1ff13e
+    target_state: Done
+    evidence_fingerprint: 0adc7c82d1750fd07ff040472edb6a486add60decd5c7feb0d60785309ce6308
+    status: Done
+    audit_ids:
+    - audit-a4bea491a71f
+    applied: false
+    created_at: '2026-08-01T15:09:49.571589+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -109,7 +133,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-191
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -118,7 +142,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-77e5cd1ff13e
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -128,13 +152,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T15:00:19.870047+00:00'
       branch_key: epic-EXOCOMP-185--task-EXOCOMP-191
+      verdict: pass
+      completed_at: '2026-08-01T15:09:49.571373+00:00'
+      ended_at: '2026-08-01T15:09:49.571373+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T14:59:35.402849+00:00'
-    updated_at: '2026-08-01T15:00:19.870047+00:00'
+    updated_at: '2026-08-01T15:09:49.571373+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-77e5cd1ff13e
@@ -299,5 +326,22 @@ author: oompah
 created: 2026-08-01 15:00
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 15:09
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: 7b3ff4a831259ec5555de09214348b3da5eb554e
+- epic_head: 7b3ff4a831259ec5555de09214348b3da5eb554e
+- skill_file: apps/exocomp_node/lib/exocomp/node/skills/service_observe.ex
+- collector_file: apps/exocomp_node/lib/exocomp/node/collectors/http_probe.ex
+- systemd_argv: systemctl show --no-pager --property=ActiveState,SubState,LoadState,UnitFileState,ExecMainPID,ExecMainStatus <service>
+- limits: service<=50, probe<=10, response<=65536 bytes, timeout<=15000 ms
+- test_files: service_observe_test.exs (18), http_probe_test.exs (11), dispatcher_test.exs (2 new)
+- prior_test_evidence: 919 exocomp_node + 537 exocomp_coordinator + 128 exocomp_core + 201 bench passing; make test exit 0 (per prior verification comment)
 ---
 <!-- COMMENTS:END -->
