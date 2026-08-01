@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-08-01T18:19:41.397637Z'
+updated_at: '2026-08-01T18:20:16.421005Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-152
 target_branch: null
 review_url: null
@@ -105,17 +105,19 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-152
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 3e981c0475a57a317365a1408894281ed7562d29
   submitted_at: '2026-08-01T18:19:16.427158+00:00'
-  updated_at: '2026-08-01T18:19:16.427158+00:00'
+  updated_at: '2026-08-01T18:20:15.592792+00:00'
 oompah.task_costs:
-  total_input_tokens: 154
-  total_output_tokens: 4917
+  total_input_tokens: 908
+  total_output_tokens: 39664
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 154
-      output_tokens: 4917
+      input_tokens: 908
+      output_tokens: 39664
       cost_usd: 0.0
   runs:
   - profile: default
@@ -124,6 +126,12 @@ oompah.task_costs:
     output_tokens: 4917
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:30:25.032162+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 754
+    output_tokens: 34747
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:20:10.797751+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-152__20260801T122845Z
@@ -134,6 +142,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-131--task-EXOCOMP-152
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:30:25.147937+00:00'
+  - run_id: EXOCOMP-152__20260801T175846Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: haiku
+    focus: chore
+    source_branch: epic-EXOCOMP-131--task-EXOCOMP-152
+    source_sha: 3e981c0475a57a317365a1408894281ed7562d29
+    completed_at: '2026-08-01T18:20:10.805943+00:00'
 ---
 ## Summary
 
@@ -300,5 +316,20 @@ Quality gates all passed:
   - make lint: passed
 
 Ready for oompah integration and subsequent tasks depending on current state persistence (EXOCOMP-194 desired-state extension, incident tracking, etc.)
+---
+author: oompah
+created: 2026-08-01 18:20
+---
+Agent completed successfully in 1293s (35501 tokens)
+---
+author: oompah
+created: 2026-08-01 18:20
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 193, Tool calls: 93
+- Tokens: 754 in / 34.7K out [35.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 21m 33s
+- Log: EXOCOMP-152__20260801T175846Z.jsonl
 ---
 <!-- COMMENTS:END -->
