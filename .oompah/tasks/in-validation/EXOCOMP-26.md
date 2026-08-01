@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:12.273742Z'
-updated_at: '2026-08-01T03:44:01.063437Z'
+updated_at: '2026-08-01T03:44:28.549166Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -163,12 +163,31 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-26 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-26)'
       next_retry_at: '2026-08-01T03:44:18.356220+00:00'
+    - version: 1
+      attempt_id: attempt-df001f0fefbe
+      target_state: Done
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 28bcc5b191a3d6fe5b2db216042c67b03f66d08a4b9d0240287e1c2afc5af198
+      created_at: '2026-08-01T03:44:22.767083+00:00'
+      provider_id: prov-651d553c
+      model: haiku
+      started_at: '2026-08-01T03:44:22.767083+00:00'
+      branch_key: epic-EXOCOMP-3
+      candidate_rotation_count: 2
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-01T03:44:26.657133+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-26 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-26)'
+      next_retry_at: '2026-08-01T03:45:06.657105+00:00'
     requested_by:
       version: 1
       identity: orchestrator
     previous_state: Needs Human
     created_at: '2026-08-01T03:40:52.374746+00:00'
-    updated_at: '2026-08-01T03:43:58.356264+00:00'
+    updated_at: '2026-08-01T03:44:26.657133+00:00'
   - version: 1
     audit_id: audit-b68e47a4ba8d
     project_id: proj-c260b117
@@ -236,6 +255,25 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-26 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-26)'
     next_retry_at: '2026-08-01T03:44:18.356220+00:00'
+  - version: 1
+    attempt_id: attempt-df001f0fefbe
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 28bcc5b191a3d6fe5b2db216042c67b03f66d08a4b9d0240287e1c2afc5af198
+    created_at: '2026-08-01T03:44:22.767083+00:00'
+    provider_id: prov-651d553c
+    model: haiku
+    started_at: '2026-08-01T03:44:22.767083+00:00'
+    branch_key: epic-EXOCOMP-3
+    candidate_rotation_count: 2
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-01T03:44:26.657133+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-26 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-26)'
+    next_retry_at: '2026-08-01T03:45:06.657105+00:00'
 ---
 ## Summary
 
@@ -411,6 +449,25 @@ author: oompah
 created: 2026-08-01 03:43
 ---
 Run #2 [attempt=2, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 2s
+---
+author: oompah
+created: 2026-08-01 03:44
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-26 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-26). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 03:44
+---
+Auditor dispatched (attempt #3, candidate: prov-651d553c/haiku)
+---
+author: oompah
+created: 2026-08-01 03:44
+---
+Run #3 [attempt=3, profile=auditor, role=— -> unknown/unknown]
 - Turns: 0, Tool calls: 0
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
