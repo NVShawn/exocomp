@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T12:04:27.002907Z'
+updated_at: '2026-08-01T12:18:38.014683Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -243,5 +243,26 @@ author: oompah
 created: 2026-08-01 12:04
 ---
 Discovery: No Mission Control app exists yet - the umbrella has only exocomp_core, exocomp_node, exocomp_coordinator, and bench. Elixir 1.20.2 is required (available in Docker via make targets). I will create apps/exocomp_mission_control with: (1) Identity.Operator and Identity.RoleBinding structs scoped to organization_id, (2) Auth.OIDCResolver mapping claims/groups to viewer/operator/admin roles, (3) Authorization module with can_read?/can_operate?/can_administer? context functions enforcing org scope, (4) Plug.RequireRole for HTTP requests, (5) LiveView.RequireRole on_mount hook, (6) Mutations.Attribution helper recording OIDC subject + correlation ID. Tests cover full role matrix and cross-org fail-closed semantics. No Phoenix or Ecto deps required - this is pure Elixir using only the already-locked plug and jason packages.
+---
+author: oompah
+created: 2026-08-01 12:18
+---
+Implementation: Created apps/exocomp_mission_control with the following modules:
+
+1. Identity.Operator — struct for authenticated operator principals: sub (stable OIDC subject), organization_id, display_name, role (:viewer/:operator/:admin), plus has_role_at_least?/2 and compare_roles/2 for hierarchy checks.
+
+2. Identity.RoleBinding — struct for org-scoped role assignments; matches?/3 enforces cross-org isolation at the data layer.
+
+3. Auth.OIDCResolver — maps configured OIDC claims to roles per organization. Supports group_claim mapping (takes highest-privilege role from multiple groups) and subject_role_map overrides. Falls back to {:error, :no_role} for unrecognized identities; {:error, :no_config} for unknown orgs. Loaded from application config :oidc_role_config.
+
+4. Authorization — context-level enforcement (not UI). authorize/3 checks org scope first (cross-org → :cross_organization), then role (:read=viewer+, :operate=operator+, :administer=admin). authorize!/3 raises ForbiddenError. Convenience predicates: can_read?/2, can_operate?/2, can_administer?/2.
+
+5. Authorization.ForbiddenError — exception carrying :reason and :action for audit.
+
+6. Plug.RequireRole — HTTP plug; resolves org from path_params, assigns, or operator struct; halts with 403 + JSON body on denial.
+
+7. LiveView.RequireRole — on_mount/4 hook; redirects to / with flash error on denial. Defers Phoenix.LiveView calls to avoid hard compile-time dep.
+
+8. Mutations.Attribution — captures sub, display_name, organization_id, correlation_id (corr_ prefix + URL-safe base64), and timestamp for every mutation.
 ---
 <!-- COMMENTS:END -->
