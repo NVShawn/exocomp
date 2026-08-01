@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-01T16:17:56.959739Z'
+updated_at: '2026-08-01T16:18:30.240557Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -34,18 +34,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-128
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-9e721291b92b
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+      created_at: '2026-08-01T16:18:25.073295+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T16:18:25.073295+00:00'
+      branch_key: epic-EXOCOMP-128
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-01T16:17:53.124916+00:00'
+    updated_at: '2026-08-01T16:18:25.073295+00:00'
   - version: 1
     audit_id: audit-8bf58132f5c0
     project_id: proj-c260b117
@@ -63,7 +77,20 @@ oompah.terminal_audit:
       source: forge
     previous_state: In Review
     created_at: '2026-08-01T16:17:53.124916+00:00'
-  attempt_history: []
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-9e721291b92b
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+    created_at: '2026-08-01T16:18:25.073295+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T16:18:25.073295+00:00'
+    branch_key: epic-EXOCOMP-128
 ---
 ## Summary
 
@@ -88,5 +115,15 @@ author: oompah
 created: 2026-08-01 16:17
 ---
 YOLO: merged PR #21.
+---
+author: oompah
+created: 2026-08-01 16:18
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 16:18
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
