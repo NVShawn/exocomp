@@ -74,6 +74,20 @@ defmodule Exocomp.Coordinator.Application do
     ]
   end
 
+  @doc """
+  Returns the Mission Control supervision subtree children based on the current
+  application environment configuration.
+
+  Used for testing to verify that Mission Control children are included or
+  excluded based on the :mission_control_config application setting.
+
+  Returns a list of child specs (which may be empty if Mission Control is not
+  configured or disabled).
+  """
+  def mission_control_children_for_test do
+    mission_control_children()
+  end
+
   # Builds Mission Control supervision subtree children only if Mission Control
   # is configured and enabled. Returns an empty list otherwise.
   defp mission_control_children do

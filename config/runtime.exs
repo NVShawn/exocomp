@@ -27,4 +27,22 @@ if config_env() == :prod do
     pki_offline_root_backup: System.get_env("EXOCOMP_PKI_OFFLINE_ROOT_BACKUP"),
     enrollment_token_store_path: System.get_env("EXOCOMP_ENROLLMENT_TOKEN_STORE"),
     a2a_tls: a2a_tls
+
+  # Load coordinator configuration and wire Mission Control config into app env.
+  # The coordinator config file is loaded at runtime, and if a mission_control block
+  # is present and enabled, it is wired into the application environment so the
+  # supervisor can conditionally start the Mission Control client.
+  case Exocomp.Coordinator.Config.load() do
+    {:ok, config} ->
+      Application.put_env(:exocomp_coordinator, :mission_control_config, config.mission_control)
+
+    {:error, reason} ->
+      # Log but don't fail startup; Mission Control is optional and coordinator
+      # can operate without it.
+      require Logger
+
+      Logger.warning(
+        "[CoordinatorApp] Failed to load mission_control configuration: #{inspect(reason)}"
+      )
+  end
 end
