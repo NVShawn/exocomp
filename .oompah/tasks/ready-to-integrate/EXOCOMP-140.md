@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:39:24.235807Z'
+updated_at: '2026-08-01T17:39:39.183816Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -100,8 +100,8 @@ oompah.integration:
   submitted_at: '2026-08-01T17:39:22.203633+00:00'
   updated_at: '2026-08-01T17:39:22.203633+00:00'
 oompah.task_costs:
-  total_input_tokens: 21150479
-  total_output_tokens: 102168
+  total_input_tokens: 21150648
+  total_output_tokens: 106908
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -111,6 +111,10 @@ oompah.task_costs:
     unknown:
       input_tokens: 88
       output_tokens: 19806
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 169
+      output_tokens: 4740
       cost_usd: 0.0
   runs:
   - profile: default
@@ -137,6 +141,12 @@ oompah.task_costs:
     output_tokens: 77593
     cost_usd: 0.0
     recorded_at: '2026-08-01T17:15:15.482902+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 169
+    output_tokens: 4740
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:39:37.850004+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-140__20260801T114901Z
@@ -497,5 +507,15 @@ author: oompah
 created: 2026-08-01 17:39
 ---
 Rebased OIDC hardening cleanly onto epic-EXOCOMP-129: OIDCConfigCache GenServer, session-stored PKCE verifier, real JWKS signature verification, hardened auth controller, GET/POST logout routes, end-to-end integration tests with FakeOIDCProvider covering all 7 scenarios, license compliance for all Phoenix deps. make fmt-check and make lint both pass.
+---
+author: oompah
+created: 2026-08-01 17:39
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 107
+- Tokens: 169 in / 4.7K out [4.9K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 23m 49s
+- Log: EXOCOMP-140__20260801T171555Z.jsonl
 ---
 <!-- COMMENTS:END -->
