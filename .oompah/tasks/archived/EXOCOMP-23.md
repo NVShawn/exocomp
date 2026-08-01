@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:09.330640Z'
-updated_at: '2026-08-01T03:32:01.860800Z'
+updated_at: '2026-08-01T03:32:13.967315Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -23,13 +23,13 @@ merged_at: null
 oompah.agent_run_id: 536d6cf6-48ac-4c06-9d3a-270046c16775
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 81
-  total_output_tokens: 7327
+  total_input_tokens: 163
+  total_output_tokens: 10559
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 81
-      output_tokens: 7327
+      input_tokens: 163
+      output_tokens: 10559
       cost_usd: 0.0
   runs:
   - profile: default
@@ -44,6 +44,12 @@ oompah.task_costs:
     output_tokens: 2629
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:37:03.097737+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 82
+    output_tokens: 3232
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T03:32:12.359009+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -324,5 +330,15 @@ Safe evidence:
 - pki_key_source: apps/exocomp_coordinator/lib/exocomp/coordinator/pki/bootstrap.ex
 - milestone_gate: plans/milestone-3-safety-validation.md M3-CRIT-6 marked complete
 - aging_reason: Aged Merged auto-archive (closed 7 days ago)
+---
+author: oompah
+created: 2026-08-01 03:32
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 59
+- Tokens: 82 in / 3.2K out [3.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 5m 6s
+- Log: EXOCOMP-23__20260801T032710Z.jsonl
 ---
 <!-- COMMENTS:END -->
