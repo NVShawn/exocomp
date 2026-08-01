@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T14:05:14.204700Z'
+updated_at: '2026-08-01T14:05:28.326223Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -47,13 +47,13 @@ oompah.integration:
   submitted_at: '2026-08-01T14:04:40.056152+00:00'
   updated_at: '2026-08-01T14:04:40.056152+00:00'
 oompah.task_costs:
-  total_input_tokens: 795292
-  total_output_tokens: 14641
+  total_input_tokens: 796282
+  total_output_tokens: 14907
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 795292
-      output_tokens: 14641
+      input_tokens: 796282
+      output_tokens: 14907
       cost_usd: 0.0
   runs:
   - profile: default
@@ -62,6 +62,12 @@ oompah.task_costs:
     output_tokens: 14641
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:52:32.115709+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 990
+    output_tokens: 266
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:05:27.050046+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-190__20260801T134604Z
@@ -227,5 +233,15 @@ created: 2026-08-01 14:05
 
 Branch: epic-EXOCOMP-185--task-EXOCOMP-190
 Commit: 93a832c3
+---
+author: oompah
+created: 2026-08-01 14:05
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 54
+- Tokens: 990 in / 266 out [1.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 12m 41s
+- Log: EXOCOMP-190__20260801T135252Z.jsonl
 ---
 <!-- COMMENTS:END -->
