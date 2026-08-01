@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-4
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M4: Minimal-impact systemd service recovery'
 parent: null
@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-08-01T21:41:41.061140Z'
+updated_at: '2026-08-01T21:50:16.993203Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -34,6 +34,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-3a9cec45112b: '2026-08-01T21:31:35.545586+00:00'
     infrastructure-exhausted-audit-62a193b86f6a-3: '2026-08-01T21:40:20.503981+00:00'
+    attempt-04d75af40b27: '2026-08-01T21:50:14.644926+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-4
@@ -53,6 +54,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T21:40:20.503998+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-4
+    target_state: Merged
+    evidence_fingerprint: 695c8293f3da9f82ccfd12f9dc24b166695fe17be72a21ffa2d97f08ab972d28
+    audit_ids:
+    - audit-8c5aea60bc95
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:50:14.644946+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-4
@@ -78,6 +88,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T21:40:20.504018+00:00'
     applied_at: '2026-08-01T21:40:23.489517+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-4
+    audit_id: audit-8c5aea60bc95
+    attempt_id: attempt-04d75af40b27
+    target_state: Merged
+    evidence_fingerprint: 695c8293f3da9f82ccfd12f9dc24b166695fe17be72a21ffa2d97f08ab972d28
+    status: Merged
+    audit_ids:
+    - audit-8c5aea60bc95
+    applied: false
+    created_at: '2026-08-01T21:50:14.644968+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -205,7 +226,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-4
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -214,7 +235,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-04d75af40b27
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -224,13 +245,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:41:32.982638+00:00'
       branch_key: epic-EXOCOMP-4
+      verdict: pass
+      completed_at: '2026-08-01T21:50:14.644661+00:00'
+      ended_at: '2026-08-01T21:50:14.644661+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-01T21:22:40.212063+00:00'
-    updated_at: '2026-08-01T21:41:32.982638+00:00'
+    updated_at: '2026-08-01T21:50:14.644661+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-3a9cec45112b
@@ -476,5 +500,34 @@ author: oompah
 created: 2026-08-01 21:41
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:50
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 725120a9de7736183e1f2449ae35de03713de31a
+- merge_pr: #10 epic-EXOCOMP-4
+- merge_date: 2026-07-24
+- merge_headline: EXOCOMP-30: Implement the service-recovery state machine
+- plan_path: plans/milestone-4-service-recovery.md
+- plan_criteria_status: M4-CRIT-1..M4-CRIT-8 all [x]
+- state_machine_module: apps/exocomp_core/lib/exocomp/recovery/state_machine.ex
+- recovery_evidence_module: apps/exocomp_core/lib/exocomp/recovery/evidence.ex
+- recovery_audit_event_module: apps/exocomp_core/lib/exocomp/recovery/audit_event.ex
+- approval_required_module: apps/exocomp_node/lib/exocomp/node/recovery/approval_required.ex
+- failed_service_module: apps/exocomp_node/lib/exocomp/node/recovery/failed_service.ex
+- coordinator_remediation_lifecycle: apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_lifecycle.ex
+- e2e_test: apps/exocomp_coordinator/test/integration/m4_a2a_recovery_test.exs
+- fault_injection_test: apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs
+- approval_required_test: apps/exocomp_node/test/exocomp/node/recovery/approval_required_test.exs
+- state_machine_test: apps/exocomp_core/test/exocomp/recovery/state_machine_test.exs
+- children_all_archived: EXOCOMP-29,30,31,32,33,34,106,109 in archived/
+- prior_archived_audit_pass: audit-5f6fb7566daa passed for Archived (previous_state Merged)
+- intermediate_failure_root_cause: prior Done audits failed on missing remote branch origin/epic-EXOCOMP-4; merge SHA resolves directly
+- hardening_commit_a2a: eabc4e19 EXOCOMP-126: Harden end-to-end A2A recovery
 ---
 <!-- COMMENTS:END -->

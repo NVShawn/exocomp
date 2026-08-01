@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:27.708830Z'
-updated_at: '2026-08-01T21:49:40.489137Z'
+updated_at: '2026-08-01T21:50:03.964254Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -25,13 +25,13 @@ merged_at: null
 oompah.agent_run_id: 4ad6b07d-052e-424b-938a-410f3f901b9e
 oompah.work_branch: epic-EXOCOMP-110
 oompah.task_costs:
-  total_input_tokens: 14
-  total_output_tokens: 4932
+  total_input_tokens: 50
+  total_output_tokens: 6192
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 14
-      output_tokens: 4932
+      input_tokens: 50
+      output_tokens: 6192
       cost_usd: 0.0
   runs:
   - profile: default
@@ -40,6 +40,12 @@ oompah.task_costs:
     output_tokens: 4932
     cost_usd: 0.0
     recorded_at: '2026-07-25T21:07:20.653619+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 36
+    output_tokens: 1260
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:50:02.172907+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -346,5 +352,15 @@ Safe evidence:
 - prior_state: Merged (closed 2026-07-25, 7-day auto-archive queued 2026-08-01)
 - quality_gates_recorded_pass: fmt-check, lint, 1592 ExUnit tests, installer 63/63, release-packaging 12/12, bundle 69/69, governance 21/21, release smokes, amd64 matrix 69/69
 - task_type: verification chore (no code delivery of its own)
+---
+author: oompah
+created: 2026-08-01 21:50
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 22
+- Tokens: 36 in / 1.3K out [1.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 48s
+- Log: EXOCOMP-116__20260801T214519Z.jsonl
 ---
 <!-- COMMENTS:END -->
