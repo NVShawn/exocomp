@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:18.620833Z'
-updated_at: '2026-08-01T12:52:13.192743Z'
+updated_at: '2026-08-01T12:54:13.959381Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-160
 target_branch: null
 review_url: null
@@ -140,5 +140,36 @@ author: oompah
 created: 2026-08-01 12:52
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 12:54
+---
+## Understanding and Plan
+
+**Task Summary:** Implement the conversation command flow - translating operator messages to durable cluster commands, handling coordinator replies, and managing delivery state with evidence citations.
+
+**Key Dependencies Ready:**
+- EXOCOMP-158: Message model with state transitions (queued→delivered→reasoning→completed/failed/expired)
+- EXOCOMP-159: ClusterChat skill for coordinator-side reasoning
+- EXOCOMP-150: Command outbox for durability
+- EXOCOMP-151: Command result reporting
+- EXOCOMP-149: Event ingestion
+
+**Frontend Developer Focus (no LiveView rendering):**
+1. Create command/reply data models in exocomp_mission_control
+2. Implement ConversationCommands context for initiating operator messages → cluster commands
+3. Implement event handlers for conversation.reply events
+4. Persist replies with evidence citations and state transitions
+5. Validation: evidence citations, organization/cluster matching, command expiry
+6. Comprehensive test coverage: online delivery, offline queue, reconnect, duplicates, failures
+
+**Approach:**
+- Add Command model with required/optional fields and validation
+- Add Conversations context methods for creating/updating commands and replies
+- Add event handler for conversation.reply to update message state
+- Implement evidence citation validation
+- Write focused tests covering acceptance criteria
+
+**Out of Scope:** UI rendering, proposals
 ---
 <!-- COMMENTS:END -->
