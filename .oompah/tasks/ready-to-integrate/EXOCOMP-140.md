@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:13:26.209366Z'
+updated_at: '2026-08-01T17:15:09.990039Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,12 +93,12 @@ oompah.agent_run_id: f1322d61-b7eb-4ed0-a7cc-be61f17c64b2
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
-  base_branch: epic-EXOCOMP-129
-  base_sha: b1a07ccf6044357ada26260ea1e71b052ae17c94
-  updated_at: '2026-08-01T16:43:40.119567+00:00'
+  head_sha: 406ad28de7e3e0e2d1985ba22d5e808aea77be9b
+  submitted_at: '2026-08-01T17:15:07.653337+00:00'
+  updated_at: '2026-08-01T17:15:07.653337+00:00'
 oompah.task_costs:
   total_input_tokens: 2352
   total_output_tokens: 24575
@@ -422,5 +422,15 @@ author: oompah
 created: 2026-08-01 17:13
 ---
 Verification: focused OIDC test command was attempted but the host Elixir 1.18/OTP 27 environment lacks Erlang syntax_tools, so x509 dependency compilation stops before tests run. make fmt-check, make lint, and make test all pass their offline/structural portions but cannot start the pinned Docker/Podman container because /run/user/1000/libpod is read-only. make compliance-check passes; git diff --check is clean.
+---
+author: oompah
+created: 2026-08-01 17:15
+---
+Completion: rebased onto epic-EXOCOMP-128 (including EXOCOMP-136/138), implemented PKCE login/callback/logout with secure rotated sessions, per-process discovery/JWKS caching, issuer/audience/nonce/state/error validation, real JWKS signature verification, and end-to-end fake-provider tests. Added lockfile license inventory/notices. Commit 406ad28d is pushed; structural/compliance checks pass, while container/Elixir execution remains environment-blocked as documented.
+---
+author: oompah
+created: 2026-08-01 17:15
+---
+Hardened OIDC PKCE login, callback, logout, token validation, session handling, integration tests, and dependency compliance inventory.
 ---
 <!-- COMMENTS:END -->
