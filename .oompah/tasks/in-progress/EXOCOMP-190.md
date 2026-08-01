@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T13:54:22.293477Z'
+updated_at: '2026-08-01T14:04:17.536672Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -161,5 +161,38 @@ Task: Implement `exocomp.service.inventory` skill for enabled service discovery.
 - Implement output size cap + timeout as seen in existing Systemd collector
 
 Next: Explore existing code to determine best collector approach.
+---
+author: oompah
+created: 2026-08-01 14:04
+---
+**Discovery & Implementation Complete**
+
+**Code Added:**
+1. `Exocomp.Node.Collectors.ServiceInventory` — New collector that:
+   - Lists enabled/enabled-runtime services via `systemctl list-unit-files`
+   - Queries properties (Type, RemainAfterExit, Condition, ConditionResult, UnitFileState, LoadState, ActiveState, SubState)
+   - Filters to exclude: static, indirect, disabled, masked, generated units, exocomp-node.service, completed oneshots
+   - Marks failed conditions as 'not_applicable'
+   - Enforces output size limits and per-service timeouts
+   - No shell invocation; uses System.cmd/3 with fixed argv
+
+2. `Exocomp.Node.Skills.ServiceInventory` — New skill handler that:
+   - Executes ServiceInventory collector with configurable timeout
+   - Returns artifact with normalized observation data
+   - Takes no required parameters
+
+3. Dispatcher update to register skill as 'exocomp.service.inventory'
+
+**Tests Added:** 25 comprehensive test cases covering:
+- Basic skill execution and artifact structure
+- Service filtering (inclusions/exclusions for all unit types)
+- Failed condition marking as not_applicable
+- Timeout handling at both skill and collector levels
+- Malformed output handling
+- Output size limit enforcement
+- Empty service list handling
+- All required properties returned
+
+**Test Results:** All tests passing (511 passed, 0 failed)
 ---
 <!-- COMMENTS:END -->
