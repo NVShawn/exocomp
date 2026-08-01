@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-08-01T21:21:27.420642Z'
+updated_at: '2026-08-01T21:27:13.315122Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -50,6 +50,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:43:23.031457+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-1826bfb0e9c1: '2026-08-01T21:27:10.376860+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-53
+    target_state: Archived
+    evidence_fingerprint: 89b03b5c6d4e2504e6ba3b7a81385d0c336e5aa41a313b62dccea83f97322b6b
+    audit_ids:
+    - audit-80b73a3ae808
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:27:10.376871+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-53
+    audit_id: audit-80b73a3ae808
+    attempt_id: attempt-1826bfb0e9c1
+    target_state: Archived
+    evidence_fingerprint: 89b03b5c6d4e2504e6ba3b7a81385d0c336e5aa41a313b62dccea83f97322b6b
+    status: Archived
+    audit_ids:
+    - audit-80b73a3ae808
+    applied: false
+    created_at: '2026-08-01T21:27:10.376887+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +81,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-53
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +90,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-1826bfb0e9c1
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,13 +100,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:21:23.553856+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-08-01T21:27:10.376675+00:00'
+      ended_at: '2026-08-01T21:27:10.376675+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:36.953943+00:00'
-    updated_at: '2026-08-01T21:21:23.553856+00:00'
+    updated_at: '2026-08-01T21:27:10.376675+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-1826bfb0e9c1
@@ -423,5 +450,25 @@ author: oompah
 created: 2026-08-01 21:21
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:27
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- recovery_merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- recovery_pr: #14
+- implementation_commit_on_main: b65ad23aee606def48fc186560081c0f43f2b8de
+- later_touch_commit: 50cd48c23a0fdc0810441c8c16357f77a112cfdd (SPDX headers only)
+- host_profile_module_path: apps/bench/lib/bench/host_profile.ex
+- amd64_profile_path: apps/bench/priv/bench/profiles/amd64-ci.toml
+- arm64_profile_path: apps/bench/priv/bench/profiles/arm64-ci.toml
+- test_file_path: apps/bench/test/bench/host_profile_test.exs
+- required_test_cases_covered: detect returns well-formed struct; amd64 vs arm64 raises ArgumentError; error message names both archs; load('nonexistent') returns {:error, :not_found}
+- previous_state: Merged
+- archive_trigger: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
