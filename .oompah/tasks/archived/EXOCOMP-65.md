@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-65
 type: feature
-status: In Validation
+status: Archived
 priority: 2
 title: Pin multi-architecture OTP release builders
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-08-01T21:21:42.691906Z'
+updated_at: '2026-08-01T21:25:23.128651Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -57,6 +57,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:26:17.629462+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-fb1a01a62963: '2026-08-01T21:25:20.992913+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-65
+    target_state: Archived
+    evidence_fingerprint: ceba94a9965482a561612feb7c27263f36d9d490fec4a6d1c944d53fccd50f96
+    audit_ids:
+    - audit-2e92cbdf6707
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:25:20.992925+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-65
+    audit_id: audit-2e92cbdf6707
+    attempt_id: attempt-fb1a01a62963
+    target_state: Archived
+    evidence_fingerprint: ceba94a9965482a561612feb7c27263f36d9d490fec4a6d1c944d53fccd50f96
+    status: Archived
+    audit_ids:
+    - audit-2e92cbdf6707
+    applied: false
+    created_at: '2026-08-01T21:25:20.992942+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -64,7 +88,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-65
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -73,7 +97,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-fb1a01a62963
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -83,13 +107,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:21:35.998220+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-01T21:25:20.992696+00:00'
+      ended_at: '2026-08-01T21:25:20.992696+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:45.121349+00:00'
-    updated_at: '2026-08-01T21:21:35.998220+00:00'
+    updated_at: '2026-08-01T21:25:20.992696+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-fb1a01a62963
@@ -451,5 +478,28 @@ author: oompah
 created: 2026-08-01 21:21
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:25
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- main_head: 8f80aebf
+- recovery_commit: 50cd48c2 EXOCOMP-114: recover M6 release governance tooling
+- merge_commit: 2085e441 Merge pull request #14 from NVShawn/epic-EXOCOMP-110
+- builders_lock_amd64_digest: sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d
+- builders_lock_arm64_digest: sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc
+- supported_architectures: amd64,arm64
+- elixir_version: 1.20.2
+- otp_version: 28.5.0.3
+- glibc_baseline: 2.36
+- builder_tag: 1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim
+- make_targets_present: init, init-amd64, init-arm64, build, build-amd64, build-arm64, test-builders
+- container_run_flags: --rm --init --platform linux/$(DEV_ARCH) --pull always (non-interactive; no -it)
+- scripts_present: build-releases.sh, check-builder-capability.sh, test-release-builders.sh, verify-toolchain.sh
+- downstream_dependents: EXOCOMP-115, EXOCOMP-118, EXOCOMP-122, EXOCOMP-123, EXOCOMP-125 have subsequently landed on top of this tooling
 ---
 <!-- COMMENTS:END -->
