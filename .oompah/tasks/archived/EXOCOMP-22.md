@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-08-01T03:23:57.817898Z'
+updated_at: '2026-08-01T03:26:28.960011Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -76,6 +76,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:51:30.555284+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6c5f817061cb: '2026-08-01T03:26:26.367892+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-22
+    target_state: Archived
+    evidence_fingerprint: b6a4a41590fe075b9751c0a2880d8b0a6fbf63f9cb5282366f441369e61cb7dd
+    audit_ids:
+    - audit-8e35626a9ac2
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:26:26.367902+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-22
+    audit_id: audit-8e35626a9ac2
+    attempt_id: attempt-6c5f817061cb
+    target_state: Archived
+    evidence_fingerprint: b6a4a41590fe075b9751c0a2880d8b0a6fbf63f9cb5282366f441369e61cb7dd
+    status: Archived
+    audit_ids:
+    - audit-8e35626a9ac2
+    applied: false
+    created_at: '2026-08-01T03:26:26.367918+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -83,7 +107,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-22
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -92,7 +116,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6c5f817061cb
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -102,13 +126,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:23:46.904494+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:26:26.367736+00:00'
+      ended_at: '2026-08-01T03:26:26.367736+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T02:59:45.197132+00:00'
-    updated_at: '2026-08-01T03:23:46.904494+00:00'
+    updated_at: '2026-08-01T03:26:26.367736+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6c5f817061cb
@@ -386,5 +413,20 @@ author: oompah
 created: 2026-08-01 03:23
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:26
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- impl_commits: 91a3c41 (EXOCOMP-73 filter), 6e48177 (EXOCOMP-74 selection)
+- impl_files: apps/exocomp_node/lib/exocomp/node/safety/policy_engine.ex, risk_rank.ex, policy_context.ex
+- test_files: policy_engine_test.exs, policy_engine_filter_test.exs, policy_context_test.exs, integration/m3_acceptance_test.exs
+- prior_state: Merged
+- aging_reason: Aged Merged auto-archive (closed 7 days ago)
+- acceptance_coverage: fail-closed, non-escalation, auditable reasons, determinism (100x), all verified in policy_engine_test.exs and M3-CRIT-2
 ---
 <!-- COMMENTS:END -->
