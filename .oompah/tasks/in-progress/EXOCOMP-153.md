@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:37.552915Z'
-updated_at: '2026-08-01T14:50:53.626076Z'
+updated_at: '2026-08-01T14:53:39.425257Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-153
 target_branch: null
 review_url: null
@@ -140,5 +140,10 @@ author: oompah
 created: 2026-08-01 14:50
 ---
 Understanding: Implementing bounded status-history storage for Mission Control. Key requirements: (1) partition-ready storage scoped by organization and source identity, (2) cluster checkpoints every 5min, (3) node changes immediately + hourly checkpoints for unchanged nodes, (4) preserve observation_time separate from ingestion_time, (5) history writes async and non-blocking to current-state transaction. Will implement with clock-controlled tests for change detection, checkpoint cadence, duplicate snapshots, late events, and bounded batch writes.
+---
+author: oompah
+created: 2026-08-01 14:53
+---
+Discovery: No Mission Control app or status-history infrastructure exists yet. EXOCOMP-152 is blocked by the same commit (8f80aebf). Will implement status-history library in exocomp_core with: (1) data models for partitioned history storage, (2) clock-controlled recorder logic for cluster checkpoints (5min) and node changes (immediate + hourly), (3) comprehensive tests. This provides a reusable component for Mission Control to use.
 ---
 <!-- COMMENTS:END -->
