@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:30:32.516846Z'
+updated_at: '2026-08-01T14:30:46.669458Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -127,5 +127,10 @@ author: oompah
 created: 2026-08-01 14:30
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 14:30
+---
+Understanding: add a signed-release-owned cluster-profile contract exposing identity/version, discovery, expected-service derivation, health reduction, typed actions, and redaction metadata; reject unknown/unsupported versions and all runtime/local/command registration; advertise shipped IDs/versions in node and coordinator Agent Cards. I will inspect the existing cluster and card surfaces, implement the smallest compatible registry, add focused tests, then run the Makefile test gate.
 ---
 <!-- COMMENTS:END -->
