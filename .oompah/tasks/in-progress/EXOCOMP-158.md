@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T12:37:05.522488Z'
+updated_at: '2026-08-01T12:37:17.716774Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-08-01 12:37
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:37
+---
+Understanding: add organization-scoped conversations, memberships, ordered bounded messages, structured evidence references, context selection, and lifecycle states per plans/mission-control.md; reject attachments/raw-log blobs and cover all acceptance cases with focused tests. I will first inspect existing domain/persistence patterns, then implement and run the Makefile quality gates.
 ---
 <!-- COMMENTS:END -->
