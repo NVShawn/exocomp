@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-01T12:15:19.300951Z'
+updated_at: '2026-08-01T12:20:15.522355Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -142,5 +142,10 @@ author: oompah
 created: 2026-08-01 12:15
 ---
 Understanding: I will inspect the existing coordinator, Mission Control, TLS, and certificate identity paths, then implement the outbound TLS 1.3 WebSocket connection and validated upgrade/session replacement behavior with focused integration tests. I will preserve existing interfaces, run the required Makefile gates, commit, push, and submit the task.
+---
+author: oompah
+created: 2026-08-01 12:20
+---
+Discovery: the branch has no Mission Control app yet, so I will keep the coordinator client and gateway primitives dependency-light inside the umbrella's existing coordinator app. The gateway will be a standalone Plug/Bandit-compatible WebSocket endpoint that future Mission Control routing can mount; the coordinator Application will not start it or add any listener. Bandit already provides WebSock server support, while the coordinator client will use :ssl with a small RFC 6455 transport to avoid introducing an unapproved client dependency.
 ---
 <!-- COMMENTS:END -->

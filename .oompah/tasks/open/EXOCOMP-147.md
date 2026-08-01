@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T12:19:59.919092Z'
+updated_at: '2026-08-01T12:20:12.165497Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -83,13 +83,13 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T12:17:32.026020+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 1180
+  total_input_tokens: 522
+  total_output_tokens: 1270
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10
-      output_tokens: 1180
+      input_tokens: 522
+      output_tokens: 1270
       cost_usd: 0.0
   runs:
   - profile: default
@@ -98,6 +98,12 @@ oompah.task_costs:
     output_tokens: 1180
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:17:12.270035+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 512
+    output_tokens: 90
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:20:10.652900+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-147__20260801T121453Z
@@ -195,5 +201,15 @@ Investigation shows EXOCOMP-147 is coordinator connection infrastructure work:
 **Recommendation:** Route to backend/infrastructure focus for connection client implementation in coordinator. Frontend involvement would come later if Mission Control UI needs to display connection state indicators.
 
 Blocked by EXOCOMP-146; check if that provides base connection scaffolding.
+---
+author: oompah
+created: 2026-08-01 12:20
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 33
+- Tokens: 512 in / 90 out [602 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 44s
+- Log: EXOCOMP-147__20260801T121736Z.jsonl
 ---
 <!-- COMMENTS:END -->
