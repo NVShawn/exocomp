@@ -1,0 +1,102 @@
+# syntax=docker/dockerfile:1.7
+# SPDX-FileCopyrightText: 2026 Exocomp contributors
+# SPDX-License-Identifier: Apache-2.0
+#
+# Mission Control is built in the same digest-pinned Elixir/OTP builder used
+# by the native node and coordinator releases. The final stage copies only the
+# compiled release, operator metadata, and its entrypoint into a clean glibc
+# image. No source tree, compiler, Mix/Hex cache, credentials, or test fixture
+# crosses the stage boundary.
+
+ARG BUILDER_IMAGE
+ARG TARGET_IMAGE
+
+FROM ${BUILDER_IMAGE} AS builder
+
+ARG RELEASE_NAME=mission_control
+ARG RELEASE_ARCH
+ARG SOURCE_EPOCH=0
+ENV MIX_ENV=prod \
+    ERL_COMPILER_OPTIONS=deterministic \
+    MIX_HOME=/workspace/.mix-home \
+    HEX_HOME=/workspace/.hex-home \
+    SOURCE_DATE_EPOCH=${SOURCE_EPOCH}
+WORKDIR /workspace
+
+COPY . .
+
+# The application task supplies apps/exocomp_mission_control and the
+# corresponding locked dependencies. This command is intentionally explicit
+# and noninteractive so a missing dependency or release definition fails the
+# image build rather than producing a partial image.
+RUN mix local.hex --force --quiet \
+    && mix deps.get \
+    && mix compile --warnings-as-errors \
+    && rm -rf "/workspace/_build/release/${RELEASE_ARCH}" \
+    && MIX_BUILD_PATH="/workspace/_build/release/${RELEASE_ARCH}" \
+       mix release "${RELEASE_NAME}" --overwrite \
+    && rm -rf /workspace/.mix-home /workspace/.hex-home /workspace/deps \
+    && rm -rf /workspace/_build/release/${RELEASE_ARCH}/rel/${RELEASE_NAME}/releases/COOKIE
+
+FROM ${TARGET_IMAGE}
+
+ARG RELEASE_NAME=mission_control
+ARG RELEASE_ARCH
+ARG VERSION=dev
+ARG SOURCE_COMMIT=unknown
+ARG BUILDER_IMAGE
+ARG BUILDER_DIGEST=unknown
+
+LABEL org.opencontainers.image.title="Exocomp Mission Control" \
+      org.opencontainers.image.description="Self-hosted Exocomp control plane" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.source="https://github.com/NVShawn/exocomp" \
+      org.opencontainers.image.revision="${SOURCE_COMMIT}" \
+      org.opencontainers.image.licenses="Apache-2.0" \
+      com.exocomp.builder.image="${BUILDER_IMAGE}" \
+      com.exocomp.builder.digest="${BUILDER_DIGEST}" \
+      com.exocomp.release.name="${RELEASE_NAME}" \
+      com.exocomp.release.architecture="${RELEASE_ARCH}"
+
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    HOME=/tmp \
+    TMPDIR=/tmp \
+    PORT=4000 \
+    PHX_SERVER=true \
+    MISSION_CONTROL_STATE_DIR=/var/lib/exocomp/mission-control \
+    MISSION_CONTROL_LOG_DIR=/var/log/exocomp/mission-control
+
+# Numeric identity avoids adding account-management tooling to the runtime
+# image. The orchestrator must preserve this UID when mounting state paths.
+USER 0:0
+RUN mkdir -p /opt/mission-control/licenses \
+    /var/lib/exocomp/mission-control \
+    /var/log/exocomp/mission-control \
+    && chown 10001:10001 /var/lib/exocomp/mission-control \
+    /var/log/exocomp/mission-control \
+    && chmod 0750 /var/lib/exocomp/mission-control \
+    /var/log/exocomp/mission-control
+
+WORKDIR /opt/mission-control
+
+COPY --from=builder --chown=10001:10001 \
+  /workspace/_build/release/${RELEASE_ARCH}/rel/${RELEASE_NAME}/ \
+  /opt/mission-control/
+COPY LICENSE NOTICE THIRD_PARTY_NOTICES.md /opt/mission-control/licenses/
+COPY licenses/components.toml /opt/mission-control/licenses/components.toml
+COPY release/mission_control/entrypoint.sh /usr/local/bin/mission-control-entrypoint
+RUN chmod 0555 /usr/local/bin/mission-control-entrypoint
+
+USER 10001:10001
+
+# The state and log directories are the only documented persistent write
+# paths. Production invocations must mount them and set --read-only; /tmp is a
+# separate tmpfs for BEAM/runtime scratch files.
+VOLUME ["/var/lib/exocomp/mission-control", "/var/log/exocomp/mission-control"]
+EXPOSE 4000
+STOPSIGNAL SIGTERM
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD ["/usr/local/bin/mission-control-entrypoint", "healthcheck"]
+ENTRYPOINT ["/usr/local/bin/mission-control-entrypoint"]
+CMD ["server"]

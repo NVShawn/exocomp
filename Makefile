@@ -44,9 +44,11 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	$(DEV_BUILDER_IMAGE)
 
 .PHONY: help init init-amd64 init-arm64 fmt fmt-check build build-amd64 \
-	build-arm64 test test-builders test-deps test-release-matrix test-release-packaging \
-	test-compliance \
-	inspect-deps-amd64 inspect-deps-arm64 lint \
+	build-arm64 build-mission-control build-mission-control-amd64 \
+	build-mission-control-arm64 test test-builders test-deps test-release-matrix test-release-packaging \
+	test-mission-control-packaging test-mission-control-image test-compliance \
+	inspect-deps-amd64 inspect-deps-arm64 inspect-mission-control-deps-amd64 \
+	inspect-mission-control-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
 	test-integration bench-llama-short bench-harness bench-llama-short-shipped \
@@ -125,6 +127,16 @@ build-amd64: ## Build clean Linux amd64 node and coordinator releases.
 build-arm64: ## Build clean Linux arm64 node and coordinator releases.
 	./scripts/build-releases.sh arm64
 
+build-mission-control: ## Build the pinned Mission Control OCI image. Set ARCH=amd64 or ARCH=arm64.
+	@test -n "$(ARCH)" || { echo "ARCH is required; use make build-mission-control ARCH=amd64 or ARCH=arm64" >&2; exit 2; }
+	./scripts/build-mission-control-image.sh "$(ARCH)"
+
+build-mission-control-amd64: ## Build the pinned Linux amd64 Mission Control OCI image.
+	./scripts/build-mission-control-image.sh amd64
+
+build-mission-control-arm64: ## Build the pinned Linux arm64 Mission Control OCI image.
+	./scripts/build-mission-control-image.sh arm64
+
 inspect-deps-amd64: ## Inspect runtime deps for a built amd64 release. Set RELEASE=exocomp_node or exocomp_coordinator.
 	@test -n "$(RELEASE)" || { echo "RELEASE is required; e.g. make inspect-deps-amd64 RELEASE=exocomp_node" >&2; exit 2; }
 	./scripts/inspect-release-deps.sh amd64 _build/release/amd64/rel/$(RELEASE)
@@ -132,6 +144,12 @@ inspect-deps-amd64: ## Inspect runtime deps for a built amd64 release. Set RELEA
 inspect-deps-arm64: ## Inspect runtime deps for a built arm64 release. Set RELEASE=exocomp_node or exocomp_coordinator.
 	@test -n "$(RELEASE)" || { echo "RELEASE is required; e.g. make inspect-deps-arm64 RELEASE=exocomp_node" >&2; exit 2; }
 	./scripts/inspect-release-deps.sh arm64 _build/release/arm64/rel/$(RELEASE)
+
+inspect-mission-control-deps-amd64: ## Inspect runtime deps for a built amd64 Mission Control release.
+	./scripts/inspect-release-deps.sh amd64 $(or $(RELEASE_DIR),_build/release/amd64/rel/mission_control)
+
+inspect-mission-control-deps-arm64: ## Inspect runtime deps for a built arm64 Mission Control release.
+	./scripts/inspect-release-deps.sh arm64 $(or $(RELEASE_DIR),_build/release/arm64/rel/mission_control)
 
 test: test-builders ## Run the test suite.
 	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
@@ -155,6 +173,15 @@ test-release-packaging: ## Test deterministic archives, secret omission, manifes
 	$(PYTHON) -m unittest discover -s tests -p 'test_package_release.py' -v
 	$(PYTHON) -m unittest discover -s tests -p 'test_release_input_normalizer.py' -v
 	$(PYTHON) -m unittest discover -s tests -p 'test_operator_docs.py' -v
+	$(PYTHON) -m unittest discover -s tests -p 'test_mission_control_packaging.py' -v
+
+test-mission-control-packaging: ## Test Mission Control image hardening and supply-chain packaging without Docker.
+	$(PYTHON) -m unittest discover -s tests -p 'test_mission_control_packaging.py' -v
+
+test-mission-control-image: ## Start a built Mission Control image against digest-pinned PostgreSQL and test restart safety.
+	@test -n "$(IMAGE)" || { echo "IMAGE is required; use make test-mission-control-image IMAGE=... POSTGRES_IMAGE=..." >&2; exit 2; }
+	@test -n "$(POSTGRES_IMAGE)" || { echo "POSTGRES_IMAGE is required and must include a digest" >&2; exit 2; }
+	IMAGE="$(IMAGE)" POSTGRES_IMAGE="$(POSTGRES_IMAGE)" ./scripts/test-mission-control-image.sh
 
 lint: test-builders ## Run static analysis / linters.
 	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && mix deps.get && \
@@ -179,6 +206,7 @@ check-licenses: ## Validate license text, headers, dependencies, and notices.
 release-check: ## Run governance checks required before a release.
 	@$(MAKE) compliance-check
 	@$(MAKE) test-compliance
+	@$(MAKE) test-mission-control-packaging
 
 clean: ## Remove build artifacts.
 	$(CONTAINER_RUN) rm -rf _build
