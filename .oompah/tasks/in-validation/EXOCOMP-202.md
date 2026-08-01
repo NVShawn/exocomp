@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T15:43:36.398500Z'
+updated_at: '2026-08-01T15:43:44.681981Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -90,6 +90,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-202
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:19:06.142043+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-82b0353dc09f
+    project_id: proj-c260b117
+    task_id: EXOCOMP-202
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 74af10224fc24ef488443ef63981357b7aa666c947854a6b413d2f73c673cd3f
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T15:43:39.696908+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -304,5 +326,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 10m 3s
 - Log: EXOCOMP-202__20260801T153112Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:43
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
