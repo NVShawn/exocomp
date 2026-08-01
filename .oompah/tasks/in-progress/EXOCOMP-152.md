@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-08-01T18:03:15.019730Z'
+updated_at: '2026-08-01T18:08:06.833161Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-152
 target_branch: null
 review_url: null
@@ -210,5 +210,17 @@ PLAN:
 - Add stale update rejection using sequence/observation numbers
 - Write focused reducer tests covering all acceptance criteria
 - Verify with: make test, make fmt-check, make lint
+---
+author: oompah
+created: 2026-08-01 18:08
+---
+DISCOVERY: Event structure found in plan: schema_version, event_id, cluster_seq, kind (cluster.hello, cluster.heartbeat, status.snapshot), occurred_at, correlation_id, and payload. Will create:
+
+1. Exocomp.MissionControl.ClusterCurrentState - struct for cluster state
+2. Exocomp.MissionControl.NodeCurrentState - struct for node state  
+3. Exocomp.MissionControl.CurrentStateReducer - reducer functions for transactional updates
+4. Comprehensive tests covering: initial state, partial updates, stale updates, node removal, reconnect, duplicates, org isolation
+
+Implementing with in-memory storage pattern (GenServer/ETS) sufficient for focused test coverage. Database integration can follow in EXOCOMP-194 (desired-state extension).
 ---
 <!-- COMMENTS:END -->
