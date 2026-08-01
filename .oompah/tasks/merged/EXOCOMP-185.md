@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-185
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M7I: Host service desired state'
 parent: EXOCOMP-127
@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-08-01T18:16:29.125473Z'
+updated_at: '2026-08-01T18:27:24.757001Z'
 work_branch: epic-EXOCOMP-185
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/22
@@ -33,6 +33,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     infrastructure-exhausted-audit-caa43cae56bb-3: '2026-08-01T18:13:55.334690+00:00'
+    attempt-2618bf606a0d: '2026-08-01T18:27:22.347010+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-185
@@ -43,6 +44,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T18:13:55.334701+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-185
+    target_state: Merged
+    evidence_fingerprint: 876576de5739eeee541f22c9268c3b2a01c2806b2c735cf4ef55c6fc12d0d457
+    audit_ids:
+    - audit-2e98cc055e11
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T18:27:22.347020+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-185
@@ -56,6 +66,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T18:13:55.334719+00:00'
     applied_at: '2026-08-01T18:13:57.922185+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-185
+    audit_id: audit-2e98cc055e11
+    attempt_id: attempt-2618bf606a0d
+    target_state: Merged
+    evidence_fingerprint: 876576de5739eeee541f22c9268c3b2a01c2806b2c735cf4ef55c6fc12d0d457
+    status: Merged
+    audit_ids:
+    - audit-2e98cc055e11
+    applied: false
+    created_at: '2026-08-01T18:27:22.347029+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -149,7 +170,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-185
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -158,7 +179,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-2618bf606a0d
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -168,13 +189,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T18:16:23.288309+00:00'
       branch_key: epic-EXOCOMP-185
+      verdict: pass
+      completed_at: '2026-08-01T18:27:22.346886+00:00'
+      ended_at: '2026-08-01T18:27:22.346886+00:00'
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-01T18:00:19.561927+00:00'
-    updated_at: '2026-08-01T18:16:23.288309+00:00'
+    updated_at: '2026-08-01T18:27:22.346886+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-34ade6f49251
@@ -352,5 +376,30 @@ author: oompah
 created: 2026-08-01 18:16
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 18:27
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 2c9ad37b8a482cc5541bf72b1a0cad5d4a771752
+- merge_title: Merge pull request #22 from NVShawn/epic-EXOCOMP-185
+- epic_head_second_parent: a163c8323e9b83e2360af73c9f3e972b99f9dc0d
+- target_branch_metadata: epic-EXOCOMP-127
+- target_branch_remote_ref: origin/epic-EXOCOMP-127
+- target_branch_tip_matches_merge_commit: true
+- review_url: https://github.com/NVShawn/exocomp/pull/22
+- review_number: 22
+- child_tasks_in_done_state: EXOCOMP-187, EXOCOMP-188, EXOCOMP-189, EXOCOMP-190, EXOCOMP-191, EXOCOMP-192, EXOCOMP-193, EXOCOMP-194
+- child_tasks_missing_or_open: none
+- merge_files_changed: 36
+- merge_insertions: 6451
+- merge_deletions: 51
+- key_areas_added: coordinator service_scheduler + inventory v2, Mission Control status_contract facade, exocomp_core desired_service + status_event/codec/reducer, node http_probe + service_inventory + service_observe skills, shared JSON fixtures
+- plans_updated: plans/mission-control.md, plans/exocomp.md
+- prior_auditor_failure_note: Earlier attempts failed with infrastructure_error because they searched for origin/epic-EXOCOMP-185 or origin/EXOCOMP-185, which do not exist post-merge; the merge is preserved on origin/epic-EXOCOMP-127 (the epic's recorded target branch).
 ---
 <!-- COMMENTS:END -->
