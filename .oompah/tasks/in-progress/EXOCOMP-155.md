@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:02:09.571354Z'
+updated_at: '2026-08-01T23:03:58.058003Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -164,5 +164,10 @@ author: oompah
 created: 2026-08-01 23:02
 ---
 Understanding: implement a deterministic incident health-transition reducer over fleet observations. I will reuse the incident APIs from EXOCOMP-154, define the exact severity and threshold rules from plans/mission-control.md, add table-driven coverage for all acceptance boundaries and ordering cases, then run focused tests plus make test, make fmt-check, and make lint.
+---
+author: oompah
+created: 2026-08-01 23:03
+---
+Discovery: current-state observations are map-based status.snapshot data in exocomp_core, while EXOCOMP-154 supplies the organization-scoped Incidents store in exocomp_mission_control. Canonical history also requires desired-state service/profile WARN hysteresis, immediate Ceph HEALTH_ERR/critical handling, explicit coverage incidents, and desired_state_removed resolution without a synthetic healthy sample. I’m reconciling these contracts before implementation.
 ---
 <!-- COMMENTS:END -->
