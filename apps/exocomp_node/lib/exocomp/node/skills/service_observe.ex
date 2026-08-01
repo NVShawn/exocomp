@@ -170,9 +170,9 @@ defmodule Exocomp.Node.Skills.ServiceObserve do
       Task.yield(systemd_task, timeout_ms) || Task.shutdown(systemd_task, :brutal_kill),
       Task.yield(probes_task, timeout_ms) || Task.shutdown(probes_task, :brutal_kill)
     } do
-      {{:ok, systemd_obs}, {:ok, probe_obs}} ->
+      {{:ok, {:ok, systemd_obs}}, {:ok, {:ok, probe_results}}} ->
         elapsed_us = System.monotonic_time(:microsecond) - started_us
-        build_artifact(started_at, systemd_obs, probe_obs, elapsed_us)
+        build_artifact(started_at, systemd_obs, probe_results, elapsed_us)
 
       _timeout_or_error ->
         {:error, :timeout}
@@ -214,7 +214,7 @@ defmodule Exocomp.Node.Skills.ServiceObserve do
         &default_http_prober/3
       )
 
-    per_probe_timeout = max(1000, timeout_ms div (length(probes) + 1))
+    per_probe_timeout = max(1000, div(timeout_ms, length(probes) + 1))
 
     probe_tasks =
       Enum.map(probes, fn %{"url" => url} ->
