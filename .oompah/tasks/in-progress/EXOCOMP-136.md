@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T15:13:21.824427Z'
+updated_at: '2026-08-01T15:13:50.149372Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -362,5 +362,10 @@ author: oompah
 created: 2026-08-01 15:13
 ---
 Focus: DevOps Engineer
+---
+author: oompah
+created: 2026-08-01 15:13
+---
+CI-fix discovery: the branch is clean at 3a3d6e61, and the auditor specifically requires replacing the inline router handler with a Phoenix controller action under pipeline :api and scope "/", Exocomp.MissionControl. I’m checking the current Phoenix/Bandit test setup before making that focused change.
 ---
 <!-- COMMENTS:END -->
