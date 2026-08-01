@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-08-01T13:11:50.193743Z'
+updated_at: '2026-08-01T13:28:20.076025Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 target_branch: null
 review_url: null
@@ -143,5 +143,10 @@ author: oompah
 created: 2026-08-01 13:11
 ---
 Understanding: package Mission Control as a reproducible production OTP release and pinned OCI image, with explicit noninteractive migration/server commands, unprivileged read-only runtime, supply-chain metadata, and focused PostgreSQL/restart/secret/dependency tests. I will inspect existing release conventions first, then implement and verify the packaging surface.
+---
+author: oompah
+created: 2026-08-01 13:28
+---
+Implementation: added conditional root  OTP release registration, digest-pinned multi-stage OCI Containerfile, UID 10001/read-only state contract, explicit migrate/server/healthcheck entrypoint, reproducible OCI metadata packager (manifest/checksum/SPDX SBOM/SLSA provenance/license coverage), pinned image build and PostgreSQL restart harness scripts, Make targets, Docker context exclusions, and operator documentation.
 ---
 <!-- COMMENTS:END -->

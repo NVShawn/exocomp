@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:27:06.232990Z'
+updated_at: '2026-08-01T13:28:14.773006Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -152,5 +152,28 @@ author: oompah
 created: 2026-08-01 13:27
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-08-01 13:28
+---
+UNDERSTANDING: As Security Auditor, my focus is to identify and address security vulnerabilities in the Mission Control artifact qualification process. Key security concerns include:
+
+1. PKI & Certificates: Cluster enrollment with locally-generated keys, certificate rotation (20-30 day lifecycle), and revocation mechanisms
+2. OIDC Authentication: Operator identity validation and role enforcement (viewer/operator/admin)
+3. mTLS: Cluster-to-control-plane connectivity validation
+4. Signing & Verification: HMAC-SHA256 webhook signatures, Ed25519 approval tokens
+5. Evidence Redaction: Sanitization before storage/transmission
+6. Secret Handling: No secrets in logs, configs, or artifacts
+7. Audit Trail: Complete mutation logging with operator identity
+8. Cross-architecture consistency: Both amd64/arm64 must pass identical security checks
+
+PLAN:
+1. Review codebase for security issues related to artifact qualification (signing, verification, secrets)
+2. Check for credential leakage in build/test processes
+3. Validate PKI implementation and certificate validation
+4. Review evidence redaction and audit trail mechanisms
+5. Run make release-check and security-related quality gates
+6. Identify and fix any issues found
+7. Verify both architectures pass identical security validation
 ---
 <!-- COMMENTS:END -->
