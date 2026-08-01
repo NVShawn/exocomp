@@ -1,0 +1,5 @@
+ceph-mon@alpha.service loaded active running
+ceph-mgr@alpha.service loaded active running
+ceph-osd@12.service loaded failed failed
+ceph-mds@fs_a.service loaded inactive dead
+ceph-radosgw@realm.zone.gateway_a.service loaded active running

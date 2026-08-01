@@ -24,6 +24,11 @@ defmodule Exocomp.Node.Handlers.AgentCardHandler do
       description: "Inspect systemd service state for named services."
     },
     %AgentSkill{
+      id: "exocomp.profile.inspect",
+      name: "Profile Inspect",
+      description: "Discover local Ceph daemon units and their systemd state."
+    },
+    %AgentSkill{
       id: "exocomp.remediation.propose",
       name: "Remediation Propose",
       description: "Propose a known remediation intent given current diagnostic context."

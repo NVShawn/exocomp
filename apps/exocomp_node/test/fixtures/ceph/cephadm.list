@@ -1,0 +1,5 @@
+ceph-01234567-89ab-cdef-0123-456789abcdef@mon.node-a.service loaded active running
+ceph-01234567-89ab-cdef-0123-456789abcdef@mgr.node-a.service loaded active running
+ceph-01234567-89ab-cdef-0123-456789abcdef@osd.7.service loaded active running
+ceph-01234567-89ab-cdef-0123-456789abcdef@mds.fs_a.service loaded active running
+ceph-01234567-89ab-cdef-0123-456789abcdef@rgw.realm.zone.gateway_a.service loaded active running

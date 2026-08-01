@@ -45,6 +45,24 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
     end)
   end
 
+  defp install_profile_fake do
+    Application.put_env(:exocomp_node, :profile_inspect_ceph_collector, fn ->
+      %{
+        observed_at: DateTime.to_iso8601(DateTime.utc_now()),
+        source: Exocomp.Node.Collectors.Ceph,
+        collector_version: 1,
+        duration_us: 1,
+        measurements: %{
+          membership: %{value: :not_member, unit: "status"},
+          daemons: %{value: [], unit: "daemon"},
+          errors: %{value: [], unit: "error"}
+        }
+      }
+    end)
+
+    on_exit(fn -> Application.delete_env(:exocomp_node, :profile_inspect_ceph_collector) end)
+  end
+
   defp install_remediation_fake do
     Application.put_env(:exocomp_node, :remediation_propose_client, fn _ctx ->
       {:ok,
@@ -110,6 +128,13 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
 
     assert {:ok, %Artifact{}} =
              Dispatcher.dispatch("exocomp.service.diagnose", %{"services" => ["sshd.service"]})
+  end
+
+  test "routes 'exocomp.profile.inspect' to ProfileInspect" do
+    install_profile_fake()
+
+    assert {:ok, %Artifact{name: "profile-inspect"}} =
+             Dispatcher.dispatch("exocomp.profile.inspect", %{"profile" => "ceph"})
   end
 
   test "routes 'exocomp.remediation.propose' to RemediationPropose" do

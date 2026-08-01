@@ -103,6 +103,7 @@ defmodule Exocomp.Node.A2ARouterTest do
     assert Enum.map(card["skills"], & &1["id"]) == [
              "exocomp.system.diagnose",
              "exocomp.service.diagnose",
+             "exocomp.profile.inspect",
              "exocomp.remediation.propose",
              "exocomp.service.recover"
            ]
