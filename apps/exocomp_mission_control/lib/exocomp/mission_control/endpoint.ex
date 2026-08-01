@@ -3,13 +3,13 @@
 defmodule Exocomp.MissionControl.Endpoint do
   use Phoenix.Endpoint, otp_app: :exocomp_mission_control
 
-  # The session will be stored in the cookie and signed, this means its contents
-  # can be read but not tampered with. Set :encryption_salt if you would also
-  # like to encrypt it.
+  # The session is stored in an encrypted and signed cookie. The endpoint's
+  # key_base must remain secret so the cookie cannot be forged or decrypted.
   @session_options [
     store: :cookie,
     key: "_mission_control_key",
     signing_salt: "Mission Control Session Signing Salt",
+    encryption_salt: "Mission Control Session Encryption Salt",
     same_site: "Lax",
     secure: true,
     http_only: true,
