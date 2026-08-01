@@ -13,11 +13,7 @@ defmodule Exocomp.MissionControl.MixProject do
       lockfile: "../../mix.lock",
       elixir: "1.20.2",
       start_permanent: Mix.env() == :prod,
-<<<<<<< HEAD
       deps: deps()
-=======
-      deps: []
->>>>>>> epic-EXOCOMP-132--task-EXOCOMP-158
     ]
   end
 
@@ -31,7 +27,10 @@ defmodule Exocomp.MissionControl.MixProject do
   defp deps do
     [
       {:exocomp_core, in_umbrella: true},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:plug, "~> 1.17"},
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, "~> 0.18"}
     ]
   end
 end
