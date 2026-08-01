@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -15,10 +15,9 @@ blocked_by:
 start_blocked_by: []
 labels:
 - focus-complete:security
-- needs:test
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:38:10.627555Z'
+updated_at: '2026-08-01T13:38:31.369946Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -63,7 +62,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: bded46ef-defa-4789-a4d7-8222f2408d22
+oompah.agent_run_id: 8e10f9eb-ecb1-4190-a82c-ae3de6868292
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 oompah.integration:
   version: 2
@@ -72,7 +71,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-184
   base_branch: epic-EXOCOMP-135
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:27:04.044826+00:00'
+  updated_at: '2026-08-01T13:38:28.111269+00:00'
 oompah.task_costs:
   total_input_tokens: 340
   total_output_tokens: 13215
@@ -441,5 +440,15 @@ author: oompah
 created: 2026-08-01 13:38
 ---
 Focus handoff from `security` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-08-01 13:38
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 13:38
+---
+Focus: Test Engineer
 ---
 <!-- COMMENTS:END -->
