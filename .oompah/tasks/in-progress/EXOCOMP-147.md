@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T12:17:35.592682Z'
+updated_at: '2026-08-01T12:19:09.433447Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -162,5 +162,12 @@ author: oompah
 created: 2026-08-01 12:17
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 12:19
+---
+**Understanding**: Task requires implementing heartbeat protocol for coordinator-to-Mission Control connection: (1) Send heartbeat every 30s, (2) Mark disconnected after 90s without heartbeat, (3) Reconnect with full-jitter exponential backoff (1s-60s), (4) Reset backoff after stable auth connection. Acceptance requires deterministic tests covering heartbeat cadence, missed heartbeats, reconnect bounds, and no crash/blocking on connection loss.
+
+**Assigned Focus**: Frontend Developer - mismatch detected. This is coordinator connection infrastructure work (state machines, timers, network resilience), not UI. Exploring if frontend component exists or if handoff needed to backend focus.
 ---
 <!-- COMMENTS:END -->

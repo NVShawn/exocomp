@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-141
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Enforce viewer, operator, and admin authorization
 parent: EXOCOMP-129
@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T12:18:56.444924Z'
+updated_at: '2026-08-01T12:19:05.696676Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: 386e0b92-b1f2-4bc4-96c5-a2d5b63dddb0
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-141
-  base_branch: epic-EXOCOMP-129
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:00:10.348715+00:00'
+  head_sha: 87024707dad024553d64d102bdc4d0adb3046e70
+  submitted_at: '2026-08-01T12:19:03.167268+00:00'
+  updated_at: '2026-08-01T12:19:03.167268+00:00'
 oompah.task_costs:
   total_input_tokens: 392651
   total_output_tokens: 4736
@@ -300,5 +300,10 @@ All acceptance criteria met:
 ✅ OIDC claim/group → role mapping via OIDCResolver.
 
 Out of scope items (feature-specific mutations, admin pages, Phoenix/Ecto persistence, actual OIDC token validation) are intentionally not included per the task description.
+---
+author: oompah
+created: 2026-08-01 12:19
+---
+Implemented Mission Control authorization foundation in apps/exocomp_mission_control: Identity.Operator and RoleBinding structs scoped to organization_id; Auth.OIDCResolver mapping OIDC claims/groups to viewer/operator/admin roles; context-level Authorization module enforcing role hierarchy with cross-org fail-closed semantics; Plug.RequireRole HTTP plug; LiveView.RequireRole on_mount hook; Mutations.Attribution helper recording stable OIDC subject + correlation ID. Full role matrix test suite (128 assertions, 18-case role×action×org matrix). All of make test, make fmt-check, make lint pass.
 ---
 <!-- COMMENTS:END -->
