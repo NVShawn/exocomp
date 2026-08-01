@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-34
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Verify the M4 minimal-impact recovery milestone
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:49.457512Z'
-updated_at: '2026-07-25T02:26:15.100063Z'
+updated_at: '2026-08-01T03:00:28.483350Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -21,6 +21,28 @@ review_number: null
 merged_at: null
 oompah.agent_run_id: ee29a420-044e-4927-9066-1293784b6ab4
 oompah.work_branch: epic-EXOCOMP-4
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-79bc5cfb99cf
+    project_id: proj-c260b117
+    task_id: EXOCOMP-34
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 33f0fe3b7eaf38890ae99c6f42c287ccccbaed4f99a8b1abfef87de49fd001b5
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:25.907199+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -95,5 +117,10 @@ Evidence and decisions: Searched origin/oompah/state/proj-c260b117 plus plans/do
 Remaining work and risks: Run the release-like coordinator/node/fixture path; record pass/fail evidence for every M4 criterion; prove one failed-service restart plus stability, approval gating for active/degraded restarts, correlated audit, and unchanged user/non-fixture host state; run affected Make gates. Important prerequisite risk: EXOCOMP-31's final tracker handoff says the automatic recovery feature remained unimplemented despite its Merged state, while EXOCOMP-33 history reports the same missing execution/reconciliation contract. Also preserve the pre-existing untracked apps/exocomp_node/test/exocomp/node/recovery/fault_injection_test.exs; this screening made no repository changes.
 
 Recommended next focus: test.
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
