@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:19.643459Z'
-updated_at: '2026-08-01T17:13:01.288947Z'
+updated_at: '2026-08-01T17:14:23.868277Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 target_branch: null
 review_url: null
@@ -147,5 +147,10 @@ author: oompah
 created: 2026-08-01 17:13
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 17:14
+---
+UNDERSTANDING: Implementing an unprivileged coordinator collector for Ceph health and topology JSON. Acceptance criteria: collect health + monitor/manager/OSD/MDS/gateway topology using fixed argv, enforce timeout/output-size limits, no shell invocation, normalize Ceph JSON versions, preserve partial failures with timestamps, never expose keyrings or env. Must include tests for HEALTH_OK/WARN/ERR, empty clusters, malformed JSON, partial failures, timeout, truncation. Starting with codebase exploration to understand infrastructure.
 ---
 <!-- COMMENTS:END -->
