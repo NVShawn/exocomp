@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-08-01T15:31:22.301397Z'
+updated_at: '2026-08-01T15:31:36.131071Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 target_branch: null
 review_url: null
@@ -140,5 +140,10 @@ author: oompah
 created: 2026-08-01 15:31
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 15:31
+---
+Understanding: I will inspect the mission-control plan and existing LiveView/auth/domain patterns, implement the requested admin navigation and guarded workflows with one-time invitation display and secret-safe rendering, add focused LiveView coverage, then run the relevant Makefile quality gates and submit the branch.
 ---
 <!-- COMMENTS:END -->
