@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: In Progress
+status: Needs Human
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -21,7 +21,7 @@ labels:
 - focus-complete:general
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:28:32.206046Z'
+updated_at: '2026-08-01T18:47:35.804159Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -809,5 +809,10 @@ REMAINING WORK / RISKS:
 4. After both runs, 'make finalize-m7-evidence' signs the dual-arch evidence index.
 
 RECOMMENDED NEXT FOCUS: devops, after EXOCOMP-178/181/182/183 are merged, to execute both guest qualifications and produce the signed evidence index. The harness fails closed until then.
+---
+author: oompah
+created: 2026-08-01 18:47
+---
+Oompah could not durably preserve this worker's task worktree before retry. The worktree was left in place and no reset, clean, or retry was started. Reconcile the workspace and recovery evidence manually before resuming the task. Error: cannot snapshot task worktree /home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-184: detached HEAD
 ---
 <!-- COMMENTS:END -->
