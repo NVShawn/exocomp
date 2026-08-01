@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-08-01T15:27:21.654637Z'
+updated_at: '2026-08-01T15:38:07.138072Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-08-01 15:27
 ---
 Discovery: the Mission Control scaffold is commit 3a3d6e6 and the incident APIs are on EXOCOMP-156/157. The incident context exposes organization-scoped list/get/events/related plus acknowledge, assign, snooze, and resolve; PubSub is not yet wired. I will compose these prerequisite commits locally, then add LiveViews and a small broadcast/query boundary around the existing GenServer.
+---
+author: oompah
+created: 2026-08-01 15:38
+---
+Implementation: composed the Mission Control scaffold and incident-domain prerequisites, added Incidents.Query for severity/status/cluster/label filtering and bounded pagination, added PubSub incident_changed broadcasts, and routed /incidents and /incidents/:id to accessible LiveViews. The inbox is organization-scoped and real-time; detail shows timeline/evidence/related incidents, snooze wake time, and operator-only acknowledge/assign/snooze/resolve controls with stale-state and required-reason handling.
 ---
 <!-- COMMENTS:END -->
