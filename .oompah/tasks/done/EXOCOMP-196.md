@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T17:02:39.420701Z'
+updated_at: '2026-08-01T17:12:23.290445Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -170,6 +170,7 @@ oompah.terminal_audit:
     attempt-d465f6bfc92e: '2026-08-01T15:52:10.981213+00:00'
     attempt-c6db32ddcae5: '2026-08-01T16:35:26.116968+00:00'
     attempt-576d42a613f2: '2026-08-01T16:56:39.182789+00:00'
+    attempt-3b4ae5924a6c: '2026-08-01T17:12:20.705509+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-196
@@ -198,6 +199,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T16:56:39.182801+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    target_state: Done
+    evidence_fingerprint: b1e9c5085946a97d5b8635fad32eae851407b16b0c7cda2896644959627f65f1
+    audit_ids:
+    - audit-c40b4f467283
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T17:12:20.705532+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-196
@@ -235,6 +245,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T16:56:39.182814+00:00'
     applied_at: '2026-08-01T16:56:41.715842+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    audit_id: audit-c40b4f467283
+    attempt_id: attempt-3b4ae5924a6c
+    target_state: Done
+    evidence_fingerprint: b1e9c5085946a97d5b8635fad32eae851407b16b0c7cda2896644959627f65f1
+    status: Done
+    audit_ids:
+    - audit-c40b4f467283
+    applied: false
+    created_at: '2026-08-01T17:12:20.705555+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -347,7 +368,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-196
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -356,7 +377,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-3b4ae5924a6c
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -366,13 +387,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T17:02:35.607579+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
+      verdict: pass
+      completed_at: '2026-08-01T17:12:20.705176+00:00'
+      ended_at: '2026-08-01T17:12:20.705176+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T17:02:30.643157+00:00'
-    updated_at: '2026-08-01T17:02:35.607579+00:00'
+    updated_at: '2026-08-01T17:12:20.705176+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d465f6bfc92e
@@ -985,5 +1009,27 @@ author: oompah
 created: 2026-08-01 17:02
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 17:12
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 86a4eef228b47d4cd898826045a2fb7ac6cf5b05
+- git_diff_check: exit 0 vs origin/main..HEAD
+- make_test_compliance: 29/29 tests OK (Ran 29 tests in 1.714s)
+- make_test_builders: 9/9 builder tests + 13/13 offline checks pass
+- make_test_deps: 9/9 tests pass
+- make_test_container_execution: 80K chars of output; _build/test/rel/{exocomp_coordinator,exocomp_node} populated at 2026-08-01 17:05 UTC from this session, confirming mix deps.get + mix test + both mix release commands all succeeded (shell &&)
+- ceph_profile_module: apps/exocomp_core/lib/exocomp/cluster_profile/ceph.ex (behaviour, id=ceph, version=1, read-only, redaction of keyring/key/cephx_key)
+- ceph_validator: apps/exocomp_core/lib/exocomp/cluster_profile/ceph/validator.ex (absolute path + existence + regular file + owner-execute + non-root ownership + keyring mode 0600/0640; no key material in failure metadata)
+- coordinator_config: apps/exocomp_coordinator/lib/exocomp/coordinator/config.ex (cluster_profiles.ceph parsing + env overrides + allow_invalid_ceph_profile for graceful startup)
+- listener_wiring: apps/exocomp_coordinator/lib/exocomp/coordinator/listener.ex validate_profile_coverage + ProfileCoverage.mark_degraded + Audit.emit(:ceph_profile_validation_failed) + continues startup
+- validator_tests: apps/exocomp_core/test/exocomp/cluster_profile/ceph/validator_test.exs — all 7 acceptance scenarios (valid, missing files, relative paths, unsafe permissions, wrong ownership, absent binary, secret redaction)
+- integration_tests: apps/exocomp_coordinator/test/exocomp/coordinator/startup_profile_validation_test.exs — wired startup with bad keyring mode, missing binary, and root-owned files (audit event emitted, listener alive, coverage degraded, Ceph not advertised)
+- cephx_documentation: docs/ceph-profile-configuration.md documents 'mon allow r / mgr allow r / osd allow r / mds allow r' plus read-only capability table
 ---
 <!-- COMMENTS:END -->
