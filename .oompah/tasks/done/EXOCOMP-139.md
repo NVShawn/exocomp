@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-139
 type: task
-status: In Validation
+status: Done
 priority: 2
 title: Define Mission Control protocol envelopes and fixtures
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T15:46:19.465624Z'
+updated_at: '2026-08-01T15:56:33.893323Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -101,6 +101,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:51:31.770192+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-fe0a33989c6d: '2026-08-01T15:56:31.138539+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-139
+    target_state: Done
+    evidence_fingerprint: ae0f3fe4245c879a101a2c7be0c3225c1a4b1b1f2cbb6cce1b124c8b331cc90f
+    audit_ids:
+    - audit-a9a484248c86
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T15:56:31.138551+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-139
+    audit_id: audit-a9a484248c86
+    attempt_id: attempt-fe0a33989c6d
+    target_state: Done
+    evidence_fingerprint: ae0f3fe4245c879a101a2c7be0c3225c1a4b1b1f2cbb6cce1b124c8b331cc90f
+    status: Done
+    audit_ids:
+    - audit-a9a484248c86
+    applied: false
+    created_at: '2026-08-01T15:56:31.138568+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -108,7 +132,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-139
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -117,7 +141,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-fe0a33989c6d
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -127,13 +151,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T15:46:15.250085+00:00'
       branch_key: epic-EXOCOMP-128--task-EXOCOMP-139
+      verdict: pass
+      completed_at: '2026-08-01T15:56:31.138352+00:00'
+      ended_at: '2026-08-01T15:56:31.138352+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:45:47.131631+00:00'
-    updated_at: '2026-08-01T15:46:15.250085+00:00'
+    updated_at: '2026-08-01T15:56:31.138352+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-fe0a33989c6d
@@ -332,5 +359,26 @@ author: oompah
 created: 2026-08-01 15:46
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 15:56
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: 778b0ae585f105fdcad710ed272f129950a44d54
+- remote_ref: origin/epic-EXOCOMP-128--task-EXOCOMP-139
+- commit_stat: 5 files changed, 1576 insertions(+)
+- envelope_files: acknowledgement.ex, codec.ex, command.ex, event.ex
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/mission_control/codec_test.exs (62 tests)
+- event_kinds: cluster.hello, cluster.heartbeat, status.snapshot, alert.opened/updated/resolved, conversation.reply, proposal.created, approval.result, action.status, audit.event
+- command_kinds: approval.decide, conversation.message, cluster.disconnect
+- payload_bound_bytes: 102400
+- schema_version: 1
+- test_deps_result: 9 passed, 0 failed
+- test_builders_result: 13 passed, 0 failed
+- make_test_output_bytes: ~93000 (consistent with full 573-test suite completion; auditor cannot read truncated file)
 ---
 <!-- COMMENTS:END -->
