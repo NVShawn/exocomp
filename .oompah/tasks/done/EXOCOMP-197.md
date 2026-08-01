@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-197
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Collect Ceph health and topology JSON
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:19.643459Z'
-updated_at: '2026-08-01T17:24:15.829800Z'
+updated_at: '2026-08-01T17:28:50.314454Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 target_branch: null
 review_url: null
@@ -103,6 +103,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:07:56.546050+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-0339512e943e: '2026-08-01T17:28:47.555515+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-197
+    target_state: Done
+    evidence_fingerprint: 25c2c5da00f5490aebdfb819cc34ed87a4cfa3ee3fd749ff564189ecb62c3167
+    audit_ids:
+    - audit-648accbdda98
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T17:28:47.555526+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-197
+    audit_id: audit-648accbdda98
+    attempt_id: attempt-0339512e943e
+    target_state: Done
+    evidence_fingerprint: 25c2c5da00f5490aebdfb819cc34ed87a4cfa3ee3fd749ff564189ecb62c3167
+    status: Done
+    audit_ids:
+    - audit-648accbdda98
+    applied: false
+    created_at: '2026-08-01T17:28:47.555542+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -110,7 +134,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-197
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -119,7 +143,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-0339512e943e
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -129,13 +153,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T17:24:12.203438+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-197
+      verdict: pass
+      completed_at: '2026-08-01T17:28:47.555362+00:00'
+      ended_at: '2026-08-01T17:28:47.555362+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T17:23:31.053806+00:00'
-    updated_at: '2026-08-01T17:24:12.203438+00:00'
+    updated_at: '2026-08-01T17:28:47.555362+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-0339512e943e
@@ -255,5 +282,24 @@ author: oompah
 created: 2026-08-01 17:24
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 17:28
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: c596834e6b50082aaf3023e8695a651f0360ec5f
+- commit_subject: EXOCOMP-197: Implement Ceph health and topology JSON collector
+- collector_module: apps/exocomp_coordinator/lib/exocomp/coordinator/collectors/ceph.ex
+- test_module: apps/exocomp_coordinator/test/exocomp/coordinator/collectors/ceph_test.exs
+- files_added_lines: 342 (collector) + 613 (tests) = 955
+- pushed_ref: origin/epic-EXOCOMP-186--task-EXOCOMP-197
+- schema_version: 1
+- timeout_ms: 10000
+- max_output_bytes: 1048576
+- test_execution: denied_by_auditor_policy_relied_on_prior_verification
 ---
 <!-- COMMENTS:END -->
