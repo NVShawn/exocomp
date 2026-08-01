@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-53
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement pinned amd64 and arm64 host profiles
 parent: EXOCOMP-35
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:36:53.820999Z'
-updated_at: '2026-07-25T21:10:58.459680Z'
+updated_at: '2026-08-01T21:19:39.149514Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 22645
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:43:23.031457+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-80b73a3ae808
+    project_id: proj-c260b117
+    task_id: EXOCOMP-53
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 89b03b5c6d4e2504e6ba3b7a81385d0c336e5aa41a313b62dccea83f97322b6b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:36.953943+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -359,5 +381,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
