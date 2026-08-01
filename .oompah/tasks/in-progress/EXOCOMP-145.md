@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:54:06.401930Z'
+updated_at: '2026-08-01T17:54:19.501700Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -677,5 +677,10 @@ author: oompah
 created: 2026-08-01 17:54
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 17:54
+---
+Understanding: I will audit the existing Mission Control configuration/supervision implementation against the acceptance criteria and prior auditor findings, add only the missing focused coverage or fixes, run the required Makefile gates, then commit, push, and submit the task.
 ---
 <!-- COMMENTS:END -->
