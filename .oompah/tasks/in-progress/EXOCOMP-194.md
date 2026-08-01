@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:27:41.824784Z'
+updated_at: '2026-08-01T17:28:53.004379Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-08-01 17:27
 ---
 Implementation: added exocomp_core Mission Control status event/codec/reducer modules, strict v1 payloads for desired-state deltas, service-status deltas, profile coverage, and summary snapshots; added coordinator facades; added root shared JSON fixtures for valid events, duplicate delivery, and out-of-order delivery; documented replay and bounds in plans/mission-control.md. Focused suite passes 13/13 in a local Jason-compatible compile smoke.
+---
+author: oompah
+created: 2026-08-01 17:28
+---
+Verification: focused shared-core plus coordinator-facade contract tests pass 13/13 using compiled Elixir/Jason sources; warning-as-error compile passes for all new production modules; all seven JSON fixtures parse and git diff --check passes. make test passes offline builder/package checks but cannot enter the pinned Elixir container because Podman reports its runtime filesystem is read-only. make compliance-check is blocked by 12 pre-existing trailing-whitespace errors in unrelated inventory tests.
 ---
 <!-- COMMENTS:END -->
