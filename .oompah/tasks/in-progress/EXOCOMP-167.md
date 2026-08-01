@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-167
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Build the incident inbox and detail LiveViews
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-08-01T15:23:54.093602Z'
+updated_at: '2026-08-01T15:25:13.836486Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 target_branch: null
 review_url: null
@@ -59,7 +59,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 34d5ee76-e05a-4435-b363-39379c173dfd
+oompah.agent_run_id: 87f3994c-699c-4f1d-9715-145fb777e1cf
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 oompah.integration:
   version: 2
@@ -68,7 +68,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-167
   base_branch: epic-EXOCOMP-133
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:21:04.450968+00:00'
+  updated_at: '2026-08-01T15:25:10.053672+00:00'
 oompah.task_costs:
   total_input_tokens: 194
   total_output_tokens: 7614
@@ -139,5 +139,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 46s
 - Log: EXOCOMP-167__20260801T152107Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:25
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 15:25
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
