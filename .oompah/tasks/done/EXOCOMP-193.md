@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-193
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Reconcile desired services and health transitions
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-08-01T16:52:15.274056Z'
+updated_at: '2026-08-01T17:10:07.407412Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 target_branch: null
 review_url: null
@@ -114,6 +114,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:02:35.560282+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-f027d3433638: '2026-08-01T17:10:04.698940+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-193
+    target_state: Done
+    evidence_fingerprint: dc2c33ff7cf8c16c89e14147edcc15fe36a9f2bf71974db2b6f0179a0b8a8b84
+    audit_ids:
+    - audit-ddd6819fd86a
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T17:10:04.698952+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-193
+    audit_id: audit-ddd6819fd86a
+    attempt_id: attempt-f027d3433638
+    target_state: Done
+    evidence_fingerprint: dc2c33ff7cf8c16c89e14147edcc15fe36a9f2bf71974db2b6f0179a0b8a8b84
+    status: Done
+    audit_ids:
+    - audit-ddd6819fd86a
+    applied: false
+    created_at: '2026-08-01T17:10:04.698969+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -121,7 +145,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-193
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -130,7 +154,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-f027d3433638
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -140,13 +164,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:52:01.720019+00:00'
       branch_key: epic-EXOCOMP-185--task-EXOCOMP-193
+      verdict: pass
+      completed_at: '2026-08-01T17:10:04.698630+00:00'
+      ended_at: '2026-08-01T17:10:04.698630+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:51:56.763882+00:00'
-    updated_at: '2026-08-01T16:52:01.720019+00:00'
+    updated_at: '2026-08-01T17:10:04.698630+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f027d3433638
@@ -292,5 +319,28 @@ author: oompah
 created: 2026-08-01 16:52
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 17:10
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch: epic-EXOCOMP-185--task-EXOCOMP-193
+- head_sha: ce0330d8cb83c6467cdfd072f125dc46b04bbff5
+- head_matches_origin: yes (origin/epic-EXOCOMP-185--task-EXOCOMP-193 = ce0330d8)
+- changed_files: apps/exocomp_coordinator/lib/exocomp/coordinator/service_scheduler.ex (+869/-42), apps/exocomp_coordinator/test/exocomp/coordinator/service_scheduler_test.exs (+123/-0)
+- acceptance_source_union: DesiredService.resolve(source_contributions/2) merges manual ++ automatic ++ profile contributions (service_scheduler.ex:1074, 1078-1099)
+- acceptance_probe_completeness: service_health_state requires every configured probe to be present and passing; missing or failing probe -> :unhealthy (service_scheduler.ex:925-933)
+- acceptance_stale_preservation: observation_failure_state maps :unreachable/:worker_down to :unreachable and :timeout/:stale to :stale; update_failed_observation_health preserves these explicitly (service_scheduler.ex:662-681)
+- acceptance_retirement: put_retired records retired expectation with :retired state and emits :desired_state_removed via Audit.emit with correlation_id (service_scheduler.ex:1281-1290, 1328-1345, 1468-1475)
+- acceptance_hysteresis: next_health/4 requires candidate_count>=2 before confirming :unhealthy or :healthy transition (service_scheduler.ex:725-772)
+- acceptance_correlation: emit_transition/4 stamps correlation_id + timestamp on every transition and delegates to Audit.emit through safe_audit_emit (service_scheduler.ex:783-796)
+- tests_present: service_scheduler_test.exs covers effective expectations across sources, retirement + desired_state_removed correlation, probe-failure hysteresis, and unreachable preservation
+- offline_gates: make test-deps PASS 9/9; make test-builders PASS 13/13; make test-release-packaging PASS 16/16
+- compliance_finding: make test-compliance fails on pre-existing trailing whitespace in apps/exocomp_coordinator/test/exocomp/coordinator/inventory_test.exs at lines 90/99/123/133/136/149/156/158, introduced by EXOCOMP-188 (e211afce) before this task's parent 2304acc1; not modified by ce0330d8
+- make_test_status: containerized make test cannot execute in this environment (documented Podman sticky-bit failure on /run/user/1000/libpod); ce0330d8 does not touch container/Makefile/deps configuration
 ---
 <!-- COMMENTS:END -->
