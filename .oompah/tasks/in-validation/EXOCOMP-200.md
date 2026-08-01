@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T21:55:16.543259Z'
+updated_at: '2026-08-01T21:56:34.669182Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -42,14 +42,15 @@ oompah.agent_run_id: 5eb9d376-8230-40be-92a6-80d42f095781
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-200
-  base_branch: main
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  base_branch: epic-EXOCOMP-186
+  base_sha: 0314c58199acb476c7384be42e88291af1beea95
   head_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
+  integrated_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
   submitted_at: '2026-08-01T21:54:39.809011+00:00'
-  updated_at: '2026-08-01T21:55:15.784013+00:00'
+  updated_at: '2026-08-01T21:56:27.590703+00:00'
 oompah.task_costs:
   total_input_tokens: 607291
   total_output_tokens: 25570
@@ -90,6 +91,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-200
     source_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
     completed_at: '2026-08-01T21:55:10.947068+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-e66a365b8da2
+    project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 3e84d277b099b216ba3029384b64e11e7134be95c11f32935985041de3738ce3
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T21:56:32.422175+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -184,5 +207,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 12m 56s
 - Log: EXOCOMP-200__20260801T214222Z.jsonl
+---
+author: oompah
+created: 2026-08-01 21:56
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
