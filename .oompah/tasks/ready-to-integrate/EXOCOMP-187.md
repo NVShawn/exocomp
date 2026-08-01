@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T13:40:22.222714Z'
+updated_at: '2026-08-01T13:40:50.518449Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 target_branch: null
 review_url: null
@@ -46,13 +46,13 @@ oompah.integration:
   submitted_at: '2026-08-01T13:40:19.872477+00:00'
   updated_at: '2026-08-01T13:40:19.872477+00:00'
 oompah.task_costs:
-  total_input_tokens: 377263
-  total_output_tokens: 2599
+  total_input_tokens: 377861
+  total_output_tokens: 2727
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 377263
-      output_tokens: 2599
+      input_tokens: 377861
+      output_tokens: 2727
       cost_usd: 0.0
   runs:
   - profile: default
@@ -61,6 +61,12 @@ oompah.task_costs:
     output_tokens: 2599
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:36:42.934699+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 598
+    output_tokens: 128
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:40:49.105576+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-187__20260801T133536Z
@@ -146,5 +152,15 @@ author: oompah
 created: 2026-08-01 13:40
 ---
 Integrated three-path desired-state design into plans/exocomp.md with clear ownership boundaries: Path 1 (manual inventory via M2), Path 2 (automatic reconciliation via M2+M4), Path 3 (Mission Control fleet management via M7). Mission Control boundaries clearly defined as non-policy-authority. All acceptance criteria met, tests pass.
+---
+author: oompah
+created: 2026-08-01 13:40
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 32
+- Tokens: 598 in / 128 out [726 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 56s
+- Log: EXOCOMP-187__20260801T133658Z.jsonl
 ---
 <!-- COMMENTS:END -->
