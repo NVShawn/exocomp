@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T12:52:03.723095Z'
+updated_at: '2026-08-01T12:52:29.372971Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -161,5 +161,10 @@ author: oompah
 created: 2026-08-01 12:52
 ---
 Verification: focused conversation suite passes 8 tests with 0 failures after final malformed-evidence handling fix; host syntax and formatter idempotence checks pass. Offline builder checks pass (13 structural/fixture checks). Required container-backed make test/fmt-check/lint remain environment-blocked by the read-only libpod runtime configuration.
+---
+author: oompah
+created: 2026-08-01 12:52
+---
+Completion: delivered organization-scoped incident/ad hoc cluster conversations, memberships, ordered 16 KiB-bounded messages, structured evidence references, newest-50/64 KiB context selection, lifecycle states, isolation checks, and focused tests in commit b8776d44. Branch pushed and clean; container-backed gates are pending an available builder runtime.
 ---
 <!-- COMMENTS:END -->
