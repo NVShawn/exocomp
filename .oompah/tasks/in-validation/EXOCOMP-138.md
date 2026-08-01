@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-138
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 2
 title: Add organizations and mandatory organization scoping
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:09:05.081426Z'
+updated_at: '2026-08-01T16:09:21.771942Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -61,12 +61,17 @@ oompah.agent_run_id: 78aaf871-667e-480f-bb1e-3fd93dcceed9
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-138
+  base_branch: epic-EXOCOMP-128
+  base_sha: 778b0ae585f105fdcad710ed272f129950a44d54
   head_sha: f34b7d15612196d3963bcaa9378278ba2e142e50
+  integrated_sha: f34b7d15612196d3963bcaa9378278ba2e142e50
   submitted_at: '2026-08-01T16:08:51.383532+00:00'
-  updated_at: '2026-08-01T16:08:51.383532+00:00'
+  updated_at: '2026-08-01T16:09:17.125772+00:00'
+  dependency_heads:
+    EXOCOMP-137: e9fb31b08db1442238755c5c4a45dc1dcdc1b02c
 oompah.task_costs:
   total_input_tokens: 28763003
   total_output_tokens: 97735
@@ -115,6 +120,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-128--task-EXOCOMP-138
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:43:21.436299+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-1b866e476af2
+    project_id: proj-c260b117
+    task_id: EXOCOMP-138
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 338e39634ec6022c596466fb139ef68eb884ede707d84a018552cf503bd2a084
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T16:09:19.524276+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -381,5 +408,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 6m 47s
 - Log: EXOCOMP-138__20260801T160223Z.jsonl
+---
+author: oompah
+created: 2026-08-01 16:09
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
