@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-08-01T03:16:55.020435Z'
+updated_at: '2026-08-01T03:19:04.410765Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -45,6 +45,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T16:57:22.083203+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-f759cf6fbf0d: '2026-08-01T03:19:02.498779+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-96
+    target_state: Archived
+    evidence_fingerprint: 0b94e8db3ddfa67272b948c2e30a26a7341e814e6bebd6fdd52312acf4f59365
+    audit_ids:
+    - audit-f99c66d2fa95
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:19:02.498786+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-96
+    audit_id: audit-f99c66d2fa95
+    attempt_id: attempt-f759cf6fbf0d
+    target_state: Archived
+    evidence_fingerprint: 0b94e8db3ddfa67272b948c2e30a26a7341e814e6bebd6fdd52312acf4f59365
+    status: Archived
+    audit_ids:
+    - audit-f99c66d2fa95
+    applied: false
+    created_at: '2026-08-01T03:19:02.498796+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -52,7 +76,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-96
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -61,7 +85,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-f759cf6fbf0d
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -71,13 +95,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:16:51.612325+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:19:02.498669+00:00'
+      ended_at: '2026-08-01T03:19:02.498669+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:59.984428+00:00'
-    updated_at: '2026-08-01T03:16:51.612325+00:00'
+    updated_at: '2026-08-01T03:19:02.498669+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f759cf6fbf0d
@@ -400,5 +427,24 @@ author: oompah
 created: 2026-08-01 03:16
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:19
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- impl_file_on_main: apps/exocomp_node/lib/exocomp/node/safety/precondition_checker.ex
+- test_file_on_main: apps/exocomp_node/test/exocomp/node/safety/precondition_checker_test.exs
+- impl_commit: e1fc626 EXOCOMP-96: implement PreconditionChecker with injectable evidence collectors and tests
+- merge_commit: b950895 Merge EXOCOMP-96: PreconditionChecker
+- origin_main_contains_impl_commit: true
+- prior_verification_reported: make test 254/254 pass, make lint clean
+- spec_verify_signature: verify(token, action_id, target) :: :ok | {:error, :precondition_changed} | {:error, {:collection_failed, reason}}
+- injection_env_key: :precondition_evidence_collector (Application.get_env)
+- canonical_evidence_restart_service: %{active_state, sub_state, unit_name} string keys, no collected_at
+- canonical_evidence_vacuum_logs: %{available_bytes, path, total_bytes} string keys, integer bytes
 ---
 <!-- COMMENTS:END -->
