@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:38:06.931742Z'
+updated_at: '2026-08-01T22:39:35.531215Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -490,5 +490,17 @@ author: oompah
 created: 2026-08-01 22:38
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-01 22:39
+---
+UNDERSTANDING CI FIX (attempt 2): Second audit identified 2 remaining issues in CephHealthReducer:
+1. :critical_health_status reason is never added to cluster_health.reasons when ceph_status == HEALTH_ERR (test at line ~88 asserts :critical_health_status in result.cluster_health.reasons)
+2. check_profile_evidence_health/1 returns false for empty local.state (%{}) — daemons with no profile evidence observation are incorrectly marked degraded even when systemd says healthy (multiple tests with state: %{} fail)
+
+Plan:
+(1) Add :critical_health_status to reasons list in determine_cluster_severity_and_reasons/5 when ceph_status == 'HEALTH_ERR'
+(2) Fix check_profile_evidence_health/1 to return true (healthy) when local_state is empty — absent evidence is a no-op, not a failure
+(3) Run make test to confirm 0 failures
 ---
 <!-- COMMENTS:END -->
