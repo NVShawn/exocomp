@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:58.020040Z'
-updated_at: '2026-08-01T15:18:41.338092Z'
+updated_at: '2026-08-01T15:19:27.503534Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-165
 target_branch: null
 review_url: null
@@ -129,5 +129,10 @@ author: oompah
 created: 2026-08-01 15:18
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 15:19
+---
+**Understanding**: Building fleet overview LiveView for Mission Control. Deliverables: render cluster connectivity/health/versions/node counts/labels/last contact/incident counts, add org-scoped filters and sorting, subscribe to PubSub updates for live row updates. Acceptance: LiveView tests for empty/loading/error/filters/sorting/connect/disconnect/health/org-isolation, visual distinction for disconnected vs healthy clusters, read-only access. Plan: explore codebase structure, identify where Mission Control LiveView module should be, implement fleet overview view with PubSub subscriptions, add comprehensive tests.
 ---
 <!-- COMMENTS:END -->
