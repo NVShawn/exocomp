@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:39:39.183816Z'
+updated_at: '2026-08-01T17:39:52.896259Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,12 +93,15 @@ oompah.agent_run_id: c102fe23-063e-46c2-b552-1f8c231e55f6
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
+  base_branch: epic-EXOCOMP-129
+  base_sha: b1a07ccf6044357ada26260ea1e71b052ae17c94
   head_sha: da00228fa34111b6cce19eca7d8c65491a4fd6cf
+  integrated_sha: da00228fa34111b6cce19eca7d8c65491a4fd6cf
   submitted_at: '2026-08-01T17:39:22.203633+00:00'
-  updated_at: '2026-08-01T17:39:22.203633+00:00'
+  updated_at: '2026-08-01T17:39:49.927080+00:00'
 oompah.task_costs:
   total_input_tokens: 21150648
   total_output_tokens: 106908
@@ -199,7 +202,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-140
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -229,6 +232,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:31:43.533715+00:00'
     updated_at: '2026-08-01T16:43:06.595623+00:00'
+  - version: 1
+    audit_id: audit-b264fb089ffc
+    project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c6e3341e8843653640b54d2ccada7fc3d5d5401339f64254e9b0425324cdf7f2
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T17:39:51.248455+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-31573855ceed
