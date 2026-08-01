@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T19:04:05.338174Z'
+updated_at: '2026-08-01T19:04:18.507228Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -49,8 +49,8 @@ oompah.integration:
   submitted_at: '2026-08-01T19:04:03.245085+00:00'
   updated_at: '2026-08-01T19:04:03.245085+00:00'
 oompah.task_costs:
-  total_input_tokens: 392787
-  total_output_tokens: 9122
+  total_input_tokens: 392884
+  total_output_tokens: 12413
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -58,8 +58,8 @@ oompah.task_costs:
       output_tokens: 4736
       cost_usd: 0.0
     sonnet:
-      input_tokens: 136
-      output_tokens: 4386
+      input_tokens: 233
+      output_tokens: 7677
       cost_usd: 0.0
   runs:
   - profile: default
@@ -80,6 +80,12 @@ oompah.task_costs:
     output_tokens: 4386
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:19:24.382870+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 97
+    output_tokens: 3291
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T19:04:16.818389+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-141__20260801T115045Z
@@ -365,5 +371,15 @@ author: oompah
 created: 2026-08-01 19:04
 ---
 Delivered Mission Control authorization foundation: Operator/RoleBinding identity structs scoped to organization_id with cross-org fail-closed isolation; OIDCResolver mapping group claims and subject overrides to viewer/operator/admin roles; context-level authorize/authorize!/can_read?/can_operate?/can_administer? functions; Plug.RequireRole (403 JSON) and LiveView.RequireRole (redirect) guards; Mutations.Attribution with OIDC sub + corr_ correlation IDs. Full 18-cell role×action×org matrix test plus unauthenticated/forbidden-error/plug/attribution tests. Rebased onto epic-EXOCOMP-129 picking up EXOCOMP-140 OIDC foundation. All quality gates pass (fmt-check, lint; tests: 511+866 assertions).
+---
+author: oompah
+created: 2026-08-01 19:04
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 68
+- Tokens: 97 in / 3.3K out [3.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 54s
+- Log: EXOCOMP-141__20260801T185335Z.jsonl
 ---
 <!-- COMMENTS:END -->
