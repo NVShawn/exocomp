@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-08-01T01:47:51.371470Z'
+updated_at: '2026-08-01T01:48:25.944061Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: e502ec22-c6c8-4484-9b9f-7e60f0ce708d
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 18
-  total_output_tokens: 4017
+  total_input_tokens: 63
+  total_output_tokens: 5796
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 18
-      output_tokens: 4017
+      input_tokens: 63
+      output_tokens: 5796
       cost_usd: 0.0
   runs:
   - profile: default
@@ -36,6 +36,12 @@ oompah.task_costs:
     output_tokens: 4017
     cost_usd: 0.0
     recorded_at: '2026-07-24T00:52:39.021232+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 45
+    output_tokens: 1779
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T01:48:24.342932+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -520,5 +526,15 @@ Safe evidence:
 - focused_tests: apps/exocomp_coordinator/test/exocomp/coordinator/pki/bootstrap_test.exs (10 tests)
 - dependency_added: x509 ~> 0.9.2
 - acceptance_coverage: chain separation, root absence online, protected backup, distinct approval key, idempotency, secure modes 0700/0600, partial+corrupt fail-closed, atomic cleanup, redacted errors+logs
+---
+author: oompah
+created: 2026-08-01 01:48
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 30
+- Tokens: 45 in / 1.8K out [1.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 48s
+- Log: EXOCOMP-75__20260801T014343Z.jsonl
 ---
 <!-- COMMENTS:END -->

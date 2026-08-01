@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-08-01T01:48:17.591453Z'
+updated_at: '2026-08-01T01:48:20.051525Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-72
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/3
@@ -72,7 +72,19 @@ oompah.terminal_audit:
       that merge commit is an ancestor of current origin/main, and docs/testing-systemd-fixture.md
       is present. Legacy audit metadata lacks a resolvable source revision.'
     created_at: '2026-08-01T01:48:15.279001+00:00'
-    applied: false
+    applied: true
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-72
+    target_state: Archived
+    evidence_fingerprint: f98ed9054e723cac9a94a8a2a5f772957c3b8f181e016f2703b64d73c33ccbb4
+    audit_ids:
+    - audit-03be0d4ba4e2
+    - audit-38ffdf7f3cc1
+    kind: override
+    applied: true
+    retired_at: '2026-08-01T01:48:19.438836+00:00'
+  oompah.terminal_audit_result_intents: []
   version: 1
   pending_chain:
   - version: 1
@@ -160,7 +172,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-72
     target_state: Archived
-    request_state: pending
+    request_state: cancelled
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -209,7 +221,7 @@ oompah.terminal_audit:
       source: api
     previous_state: Needs Human
     created_at: '2026-08-01T01:45:42.093986+00:00'
-    updated_at: '2026-08-01T01:47:25.637401+00:00'
+    updated_at: '2026-08-01T01:48:19.438803+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4c1657be7bd8
