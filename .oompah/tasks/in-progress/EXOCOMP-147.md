@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:49:22.853615Z'
+updated_at: '2026-08-01T13:50:00.898658Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -288,5 +288,10 @@ author: oompah
 created: 2026-08-01 13:49
 ---
 Verification: focused deterministic liveness tests pass (11 tests, 0 failures) using direct Elixir execution; focused mix format check and git diff --check pass. make test, make fmt-check, and make lint each pass their offline structural/release/package/document checks, then stop at the environment boundary because Podman cannot chmod /run/user/1000/libpod (read-only filesystem), so the pinned Elixir 1.20.2 container gates remain for CI/privileged runner.
+---
+author: oompah
+created: 2026-08-01 13:50
+---
+Completion: pushed commit 9c720a4d on the issue branch. Delivered heartbeat cadence and generation-safe timers, 90-second valid-heartbeat disconnect detection, bounded full-jitter reconnect backoff with stable-auth reset, commit-before-publish state transitions, duplicate timer protection, stale worker shutdown, and deterministic focused coverage. Focused tests pass (11/11), formatting/diff checks pass, and all required Make gates reach their offline checks before the sandbox Podman permission boundary. Branch is clean and up to date with origin.
 ---
 <!-- COMMENTS:END -->

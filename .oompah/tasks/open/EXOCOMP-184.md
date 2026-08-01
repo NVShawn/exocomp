@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:49:48.258011Z'
+updated_at: '2026-08-01T13:49:55.782700Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
