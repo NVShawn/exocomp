@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:24:09.682935Z'
+updated_at: '2026-08-01T23:24:15.911308Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -189,5 +189,10 @@ author: oompah
 created: 2026-08-01 23:23
 ---
 Completion: delivered and pushed b4aa7d82 (with submitted EXOCOMP-154 ancestor). HealthReducer now deterministically opens, updates, reopens, and resolves incidents across fleet, service/profile, Ceph, coverage, explicit-alert, and control-plane failure evidence; incident records retain severity. Focused ExUnit is green (30 tests), changed sources compile warnings-as-errors, and branch is clean/up to date. Full Makefile container gates remain environment-blocked by the read-only Podman libpod filesystem noted above.
+---
+author: oompah
+created: 2026-08-01 23:24
+---
+Implemented deterministic incident health-transition reduction with hysteresis, immediate failure and alert rules, severity mapping, recurrence, explicit resolution, and 30 focused tests; pushed b4aa7d82.
 ---
 <!-- COMMENTS:END -->
