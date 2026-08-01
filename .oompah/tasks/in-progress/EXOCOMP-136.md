@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T14:44:26.173105Z'
+updated_at: '2026-08-01T14:54:10.250161Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -191,5 +191,10 @@ author: oompah
 created: 2026-08-01 14:44
 ---
 Discovery: existing apps use Application supervision trees and Bandit/Plug; the lockfile already contains Bandit, Plug, telemetry, and WebSock but no Phoenix packages. I’ll use the integration-friendly names :exocomp_mission_control, Exocomp.MissionControl.Application, and Exocomp.MissionControl.Endpoint, keeping this change limited to scaffold, health route, static serving, focused tests, and release wiring.
+---
+author: oompah
+created: 2026-08-01 14:54
+---
+Implementation: added apps/exocomp_mission_control with Phoenix 1.7/Bandit/LiveView/PubSub dependencies, independent supervision tree, /live socket, Plug.Static pipeline, JSON GET /health route, tracked robots.txt, test helper, endpoint tests, and supervision/independence tests. Added test-safe endpoint config, production runtime port/secret configuration, and the separate mission_control OTP release including shared core only (no node/coordinator startup).
 ---
 <!-- COMMENTS:END -->
