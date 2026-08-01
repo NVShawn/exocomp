@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T18:04:07.028309Z'
+updated_at: '2026-08-01T18:22:59.022301Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -116,6 +116,7 @@ oompah.terminal_audit:
     attempt-ba2e9268bfd5: '2026-08-01T16:47:56.556258+00:00'
     attempt-e703af1125bb: '2026-08-01T17:02:57.255195+00:00'
     attempt-611078876978: '2026-08-01T17:52:15.037145+00:00'
+    attempt-b9a9121becd5: '2026-08-01T18:22:54.722491+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -144,6 +145,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T17:52:15.037160+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    evidence_fingerprint: c43385d709f0730926150de3df9950e2a3b4a4f10ffc3493ee42ec05fbe2b971
+    audit_ids:
+    - audit-9d2b8d5dc523
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T18:22:54.722513+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -181,6 +191,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T17:52:15.037176+00:00'
     applied_at: '2026-08-01T17:52:17.365783+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    audit_id: audit-9d2b8d5dc523
+    attempt_id: attempt-b9a9121becd5
+    target_state: Done
+    evidence_fingerprint: c43385d709f0730926150de3df9950e2a3b4a4f10ffc3493ee42ec05fbe2b971
+    status: Needs CI Fix
+    audit_ids:
+    - audit-9d2b8d5dc523
+    applied: true
+    created_at: '2026-08-01T18:22:54.722538+00:00'
+    applied_at: '2026-08-01T18:22:58.346094+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -293,7 +315,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -302,7 +324,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b9a9121becd5
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -312,13 +334,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T18:04:03.315884+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T18:22:54.722290+00:00'
+      ended_at: '2026-08-01T18:22:54.722290+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T18:03:08.727700+00:00'
-    updated_at: '2026-08-01T18:04:03.315884+00:00'
+    updated_at: '2026-08-01T18:22:54.722290+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -798,5 +824,18 @@ author: oompah
 created: 2026-08-01 18:04
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 18:22
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Instructions:
+- Fix supervisor_test.exs test 'mission_control_children returns child spec when config is enabled' (lines 66-114): bind the paths from test_config/0 (e.g. destructure a wider tuple) or drop the redefinition of enabled_config and use the struct returned by test_config/0 directly, and remove/replace the stale File.rm!/rm_rf! cleanup that still references those undefined names.
+- Re-run make test, make fmt-check, and make lint inside the pinned builder container and paste raw tails (make test 2>&1 | tail -5, make fmt-check 2>&1 | tail -3, make lint 2>&1 | tail -3) into a task comment before requeueing.
+- If the pinned Podman/container toolchain remains blocked in this environment, escalate that separately (Needs Human) rather than declaring Done without the required make quality-gate evidence.
+- Do not re-request Done until the third supervisor test compiles and the raw tails of make test/fmt-check/lint are inline in the task comments.
 ---
 <!-- COMMENTS:END -->
