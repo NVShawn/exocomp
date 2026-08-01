@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-160
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Deliver conversation commands and evidence-linked replies
 parent: EXOCOMP-132
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:18.620833Z'
-updated_at: '2026-07-30T14:21:27.075752Z'
+updated_at: '2026-08-01T11:49:23.272764Z'
 work_branch: null
 target_branch: null
 review_url: null

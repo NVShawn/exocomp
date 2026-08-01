@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-155
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Implement incident health-transition rules
 parent: EXOCOMP-131
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-07-30T21:41:21.981390Z'
+updated_at: '2026-08-01T11:49:16.710625Z'
 work_branch: null
 target_branch: null
 review_url: null

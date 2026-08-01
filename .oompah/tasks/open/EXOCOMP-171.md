@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-07-30T14:20:02.291598Z'
+updated_at: '2026-08-01T11:49:35.247494Z'
 work_branch: null
 target_branch: null
 review_url: null

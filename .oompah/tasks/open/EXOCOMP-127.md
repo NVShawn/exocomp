@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-127
 type: epic
-status: Backlog
+status: Open
 priority: 1
 title: 'M7: Exocomp Mission Control'
 parent: null
@@ -21,7 +21,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:14.308143Z'
-updated_at: '2026-07-30T21:41:18.430599Z'
+updated_at: '2026-08-01T11:49:38.258333Z'
 work_branch: null
 target_branch: null
 review_url: null

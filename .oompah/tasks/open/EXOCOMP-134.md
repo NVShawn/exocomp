@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-134
 type: epic
-status: Backlog
+status: Open
 priority: 2
 title: 'M7G: Webhooks, audit, and data lifecycle'
 parent: EXOCOMP-127
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:51.983189Z'
-updated_at: '2026-07-30T14:17:39.579146Z'
+updated_at: '2026-08-01T11:49:43.805309Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-169
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Add proposal controls and the action timeline
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.145960Z'
-updated_at: '2026-07-30T14:22:44.072923Z'
+updated_at: '2026-08-01T11:49:33.096628Z'
 work_branch: null
 target_branch: null
 review_url: null
