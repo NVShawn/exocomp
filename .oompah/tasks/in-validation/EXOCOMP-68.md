@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-68
 type: task
-status: Merged
+status: In Validation
 priority: 2
 title: Qualify multi-architecture OTP releases and reproducibility
 parent: EXOCOMP-42
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:25.715104Z'
-updated_at: '2026-07-25T21:11:29.139994Z'
+updated_at: '2026-08-01T21:20:03.503100Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -62,6 +62,28 @@ oompah.task_costs:
     output_tokens: 33776
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:14:12.968770+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-505a8e5ec82b
+    project_id: proj-c260b117
+    task_id: EXOCOMP-68
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 38a2fb62acd5bc73944059177893dc0430790e381ff3b041407642b48fccf38f
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:20:01.171375+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -306,5 +328,10 @@ author: oompah
 created: 2026-07-25 21:11
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:20
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
