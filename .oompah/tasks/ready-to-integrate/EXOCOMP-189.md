@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:20:32.302874Z'
+updated_at: '2026-08-01T14:21:14.297784Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -60,13 +60,13 @@ oompah.integration:
   submitted_at: '2026-08-01T14:20:30.117288+00:00'
   updated_at: '2026-08-01T14:20:30.117288+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 2595
+  total_input_tokens: 4335316
+  total_output_tokens: 28719
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10
-      output_tokens: 2595
+      input_tokens: 4335316
+      output_tokens: 28719
       cost_usd: 0.0
   runs:
   - profile: default
@@ -75,6 +75,12 @@ oompah.task_costs:
     output_tokens: 2595
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:45:48.757124+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 4335306
+    output_tokens: 26124
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:21:12.882315+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-189__20260801T134112Z
@@ -170,5 +176,15 @@ author: oompah
 created: 2026-08-01 14:20
 ---
 Added shared desired-service source types, deterministic three-path resolver, and table-driven unit coverage; pushed c3eeb34a. Focused tests pass, while make test's containerized Elixir stage is blocked by host Podman configuration.
+---
+author: oompah
+created: 2026-08-01 14:21
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 61
+- Tokens: 4.3M in / 26.1K out [4.4M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 9m 51s
+- Log: EXOCOMP-189__20260801T141128Z.jsonl
 ---
 <!-- COMMENTS:END -->
