@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-190
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Implement enabled long-running systemd service discovery
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T13:52:35.466682Z'
+updated_at: '2026-08-01T13:52:51.635518Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -36,7 +36,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 817ae23f-78ad-42be-b8b0-c88725df78ef
+oompah.agent_run_id: 87bd83ec-6baf-4890-b8c9-bbd76c65d7c4
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 oompah.integration:
   version: 2
@@ -45,7 +45,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-190
   base_branch: epic-EXOCOMP-185
   base_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
-  updated_at: '2026-08-01T13:46:00.810756+00:00'
+  updated_at: '2026-08-01T13:52:49.380504+00:00'
 oompah.task_costs:
   total_input_tokens: 795292
   total_output_tokens: 14641
@@ -116,5 +116,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 6m 35s
 - Log: EXOCOMP-190__20260801T134604Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:52
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:52
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
