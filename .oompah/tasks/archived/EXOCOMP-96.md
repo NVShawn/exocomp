@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-08-01T03:19:04.410765Z'
+updated_at: '2026-08-01T03:19:07.002154Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -67,8 +67,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-f99c66d2fa95
-    applied: false
+    applied: true
     created_at: '2026-08-01T03:19:02.498796+00:00'
+    applied_at: '2026-08-01T03:19:06.278418+00:00'
   version: 1
   pending_chain:
   - version: 1
