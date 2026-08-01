@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T12:19:05.696676Z'
+updated_at: '2026-08-01T12:19:26.012630Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -49,13 +49,17 @@ oompah.integration:
   submitted_at: '2026-08-01T12:19:03.167268+00:00'
   updated_at: '2026-08-01T12:19:03.167268+00:00'
 oompah.task_costs:
-  total_input_tokens: 392651
-  total_output_tokens: 4736
+  total_input_tokens: 392787
+  total_output_tokens: 9122
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 392651
       output_tokens: 4736
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 136
+      output_tokens: 4386
       cost_usd: 0.0
   runs:
   - profile: default
@@ -70,6 +74,12 @@ oompah.task_costs:
     output_tokens: 65
     cost_usd: 0.0
     recorded_at: '2026-08-01T11:55:51.936316+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 136
+    output_tokens: 4386
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:19:24.382870+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-141__20260801T115045Z
@@ -305,5 +315,15 @@ author: oompah
 created: 2026-08-01 12:19
 ---
 Implemented Mission Control authorization foundation in apps/exocomp_mission_control: Identity.Operator and RoleBinding structs scoped to organization_id; Auth.OIDCResolver mapping OIDC claims/groups to viewer/operator/admin roles; context-level Authorization module enforcing role hierarchy with cross-org fail-closed semantics; Plug.RequireRole HTTP plug; LiveView.RequireRole on_mount hook; Mutations.Attribution helper recording stable OIDC subject + correlation ID. Full role matrix test suite (128 assertions, 18-case role×action×org matrix). All of make test, make fmt-check, make lint pass.
+---
+author: oompah
+created: 2026-08-01 12:19
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 95
+- Tokens: 136 in / 4.4K out [4.5K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 19m 18s
+- Log: EXOCOMP-141__20260801T120014Z.jsonl
 ---
 <!-- COMMENTS:END -->
