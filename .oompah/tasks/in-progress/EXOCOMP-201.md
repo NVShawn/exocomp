@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-08-01T15:23:29.513716Z'
+updated_at: '2026-08-01T15:24:02.719044Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 target_branch: null
 review_url: null
@@ -62,12 +62,12 @@ oompah.agent_run_id: cd1d87c7-a2e8-45e3-beeb-79db0a7505e8
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-201
-  base_branch: epic-EXOCOMP-186
-  base_sha: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
-  updated_at: '2026-08-01T15:09:04.884275+00:00'
+  head_sha: 8e3debd59e5a3ca32307b8a0c2e8c219456cb58c
+  submitted_at: '2026-08-01T15:24:01.462072+00:00'
+  updated_at: '2026-08-01T15:24:01.462072+00:00'
 oompah.task_costs:
   total_input_tokens: 138
   total_output_tokens: 4578
@@ -169,5 +169,10 @@ author: oompah
 created: 2026-08-01 15:23
 ---
 Verification: make test-profile-action-helper passes compilation with -Wall/-Wextra/-Wpedantic/-Wconversion/-Wshadow/-Werror plus PIE/RELRO/stack-protector hardening and all parser/validator/execution tests. make test-compliance passed 29 tests, make check-links passed, and git diff --check passed. make test/make fmt-check reached the pinned container step but were blocked by host Podman read-only configuration; the local focused Elixir test was blocked because installed Elixir 1.18.3 is below required 1.20.2.
+---
+author: oompah
+created: 2026-08-01 15:23
+---
+Completion: delivered and pushed the standalone restricted profile-action helper on the issue branch. It enforces the bounded v1 stdin protocol, compiled Ceph v1/action allowlist, strict daemon-unit validation, loaded inactive/failed recheck, direct fixed systemctl argv, sanitized environment, timeout/output bounds, and fail-closed errors; focused native tests and offline repository gates are green.
 ---
 <!-- COMMENTS:END -->
