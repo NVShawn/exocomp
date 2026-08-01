@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-76
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement durable node-bound enrollment token service
 parent: EXOCOMP-16
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:19.306900Z'
-updated_at: '2026-08-01T01:48:34.767338Z'
+updated_at: '2026-08-01T01:55:15.767356Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -47,6 +47,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-9dad9d69f697-3: '2026-07-31T21:14:35.395162+00:00'
+    attempt-11968df25ada: '2026-08-01T01:55:13.621443+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-76
@@ -54,6 +55,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 650b440de6b052185df372762282a4c5ecac099480cdb0d1d58d647edd634643
     audit_ids:
     - audit-9dad9d69f697
+    - audit-88a226d55033
     kind: result
     applied: true
     retired_at: '2026-07-31T21:14:35.395173+00:00'
@@ -70,6 +72,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:14:35.395189+00:00'
     applied_at: '2026-07-31T21:14:40.188504+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-76
+    audit_id: audit-88a226d55033
+    attempt_id: attempt-11968df25ada
+    target_state: Archived
+    evidence_fingerprint: 650b440de6b052185df372762282a4c5ecac099480cdb0d1d58d647edd634643
+    status: Archived
+    audit_ids:
+    - audit-88a226d55033
+    applied: false
+    created_at: '2026-08-01T01:55:13.621478+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -160,7 +173,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-76
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -169,7 +182,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-11968df25ada
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -179,13 +192,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T01:48:28.594983+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T01:55:13.621146+00:00'
+      ended_at: '2026-08-01T01:55:13.621146+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:28.248571+00:00'
-    updated_at: '2026-08-01T01:48:28.594983+00:00'
+    updated_at: '2026-08-01T01:55:13.621146+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6922b53464c6
@@ -498,5 +514,32 @@ author: oompah
 created: 2026-08-01 01:48
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 01:55
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- impl_commit: af14041 EXOCOMP-76: implement durable node-bound enrollment token service
+- integration_commit: af0065d7 EXOCOMP-20: integrate PKI and enrollment modules
+- head_commit: 8f80aeb docs: add Mission Control roadmap plan
+- impl_file: apps/exocomp_coordinator/lib/exocomp/coordinator/enrollment_token.ex (20326 bytes at HEAD)
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/enrollment_token_test.exs (28838 bytes at HEAD)
+- integration_size: 624-line implementation + 775-line test at integration commit
+- supervisor_wiring: Exocomp.Coordinator.Application child spec at application.ex:99 and :188 wires EnrollmentToken with store_path and audit_server
+- default_lifetime_seconds: 600
+- [REDACTED-credential-key]: 128-bit key + 128-bit secret encoded as tok_{b64url}.{b64url}
+- digest_and_compare: SHA-256 stored digest; constant-time :crypto.hash_equals/2 for verification
+- store_permissions: 0700 directory (lstat-checked); 0600 file (staged atomic rename)
+- fail_closed: init returns {:stop, {:storage_unavailable, code}}; persist errors bubble as token_storage_error
+- injected_seams: now_fn, rand_fn, store_path, inventory_fn, audit_server, max_lifetime
+- redaction: format_status/1 redacts digest to [REDACTED] and drops closures; audit events carry node_id + result + correlation_id only
+- previous_state: Merged
+- target_state: Archived
+- previous_audit_failure_cause: historical worktree checkout of deleted origin/epic-EXOCOMP-2 (infrastructure, not implementation)
+- recovery_note: operator rearmed after OOMPAH-671 detached historical audit workspace recovery deployed
 ---
 <!-- COMMENTS:END -->
