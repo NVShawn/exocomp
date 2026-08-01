@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:12:57.682551Z'
+updated_at: '2026-08-01T23:18:20.690203Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -174,5 +174,10 @@ author: oompah
 created: 2026-08-01 23:12
 ---
 Implementation: added a pure HealthReducer under the EXOCOMP-154 incident app, with two-observation degraded/healthy hysteresis, immediate stale/unreachable/failure/critical/coverage/explicit-alert paths, deterministic alert identity and severity mapping, duplicate-ID conflict detection, desired-state removal resolution, and a store-backed process boundary for persisted/reopened incidents. Focused table-driven coverage is next.
+---
+author: oompah
+created: 2026-08-01 23:18
+---
+Verification checkpoint: direct ExUnit execution passed 28 tests (20 new HealthReducer cases plus 8 incident-store cases), with zero failures. Coverage includes threshold boundaries, interleaved targets, duplicate/conflicting IDs, all immediate failure classes, Ceph HEALTH_ERR, explicit severity mapping, auto-resolution, manual-resolution recurrence, desired-state removal, and explicit resolve events.
 ---
 <!-- COMMENTS:END -->
