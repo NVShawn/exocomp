@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-170
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Build Mission Control administration LiveViews
 parent: EXOCOMP-133
@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-08-01T15:47:48.757746Z'
+updated_at: '2026-08-01T15:47:52.593337Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-08-01 15:47
 ---
 Completion: pushed commit 90cbd830 on epic-EXOCOMP-133--task-EXOCOMP-170. Delivered routed admin LiveViews for invitations, cluster certificate/status and confirmed revocation, OIDC mappings, bounded retention, and webhook endpoint navigation; added org-scoped secret-safe administration records and focused tests. Branch status is clean and up to date with origin.
+---
+author: oompah
+created: 2026-08-01 15:47
+---
+Built Mission Control administration LiveViews with secret-safe invitation handling, confirmed cluster revocation and audit recording, OIDC role mappings, bounded retention, webhook navigation, organization isolation, and focused tests. Quality gate execution was recorded; containerized Make checks are blocked by the sandbox podman filesystem restriction and local Mix tests by the required Elixir 1.20.2 versus installed 1.18.3.
 ---
 <!-- COMMENTS:END -->
