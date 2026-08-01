@@ -26,6 +26,7 @@ defmodule Exocomp.MissionControl.Application do
       {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
       Exocomp.MissionControl.OIDCConfigCache,
       Exocomp.MissionControl.Repo,
+      Exocomp.MissionControl.Conversations,
       Exocomp.MissionControl.Endpoint
     ]
   end
