@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:26:56.391898Z'
+updated_at: '2026-08-01T17:27:21.383846Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 11a45fd9-e720-48be-a948-3f1c5daeda9c
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
-  base_branch: epic-EXOCOMP-130
-  base_sha: 2ecf1a21bdbc81bfe3fd7e3a81abf303d3f23477
-  updated_at: '2026-08-01T17:04:44.360077+00:00'
+  head_sha: ac5d88a054b19141f021700bdcefc88cef878721
+  submitted_at: '2026-08-01T17:27:19.058597+00:00'
+  updated_at: '2026-08-01T17:27:19.058597+00:00'
 oompah.task_costs:
   total_input_tokens: 745901
   total_output_tokens: 9963
@@ -488,5 +488,20 @@ author: oompah
 created: 2026-08-01 17:26
 ---
 Implementation: Added custom child_spec/1 to MissionControl.Supervisor that properly handles the config struct and registers the supervisor under Exocomp.Coordinator.MissionControlSupervisor with type:supervisor. Updated Application.mission_control_children() to emit {MissionControl.Supervisor, mc_config} tuple format. Replaced dummy tests with four comprehensive tests: (1) nil config returns empty list, (2) disabled config returns empty list, (3) enabled config returns proper child spec, (4) direct supervisor start with enabled config verifies Outbox and Connection children are alive and initialized.
+---
+author: oompah
+created: 2026-08-01 17:27
+---
+Verification: All quality gates pass. Test results:
+- make test: 535 passed (exocomp_coordinator 535/535 passed)
+- make fmt-check: PASS
+- make lint: PASS (compliance: all checks passed)
+
+Summary: MissionControl.Supervisor now has a custom child_spec/1 that properly registers the supervisor and sets correct type. Application.mission_control_children() emits {Module, config} format. All four tests verify: nil/disabled configs return empty lists, enabled config returns proper spec, and supervisor start successfully initializes Outbox and Connection children.
+---
+author: oompah
+created: 2026-08-01 17:27
+---
+Added custom child_spec/1 to MissionControl.Supervisor to properly handle config struct and registration. Updated Application.mission_control_children() to use {Module, config} tuple format. Replaced tests with comprehensive coverage for nil, disabled, and enabled configs. All 535 tests pass, fmt-check and lint pass.
 ---
 <!-- COMMENTS:END -->
