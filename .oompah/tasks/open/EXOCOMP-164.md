@@ -14,8 +14,8 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-01T14:59:57.149193Z'
-work_branch: null
+updated_at: '2026-08-01T15:00:05.624304Z'
+work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
 review_number: null
@@ -34,6 +34,16 @@ oompah.duplicate_screening:
   claim_expires_at: '2026-08-01T15:29:56.405087+00:00'
   retry_count: 0
   retry_after: null
+oompah.agent_run_id: 6c772abb-e42a-45f3-9857-889abd490e28
+oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-133--task-EXOCOMP-164
+  base_branch: epic-EXOCOMP-133
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  updated_at: '2026-08-01T15:00:03.679917+00:00'
 ---
 ## Summary
 
@@ -58,3 +68,16 @@ Quality gate: focused LiveView tests plus make fmt-check and make lint.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 15:00
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-01 15:00
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
