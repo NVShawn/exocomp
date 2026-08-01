@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-08-01T01:47:22.843371Z'
+updated_at: '2026-08-01T01:48:09.733282Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-71
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/4
@@ -62,6 +62,25 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-7aa9b99b1cdd-3: '2026-07-30T21:58:07.631377+00:00'
+  oompah.terminal_override_records:
+  - version: 1
+    override_id: override-4486bd976cd9
+    project_id: proj-c260b117
+    task_id: EXOCOMP-71
+    target_state: Archived
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2a24896797cca78fd5b82b7bfbfd637693342775b2e9c7872132a7f0860ec5fc
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: 'Owner-verified immutable evidence: PR #4 merged as c8b9d5c587f6b0ddea8e256bcda1935efd26d3c5,
+      that merge commit is an ancestor of current origin/main, and the systemd integration
+      test suite is present. Legacy audit metadata lacks a resolvable source revision.'
+    created_at: '2026-08-01T01:48:06.817820+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
@@ -709,5 +728,12 @@ author: oompah
 created: 2026-08-01 01:47
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-71 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-71, origin/EXOCOMP-71). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 01:48
+---
+Override by oompah-cli: terminal transition to Archived applied by project owner.
+
+Reason: Owner-verified immutable evidence: PR #4 merged as c8b9d5c587f6b0ddea8e256bcda1935efd26d3c5, that merge commit is an ancestor of current origin/main, and the systemd integration test suite is present. Legacy audit metadata lacks a resolvable source revision.
 ---
 <!-- COMMENTS:END -->
