@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-01T12:10:47.640958Z'
+updated_at: '2026-08-01T12:13:46.400451Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -145,5 +145,10 @@ author: oompah
 created: 2026-08-01 12:10
 ---
 Implementation: added organization-scoped Cluster and ClusterInvitation schemas, durable serialized ClusterInvitationStore/context, digest-only random issuance, expiry and atomic single-use consumption, coordinator supervision/config wiring, and admin-only POST /api/v1/cluster-invitations handler/router integration. Added focused tests for creation, expiry, replay, wrong organization, duplicate names, concurrency, plaintext absence, and role enforcement.
+---
+author: oompah
+created: 2026-08-01 12:13
+---
+Verification: manual OTP checks passed for digest-only persistence, restart durability, expiry boundary, wrong-organization non-consumption, replay rejection, and serialized concurrent consumption; new/changed files parse and are formatter-clean, and the pure store compiles with --warnings-as-errors. make test/make lint/make fmt-check reached the pinned builder invocation but could not run because the environment's docker/podman wrapper cannot access its read-only libpod config; direct mix test is additionally blocked by local Elixir 1.18.3 versus project Elixir 1.20.2.
 ---
 <!-- COMMENTS:END -->
