@@ -25,3 +25,12 @@ recovery_audit_path =
   end
 
 config :exocomp_node, :recovery_audit_path, recovery_audit_path
+
+# Mission Control LiveView Configuration
+config :mission_control, MissionControl.Endpoint,
+  url: [host: "localhost"],
+  adapter: Plug.Cowboy,
+  render_errors: [view: MissionControl.ErrorView, accepts: ~w(html json)],
+  pubsub_server: MissionControl.PubSub
+
+config :logger, level: :info
