@@ -9,10 +9,12 @@ children: []
 blocked_by: []
 start_blocked_by: &id001
 - EXOCOMP-195
-labels: []
+labels:
+- focus-complete:docs
+- needs:feature
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:13:47.558420Z'
+updated_at: '2026-08-01T15:15:26.091205Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -260,5 +262,25 @@ author: oompah
 created: 2026-08-01 15:13
 ---
 Understanding: I will review the existing Ceph profile operator documentation for accuracy and concise, usable configuration guidance; verify examples against the current repository; then document any remaining backend implementation work in a focused handoff.
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Implementation (docs): Confirmed the committed guide in docs/ceph-profile-configuration.md documents the required absolute-path, version, startup-validation, degradation, and read-only Cephx capability contract. No code was changed in this docs focus.
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Verification (docs): make check-links passed. Repository inspection confirms the guide's Cephx command and JSON examples are syntactically valid; coordinator support for the documented cluster_profiles.ceph schema remains to be implemented.
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Focus handoff: docs\n\nOutcome: Ceph operator documentation is complete and link-checked.\n\nRelevant files and evidence: docs/ceph-profile-configuration.md (committed as f621e163); make check-links passed. The current profile registry (apps/exocomp_core/lib/exocomp/cluster_profile/registry.ex) ships only Exocomp.ClusterProfile.Default, and apps/exocomp_coordinator/lib/exocomp/coordinator/config.ex currently accepts only version, coordinator_id, tls, and listen.\n\nRemaining work and risks: Implement and test the Ceph profile, protected cluster_profiles.ceph config parsing, startup file/ownership/permission/executable validation, redacted actionable audit event emission, and degraded Ceph coverage. Align the final ownership policy and any environment overrides precisely with the documented contract; do not expose keyring content.\n\nRecommended next focus: feature.
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Completion (docs): Documentation phase is complete. The task remains in progress for the feature implementation described in the handoff.
 ---
 <!-- COMMENTS:END -->

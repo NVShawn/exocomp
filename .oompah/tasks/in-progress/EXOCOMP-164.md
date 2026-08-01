@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-01T15:14:34.717211Z'
+updated_at: '2026-08-01T15:15:31.797626Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -180,5 +180,21 @@ author: oompah
 created: 2026-08-01 15:14
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Understanding: Building the authenticated LiveView shell and navigation UI for Mission Control. Key requirements: (1) Authenticated root layout with OIDC redirect for unauthenticated users; (2) Role-aware navigation (Viewer/Operator/Admin); (3) Reusable UI components (connectivity, health, severity, timestamps, empty states); (4) Organization and actor identity preserved across reconnect; (5) Accessibility compliance (landmarks, focus, labels, keyboard). Blocked by EXOCOMP-136/140/141 for backend infrastructure.
+
+Planned approach:
+1. Explore existing mission_control app structure and backend setup
+2. Identify blocking tasks status to understand what infrastructure is ready
+3. Build authenticated root layout with OIDC guard
+4. Implement role-based navigation
+5. Create reusable component library
+6. Add LiveView tests for all roles and navigation flows
+7. Verify accessibility and formatting/lint
+
+Starting discovery now.
 ---
 <!-- COMMENTS:END -->
