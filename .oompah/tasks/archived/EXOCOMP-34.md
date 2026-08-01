@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:49.457512Z'
-updated_at: '2026-08-01T03:14:59.063083Z'
+updated_at: '2026-08-01T03:15:13.547013Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -98,6 +98,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T03:09:01.898025+00:00'
     branch_key: epic-EXOCOMP-4
+oompah.task_costs:
+  total_input_tokens: 95
+  total_output_tokens: 3248
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 95
+      output_tokens: 3248
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 95
+    output_tokens: 3248
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T03:15:12.331368+00:00'
 ---
 ## Summary
 
@@ -206,5 +222,15 @@ Safe evidence:
 - auto_archive_reason: Aged Merged auto-archive (closed 7 days ago)
 - task_worktree_status: not currently on any branch; working tree clean; no local pending changes
 - caveat_missing_task_verification_comments: EXOCOMP-34 comment stream contains only the duplicate-detector handoff plus audit-queue metadata; no dedicated release-like verification run was recorded on this task before it was moved to Merged. The verification described in the task body was effectively delivered by downstream tasks whose commits are on main.
+---
+author: oompah
+created: 2026-08-01 03:15
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 57
+- Tokens: 95 in / 3.2K out [3.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 6m 10s
+- Log: EXOCOMP-34__20260801T030906Z.jsonl
 ---
 <!-- COMMENTS:END -->
