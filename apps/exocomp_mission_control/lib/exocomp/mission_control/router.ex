@@ -5,9 +5,13 @@ defmodule Exocomp.MissionControl.Router do
 
   use Phoenix.Router
 
-  get "/health" do
-    conn
-    |> Plug.Conn.put_resp_content_type("application/json")
-    |> Plug.Conn.send_resp(200, ~s({"status":"ok"}))
+  pipeline :api do
+    plug(:accepts, ["json"])
+  end
+
+  scope "/", Exocomp.MissionControl do
+    pipe_through(:api)
+
+    get("/health", HealthController, :health)
   end
 end
