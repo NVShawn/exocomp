@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-01T11:56:26.747274Z'
+updated_at: '2026-08-01T11:56:38.227547Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -130,5 +130,10 @@ author: oompah
 created: 2026-08-01 11:56
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 11:56
+---
+Understanding: I will trace the existing organization auth, schema, persistence, and test patterns; implement scoped one-use cluster invitation creation and atomic consumption with digest-only storage; add focused coverage for expiry, replay, organization/role/name conflicts, and concurrency; then run the required quality gates.
 ---
 <!-- COMMENTS:END -->
