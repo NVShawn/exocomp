@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-08-01T15:09:07.103908Z'
+updated_at: '2026-08-01T15:09:42.341298Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-08-01 15:09
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-08-01 15:09
+---
+Understanding: implement a versioned, bounded stdin-only privileged helper that allowlists shipped profile/action IDs and Ceph unit forms, rechecks inactive/failed state, and executes only fixed systemctl argv; add parser/validator and negative security tests, then run the focused Make gate.
 ---
 <!-- COMMENTS:END -->
