@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-08-01T23:02:10.836913Z'
+updated_at: '2026-08-01T23:06:30.200883Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-08-01 23:02
 ---
 Understanding: Add unauthenticated liveness and guarded readiness endpoints, with readiness reflecting migrations/database connectivity and critical supervision state without requiring a cluster, plus stable low-cardinality Prometheus metrics for the planned Mission Control domains. I will first inspect the server, startup, persistence, supervision, telemetry, docs, and Makefile test conventions; then implement focused coverage for healthy/unavailable/pending/degraded/recovery states and endpoint/metric security and stability.
+---
+author: oompah
+created: 2026-08-01 23:06
+---
+Discovery: The existing Mission Control scaffold (dependency commit 3a3d6e61) provides Phoenix Endpoint/Router/Application with GET /health, while later dependency APIs identify Repo, connection/session liveness, incident, command, webhook, and retention boundaries. The current task branch has not yet received those dependency commits, so the implementation will preserve the scaffold-compatible public modules and keep health/telemetry checks injectable and low-cardinality for clean integration when dependencies land.
 ---
 <!-- COMMENTS:END -->
