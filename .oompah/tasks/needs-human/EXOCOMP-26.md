@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-26
 type: feature
-status: In Validation
+status: Needs Human
 priority: 1
 title: Implement bounded system-log cleanup action
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:12.273742Z'
-updated_at: '2026-08-01T03:44:28.549166Z'
+updated_at: '2026-08-01T03:45:11.081027Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -55,6 +55,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-bcc2e2e51e2e: '2026-08-01T03:40:14.053291+00:00'
+    infrastructure-exhausted-audit-ca4fdafc133b-3: '2026-08-01T03:45:07.724267+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-26
@@ -65,6 +66,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T03:40:14.053309+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-26
+    target_state: Done
+    evidence_fingerprint: 28bcc5b191a3d6fe5b2db216042c67b03f66d08a4b9d0240287e1c2afc5af198
+    audit_ids:
+    - audit-ca4fdafc133b
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:45:07.724281+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-26
@@ -78,6 +88,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T03:40:14.053324+00:00'
     applied_at: '2026-08-01T03:40:16.646116+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-26
+    audit_id: audit-ca4fdafc133b
+    attempt_id: infrastructure-exhausted-audit-ca4fdafc133b-3
+    target_state: Done
+    evidence_fingerprint: 28bcc5b191a3d6fe5b2db216042c67b03f66d08a4b9d0240287e1c2afc5af198
+    status: Needs Human
+    audit_ids:
+    - audit-ca4fdafc133b
+    applied: true
+    created_at: '2026-08-01T03:45:07.724293+00:00'
+    applied_at: '2026-08-01T03:45:10.234866+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -120,7 +142,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-26
     target_state: Done
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -182,12 +204,24 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-26 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-26)'
       next_retry_at: '2026-08-01T03:45:06.657105+00:00'
+    - version: 1
+      attempt_id: infrastructure-exhausted-audit-ca4fdafc133b-3
+      target_state: Done
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 28bcc5b191a3d6fe5b2db216042c67b03f66d08a4b9d0240287e1c2afc5af198
+      verdict: needs_human
+      failure_classification: infrastructure_error
+      created_at: '2026-08-01T03:45:07.724182+00:00'
+      completed_at: '2026-08-01T03:45:07.724182+00:00'
     requested_by:
       version: 1
       identity: orchestrator
     previous_state: Needs Human
     created_at: '2026-08-01T03:40:52.374746+00:00'
-    updated_at: '2026-08-01T03:44:26.657133+00:00'
+    updated_at: '2026-08-01T03:45:07.724182+00:00'
   - version: 1
     audit_id: audit-b68e47a4ba8d
     project_id: proj-c260b117
@@ -477,5 +511,12 @@ author: oompah
 created: 2026-08-01 03:44
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-26 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-26). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 03:45
+---
+Needs Human — Done audit requires operator input.
+
+Independent auditor launches exhausted their retry budget because the audit workspace or transport failed before review began. Restore the audit infrastructure, then have a project owner rearm this terminal audit; do not reopen implementation work.
 ---
 <!-- COMMENTS:END -->
