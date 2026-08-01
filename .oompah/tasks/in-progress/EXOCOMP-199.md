@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-199
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Correlate Ceph topology with coordinator inventory nodes
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T14:12:22.542159Z'
+updated_at: '2026-08-01T18:38:40.923140Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -101,7 +101,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 376538e6-e961-4cc0-a51a-0a1e8ea79bf1
+oompah.agent_run_id: 12f295fc-a215-4a76-9696-4470a1fbcb8a
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 oompah.integration:
   version: 2
@@ -109,8 +109,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-199
   base_branch: epic-EXOCOMP-186
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:10:05.689753+00:00'
+  base_sha: a929517cafea443b9d66d601bfd7d7e439e5aaec
+  updated_at: '2026-08-01T18:38:39.238291+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 277
@@ -181,5 +181,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 16s
 - Log: EXOCOMP-199__20260801T141007Z.jsonl
+---
+author: oompah
+created: 2026-08-01 18:38
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 18:38
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
