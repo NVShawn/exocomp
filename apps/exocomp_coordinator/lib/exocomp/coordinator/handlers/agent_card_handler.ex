@@ -13,7 +13,7 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
   alias Exocomp.A2A.AgentCapabilities
   alias Exocomp.A2A.AgentCard
   alias Exocomp.A2A.AgentSkill
-  alias Exocomp.ClusterProfile.Registry, as: ClusterProfileRegistry
+  alias Exocomp.Coordinator.ProfileCoverage
 
   @skills [
     %AgentSkill{
@@ -47,7 +47,8 @@ defmodule Exocomp.Coordinator.Handlers.AgentCardHandler do
       version: "0.1.0",
       capabilities: %AgentCapabilities{},
       skills: @skills,
-      clusterProfiles: ClusterProfileRegistry.advertised_profiles()
+      clusterProfiles:
+        ProfileCoverage.advertised_profiles(Keyword.get(opts, :profile_coverage, ProfileCoverage))
     }
 
     conn

@@ -15,7 +15,7 @@ defmodule Exocomp.Coordinator.Audit do
   alias Exocomp.Coordinator.Error
 
   @redacted "[REDACTED]"
-  @sensitive_keys ~w(api_key authorization cookie credential credentials password passwd private_key secret token)
+  @sensitive_keys ~w(api_key authorization cookie credential credentials password passwd private_key secret token key keyring cephx_key auth_key)
 
   @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts) do

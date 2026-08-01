@@ -24,7 +24,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
   alias Exocomp.ClusterProfile.Ceph.Config
 
   @type failure_code ::
-          :relative_path
+          :unsupported_version
+          | :relative_path
           | :nil_path
           | :file_missing
           | :file_unreadable
@@ -46,6 +47,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
 
   @type stat_fn :: (String.t() -> {:ok, File.Stat.t()} | {:error, File.posix()})
 
+  @supported_version 1
+
   @doc """
   Validates the Ceph profile configuration.
 
@@ -60,6 +63,7 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
   def validate(%Config{} = config, stat_fn \\ &File.stat/1) do
     failures =
       []
+      |> check_version(config.version)
       |> check_absolute_path(config.ceph_binary_path, "ceph_binary_path")
       |> check_absolute_path(config.ceph_conf_path, "ceph_conf_path")
       |> check_absolute_path(config.keyring_path, "keyring_path")
@@ -75,6 +79,24 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
 
   # ── Path format checks ───────────────────────────────────────────────────────
 
+  defp check_version(failures, @supported_version), do: failures
+
+  defp check_version(failures, version) do
+    [
+      %{
+        code: :unsupported_version,
+        reason: "Ceph profile version must be #{@supported_version}; got #{inspect(version)}",
+        path: nil,
+        field: "version",
+        mode: nil,
+        uid: nil,
+        severity: :error,
+        action_required: "Set cluster_profiles.ceph.version to #{@supported_version}"
+      }
+      | failures
+    ]
+  end
+
   defp check_absolute_path(failures, nil, field) do
     [
       %{
@@ -82,6 +104,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
         reason: "#{field} is not configured",
         path: nil,
         field: field,
+        mode: nil,
+        uid: nil,
         severity: :error,
         action_required: "Set #{field} to an absolute path in cluster_profiles.ceph"
       }
@@ -99,6 +123,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
           reason: "#{field} must be an absolute path; got #{inspect(path)}",
           path: path,
           field: field,
+          mode: nil,
+          uid: nil,
           severity: :error,
           action_required: "Change #{field} to an absolute path starting with /"
         }
@@ -114,6 +140,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
         reason: "#{field} must be a string absolute path; got #{inspect(path)}",
         path: nil,
         field: field,
+        mode: nil,
+        uid: nil,
         severity: :error,
         action_required: "Change #{field} to an absolute path starting with /"
       }
@@ -144,6 +172,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
             reason: "file does not exist: #{path}",
             path: path,
             field: field,
+            mode: nil,
+            uid: nil,
             severity: :error,
             action_required: "Ensure the file exists at #{path}"
           }
@@ -157,9 +187,10 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
             reason: "could not stat #{path}: #{inspect(reason)}",
             path: path,
             field: field,
+            mode: nil,
+            uid: nil,
             severity: :error,
-            action_required:
-              "Ensure the exocomp-coordinator service account can read #{path}"
+            action_required: "Ensure the exocomp-coordinator service account can read #{path}"
           }
           | failures
         ]
@@ -187,13 +218,15 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
 
   # ── Individual stat checks ───────────────────────────────────────────────────
 
-  defp check_root_owned(failures, path, field, %File.Stat{uid: 0}) do
+  defp check_root_owned(failures, path, field, %File.Stat{uid: 0} = stat) do
     [
       %{
         code: :root_owned,
         reason: "file is owned by root (uid 0): #{path}",
         path: path,
         field: field,
+        mode: permission_bits(stat.mode),
+        uid: stat.uid,
         severity: :warning,
         action_required:
           "Change ownership of #{path} to a non-root service account (e.g., ceph or exocomp-coordinator)"
@@ -204,7 +237,7 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
 
   defp check_root_owned(failures, _path, _field, _stat), do: failures
 
-  defp check_regular_file(failures, path, field, %File.Stat{type: type})
+  defp check_regular_file(failures, path, field, %File.Stat{type: type} = stat)
        when type != :regular do
     [
       %{
@@ -212,6 +245,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
         reason: "ceph binary is not a regular file (type: #{type}): #{path}",
         path: path,
         field: field,
+        mode: permission_bits(stat.mode),
+        uid: stat.uid,
         severity: :error,
         action_required: "Verify #{field} points to an executable regular file"
       }
@@ -231,6 +266,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
           reason: "ceph binary does not have owner execute bit set: #{path}",
           path: path,
           field: field,
+          mode: permission_bits(stat.mode),
+          uid: stat.uid,
           severity: :error,
           action_required: "Ensure #{path} has execute permission: chmod u+x #{path}"
         }
@@ -261,6 +298,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
               "keyring has world-accessible mode 0#{mode_str}: #{path}; expected 0600 or 0640",
             path: path,
             field: field,
+            mode: perm_bits,
+            uid: stat.uid,
             severity: :error,
             action_required: "Restrict keyring permissions: chmod 0600 #{path}"
           }
@@ -277,9 +316,10 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
               "keyring has group-writable mode 0#{mode_str}: #{path}; expected 0600 or 0640",
             path: path,
             field: field,
+            mode: perm_bits,
+            uid: stat.uid,
             severity: :error,
-            action_required:
-              "Remove group write permission: chmod 0640 #{path}"
+            action_required: "Remove group write permission: chmod 0640 #{path}"
           }
           | failures
         ]
@@ -290,6 +330,8 @@ defmodule Exocomp.ClusterProfile.Ceph.Validator do
   end
 
   # ── Helpers ──────────────────────────────────────────────────────────────────
+
+  defp permission_bits(mode), do: band(mode, 0o7777)
 
   defp absolute_path?(path) when is_binary(path), do: Path.type(path) == :absolute
   defp absolute_path?(_), do: false

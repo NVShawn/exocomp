@@ -57,6 +57,8 @@ defmodule Exocomp.Coordinator.Application do
   defp base_children do
     [
       {Audit, Application.get_env(:exocomp_coordinator, :audit, [])},
+      {Exocomp.Coordinator.ProfileCoverage,
+       Application.get_env(:exocomp_coordinator, :profile_coverage, [])},
       {Exocomp.Coordinator.Registry, Application.get_env(:exocomp_coordinator, :registry, [])},
       {Exocomp.Coordinator.Inventory,
        inventory_path: Application.get_env(:exocomp_coordinator, :inventory_path)},
@@ -163,6 +165,7 @@ defmodule Exocomp.Coordinator.Application do
     inventory_name = :"#{prefix}_inventory"
     pki_state_name = :"#{prefix}_pki_state"
     enrollment_name = :"#{prefix}_enrollment_token"
+    profile_coverage_name = :"#{prefix}_profile_coverage"
 
     store_path =
       Keyword.get(
@@ -181,6 +184,7 @@ defmodule Exocomp.Coordinator.Application do
 
     children = [
       {Exocomp.Coordinator.Audit, audit_opts},
+      {Exocomp.Coordinator.ProfileCoverage, [name: profile_coverage_name]},
       {Exocomp.Coordinator.PKI.State, [metadata: metadata, name: pki_state_name]},
       {Exocomp.Coordinator.Registry, [name: registry_name]},
       {Exocomp.Coordinator.Inventory,

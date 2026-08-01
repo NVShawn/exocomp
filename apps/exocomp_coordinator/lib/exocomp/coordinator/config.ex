@@ -95,14 +95,22 @@ defmodule Exocomp.Coordinator.Config do
   end
 
   @enforce_keys [:version, :coordinator_id, :tls, :listen]
-  defstruct [:version, :coordinator_id, :tls, :listen, ceph_profile: nil]
+  defstruct [
+    :version,
+    :coordinator_id,
+    :tls,
+    :listen,
+    ceph_profile: nil,
+    ceph_profile_error: nil
+  ]
 
   @type t :: %__MODULE__{
           version: pos_integer(),
           coordinator_id: String.t(),
           tls: TLS.t(),
           listen: Listen.t(),
-          ceph_profile: Ceph.Config.t() | nil
+          ceph_profile: Ceph.Config.t() | nil,
+          ceph_profile_error: {:invalid_ceph_profile, String.t()} | nil
         }
 
   # ── Public API ───────────────────────────────────────────────────────────────
@@ -120,9 +128,10 @@ defmodule Exocomp.Coordinator.Config do
   - `{:error, {:missing_fields, [field_path]}}` — one or more required fields absent
   - `{:error, {:type_errors, [field_path]}}` — one or more fields have wrong types
   """
-  @spec load(String.t() | nil) :: {:ok, t()} | {:error, term()}
-  def load(path \\ nil) do
+  @spec load(String.t() | nil, keyword()) :: {:ok, t()} | {:error, term()}
+  def load(path \\ nil, opts \\ []) do
     resolved = resolve_path(path)
+    allow_invalid_ceph_profile = Keyword.get(opts, :allow_invalid_ceph_profile, false)
 
     with {:ok, raw} <- read_file(resolved),
          {:ok, parsed} <- parse_json(raw),
@@ -130,8 +139,9 @@ defmodule Exocomp.Coordinator.Config do
          parsed <- apply_env_overrides(parsed),
          :ok <- validate_required_fields(parsed),
          :ok <- validate_field_types(parsed),
-         :ok <- validate_ceph_profile(parsed) do
-      {:ok, to_struct(parsed)}
+         {:ok, ceph_profile_error} <-
+           validate_ceph_profile(parsed, allow_invalid_ceph_profile) do
+      {:ok, to_struct(parsed, ceph_profile_error)}
     end
   end
 
@@ -333,7 +343,18 @@ defmodule Exocomp.Coordinator.Config do
 
   # ── Ceph profile validation ──────────────────────────────────────────────────
 
-  defp validate_ceph_profile(%{"cluster_profiles" => %{"ceph" => ceph}}) when is_map(ceph) do
+  defp validate_ceph_profile(parsed, allow_invalid?) do
+    case validate_ceph_profile_config(parsed) do
+      :ok ->
+        {:ok, nil}
+
+      {:error, reason} = error ->
+        if allow_invalid?, do: {:ok, reason}, else: error
+    end
+  end
+
+  defp validate_ceph_profile_config(%{"cluster_profiles" => %{"ceph" => ceph}})
+       when is_map(ceph) do
     version = ceph["version"]
     binary_path = ceph["ceph_binary_path"]
     conf_path = ceph["ceph_conf_path"]
@@ -370,21 +391,24 @@ defmodule Exocomp.Coordinator.Config do
     end
   end
 
-  defp validate_ceph_profile(%{"cluster_profiles" => %{"ceph" => ceph}})
+  defp validate_ceph_profile_config(%{"cluster_profiles" => %{"ceph" => ceph}})
        when not is_map(ceph) do
     {:error, {:invalid_ceph_profile, "cluster_profiles.ceph must be a JSON object"}}
   end
 
-  defp validate_ceph_profile(_parsed), do: :ok
+  defp validate_ceph_profile_config(_parsed), do: :ok
 
   # ── Struct construction ──────────────────────────────────────────────────────
 
-  defp to_struct(%{
-         "version" => version,
-         "coordinator_id" => coordinator_id,
-         "tls" => tls,
-         "listen" => listen
-       } = parsed) do
+  defp to_struct(
+         %{
+           "version" => version,
+           "coordinator_id" => coordinator_id,
+           "tls" => tls,
+           "listen" => listen
+         } = parsed,
+         ceph_profile_error
+       ) do
     %__MODULE__{
       version: version,
       coordinator_id: coordinator_id,
@@ -397,7 +421,8 @@ defmodule Exocomp.Coordinator.Config do
         host: listen["host"],
         port: listen["port"]
       },
-      ceph_profile: parse_ceph_profile(parsed)
+      ceph_profile: parse_ceph_profile(parsed),
+      ceph_profile_error: ceph_profile_error
     }
   end
 

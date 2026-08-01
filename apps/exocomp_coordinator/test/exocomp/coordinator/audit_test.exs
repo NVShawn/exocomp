@@ -78,6 +78,9 @@ defmodule Exocomp.Coordinator.AuditTest do
 
     assert Audit.redact(%{"authorization" => "Bearer secret", "safe" => 1}) ==
              %{"authorization" => "[REDACTED]", "safe" => 1}
+
+    assert Audit.redact(%{"keyring" => "SUPER_SECRET", "auth_key" => "also-secret"}) ==
+             %{"keyring" => "[REDACTED]", "auth_key" => "[REDACTED]"}
   end
 
   defp start_audit(sink) do

@@ -177,6 +177,7 @@ defmodule Exocomp.Node.Collectors.CephTest do
   test "systemctl argv is fixed and has no shell command" do
     test_pid = self()
     listing = "ceph-mon@alpha.service loaded active running\n"
+    unit = "ceph-mon@alpha.service"
 
     runner = fn command, args, opts ->
       send(test_pid, {:argv, command, args, opts})

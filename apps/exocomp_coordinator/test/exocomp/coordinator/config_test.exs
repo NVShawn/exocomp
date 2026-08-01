@@ -161,6 +161,15 @@ defmodule Exocomp.Coordinator.ConfigTest do
     assert String.contains?(reason, "ceph_binary_path")
   end
 
+  test "startup loading retains an invalid Ceph profile for degraded handling" do
+    assert {:ok, config} =
+             Config.load(@ceph_relative_config, allow_invalid_ceph_profile: true)
+
+    assert %Ceph.Config{} = config.ceph_profile
+    assert {:invalid_ceph_profile, reason} = config.ceph_profile_error
+    assert String.contains?(reason, "absolute path")
+  end
+
   test "load/1 rejects cluster_profiles.ceph with an unsupported version" do
     assert {:error, {:invalid_ceph_profile, reason}} = Config.load(@ceph_wrong_version_config)
     assert String.contains?(reason, "version")
@@ -212,9 +221,7 @@ defmodule Exocomp.Coordinator.ConfigTest do
 
   test "load/1 rejects cluster_profiles.ceph that is not a JSON object" do
     config_json =
-      Jason.encode!(
-        Map.put(@base_config, "cluster_profiles", %{"ceph" => "not-a-map"})
-      )
+      Jason.encode!(Map.put(@base_config, "cluster_profiles", %{"ceph" => "not-a-map"}))
 
     path = Path.join(@fixtures_dir, "coord_ceph_not_map.json")
     File.write!(path, config_json)
