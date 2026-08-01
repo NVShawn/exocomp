@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T16:06:02.153386Z'
+updated_at: '2026-08-01T16:06:16.886936Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -45,7 +45,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: afab5f1a-b14b-4fbb-bb39-d1199ad5cf09
+oompah.agent_run_id: 6a1e0dcd-115f-4c1b-a3b7-f6e1b10ba86b
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 oompah.integration:
   version: 2
