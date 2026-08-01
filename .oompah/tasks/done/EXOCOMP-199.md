@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T21:41:46.004910Z'
+updated_at: '2026-08-01T21:42:50.706834Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -115,13 +115,17 @@ oompah.integration:
   submitted_at: '2026-08-01T18:55:19.511694+00:00'
   updated_at: '2026-08-01T21:31:46.526475+00:00'
 oompah.task_costs:
-  total_input_tokens: 11512010
-  total_output_tokens: 48597
+  total_input_tokens: 11512016
+  total_output_tokens: 48936
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 11512010
       output_tokens: 48597
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 6
+      output_tokens: 339
       cost_usd: 0.0
   runs:
   - profile: default
@@ -136,6 +140,12 @@ oompah.task_costs:
     output_tokens: 48320
     cost_usd: 0.0
     recorded_at: '2026-08-01T18:55:27.531363+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 339
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:42:49.380814+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-199__20260801T141007Z
@@ -358,5 +368,15 @@ Safe evidence:
 - collector_test: apps/exocomp_coordinator/test/exocomp/coordinator/collectors/ceph_test.exs (adds cluster FSID preservation test)
 - shared_resolver_hook: DesiredService.cluster_profile with profile_context cluster:ceph -> recovery_authority_source :shipped_profile
 - make_test_run: blocked-by-auditor-policy-and-runtime-container-limitation; prior worker offline harness passed 15/15
+---
+author: oompah
+created: 2026-08-01 21:42
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 38
+- Tokens: 6 in / 339 out [345 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 12s
+- Log: EXOCOMP-199__20260801T213240Z.jsonl
 ---
 <!-- COMMENTS:END -->
