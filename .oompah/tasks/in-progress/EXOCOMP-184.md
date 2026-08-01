@@ -19,7 +19,7 @@ labels:
 - focus-complete:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:05:27.227025Z'
+updated_at: '2026-08-01T18:05:46.888291Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -689,5 +689,10 @@ author: oompah
 created: 2026-08-01 18:05
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-01 18:05
+---
+UNDERSTANDING (callback_auth): I will audit the M7 qualification and evidence-finalization boundary for signing-key safety, signer identity validation, and tamper/failure handling. I will add focused offline regression tests for any missing fail-closed behavior, keeping the existing release interfaces backward compatible; I will not run unsupported live guest qualification.
 ---
 <!-- COMMENTS:END -->
