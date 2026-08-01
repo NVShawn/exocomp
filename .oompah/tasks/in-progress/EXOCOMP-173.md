@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-01T13:08:36.092469Z'
+updated_at: '2026-08-01T13:08:53.856890Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -47,7 +47,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 5d6dc9e5-b0ce-494a-a6f2-a551c25c80b5
+oompah.agent_run_id: 9c6307eb-d099-420d-8349-5d6ed9836be8
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
@@ -56,7 +56,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-173
   base_branch: epic-EXOCOMP-134
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:07:11.425774+00:00'
+  updated_at: '2026-08-01T13:08:52.078073+00:00'
 oompah.task_costs:
   total_input_tokens: 418683
   total_output_tokens: 3179
@@ -128,5 +128,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 27s
 - Log: EXOCOMP-173__20260801T130716Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:08
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:08
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

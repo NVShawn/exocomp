@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-01T13:07:09.271441Z'
+updated_at: '2026-08-01T13:09:01.336165Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -135,5 +135,30 @@ author: oompah
 created: 2026-08-01 13:07
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-08-01 13:09
+---
+**Understanding & Plan**
+
+Task: Store encrypted webhook endpoint configuration for Mission Control.
+
+Security-focused implementation required with these critical concerns:
+1. Webhook secrets must be encrypted with deployment master key, never plaintext in DB/logs
+2. Secrets shown once at creation, digest stored for verification
+3. Organization-scoped isolation with admin-only operations  
+4. HTTPS URL validation + policy-based destination control
+5. Role-based access control (admin-only CRUD)
+6. Audit trail for all mutations
+7. Secret rotation capability
+
+I will review existing patterns (EnrollmentToken, Audit) and implement:
+- WebhookEndpoint schema with encrypted secret storage
+- WebhookEndpoints context with create/update/disable/rotate-secret operations
+- Authorization checks via existing Mission Control role system
+- Comprehensive tests covering encryption, key failure, validation, isolation
+- Zero plaintext secret exposure in logs/crash reports
+
+Starting discovery phase to locate Mission Control schema, context patterns, and encryption infrastructure.
 ---
 <!-- COMMENTS:END -->
