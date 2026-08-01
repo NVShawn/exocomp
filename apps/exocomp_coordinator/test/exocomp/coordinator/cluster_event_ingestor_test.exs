@@ -115,7 +115,9 @@ defmodule Exocomp.Coordinator.ClusterEventIngestorTest do
              ClusterEventIngestor.ingest(event(1), @identity, server)
 
     assert_receive {:persist_attempt, %{cursors: cursors, events: events}}
-    assert cursors == %{}
+    # The snapshot captures the intended new state (cursor advanced + event added).
+    # The persist_fn failure leaves in-memory state at the previous checkpoint.
+    assert cursors == %{{"org-a", "cluster-a"} => 1}
     assert map_size(events) == 1
     assert ClusterEventIngestor.acknowledgement(@identity, server) == 0
     assert ClusterEventIngestor.events(@identity, server) == []

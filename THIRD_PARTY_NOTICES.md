@@ -71,6 +71,31 @@ upstream license or notice named by their build-specific inventory.
 - Version: 0.9.2.
 - License: [BSD-3-Clause](https://github.com/voltone/x509/blob/HEAD/LICENSE).
 
+### db_connection
+
+- Version: 2.10.x.
+- License: [Apache-2.0](https://github.com/elixir-ecto/db_connection/blob/HEAD/LICENSE).
+
+### Decimal
+
+- Version: 3.x.
+- License: [Apache-2.0](https://github.com/ericmj/decimal/blob/HEAD/LICENSE).
+
+### Ecto
+
+- Version: 3.14.x.
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto/blob/HEAD/LICENSE).
+
+### Ecto SQL
+
+- Version: 3.14.x.
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto_sql/blob/HEAD/LICENSE).
+
+### Postgrex
+
+- Version: 0.22.x.
+- License: [Apache-2.0](https://github.com/elixir-ecto/postgrex/blob/HEAD/LICENSE).
+
 ### llama.cpp
 
 - Use: bundled `llama-server` inference runtime.

@@ -49,7 +49,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	inspect-deps-amd64 inspect-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
-	test-integration bench-llama-short bench-harness bench-llama-short-shipped \
+	test-integration test-integration-mc bench-llama-short bench-harness bench-llama-short-shipped \
 	bench-llama-full test-m5-qualification test-installer test-bundle \
 	bundle-amd64 bundle-arm64 bundle-runtime-amd64 bundle-runtime-arm64 \
 	verify-bundle
@@ -199,6 +199,11 @@ test-integration: ## Run ExUnit systemd integration tests (requires root + syste
 	@echo "NOTE: Run this target directly inside a privileged container or VM with systemd as PID 1."
 	@echo "Do NOT invoke via 'make test' — that target runs in an unprivileged Alpine container without systemd."
 	MIX_ENV=test mix test --only integration apps/exocomp_node/test/integration/
+
+test-integration-mc: ## Run Mission Control reconnect and multi-replica integration tests (no Docker, no systemd required).
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
+		MIX_ENV=test mix test --only mc_integration \
+		apps/exocomp_coordinator/test/integration/mission_control_reconnect_test.exs'
 
 bench-llama-short: ## Run focused llama.cpp inference benchmark tests (CI short run; no real llama-server required).
 	$(CONTAINER_RUN) sh -c 'MIX_ENV=test mix deps.get && \

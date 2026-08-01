@@ -87,7 +87,7 @@ defmodule Exocomp.Coordinator.ClusterEvent do
 
     unknown =
       Enum.reject(actual, fn key ->
-        key in @fields or (is_atom(key) and Atom.to_string(key) in expected)
+        key in @fields or key in expected or (is_atom(key) and Atom.to_string(key) in expected)
       end)
 
     missing =
