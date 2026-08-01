@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-138
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Add organizations and mandatory organization scoping
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T15:06:29.680895Z'
+updated_at: '2026-08-01T15:09:31.183320Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -61,12 +61,12 @@ oompah.agent_run_id: a2b5866b-0502-4e8e-93a7-d61e62041633
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-138
-  base_branch: epic-EXOCOMP-128
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:43:34.681365+00:00'
+  head_sha: 29426a2f8932790ce2322fcab0ba513aca611c2a
+  submitted_at: '2026-08-01T15:09:28.250422+00:00'
+  updated_at: '2026-08-01T15:09:28.250422+00:00'
 oompah.task_costs:
   total_input_tokens: 146
   total_output_tokens: 5601
@@ -234,5 +234,10 @@ author: oompah
 created: 2026-08-01 15:06
 ---
 Completion: delivered the Mission Control organization foundation, UUID identity, idempotent Exocomp seed, reusable mandatory organization scoping, scoped CRUD examples, FK and composite uniqueness constraints, and focused isolation tests. The branch is ready to push and submit; container quality-gate limitation is recorded above.
+---
+author: oompah
+created: 2026-08-01 15:09
+---
+Added UUID-backed organizations, initial seed, mandatory organization scoping, scoped CRUD examples with FK/composite uniqueness constraints, and cross-organization isolation tests. Focused tests pass; Makefile container gates were unavailable because Docker/Podman could not initialize.
 ---
 <!-- COMMENTS:END -->
