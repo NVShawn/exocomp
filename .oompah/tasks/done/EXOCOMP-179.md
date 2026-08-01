@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-179
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Add shared Mission Control protocol contract tests
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T18:23:56.022220Z'
+updated_at: '2026-08-01T18:31:11.307513Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -100,6 +100,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:17:20.796078+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-3e52f4da5aae: '2026-08-01T18:31:08.889261+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-179
+    target_state: Done
+    evidence_fingerprint: ca993dd36cbd656e095eac02c34727729a6730df0fda2f633ce1ef93c0b538f1
+    audit_ids:
+    - audit-6d5e5be9de97
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T18:31:08.889273+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-179
+    audit_id: audit-6d5e5be9de97
+    attempt_id: attempt-3e52f4da5aae
+    target_state: Done
+    evidence_fingerprint: ca993dd36cbd656e095eac02c34727729a6730df0fda2f633ce1ef93c0b538f1
+    status: Done
+    audit_ids:
+    - audit-6d5e5be9de97
+    applied: false
+    created_at: '2026-08-01T18:31:08.889290+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -107,7 +131,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-179
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -116,7 +140,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-3e52f4da5aae
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -126,13 +150,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T18:23:43.312530+00:00'
       branch_key: epic-EXOCOMP-135--task-EXOCOMP-179
+      verdict: pass
+      completed_at: '2026-08-01T18:31:08.889052+00:00'
+      ended_at: '2026-08-01T18:31:08.889052+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T18:22:59.679134+00:00'
-    updated_at: '2026-08-01T18:23:43.312530+00:00'
+    updated_at: '2026-08-01T18:31:08.889052+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-3e52f4da5aae
@@ -282,5 +309,22 @@ author: oompah
 created: 2026-08-01 18:23
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 18:31
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
+- contract_test_result: 82 passed / 0 failed (14 core + 68 coordinator)
+- make_target: test-mission-control-contract
+- make_target_run: success (containerized builder, no live VMs required)
+- fixture_files: protocol_events.json (11 kinds), protocol_commands.json (3 kinds), protocol_acknowledgements.json (2), protocol_errors.json (19 mutations), protocol_replay.json (duplicate/out-of-order/sequence_gap), redaction.json
+- fixture_loader: test/fixtures/mission_control/contract_fixtures.exs
+- drift_error_style: 'Mission Control fixture drift at <label>: unexpected/required field(s) ["field"]'
+- branch_remote: origin/epic-EXOCOMP-135--task-EXOCOMP-179 contains HEAD
 ---
 <!-- COMMENTS:END -->
