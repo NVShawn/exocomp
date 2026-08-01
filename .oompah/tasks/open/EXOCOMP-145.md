@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:32:24.728961Z'
+updated_at: '2026-08-01T16:48:00.166296Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -84,6 +84,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:10:57.105971+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ba2e9268bfd5: '2026-08-01T16:47:56.556258+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    evidence_fingerprint: 0fa719975e1ddff31da808392e4b98ae778fdfe7712001d762cb00dc5aa8e058
+    audit_ids:
+    - audit-1ca7a0a1a622
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:47:56.556273+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    audit_id: audit-1ca7a0a1a622
+    attempt_id: attempt-ba2e9268bfd5
+    target_state: Done
+    evidence_fingerprint: 0fa719975e1ddff31da808392e4b98ae778fdfe7712001d762cb00dc5aa8e058
+    status: Open
+    audit_ids:
+    - audit-1ca7a0a1a622
+    applied: true
+    created_at: '2026-08-01T16:47:56.556292+00:00'
+    applied_at: '2026-08-01T16:47:59.365133+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -91,7 +116,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -100,7 +125,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ba2e9268bfd5
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -110,13 +135,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:32:20.799259+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-01T16:47:56.555962+00:00'
+      ended_at: '2026-08-01T16:47:56.555962+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:31:55.146207+00:00'
-    updated_at: '2026-08-01T16:32:20.799259+00:00'
+    updated_at: '2026-08-01T16:47:56.555962+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -236,5 +265,19 @@ author: oompah
 created: 2026-08-01 16:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:47
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Wire the loaded mission_control block into :mission_control_config app env in config/runtime.exs (or via a supervisor that reads the JSON before the app tree is built) so the subtree can actually start when enabled.
+- Fix the Application child spec: pass the %Config.MissionControl{} struct as the sole arg to Supervisor.start_link (e.g. {MissionControl.Supervisor, mc_config} with a supervisor: true/name via child_spec/1), and add a test that asserts the resulting child spec starts Outbox and Connection under the coordinator supervisor with a matching Application env.
+- Replace the `assert true` supervisor test with real coverage: set :mission_control_config to nil, a disabled struct, and an enabled struct in isolated test app envs and assert Application.mission_control_children/0 (or the started supervision tree) matches each case.
+- Add a focused test that starts the coordinator supervision tree with Mission Control disabled or absent, then exercises Inventory, HealthPoller/diagnostics, and RemediationLifecycle to prove acceptance-criterion 3 (Mission Control disablement cannot stop local inventory, diagnostics, or recovery).
+- Re-run `make test`, `make fmt-check`, and `make lint` and capture a summary line (e.g. `mix test 2>&1 | tail -5`) in the task comments so the auditor can independently verify pass counts on the next attempt.
 ---
 <!-- COMMENTS:END -->
