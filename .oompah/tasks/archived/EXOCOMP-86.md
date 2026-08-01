@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-86
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Define ApprovalToken struct and deterministic canonical encoding
 parent: EXOCOMP-23
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-08-01T03:12:12.302808Z'
+updated_at: '2026-08-01T03:14:14.487122Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -49,6 +49,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T03:06:21.096170+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-0c9375f33dff: '2026-08-01T03:14:12.567365+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-86
+    target_state: Archived
+    evidence_fingerprint: 54a5817933d58988308aaff55e72648f0cbd1afd93fccdca381fce5f849b8492
+    audit_ids:
+    - audit-0ce6ef3b44ff
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:14:12.567375+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-86
+    audit_id: audit-0ce6ef3b44ff
+    attempt_id: attempt-0c9375f33dff
+    target_state: Archived
+    evidence_fingerprint: 54a5817933d58988308aaff55e72648f0cbd1afd93fccdca381fce5f849b8492
+    status: Archived
+    audit_ids:
+    - audit-0ce6ef3b44ff
+    applied: false
+    created_at: '2026-08-01T03:14:12.567392+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -56,7 +80,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-86
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -65,7 +89,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-0c9375f33dff
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -75,13 +99,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:12:07.360659+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:14:12.567187+00:00'
+      ended_at: '2026-08-01T03:14:12.567187+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:51.648544+00:00'
-    updated_at: '2026-08-01T03:12:07.360659+00:00'
+    updated_at: '2026-08-01T03:14:12.567187+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-0c9375f33dff
@@ -333,5 +360,23 @@ author: oompah
 created: 2026-08-01 03:12
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:14
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merged_commit: 377679d13528b18473d982c05fcd5ec16069d230
+- merged_commit_title: EXOCOMP-86: Define ApprovalToken struct and deterministic canonical encoding
+- impl_path: apps/exocomp_coordinator/lib/exocomp/coordinator/safety/approval_token.ex
+- test_path: apps/exocomp_coordinator/test/exocomp/coordinator/safety/approval_token_test.exs
+- enforce_keys_count: 11
+- schema_version_attribute: 1
+- public_functions: schema_version/0, validate_schema_version/1, canonical_encode/1, sha256_hex/1, hash_params/1, hash_evidence/1
+- prior_test_result: 44 focused tests passing (per Verification comment 2026-07-24 03:06)
+- queued_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
