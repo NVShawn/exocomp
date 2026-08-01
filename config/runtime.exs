@@ -2,6 +2,18 @@
 # SPDX-License-Identifier: Apache-2.0
 import Config
 
+if config_env() == :prod do
+  database_url = System.get_env("DATABASE_URL")
+
+  if !is_binary(database_url) or String.trim(database_url) == "" do
+    raise RuntimeError,
+          "Mission Control production database is not configured; " <>
+            "set DATABASE_URL from the deployment secret store before starting."
+  end
+
+  config :exocomp_mission_control, Exocomp.MissionControl.Repo, url: database_url
+end
+
 # Release services receive their protected state locations from the rendered
 # systemd unit. Read them when the release boots, not while the immutable
 # artifact is compiled inside the builder container.
@@ -27,4 +39,13 @@ if config_env() == :prod do
     pki_offline_root_backup: System.get_env("EXOCOMP_PKI_OFFLINE_ROOT_BACKUP"),
     enrollment_token_store_path: System.get_env("EXOCOMP_ENROLLMENT_TOKEN_STORE"),
     a2a_tls: a2a_tls
+
+  mission_control_port =
+    System.get_env("MISSION_CONTROL_PORT", "4000")
+    |> String.to_integer()
+
+  config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
+    http: [ip: {0, 0, 0, 0}, port: mission_control_port],
+    secret_key_base: System.fetch_env!("MISSION_CONTROL_SECRET_KEY_BASE"),
+    server: true
 end

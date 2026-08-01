@@ -25,3 +25,23 @@ recovery_audit_path =
   end
 
 config :exocomp_node, :recovery_audit_path, recovery_audit_path
+
+config :exocomp_mission_control,
+  ecto_repos: [Exocomp.MissionControl.Repo]
+
+config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
+  adapter: Bandit.PhoenixAdapter,
+  http: [ip: {127, 0, 0, 1}, port: 4000],
+  pubsub_server: Exocomp.MissionControl.PubSub,
+  server: false,
+  url: [host: "localhost"]
+
+if config_env() != :prod do
+  config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
+    secret_key_base: "mission-control-test-secret-key-base"
+end
+
+config :exocomp_mission_control,
+  ecto_repos: [Exocomp.MissionControl.Repo]
+
+import_config "#{config_env()}.exs"

@@ -48,6 +48,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	test-compliance \
 	inspect-deps-amd64 inspect-deps-arm64 lint \
 	compliance-check check-links check-licenses release-check clean \
+	test-mission-control-db \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
 	test-integration bench-llama-short bench-harness bench-llama-short-shipped \
 	bench-llama-full test-m5-qualification test-installer test-bundle \
@@ -163,6 +164,12 @@ lint: test-builders ## Run static analysis / linters.
 	@$(PYTHON) -m py_compile scripts/check_compliance.py \
 		tests/test_check_compliance.py
 	@$(MAKE) compliance-check
+
+test-mission-control-db: ## Run Mission Control migrations and SQL-sandbox tests.
+	$(CONTAINER_RUN) sh -c '$(HEX_BOOTSTRAP) && MIX_ENV=test mix deps.get && \
+		MIX_ENV=test mix do --app exocomp_mission_control cmd mix ecto.create --quiet && \
+		MIX_ENV=test mix do --app exocomp_mission_control cmd mix ecto.migrate && \
+		EXOCOMP_RUN_DB_TESTS=1 MIX_ENV=test mix do --app exocomp_mission_control cmd mix test'
 
 test-compliance: ## Run open-source governance and license tests.
 	@$(PYTHON) -m unittest discover -s tests -v
