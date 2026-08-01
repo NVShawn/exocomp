@@ -6,7 +6,8 @@ defmodule Exocomp.Coordinator.Application do
 
   Normal startup launches the full supervision tree: Audit, Registry,
   Inventory, Resolver, HealthPoller, GoalStore, Orchestrator, TaskRegistry,
-  and (when `require_pki` is true) PKI.State, EnrollmentToken, and Listener.
+  CommandProcessor, and (when `require_pki` is true) PKI.State, EnrollmentToken,
+  and Listener.
 
   PKI validation is gated by the `:require_pki` application config (default
   true; set to false in test environment). When enabled, `Bootstrap.load_online_state/1`
@@ -71,6 +72,8 @@ defmodule Exocomp.Coordinator.Application do
       {Exocomp.Coordinator.ClusterEventIngestor,
        store_path: Application.get_env(:exocomp_coordinator, :event_store_path)},
       Exocomp.Coordinator.TaskRegistry,
+      {Exocomp.Coordinator.CommandProcessor,
+       Application.get_env(:exocomp_coordinator, :command_processor, [])},
       {Exocomp.Coordinator.RemediationLifecycle,
        Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}
     ]

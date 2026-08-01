@@ -9,5 +9,6 @@ defmodule Exocomp.Coordinator.ApplicationTest do
     assert is_pid(Process.whereis(Exocomp.Coordinator.Supervisor))
     assert is_pid(Process.whereis(Exocomp.Coordinator.PollTaskSupervisor))
     assert is_pid(Process.whereis(Exocomp.Coordinator.HealthPoller))
+    assert is_pid(Process.whereis(Exocomp.Coordinator.CommandProcessor))
   end
 end
