@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T19:10:23.342554Z'
+updated_at: '2026-08-01T19:10:40.050368Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -54,8 +54,8 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-140: 459fb9012796c509c9b5c178ce0fb7548afa9ed4
 oompah.task_costs:
-  total_input_tokens: 392884
-  total_output_tokens: 12413
+  total_input_tokens: 392945
+  total_output_tokens: 23048
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -65,6 +65,10 @@ oompah.task_costs:
     sonnet:
       input_tokens: 233
       output_tokens: 7677
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 61
+      output_tokens: 10635
       cost_usd: 0.0
   runs:
   - profile: default
@@ -91,6 +95,12 @@ oompah.task_costs:
     output_tokens: 3291
     cost_usd: 0.0
     recorded_at: '2026-08-01T19:04:16.818389+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 61
+    output_tokens: 10635
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T19:10:37.643897+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-141__20260801T115045Z
@@ -496,5 +506,15 @@ Safe evidence:
 - deliverable_oidc_role_map: apps/exocomp_mission_control/lib/exocomp/mission_control/auth/oidc_resolver.ex
 - deliverable_plug_and_on_mount: apps/exocomp_mission_control/lib/exocomp/mission_control/plug/require_role.ex + live_view/require_role.ex + authorization.ex
 - deliverable_attribution: apps/exocomp_mission_control/lib/exocomp/mission_control/mutations/attribution.ex records sub, display_name, organization_id, corr_<url-safe-base64> correlation_id, DateTime.utc_now()
+---
+author: oompah
+created: 2026-08-01 19:10
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 67, Tool calls: 55
+- Tokens: 61 in / 10.6K out [10.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 43s
+- Log: EXOCOMP-141__20260801T190457Z.jsonl
 ---
 <!-- COMMENTS:END -->
