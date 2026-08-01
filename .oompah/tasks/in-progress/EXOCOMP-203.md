@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:32:49.171926Z'
+updated_at: '2026-08-01T23:34:05.482637Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -479,5 +479,33 @@ author: oompah
 created: 2026-08-01 23:32
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-01 23:34
+---
+## Understanding
+
+I'm fixing the CephDaemonRestart remediation adapter based on the auditor's feedback.
+
+### Auditor Requirements (from failed audit)
+1. Replace invoke_profile_helper stub with real bin/profile-action-helper invocation via sudoers
+2. Implement collect_evidence to gather fresh Ceph health/topology and node state through existing typed diagnostic paths (not caller-supplied)
+3. Implement check_profile_supported to consult shipped cluster profile registry (EXOCOMP-195/196)
+4. Implement verify_daemon_health to consult fresh cluster/daemon state and fail if daemon didn't return to healthy
+5. Wire adapter into RemediationLifecycle adapter option
+6. Add comprehensive tests covering: mapping change, unsupported profile, concurrent requests, replay/idempotency, helper rejection, audit-before-action durability
+
+### Implementation Plan
+- **Evidence collection**: Use Collectors.Ceph to gather fresh health/topology; implement node state collection
+- **Profile validation**: Integrate with ProfileCoverage to check profile availability and support
+- **Profile helper execution**: Implement System.cmd call to bin/profile-action-helper with proper error handling
+- **Health verification**: Collect fresh evidence post-restart and verify daemon is actually healthy
+- **Integration**: Configure RemediationLifecycle with CephDaemonRestart adapter
+- **Tests**: Expand test suite to cover all auditor requirements
+
+### Key Files to Modify
+- apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_adapter/ceph_daemon_restart.ex
+- apps/exocomp_coordinator/test/exocomp/coordinator/remediation_adapter/ceph_daemon_restart_test.exs
+- apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex (wire into RemediationLifecycle)
 ---
 <!-- COMMENTS:END -->

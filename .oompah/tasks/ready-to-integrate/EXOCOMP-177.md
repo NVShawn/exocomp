@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-08-01T23:33:31.811492Z'
+updated_at: '2026-08-01T23:34:07.448069Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 target_branch: null
 review_url: null
@@ -60,13 +60,13 @@ oompah.integration:
   submitted_at: '2026-08-01T23:33:28.255110+00:00'
   updated_at: '2026-08-01T23:33:28.255110+00:00'
 oompah.task_costs:
-  total_input_tokens: 836126
-  total_output_tokens: 4897
+  total_input_tokens: 21293639
+  total_output_tokens: 89076
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 836126
-      output_tokens: 4897
+      input_tokens: 21293639
+      output_tokens: 89076
       cost_usd: 0.0
   runs:
   - profile: default
@@ -75,6 +75,12 @@ oompah.task_costs:
     output_tokens: 4897
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:44:55.347392+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 20457513
+    output_tokens: 84179
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T23:34:05.590703+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-177__20260801T154256Z
@@ -174,5 +180,15 @@ author: oompah
 created: 2026-08-01 23:33
 ---
 Delivered guarded Mission Control health probes, database/migration readiness, stable low-cardinality Prometheus metrics, telemetry instrumentation, operations documentation, tests, and dependency license inventory.
+---
+author: oompah
+created: 2026-08-01 23:34
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 224
+- Tokens: 20.5M in / 84.2K out [20.5M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 32m 14s
+- Log: EXOCOMP-177__20260801T230159Z.jsonl
 ---
 <!-- COMMENTS:END -->
