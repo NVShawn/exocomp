@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-153
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Record bounded cluster and node status history
 parent: EXOCOMP-131
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:37.552915Z'
-updated_at: '2026-08-01T15:01:45.278184Z'
+updated_at: '2026-08-01T15:02:00.568963Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-153
 target_branch: null
 review_url: null
@@ -48,12 +48,12 @@ oompah.agent_run_id: 925fe644-ebad-485a-bc1c-419a2e895a53
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-153
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-153
-  base_branch: epic-EXOCOMP-131
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:49:30.200443+00:00'
+  head_sha: bf443ed83b8a12febc5f96878fe9299cd8d49cc5
+  submitted_at: '2026-08-01T15:01:58.413484+00:00'
+  updated_at: '2026-08-01T15:01:58.413484+00:00'
 oompah.task_costs:
   total_input_tokens: 544749
   total_output_tokens: 3273
@@ -155,5 +155,10 @@ author: oompah
 created: 2026-08-01 15:01
 ---
 Verification: All quality gates pass. Test results: 511 tests passed (includes 48 new tests for status-history). Tests cover: clock-controlled checkpoint cadence, change detection, duplicate snapshots, late event acceptance, bounded batch writes. Code passes: make test, make fmt-check, make lint. Branch pushed to origin/epic-EXOCOMP-131--task-EXOCOMP-153.
+---
+author: oompah
+created: 2026-08-01 15:02
+---
+Implemented partition-ready status-history storage with clock-controlled recorder for cluster (5min) and node (1hr) checkpoints, change detection, duplicate deduplication, and bounded batch writes.
 ---
 <!-- COMMENTS:END -->
