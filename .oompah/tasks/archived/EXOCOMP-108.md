@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-108
 type: task
-status: In Validation
+status: Archived
 priority: 0
 title: Rebase epic-EXOCOMP-3 onto main
 parent: EXOCOMP-3
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T02:02:35.321765Z'
-updated_at: '2026-08-01T02:18:10.450465Z'
+updated_at: '2026-08-01T02:19:55.512279Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -48,6 +48,30 @@ oompah.task_costs:
     recorded_at: '2026-07-25T02:10:25.609969+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ede1600f1b20: '2026-08-01T02:19:53.402811+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-108
+    target_state: Archived
+    evidence_fingerprint: 38c7fd4215b4bf4806b4d015937279d3015500d7ff7205ba9fb1c21662681502
+    audit_ids:
+    - audit-28b2167dfed5
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T02:19:53.402819+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-108
+    audit_id: audit-28b2167dfed5
+    attempt_id: attempt-ede1600f1b20
+    target_state: Archived
+    evidence_fingerprint: 38c7fd4215b4bf4806b4d015937279d3015500d7ff7205ba9fb1c21662681502
+    status: Archived
+    audit_ids:
+    - audit-28b2167dfed5
+    applied: false
+    created_at: '2026-08-01T02:19:53.402832+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -55,7 +79,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-108
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -64,7 +88,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ede1600f1b20
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -74,13 +98,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:18:06.660595+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T02:19:53.402711+00:00'
+      ended_at: '2026-08-01T02:19:53.402711+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T02:12:19.651591+00:00'
-    updated_at: '2026-08-01T02:18:06.660595+00:00'
+    updated_at: '2026-08-01T02:19:53.402711+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ede1600f1b20
@@ -252,5 +279,21 @@ author: oompah
 created: 2026-08-01 02:18
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:19
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- rebased_epic_head_after_force_push: 1d4c65e
+- epic_merge_commit_on_main: 7295c33
+- epic_merge_pr: #12 (NVShawn/epic-EXOCOMP-3)
+- merge_on_main_confirmed: git branch --contains 7295c33 lists main
+- rebase_completed_utc: 2026-07-24T21:10 (per task comment and PR merge time)
+- auto_archive_reason: Aged Merged auto-archive (closed 7 days ago)
+- current_head: 8f80aeb docs: add Mission Control roadmap plan
 ---
 <!-- COMMENTS:END -->
