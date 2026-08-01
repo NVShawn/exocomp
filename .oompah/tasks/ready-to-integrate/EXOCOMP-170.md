@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-08-01T15:47:52.593337Z'
+updated_at: '2026-08-01T15:48:57.032929Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 target_branch: null
 review_url: null
@@ -61,13 +61,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:47:47.953381+00:00'
   updated_at: '2026-08-01T15:47:47.953381+00:00'
 oompah.task_costs:
-  total_input_tokens: 849994
-  total_output_tokens: 4451
+  total_input_tokens: 9313117
+  total_output_tokens: 52550
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 849994
-      output_tokens: 4451
+      input_tokens: 9313117
+      output_tokens: 52550
       cost_usd: 0.0
   runs:
   - profile: default
@@ -76,6 +76,12 @@ oompah.task_costs:
     output_tokens: 4451
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:30:02.925571+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 8463123
+    output_tokens: 48099
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:48:55.734995+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-170__20260801T152809Z
@@ -225,5 +231,15 @@ author: oompah
 created: 2026-08-01 15:47
 ---
 Built Mission Control administration LiveViews with secret-safe invitation handling, confirmed cluster revocation and audit recording, OIDC role mappings, bounded retention, webhook navigation, organization isolation, and focused tests. Quality gate execution was recorded; containerized Make checks are blocked by the sandbox podman filesystem restriction and local Mix tests by the required Elixir 1.20.2 versus installed 1.18.3.
+---
+author: oompah
+created: 2026-08-01 15:48
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 111
+- Tokens: 8.5M in / 48.1K out [8.5M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 40s
+- Log: EXOCOMP-170__20260801T153122Z.jsonl
 ---
 <!-- COMMENTS:END -->
