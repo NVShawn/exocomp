@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-194
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 2
 title: Define desired-service status events and contract fixtures
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:30:06.063083Z'
+updated_at: '2026-08-01T17:30:33.595172Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -51,12 +51,15 @@ oompah.agent_run_id: 9f0948b4-6486-4478-95ca-c4d1622bd1b3
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-194
+  base_branch: epic-EXOCOMP-185
+  base_sha: ce0330d8cb83c6467cdfd072f125dc46b04bbff5
   head_sha: a163c8323e9b83e2360af73c9f3e972b99f9dc0d
+  integrated_sha: a163c8323e9b83e2360af73c9f3e972b99f9dc0d
   submitted_at: '2026-08-01T17:29:52.148232+00:00'
-  updated_at: '2026-08-01T17:29:52.148232+00:00'
+  updated_at: '2026-08-01T17:30:29.981214+00:00'
 oompah.task_costs:
   total_input_tokens: 874472
   total_output_tokens: 5054
@@ -83,6 +86,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-185--task-EXOCOMP-194
     source_sha: 7b3ff4a831259ec5555de09214348b3da5eb554e
     completed_at: '2026-08-01T16:05:02.173946+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-ce846fc220d2
+    project_id: proj-c260b117
+    task_id: EXOCOMP-194
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e8d6a587c8f08f0aea48870d250069920d7ea27ca3e6ecc8ba47587251043bac
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T17:30:31.360116+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -178,5 +203,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 19m 31s
 - Log: EXOCOMP-194__20260801T171040Z.jsonl
+---
+author: oompah
+created: 2026-08-01 17:30
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
