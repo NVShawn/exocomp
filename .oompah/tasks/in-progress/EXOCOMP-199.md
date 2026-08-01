@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T18:39:09.151982Z'
+updated_at: '2026-08-01T18:54:42.831003Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -196,5 +196,10 @@ author: oompah
 created: 2026-08-01 18:39
 ---
 Understanding: correlate authoritative Ceph topology with inventory node discoveries using deterministic exact/case-normalized host identity and daemon identity checks, preserving valid Ceph non-members and explicit unsupported coverage. I’ll inspect the post-EXOCOMP-198 discovery models and shared desired-service resolver, add structured reconciliation outcomes plus focused tests, then run make test.
+---
+author: oompah
+created: 2026-08-01 18:54
+---
+Verification: standalone Elixir harness passed 15 tests (10 Ceph topology reconciliation, 5 shared desired-service tests) with zero failures; changed Elixir files parse and git diff --check passes. make test passed all offline checks, then could not start the pinned Elixir 1.20.2 container because Podman cannot chmod the read-only /run/user/1000/libpod path. Local mix test is also unavailable on installed Elixir 1.18.3 because the project requires 1.20.2.
 ---
 <!-- COMMENTS:END -->
