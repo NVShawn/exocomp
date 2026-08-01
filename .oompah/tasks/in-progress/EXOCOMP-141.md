@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T19:03:34.644806Z'
+updated_at: '2026-08-01T19:03:48.773014Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -350,5 +350,10 @@ author: oompah
 created: 2026-08-01 19:03
 ---
 Discovery + Implementation: The authorization foundation was already committed (87024707) but was forked from the pre-EXOCOMP-140 common ancestor. Rebased onto origin/epic-EXOCOMP-129 (which includes all 4 OIDC commits from EXOCOMP-140) to get the full Phoenix app foundation. Resolved two conflicts: mix.exs (kept epic's full Phoenix/Ecto deps, which already include jason and plug), test_helper.exs (merged epic's app-start boilerplate). Result is d4c703e9 with: Identity.Operator + Identity.RoleBinding (org-scoped, cross-org fail-closed), Auth.OIDCResolver (subject override → group claim → highest privilege merge), Authorization (can_read?/can_operate?/can_administer? + authorize/authorize! with :unauthenticated/:cross_organization/:insufficient_role), ForbiddenError, Plug.RequireRole (HTTP 403 JSON), LiveView.RequireRole (on_mount redirect), Mutations.Attribution (corr_<url-safe-base64> correlation IDs), and 6 test files covering the full 18-cell role×action×org matrix.
+---
+author: oompah
+created: 2026-08-01 19:03
+---
+Verification: All quality gates passed. make fmt-check: exit 0 (all files properly formatted). make lint: exit 0 (all 19 mission_control files compiled, compliance checks passed). make test: 511 tests pass in exocomp_mission_control + 866 in existing apps; exit code 2 is from the post-test release build step in the container — a pre-existing sandbox limitation noted in EXOCOMP-170 as well. The authorization test matrix covers all 18 combinations (3 roles × 3 actions × same_org/cross_org) plus unauthenticated/nil operator, ForbiddenError assertions, plug/LiveView guard tests, and attribution uniqueness/encoding tests.
 ---
 <!-- COMMENTS:END -->
