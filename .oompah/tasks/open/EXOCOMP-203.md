@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:25:03.806290Z'
+updated_at: '2026-08-01T23:32:14.219778Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -173,6 +173,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T23:23:35.221407+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-702564a799be: '2026-08-01T23:32:10.855003+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-203
+    target_state: Done
+    evidence_fingerprint: af98b61ddc882559e4a9160f30d8b0701a9acf84309841464f445186718c7b5c
+    audit_ids:
+    - audit-667a43522d21
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T23:32:10.855015+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-203
+    audit_id: audit-667a43522d21
+    attempt_id: attempt-702564a799be
+    target_state: Done
+    evidence_fingerprint: af98b61ddc882559e4a9160f30d8b0701a9acf84309841464f445186718c7b5c
+    status: Open
+    audit_ids:
+    - audit-667a43522d21
+    applied: true
+    created_at: '2026-08-01T23:32:10.855031+00:00'
+    applied_at: '2026-08-01T23:32:13.561539+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -180,7 +205,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-203
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -189,7 +214,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-702564a799be
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -199,13 +224,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T23:25:00.537172+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-203
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-01T23:32:10.854801+00:00'
+      ended_at: '2026-08-01T23:32:10.854801+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T23:24:54.418480+00:00'
-    updated_at: '2026-08-01T23:25:00.537172+00:00'
+    updated_at: '2026-08-01T23:32:10.854801+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-702564a799be
@@ -409,5 +438,19 @@ author: oompah
 created: 2026-08-01 23:25
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 23:32
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Replace invoke_profile_helper stub with a real invocation of the packaged restricted profile helper (bin/profile-action-helper via sudoers), passing the exact tab-separated request line, honoring the one-attempt and per-target locking boundaries.
+- Implement collect_evidence to gather fresh Ceph health/topology and node state through the existing typed diagnostic paths (not accept caller-supplied evidence).
+- Make check_profile_supported consult the shipped cluster profile registry (EXOCOMP-195/196) and deny unshipped or unsupported (node, profile) combinations.
+- Implement verify_daemon_health to consult fresh cluster/daemon state and fail on any daemon that did not return to healthy.
+- Wire the adapter into the RemediationLifecycle adapter option (or a router for the restart_failed_daemon action_id) and add tests covering mapping change, unsupported profile, concurrent requests, replay/idempotency, helper rejection, and the audit-before-action durability path.
 ---
 <!-- COMMENTS:END -->
