@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:19.643459Z'
-updated_at: '2026-08-01T17:22:51.593665Z'
+updated_at: '2026-08-01T17:23:04.633427Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 target_branch: null
 review_url: null
@@ -67,13 +67,13 @@ oompah.integration:
   submitted_at: '2026-08-01T17:22:49.480341+00:00'
   updated_at: '2026-08-01T17:22:49.480341+00:00'
 oompah.task_costs:
-  total_input_tokens: 146
-  total_output_tokens: 4753
+  total_input_tokens: 1592
+  total_output_tokens: 5133
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 146
-      output_tokens: 4753
+      input_tokens: 1592
+      output_tokens: 5133
       cost_usd: 0.0
   runs:
   - profile: default
@@ -82,6 +82,12 @@ oompah.task_costs:
     output_tokens: 4753
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:07:56.524071+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1446
+    output_tokens: 380
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:23:02.971013+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-197__20260801T140538Z
@@ -172,5 +178,15 @@ author: oompah
 created: 2026-08-01 17:22
 ---
 Implemented unprivileged Ceph health and topology JSON collector with fixed argv, bounded I/O/timeout, error preservation, and comprehensive tests
+---
+author: oompah
+created: 2026-08-01 17:23
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 86
+- Tokens: 1.4K in / 380 out [1.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 7s
+- Log: EXOCOMP-197__20260801T171301Z.jsonl
 ---
 <!-- COMMENTS:END -->
