@@ -30,6 +30,7 @@ defmodule Exocomp.Coordinator.MixProject do
       {:exocomp_node, in_umbrella: true, only: :test},
       {:jason, "~> 1.4"},
       {:bandit, "~> 1.0"},
+      {:websock, "~> 0.5"},
       {:plug, "~> 1.17"},
       {:x509, "~> 0.9.2"}
     ]

@@ -86,7 +86,7 @@ defmodule Exocomp.Coordinator.Application do
       {ClusterInvitationStore,
        store_path: Application.get_env(:exocomp_coordinator, :cluster_invitation_store_path),
        audit_server: Audit}
-    ]
+    ] ++ mission_control_children()
   end
 
   @doc """
