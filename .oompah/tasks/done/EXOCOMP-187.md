@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-187
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Integrate the three-path desired-state design into project plans
 parent: EXOCOMP-185
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T13:42:15.508595Z'
+updated_at: '2026-08-01T13:46:24.285175Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 target_branch: null
 review_url: null
@@ -82,6 +82,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:36:42.939344+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6b557ca8d19e: '2026-08-01T13:46:22.048507+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-187
+    target_state: Done
+    evidence_fingerprint: e86ccf0792fe6f7bdb3f16f14bf794d9c8e7438a76c019d2b4c723d44d7abfc0
+    audit_ids:
+    - audit-77d966f51e97
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T13:46:22.048519+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-187
+    audit_id: audit-77d966f51e97
+    attempt_id: attempt-6b557ca8d19e
+    target_state: Done
+    evidence_fingerprint: e86ccf0792fe6f7bdb3f16f14bf794d9c8e7438a76c019d2b4c723d44d7abfc0
+    status: Done
+    audit_ids:
+    - audit-77d966f51e97
+    applied: false
+    created_at: '2026-08-01T13:46:22.048536+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -89,7 +113,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-187
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -98,7 +122,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6b557ca8d19e
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -108,13 +132,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T13:42:12.033130+00:00'
       branch_key: epic-EXOCOMP-185--task-EXOCOMP-187
+      verdict: pass
+      completed_at: '2026-08-01T13:46:22.048281+00:00'
+      ended_at: '2026-08-01T13:46:22.048281+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T13:41:32.857003+00:00'
-    updated_at: '2026-08-01T13:42:12.033130+00:00'
+    updated_at: '2026-08-01T13:46:22.048281+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6b557ca8d19e
@@ -229,5 +256,21 @@ author: oompah
 created: 2026-08-01 13:42
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 13:46
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- exocomp_md_summary: plans/exocomp.md contains 'Three-Path Desired-State Design' section covering Path 1/2/3, Mission Control Boundaries, Broader Scope Boundaries with Ceph carve-out, Path Coverage table, and updated milestone table.
+- milestone_2_scope: milestone-2-coordinator.md defines inventory load, DNS resolution, health polling with state transitions; M2-CRIT-1..M2-CRIT-8 all marked [x].
+- milestone_4_scope: milestone-4-service-recovery.md defines recovery state machine, approval-gated execution, verification; M4-CRIT-1..M4-CRIT-8 all marked [x].
+- mission_control_scope: mission-control.md and exocomp.md state Mission Control retains no policy authority, no execution credentials, no approval signing key.
+- commit: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72 (plans/exocomp.md +186 -23)
+- test_compliance: make test-compliance: Ran 29 tests in 1.700s -- OK
+- check_links_coverage: Direct make check-links denied by auditor policy, but link check ran inside test-compliance via test_repository_passes_all_checks (all checks selection) and passed.
 ---
 <!-- COMMENTS:END -->
