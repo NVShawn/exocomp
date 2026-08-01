@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.145960Z'
-updated_at: '2026-08-01T13:03:37.232144Z'
+updated_at: '2026-08-01T13:04:16.481679Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-169
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-08-01 13:03
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 13:04
+---
+**Understanding**: EXOCOMP-169 requires adding proposal controls (approve/deny buttons with context guards) and a timeline visualization to the Mission Control UI. The proposal should display: target, action, parameters, evidence age/hash, risk, disruption, rationale, policy result, and expiry. The timeline must show: decision, command delivery, execution, verification, and terminal artifacts as a correlated sequence. This is frontend work for a Phoenix LiveView application that doesn't exist yet - need to check blocking dependencies EXOCOMP-162, 163, 168 to understand what's been built.
 ---
 <!-- COMMENTS:END -->
