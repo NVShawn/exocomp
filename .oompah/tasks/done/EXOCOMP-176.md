@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-08-01T16:37:59.933586Z'
+updated_at: '2026-08-01T16:38:24.787714Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 target_branch: null
 review_url: null
@@ -61,13 +61,17 @@ oompah.integration:
   submitted_at: '2026-08-01T13:29:26.416726+00:00'
   updated_at: '2026-08-01T16:30:39.508241+00:00'
 oompah.task_costs:
-  total_input_tokens: 1157401
-  total_output_tokens: 4784
+  total_input_tokens: 1157457
+  total_output_tokens: 7195
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 1157401
       output_tokens: 4784
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 56
+      output_tokens: 2411
       cost_usd: 0.0
   runs:
   - profile: default
@@ -76,6 +80,12 @@ oompah.task_costs:
     output_tokens: 4784
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:11:05.938373+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 56
+    output_tokens: 2411
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:38:23.421970+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-176__20260801T130906Z
@@ -367,5 +377,15 @@ Safe evidence:
 - packager_path: scripts/package_mission_control.py
 - harness_path: scripts/test-mission-control-image.sh
 - docs_path: docs/mission-control-operations.md
+---
+author: oompah
+created: 2026-08-01 16:38
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 39
+- Tokens: 56 in / 2.4K out [2.5K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 6m 54s
+- Log: EXOCOMP-176__20260801T163134Z.jsonl
 ---
 <!-- COMMENTS:END -->
