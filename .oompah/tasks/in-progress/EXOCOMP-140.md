@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: Needs CI Fix
+status: In Progress
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:53:51.921109Z'
+updated_at: '2026-08-01T17:54:08.414625Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -89,7 +89,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: c102fe23-063e-46c2-b552-1f8c231e55f6
+oompah.agent_run_id: 3b9956dd-6099-4462-bd43-bcf2567281dc
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
