@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-199
 type: task
-status: Ready to Integrate
+status: Needs Human
 priority: 1
 title: Correlate Ceph topology with coordinator inventory nodes
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T18:55:21.532548Z'
+updated_at: '2026-08-01T18:55:32.806639Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -112,13 +112,13 @@ oompah.integration:
   submitted_at: '2026-08-01T18:55:19.511694+00:00'
   updated_at: '2026-08-01T18:55:19.511694+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 277
+  total_input_tokens: 11512010
+  total_output_tokens: 48597
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10
-      output_tokens: 277
+      input_tokens: 11512010
+      output_tokens: 48597
       cost_usd: 0.0
   runs:
   - profile: default
@@ -127,6 +127,12 @@ oompah.task_costs:
     output_tokens: 277
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:12:18.722253+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 11512000
+    output_tokens: 48320
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:55:27.531363+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-199__20260801T141007Z
@@ -137,6 +143,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-199
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:12:18.752804+00:00'
+  - run_id: EXOCOMP-199__20260801T183845Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: callback_auth
+    source_branch: epic-EXOCOMP-186--task-EXOCOMP-199
+    source_sha: 0314c58199acb476c7384be42e88291af1beea95
+    completed_at: '2026-08-01T18:55:27.535355+00:00'
 ---
 ## Summary
 
@@ -211,5 +225,20 @@ author: oompah
 created: 2026-08-01 18:55
 ---
 Implemented deterministic Ceph topology correlation with inventory coverage outcomes and cluster:ceph desired services; pushed 0314c581.
+---
+author: oompah
+created: 2026-08-01 18:55
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 121
+- Tokens: 11.5M in / 48.3K out [11.6M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 16m 52s
+- Log: EXOCOMP-199__20260801T183845Z.jsonl
+---
+author: oompah
+created: 2026-08-01 18:55
+---
+Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
 ---
 <!-- COMMENTS:END -->
