@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:42.626270Z'
-updated_at: '2026-08-01T15:08:50.094012Z'
+updated_at: '2026-08-01T15:14:05.877345Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-157
 target_branch: null
 review_url: null
@@ -135,5 +135,10 @@ author: oompah
 created: 2026-08-01 15:08
 ---
 Implementation: fast-forwarded onto EXOCOMP-154's incident store, added optional service/software_version metadata without changing fingerprint identity, introduced pure Grouping key/related/group/summary functions with inclusive windows and stable ordering, and added organization-scoped open/recent/related query helpers. Focused tests cover the requested grouping and query behavior.
+---
+author: oompah
+created: 2026-08-01 15:14
+---
+Verification: direct ExUnit harness ran the dependency incident tests plus grouping/query tests: 21 tests, 0 failures. New modules compile with elixirc --warnings-as-errors; local mix format --check-formatted and git diff --check pass. make fmt-check and make lint reached the pinned Podman builder but were blocked by the environment's read-only /run/user/1000/libpod configuration; no code failure was reported.
 ---
 <!-- COMMENTS:END -->

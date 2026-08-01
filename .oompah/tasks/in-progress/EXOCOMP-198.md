@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T15:12:24.038970Z'
+updated_at: '2026-08-01T15:14:20.792703Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -142,5 +142,10 @@ author: oompah
 created: 2026-08-01 15:12
 ---
 Implementation: Added Exocomp.Node.Collectors.Ceph and Exocomp.Node.Skills.ProfileInspect. Discovery uses fixed list-units/show argv, strict traditional and cephadm grammars for mon/mgr/osd/mds/gateway, bounded output/unit counts, per-query timeouts, sanitized partial errors, and explicit :not_member for empty successful listings. Registered exocomp.profile.inspect in the dispatcher and node Agent Card, and added traditional/cephadm/mixed/no-install/malformed/timeout/truncation/security fixtures and tests.
+---
+author: oompah
+created: 2026-08-01 15:14
+---
+Verification: git diff --check and direct mix format --check-formatted pass for all changed files. make test passed the offline builder/packaging checks (13 builder checks and Python packaging/operator suites), then stopped at the Elixir container stage because the host Podman configuration is read-only. Native MIX_ENV=test mix test is unavailable because the host has Elixir 1.18.3 and the project requires 1.20.2.
 ---
 <!-- COMMENTS:END -->
