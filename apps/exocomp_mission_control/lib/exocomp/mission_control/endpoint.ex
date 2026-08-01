@@ -19,7 +19,10 @@ defmodule Exocomp.MissionControl.Endpoint do
     max_age: 86400 * 7
   ]
 
-  socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
+  socket("/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options], timeout: 45_000],
+    longpoll: [timeout: 45_000]
+  )
 
   @doc false
   def session_options, do: @session_options
@@ -32,7 +35,7 @@ defmodule Exocomp.MissionControl.Endpoint do
     at: "/",
     from: :exocomp_mission_control,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt)
   )
 
   # Code reloading can be explicitly enabled under the :code_reloader configuration

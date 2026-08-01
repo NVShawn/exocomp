@@ -29,24 +29,23 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
   ## Arguments
 
   The second element of the `{module, arg}` on_mount tuple must be one of:
+  - `:authenticate` — loads operator from session; redirects to login if absent.
   - `:read` — requires viewer or higher.
   - `:operate` — requires operator or higher.
   - `:administer` — requires admin.
 
   ## Socket assigns
 
-  The hook expects the following assigns to be set by the authentication hook
-  that runs before it:
+  The `:authenticate` action reads session keys set by `AuthController` and
+  assigns `:current_operator` on the socket. Role-checking actions read that
+  assign; chain `:authenticate` before any role action in a live_session.
 
-  - `:current_operator` — an `%Operator{}` struct, or `nil` if unauthenticated.
-  - `:organization_id` — optionally pre-assigned from the parent live_session
-    or set by a preceding `on_mount` hook.
-
-  The `organization_id` is also sourced from `params["organization_id"]` when
-  not present in assigns.
+  The `organization_id` is sourced from `params["organization_id"]` or from
+  `socket.assigns[:organization_id]`.
   """
 
   alias Exocomp.MissionControl.Authorization
+  alias Exocomp.MissionControl.Identity.Operator
 
   @doc """
   LiveView on_mount/4 callback.
@@ -60,11 +59,26 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
   application will receive a `Phoenix.LiveView.Socket` struct.
   """
   @spec on_mount(
-          action :: :read | :operate | :administer,
+          action :: :authenticate | :read | :operate | :administer,
           params :: map(),
           session :: map(),
           socket :: any()
         ) :: {:cont, any()} | {:halt, any()}
+  def on_mount(:authenticate, _params, session, socket) do
+    case build_operator_from_session(session) do
+      {:ok, operator} ->
+        {:cont, assign_operator(socket, operator)}
+
+      {:error, :unauthenticated} ->
+        halted_socket =
+          socket
+          |> phoenix_put_flash(:error, "You must be signed in.")
+          |> phoenix_redirect(to: "/auth/login")
+
+        {:halt, halted_socket}
+    end
+  end
+
   def on_mount(action, params, _session, socket) when action in [:read, :operate, :administer] do
     operator = get_in(socket.assigns, [:current_operator])
     organization_id = resolve_organization_id(socket.assigns, params)
@@ -73,13 +87,21 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
       :ok ->
         {:cont, socket}
 
+      {:error, :unauthenticated} ->
+        halted_socket =
+          socket
+          |> phoenix_put_flash(:error, "You must be signed in.")
+          |> phoenix_redirect(to: "/auth/login")
+
+        {:halt, halted_socket}
+
       {:error, reason} ->
         # Redirect to root with an error flash. The put_flash/redirect calls
         # use the Phoenix.LiveView API which must be available at runtime.
         halted_socket =
           socket
           |> phoenix_put_flash(:error, forbidden_message(reason))
-          |> phoenix_redirect(to: "/")
+          |> phoenix_redirect(to: "/forbidden")
 
         {:halt, halted_socket}
     end
@@ -87,15 +109,42 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
 
   # ── Private ──────────────────────────────────────────────────────────────────
 
+  defp build_operator_from_session(session) do
+    with operator_id when is_binary(operator_id) <- session["operator_id"],
+         role when not is_nil(role) <- parse_role(session["operator_role"]),
+         organization_id when is_binary(organization_id) <- session["organization_id"] do
+      {:ok,
+       %Operator{
+         sub: operator_id,
+         organization_id: organization_id,
+         role: role,
+         display_name: session["operator_name"]
+       }}
+    else
+      _ -> {:error, :unauthenticated}
+    end
+  end
+
+  defp parse_role(role) when is_atom(role) and role in [:viewer, :operator, :admin], do: role
+  defp parse_role("viewer"), do: :viewer
+  defp parse_role("operator"), do: :operator
+  defp parse_role("admin"), do: :admin
+  defp parse_role(_), do: nil
+
+  defp assign_operator(socket, operator) do
+    apply(Phoenix.LiveView, :assign, [socket, :current_operator, operator])
+  end
+
   defp resolve_organization_id(assigns, params) do
     assigns[:organization_id] || params["organization_id"]
   end
 
-  defp forbidden_message(:unauthenticated), do: "You must be signed in."
   defp forbidden_message(:cross_organization), do: "Access denied: organization mismatch."
 
   defp forbidden_message(:insufficient_role),
     do: "You do not have permission to perform this action."
+
+  defp forbidden_message(_), do: "Access denied."
 
   # Deferred dispatch to Phoenix.LiveView to avoid a hard compile-time dep.
   defp phoenix_put_flash(socket, kind, message) do
