@@ -53,6 +53,7 @@ CONTAINER_RUN := $(CONTAINER_ENGINE) run --rm --init \
 	gen-test-fixtures test-fixture-service fixture-install fixture-cleanup \
 	test-integration bench-llama-short bench-harness bench-llama-short-shipped \
 	bench-llama-full test-m5-qualification test-installer test-bundle \
+	test-m7-qualification-contract test-m7-qualification finalize-m7-evidence \
 	bundle-amd64 bundle-arm64 bundle-runtime-amd64 bundle-runtime-arm64 \
 	verify-bundle
 
@@ -303,6 +304,28 @@ test-m5-qualification: ## Run focused M5 shipped-artifact configuration, identit
 		test/exocomp/qualification_probe_test.exs && \
 		MIX_ENV=test mix do --app exocomp_coordinator cmd mix test \
 		test/exocomp/coordinator/qualification_probe_test.exs'
+
+test-m7-qualification-contract: ## Test the fail-closed M7 qualification and evidence contract.
+	$(PYTHON) -m unittest discover -s tests -p 'test_m7_qualification.py' -v
+
+test-m7-qualification: test-m7-qualification-contract ## Run the full M7 shipped-artifact qualification for ARCH=amd64|arm64. Requires signed candidate and frozen inputs.
+	ARCH="$(ARCH)" M7_EVIDENCE_DIR="$(M7_EVIDENCE_DIR)" \
+		M7_CANDIDATE_TAG="$(M7_CANDIDATE_TAG)" M7_OPERATOR="$(M7_OPERATOR)" \
+		M7_NODE_ARCHIVE="$(M7_NODE_ARCHIVE)" M7_NODE_MANIFEST="$(M7_NODE_MANIFEST)" \
+		M7_COORDINATOR_ARCHIVE="$(M7_COORDINATOR_ARCHIVE)" M7_COORDINATOR_MANIFEST="$(M7_COORDINATOR_MANIFEST)" \
+		M7_MISSION_CONTROL_IMAGE="$(M7_MISSION_CONTROL_IMAGE)" \
+		M7_MISSION_CONTROL_MANIFEST="$(M7_MISSION_CONTROL_MANIFEST)" \
+		M7_POSTGRES_IMAGE="$(M7_POSTGRES_IMAGE)" M7_MODEL_PATH="$(M7_MODEL_PATH)" \
+		M7_MODEL_SHA256="$(M7_MODEL_SHA256)" M7_MC_SERVICE_URL="$(M7_MC_SERVICE_URL)" \
+		M7_REDACTED_CONFIG="$(M7_REDACTED_CONFIG)" \
+		M7_OVERRIDES_FILE="$(M7_OVERRIDES_FILE)" CONTAINER_ENGINE="$(CONTAINER_ENGINE)" \
+		bash scripts/test-m7-qualification.sh
+
+finalize-m7-evidence: ## Validate amd64+arm64 M7 evidence and create a signed index. Set M7_EVIDENCE_ROOT, M7_EVIDENCE_SIGNING_KEY, and M7_QUALIFICATION_SIGNER.
+	M7_EVIDENCE_ROOT="$(M7_EVIDENCE_ROOT)" \
+		M7_EVIDENCE_SIGNING_KEY="$(M7_EVIDENCE_SIGNING_KEY)" \
+		M7_QUALIFICATION_SIGNER="$(M7_QUALIFICATION_SIGNER)" \
+		$(PYTHON) scripts/finalize_m7_evidence.py
 
 test-installer: ## Run hardened installer/uninstaller tests (requires Python 3.11+, no systemd or root needed).
 	python3 -m pytest test/installer/test_installer.py -v

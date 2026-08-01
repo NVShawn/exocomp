@@ -41,6 +41,8 @@ integrated M7 candidate must expose these targets:
 - `test-mission-control-packaging` and `test-mission-control-image` for OCI
   metadata, hardening, migrations, readiness, and restart safety.
 - `test-m7-qualification` for the complete shipped-artifact M7 gate.
+- `finalize-m7-evidence` to validate both raw architecture results and sign
+  the one deterministic release-evidence index.
 
 If any target is absent, stop. Do not replace the missing target with an ad
 hoc command and call the run complete. The M7 target must accept
@@ -155,13 +157,37 @@ make check-links
 make test-release-matrix ARCH="${TARGET_ARCH}" SKIP_BUILD=1
 make test-m7-qualification \
   ARCH="${TARGET_ARCH}" \
-  M7_EVIDENCE_DIR="${ARCH_EVIDENCE_DIR}"
+  M7_EVIDENCE_DIR="${ARCH_EVIDENCE_DIR}" \
+  M7_CANDIDATE_TAG="${CANDIDATE_TAG}" \
+  M7_OPERATOR="${QUALIFICATION_OPERATOR}" \
+  M7_NODE_ARCHIVE="${NODE_ARCHIVE}" \
+  M7_NODE_MANIFEST="${NODE_MANIFEST}" \
+  M7_COORDINATOR_ARCHIVE="${COORDINATOR_ARCHIVE}" \
+  M7_COORDINATOR_MANIFEST="${COORDINATOR_MANIFEST}" \
+  M7_MISSION_CONTROL_IMAGE="${MISSION_CONTROL_IMAGE}" \
+  M7_MISSION_CONTROL_MANIFEST="${MISSION_CONTROL_MANIFEST}" \
+  M7_POSTGRES_IMAGE="${POSTGRES_IMAGE}" \
+  M7_MODEL_PATH="${MODEL_PATH}" \
+  M7_MODEL_SHA256="${MODEL_SHA256}" \
+  M7_MC_SERVICE_URL="${MISSION_CONTROL_SERVICE_URL}" \
+  M7_REDACTED_CONFIG="${REDACTED_CONFIG}"
 ```
 
 `test-m7-qualification` is the authoritative full M7 result. The preceding
 targets remain separately required so the evidence identifies the exact
 failure boundary. The M7 gate must consume the frozen artifacts and must not
-rebuild them.
+rebuild them. It validates the archive and image metadata against the signed
+tag before starting any live phase, rejects an evidence-directory reuse, and
+requires a full systemd guest of the requested architecture. It also requires
+the integrated `test-mission-control-scenario`, `mc-scale-full`, and
+`test-mission-control-lifecycle` targets; their absence is a failure rather
+than permission to omit the phase.
+
+`REDACTED_CONFIG` is a JSON copy of the effective qualification configuration.
+Every value under a password, secret, token, cookie, private-key, database URL,
+or authorization key must be the literal string `[REDACTED]`. The gate rejects
+unredacted values before copying the configuration to evidence. The endpoint
+must be an HTTP(S) URL without embedded credentials.
 
 ## Required live phases
 
@@ -311,10 +337,11 @@ freshness windows. An unrecorded or disallowed override fails qualification.
 
 ## Sign and verify the result
 
-After both architecture directories are complete, create one deterministic
-index from the evidence directory and sign it with the qualification key.
-Copy the qualification public key and `allowed-signers` file into that
-directory before creating the index.
+After both architecture directories are complete, copy the qualification
+public key and `allowed-signers` file into their common evidence root. Create
+and verify the one deterministic index with the Make target; it refuses an
+existing index, a missing raw architecture, different tag/commit identities,
+an incomplete criterion index, or any missing raw evidence path.
 
 ```sh
 set -eu
@@ -322,26 +349,10 @@ set -eu
 : "${QUALIFICATION_SIGNING_KEY:?set QUALIFICATION_SIGNING_KEY}"
 : "${QUALIFICATION_SIGNER:?set QUALIFICATION_SIGNER}"
 
-(
-  cd "${EVIDENCE_DIR}"
-  find . -type f \
-    ! -name evidence-index.sha256 \
-    ! -name evidence-index.sha256.sig \
-    -print0 | sort -z | xargs -0 sha256sum > evidence-index.sha256
-
-  ssh-keygen -Y sign \
-    -f "${QUALIFICATION_SIGNING_KEY}" \
-    -n exocomp-release-qualification \
-    evidence-index.sha256
-
-  sha256sum -c evidence-index.sha256
-  ssh-keygen -Y verify \
-    -f allowed-signers \
-    -I "${QUALIFICATION_SIGNER}" \
-    -n exocomp-release-qualification \
-    -s evidence-index.sha256.sig \
-    < evidence-index.sha256
-)
+make finalize-m7-evidence \
+  M7_EVIDENCE_ROOT="${EVIDENCE_DIR}" \
+  M7_EVIDENCE_SIGNING_KEY="${QUALIFICATION_SIGNING_KEY}" \
+  M7_QUALIFICATION_SIGNER="${QUALIFICATION_SIGNER}"
 ```
 
 Only the exact indexed artifacts may proceed to the later publication task.
