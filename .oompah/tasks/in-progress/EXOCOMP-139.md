@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T14:53:04.702298Z'
+updated_at: '2026-08-01T14:55:10.193799Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -168,5 +168,22 @@ author: oompah
 created: 2026-08-01 14:53
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 14:55
+---
+**UNDERSTANDING:** Task EXOCOMP-139 requires defining the Mission Control protocol envelopes and fixtures for cluster event delivery. I will:
+
+1. Create Elixir structs for cluster events, server commands, and acknowledgements in apps/exocomp_coordinator/lib/exocomp/coordinator/mission_control/
+2. Implement codecs for JSON serialization/deserialization with validation
+3. Define event and command kind allow-lists based on plans/mission-control.md:
+   - Events: cluster.hello, cluster.heartbeat, status.snapshot, alert.opened, alert.updated, alert.resolved, conversation.reply, proposal.created, approval.result, action.status, audit.event
+   - Commands: (to be determined from plan)
+4. Add valid JSON fixtures that round-trip without semantic loss
+5. Add table-driven tests for invalid cases (bad versions, missing IDs, oversized payloads, etc)
+6. Reuse A2A types for correlation IDs, timestamps, and other shared structures
+7. Verify with make test, make fmt-check, and make lint
+
+All changes will stay focused on generic Mission Control envelopes (service-specific events handled by EXOCOMP-194).
 ---
 <!-- COMMENTS:END -->
