@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:59:46.507487Z'
+updated_at: '2026-08-01T18:00:01.297224Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -96,17 +96,19 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: a32e40695d6c0f67fa3cc823cf8cfcfc6525cbee
   submitted_at: '2026-08-01T17:59:43.467642+00:00'
-  updated_at: '2026-08-01T17:59:43.467642+00:00'
+  updated_at: '2026-08-01T18:00:00.324190+00:00'
 oompah.task_costs:
-  total_input_tokens: 21150725
-  total_output_tokens: 110052
+  total_input_tokens: 22346039
+  total_output_tokens: 118135
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 21150391
-      output_tokens: 82362
+      input_tokens: 22345705
+      output_tokens: 90445
       cost_usd: 0.0
     unknown:
       input_tokens: 165
@@ -153,6 +155,12 @@ oompah.task_costs:
     output_tokens: 3144
     cost_usd: 0.0
     recorded_at: '2026-08-01T17:53:50.371392+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1195314
+    output_tokens: 8083
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:59:54.907374+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-140__20260801T114901Z
@@ -171,6 +179,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-129--task-EXOCOMP-140
     source_sha: 406ad28de7e3e0e2d1985ba22d5e808aea77be9b
     completed_at: '2026-08-01T17:15:15.486445+00:00'
+  - run_id: EXOCOMP-140__20260801T175618Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: frontend
+    source_branch: epic-EXOCOMP-129--task-EXOCOMP-140
+    source_sha: a32e40695d6c0f67fa3cc823cf8cfcfc6525cbee
+    completed_at: '2026-08-01T17:59:54.915603+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -661,5 +677,20 @@ author: oompah
 created: 2026-08-01 17:59
 ---
 Fixed Mission Control OIDC test compilation and encrypted session-cookie configuration; pushed a32e4069.
+---
+author: oompah
+created: 2026-08-01 17:59
+---
+Agent completed successfully in 226s (1203397 tokens)
+---
+author: oompah
+created: 2026-08-01 17:59
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 25
+- Tokens: 1.2M in / 8.1K out [1.2M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 46s
+- Log: EXOCOMP-140__20260801T175618Z.jsonl
 ---
 <!-- COMMENTS:END -->
