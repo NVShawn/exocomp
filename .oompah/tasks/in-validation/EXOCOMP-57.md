@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-57
 type: task
-status: Needs Human
+status: In Validation
 priority: null
 title: Generate test fixture certificates and config files
 parent: EXOCOMP-9
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-08-01T00:58:50.523891Z'
+updated_at: '2026-08-01T01:45:22.600826Z'
 work_branch: epic-EXOCOMP-9--task-EXOCOMP-57
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/1
@@ -67,7 +67,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-57
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -142,6 +142,23 @@ oompah.terminal_audit:
     previous_state: Merged
     created_at: '2026-07-30T21:55:28.205505+00:00'
     updated_at: '2026-07-30T21:58:02.915964+00:00'
+  - version: 1
+    audit_id: audit-158f15a16b6c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-57
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 562e7b401c84a515c7451d1726affa3bdfa260a0522abaf210f64740a240c048
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Needs Human
+    created_at: '2026-08-01T01:45:20.793926+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a965b4684476
