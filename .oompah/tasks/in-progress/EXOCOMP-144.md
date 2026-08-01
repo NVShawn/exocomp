@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:09:09.941918Z'
+updated_at: '2026-08-01T12:09:48.641716Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -128,5 +128,18 @@ author: oompah
 created: 2026-08-01 12:09
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 12:09
+---
+Understanding: EXOCOMP-144 requires backend PKI implementation including:
+1. Authenticated POST /api/v1/clusters/renew endpoint for certificate renewal
+2. Certificate serial rotation and 20-day renewal eligibility logic
+3. Admin operations to revoke clusters and their certificate serials
+4. Deterministic certificate status lookup for the connection gateway
+
+Tests needed for early/valid renewal, expired certs, revoked clusters, identity mismatches, concurrent renewal, signing failures.
+
+However, this task is marked for Frontend Developer focus. The deliverables are backend API and PKI operations with UI explicitly out of scope. No LiveView or UI work is required here. This appears to be a focus mismatch - the work needs a backend specialist, not frontend expertise.
 ---
 <!-- COMMENTS:END -->
