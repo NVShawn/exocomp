@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-112
 type: chore
-status: In Validation
+status: Archived
 priority: 1
 title: Recover omitted M5 benchmark host-profile and sampler work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:21.078898Z'
-updated_at: '2026-08-01T21:25:10.902394Z'
+updated_at: '2026-08-01T21:28:33.396276Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -37,6 +37,30 @@ oompah.task_costs:
     recorded_at: '2026-07-25T18:45:05.408716+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-82e6e9875eba: '2026-08-01T21:28:31.068195+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-112
+    target_state: Archived
+    evidence_fingerprint: 08056e9cc7d83816c0a6d769785cdf6cd7f896d485b7b6ae2463b7ac295cde88
+    audit_ids:
+    - audit-faf00ec1c385
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:28:31.068203+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-112
+    audit_id: audit-faf00ec1c385
+    attempt_id: attempt-82e6e9875eba
+    target_state: Archived
+    evidence_fingerprint: 08056e9cc7d83816c0a6d769785cdf6cd7f896d485b7b6ae2463b7ac295cde88
+    status: Archived
+    audit_ids:
+    - audit-faf00ec1c385
+    applied: false
+    created_at: '2026-08-01T21:28:31.068214+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -44,7 +68,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-112
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -53,7 +77,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-82e6e9875eba
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -63,13 +87,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:25:01.474611+00:00'
       branch_key: epic-EXOCOMP-110
+      verdict: pass
+      completed_at: '2026-08-01T21:28:31.068091+00:00'
+      ended_at: '2026-08-01T21:28:31.068091+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:18:29.812947+00:00'
-    updated_at: '2026-08-01T21:25:01.474611+00:00'
+    updated_at: '2026-08-01T21:28:31.068091+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-82e6e9875eba
@@ -242,5 +269,22 @@ author: oompah
 created: 2026-08-01 21:25
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:28
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- recovery_commit_53: b65ad23a on main
+- recovery_commit_56: c958c8fc on main
+- host_profile_present: apps/bench/lib/bench/host_profile.ex
+- host_sampler_present: apps/bench/lib/bench/host_sampler.ex
+- profile_toml_present: apps/bench/priv/bench/profiles/{amd64-ci,arm64-ci}.toml
+- host_profile_test_present: apps/bench/test/bench/host_profile_test.exs
+- host_sampler_test_present: apps/bench/test/bench/host_sampler_test.exs
+- downstream_integration: subsequent commits (EXOCOMP-114 50cd48c2, EXOCOMP-125 1ff41fe1) build on host_profile/host_sampler on main
 ---
 <!-- COMMENTS:END -->
