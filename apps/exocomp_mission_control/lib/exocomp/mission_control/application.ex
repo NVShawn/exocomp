@@ -8,6 +8,7 @@ defmodule Exocomp.MissionControl.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      Exocomp.MissionControl.Telemetry,
       {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
       Exocomp.MissionControl.Endpoint
     ]

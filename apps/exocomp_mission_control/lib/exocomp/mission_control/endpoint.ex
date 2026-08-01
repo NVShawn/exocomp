@@ -14,13 +14,16 @@ defmodule Exocomp.MissionControl.Endpoint do
     secure: Mix.env() == :prod
   ]
 
-  socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
+  socket("/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options], timeout: 45_000],
+    longpoll: [timeout: 45_000]
+  )
 
   plug(Plug.Static,
     at: "/",
     from: :exocomp_mission_control,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt)
   )
 
   plug(Plug.RequestId)

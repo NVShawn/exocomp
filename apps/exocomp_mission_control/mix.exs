@@ -26,11 +26,24 @@ defmodule Exocomp.MissionControl.MixProject do
 
   defp deps do
     [
-      {:phoenix, "~> 1.7.18"},
-      {:phoenix_live_view, "~> 1.1"},
+      {:exocomp_core, in_umbrella: true},
+      {:phoenix, "~> 1.7"},
+      {:phoenix_live_view, "~> 0.20"},
+      {:phoenix_live_dashboard, "~> 0.8"},
+      {:phoenix_html, "~> 4.0"},
       {:phoenix_pubsub, "~> 2.1"},
-      {:bandit, "~> 1.0"},
-      {:jason, "~> 1.4"}
+      {:plug, "~> 1.14"},
+      {:plug_cowboy, "~> 2.7"},
+      {:bandit, "~> 1.4"},
+      {:jason, "~> 1.4"},
+      {:oauth2, "~> 2.1"},
+      {:httpoison, "~> 2.0"},
+      {:jose, "~> 1.11"},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"},
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, "~> 0.17"},
+      {:gettext, "~> 0.24"}
     ]
   end
 end
