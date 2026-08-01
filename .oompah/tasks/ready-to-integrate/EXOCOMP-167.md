@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-167
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Build the incident inbox and detail LiveViews
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-08-01T15:41:26.608672Z'
+updated_at: '2026-08-01T15:41:30.945693Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 target_branch: null
 review_url: null
@@ -174,5 +174,10 @@ author: oompah
 created: 2026-08-01 15:41
 ---
 Completion: pushed b621e936 on epic-EXOCOMP-133--task-EXOCOMP-167. Delivered the organization-scoped incident inbox/detail LiveViews, filters/pagination, evidence and related incidents, real-time open/resolve/reopen refreshes, acknowledge/assignment/snooze/manual-resolution controls, stale/invalid/reason/access guards, snooze wake-time display, and focused LiveView coverage. Worktree is clean and matches origin.
+---
+author: oompah
+created: 2026-08-01 15:41
+---
+Built incident inbox and detail LiveViews with scoped filtering, pagination, real-time updates, evidence/timeline/related views, operator controls, authorization and focused tests.
 ---
 <!-- COMMENTS:END -->
