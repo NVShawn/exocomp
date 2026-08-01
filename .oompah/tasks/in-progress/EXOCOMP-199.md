@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T18:38:40.923140Z'
+updated_at: '2026-08-01T18:39:09.151982Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -191,5 +191,10 @@ author: oompah
 created: 2026-08-01 18:38
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-01 18:39
+---
+Understanding: correlate authoritative Ceph topology with inventory node discoveries using deterministic exact/case-normalized host identity and daemon identity checks, preserving valid Ceph non-members and explicit unsupported coverage. I’ll inspect the post-EXOCOMP-198 discovery models and shared desired-service resolver, add structured reconciliation outcomes plus focused tests, then run make test.
 ---
 <!-- COMMENTS:END -->
