@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-141
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Enforce viewer, operator, and admin authorization
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T11:53:52.276819Z'
+updated_at: '2026-08-01T11:54:21.460398Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -37,7 +37,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 6bfba4dc-b650-4df8-abd0-c1bef7d41053
+oompah.agent_run_id: 2bd7c99f-c9bc-407c-a231-fddbe8c6acc3
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 oompah.integration:
   version: 2
@@ -46,7 +46,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-141
   base_branch: epic-EXOCOMP-129
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T11:50:42.087858+00:00'
+  updated_at: '2026-08-01T11:54:18.958355+00:00'
 oompah.task_costs:
   total_input_tokens: 392325
   total_output_tokens: 4671
@@ -119,5 +119,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 3m 10s
 - Log: EXOCOMP-141__20260801T115045Z.jsonl
+---
+author: oompah
+created: 2026-08-01 11:54
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 11:54
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
