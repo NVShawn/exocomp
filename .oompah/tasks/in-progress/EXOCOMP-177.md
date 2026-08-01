@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-177
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Expose Mission Control health and Prometheus metrics
 parent: EXOCOMP-135
@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-08-01T15:45:00.800294Z'
+updated_at: '2026-08-01T23:01:58.825793Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 target_branch: null
 review_url: null
@@ -49,7 +49,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 020a3281-e526-405b-93b4-e78fef361d4a
+oompah.agent_run_id: da2b7ab1-b7c0-4786-8c09-25b673c9700c
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 oompah.integration:
   version: 2
@@ -57,8 +57,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-177
   base_branch: epic-EXOCOMP-135
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:42:52.372155+00:00'
+  base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
+  updated_at: '2026-08-01T23:01:56.567415+00:00'
 oompah.task_costs:
   total_input_tokens: 836126
   total_output_tokens: 4897
@@ -134,5 +134,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 6s
 - Log: EXOCOMP-177__20260801T154256Z.jsonl
+---
+author: oompah
+created: 2026-08-01 23:01
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 23:01
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->

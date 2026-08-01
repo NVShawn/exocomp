@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T14:22:10.672563Z'
+updated_at: '2026-08-01T23:01:53.324445Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -118,7 +118,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: dbf5507d-e0a6-4315-818c-2bdf0f58811e
+oompah.agent_run_id: 152f3243-2eb0-4100-ac6a-35a41e0e334d
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 oompah.integration:
   version: 2
@@ -126,8 +126,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
   base_branch: epic-EXOCOMP-186
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:19:15.918983+00:00'
+  base_sha: 04f4ea53956dd19036a6244ce848566495296f76
+  updated_at: '2026-08-01T23:01:50.164484+00:00'
 oompah.task_costs:
   total_input_tokens: 186
   total_output_tokens: 5976
@@ -199,5 +199,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 55s
 - Log: EXOCOMP-203__20260801T141919Z.jsonl
+---
+author: oompah
+created: 2026-08-01 23:01
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 23:01
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
