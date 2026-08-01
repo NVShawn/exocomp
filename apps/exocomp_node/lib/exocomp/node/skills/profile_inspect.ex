@@ -169,6 +169,8 @@ defmodule Exocomp.Node.Skills.ProfileInspect do
     Map.new(value, fn {key, nested_value} -> {to_string(key), serialize_value(nested_value)} end)
   end
 
+  defp serialize_value(nil), do: nil
+  defp serialize_value(value) when is_boolean(value), do: value
   defp serialize_value(value) when is_atom(value), do: Atom.to_string(value)
   defp serialize_value(value), do: value
 end

@@ -46,7 +46,7 @@ defmodule Exocomp.Node.Collectors.CephTest do
     daemons = observation.measurements.daemons.value
 
     assert observation.measurements.membership.value == :member
-    assert Enum.map(daemons, & &1.kind) == [:gateway, :mds, :mgr, :mon, :osd]
+    assert Enum.map(daemons, & &1.kind) == [:mds, :mgr, :mon, :osd, :gateway]
 
     assert %{kind: :mon, id: "alpha", fsid: nil, active_state: "active"} =
              Enum.find(daemons, &(&1.kind == :mon))
@@ -69,7 +69,7 @@ defmodule Exocomp.Node.Collectors.CephTest do
 
     assert length(daemons) == 5
     assert Enum.all?(daemons, &(&1.fsid == @fsid))
-    assert Enum.map(daemons, & &1.kind) == [:gateway, :mds, :mgr, :mon, :osd]
+    assert Enum.map(daemons, & &1.kind) == [:mds, :mgr, :mon, :osd, :gateway]
     assert Enum.find(daemons, &(&1.kind == :osd)).id == "7"
   end
 
