@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-08-01T21:38:17.610207Z'
+updated_at: '2026-08-01T21:38:51.164118Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -27,13 +27,13 @@ merged_at: null
 oompah.agent_run_id: b0118804-a2fd-4232-a260-ad9ed3743941
 oompah.work_branch: epic-EXOCOMP-5
 oompah.task_costs:
-  total_input_tokens: 86
-  total_output_tokens: 7186
+  total_input_tokens: 124
+  total_output_tokens: 13589
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 86
-      output_tokens: 7186
+      input_tokens: 124
+      output_tokens: 13589
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 2081
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:37:27.511958+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 38
+    output_tokens: 6403
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:38:49.618676+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -294,5 +300,15 @@ Safe evidence:
 - make_targets_present: bench-harness, bench-llama-short, bench-llama-short-shipped, bench-llama-full
 - config_schema_versioned: Bench.Config uses @current_schema_version 1 with :incompatible_version rejection
 - queue_reason: Aged Merged auto-archive (closed 7 days ago) per tracker comment #15
+---
+author: oompah
+created: 2026-08-01 21:38
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 40, Tool calls: 32
+- Tokens: 38 in / 6.4K out [6.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 47s
+- Log: EXOCOMP-35__20260801T213207Z.jsonl
 ---
 <!-- COMMENTS:END -->
