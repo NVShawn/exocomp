@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:20.549186Z'
-updated_at: '2026-08-01T12:58:40.205219Z'
+updated_at: '2026-08-01T12:58:56.164383Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-162
 target_branch: null
 review_url: null
@@ -139,5 +139,10 @@ author: oompah
 created: 2026-08-01 12:58
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:58
+---
+Understanding: implement operator/admin approve and deny context functions for one pending proposal, enforcing connectivity, expiry/freshness, terminal-state, role, and organization guards; persist actor/decision transactionally and enqueue exactly one typed approval command, with rollback on queue failure and no offline queueing.
 ---
 <!-- COMMENTS:END -->
