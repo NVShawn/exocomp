@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-96
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: 'Implement precondition re-check: verify current evidence matches token evidence_hash'
 parent: EXOCOMP-24
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-07-25T02:18:08.292939Z'
+updated_at: '2026-08-01T03:01:02.031639Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 30183
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:57:22.083203+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-f99c66d2fa95
+    project_id: proj-c260b117
+    task_id: EXOCOMP-96
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0b94e8db3ddfa67272b948c2e30a26a7341e814e6bebd6fdd52312acf4f59365
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:59.984428+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -336,5 +358,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 12m 11s
 - Log: EXOCOMP-96__20260724T164516Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:01
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
