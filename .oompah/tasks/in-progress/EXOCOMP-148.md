@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-01T12:23:15.765919Z'
+updated_at: '2026-08-01T12:29:35.828061Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -133,5 +133,10 @@ author: oompah
 created: 2026-08-01 12:23
 ---
 Understanding: implement a durable coordinator event outbox with monotonic per-cluster sequencing, stable IDs, atomic persistence/acknowledgement, snapshot-only coalescing, validation/redaction, and restart/corruption tests; first I am locating the coordinator protocol and existing storage patterns.
+---
+author: oompah
+created: 2026-08-01 12:29
+---
+Discovery: no existing Mission Control transport/outbox exists in the coordinator. The implementation boundary is a new Exocomp.Coordinator.EventOutbox module plus supervised startup/config; existing Audit.redact provides the project redaction policy, and the protocol plan requires sequence continuity across snapshot replacement.
 ---
 <!-- COMMENTS:END -->
