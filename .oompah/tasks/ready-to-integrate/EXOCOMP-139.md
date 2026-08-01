@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-139
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Define Mission Control protocol envelopes and fixtures
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T15:10:28.396482Z'
+updated_at: '2026-08-01T15:10:54.848622Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: a898f5c0-69a5-40f3-b48c-3e315e0564e8
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-139
-  base_branch: epic-EXOCOMP-128
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:53:02.338945+00:00'
+  head_sha: 83b4a0dca208eb69964521df1718e3c7507ba0d2
+  submitted_at: '2026-08-01T15:10:52.971147+00:00'
+  updated_at: '2026-08-01T15:10:52.971147+00:00'
 oompah.task_costs:
   total_input_tokens: 820072
   total_output_tokens: 11745
@@ -217,5 +217,35 @@ Acceptance criteria met:
 ✓ Valid fixtures round-trip without semantic loss
 ✓ Unsupported schema versions, unknown kinds, missing IDs, invalid timestamps, and oversized payloads return bounded errors
 ✓ Existing A2A types reused for correlation IDs and timestamps
+---
+author: oompah
+created: 2026-08-01 15:10
+---
+**VERIFICATION:** All quality gates passed:
+
+✓ Test results: 573 tests passed (including 62 new Mission Control tests)
+✓ Code formatting: clean (make fmt-check)
+✓ Lint and compilation: clean (make lint) - no warnings
+✓ Round-trip encoding: valid fixtures preserve semantics
+✓ Error handling: invalid fixtures (versions, kinds, IDs, timestamps, payloads) return bounded errors
+
+Deliverables completed:
+✓ Protocol envelope structs for events, commands, acknowledgements
+✓ Schema versioning with unsupported version checks
+✓ Event and command kind allow-lists from plans/mission-control.md
+✓ Session identifiers, event IDs, sequence numbers, timestamps, correlation IDs
+✓ Payload size bounds (100 KiB) with validation
+✓ Valid JSON fixtures with full round-trip testing
+✓ Table-driven invalid fixture tests for all error cases
+✓ Code reuses A2A structures where applicable
+
+Repository state: branch 'epic-EXOCOMP-128--task-EXOCOMP-139' pushed, working tree clean
+
+This task focused exclusively on generic Mission Control envelopes as required. Service-specific event fixtures (EXOCOMP-194) depend on this foundation.
+---
+author: oompah
+created: 2026-08-01 15:10
+---
+Implemented Mission Control protocol envelopes (Event, Command, Acknowledgement) with codecs, validation, and 62 comprehensive tests. All acceptance criteria met: valid fixtures round-trip without loss, invalid fixtures return bounded errors, all tests pass (573), formatting and linting clean.
 ---
 <!-- COMMENTS:END -->
