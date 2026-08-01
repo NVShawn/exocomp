@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-08-01T03:42:58.775147Z'
+updated_at: '2026-08-01T03:43:11.638899Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ merged_at: null
 oompah.agent_run_id: 0bd07bc1-c000-4244-90c9-5047137b4b45
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 17
-  total_output_tokens: 4970
+  total_input_tokens: 60
+  total_output_tokens: 6324
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 17
-      output_tokens: 4970
+      input_tokens: 60
+      output_tokens: 6324
       cost_usd: 0.0
   runs:
   - profile: default
@@ -39,6 +39,12 @@ oompah.task_costs:
     output_tokens: 4970
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:26:30.532188+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 43
+    output_tokens: 1354
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T03:43:10.451499+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -317,5 +323,15 @@ Safe evidence:
 - previous_state: Merged
 - requested_target: Archived
 - age_days_since_merge: ~7
+---
+author: oompah
+created: 2026-08-01 03:43
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 24
+- Tokens: 43 in / 1.4K out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 39s
+- Log: EXOCOMP-27__20260801T034034Z.jsonl
 ---
 <!-- COMMENTS:END -->
