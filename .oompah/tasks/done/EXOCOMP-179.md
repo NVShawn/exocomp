@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T18:31:13.732817Z'
+updated_at: '2026-08-01T18:32:09.451322Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -53,13 +53,17 @@ oompah.integration:
   submitted_at: '2026-08-01T18:15:13.751809+00:00'
   updated_at: '2026-08-01T18:22:54.725058+00:00'
 oompah.task_costs:
-  total_input_tokens: 11573005
-  total_output_tokens: 49952
+  total_input_tokens: 11573011
+  total_output_tokens: 50423
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 11573005
       output_tokens: 49952
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 6
+      output_tokens: 471
       cost_usd: 0.0
   runs:
   - profile: default
@@ -80,6 +84,12 @@ oompah.task_costs:
     output_tokens: 45456
     cost_usd: 0.0
     recorded_at: '2026-08-01T18:15:53.402098+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 471
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:32:07.357069+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-179__20260801T131120Z
@@ -327,5 +337,15 @@ Safe evidence:
 - fixture_loader: test/fixtures/mission_control/contract_fixtures.exs
 - drift_error_style: 'Mission Control fixture drift at <label>: unexpected/required field(s) ["field"]'
 - branch_remote: origin/epic-EXOCOMP-135--task-EXOCOMP-179 contains HEAD
+---
+author: oompah
+created: 2026-08-01 18:32
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 57, Tool calls: 44
+- Tokens: 6 in / 471 out [477 total]
+- Cost: $0.0000
+- Exit: normal, Duration: 8m 14s
+- Log: EXOCOMP-179__20260801T182357Z.jsonl
 ---
 <!-- COMMENTS:END -->
