@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:19.626537Z'
-updated_at: '2026-08-01T12:56:37.982563Z'
+updated_at: '2026-08-01T12:58:11.097156Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 target_branch: null
 review_url: null
@@ -128,5 +128,10 @@ author: oompah
 created: 2026-08-01 12:56
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:58
+---
+UNDERSTANDING: Task is to implement storage and validation of typed remedy proposals. Deliverables: (1) Add organization-scoped proposal records with IDs, cluster/node target, catalog action, validated parameters, evidence reference/hash, risk, expected disruption, rationale, policy result, and expiry. (2) Validate proposals against action catalog and parameter schema before persistence. (3) Link proposals to conversation messages and correlation/task IDs. Test coverage required for valid proposal, unknown action, caller-supplied command/path, invalid target/parameters, stale/missing evidence, duplicate ID, expiry, organization mismatch. Key constraint: persisting a proposal cannot execute it. Will explore existing codebase, particularly EXOCOMP-158 work on conversations to understand the structure.
 ---
 <!-- COMMENTS:END -->
