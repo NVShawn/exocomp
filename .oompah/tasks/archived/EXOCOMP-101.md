@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:36.504474Z'
-updated_at: '2026-08-01T02:37:59.048595Z'
+updated_at: '2026-08-01T02:38:11.802231Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: ac91510d-b2d8-4400-979b-b6b8783a1af9
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 509111
-  total_output_tokens: 70332
+  total_input_tokens: 509177
+  total_output_tokens: 71936
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 509111
-      output_tokens: 70332
+      input_tokens: 509177
+      output_tokens: 71936
       cost_usd: 0.0
   runs:
   - profile: default
@@ -43,6 +43,12 @@ oompah.task_costs:
     output_tokens: 67159
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:54:31.651306+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 66
+    output_tokens: 1604
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:38:10.536340+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -495,5 +501,15 @@ Safe evidence:
 - dependencies_present: EXOCOMP-99 (b7677e2 diagnostic A2A client adapter) and EXOCOMP-100 (f5e9dcb GoalStore) present in main history
 - downstream_evolution: orchestrator.ex has been further modified by later merged commits ec7816a (EXOCOMP-102 cancellation propagation), 20dfb88 (EXOCOMP-103 audit), e32a175 (EXOCOMP-105 integration tests), 50cd48c (EXOCOMP-114) — the merged code has been in continuous use for weeks
 - prior_audit_failure_cause: three prior attempts errored with `git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2` — the epic branch was pruned after merge (infrastructure); OOMPAH-671 recovery unblocked this attempt
+---
+author: oompah
+created: 2026-08-01 02:38
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 36
+- Tokens: 66 in / 1.6K out [1.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 40s
+- Log: EXOCOMP-101__20260801T023534Z.jsonl
 ---
 <!-- COMMENTS:END -->
