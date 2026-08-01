@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-199
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Correlate Ceph topology with coordinator inventory nodes
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T18:55:12.370676Z'
+updated_at: '2026-08-01T18:55:21.532548Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -105,12 +105,12 @@ oompah.agent_run_id: 12f295fc-a215-4a76-9696-4470a1fbcb8a
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-199
-  base_branch: epic-EXOCOMP-186
-  base_sha: a929517cafea443b9d66d601bfd7d7e439e5aaec
-  updated_at: '2026-08-01T18:38:39.238291+00:00'
+  head_sha: 0314c58199acb476c7384be42e88291af1beea95
+  submitted_at: '2026-08-01T18:55:19.511694+00:00'
+  updated_at: '2026-08-01T18:55:19.511694+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 277
@@ -206,5 +206,10 @@ author: oompah
 created: 2026-08-01 18:55
 ---
 Completion: delivered Ceph topology reconciliation in CephTopology, exact/case-normalized stable hostname matching, daemon identity and FSID validation, deterministic missing/ambiguous/conflicting-FSID/orphan results, explicit non-member and unsupported coverage, serialized profile artifact support, cluster FSID preservation in the Ceph collector, and cluster:ceph desired-service resolution. Commit 0314c581 is pushed; offline make test checks and focused 15-test harness pass, with the pinned-container limitation recorded above.
+---
+author: oompah
+created: 2026-08-01 18:55
+---
+Implemented deterministic Ceph topology correlation with inventory coverage outcomes and cluster:ceph desired services; pushed 0314c581.
 ---
 <!-- COMMENTS:END -->
