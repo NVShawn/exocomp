@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-141
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Enforce viewer, operator, and admin authorization
 parent: EXOCOMP-129
@@ -15,7 +15,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T11:58:32.775320Z'
+updated_at: '2026-08-01T11:58:53.766405Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -39,7 +39,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: df691d74-4689-4b06-a5ca-07d06f7fd3c8
+oompah.agent_run_id: da39b012-fd3e-4de0-85ee-7643898a2df2
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 oompah.integration:
   version: 2
