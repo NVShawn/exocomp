@@ -13,7 +13,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:05.467498Z'
-updated_at: '2026-08-01T21:26:38.872353Z'
+updated_at: '2026-08-01T21:27:19.731786Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -96,6 +96,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T21:21:34.211860+00:00'
     branch_key: EXOCOMP-46
+oompah.task_costs:
+  total_input_tokens: 29
+  total_output_tokens: 4954
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 29
+      output_tokens: 4954
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 29
+    output_tokens: 4954
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:27:17.757052+00:00'
 ---
 ## Summary
 
@@ -183,5 +199,15 @@ Safe evidence:
 - installer_scripts: scripts/install.sh, scripts/uninstall.sh, scripts/state-backup.sh present
 - installer_tests: test/installer/test_installer.py: 60+ test_ functions covering upgrade, rollback, backup/restore, interrupted install, major-version mismatch, purge categories, user-data preservation
 - current_task_state: In Validation (auditor is a scheduler-selected pre-archive review of prior Merged terminal)
+---
+author: oompah
+created: 2026-08-01 21:27
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 32, Tool calls: 25
+- Tokens: 29 in / 5.0K out [5.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 43s
+- Log: EXOCOMP-46__20260801T212140Z.jsonl
 ---
 <!-- COMMENTS:END -->
