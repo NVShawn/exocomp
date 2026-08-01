@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-201
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement the restricted profile-action helper
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-08-01T15:24:02.719044Z'
+updated_at: '2026-08-01T15:24:08.167189Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 target_branch: null
 review_url: null
@@ -174,5 +174,10 @@ author: oompah
 created: 2026-08-01 15:23
 ---
 Completion: delivered and pushed the standalone restricted profile-action helper on the issue branch. It enforces the bounded v1 stdin protocol, compiled Ceph v1/action allowlist, strict daemon-unit validation, loaded inactive/failed recheck, direct fixed systemctl argv, sanitized environment, timeout/output bounds, and fail-closed errors; focused native tests and offline repository gates are green.
+---
+author: oompah
+created: 2026-08-01 15:24
+---
+Implemented and pushed the restricted Ceph v1 profile-action helper with bounded stdin protocol, strict validation, fixed direct systemctl argv, state recheck, timeout/output bounds, tests, and documentation.
 ---
 <!-- COMMENTS:END -->
