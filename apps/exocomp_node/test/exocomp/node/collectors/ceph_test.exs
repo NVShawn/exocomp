@@ -202,8 +202,10 @@ defmodule Exocomp.Node.Collectors.CephTest do
                       "show",
                       "--no-pager",
                       "--property=UnitFileState,LoadState,ActiveState,SubState",
-                      ^unit
+                      unit
                     ], _}
+
+    assert unit == "ceph-mon@alpha.service"
   end
 
   test "unit parser rejects shell metacharacters and non-shipped forms" do
