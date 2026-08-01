@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T15:23:13.050985Z'
+updated_at: '2026-08-01T15:29:32.217402Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -302,5 +302,10 @@ author: oompah
 created: 2026-08-01 15:23
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-08-01 15:29
+---
+Rebased EXOCOMP-198 onto epic-EXOCOMP-186 at 8e3debd5 (EXOCOMP-201 integrated); no conflicts, and only the Ceph test-coverage repair remains atop the shared implementation. make test passes 29 offline checks, then cannot launch the pinned Elixir 1.20.2 container because Podman cannot set sticky bit on read-only /run/user/1000/libpod. Native focused Mix tests cannot run because host Mix is 1.18.3 while this project requires 1.20.2. git diff --check passes. The audit compilation fix binds unit in assert_receive and asserts its expected value separately.
 ---
 <!-- COMMENTS:END -->
