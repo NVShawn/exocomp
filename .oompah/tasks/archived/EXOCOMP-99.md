@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-99
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement coordinator diagnostic A2A client adapter
 parent: EXOCOMP-18
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:25.236002Z'
-updated_at: '2026-08-01T02:29:45.814047Z'
+updated_at: '2026-08-01T02:32:34.458515Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -45,6 +45,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-e57dccbb6b4b-3: '2026-07-31T21:16:04.249406+00:00'
+    attempt-7b865bba9abf: '2026-08-01T02:32:32.415609+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-99
@@ -52,6 +53,7 @@ oompah.terminal_audit:
     evidence_fingerprint: b0e62630a4b564120ae6c051dbfd737340cf70c55554351c64eb5112f80c3aca
     audit_ids:
     - audit-e57dccbb6b4b
+    - audit-702a5e4f4441
     kind: result
     applied: true
     retired_at: '2026-07-31T21:16:04.249418+00:00'
@@ -68,6 +70,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:16:04.249435+00:00'
     applied_at: '2026-07-31T21:16:06.345270+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-99
+    audit_id: audit-702a5e4f4441
+    attempt_id: attempt-7b865bba9abf
+    target_state: Archived
+    evidence_fingerprint: b0e62630a4b564120ae6c051dbfd737340cf70c55554351c64eb5112f80c3aca
+    status: Archived
+    audit_ids:
+    - audit-702a5e4f4441
+    applied: false
+    created_at: '2026-08-01T02:32:32.415641+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -158,7 +171,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-99
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -167,7 +180,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-7b865bba9abf
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -177,13 +190,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:29:41.447306+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:32:32.415428+00:00'
+      ended_at: '2026-08-01T02:32:32.415428+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:59.686471+00:00'
-    updated_at: '2026-08-01T02:29:41.447306+00:00'
+    updated_at: '2026-08-01T02:32:32.415428+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-829671ba824e
@@ -555,5 +571,22 @@ author: oompah
 created: 2026-08-01 02:29
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:32
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- final_commit: a336b20 EXOCOMP-99: fix formatting in http_transport.ex
+- merge_evidence: git branch -r --contains a336b20 lists origin/main
+- impl_lib_files: apps/exocomp_coordinator/lib/exocomp/coordinator/a2a/{diagnostic_client,client_error,codec,transport,http_transport}.ex
+- test_files: apps/exocomp_coordinator/test/exocomp/coordinator/a2a/{diagnostic_client_test,http_transport_test,codec_test}.exs
+- commit_history: b7677e2 (impl) -> 006df52 (mTLS identity + timeout) -> a336b20 (formatting)
+- scoped_skill_allowlist_at_merge: [exocomp.system.diagnose, exocomp.service.diagnose]
+- previous_state: Merged
+- archive_reason: Aged Merged auto-archive (7 days)
 ---
 <!-- COMMENTS:END -->
