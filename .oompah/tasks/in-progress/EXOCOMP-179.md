@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T17:59:07.480518Z'
+updated_at: '2026-08-01T18:13:16.091228Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -174,5 +174,10 @@ author: oompah
 created: 2026-08-01 17:59
 ---
 Understanding: I will verify the inherited EXOCOMP-194 contract, locate Mission Control/coordinator consumers and existing Make targets, then add one shared fixture corpus with field-level drift and required edge-case coverage. I will run the contract suite, make fmt-check, and make lint before committing and submitting.
+---
+author: oompah
+created: 2026-08-01 18:13
+---
+Implementation: Reconciled EXOCOMP-139 and EXOCOMP-194 dependency commits, added a manifest-driven shared Mission Control corpus (events, commands, acknowledgements, mutation errors, replay/gap metadata, redaction, and schema versions), shared fixture loader with field-level drift errors, coordinator/core contract tests, and make test-mission-control-contract. Required event/command payload omission now fails explicitly; sequence gaps are detected by StatusReducer.missing_sequences/1 and exposed through the coordinator facade.
 ---
 <!-- COMMENTS:END -->

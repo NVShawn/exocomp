@@ -18,10 +18,9 @@ labels:
 - focus-complete:docs
 - focus-complete:devops
 - focus-complete:callback_auth
-- needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:13:06.754633Z'
+updated_at: '2026-08-01T18:13:15.216984Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -75,7 +74,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-184
   base_branch: epic-EXOCOMP-135
   base_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
-  updated_at: '2026-08-01T18:05:24.963681+00:00'
+  updated_at: '2026-08-01T18:13:10.690533+00:00'
 oompah.task_costs:
   total_input_tokens: 10248535
   total_output_tokens: 98700
@@ -763,5 +762,10 @@ author: oompah
 created: 2026-08-01 18:13
 ---
 Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 18:13
+---
+Focus: Software Engineer
 ---
 <!-- COMMENTS:END -->
