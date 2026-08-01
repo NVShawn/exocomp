@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:15:26.091205Z'
+updated_at: '2026-08-01T15:15:43.539725Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -51,13 +51,17 @@ oompah.integration:
   base_sha: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
   updated_at: '2026-08-01T15:13:13.501346+00:00'
 oompah.task_costs:
-  total_input_tokens: 926009
-  total_output_tokens: 19611
+  total_input_tokens: 1289380
+  total_output_tokens: 25095
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 926009
       output_tokens: 19611
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 363371
+      output_tokens: 5484
       cost_usd: 0.0
   runs:
   - profile: default
@@ -72,6 +76,12 @@ oompah.task_costs:
     output_tokens: 13654
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:10:59.207201+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 363371
+    output_tokens: 5484
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:15:38.871024+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -82,6 +92,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-196
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:05:12.922722+00:00'
+  - run_id: EXOCOMP-196__20260801T151325Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-terra
+    focus: docs
+    source_branch: epic-EXOCOMP-186--task-EXOCOMP-196
+    source_sha: f621e16350f8d4665862f19def9592fd5d51d730
+    completed_at: '2026-08-01T15:15:38.876058+00:00'
 ---
 ## Summary
 
@@ -282,5 +300,25 @@ author: oompah
 created: 2026-08-01 15:15
 ---
 Completion (docs): Documentation phase is complete. The task remains in progress for the feature implementation described in the handoff.
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Agent completed successfully in 150s (368855 tokens)
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 1, Tool calls: 22
+- Tokens: 363.4K in / 5.5K out [368.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 30s
+- Log: EXOCOMP-196__20260801T151325Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:15
+---
+Focus handoff from `docs` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
