@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-01T15:18:31.525172Z'
+updated_at: '2026-08-01T15:27:53.803104Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -208,5 +208,32 @@ Beginning integration of:
 3. LiveView root layout with auth guards
 4. Role-aware navigation
 5. Reusable UI components
+---
+author: oompah
+created: 2026-08-01 15:27
+---
+Implementation: Built authenticated LiveView shell and navigation.
+
+Key deliverables completed:
+1. **Authentication**: Integrated OIDC client and AuthController (from EXOCOMP-140) with login/callback/logout flows
+2. **Authorization**: Integrated Authorization context and role-based access control (from EXOCOMP-141)
+3. **LiveView Shell**: Root layout with app layout wrapping authenticated content
+4. **Navigation**: Role-aware navigation showing different links based on Viewer/Operator/Admin permissions
+5. **Components**: Reusable UI components for badges, indicators, flash messages, empty states, loading skeletons
+6. **Route Guards**: RequireRole plug and LiveView hooks preventing unauthenticated access
+7. **Pages**: Dashboard, Incidents, Conversations, Admin LiveView pages with role enforcement
+8. **Identity Preservation**: Organization and operator identity persisted through sessions
+9. **Error Handling**: Flash messages, 403/404/401/500 error pages
+10. **Tests**: Comprehensive test suite for authentication, authorization, and role hierarchy
+
+Files created: 24 modified/added
+- 5 authorization/identity modules
+- 4 controller/view modules
+- 6 LiveView pages and hooks
+- 2 layout templates
+- 1 components module with 8 reusable components
+- 1 test suite with 10+ test cases
+
+Next: Run quality gates (fmt-check, lint, tests) to verify compilation and correctness.
 ---
 <!-- COMMENTS:END -->
