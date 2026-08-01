@@ -7,18 +7,19 @@ defmodule Exocomp.MissionControl.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  import Plug.Conn
 
   using do
     quote do
       # The default endpoint for testing
       @endpoint Exocomp.MissionControl.Endpoint
 
-      use Phoenix.ConnTest
       import Plug.Conn
-      import Exocomp.MissionControl.ConnCase
-
+      import Phoenix.ConnTest, except: [build_conn: 0, init_test_session: 2]
       # Import LiveView testing utilities
       import Phoenix.LiveViewTest
+      # Import our ConnCase helpers, including our custom build_conn/0
+      import Exocomp.MissionControl.ConnCase
 
       # The following is optional and useful for deep introspection
       # into Ecto's query generation
