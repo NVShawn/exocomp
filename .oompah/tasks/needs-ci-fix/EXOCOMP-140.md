@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:40:49.472914Z'
+updated_at: '2026-08-01T17:53:29.531269Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -172,6 +172,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-31573855ceed: '2026-08-01T16:43:06.595835+00:00'
+    attempt-ff9eea716f29: '2026-08-01T17:53:25.974059+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-140
@@ -182,6 +183,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T16:43:06.595848+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Done
+    evidence_fingerprint: c6e3341e8843653640b54d2ccada7fc3d5d5401339f64254e9b0425324cdf7f2
+    audit_ids:
+    - audit-b264fb089ffc
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T17:53:25.974078+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-140
@@ -195,6 +205,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T16:43:06.595866+00:00'
     applied_at: '2026-08-01T16:43:09.283774+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    audit_id: audit-b264fb089ffc
+    attempt_id: attempt-ff9eea716f29
+    target_state: Done
+    evidence_fingerprint: c6e3341e8843653640b54d2ccada7fc3d5d5401339f64254e9b0425324cdf7f2
+    status: Needs CI Fix
+    audit_ids:
+    - audit-b264fb089ffc
+    applied: true
+    created_at: '2026-08-01T17:53:25.974099+00:00'
+    applied_at: '2026-08-01T17:53:28.672396+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -237,7 +259,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-140
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -246,7 +268,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ff9eea716f29
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -256,13 +278,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T17:40:45.118961+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-140
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T17:53:25.973867+00:00'
+      ended_at: '2026-08-01T17:53:25.973867+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T17:39:51.248455+00:00'
-    updated_at: '2026-08-01T17:40:45.118961+00:00'
+    updated_at: '2026-08-01T17:53:25.973867+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-31573855ceed
@@ -574,5 +600,18 @@ author: oompah
 created: 2026-08-01 17:40
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 17:53
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Instructions:
+- Add def project(): elixirc_paths: elixirc_paths(Mix.env()) and defp elixirc_paths(:test), do: ["lib", "test/support"]; defp elixirc_paths(_), do: ["lib"] to apps/exocomp_mission_control/mix.exs so ConnCase and FakeOIDCProvider compile.
+- Either add :encryption_salt to Exocomp.MissionControl.Endpoint @session_options or remove/adjust the is_binary(options[:encryption_salt]) assertion in oidc_integration_test.exs so the session-cookie test can actually verify what is configured.
+- Re-run make test (or the app-scoped mix test) locally in the pinned container and confirm the OIDC client, controller, integration and config-cache test files pass end to end before resubmitting.
+- Re-run make fmt-check and make lint after the mix.exs change to confirm the added helper functions do not introduce formatter or credo warnings.
 ---
 <!-- COMMENTS:END -->
