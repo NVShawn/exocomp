@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-138
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Add organizations and mandatory organization scoping
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:00:27.975137Z'
+updated_at: '2026-08-01T16:00:54.952192Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -61,12 +61,12 @@ oompah.agent_run_id: 80c5d369-3b7c-4eef-8d60-fcd679a7c697
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-138
-  base_branch: epic-EXOCOMP-128
-  base_sha: 778b0ae585f105fdcad710ed272f129950a44d54
-  updated_at: '2026-08-01T15:53:16.805482+00:00'
+  head_sha: 29426a2f8932790ce2322fcab0ba513aca611c2a
+  submitted_at: '2026-08-01T16:00:52.032016+00:00'
+  updated_at: '2026-08-01T16:00:52.032016+00:00'
 oompah.task_costs:
   total_input_tokens: 26885270
   total_output_tokens: 71951
@@ -295,5 +295,10 @@ author: oompah
 created: 2026-08-01 16:00
 ---
 Completion: EXOCOMP-138 delivers mandatory organization scoping for Mission Control. All acceptance criteria met: inserts without org_id fail closed (OrganizationScope.put/2 + changeset validation), cross-org isolation proven in tests (CaptureRepo checks org_id in WHERE predicates), no global unscoped list exists (refute function_exported? assertion). Migrations are reversible. Scoping helper is injected via opts repo: pattern for testability. Branch pushed at 29426a2f, format-checked, ready to integrate.
+---
+author: oompah
+created: 2026-08-01 16:00
+---
+Added organizations table and schema with stable binary_id UUID (caller cannot select ID), idempotent dev/test seed, fail-closed OrganizationScope scoping helper (require_id!/query/put/all/update_all/delete_all), and example OrganizationScopedRecord with FK+unique constraint. Two reversible migrations. Three focused ExUnit test files with mock repos proving: inserts without org fail closed, cross-org isolation for get/update/delete, no unscoped list exposed. All new files pass format check.
 ---
 <!-- COMMENTS:END -->

@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:39.520334Z'
-updated_at: '2026-08-01T15:52:38.325333Z'
+updated_at: '2026-08-01T16:00:56.438883Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 target_branch: null
 review_url: null
@@ -146,5 +146,10 @@ author: oompah
 created: 2026-08-01 15:52
 ---
 **Discovery:** Merged blocking task branches (EXOCOMP-174, EXOCOMP-158, EXOCOMP-173, EXOCOMP-161) to access schema and models. Found mission_control app with audit_event, conversation, message, proposal, and webhook modules. Need to implement: (1) Retention.Janitor module for bounded deletion, (2) retention settings per organization, (3) tests covering cutoff boundaries, open/pending preservation, multiple organizations, concurrent ingest. Database schema layer still TBD by blocking tasks.
+---
+author: oompah
+created: 2026-08-01 16:00
+---
+**Implementation:** Created retention infrastructure for Mission Control data deletion by policy. Deliverables: (1) Policy module - defines retention periods for each data type (status history 90 days, others 1 year) with cutoff calculation; (2) Janitor module - implements bounded batch deletion with time limits, dependency ordering, organization scoping, and statistics tracking; (3) Comprehensive test suite - 32 tests covering cutoff boundaries, multiple organizations, concurrent safety, dependency ordering, and preservation of critical records (open incidents, pending proposals).
 ---
 <!-- COMMENTS:END -->
