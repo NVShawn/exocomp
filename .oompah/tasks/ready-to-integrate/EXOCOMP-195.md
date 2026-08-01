@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-195
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add the shipped cluster-profile registry and version contract
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:42:55.503956Z'
+updated_at: '2026-08-01T14:43:44.361166Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: ac6c0299-a9b9-4a71-a353-3f9cea999e35
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-195
-  base_branch: epic-EXOCOMP-186
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:30:30.736430+00:00'
+  head_sha: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
+  submitted_at: '2026-08-01T14:43:26.071485+00:00'
+  updated_at: '2026-08-01T14:43:26.071485+00:00'
 oompah.task_costs:
   total_input_tokens: 1059335
   total_output_tokens: 4793
@@ -152,5 +152,25 @@ author: oompah
 created: 2026-08-01 14:42
 ---
 Verification: make test completed its offline builder/packaging checks (13/13 plus Python release tests: 6, 3, and 7 all passed) but exited 2 when the required Elixir container stage could not start: host Podman reports read-only /run/user/1000/libpod. Native mix tests are also unavailable under Elixir 1.18.3 versus required 1.20.2. Independent checks pass: all exocomp_core sources compile with elixirc, the six registry ExUnit tests pass, and AgentCard profile encode/decode smoke round-trip passes.
+---
+author: oompah
+created: 2026-08-01 14:43
+---
+Completion: delivered and pushed commit ab25e80c on epic-EXOCOMP-186--task-EXOCOMP-195. The signed-release-owned default profile v1 contract and static registry expose discovery, service derivation, health reduction, typed actions, and redaction metadata; structured coverage errors handle unknown/unsupported versions; runtime/file/command registration is rejected; both node and coordinator Agent Cards advertise the shipped profile ID/version. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-08-01 14:43
+---
+Added the static shipped cluster-profile behavior/registry with default profile v1, structured coverage errors, fail-closed runtime/file/command registration, and node/coordinator Agent Card profile advertisements. Added registry, duplicate-ID, unknown/unsupported version, rejection, codec, and card tests. Commit ab25e80c pushed; make test offline checks passed but containerized Elixir stage was blocked by host Podman configuration.
+---
+author: oompah
+created: 2026-08-01 14:43
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 96
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 13m 16s
+- Log: EXOCOMP-195__20260801T143033Z.jsonl
 ---
 <!-- COMMENTS:END -->
