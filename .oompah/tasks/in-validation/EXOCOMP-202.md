@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T16:18:13.951929Z'
+updated_at: '2026-08-01T16:18:42.383515Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -49,12 +49,15 @@ oompah.agent_run_id: 555e5f81-a28a-45d3-85a5-55fa44474334
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-202
-  head_sha: 4204d7548887ae0f284f772ccc276a957d37dc60
+  base_branch: epic-EXOCOMP-186
+  base_sha: 01e47253725924bee714d2c28cf6063fa6788d97
+  head_sha: 9bd56928c896865de00d10a1f168bcbbaa9abdc9
+  integrated_sha: 9bd56928c896865de00d10a1f168bcbbaa9abdc9
   submitted_at: '2026-08-01T16:17:43.441713+00:00'
-  updated_at: '2026-08-01T16:17:43.441713+00:00'
+  updated_at: '2026-08-01T16:18:37.304471+00:00'
 oompah.task_costs:
   total_input_tokens: 7366627
   total_output_tokens: 64871
@@ -137,7 +140,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-202
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -167,6 +170,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:43:39.696908+00:00'
     updated_at: '2026-08-01T16:05:28.240135+00:00'
+  - version: 1
+    audit_id: audit-13b1c1068554
+    project_id: proj-c260b117
+    task_id: EXOCOMP-202
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ce546dd6cf4af22bb88a74c32f3151ed90bd1478bae37504e56c2f668c1867c0
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T16:18:40.536055+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ac94c3968d07
