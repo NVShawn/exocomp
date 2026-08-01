@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-01T12:16:20.523153Z'
+updated_at: '2026-08-01T12:16:51.818948Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -49,13 +49,13 @@ oompah.integration:
   submitted_at: '2026-08-01T12:16:15.061043+00:00'
   updated_at: '2026-08-01T12:16:15.061043+00:00'
 oompah.task_costs:
-  total_input_tokens: 801245
-  total_output_tokens: 3780
+  total_input_tokens: 10200538
+  total_output_tokens: 56711
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 801245
-      output_tokens: 3780
+      input_tokens: 10200538
+      output_tokens: 56711
       cost_usd: 0.0
   runs:
   - profile: default
@@ -64,6 +64,12 @@ oompah.task_costs:
     output_tokens: 3780
     cost_usd: 0.0
     recorded_at: '2026-08-01T11:56:05.509321+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 9399293
+    output_tokens: 52931
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:16:50.580920+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-142__20260801T115430Z
@@ -160,5 +166,15 @@ author: oompah
 created: 2026-08-01 12:16
 ---
 Implemented organization-scoped one-use cluster invitations, digest-only persistence, expiry/replay/concurrency protection, admin API authorization, and focused tests. Pushed commit 97439b59.
+---
+author: oompah
+created: 2026-08-01 12:16
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 111
+- Tokens: 9.4M in / 52.9K out [9.5M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 20m 30s
+- Log: EXOCOMP-142__20260801T115627Z.jsonl
 ---
 <!-- COMMENTS:END -->
