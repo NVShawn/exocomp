@@ -222,11 +222,16 @@ defmodule Exocomp.MissionControl.Incidents do
             target_identity: evidence.target_identity,
             correlation_id: evidence.correlation_id || Incident.generate_correlation_id(),
             opened_at: evidence.occurred_at,
-            updated_at: evidence.occurred_at
+            updated_at: evidence.occurred_at,
+            severity: evidence.severity
           }
 
         incident ->
-          incident
+          if Incident.severity_rank(evidence.severity) > Incident.severity_rank(incident.severity) do
+            %{incident | severity: evidence.severity}
+          else
+            incident
+          end
       end
 
     event_type =
@@ -322,6 +327,7 @@ defmodule Exocomp.MissionControl.Incidents do
          occurred_at: occurred_at,
          received_at: received_at,
          correlation_id: fetch(evidence, :correlation_id),
+         severity: Incident.normalize_severity(fetch(evidence, :severity, :warning)),
          event_type: event_type,
          explicit_event_type?: explicit_event_type?,
          payload: payload

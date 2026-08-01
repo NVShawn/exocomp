@@ -6,6 +6,7 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
   alias Exocomp.MissionControl.Incidents.Fingerprint
 
   @states [:open, :acknowledged, :resolved]
+  @severities [:info, :warning, :critical]
 
   defstruct [
     :id,
@@ -21,11 +22,13 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
     :acknowledged_at,
     :resolved_at,
     :updated_at,
+    severity: :warning,
     state: :open,
     event_count: 0
   ]
 
   @type state :: :open | :acknowledged | :resolved
+  @type severity :: :info | :warning | :critical
 
   @type t :: %__MODULE__{
           id: String.t(),
@@ -41,6 +44,7 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
           acknowledged_at: DateTime.t() | nil,
           resolved_at: DateTime.t() | nil,
           updated_at: DateTime.t(),
+          severity: severity(),
           state: state(),
           event_count: non_neg_integer()
         }
@@ -48,6 +52,41 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
   @doc "Returns the supported incident states."
   @spec states() :: [state()]
   def states, do: @states
+
+  @doc "Returns the supported incident severities in ascending order."
+  @spec severities() :: [severity()]
+  def severities, do: @severities
+
+  @doc "Normalizes a severity value at the incident boundary."
+  @spec normalize_severity(term()) :: severity()
+  def normalize_severity(value) when value in @severities, do: value
+
+  def normalize_severity(value) when is_binary(value) do
+    case String.downcase(value) do
+      "info" -> :info
+      "notice" -> :info
+      "warning" -> :warning
+      "warn" -> :warning
+      "degraded" -> :warning
+      "health_warn" -> :warning
+      "critical" -> :critical
+      "crit" -> :critical
+      "error" -> :critical
+      "err" -> :critical
+      "fatal" -> :critical
+      "health_err" -> :critical
+      "health_ok" -> :info
+      _ -> :warning
+    end
+  end
+
+  def normalize_severity(value) when is_atom(value), do: normalize_severity(Atom.to_string(value))
+  def normalize_severity(_value), do: :warning
+
+  @spec severity_rank(severity()) :: 0..2
+  def severity_rank(:info), do: 0
+  def severity_rank(:warning), do: 1
+  def severity_rank(:critical), do: 2
 
   @doc "Returns the deterministic fingerprint for incident identity attributes."
   @spec fingerprint(map() | keyword()) :: String.t()
@@ -80,7 +119,8 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
          target_identity: identity.target_identity,
          correlation_id: Map.get(attributes, :correlation_id, generate_correlation_id()),
          opened_at: occurred_at,
-         updated_at: occurred_at
+         updated_at: occurred_at,
+         severity: normalize_severity(Map.get(attributes, :severity, :warning))
        }}
     end
   end
