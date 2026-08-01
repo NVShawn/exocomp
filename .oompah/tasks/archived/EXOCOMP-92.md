@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-92
 type: task
-status: In Validation
+status: Archived
 priority: 1
 title: Add multi-node discovery and polling integration coverage
 parent: EXOCOMP-15
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:43:19.301040Z'
-updated_at: '2026-08-01T02:27:23.161415Z'
+updated_at: '2026-08-01T02:29:22.831833Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -49,6 +49,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-746094020b5f-3: '2026-07-31T19:59:15.271832+00:00'
+    attempt-913c6e5f98e6: '2026-08-01T02:29:20.758842+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-92
@@ -56,6 +57,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 33f8e7466d0df61fd82da1542365884c1902e113211b55d69fe2141ddbefdd19
     audit_ids:
     - audit-746094020b5f
+    - audit-58ba897d4298
     kind: result
     applied: true
     retired_at: '2026-07-31T19:59:15.271840+00:00'
@@ -72,6 +74,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T19:59:15.271852+00:00'
     applied_at: '2026-07-31T19:59:17.051815+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-92
+    audit_id: audit-58ba897d4298
+    attempt_id: attempt-913c6e5f98e6
+    target_state: Archived
+    evidence_fingerprint: 33f8e7466d0df61fd82da1542365884c1902e113211b55d69fe2141ddbefdd19
+    status: Archived
+    audit_ids:
+    - audit-58ba897d4298
+    applied: false
+    created_at: '2026-08-01T02:29:20.758877+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -162,7 +175,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-92
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -171,7 +184,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-913c6e5f98e6
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -181,13 +194,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:27:19.176744+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:29:20.758673+00:00'
+      ended_at: '2026-08-01T02:29:20.758673+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:52.613556+00:00'
-    updated_at: '2026-08-01T02:27:19.176744+00:00'
+    updated_at: '2026-08-01T02:29:20.758673+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-cae04876efdb
@@ -477,5 +493,21 @@ author: oompah
 created: 2026-08-01 02:27
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:29
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 9e9462b
+- test_file_present: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs
+- test_file_lines: 1226
+- current_main_head: 8f80aeb
+- commit_on_main: yes (git branch --contains 9e9462b includes main)
+- prior_audit_failure_cause: git worktree add: invalid reference origin/epic-EXOCOMP-2 (infrastructure, not implementation)
+- operator_recovery_note: OOMPAH-671 deployed; audit rearmed by project owner
 ---
 <!-- COMMENTS:END -->
