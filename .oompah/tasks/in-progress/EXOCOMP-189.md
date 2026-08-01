@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:13:03.579771Z'
+updated_at: '2026-08-01T14:19:19.516224Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -150,5 +150,10 @@ author: oompah
 created: 2026-08-01 14:13
 ---
 Discovery: after reconciling the integrated EXOCOMP-187/188/190 commits, inventory v2 supplies manual monitoring services and a cluster_profile identifier, while automatic discovery remains an observation path. No existing shared desired-state API exists. I will add it in exocomp_core as pure source contributions plus canonical effective expectations, keeping manual allow-list and shipped-profile authority as distinct values and automatic non-authority explicit.
+---
+author: oompah
+created: 2026-08-01 14:19
+---
+Implementation: added exocomp_core desired-service types and resolver. SourceExpectation constructors model manual, automatic, and cluster-profile inputs; resolve/1 groups duplicate node/unit contributions, merges unique sorted probes, retains sorted provenance/profile context, applies deterministic expected-state precedence, and derives authority as manual_allow_list > shipped_profile > nil. Automatic source is structurally non-authoritative. Added table-driven source/combinations, duplicate, ordering, authority, and conflict tests.
 ---
 <!-- COMMENTS:END -->
