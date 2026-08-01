@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-155
 type: task
-status: Ready to Integrate
+status: Needs Human
 priority: 1
 title: Implement incident health-transition rules
 parent: EXOCOMP-131
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:24:15.911308Z'
+updated_at: '2026-08-01T23:24:32.769495Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -74,13 +74,13 @@ oompah.integration:
   submitted_at: '2026-08-01T23:24:02.292085+00:00'
   updated_at: '2026-08-01T23:24:02.292085+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 561
+  total_input_tokens: 20385261
+  total_output_tokens: 62796
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10
-      output_tokens: 561
+      input_tokens: 20385261
+      output_tokens: 62796
       cost_usd: 0.0
   runs:
   - profile: default
@@ -89,6 +89,12 @@ oompah.task_costs:
     output_tokens: 561
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:34:33.230105+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 20385251
+    output_tokens: 62235
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T23:24:27.781344+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-155__20260801T123225Z
@@ -99,6 +105,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-131--task-EXOCOMP-155
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:34:33.259918+00:00'
+  - run_id: EXOCOMP-155__20260801T230151Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: callback_auth
+    source_branch: epic-EXOCOMP-131--task-EXOCOMP-155
+    source_sha: b4aa7d82e94f51905f3f3510c518d56df86b876c
+    completed_at: '2026-08-01T23:24:27.785266+00:00'
 ---
 ## Summary
 
@@ -194,5 +208,20 @@ author: oompah
 created: 2026-08-01 23:24
 ---
 Implemented deterministic incident health-transition reduction with hysteresis, immediate failure and alert rules, severity mapping, recurrence, explicit resolution, and 30 focused tests; pushed b4aa7d82.
+---
+author: oompah
+created: 2026-08-01 23:24
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 154
+- Tokens: 20.4M in / 62.2K out [20.4M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 22m 48s
+- Log: EXOCOMP-155__20260801T230151Z.jsonl
+---
+author: oompah
+created: 2026-08-01 23:24
+---
+Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
 ---
 <!-- COMMENTS:END -->
