@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-136
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Scaffold the Mission Control Phoenix application
 parent: EXOCOMP-128
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T15:16:38.363984Z'
+updated_at: '2026-08-01T15:17:19.313067Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -60,12 +60,12 @@ oompah.agent_run_id: a84686a3-c80b-4808-9e06-0837f2bf73cb
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-136
-  base_branch: epic-EXOCOMP-128
-  base_sha: 3a3d6e6171127328361ee88715d55af03d238a15
-  updated_at: '2026-08-01T15:13:18.739791+00:00'
+  head_sha: 074712f0af1ff18d286cd2d4ff12b9399798ffdc
+  submitted_at: '2026-08-01T15:17:15.393095+00:00'
+  updated_at: '2026-08-01T15:17:15.393095+00:00'
 oompah.task_costs:
   total_input_tokens: 12623503
   total_output_tokens: 53109
@@ -372,5 +372,15 @@ author: oompah
 created: 2026-08-01 15:16
 ---
 Verification: router and controller pass focused mix format checks, Elixir AST parsing, and git diff validation; make compliance-check passes. The required make fmt-check, make test, and make lint all reach the pinned Docker/Podman invocation but fail before Mix because Podman cannot chmod its read-only /run/user/1000/libpod runtime. Host-side focused mix test/compile is also blocked by Elixir 1.18.3 versus the declared 1.20.2.
+---
+author: oompah
+created: 2026-08-01 15:17
+---
+Completion: committed and pushed 074712f0. Added Exocomp.MissionControl.HealthController.health/2 and routed GET /health through the Phoenix :api pipeline and scoped Exocomp.MissionControl router. Focused format/parse checks and compliance pass; make fmt-check/test/lint remain blocked before Mix by the read-only Podman runtime, with host Mix blocked by Elixir 1.18.3 versus pinned 1.20.2. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-08-01 15:17
+---
+Route Mission Control health through a Phoenix controller and API pipeline; pushed 074712f0. Focused checks pass; container quality gates are environment-blocked by Podman runtime permissions.
 ---
 <!-- COMMENTS:END -->
