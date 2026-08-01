@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:21:24.996201Z'
+updated_at: '2026-08-01T14:57:22.438962Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -187,5 +187,15 @@ author: oompah
 created: 2026-08-01 14:21
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 14:57
+---
+**Understanding** (resolving rebase conflict): Task was previously implemented (exocomp.service.observe skill) but a rebase conflict with epic-EXOCOMP-185 existed. The conflict was in apps/exocomp_node/lib/exocomp/node/skills/dispatcher.ex — EXOCOMP-190 added ServiceInventory while we added ServiceObserve. Plan: rebase onto epic-EXOCOMP-185, merge both skills into dispatcher, then fix compilation and test failures.
+---
+author: oompah
+created: 2026-08-01 14:57
+---
+**Implementation**: Resolved two bugs found after rebasing: (1) In collect_and_build, Task.yield wraps the inner function return in {:ok, ...}, so pattern matching needed {{:ok, {:ok, systemd_obs}}, {:ok, {:ok, probe_results}}} instead of {{:ok, systemd_obs}, {:ok, probe_obs}}. (2) Used Erlang infix div syntax instead of Elixir function call — fixed timeout_ms div expr to div(timeout_ms, expr). Also merged dispatcher.ex to register both ServiceInventory (EXOCOMP-190) and ServiceObserve (EXOCOMP-191).
 ---
 <!-- COMMENTS:END -->
