@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-191
 type: task
-status: Ready to Integrate
+status: Needs Rebase
 priority: 1
 title: Implement bounded read-only service observation
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:20:29.951069Z'
+updated_at: '2026-08-01T14:21:01.342061Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -49,12 +49,32 @@ oompah.agent_run_id: 5684be9d-6fdd-4ce7-935a-6c0f0bc44d39
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-191
+  base_branch: epic-EXOCOMP-185
+  base_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
   head_sha: 29389ced6c28750af1f3cf719ba95b76237c2406
   submitted_at: '2026-08-01T14:20:08.797912+00:00'
-  updated_at: '2026-08-01T14:20:08.797912+00:00'
+  updated_at: '2026-08-01T14:20:59.279035+00:00'
+  last_error: 'Rebase onto the latest epic head conflicted: Rebasing (1/1)
+
+    error: could not apply 29389ced... EXOCOMP-191: Implement bounded read-only service
+    observation
+
+    hint: Resolve all conflicts manually, mark them as resolved with
+
+    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+
+    hint: You can instead skip this commit: run "git rebase --skip".
+
+    hint: To abort and get back to the state before "git rebase", run "git rebase
+    --abort".
+
+    hint: Disable this message with "git config set advice.mergeConflict false"
+
+    Could not apply 29389ced... # EXOCOMP-191: Implement bounded read-only service
+    observation'
 oompah.task_costs:
   total_input_tokens: 563690
   total_output_tokens: 3190
@@ -172,5 +192,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 8m 35s
 - Log: EXOCOMP-191__20260801T141159Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:21
+---
+Integration found a rebase conflict on `epic-EXOCOMP-185--task-EXOCOMP-191`. Resolve it against `epic-EXOCOMP-185`, run the required tests, push the same private branch, and `oompah task submit` it again.
 ---
 <!-- COMMENTS:END -->
