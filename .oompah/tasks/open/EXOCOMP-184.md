@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: Needs Human
+status: Open
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:50:11.243744Z'
+updated_at: '2026-08-01T17:41:04.813999Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -566,5 +566,10 @@ author: oompah
 created: 2026-08-01 13:50
 ---
 Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
+---
+author: oompah
+created: 2026-08-01 17:41
+---
+Operator reconciliation after deploying OOMPAH-678. The prior Needs Human transition was caused by intentional cross-task dependency reads being misclassified as a fatal handoff failure. Branch eb637c05 is preserved; security and docs foci are complete. Resume in Open with needs:devops for the remaining qualification implementation when dependencies permit.
 ---
 <!-- COMMENTS:END -->

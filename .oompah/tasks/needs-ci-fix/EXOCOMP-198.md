@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-198
 type: task
-status: Needs Human
+status: Needs CI Fix
 priority: 1
 title: Discover local traditional and cephadm daemon units
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T15:29:53.452795Z'
+updated_at: '2026-08-01T17:41:06.982397Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -340,5 +340,10 @@ author: oompah
 created: 2026-08-01 15:29
 ---
 Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
+---
+author: oompah
+created: 2026-08-01 17:41
+---
+Operator reconciliation after deploying OOMPAH-678. The prior Needs Human transition was caused by an intentional cross-task epic read being misclassified as a fatal handoff failure. The CI repair is preserved and pushed at 02d64aab on epic-EXOCOMP-186--task-EXOCOMP-198; resume the CI-fix path and resubmit the repaired head rather than reimplementing the feature.
 ---
 <!-- COMMENTS:END -->
