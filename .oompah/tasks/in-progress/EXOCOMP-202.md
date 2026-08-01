@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T15:31:11.263742Z'
+updated_at: '2026-08-01T15:33:01.760983Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -136,5 +136,35 @@ author: oompah
 created: 2026-08-01 15:31
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 15:33
+---
+## Understanding
+
+Task: Package the profile_action_helper with exact sudo authorization
+
+Interpretation:
+- Include the profile_action_helper binary (already implemented in EXOCOMP-201) in release bundles for both amd64 and arm64
+- Install it as root-owned executable in a standard location (/opt/exocomp-helper or similar)
+- Grant the exocomp-node service account a sudo entry for EXACTLY the helper path with no arguments
+- visudo must validate the sudoers entry; validation failure rolls back installation
+- Handle idempotently: upgrade, dry-run, rollback, and uninstall should all handle the helper properly
+- Extend installer, packaging, tamper-detection, upgrade, uninstall, and sudoers tests
+- Tests: make test-installer, make test-release-packaging, make test-bundle
+
+Key findings:
+- profile_action_helper.c is implemented and has native tests via test-profile-action-helper target
+- install.sh already has framework for sudoers policies with render_sudoers function
+- Makefile already has build and test targets for the helper
+
+Planned approach:
+1. Determine helper installation path and ownership
+2. Modify bundle assembly to include profile_action_helper binaries
+3. Modify install.sh to install helper with root ownership and proper permissions
+4. Add a dedicated sudo entry for the helper (separate from service allow-list)
+5. Modify uninstall.sh to remove the helper and sudoers entry
+6. Extend tests for installer, packaging, and sudoers validation
+7. Verify all test targets pass
 ---
 <!-- COMMENTS:END -->
