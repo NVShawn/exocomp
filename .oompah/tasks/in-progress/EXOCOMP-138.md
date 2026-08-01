@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:02:38.726106Z'
+updated_at: '2026-08-01T16:03:04.957942Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -340,5 +340,10 @@ author: oompah
 created: 2026-08-01 16:02
 ---
 Understanding: I will resolve the recorded integration/rebase conflict against epic-EXOCOMP-128, review the organization-scoping implementation for compatibility, run the focused and Makefile quality gates where available, then push and resubmit the same task branch.
+---
+author: oompah
+created: 2026-08-01 16:03
+---
+Discovery: origin/epic-EXOCOMP-128 now includes EXOCOMP-137's PostgreSQL harness and EXOCOMP-139's protocol work. This task's single commit diverged before both and overlaps Mission Control application/config/dependency files, explaining integration's rebase conflict. I will replay it on the current epic and preserve the new shared configuration.
 ---
 <!-- COMMENTS:END -->
