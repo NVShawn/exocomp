@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-08-01T23:31:44.887678Z'
+updated_at: '2026-08-01T23:33:21.672580Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 target_branch: null
 review_url: null
@@ -164,5 +164,10 @@ author: oompah
 created: 2026-08-01 23:31
 ---
 Verification: Passed the dependency-neutral health/metrics smoke (healthy and degraded readiness, telemetry rendering, Ceph, recovery), explicit changed-file format checks, git diff --check, and make compliance-check. make lint passed its offline builder/Python checks but its container compile step was blocked by the host Podman sticky-bit filesystem error; make fmt-check hit the same container blocker. Focused ExUnit was attempted with the host Elixir 1.18.3 and remains blocked by missing Erlang syntax_tools; the project builder requires Elixir 1.20.2.
+---
+author: oompah
+created: 2026-08-01 23:33
+---
+Completion: Delivered and pushed 94476b76. Mission Control now exposes /health/live, /health/ready, and /metrics with redacted readiness checks, bearer guarding, database/migration/worker evaluation, stable low-cardinality metric families, desired-service telemetry, and operations documentation. Focused smoke, formatting, and compliance checks passed; the project-version ExUnit/container gates remain environment-blocked as recorded above. Branch is up to date with origin.
 ---
 <!-- COMMENTS:END -->
