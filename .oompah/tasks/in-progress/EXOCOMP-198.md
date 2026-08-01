@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T17:52:58.735348Z'
+updated_at: '2026-08-01T18:17:16.450026Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -371,5 +371,23 @@ Discovery: Security audit found two issues in apps/exocomp_node/lib/exocomp/node
 2. ROBUSTNESS CONCERN (parse_show_output completeness): When systemctl returns fewer than all 4 requested properties, the parser succeeds with a partial map and the daemon record gets nil for missing fields. No downstream exploit found, but it violates the 'strict parsing' guarantee. Fix: add a post-reduce completeness check.
 
 No shell injection, path traversal, or arg injection vectors found. The unit-name grammar, fixed @list_args and @show_property_flag compile-time constants, and System.cmd/3 (no shell) collectively prevent command injection. Tests pass (511/511). Implementing fixes now.
+---
+author: oompah
+created: 2026-08-01 18:17
+---
+Implementation: Two security fixes applied to apps/exocomp_node/lib/exocomp/node/collectors/ceph.ex:
+
+1. FIXED valid_property_value?/1 byte check (line 282):
+   - Old: `byte != 0x7F` — admitted 0x80-0xFF because 128 > 32 numerically
+   - New: `byte <= 0x7E` — explicitly enforces printable-ASCII upper bound
+   This prevents valid UTF-8 non-ASCII characters (e.g. é = 0xC3 0xA9, returned by a compromised systemd binary or crafted unit) from passing silently into the daemon state map.
+
+2. ADDED parse_show_output completeness check:
+   After the reduce_while collects properties, a new guard `map_size(properties) == length(@show_properties)` rejects partial responses with {:error, :malformed, "systemctl returned incomplete unit state"}. Previously, if systemctl returned fewer than 4 properties, the function returned {:ok, partial_map} which produced nil state fields.
+
+Three regression tests added to apps/exocomp_node/test/exocomp/node/collectors/ceph_test.exs:
+- 'non-ASCII UTF-8 property value from systemd show is a per-unit malformed error'
+- 'a property value containing a DEL byte (0x7F) is rejected as malformed'
+- 'incomplete unit state (fewer properties than requested) is a per-unit malformed error'
 ---
 <!-- COMMENTS:END -->
