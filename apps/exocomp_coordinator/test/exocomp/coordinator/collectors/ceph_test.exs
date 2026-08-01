@@ -22,6 +22,7 @@ defmodule Exocomp.Coordinator.Collectors.CephTest do
 
     def status_healthy do
       %{
+        "fsid" => "01234567-89ab-cdef-0123-456789abcdef",
         "health" => %{
           "status" => "HEALTH_OK",
           "checks" => %{}
@@ -308,6 +309,18 @@ defmodule Exocomp.Coordinator.Collectors.CephTest do
 
     assert is_map(result.topology["monitors"])
     assert Map.has_key?(result.topology["monitors"], "0")
+  end
+
+  test "preserves the authoritative cluster FSID beside topology" do
+    with_config(base_config())
+
+    result =
+      Ceph.collect(
+        cmd_runner: &MockRunner.success_all/3,
+        config: base_config()
+      )
+
+    assert result.topology["fsid"] == "01234567-89ab-cdef-0123-456789abcdef"
   end
 
   test "collects OSD topology" do

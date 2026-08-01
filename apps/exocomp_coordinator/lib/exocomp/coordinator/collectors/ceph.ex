@@ -270,7 +270,7 @@ defmodule Exocomp.Coordinator.Collectors.Ceph do
   defp reduce_results(results) do
     Enum.reduce(results, {%{}, %{}, []}, fn
       {:ok, :status, data}, {health, topo, errs} ->
-        {merge_health(health, data), topo, errs}
+        {merge_health(health, data), put_cluster_fsid(topo, data), errs}
 
       {:ok, :mon_metadata, data}, {health, topo, errs} ->
         {health, put_in(topo, ["monitors"], data), errs}
@@ -301,6 +301,21 @@ defmodule Exocomp.Coordinator.Collectors.Ceph do
   end
 
   defp merge_health(existing, _data), do: existing
+
+  # Ceph reports the cluster FSID in its status response rather than in each
+  # metadata command. Preserve it beside the topology so the coordinator can
+  # reject a local cephadm unit from a different cluster during correlation.
+  defp put_cluster_fsid(topology, data) do
+    fsid =
+      Map.get(data, "fsid") ||
+        Map.get(data, "cluster_fsid") ||
+        case Map.get(data, "cluster") do
+          %{"fsid" => value} -> value
+          _ -> nil
+        end
+
+    if is_binary(fsid) and fsid != "", do: Map.put(topology, "fsid", fsid), else: topology
+  end
 
   # Extract status from health data (handle different Ceph versions).
   defp extract_status(%{"status" => status}) when is_binary(status), do: status
