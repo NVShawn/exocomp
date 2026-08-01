@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -16,10 +16,9 @@ start_blocked_by: []
 labels:
 - focus-complete:security
 - focus-complete:docs
-- needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:41:04.813999Z'
+updated_at: '2026-08-01T17:41:25.652414Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -64,7 +63,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 19ff5d9a-ec23-4c0b-b59e-5f2d517a73d2
+oompah.agent_run_id: ff1135dd-f0c0-47df-8572-b4d6080b9673
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 oompah.integration:
   version: 2
@@ -72,8 +71,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-184
   base_branch: epic-EXOCOMP-135
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:40:55.436186+00:00'
+  base_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
+  updated_at: '2026-08-01T17:41:22.225292+00:00'
 oompah.task_costs:
   total_input_tokens: 3180355
   total_output_tokens: 36208
@@ -571,5 +570,15 @@ author: oompah
 created: 2026-08-01 17:41
 ---
 Operator reconciliation after deploying OOMPAH-678. The prior Needs Human transition was caused by intentional cross-task dependency reads being misclassified as a fatal handoff failure. Branch eb637c05 is preserved; security and docs foci are complete. Resume in Open with needs:devops for the remaining qualification implementation when dependencies permit.
+---
+author: oompah
+created: 2026-08-01 17:41
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 17:41
+---
+Focus: DevOps Engineer
 ---
 <!-- COMMENTS:END -->

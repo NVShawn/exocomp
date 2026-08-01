@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-198
 type: task
-status: Needs CI Fix
+status: In Progress
 priority: 1
 title: Discover local traditional and cephadm daemon units
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T17:41:06.982397Z'
+updated_at: '2026-08-01T17:41:37.228871Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -37,7 +37,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 3bca683c-9c33-48e2-afbc-c81936560880
+oompah.agent_run_id: 10af1daa-a0fb-4019-b1f8-a8131e2accb8
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 oompah.integration:
   version: 2
@@ -45,8 +45,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-198
   base_branch: epic-EXOCOMP-186
-  base_sha: 0b7e7f90e99ff55f770600b19875b9439b841d22
-  updated_at: '2026-08-01T15:23:10.905366+00:00'
+  base_sha: c596834e6b50082aaf3023e8695a651f0360ec5f
+  updated_at: '2026-08-01T17:41:34.844519+00:00'
 oompah.task_costs:
   total_input_tokens: 663629
   total_output_tokens: 16682
@@ -345,5 +345,15 @@ author: oompah
 created: 2026-08-01 17:41
 ---
 Operator reconciliation after deploying OOMPAH-678. The prior Needs Human transition was caused by an intentional cross-task epic read being misclassified as a fatal handoff failure. The CI repair is preserved and pushed at 02d64aab on epic-EXOCOMP-186--task-EXOCOMP-198; resume the CI-fix path and resubmit the repaired head rather than reimplementing the feature.
+---
+author: oompah
+created: 2026-08-01 17:41
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 17:41
+---
+Focus: Security Auditor
 ---
 <!-- COMMENTS:END -->
