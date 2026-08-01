@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:54:19.501700Z'
+updated_at: '2026-08-01T17:58:02.255620Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -682,5 +682,10 @@ author: oompah
 created: 2026-08-01 17:54
 ---
 Understanding: I will audit the existing Mission Control configuration/supervision implementation against the acceptance criteria and prior auditor findings, add only the missing focused coverage or fixes, run the required Makefile gates, then commit, push, and submit the task.
+---
+author: oompah
+created: 2026-08-01 17:58
+---
+Implementation: Reworked Mission Control supervision tests to use the exact Application child list and an OTP root supervisor, asserting the registered MissionControlSupervisor plus live Outbox/Connection processes and propagated config structs. Added a paired struct-init regression test. Runtime config errors now raise bounded actionable startup errors instead of being logged and swallowed. Hardened malformed mission_control shapes to return bounded type errors, added coverage, moved test artifacts to unique temporary directories, and removed tracked generated mc-* fixtures with ignore rules.
 ---
 <!-- COMMENTS:END -->
