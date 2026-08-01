@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-176
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Package the Mission Control release and OCI image
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-08-01T16:31:31.662788Z'
+updated_at: '2026-08-01T16:37:57.423788Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 target_branch: null
 review_url: null
@@ -88,6 +88,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:11:05.995656+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-8f380502ff9d: '2026-08-01T16:37:55.313369+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-176
+    target_state: Done
+    evidence_fingerprint: 8107312e1cd351f55f69c81825c8c6f70f854adbed0c657a5859bda3f953529a
+    audit_ids:
+    - audit-768b3d839034
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:37:55.313380+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-176
+    audit_id: audit-768b3d839034
+    attempt_id: attempt-8f380502ff9d
+    target_state: Done
+    evidence_fingerprint: 8107312e1cd351f55f69c81825c8c6f70f854adbed0c657a5859bda3f953529a
+    status: Done
+    audit_ids:
+    - audit-768b3d839034
+    applied: false
+    created_at: '2026-08-01T16:37:55.313395+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -95,7 +119,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-176
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -104,7 +128,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-8f380502ff9d
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -114,13 +138,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T16:31:28.430821+00:00'
       branch_key: epic-EXOCOMP-135--task-EXOCOMP-176
+      verdict: pass
+      completed_at: '2026-08-01T16:37:55.313204+00:00'
+      ended_at: '2026-08-01T16:37:55.313204+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:30:43.164049+00:00'
-    updated_at: '2026-08-01T16:31:28.430821+00:00'
+    updated_at: '2026-08-01T16:37:55.313204+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-8f380502ff9d
@@ -322,5 +349,22 @@ author: oompah
 created: 2026-08-01 16:31
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:37
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: d9cc09d75701c1b15febdaff3523261ad017d1bf
+- remote_branch: origin/epic-EXOCOMP-135--task-EXOCOMP-176
+- packaging_tests: test-mission-control-packaging: 6/6 pass; test-release-packaging: 22/22 pass; test-compliance: 35/35 pass
+- containerfile_path: release/mission_control/Containerfile
+- entrypoint_path: release/mission_control/entrypoint.sh
+- packager_path: scripts/package_mission_control.py
+- harness_path: scripts/test-mission-control-image.sh
+- docs_path: docs/mission-control-operations.md
 ---
 <!-- COMMENTS:END -->
