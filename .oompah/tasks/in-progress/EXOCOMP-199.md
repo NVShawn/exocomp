@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-08-01T18:54:42.831003Z'
+updated_at: '2026-08-01T18:55:12.370676Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-199
 target_branch: null
 review_url: null
@@ -201,5 +201,10 @@ author: oompah
 created: 2026-08-01 18:54
 ---
 Verification: standalone Elixir harness passed 15 tests (10 Ceph topology reconciliation, 5 shared desired-service tests) with zero failures; changed Elixir files parse and git diff --check passes. make test passed all offline checks, then could not start the pinned Elixir 1.20.2 container because Podman cannot chmod the read-only /run/user/1000/libpod path. Local mix test is also unavailable on installed Elixir 1.18.3 because the project requires 1.20.2.
+---
+author: oompah
+created: 2026-08-01 18:55
+---
+Completion: delivered Ceph topology reconciliation in CephTopology, exact/case-normalized stable hostname matching, daemon identity and FSID validation, deterministic missing/ambiguous/conflicting-FSID/orphan results, explicit non-member and unsupported coverage, serialized profile artifact support, cluster FSID preservation in the Ceph collector, and cluster:ceph desired-service resolution. Commit 0314c581 is pushed; offline make test checks and focused 15-test harness pass, with the pinned-container limitation recorded above.
 ---
 <!-- COMMENTS:END -->
