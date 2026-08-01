@@ -67,43 +67,18 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
     {enabled_config, _tmp_dir} = test_config()
 
     old_value = Application.get_env(:exocomp_coordinator, :mission_control_config)
-
-    enabled_config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://mission-control.example.com:443",
-      trust_root: ca_cert_path,
-      client_cert: client_cert_path,
-      client_key: client_key_path,
-      heartbeat_interval_seconds: 30,
-      reconnect_min_backoff_seconds: 1,
-      reconnect_max_backoff_seconds: 60,
-      outbox_path: outbox_dir
-    }
-
     Application.put_env(:exocomp_coordinator, :mission_control_config, enabled_config)
+    on_exit(fn -> restore_app_env(:mission_control_config, old_value) end)
 
-    try do
-      children = Exocomp.Coordinator.Application.mission_control_children_for_test()
+    children = Exocomp.Coordinator.Application.mission_control_children_for_test()
 
-      # Should have exactly 1 child spec
-      assert length(children) == 1
+    # Should have exactly 1 child spec
+    assert length(children) == 1
 
-      # Verify it's a tuple with the MissionControl.Supervisor module
-      [{module, config_arg}] = children
-      assert module == Exocomp.Coordinator.MissionControl.Supervisor
-      assert config_arg == enabled_config
-    after
-      if old_value != nil do
-        Application.put_env(:exocomp_coordinator, :mission_control_config, old_value)
-      else
-        Application.delete_env(:exocomp_coordinator, :mission_control_config)
-      end
-
-      File.rm!(ca_cert_path)
-      File.rm!(client_cert_path)
-      File.rm!(client_key_path)
-      File.rm_rf!(outbox_dir)
-    end
+    # Verify it's a tuple with the MissionControl.Supervisor module
+    [{module, config_arg}] = children
+    assert module == Exocomp.Coordinator.MissionControl.Supervisor
+    assert config_arg == enabled_config
   end
 
   # ---------------------------------------------------------------------------
@@ -123,7 +98,7 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
     {:ok, root_pid} =
       Elixir.Supervisor.start_link(children, strategy: :one_for_one, name: :test_root)
 
-    on_exit(fn -> if Process.alive?(root_pid), do: GenServer.stop(root_pid) end)
+    on_exit(fn -> Process.exit(root_pid, :shutdown) end)
 
     mission_control_pid = Process.whereis(Exocomp.Coordinator.MissionControlSupervisor)
     assert is_pid(mission_control_pid)
@@ -155,7 +130,7 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
         name: :test_root_struct
       )
 
-    on_exit(fn -> if Process.alive?(root_pid), do: GenServer.stop(root_pid) end)
+    on_exit(fn -> Process.exit(root_pid, :shutdown) end)
 
     assert %{config: ^enabled_config} = :sys.get_state(Process.whereis(Outbox))
     assert %{config: ^enabled_config} = :sys.get_state(Process.whereis(Connection))
