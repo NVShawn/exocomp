@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-31
 type: feature
-status: Merged
+status: In Validation
 priority: 0
 title: Implement automatic recovery of an already-failed service
 parent: EXOCOMP-4
@@ -18,7 +18,7 @@ labels:
 - focus-complete:merge_conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-07-25T21:10:12.656281Z'
+updated_at: '2026-08-01T21:19:01.442168Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 3623
     cost_usd: 0.0
     recorded_at: '2026-07-25T02:14:14.280723+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-823e4dd42cc1
+    project_id: proj-c260b117
+    task_id: EXOCOMP-31
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e1ffc0855264afcd72ef301c9056daa3eb41aa9afbbc893cfc6c0d4457cc6059
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:59.091508+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -357,5 +379,10 @@ author: oompah
 created: 2026-07-25 21:10
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
