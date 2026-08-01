@@ -16,9 +16,10 @@ start_blocked_by: []
 labels:
 - focus-complete:security
 - focus-complete:docs
+- focus-complete:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:55:01.437840Z'
+updated_at: '2026-08-01T17:55:51.433009Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -600,5 +601,18 @@ author: oompah
 created: 2026-08-01 17:55
 ---
 VERIFICATION (devops): PASS: make test-m7-qualification-contract (12 focused validation/evidence/rollback tests); PASS: make test-release-packaging; PASS: make release-check (47 compliance/qualification/docs/packaging tests); PASS: make check-links; PASS: bash -n, Python compilation, and git diff --check. The live test-m7-qualification invocation is correctly not runnable yet: this branch lacks the dependent Mission Control application and test-mission-control-scenario, mc-scale-full, and test-mission-control-lifecycle targets, plus no signed final candidate or two supported qualification guests are available. The new target fails closed on all of these prerequisites.
+---
+author: oompah
+created: 2026-08-01 17:55
+---
+Focus handoff: devops
+
+OUTCOME: DevOps automation is complete and pushed at cff17ef0. It reconciles EXOCOMP-176 and adds the fail-closed M7 qualification and evidence-finalization Make targets.
+
+FILES / EVIDENCE: Makefile; scripts/test-m7-qualification.sh; scripts/m7_qualification.py; scripts/finalize_m7_evidence.py; tests/test_m7_qualification.py; docs/mission-control-qualification.md. The wrapper verifies one signed tag, native guest identity, immutable node/coordinator/OCI/PostgreSQL/model/config inputs, redacts configuration, records migration hashes and phase transcripts, rejects missing scenario/scale/lifecycle gates, maps M7-CRIT-1..12, and permits final signing only for matching amd64+arm64 results. PASS: make test-m7-qualification-contract (12 tests), make test-release-packaging, make release-check (47 tests), make check-links, shell/Python syntax, and diff check.
+
+REMAINING WORK / RISKS: Do not submit EXOCOMP-184 yet. No signed final candidate, supported amd64/arm64 systemd guests, or live evidence exists. The current branch also still lacks the dependent Mission Control application and the canonical test-mission-control-scenario, mc-scale-full, and test-mission-control-lifecycle targets; the new gate intentionally fails rather than skipping them. After EXOCOMP-178/181/182/183 integrate, build one signed candidate on each supported guest, run test-m7-qualification for both architectures, finalize the signed evidence index, and only then submit.
+
+RECOMMENDED NEXT FOCUS: test, after the outstanding dependencies integrate, to exercise the two guest qualification and publish the signed evidence.
 ---
 <!-- COMMENTS:END -->
