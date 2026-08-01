@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-139
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Define Mission Control protocol envelopes and fixtures
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T14:51:36.891693Z'
+updated_at: '2026-08-01T14:53:04.702298Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 1
   retry_after: null
-oompah.agent_run_id: 4e9099ad-bac9-4e00-8eac-3282f2e656ee
+oompah.agent_run_id: a898f5c0-69a5-40f3-b48c-3e315e0564e8
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 oompah.integration:
   version: 2
@@ -47,7 +47,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-139
   base_branch: epic-EXOCOMP-128
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:49:43.056306+00:00'
+  updated_at: '2026-08-01T14:53:02.338945+00:00'
 oompah.task_costs:
   total_input_tokens: 820072
   total_output_tokens: 11745
@@ -158,5 +158,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 53s
 - Log: EXOCOMP-139__20260801T144945Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:52
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 14:53
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
