@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:20:19.481107Z'
+updated_at: '2026-08-01T15:38:44.900482Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -339,5 +339,17 @@ author: oompah
 created: 2026-08-01 15:20
 ---
 Discovery: Explored codebase. Key findings: (1) Exocomp.ClusterProfile behaviour defined in apps/exocomp_core/lib/exocomp/cluster_profile.ex with 7 callbacks; (2) Registry.shipped_modules only includes Default profile - need to add Ceph; (3) Coordinator.Config currently parses version/coordinator_id/tls/listen - needs cluster_profiles.ceph extension; (4) Audit.emit/3 handles redaction of sensitive keys (but 'keyring' not yet in the list); (5) File.Stat provides uid/mode for ownership+permission checks; (6) Validator can use injectable stat_fn for testability. Plan: create Ceph.Config struct, Ceph.Validator module (absolute path, existence, ownership uid=0 check, keyring permissions 0600/0640), Exocomp.ClusterProfile.Ceph module (all 7 callbacks), extend Coordinator.Config, register Ceph in Registry, comprehensive tests.
+---
+author: oompah
+created: 2026-08-01 15:38
+---
+Implementation: Created the following files/changes:
+1. apps/exocomp_core/lib/exocomp/cluster_profile/ceph/config.ex - Config struct for paths and version
+2. apps/exocomp_core/lib/exocomp/cluster_profile/ceph/validator.ex - Startup validation (absolute paths, file existence, binary identity, root ownership, keyring permissions 0600/0640); injectable stat_fn for testability; no key material in failure messages
+3. apps/exocomp_core/lib/exocomp/cluster_profile/ceph.ex - ClusterProfile behaviour impl (id='ceph', version=1, read-only, redacts key/keyring/cephx_key fields)
+4. apps/exocomp_core/lib/exocomp/cluster_profile/registry.ex - Added Ceph to @shipped_profile_modules
+5. apps/exocomp_coordinator/lib/exocomp/coordinator/config.ex - Extended to parse cluster_profiles.ceph (version check, absolute path validation, env overrides EXOCOMP_CEPH_BINARY_PATH/CONF_PATH/KEYRING_PATH)
+6. Tests: ceph_test.exs (profile behaviour), validator_test.exs (all 7 scenarios: valid, missing files, relative paths, unsafe permissions, wrong ownership, absent binary, secret redaction), config_test.exs (Ceph parsing tests)
+7. Fixed existing tests: registry_test.exs and a2a_router_test.exs (ceph now in shipped profiles)
 ---
 <!-- COMMENTS:END -->
