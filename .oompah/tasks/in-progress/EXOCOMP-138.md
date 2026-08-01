@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:05:48.661863Z'
+updated_at: '2026-08-01T16:08:22.806006Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -350,5 +350,10 @@ author: oompah
 created: 2026-08-01 16:05
 ---
 Implementation: rebased EXOCOMP-138 onto origin/epic-EXOCOMP-128 and resolved the four conflicts by preserving EXOCOMP-137's PostgreSQL runtime/test configuration and EXOCOMP-136's endpoint config-change hook, while retaining this task's Repo supervision, Ecto registration, and seed alias. I am also adding database-backed scope-isolation coverage through the new test-mission-control-db target.
+---
+author: oompah
+created: 2026-08-01 16:08
+---
+Verification: targeted mix format --check-formatted passes for every EXOCOMP-138 source/test/config file; git diff --check passes; and lint's offline release-builder, package, dependency-normalizer, documentation, and compliance checks pass. make fmt-check, make lint's Elixir phase, and make test-mission-control-db are blocked before execution because Podman cannot write /run/user/1000/libpod in this sandbox. Native focused mix test is also blocked: installed Elixir is 1.18.3, while the project requires 1.20.2. Database tests now explicitly exercise fail-closed insert, cross-org read/update/delete isolation, FK, and per-org uniqueness when run through the required target.
 ---
 <!-- COMMENTS:END -->
