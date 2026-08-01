@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T18:02:23.094916Z'
+updated_at: '2026-08-01T18:02:33.515414Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -48,13 +48,13 @@ oompah.integration:
   submitted_at: '2026-08-01T18:02:20.818793+00:00'
   updated_at: '2026-08-01T18:02:20.818793+00:00'
 oompah.task_costs:
-  total_input_tokens: 745948
-  total_output_tokens: 29455
+  total_input_tokens: 4373708
+  total_output_tokens: 52737
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 745730
-      output_tokens: 4341
+      input_tokens: 4373490
+      output_tokens: 27623
       cost_usd: 0.0
     unknown:
       input_tokens: 218
@@ -91,6 +91,12 @@ oompah.task_costs:
     output_tokens: 19492
     cost_usd: 0.0
     recorded_at: '2026-08-01T17:52:35.485974+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 3627760
+    output_tokens: 23282
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:02:31.803748+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-145__20260801T120915Z
@@ -725,5 +731,15 @@ author: oompah
 created: 2026-08-01 18:02
 ---
 Harden Mission Control startup configuration and supervision coverage; pushed e441e9e7. Static checks pass. Make quality gates were attempted but blocked by the environment's Podman runtime configuration.
+---
+author: oompah
+created: 2026-08-01 18:02
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 60
+- Tokens: 3.6M in / 23.3K out [3.7M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 8m 31s
+- Log: EXOCOMP-145__20260801T175406Z.jsonl
 ---
 <!-- COMMENTS:END -->

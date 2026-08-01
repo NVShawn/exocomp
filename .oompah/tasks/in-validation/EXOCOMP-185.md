@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-08-01T18:00:23.882211Z'
+updated_at: '2026-08-01T18:02:41.606503Z'
 work_branch: epic-EXOCOMP-185
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/22
@@ -43,13 +43,32 @@ oompah.terminal_audit:
       version: 1
       algorithm: sha256
       digest: 876576de5739eeee541f22c9268c3b2a01c2806b2c735cf4ef55c6fc12d0d457
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-34ade6f49251
+      target_state: Done
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 876576de5739eeee541f22c9268c3b2a01c2806b2c735cf4ef55c6fc12d0d457
+      created_at: '2026-08-01T18:02:34.874779+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T18:02:34.874779+00:00'
+      branch_key: epic-EXOCOMP-185
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-01T18:02:39.460986+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-185 (tried: origin/epic-EXOCOMP-185, origin/EXOCOMP-185)'
+      next_retry_at: '2026-08-01T18:02:49.460963+00:00'
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-01T18:00:19.561927+00:00'
+    updated_at: '2026-08-01T18:02:39.460986+00:00'
   - version: 1
     audit_id: audit-2e98cc055e11
     project_id: proj-c260b117
@@ -67,7 +86,25 @@ oompah.terminal_audit:
       source: forge
     previous_state: In Review
     created_at: '2026-08-01T18:00:19.561927+00:00'
-  attempt_history: []
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-34ade6f49251
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 876576de5739eeee541f22c9268c3b2a01c2806b2c735cf4ef55c6fc12d0d457
+    created_at: '2026-08-01T18:02:34.874779+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T18:02:34.874779+00:00'
+    branch_key: epic-EXOCOMP-185
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-01T18:02:39.460986+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-185 (tried: origin/epic-EXOCOMP-185, origin/EXOCOMP-185)'
+    next_retry_at: '2026-08-01T18:02:49.460963+00:00'
 ---
 ## Summary
 
@@ -101,5 +138,24 @@ author: oompah
 created: 2026-08-01 18:00
 ---
 YOLO: merged PR #22.
+---
+author: oompah
+created: 2026-08-01 18:02
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 18:02
+---
+Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 2s
+---
+author: oompah
+created: 2026-08-01 18:02
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-185 (tried: origin/epic-EXOCOMP-185, origin/EXOCOMP-185). A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
