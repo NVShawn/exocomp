@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:38:55.693502Z'
+updated_at: '2026-08-01T15:39:51.422123Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -356,5 +356,22 @@ author: oompah
 created: 2026-08-01 15:38
 ---
 Verification: make test passes - 866 passed / 10 excluded (coordinator+core suite) and 518 passed (node suite). All new tests pass: ceph profile behaviour, all 7 validator scenarios (valid config, missing files, relative paths, unsafe permissions, wrong ownership, absent binary, secret redaction), and coordinator Ceph config parsing/rejection. Existing tests updated to reflect Ceph now being in the shipped registry.
+---
+author: oompah
+created: 2026-08-01 15:39
+---
+Completion: Ceph profile configuration and validation implemented.
+
+Delivered:
+- Exocomp.ClusterProfile.Ceph module (id='ceph', version=1, read-only, ClusterProfile behaviour)
+- Exocomp.ClusterProfile.Ceph.Config struct (version, ceph_binary_path, ceph_conf_path, keyring_path)
+- Exocomp.ClusterProfile.Ceph.Validator with all startup checks: absolute paths, file existence, binary identity (regular file + execute bit), root ownership warning, keyring permissions (0600/0640 OK, 0644/0664/0660/0666 rejected); no key material in any failure message
+- Ceph registered in ClusterProfile.Registry @shipped_profile_modules
+- Coordinator.Config extended for cluster_profiles.ceph with version enforcement, absolute path validation, and env overrides EXOCOMP_CEPH_BINARY_PATH/CONF_PATH/KEYRING_PATH
+- Tests: 7 acceptance criteria scenarios (valid, missing files, relative paths, unsafe permissions, wrong ownership, absent binary, secret redaction) + profile behaviour tests + config parsing tests
+- All 1384 tests pass (make test)
+
+Branch: epic-EXOCOMP-186--task-EXOCOMP-196
+Commit: fb8c8d99
 ---
 <!-- COMMENTS:END -->
