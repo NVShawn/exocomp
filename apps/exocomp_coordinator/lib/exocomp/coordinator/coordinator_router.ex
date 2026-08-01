@@ -8,12 +8,17 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
 
   - `POST /v1/enroll` → `EnrollmentHandler` (Bearer token, no mTLS required)
   - `POST /v1/renew` → `RenewalHandler` (mTLS client certificate required)
+  - `POST /api/v1/clusters/renew` → `RenewalHandler` (mTLS, Mission Control path)
   - All other paths → `A2ARouter` (mTLS required, A2A version header required)
 
   The coordinator listener uses `fail_if_no_peer_cert: false` so that
   enrollment connections (nodes without certificates) can reach the
   `/v1/enroll` handler. The mTLS requirement for A2A routes is enforced
   inside `A2ARouter` via the `authenticate_mtls` plug.
+
+  The `/api/v1/clusters/renew` path mirrors the Mission Control control-plane
+  renewal endpoint and uses the same `RenewalHandler` as `/v1/renew`. Both
+  paths enforce renewal window, revocation, and serial-rotation constraints.
   """
 
   @behaviour Plug
@@ -30,6 +35,13 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
   end
 
   def call(%Plug.Conn{method: "POST", path_info: ["v1", "renew"]} = conn, _opts) do
+    RenewalHandler.call(conn, RenewalHandler.init([]))
+  end
+
+  def call(
+        %Plug.Conn{method: "POST", path_info: ["api", "v1", "clusters", "renew"]} = conn,
+        _opts
+      ) do
     RenewalHandler.call(conn, RenewalHandler.init([]))
   end
 
