@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-01T15:03:56.638321Z'
+updated_at: '2026-08-01T15:11:22.292884Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -27,14 +27,14 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: Duplicate-screening worker exited with reason normal.
-  claim_id: null
-  claim_owner: null
-  claimed_at: null
-  claim_expires_at: null
+  evidence: ''
+  claim_id: 0cce148e-c393-454d-80a1-a25dc0dc8b16
+  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
+  claimed_at: '2026-08-01T15:11:11.017759+00:00'
+  claim_expires_at: '2026-08-01T15:41:11.017759+00:00'
   retry_count: 1
-  retry_after: '2026-08-01T15:04:52.224431+00:00'
-oompah.agent_run_id: 6c772abb-e42a-45f3-9857-889abd490e28
+  retry_after: null
+oompah.agent_run_id: 0f6cb243-6ca3-48dc-8862-a0c670493879
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 oompah.integration:
   version: 2
@@ -43,7 +43,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-164
   base_branch: epic-EXOCOMP-133
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:00:03.679917+00:00'
+  updated_at: '2026-08-01T15:11:19.177776+00:00'
 oompah.task_costs:
   total_input_tokens: 146
   total_output_tokens: 6462
@@ -115,5 +115,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 3m 52s
 - Log: EXOCOMP-164__20260801T150008Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:11
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-01 15:11
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->

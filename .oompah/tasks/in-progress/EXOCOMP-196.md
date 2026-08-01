@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:11:03.170992Z'
+updated_at: '2026-08-01T15:11:14.534695Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -39,7 +39,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: c672fe9e-94c1-49a2-ba8d-2b493b30cdb7
+oompah.agent_run_id: a6eb5ac4-8a63-4c31-ae28-64784f27e4e6
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 oompah.integration:
   version: 2
