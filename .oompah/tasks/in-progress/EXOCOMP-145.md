@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: Needs CI Fix
+status: In Progress
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T18:23:13.818355Z'
+updated_at: '2026-08-01T18:24:09.013582Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -37,19 +37,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 941af15b-5bdd-4004-963c-880ae42501eb
+oompah.agent_run_id: 4b459fab-9973-41b1-9b95-0952643ece5f
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
   base_branch: epic-EXOCOMP-130
-  base_sha: ac5d88a054b19141f021700bdcefc88cef878721
-  head_sha: e441e9e7dd73f30768c68f9c351b47abdbdd415c
-  integrated_sha: e441e9e7dd73f30768c68f9c351b47abdbdd415c
-  submitted_at: '2026-08-01T18:02:20.818793+00:00'
-  updated_at: '2026-08-01T18:03:05.727897+00:00'
+  base_sha: e441e9e7dd73f30768c68f9c351b47abdbdd415c
+  updated_at: '2026-08-01T18:24:06.947016+00:00'
 oompah.task_costs:
   total_input_tokens: 4373781
   total_output_tokens: 72794
@@ -853,5 +850,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 19m 8s
 - Log: EXOCOMP-145__20260801T180407Z.jsonl
+---
+author: oompah
+created: 2026-08-01 18:24
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 18:24
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
