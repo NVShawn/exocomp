@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-175
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Delete incident, conversation, proposal, and audit history by policy
 parent: EXOCOMP-134
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:39.520334Z'
-updated_at: '2026-08-01T16:01:37.331518Z'
+updated_at: '2026-08-01T16:01:51.335160Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 target_branch: null
 review_url: null
@@ -50,12 +50,12 @@ oompah.agent_run_id: 1d293055-4c25-4dc5-a498-c923c30f7dc1
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-175
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-175
-  base_branch: epic-EXOCOMP-134
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:42:43.601429+00:00'
+  head_sha: 4ff603048f2341a089d2846794fb78f03f20b378
+  submitted_at: '2026-08-01T16:01:49.021001+00:00'
+  updated_at: '2026-08-01T16:01:49.021001+00:00'
 oompah.task_costs:
   total_input_tokens: 717617
   total_output_tokens: 3651
@@ -156,5 +156,10 @@ author: oompah
 created: 2026-08-01 16:01
 ---
 **Verification:** Quality gates passed: (1) All 511 tests pass (including 32 new retention tests); (2) make fmt-check passed; (3) make lint passed. Code merged blocking task branches to access Mission Control infrastructure (audit_event, conversation, proposal, webhook modules). Retention modules ready for integration once database schema finalized. Branch pushed and ready for integration.
+---
+author: oompah
+created: 2026-08-01 16:01
+---
+Implemented configurable retention policies and bounded batch deletion for Mission Control data (incidents, conversations, proposals, audit events, webhook history). Policy module with default 1-year retention for incidents/messages/proposals/audits/webhooks and 90-day for status history. Janitor module performs bounded batch deletion without blocking ingestion, preserves open/pending records, tracks statistics. 32 comprehensive tests covering cutoff boundaries, dependency ordering, multiple organizations, concurrent safety, and interruption/resume. All quality gates pass (511 tests, fmt-check, lint).
 ---
 <!-- COMMENTS:END -->

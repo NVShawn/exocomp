@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:38.421513Z'
-updated_at: '2026-08-01T16:01:35.766420Z'
+updated_at: '2026-08-01T16:01:55.285070Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-174
 target_branch: null
 review_url: null
@@ -57,13 +57,13 @@ oompah.integration:
   submitted_at: '2026-08-01T16:01:33.269190+00:00'
   updated_at: '2026-08-01T16:01:33.269190+00:00'
 oompah.task_costs:
-  total_input_tokens: 1326315
-  total_output_tokens: 5152
+  total_input_tokens: 1327753
+  total_output_tokens: 5466
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 1326315
-      output_tokens: 5152
+      input_tokens: 1327753
+      output_tokens: 5466
       cost_usd: 0.0
   runs:
   - profile: default
@@ -72,6 +72,12 @@ oompah.task_costs:
     output_tokens: 5152
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:37:09.251896+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1438
+    output_tokens: 314
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:01:53.829389+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-174__20260801T153500Z
@@ -199,5 +205,15 @@ author: oompah
 created: 2026-08-01 16:01
 ---
 Implemented retention job infrastructure with configurable policies (90-day status-history default), bounded-batch deletion, validation, and comprehensive test coverage. All quality gates passing.
+---
+author: oompah
+created: 2026-08-01 16:01
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 87
+- Tokens: 1.4K in / 314 out [1.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 24m 30s
+- Log: EXOCOMP-174__20260801T153732Z.jsonl
 ---
 <!-- COMMENTS:END -->
