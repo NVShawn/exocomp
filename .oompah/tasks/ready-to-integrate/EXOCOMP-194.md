@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:29:56.931793Z'
+updated_at: '2026-08-01T17:30:06.063083Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -168,5 +168,15 @@ author: oompah
 created: 2026-08-01 17:29
 ---
 Defined and tested the shared versioned desired-service status contract, replay reducer, coordinator facade, and JSON fixtures; pushed a163c832.
+---
+author: oompah
+created: 2026-08-01 17:30
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 133
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 19m 31s
+- Log: EXOCOMP-194__20260801T171040Z.jsonl
 ---
 <!-- COMMENTS:END -->
