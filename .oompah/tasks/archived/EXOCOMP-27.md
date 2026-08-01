@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-27
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-08-01T03:40:34.347774Z'
+updated_at: '2026-08-01T03:42:56.085453Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -41,6 +41,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T18:26:30.532188+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-add55358f9df: '2026-08-01T03:42:53.553344+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-27
+    target_state: Archived
+    evidence_fingerprint: 02a81a2ed71ea4ec7b5ed3b6886edbe9c99e1ebf643bae0d443b5d4f5bb69ecb
+    audit_ids:
+    - audit-5a1cb7b6399d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:42:53.553355+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-27
+    audit_id: audit-5a1cb7b6399d
+    attempt_id: attempt-add55358f9df
+    target_state: Archived
+    evidence_fingerprint: 02a81a2ed71ea4ec7b5ed3b6886edbe9c99e1ebf643bae0d443b5d4f5bb69ecb
+    status: Archived
+    audit_ids:
+    - audit-5a1cb7b6399d
+    applied: false
+    created_at: '2026-08-01T03:42:53.553371+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -48,7 +72,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-27
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -57,7 +81,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-add55358f9df
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -67,13 +91,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:40:30.533084+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:42:53.553171+00:00'
+      ended_at: '2026-08-01T03:42:53.553171+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:08.582687+00:00'
-    updated_at: '2026-08-01T03:40:30.533084+00:00'
+    updated_at: '2026-08-01T03:42:53.553171+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-add55358f9df
@@ -272,5 +299,22 @@ author: oompah
 created: 2026-08-01 03:40
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:42
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit_on_main: 889ebc6 EXOCOMP-27: integrate remediation A2A lifecycle
+- merge_date_utc: 2026-07-25 02:11:19 +0000
+- impl_file: apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_lifecycle.ex
+- adapter_boundary: apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_adapter.ex + remediation_adapter/fail_closed.ex
+- focused_tests: apps/exocomp_coordinator/test/exocomp/coordinator/remediation_lifecycle_test.exs (13 scenarios)
+- previous_state: Merged
+- requested_target: Archived
+- age_days_since_merge: ~7
 ---
 <!-- COMMENTS:END -->
