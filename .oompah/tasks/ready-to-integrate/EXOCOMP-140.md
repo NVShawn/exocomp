@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T12:08:17.604520Z'
+updated_at: '2026-08-01T12:08:26.462841Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,12 +93,12 @@ oompah.agent_run_id: cba6d4cd-00c2-4026-9ce1-793c7d5f4067
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
-  base_branch: epic-EXOCOMP-129
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T11:50:52.966642+00:00'
+  head_sha: b1a07ccf6044357ada26260ea1e71b052ae17c94
+  submitted_at: '2026-08-01T12:08:24.262333+00:00'
+  updated_at: '2026-08-01T12:08:24.262333+00:00'
 oompah.task_costs:
   total_input_tokens: 186
   total_output_tokens: 4177
@@ -244,5 +244,10 @@ created: 2026-08-01 12:08
 **Files changed:** 23 files (1551 LOC added)
 **Branch:** epic-EXOCOMP-129--task-EXOCOMP-140
 **Status:** Ready for code review and compliance check (license notices pending)
+---
+author: oompah
+created: 2026-08-01 12:08
+---
+OIDC login, callback, and logout implemented with secure server-side sessions, token validation, and comprehensive test coverage
 ---
 <!-- COMMENTS:END -->
