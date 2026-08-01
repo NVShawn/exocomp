@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -10,11 +10,10 @@ blocked_by:
 - EXOCOMP-143
 start_blocked_by: []
 labels:
-- needs:feature
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:12:51.250618Z'
+updated_at: '2026-08-01T12:13:08.259970Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -38,7 +37,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: d8ac6fb9-a996-487e-b42a-b25f3df7da2a
+oompah.agent_run_id: bacb6292-b101-40c8-999e-7d681b5ab7da
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
@@ -47,7 +46,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-144
   base_branch: epic-EXOCOMP-129
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:11:33.147330+00:00'
+  updated_at: '2026-08-01T12:13:05.424271+00:00'
 oompah.task_costs:
   total_input_tokens: 1841667
   total_output_tokens: 17478
@@ -239,5 +238,15 @@ author: oompah
 created: 2026-08-01 12:12
 ---
 Focus handoff from `frontend` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-08-01 12:13
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 12:13
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
