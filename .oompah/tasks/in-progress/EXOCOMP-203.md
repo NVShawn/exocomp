@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:34:05.482637Z'
+updated_at: '2026-08-01T23:45:33.534383Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -507,5 +507,30 @@ I'm fixing the CephDaemonRestart remediation adapter based on the auditor's feed
 - apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_adapter/ceph_daemon_restart.ex
 - apps/exocomp_coordinator/test/exocomp/coordinator/remediation_adapter/ceph_daemon_restart_test.exs
 - apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex (wire into RemediationLifecycle)
+---
+author: oompah
+created: 2026-08-01 23:45
+---
+## Discovery
+
+Found the remediation lifecycle framework and identified the key gaps to fix:
+
+1. **Evidence Collection**: Updated to use Collectors.Ceph to gather fresh Ceph health/topology data, with fallback handling for partial/degraded states
+2. **Profile Validation**: Integrated with ProfileCoverage to check if profiles are shipped and available at runtime
+3. **Helper Invocation**: Implemented System.cmd with sudo to call bin/profile-action-helper with tab-separated request format, with one-attempt semantics and timeout handling
+4. **Health Verification**: Re-collects fresh evidence post-restart and verifies daemon is no longer in failed/inactive state
+5. **Dependency Injection**: Added application configuration seams for testing: `:ceph_collector` and `:profile_helper`
+6. **Test Fixtures**: Created mock implementations returning valid Ceph evidence structure
+
+## Implementation Status
+
+All existing tests passing (576/576 coordinator tests). Code now:
+- Gathers fresh evidence from Collectors.Ceph, not caller-supplied
+- Validates profiles against shipped registry
+- Invokes restricted profile helper via sudo
+- Verifies daemon health post-restart
+- Handles partial Ceph collection gracefully
+
+Next: Add comprehensive tests for mapping change, unsupported profiles, concurrent requests, replay/idempotency, and helper rejection
 ---
 <!-- COMMENTS:END -->
