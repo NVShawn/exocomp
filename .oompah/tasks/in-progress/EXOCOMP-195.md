@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T14:36:41.841803Z'
+updated_at: '2026-08-01T14:41:04.937458Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -142,5 +142,10 @@ author: oompah
 created: 2026-08-01 14:36
 ---
 Implementation: added Exocomp.ClusterProfile behavior, Default profile v1, static Registry, and structured CoverageError. The registry has no dynamic source or mutation path; register/register_from_file/register_from_command fail closed. AgentCard/Codec now carry clusterProfiles, and node/coordinator cards advertise the shipped default ID/version. Focused tests cover contract fields, duplicate IDs, unknown/unsupported coverage, registration rejection, and both card handlers.
+---
+author: oompah
+created: 2026-08-01 14:41
+---
+Verification update: standalone elixirc compilation of all exocomp_core sources succeeds; the focused registry ExUnit file passes 6/6. make fmt-check and focused mix tests cannot start in this environment because the host has Elixir 1.18.3 (project requires 1.20.2) and the container engine fails on read-only /run/user/1000/libpod configuration. I will run the required make test gate and record its result.
 ---
 <!-- COMMENTS:END -->
