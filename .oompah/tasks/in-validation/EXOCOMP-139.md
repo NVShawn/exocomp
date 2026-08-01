@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-139
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 2
 title: Define Mission Control protocol envelopes and fixtures
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-08-01T15:12:38.874553Z'
+updated_at: '2026-08-01T15:45:49.306232Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 target_branch: null
 review_url: null
@@ -42,12 +42,17 @@ oompah.agent_run_id: a898f5c0-69a5-40f3-b48c-3e315e0564e8
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-139
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-139
-  head_sha: 83b4a0dca208eb69964521df1718e3c7507ba0d2
+  base_branch: epic-EXOCOMP-128
+  base_sha: f1d8f1c0d43b498a62abccd78db2c46bcf3ffd52
+  head_sha: 778b0ae585f105fdcad710ed272f129950a44d54
+  integrated_sha: 778b0ae585f105fdcad710ed272f129950a44d54
   submitted_at: '2026-08-01T15:10:52.971147+00:00'
-  updated_at: '2026-08-01T15:10:52.971147+00:00'
+  updated_at: '2026-08-01T15:45:45.545217+00:00'
+  dependency_heads:
+    EXOCOMP-136: 074712f0af1ff18d286cd2d4ff12b9399798ffdc
 oompah.task_costs:
   total_input_tokens: 820106
   total_output_tokens: 12567
@@ -94,6 +99,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-128--task-EXOCOMP-139
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:51:31.770192+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a9a484248c86
+    project_id: proj-c260b117
+    task_id: EXOCOMP-139
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ae0f3fe4245c879a101a2c7be0c3225c1a4b1b1f2cbb6cce1b124c8b331cc90f
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T15:45:47.131631+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -263,5 +290,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 19m 40s
 - Log: EXOCOMP-139__20260801T145305Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:45
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
