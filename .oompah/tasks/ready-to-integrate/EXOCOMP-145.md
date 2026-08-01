@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: Needs Human
+status: Ready to Integrate
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T18:39:01.319151Z'
+updated_at: '2026-08-01T21:36:40.762422Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 4b459fab-9973-41b1-9b95-0952643ece5f
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
-  base_branch: epic-EXOCOMP-130
-  base_sha: e441e9e7dd73f30768c68f9c351b47abdbdd415c
-  updated_at: '2026-08-01T18:24:06.947016+00:00'
+  head_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
+  submitted_at: '2026-08-01T21:36:36.117105+00:00'
+  updated_at: '2026-08-01T21:36:36.117105+00:00'
 oompah.task_costs:
   total_input_tokens: 4373781
   total_output_tokens: 72794
@@ -873,5 +873,10 @@ Oompah could not durably preserve this worker's task worktree before retry. The 
 .oompah-no-hooks
 hint: Use -f if you really want to add them.
 hint: Disable this message with "git config set advice.addIgnoredFile false"
+---
+author: oompah
+created: 2026-08-01 21:36
+---
+Recovered the preserved audit repair, removed the undefined configuration/path variables, made application environment restoration deterministic, and made supervisor cleanup race-safe. Focused pinned Elixir 1.20.2 supervisor suite: 5 passed. Pushed the repaired branch.
 ---
 <!-- COMMENTS:END -->
