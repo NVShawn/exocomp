@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T14:04:43.132394Z'
+updated_at: '2026-08-01T14:05:14.204700Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -199,5 +199,33 @@ author: oompah
 created: 2026-08-01 14:04
 ---
 Implemented exocomp.service.inventory skill for enabled long-running systemd service discovery with comprehensive filtering, property collection, and test coverage
+---
+author: oompah
+created: 2026-08-01 14:05
+---
+**Completion**
+
+**Delivered:**
+- Exocomp.Node.Collectors.ServiceInventory: Production collector for enabled service inventory
+- Exocomp.Node.Skills.ServiceInventory: Read-only A2A skill handler
+- Skills.Dispatcher registration for 'exocomp.service.inventory'
+- 25 comprehensive test cases with fixtures for all acceptance criteria
+
+**Acceptance Criteria Met:**
+✓ Returns enabled and enabled-runtime services with Type, RemainAfterExit, Condition, LoadState, ActiveState, SubState
+✓ Excludes completed oneshots, static, indirect, disabled, masked, generated, exocomp-node.service
+✓ Failed conditions marked as not_applicable
+✓ Output size validated and per-service timeout enforced
+✓ No shell invocation; uses System.cmd with fixed argv
+✓ Tests include all states, timeouts, malformed output, truncation
+
+**Code Quality:**
+- All 511 tests passing
+- No warnings in new code
+- Follows existing patterns and conventions
+- Comprehensive error handling
+
+Branch: epic-EXOCOMP-185--task-EXOCOMP-190
+Commit: 93a832c3
 ---
 <!-- COMMENTS:END -->
