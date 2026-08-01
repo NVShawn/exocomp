@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T14:23:20.197355Z'
+updated_at: '2026-08-01T14:23:53.515865Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -50,13 +50,17 @@ oompah.integration:
   submitted_at: '2026-08-01T14:04:40.056152+00:00'
   updated_at: '2026-08-01T14:06:03.457519+00:00'
 oompah.task_costs:
-  total_input_tokens: 796282
-  total_output_tokens: 14907
+  total_input_tokens: 796379
+  total_output_tokens: 48384
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 796282
       output_tokens: 14907
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 97
+      output_tokens: 33477
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +75,12 @@ oompah.task_costs:
     output_tokens: 266
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:05:27.050046+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 97
+    output_tokens: 33477
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:23:52.132954+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-190__20260801T134604Z
@@ -366,5 +376,15 @@ Safe evidence:
 - auditor_ran_test_deps: PASS 9/9
 - auditor_ran_test_compliance: FAIL: 12 trailing-whitespace findings; first at inventory_test.exs:90 (EXOCOMP-188 origin); 4 findings trace to EXOCOMP-190's test file
 - coordination_status: EXOCOMP-188 already integrated at e211afce and included in this branch head; no rebase required
+---
+author: oompah
+created: 2026-08-01 14:23
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 91
+- Tokens: 97 in / 33.5K out [33.6K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 37s
+- Log: EXOCOMP-190__20260801T140618Z.jsonl
 ---
 <!-- COMMENTS:END -->
