@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-131
 type: epic
-status: Open
+status: In Progress
 priority: 2
 title: 'M7D: Fleet status and incident management'
 parent: EXOCOMP-127
@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:19.502185Z'
-updated_at: '2026-08-01T11:49:28.748830Z'
+updated_at: '2026-08-01T12:33:43.777957Z'
 work_branch: null
 target_branch: null
 review_url: null
