@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:01:53.324445Z'
+updated_at: '2026-08-01T23:03:31.374078Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -209,5 +209,45 @@ author: oompah
 created: 2026-08-01 23:01
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-01 23:03
+---
+## Understanding
+
+I'm implementing the capability to propose and execute a profile action for restarting already-failed Ceph daemons.
+
+### Key Requirements
+1. **Remediation Adapter**: Create a new adapter implementing the RemediationAdapter behavior that:
+   - Validates proposals for daemon restart with exact node/daemon mapping
+   - Collects fresh evidence (node state, Ceph health, topology)
+   - Applies policy to verify: daemon is actually failed (not active/degraded), evidence is fresh, node is in inventory, profile is supported
+   - Executes via restricted profile helper action (one-attempt boundary)
+   - Verifies the result
+
+2. **Security & Policy**: Enforce all acceptance criteria:
+   - Fresh node state, fresh Ceph health/topology evidence
+   - Exact node/daemon mapping validation
+   - Automatic-mode discovery alone cannot authorize - requires explicit proposal/approval
+   - Active or degraded daemons rejected
+   - Stale evidence rejected
+   - Coverage gaps (unsupported profiles, unmapped nodes) rejected
+   - Reuse existing task correlation, idempotency, per-target locking
+
+3. **Tests**: Comprehensive coverage per acceptance criteria covering:
+   - Allowed failed daemon restart
+   - Rejection of active/degraded daemons
+   - Stale evidence rejection
+   - Mapping change detection
+   - Unsupported node profiles
+   - Concurrent request handling
+   - Replay/idempotency
+   - Helper action rejection
+
+### Implementation Plan
+- Create remediation adapter for Ceph daemon restart in coordinator
+- Integrate with existing remediation lifecycle and proposal flow
+- Add comprehensive tests following existing patterns
+- Validate against all acceptance criteria before submission
 ---
 <!-- COMMENTS:END -->
