@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-3
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M3: Safety validation and controlled remediation'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-08-01T21:34:26.064032Z'
+updated_at: '2026-08-01T21:38:35.511712Z'
 work_branch: epic-EXOCOMP-3
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/12
@@ -35,6 +35,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-03577dfbb3d4: '2026-08-01T21:23:51.707962+00:00'
     infrastructure-exhausted-audit-0206842bbb7e-3: '2026-08-01T21:32:11.234669+00:00'
+    attempt-85ac9b7d6bb0: '2026-08-01T21:38:33.259450+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-3
@@ -54,6 +55,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T21:32:11.234680+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-3
+    target_state: Merged
+    evidence_fingerprint: dfdd06de43ce7298c9622fd8f22ad3f48a983aabef54b3f7b5f0deb405fe18e2
+    audit_ids:
+    - audit-14731edb697d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:38:33.259463+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-3
@@ -79,6 +89,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T21:32:11.234694+00:00'
     applied_at: '2026-08-01T21:32:13.575338+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-3
+    audit_id: audit-14731edb697d
+    attempt_id: attempt-85ac9b7d6bb0
+    target_state: Merged
+    evidence_fingerprint: dfdd06de43ce7298c9622fd8f22ad3f48a983aabef54b3f7b5f0deb405fe18e2
+    status: Merged
+    audit_ids:
+    - audit-14731edb697d
+    applied: false
+    created_at: '2026-08-01T21:38:33.259475+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -206,7 +227,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-3
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -215,7 +236,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-85ac9b7d6bb0
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -225,13 +246,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:34:19.634110+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T21:38:33.259318+00:00'
+      ended_at: '2026-08-01T21:38:33.259318+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-01T21:22:36.455228+00:00'
-    updated_at: '2026-08-01T21:34:19.634110+00:00'
+    updated_at: '2026-08-01T21:38:33.259318+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-03577dfbb3d4
@@ -482,5 +506,26 @@ author: oompah
 created: 2026-08-01 21:34
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:38
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 7295c338c4ff4505291f412f7476894d42bbda8a
+- merge_pr: #12 from NVShawn/epic-EXOCOMP-3
+- merge_date: 2026-07-24
+- merge_on_main: true (git branch --contains lists main)
+- files_added_by_merge: 54
+- insertions_by_merge: 11196
+- safety_modules_present: 14 modules under apps/exocomp_node/lib/exocomp/node/safety plus 8 supporting modules (approval_token, executor, executor_lock, os_commander, privilege, sudoers_policy, vacuum_bounds, vacuum_state)
+- safety_tests_present: 15 test files under apps/exocomp_node/test/exocomp/node/safety
+- acceptance_criteria_status: M3-CRIT-1..M3-CRIT-8 all [x] in plans/milestone-3-safety-validation.md (lines 192-207)
+- acceptance_test_recovery: EXOCOMP-113 (commit cad1c28b) recovered M3 acceptance suites; EXOCOMP-27 (commit 889ebc6d) integrated remediation A2A lifecycle post-merge
+- source_branch_state: epic-EXOCOMP-3 deleted post-merge; explains prior auditor 'no safely resolvable revision' failures
+- audit_date: 2026-08-01
 ---
 <!-- COMMENTS:END -->

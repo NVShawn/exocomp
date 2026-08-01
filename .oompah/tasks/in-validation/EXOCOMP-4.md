@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-08-01T21:38:25.482336Z'
+updated_at: '2026-08-01T21:38:33.054397Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -369,5 +369,10 @@ author: oompah
 created: 2026-08-01 21:37
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-4 (tried: origin/epic-EXOCOMP-4, origin/EXOCOMP-4). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 21:38
+---
+Auditor dispatched (attempt #3, candidate: prov-651d553c/haiku)
 ---
 <!-- COMMENTS:END -->
