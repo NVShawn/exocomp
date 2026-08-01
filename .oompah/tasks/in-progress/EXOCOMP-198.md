@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-08-01T15:11:45.262544Z'
+updated_at: '2026-08-01T15:12:24.038970Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-198
 target_branch: null
 review_url: null
@@ -137,5 +137,10 @@ author: oompah
 created: 2026-08-01 15:11
 ---
 Discovery: No profile-inspection code existed. The node skill dispatcher and Agent Card are the integration points; existing Systemd collectors establish the direct System.cmd/MFA seam. The parent registry is intentionally static and Ceph config/topology are owned by sibling tasks, so this change stays in exocomp_node and performs only local systemd discovery.
+---
+author: oompah
+created: 2026-08-01 15:12
+---
+Implementation: Added Exocomp.Node.Collectors.Ceph and Exocomp.Node.Skills.ProfileInspect. Discovery uses fixed list-units/show argv, strict traditional and cephadm grammars for mon/mgr/osd/mds/gateway, bounded output/unit counts, per-query timeouts, sanitized partial errors, and explicit :not_member for empty successful listings. Registered exocomp.profile.inspect in the dispatcher and node Agent Card, and added traditional/cephadm/mixed/no-install/malformed/timeout/truncation/security fixtures and tests.
 ---
 <!-- COMMENTS:END -->
