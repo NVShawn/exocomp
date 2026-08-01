@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-08-01T13:29:28.922536Z'
+updated_at: '2026-08-01T13:29:41.474755Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 target_branch: null
 review_url: null
@@ -245,5 +245,15 @@ author: oompah
 created: 2026-08-01 13:29
 ---
 Packaged Mission Control production OTP release and pinned OCI image with explicit operations, hardened runtime, supply-chain metadata, license coverage, and focused PostgreSQL/restart packaging tests.
+---
+author: oompah
+created: 2026-08-01 13:29
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 83
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 18m 18s
+- Log: EXOCOMP-176__20260801T131129Z.jsonl
 ---
 <!-- COMMENTS:END -->
