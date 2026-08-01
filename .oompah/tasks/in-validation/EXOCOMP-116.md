@@ -16,7 +16,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:27.708830Z'
-updated_at: '2026-08-01T21:18:48.834828Z'
+updated_at: '2026-08-01T21:45:11.500227Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -49,19 +49,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-116
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: f32282159d1a058df0b2f313d7c8e587f8f25714d38bc8d668bf37cda2c95f6c
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-91ecfd3e94cf
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: f32282159d1a058df0b2f313d7c8e587f8f25714d38bc8d668bf37cda2c95f6c
+      created_at: '2026-08-01T21:45:10.647799+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T21:45:10.647799+00:00'
+      branch_key: epic-EXOCOMP-110
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:18:46.376597+00:00'
-  attempt_history: []
+    updated_at: '2026-08-01T21:45:10.647799+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-91ecfd3e94cf
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f32282159d1a058df0b2f313d7c8e587f8f25714d38bc8d668bf37cda2c95f6c
+    created_at: '2026-08-01T21:45:10.647799+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T21:45:10.647799+00:00'
+    branch_key: epic-EXOCOMP-110
 ---
 ## Summary
 
