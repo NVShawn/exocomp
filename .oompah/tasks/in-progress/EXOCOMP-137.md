@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T15:00:42.042297Z'
+updated_at: '2026-08-01T15:06:19.612703Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -157,5 +157,10 @@ author: oompah
 created: 2026-08-01 15:00
 ---
 Verification: focused config/application tests passed (7 tests); the full Mission Control test run passed 9 tests with the 2 PostgreSQL tests skipped unless EXOCOMP_RUN_DB_TESTS=1. New files pass local format-check, parse checks, and warnings-as-errors compilation under the available toolchain. Production runtime config loads with DATABASE_URL and fails without it using the bounded actionable message. make fmt-check, make lint, and make test-mission-control-db could not enter the pinned container because Docker is backed by Podman and the sandbox rejects chmod on /run/user/1000/libpod.
+---
+author: oompah
+created: 2026-08-01 15:06
+---
+Completion: rebased onto the landed EXOCOMP-136 scaffold, preserving Phoenix supervision/endpoint behavior while adding the Repo child and Ecto/Postgrex persistence harness. Commit e9fb31b0 is pushed on epic-EXOCOMP-128--task-EXOCOMP-137 and the branch is up to date. Required container quality gates remain environment-blocked by the Podman chmod restriction; local format, parse, runtime-validation, and focused non-DB tests passed.
 ---
 <!-- COMMENTS:END -->
