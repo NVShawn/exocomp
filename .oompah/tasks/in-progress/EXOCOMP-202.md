@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T16:16:19.854335Z'
+updated_at: '2026-08-01T16:17:03.946427Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -453,5 +453,10 @@ author: oompah
 created: 2026-08-01 16:16
 ---
 Discovery: assemble-bundle.sh was host-building/reusing one helper path without checking --arch; helper coverage existed only as incomplete installer assertions. The installer also installed the helper for coordinator and replaced sudoers before visudo validation, which could discard a prior policy. Bundle manifests already hash all payload files, so explicit helper assertions can verify that existing mechanism.
+---
+author: oompah
+created: 2026-08-01 16:17
+---
+Verification: make test-bundle passes 109 tests (including amd64/arm64 ELF matching and wrong-architecture rejection), make test-installer passes 87 tests (including fake-visudo rollback), make test-release-packaging passes all 16 tests across its three suites, and make test-profile-action-helper passes the native helper tests. No failures; only existing tar extraction deprecation warnings.
 ---
 <!-- COMMENTS:END -->
