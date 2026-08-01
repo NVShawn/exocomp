@@ -19,7 +19,7 @@ labels:
 - focus-complete:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:06:59.725518Z'
+updated_at: '2026-08-01T18:11:29.363409Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -699,5 +699,10 @@ author: oompah
 created: 2026-08-01 18:06
 ---
 DISCOVERY (callback_auth): The M7 harness already uses ssh-keygen allowed-signers verification, but two fail-closed gaps remain at the evidence boundary: M7_MC_SERVICE_URL permits query/fragment secrets, and redacted-config checks omit credential/API/signing-key fields. The finalizer also trusts a mutable per-architecture result's claimed required-evidence list rather than enforcing the canonical M7 phase evidence contract before signing.
+---
+author: oompah
+created: 2026-08-01 18:11
+---
+IMPLEMENTATION (callback_auth): Hardened M7 qualification evidence handling. Redacted configuration now rejects credential/API/access/signing/webhook-key and passphrase fields (including camelCase); service/endpoint overrides reject credential-bearing URLs; the finalizer enforces the canonical M7 evidence/criterion mapping, verifies each recorded phase passed, validates candidate/operator shape, and rejects all symlinked evidence before signing. Updated the qualification runbook and added regression coverage.
 ---
 <!-- COMMENTS:END -->
