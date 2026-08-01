@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T21:54:29.507517Z'
+updated_at: '2026-08-01T21:54:41.983145Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: 5eb9d376-8230-40be-92a6-80d42f095781
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-200
-  base_branch: epic-EXOCOMP-186
-  base_sha: 0314c58199acb476c7384be42e88291af1beea95
-  updated_at: '2026-08-01T21:42:18.900556+00:00'
+  head_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
+  submitted_at: '2026-08-01T21:54:39.809011+00:00'
+  updated_at: '2026-08-01T21:54:39.809011+00:00'
 oompah.task_costs:
   total_input_tokens: 606833
   total_output_tokens: 4046
@@ -148,5 +148,10 @@ author: oompah
 created: 2026-08-01 21:54
 ---
 VERIFICATION: Ran complete test suite - all 558 core tests pass with 885 total tests in umbrella (10 excluded). Verified: (1) Acceptance criteria met - health mapping (HEALTH_OK/WARN/ERR→healthy/degraded/critical), distinct degradation reasons, daemon validation against systemd and profile evidence, bounded evidence references; (2) Table-driven test coverage - health levels, stale evidence, partial evidence, missing daemons, unreachable nodes, unsupported profiles, recovery scenarios, edge cases, deterministic output; (3) Code quality - deterministic/idempotent logic, comprehensive error handling, proper data structure, sorted daemon health results. Ready for submission.
+---
+author: oompah
+created: 2026-08-01 21:54
+---
+Implemented Ceph health reduction module with deterministic cluster and daemon health evaluation. Converts Ceph CLI evidence (health status, topology mappings, node observations) into health states with bounded evidence references. Maps HEALTH_OK→healthy, HEALTH_WARN→degraded, HEALTH_ERR→critical. Provides distinct reasons for degradation. Validates daemon units against systemd state and profile evidence. Comprehensive table-driven tests (85+) covering all acceptance criteria: health levels, stale/partial evidence, missing daemons, unreachable nodes, unsupported profiles, recovery scenarios. All tests pass (558 core, 885 total).
 ---
 <!-- COMMENTS:END -->
