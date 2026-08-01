@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:40:52.815707Z'
+updated_at: '2026-08-01T17:52:17.992379Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -103,6 +103,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-ba2e9268bfd5: '2026-08-01T16:47:56.556258+00:00'
     attempt-e703af1125bb: '2026-08-01T17:02:57.255195+00:00'
+    attempt-611078876978: '2026-08-01T17:52:15.037145+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -122,6 +123,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T17:02:57.255207+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    evidence_fingerprint: 152158364119718c9c8437590a2caacf7da003059fa594be879ea0a4abd63975
+    audit_ids:
+    - audit-7e1e2eb1d100
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T17:52:15.037160+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -147,6 +157,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T17:02:57.255221+00:00'
     applied_at: '2026-08-01T17:03:00.380505+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    audit_id: audit-7e1e2eb1d100
+    attempt_id: attempt-611078876978
+    target_state: Done
+    evidence_fingerprint: 152158364119718c9c8437590a2caacf7da003059fa594be879ea0a4abd63975
+    status: Open
+    audit_ids:
+    - audit-7e1e2eb1d100
+    applied: true
+    created_at: '2026-08-01T17:52:15.037176+00:00'
+    applied_at: '2026-08-01T17:52:17.365783+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -224,7 +246,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -233,7 +255,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-611078876978
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -243,13 +265,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T17:40:49.626466+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+      verdict: fail
+      failure_classification: missing_evidence
+      completed_at: '2026-08-01T17:52:15.036999+00:00'
+      ended_at: '2026-08-01T17:52:15.036999+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T17:27:35.594556+00:00'
-    updated_at: '2026-08-01T17:40:49.626466+00:00'
+    updated_at: '2026-08-01T17:52:15.036999+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -614,5 +640,19 @@ author: oompah
 created: 2026-08-01 17:40
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 17:52
+---
+Audit FAIL — missing evidence. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Post an inline task comment with the raw output of `make test 2>&1 | tail -5`, `make fmt-check 2>&1 | tail -3`, and `make lint 2>&1 | tail -3` so an auditor can independently verify pass counts. Do not paraphrase.
+- Add a supervisor test that gets children from Application.mission_control_children_for_test/0 (with enabled struct in app env) and starts them via OTP `Supervisor.start_link(children, strategy: :one_for_one, name: :root)` (not the aliased MC module), asserting MissionControlSupervisor is registered and Outbox+Connection are alive.
+- Remove the stale committed fixture files under apps/fixtures/ (mc-app-supervision-*, mc-child-spec-*, mc-init-test-*) and either add them to .gitignore or fix test cleanup so leftovers do not land in git.
+- Either change runtime.exs to raise on Config.load errors (matching acceptance criterion 'invalid partial configuration fails with actionable bounded errors'), or document the deliberate log-and-continue design in a task comment.
+- Re-run make test, make fmt-check, and make lint after the above changes and include the full tail transcripts before requeueing the audit.
 ---
 <!-- COMMENTS:END -->
