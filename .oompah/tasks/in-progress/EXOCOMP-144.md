@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:13:08.259970Z'
+updated_at: '2026-08-01T12:13:17.044389Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -248,5 +248,10 @@ author: oompah
 created: 2026-08-01 12:13
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:13
+---
+Understanding: EXOCOMP-144 requires implementing PKI certificate renewal and revocation in the coordinator app. As Maintenance Engineer, I'll implement: (1) POST /api/v1/clusters/renew endpoint authenticated via mTLS, (2) renewal eligibility after day 20 with serial rotation, (3) admin revocation of cluster identities and certificate serials, (4) deterministic certificate status lookup for the gateway. Starting with codebase exploration to understand existing PKI patterns before implementing.
 ---
 <!-- COMMENTS:END -->
