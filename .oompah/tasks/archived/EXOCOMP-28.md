@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:14.600547Z'
-updated_at: '2026-08-01T21:29:25.202782Z'
+updated_at: '2026-08-01T21:29:46.447763Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ merged_at: null
 oompah.agent_run_id: 21cc06ac-6de2-466e-9bbf-86abb87b11ef
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 556387
-  total_output_tokens: 67008
+  total_input_tokens: 556411
+  total_output_tokens: 70633
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 556387
-      output_tokens: 67008
+      input_tokens: 556411
+      output_tokens: 70633
       cost_usd: 0.0
   runs:
   - profile: default
@@ -45,6 +45,12 @@ oompah.task_costs:
     output_tokens: 64334
     cost_usd: 0.0
     recorded_at: '2026-07-24T19:56:40.463513+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 24
+    output_tokens: 3625
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:29:44.779850+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -69,8 +75,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-2ef233174216
-    applied: false
+    applied: true
     created_at: '2026-08-01T21:29:22.527659+00:00'
+    applied_at: '2026-08-01T21:29:27.182755+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -467,5 +474,15 @@ Safe evidence:
 - quality_gates_at_recovery: fmt-check, lint, full make test (1564 tests + 10 excluded) all pass; focused M3+M4 run 73 tests passed
 - previous_state: Merged
 - archive_reason: Aged Merged auto-archive (closed 7 days ago)
+---
+author: oompah
+created: 2026-08-01 21:29
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 23, Tool calls: 18
+- Tokens: 24 in / 3.6K out [3.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 53s
+- Log: EXOCOMP-28__20260801T212455Z.jsonl
 ---
 <!-- COMMENTS:END -->

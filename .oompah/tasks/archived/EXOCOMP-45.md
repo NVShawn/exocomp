@@ -13,7 +13,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T19:12:04.573016Z'
-updated_at: '2026-08-01T21:29:02.488252Z'
+updated_at: '2026-08-01T21:29:34.948604Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -96,6 +96,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T21:21:29.222272+00:00'
     branch_key: EXOCOMP-45
+oompah.task_costs:
+  total_input_tokens: 57
+  total_output_tokens: 2217
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 57
+      output_tokens: 2217
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 57
+    output_tokens: 2217
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:29:33.257778+00:00'
 ---
 ## Summary
 
@@ -183,5 +199,15 @@ Safe evidence:
 - docs_present: docs/installation.md, docs/pki-operations.md, docs/policy-operations.md, docs/lifecycle.md, docs/coordinator-restart-recovery.md, docs/clean-host-qualification.md
 - user_data_guard: policy-operations.md states 'User data is never an eligible deletion target' and 'Unknown paths and caller-provided paths are protected as user data'
 - pki_failure_recovery: pki-operations.md documents backup/restore, revocation, rotation, expired-cert re-enrollment, and refuses manual PKI edits when integration is absent
+---
+author: oompah
+created: 2026-08-01 21:29
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 39
+- Tokens: 57 in / 2.2K out [2.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 8m 3s
+- Log: EXOCOMP-45__20260801T212134Z.jsonl
 ---
 <!-- COMMENTS:END -->
