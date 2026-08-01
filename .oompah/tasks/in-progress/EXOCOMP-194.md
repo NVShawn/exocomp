@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:10:51.241565Z'
+updated_at: '2026-08-01T17:14:52.966675Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -143,5 +143,10 @@ author: oompah
 created: 2026-08-01 17:10
 ---
 Understanding: extend the versioned Mission Control protocol with bounded desired-state and service-status events plus periodic summaries and shared fixtures. I will first map the existing protocol and adjacent coordinator/reconciliation contracts, then implement focused encode/decode, schema, bounds, redaction, duplicate/order, and reconstruction coverage before running make test.
+---
+author: oompah
+created: 2026-08-01 17:14
+---
+Discovery: the scheduler now exposes resolver-backed expectations, profile context, recovery authority, per-service health/hysteresis, observation timestamps, and correlated transitions. The earlier generic Mission Control envelope is on a separate sibling branch, so this task needs a shared core contract. I will model strict desired_state.added/changed/removed, service_status.changed, and service_summary.snapshot payloads, plus deterministic replay and shared JSON fixtures.
 ---
 <!-- COMMENTS:END -->
