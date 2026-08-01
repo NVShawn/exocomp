@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-188
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add coordinator inventory v2 service-monitoring fields
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:57.890248Z'
-updated_at: '2026-08-01T13:58:01.637536Z'
+updated_at: '2026-08-01T13:58:25.876476Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 target_branch: null
 review_url: null
@@ -61,12 +61,12 @@ oompah.agent_run_id: 761000a1-46fb-4fa4-99cd-6fe5cf7b91f2
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-188
-  base_branch: epic-EXOCOMP-185
-  base_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
-  updated_at: '2026-08-01T13:46:46.271233+00:00'
+  head_sha: e211afce695af9a158376ffc5e5eac66044c88c5
+  submitted_at: '2026-08-01T13:58:23.730368+00:00'
+  updated_at: '2026-08-01T13:58:23.730368+00:00'
 oompah.task_costs:
   total_input_tokens: 178
   total_output_tokens: 5516
@@ -197,5 +197,23 @@ Test coverage: Added 26 new tests covering:
 - Health check URL validation (loopback only, http only, port/path parsing)
 - Automatic boolean validation
 - Atomic rejection scenarios
+---
+author: oompah
+created: 2026-08-01 13:58
+---
+**Verification:** All 537 tests pass including:
+- 26 new inventory tests for v1/v2 validation
+- Full test suite passes: make test
+- Backward compatibility verified: v1 files load unchanged
+- Atomic rejection verified: invalid replacements leave prior inventory intact
+- Service validation: .service names, loopback URLs, boolean automatic
+- Parsing available through typed inventory structures
+
+Branch pushed to origin/epic-EXOCOMP-185--task-EXOCOMP-188. Ready for submission.
+---
+author: oompah
+created: 2026-08-01 13:58
+---
+Implemented coordinator inventory v2 with service-monitoring fields: per-node services (name, health_check_url), automatic boolean flag, cluster-profile root field. Full backward-compatibility with v1, atomic validation, comprehensive test coverage (26 new tests, all 537 tests pass).
 ---
 <!-- COMMENTS:END -->
