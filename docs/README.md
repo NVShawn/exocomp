@@ -22,6 +22,7 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 - [Maintainer release checklist](maintainer-release-checklist.md)
 - [Release-notes template](release-notes-template.md)
 - [Release qualification](release-qualification.md)
+- [Mission Control release qualification](mission-control-qualification.md)
 - [Runtime dependencies](runtime-dependencies.md)
 - [Mission Control OCI image](mission-control-operations.md)
 
