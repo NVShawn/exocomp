@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-190
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Implement enabled long-running systemd service discovery
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:00.068929Z'
-updated_at: '2026-08-01T14:05:28.326223Z'
+updated_at: '2026-08-01T14:06:07.430501Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 target_branch: null
 review_url: null
@@ -40,12 +40,15 @@ oompah.agent_run_id: 87bd83ec-6baf-4890-b8c9-bbd76c65d7c4
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-190
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-190
-  head_sha: 93a832c3fbe51efa38fe05cf3646c1f15e57bb45
+  base_branch: epic-EXOCOMP-185
+  base_sha: e211afce695af9a158376ffc5e5eac66044c88c5
+  head_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
+  integrated_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
   submitted_at: '2026-08-01T14:04:40.056152+00:00'
-  updated_at: '2026-08-01T14:04:40.056152+00:00'
+  updated_at: '2026-08-01T14:06:03.457519+00:00'
 oompah.task_costs:
   total_input_tokens: 796282
   total_output_tokens: 14907
@@ -78,6 +81,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-185--task-EXOCOMP-190
     source_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
     completed_at: '2026-08-01T13:52:32.146188+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-87623e2f4f69
+    project_id: proj-c260b117
+    task_id: EXOCOMP-190
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: cc823e57004f6e94bcb74a7a4374d6f9923c03820206340ce76c4774dc56649d
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T14:06:04.764434+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -243,5 +268,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 12m 41s
 - Log: EXOCOMP-190__20260801T135252Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:06
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
