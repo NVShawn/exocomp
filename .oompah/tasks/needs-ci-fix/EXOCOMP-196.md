@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:35:28.833451Z'
+updated_at: '2026-08-01T16:35:44.068610Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -53,8 +53,8 @@ oompah.integration:
   submitted_at: '2026-08-01T16:10:39.544583+00:00'
   updated_at: '2026-08-01T16:11:07.866490+00:00'
 oompah.task_costs:
-  total_input_tokens: 10695947
-  total_output_tokens: 67137
+  total_input_tokens: 10696114
+  total_output_tokens: 73219
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -66,8 +66,8 @@ oompah.task_costs:
       output_tokens: 5878
       cost_usd: 0.0
     unknown:
-      input_tokens: 6
-      output_tokens: 345
+      input_tokens: 173
+      output_tokens: 6427
       cost_usd: 0.0
   runs:
   - profile: default
@@ -106,6 +106,12 @@ oompah.task_costs:
     output_tokens: 41303
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:11:23.818348+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 167
+    output_tokens: 6082
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:35:42.823685+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -678,5 +684,15 @@ Instructions:
 - Fix the mix test failures and confirm `make test` exits 0, which will populate _build/test/rel/exocomp_node and _build/test/rel/exocomp_coordinator and run scripts/smoke-releases.sh.
 - While in the branch, strip the trailing whitespace from test/installer/test_installer.py:1641-1837 and scripts/install.sh:693 (introduced by the stacked EXOCOMP-202 commit) so `make test-compliance` and `git diff --check origin/main..HEAD` are clean.
 - Once make test is green, push the fixed head and requeue EXOCOMP-196 for terminal audit; do not apply the Done transition until an auditor confirms make test exit 0 on the pushed commit.
+---
+author: oompah
+created: 2026-08-01 16:35
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 118
+- Tokens: 167 in / 6.1K out [6.2K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 24m 15s
+- Log: EXOCOMP-196__20260801T161132Z.jsonl
 ---
 <!-- COMMENTS:END -->
