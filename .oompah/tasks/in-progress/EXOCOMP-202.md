@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T15:34:16.089729Z'
+updated_at: '2026-08-01T15:40:35.057557Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -205,5 +205,46 @@ Next steps:
 - Implement installer changes  
 - Implement uninstaller changes
 - Implement and extend tests
+---
+author: oompah
+created: 2026-08-01 15:40
+---
+## Implementation
+
+Implemented complete packaging and installation of profile-action-helper with secure sudo authorization.
+
+Changes made:
+1. **Bundle Assembly** (scripts/assemble-bundle.sh)
+   - Added Phase 2e to build and stage profile-action-helper binary
+   - Automatically builds helper if not present via make build-profile-action-helper
+   - Fails hard if helper cannot be staged (non-optional for security)
+   - Stages binary to bundle/bin/profile-action-helper
+
+2. **Installer** (scripts/install.sh)
+   - Added Phase 3b to install helper to /opt/exocomp/node/bin/
+   - Sets 755 permissions and root ownership
+   - Idempotent installation - safe on upgrade
+   - Only for node component (skipped for coordinator)
+
+3. **Sudoers Policy** (scripts/install.sh render_sudoers)
+   - Extended render_sudoers() to accept optional profile_helper_path parameter
+   - Generates entry: 'exocomp-node ALL=(root) NOPASSWD: /opt/exocomp/node/bin/profile-action-helper'
+   - No shell metacharacters, no argument wildcards, no service whitelist bypass
+   - Entry placed in sudoers.d/exocomp-node
+
+4. **Uninstaller** (scripts/uninstall.sh)
+   - Removes helper from bin/ directory
+   - Sudoers entry removed by existing manifest-based cleanup
+
+5. **Manifest** (scripts/install.sh write_manifest)
+   - Helper path recorded when installed
+   - Ensures proper cleanup on uninstall
+   - Manifest includes sudoers entry reference
+
+6. **Tests** (test/installer/test_installer.py)
+   - Added TestProfileActionHelperInstall class with 8 comprehensive tests
+   - All 86 tests pass (78 existing + 8 new)
+
+Verification complete: All quality gates passed
 ---
 <!-- COMMENTS:END -->
