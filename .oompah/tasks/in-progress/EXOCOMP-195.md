@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-195
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add the shipped cluster-profile registry and version contract
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-08-01T13:59:37.352764Z'
+updated_at: '2026-08-01T14:30:32.516846Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 target_branch: null
 review_url: null
@@ -37,7 +37,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 48080ef2-efe7-43c2-897f-1d6c9d480218
+oompah.agent_run_id: ac6c0299-a9b9-4a71-a353-3f9cea999e35
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-195
 oompah.integration:
   version: 2
@@ -46,7 +46,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-195
   base_branch: epic-EXOCOMP-186
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:57:28.159270+00:00'
+  updated_at: '2026-08-01T14:30:30.736430+00:00'
 oompah.task_costs:
   total_input_tokens: 1059335
   total_output_tokens: 4793
@@ -117,5 +117,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 11s
 - Log: EXOCOMP-195__20260801T135730Z.jsonl
+---
+author: oompah
+created: 2026-08-01 14:30
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 14:30
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

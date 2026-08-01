@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:30:20.688623Z'
+updated_at: '2026-08-01T14:30:37.548867Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -63,13 +63,17 @@ oompah.integration:
   submitted_at: '2026-08-01T14:20:30.117288+00:00'
   updated_at: '2026-08-01T14:21:50.506728+00:00'
 oompah.task_costs:
-  total_input_tokens: 4335316
-  total_output_tokens: 28719
+  total_input_tokens: 4335371
+  total_output_tokens: 40569
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 4335316
       output_tokens: 28719
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 55
+      output_tokens: 11850
       cost_usd: 0.0
   runs:
   - profile: default
@@ -84,6 +88,12 @@ oompah.task_costs:
     output_tokens: 26124
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:21:12.882315+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 55
+    output_tokens: 11850
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:30:35.497834+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-189__20260801T134112Z
@@ -118,8 +128,9 @@ oompah.terminal_audit:
     status: Done
     audit_ids:
     - audit-a278593d6f38
-    applied: false
+    applied: true
     created_at: '2026-08-01T14:30:18.293809+00:00'
+    applied_at: '2026-08-01T14:30:22.517531+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -303,5 +314,15 @@ Safe evidence:
 - ac3_automatic_no_authority: authority_for(:automatic) -> nil (structural)
 - ac4_distinguishable_authority: :manual_allow_list vs :shipped_profile atoms retained separately
 - ac5_deterministic_ordering: sort by {node,unit}; unique_sorted; source_rank+term_to_binary tiebreak
+---
+author: oompah
+created: 2026-08-01 14:30
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 61, Tool calls: 49
+- Tokens: 55 in / 11.8K out [11.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 8m 38s
+- Log: EXOCOMP-189__20260801T142200Z.jsonl
 ---
 <!-- COMMENTS:END -->
