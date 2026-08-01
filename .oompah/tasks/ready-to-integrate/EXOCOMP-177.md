@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-177
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Expose Mission Control health and Prometheus metrics
 parent: EXOCOMP-135
@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-08-01T23:33:21.672580Z'
+updated_at: '2026-08-01T23:33:31.811492Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 target_branch: null
 review_url: null
@@ -53,12 +53,12 @@ oompah.agent_run_id: da2b7ab1-b7c0-4786-8c09-25b673c9700c
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-177
-  base_branch: epic-EXOCOMP-135
-  base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
-  updated_at: '2026-08-01T23:01:56.567415+00:00'
+  head_sha: 94476b76fea579c5b0c38cee2547a7ab3f600f21
+  submitted_at: '2026-08-01T23:33:28.255110+00:00'
+  updated_at: '2026-08-01T23:33:28.255110+00:00'
 oompah.task_costs:
   total_input_tokens: 836126
   total_output_tokens: 4897
@@ -169,5 +169,10 @@ author: oompah
 created: 2026-08-01 23:33
 ---
 Completion: Delivered and pushed 94476b76. Mission Control now exposes /health/live, /health/ready, and /metrics with redacted readiness checks, bearer guarding, database/migration/worker evaluation, stable low-cardinality metric families, desired-service telemetry, and operations documentation. Focused smoke, formatting, and compliance checks passed; the project-version ExUnit/container gates remain environment-blocked as recorded above. Branch is up to date with origin.
+---
+author: oompah
+created: 2026-08-01 23:33
+---
+Delivered guarded Mission Control health probes, database/migration readiness, stable low-cardinality Prometheus metrics, telemetry instrumentation, operations documentation, tests, and dependency license inventory.
 ---
 <!-- COMMENTS:END -->
