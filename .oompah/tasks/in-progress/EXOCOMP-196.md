@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:05:16.384033Z'
+updated_at: '2026-08-01T16:09:32.636176Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -551,5 +551,10 @@ author: oompah
 created: 2026-08-01 16:05
 ---
 Verification checkpoint: the Makefile formatter cannot run because the configured container engine fails on read-only /run/user/1000/libpod, and host Mix is Elixir 1.18.3 while the repo requires 1.20.2. I am continuing static checks/test additions and will retry make test before handoff.
+---
+author: oompah
+created: 2026-08-01 16:09
+---
+Verification: make test reached all offline builder/release checks (13/13 and Python suites passed) but could not start the pinned Elixir container because Podman cannot create /run/user/1000/libpod on the read-only filesystem. Host Mix is incompatible (Elixir 1.18.3 vs required 1.20.2). Static Code.string_to_quoted!/elixirc compilation of changed runtime modules passed with only expected missing-dependency warnings, git diff --check passed, and make check-links passed.
 ---
 <!-- COMMENTS:END -->
