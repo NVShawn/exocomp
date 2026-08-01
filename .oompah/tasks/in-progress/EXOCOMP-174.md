@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:38.421513Z'
-updated_at: '2026-08-01T15:37:30.762303Z'
+updated_at: '2026-08-01T15:40:12.988048Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-174
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-08-01 15:37
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 15:40
+---
+**Understanding**: This task implements deletion of status history with bounded retention jobs for Mission Control. Deliverables: (1) Configurable per-organization retention settings with 90-day default and validated bounds, (2) Partition drop or bounded-batch deletion without long transactions or deletion of current state, (3) Job progress/failure metrics and audit logging. Acceptance: Clock-controlled tests covering cutoff boundaries, multiple orgs, batch continuation, retry/failure, concurrent ingest, state preservation, and cross-org isolation. Will implement in Mission Control app with focused retention tests, make test, make fmt-check, and make lint all passing. Starting with codebase exploration to identify blocking dependencies (EXOCOMP-153, EXOCOMP-171) and existing structure.
 ---
 <!-- COMMENTS:END -->
