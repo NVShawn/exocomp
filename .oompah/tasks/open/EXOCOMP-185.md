@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-185
 type: epic
-status: Backlog
+status: Open
 priority: 1
 title: 'M7I: Host service desired state'
 parent: EXOCOMP-127
@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-08-01T11:49:56.586591Z'
+updated_at: '2026-08-01T11:51:09.953915Z'
 work_branch: null
 target_branch: null
 review_url: null
