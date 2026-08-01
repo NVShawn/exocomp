@@ -12,13 +12,37 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-01T11:50:44.455059Z'
-work_branch: null
+updated_at: '2026-08-01T14:23:05.167417Z'
+work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
 oompah.start_blocked_by: *id001
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 3e99057735e10ebc0c5d1b5ea865ae72cb710621461de11f8556886ec883f18f
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: cefe410f-43ce-49e9-a032-1346091e2db0
+  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
+  claimed_at: '2026-08-01T14:22:57.313677+00:00'
+  claim_expires_at: '2026-08-01T14:52:57.313677+00:00'
+  retry_count: 0
+  retry_after: null
+oompah.agent_run_id: 67ef4cb6-030c-4966-b7ce-ee95ad215c1f
+oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
+  base_branch: epic-EXOCOMP-186
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  updated_at: '2026-08-01T14:23:02.998547+00:00'
 ---
 ## Summary
 
@@ -43,3 +67,16 @@ Out of scope: Mission Control rendering and additional Ceph repair actions.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 14:22
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-01 14:23
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
