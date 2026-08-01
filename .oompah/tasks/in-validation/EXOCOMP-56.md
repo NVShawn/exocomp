@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-56
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement host sampler with per-process/cgroup attribution
 parent: EXOCOMP-35
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-23T20:37:21.728642Z'
-updated_at: '2026-07-25T21:11:06.401435Z'
+updated_at: '2026-08-01T21:19:43.212499Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -73,6 +73,28 @@ oompah.task_costs:
     output_tokens: 17097
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:40:35.330628+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a398a2fe05c9
+    project_id: proj-c260b117
+    task_id: EXOCOMP-56
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 16fd63f356a53269c1ea0169f8b8c3a44478aa2735dcc9d2c0bcbb81377f558a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:40.915453+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -568,5 +590,10 @@ author: oompah
 created: 2026-07-25 21:11
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
