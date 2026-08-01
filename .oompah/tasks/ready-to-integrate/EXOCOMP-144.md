@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:35:04.770529Z'
+updated_at: '2026-08-01T12:35:40.558286Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: bacb6292-b101-40c8-999e-7d681b5ab7da
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-144
-  base_branch: epic-EXOCOMP-129
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:13:05.424271+00:00'
+  head_sha: 2dad75acbdced127cea24a687f1c4e0288c0009f
+  submitted_at: '2026-08-01T12:35:38.564985+00:00'
+  updated_at: '2026-08-01T12:35:38.564985+00:00'
 oompah.task_costs:
   total_input_tokens: 1841667
   total_output_tokens: 17478
@@ -289,5 +289,26 @@ Verification: All 561 tests pass (make test / docker run mix test).
 - All pre-existing 511 tests continue to pass.
 
 make fmt-check: clean. make lint: clean.
+---
+author: oompah
+created: 2026-08-01 12:35
+---
+Completion: EXOCOMP-144 implementation is complete and pushed.
+
+Delivered:
+- POST /api/v1/clusters/renew authenticated renewal endpoint (mTLS cert required)
+- Day-20 renewal eligibility window enforced (renewal_opens_at = not_before + 20*86400)
+- PKI.CertificateRegistry GenServer for serial tracking and revocation (serial and identity)
+- Admin-callable revoke_identity/2 and revoke_serial/2 operations
+- Deterministic certificate_status/2 and identity_status/2 lookups for gateway use
+- Certificate serial rotation on each renewal (new issuance = new serial)
+- Private keys remain coordinator-local throughout
+- 50 new tests (22 unit + 28 integration); all 561 total tests pass
+- Branch: epic-EXOCOMP-129--task-EXOCOMP-144 @ 2dad75ac
+---
+author: oompah
+created: 2026-08-01 12:35
+---
+Added cluster certificate renewal and revocation: POST /api/v1/clusters/renew endpoint with day-20 eligibility, PKI.CertificateRegistry GenServer for serial/identity revocation tracking, serial rotation on renewal, deterministic gateway status lookups. 50 new tests (22 unit + 28 integration); all 561 tests pass.
 ---
 <!-- COMMENTS:END -->
