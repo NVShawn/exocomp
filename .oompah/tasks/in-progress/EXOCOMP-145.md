@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T17:58:02.255620Z'
+updated_at: '2026-08-01T18:01:56.180491Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -687,5 +687,33 @@ author: oompah
 created: 2026-08-01 17:58
 ---
 Implementation: Reworked Mission Control supervision tests to use the exact Application child list and an OTP root supervisor, asserting the registered MissionControlSupervisor plus live Outbox/Connection processes and propagated config structs. Added a paired struct-init regression test. Runtime config errors now raise bounded actionable startup errors instead of being logged and swallowed. Hardened malformed mission_control shapes to return bounded type errors, added coverage, moved test artifacts to unique temporary directories, and removed tracked generated mc-* fixtures with ignore rules.
+---
+author: oompah
+created: 2026-08-01 18:01
+---
+Verification evidence:
+
+make test 2>&1 | tail -5
+	MIX_ENV=test mix release exocomp_coordinator --overwrite && \
+	scripts/smoke-releases.sh test'
+Failed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system
+make[1]: *** [Makefile:137: test] Error 1
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'
+
+make fmt-check 2>&1 | tail -3
+Failed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system
+make[1]: *** [Makefile:116: fmt-check] Error 1
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'
+
+make lint 2>&1 | tail -3
+Failed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system
+make[1]: *** [Makefile:160: lint] Error 1
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'
+
+mix test 2>&1 | tail -5
+warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't consider this directory as part of your umbrella application. Please add a "mix.exs" or set the "apps" key in your umbrella configuration with all relevant app names as atoms
+** (Mix) You're trying to run Exocomp.MixProject on Elixir v1.18.3 but it has declared in its mix.exs file it supports only Elixir 1.20.2
+
+Static verification: git diff --check passed and Elixir syntax parsing passed for all changed .ex/.exs/config files. The required gates were attempted unchanged, but the environment could not start the pinned container/toolchain.
 ---
 <!-- COMMENTS:END -->
