@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T13:36:58.555925Z'
+updated_at: '2026-08-01T13:37:38.796390Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 target_branch: null
 review_url: null
@@ -126,5 +126,10 @@ author: oompah
 created: 2026-08-01 13:36
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 13:37
+---
+Understanding: This task requires integrating three design paths for desired-state management into the project documentation. The three paths are: (1) Manual host services via static inventory, (2) Automatic enabled-service discovery and reconciliation, and (3) Coordinator-declared cluster profiles via Mission Control. Acceptance criteria require plans/exocomp.md to summarize all paths, with Milestone 2 owning inventory/discovery/reconciliation, Milestone 4 owning profile-authorized safe recovery, Mission Control owning reporting/persistence/incidents/UI (not desired-state authority), and a note about Ceph repairs being separate. Plan: Read existing plans, update exocomp.md to clearly document the three-path architecture, update milestone descriptions for clarity, and run make check-links and make test-compliance.
 ---
 <!-- COMMENTS:END -->
