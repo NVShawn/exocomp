@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-07-30T21:39:59.942749Z'
+updated_at: '2026-08-01T11:50:19.796101Z'
 work_branch: null
 target_branch: null
 review_url: null

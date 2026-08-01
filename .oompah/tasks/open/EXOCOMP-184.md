@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-07-30T14:24:10.271405Z'
+updated_at: '2026-08-01T11:50:05.666039Z'
 work_branch: null
 target_branch: null
 review_url: null

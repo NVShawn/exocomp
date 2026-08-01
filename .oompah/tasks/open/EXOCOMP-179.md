@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-179
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Add shared Mission Control protocol contract tests
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-07-30T21:41:29.119802Z'
+updated_at: '2026-08-01T11:49:57.756879Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-176
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Package the Mission Control release and OCI image
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-07-30T14:22:57.622449Z'
+updated_at: '2026-08-01T11:49:54.948718Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-188
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Add coordinator inventory v2 service-monitoring fields
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:57.890248Z'
-updated_at: '2026-07-30T21:39:40.191567Z'
+updated_at: '2026-08-01T11:50:10.266760Z'
 work_branch: null
 target_branch: null
 review_url: null

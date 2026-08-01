@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-189
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Define desired-service types and deterministic merge rules
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-07-30T21:39:43.492754Z'
+updated_at: '2026-08-01T11:50:11.319142Z'
 work_branch: null
 target_branch: null
 review_url: null

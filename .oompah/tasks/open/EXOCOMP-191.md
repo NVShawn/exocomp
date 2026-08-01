@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-191
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Implement bounded read-only service observation
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-07-30T21:39:48.072100Z'
+updated_at: '2026-08-01T11:50:14.101433Z'
 work_branch: null
 target_branch: null
 review_url: null

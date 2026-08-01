@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-187
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Integrate the three-path desired-state design into project plans
 parent: EXOCOMP-185
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-07-30T21:36:56.896701Z'
+updated_at: '2026-08-01T11:50:06.950967Z'
 work_branch: null
 target_branch: null
 review_url: null

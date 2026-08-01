@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-186
 type: epic
-status: Open
+status: Backlog
 priority: 1
 title: 'M7J: Cluster profiles and Ceph v1'
 parent: EXOCOMP-127
@@ -23,7 +23,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:55.625186Z'
-updated_at: '2026-08-01T11:49:24.220133Z'
+updated_at: '2026-08-01T11:49:59.002632Z'
 work_branch: null
 target_branch: null
 review_url: null

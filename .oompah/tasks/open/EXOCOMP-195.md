@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-195
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Add the shipped cluster-profile registry and version contract
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:14.294893Z'
-updated_at: '2026-07-30T21:39:58.691804Z'
+updated_at: '2026-08-01T11:50:18.289012Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-181
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Add Mission Control security negative tests
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:42.487515Z'
-updated_at: '2026-07-30T14:23:48.961980Z'
+updated_at: '2026-08-01T11:50:03.295973Z'
 work_branch: null
 target_branch: null
 review_url: null

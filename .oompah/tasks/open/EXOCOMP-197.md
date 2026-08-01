@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-197
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Collect Ceph health and topology JSON
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:19.643459Z'
-updated_at: '2026-07-30T21:40:01.518970Z'
+updated_at: '2026-08-01T11:50:22.895156Z'
 work_branch: null
 target_branch: null
 review_url: null
