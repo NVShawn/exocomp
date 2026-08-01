@@ -11,7 +11,7 @@ defmodule Exocomp.Coordinator.HealthPoller do
 
   use GenServer
 
-  alias Exocomp.Coordinator.{NodeProber, Registry}
+  alias Exocomp.Coordinator.{NodeProber, Registry, ServiceScheduler}
 
   @default_interval_ms 1_000
   @default_timeout_ms 10_000
@@ -26,6 +26,7 @@ defmodule Exocomp.Coordinator.HealthPoller do
     :interval_ms,
     :timeout_ms,
     :concurrency,
+    :service_scheduler,
     :timer_ref,
     tasks: %{},
     nodes: MapSet.new()
@@ -55,7 +56,8 @@ defmodule Exocomp.Coordinator.HealthPoller do
       probe_options: Keyword.get(opts, :probe_options, []),
       interval_ms: positive_option(opts, :interval_ms, @default_interval_ms),
       timeout_ms: positive_option(opts, :timeout_ms, @default_timeout_ms),
-      concurrency: positive_option(opts, :concurrency, @default_concurrency)
+      concurrency: positive_option(opts, :concurrency, @default_concurrency),
+      service_scheduler: Keyword.get(opts, :service_scheduler)
     }
 
     terminate_orphan_workers(state.task_supervisor)
@@ -148,8 +150,21 @@ defmodule Exocomp.Coordinator.HealthPoller do
 
     result = state.probe_adapter.(entry, options)
     Registry.record_observation(entry.id, token, result, state.registry)
+    maybe_schedule_service_observation(entry.id, result, state.service_scheduler)
     result
   end
+
+  defp maybe_schedule_service_observation(_node_id, _result, nil), do: :ok
+
+  defp maybe_schedule_service_observation(node_id, result, scheduler) do
+    if observation_success?(result), do: ServiceScheduler.observe_node(node_id, scheduler)
+  catch
+    :exit, _reason -> :ok
+  end
+
+  defp observation_success?(%{outcome: outcome}) when outcome in [:healthy, :degraded], do: true
+  defp observation_success?(outcome) when outcome in [:healthy, :degraded], do: true
+  defp observation_success?(_result), do: false
 
   defp resolve(entry, resolver_adapter, registry) do
     case resolver_adapter.(entry) do

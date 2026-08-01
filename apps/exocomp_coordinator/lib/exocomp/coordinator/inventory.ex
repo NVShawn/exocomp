@@ -22,7 +22,10 @@ defmodule Exocomp.Coordinator.Inventory do
           cluster_profile: String.t() | nil
         }
 
-  defstruct inventory: %{version: @version, nodes: [], cluster_profile: nil}, source: nil, error: nil
+  defstruct inventory: %{version: @version, nodes: [], cluster_profile: nil},
+            source: nil,
+            error: nil,
+            reconcile_server: Exocomp.Coordinator.ServiceScheduler
 
   @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts) do
@@ -86,7 +89,9 @@ defmodule Exocomp.Coordinator.Inventory do
 
   @impl true
   def init(opts) do
-    state = %__MODULE__{}
+    state = %__MODULE__{
+      reconcile_server: Keyword.get(opts, :reconcile_server, Exocomp.Coordinator.ServiceScheduler)
+    }
 
     case Keyword.get(opts, :inventory_path) do
       path when is_binary(path) ->
@@ -114,7 +119,10 @@ defmodule Exocomp.Coordinator.Inventory do
 
   def handle_call({:replace, inventory, source}, _from, state) do
     case apply_replacement(inventory, source, state) do
-      {:ok, updated} -> {:reply, :ok, updated}
+      {:ok, updated} ->
+        notify_reconciliation(updated.reconcile_server)
+        {:reply, :ok, updated}
+
       {:error, error, unchanged} -> {:reply, {:error, error}, %{unchanged | error: error}}
     end
   end
@@ -140,7 +148,10 @@ defmodule Exocomp.Coordinator.Inventory do
       end
 
     case result do
-      {:ok, updated} -> {:noreply, updated}
+      {:ok, updated} ->
+        notify_reconciliation(updated.reconcile_server)
+        {:noreply, updated}
+
       {:error, error, unchanged} -> {:noreply, %{unchanged | error: error}}
     end
   end
@@ -181,6 +192,12 @@ defmodule Exocomp.Coordinator.Inventory do
       %{source: source, error: error},
       correlation_id: Audit.correlation_id()
     )
+  catch
+    :exit, _reason -> :ok
+  end
+
+  defp notify_reconciliation(server) do
+    Exocomp.Coordinator.ServiceScheduler.inventory_replaced(server)
   catch
     :exit, _reason -> :ok
   end
