@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-86
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Define ApprovalToken struct and deterministic canonical encoding
 parent: EXOCOMP-23
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T02:36:43.435381Z'
-updated_at: '2026-07-25T02:16:18.282378Z'
+updated_at: '2026-08-01T03:00:54.139232Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -47,6 +47,28 @@ oompah.task_costs:
     output_tokens: 2302
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:06:21.096170+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-0ce6ef3b44ff
+    project_id: proj-c260b117
+    task_id: EXOCOMP-86
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 54a5817933d58988308aaff55e72648f0cbd1afd93fccdca381fce5f849b8492
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:51.648544+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -269,5 +291,10 @@ Run #2 [attempt=2, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 19m 32s
 - Log: EXOCOMP-86__20260724T024651Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
