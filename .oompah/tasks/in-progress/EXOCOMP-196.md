@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:03:26.899267Z'
+updated_at: '2026-08-01T16:05:16.384033Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -546,5 +546,10 @@ author: oompah
 created: 2026-08-01 16:03
 ---
 Implementation: wired Listener startup through Ceph.Validator with non-fatal degradation, redacted ceph_profile_validation_failed audit metadata, coordinator ProfileCoverage state/filtering, and Agent Card integration; added invalid-config tolerance for startup; added validator version/metadata checks; fixed the node Ceph test's unbound unit pattern.
+---
+author: oompah
+created: 2026-08-01 16:05
+---
+Verification checkpoint: the Makefile formatter cannot run because the configured container engine fails on read-only /run/user/1000/libpod, and host Mix is Elixir 1.18.3 while the repo requires 1.20.2. I am continuing static checks/test additions and will retry make test before handoff.
 ---
 <!-- COMMENTS:END -->
