@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:42.626270Z'
-updated_at: '2026-08-01T14:59:55.909481Z'
+updated_at: '2026-08-01T15:00:13.133812Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-157
 target_branch: null
 review_url: null
@@ -125,5 +125,10 @@ author: oompah
 created: 2026-08-01 14:59
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 15:00
+---
+Understanding: implement a pure, deterministic incident-grouping module keyed by alert type, service, software version, and configured time window; preserve incident identity/state; add organization-scoped open/recent related-incident query helpers; cover attribute matching, boundaries, missing values, isolation, and ordering without causal/model inference.
 ---
 <!-- COMMENTS:END -->
