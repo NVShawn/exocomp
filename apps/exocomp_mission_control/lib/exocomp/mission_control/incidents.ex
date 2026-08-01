@@ -23,7 +23,8 @@ defmodule Exocomp.MissionControl.Incidents do
             sequence: 0,
             now_fn: nil,
             incident_id_fn: nil,
-            event_id_fn: nil
+            event_id_fn: nil,
+            pubsub: nil
 
   @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts) do
@@ -411,11 +412,15 @@ defmodule Exocomp.MissionControl.Incidents do
       )
       when is_binary(organization_id) and is_binary(incident_id) and is_binary(reason) and
              is_binary(operator_subject) and is_binary(operator_org) and is_atom(operator_role) do
-    GenServer.call(
-      server,
-      {:resolve, organization_id, incident_id, reason, operator_subject, operator_org,
-       operator_role}
-    )
+    if String.trim(reason) == "" do
+      {:error, :missing_reason}
+    else
+      GenServer.call(
+        server,
+        {:resolve, organization_id, incident_id, reason, operator_subject, operator_org,
+         operator_role}
+      )
+    end
   end
 
   @impl true
@@ -424,7 +429,8 @@ defmodule Exocomp.MissionControl.Incidents do
      %__MODULE__{
        now_fn: Keyword.get(opts, :now_fn, &DateTime.utc_now/0),
        incident_id_fn: Keyword.get(opts, :incident_id_fn, &Incident.generate_id/0),
-       event_id_fn: Keyword.get(opts, :event_id_fn, &IncidentEvent.generate_id/0)
+       event_id_fn: Keyword.get(opts, :event_id_fn, &IncidentEvent.generate_id/0),
+       pubsub: Keyword.get(opts, :pubsub)
      }}
   end
 
@@ -433,7 +439,8 @@ defmodule Exocomp.MissionControl.Incidents do
     case normalize_evidence(evidence, state.now_fn.()) do
       {:ok, normalized} ->
         {incident, event, updated_state} = reduce_evidence(normalized, state)
-        {:reply, {:ok, incident}, put_event(updated_state, incident, event)}
+        new_state = put_event(updated_state, incident, event)
+        {:reply, {:ok, incident}, broadcast(new_state, incident)}
 
       {:error, _reason} = error ->
         {:reply, error, state}
@@ -488,12 +495,13 @@ defmodule Exocomp.MissionControl.Incidents do
     {:reply, state.events |> Map.get(incident_id, []) |> sort_events(), state}
   end
 
-  def handle_call(:reset, _from, _state) do
+  def handle_call(:reset, _from, state) do
     {:reply, :ok,
      %__MODULE__{
        now_fn: &DateTime.utc_now/0,
        incident_id_fn: &Incident.generate_id/0,
-       event_id_fn: &IncidentEvent.generate_id/0
+       event_id_fn: &IncidentEvent.generate_id/0,
+       pubsub: state.pubsub
      }}
   end
 
@@ -542,7 +550,7 @@ defmodule Exocomp.MissionControl.Incidents do
               events: Map.update(state.events, incident.id, [event], &[event | &1])
           }
 
-          {:reply, {:ok, updated_incident}, new_state}
+          {:reply, {:ok, updated_incident}, broadcast(new_state, updated_incident)}
         else
           {:reply, {:error, :invalid_state}, state}
         end
@@ -597,7 +605,7 @@ defmodule Exocomp.MissionControl.Incidents do
             events: Map.update(state.events, incident.id, [event], &[event | &1])
         }
 
-        {:reply, {:ok, updated_incident}, new_state}
+        {:reply, {:ok, updated_incident}, broadcast(new_state, updated_incident)}
 
       error ->
         {:reply, error, state}
@@ -648,7 +656,7 @@ defmodule Exocomp.MissionControl.Incidents do
             events: Map.update(state.events, incident.id, [event], &[event | &1])
         }
 
-        {:reply, {:ok, updated_incident}, new_state}
+        {:reply, {:ok, updated_incident}, broadcast(new_state, updated_incident)}
 
       error ->
         {:reply, error, state}
@@ -701,7 +709,7 @@ defmodule Exocomp.MissionControl.Incidents do
               events: Map.update(state.events, incident.id, [event], &[event | &1])
           }
 
-          {:reply, {:ok, updated_incident}, new_state}
+          {:reply, {:ok, updated_incident}, broadcast(new_state, updated_incident)}
         else
           {:reply, {:error, :invalid_snooze_time}, state}
         end
@@ -754,7 +762,7 @@ defmodule Exocomp.MissionControl.Incidents do
             events: Map.update(state.events, incident.id, [event], &[event | &1])
         }
 
-        {:reply, {:ok, updated_incident}, new_state}
+        {:reply, {:ok, updated_incident}, broadcast(new_state, updated_incident)}
 
       error ->
         {:reply, error, state}
@@ -806,7 +814,7 @@ defmodule Exocomp.MissionControl.Incidents do
             events: Map.update(state.events, incident.id, [event], &[event | &1])
         }
 
-        {:reply, {:ok, updated_incident}, new_state}
+        {:reply, {:ok, updated_incident}, broadcast(new_state, updated_incident)}
 
       error ->
         {:reply, error, state}
@@ -896,14 +904,19 @@ defmodule Exocomp.MissionControl.Incidents do
 
     timeline = events_list |> sort_events()
     new_sequence = if should_reopen, do: sequence + 1, else: sequence
-    {replay(incident, timeline), event, %{state | sequence: new_sequence}}
+
+    {replay(incident, timeline), event,
+     %{state | sequence: new_sequence, events: Map.put(state.events, incident.id, events_list)}}
   end
 
   defp put_event(state, incident, event) do
+    events = Map.get(state.events, incident.id, [])
+    events = if Enum.any?(events, &(&1.id == event.id)), do: events, else: [event | events]
+
     %{
       state
       | incidents: Map.put(state.incidents, incident.id, incident),
-        events: Map.update(state.events, incident.id, [event], &[event | &1]),
+        events: Map.put(state.events, incident.id, events),
         fingerprints: Map.put(state.fingerprints, incident.fingerprint, incident.id)
     }
   end
@@ -1018,7 +1031,7 @@ defmodule Exocomp.MissionControl.Incidents do
          correlation_id: fetch(evidence, :correlation_id),
          event_type: event_type,
          explicit_event_type?: explicit_event_type?,
-         payload: payload
+         payload: metadata_payload(payload, evidence)
        }}
     end
   end
@@ -1080,6 +1093,32 @@ defmodule Exocomp.MissionControl.Incidents do
 
   defp optional_string(value) when is_binary(value) and byte_size(value) > 0, do: value
   defp optional_string(_value), do: nil
+
+  defp metadata_payload(payload, evidence) do
+    payload
+    |> put_optional_metadata("severity", optional_string(fetch(evidence, :severity)))
+    |> put_optional_metadata("labels", normalize_labels(fetch(evidence, :labels)))
+  end
+
+  defp put_optional_metadata(payload, _key, nil), do: payload
+  defp put_optional_metadata(payload, _key, []), do: payload
+  defp put_optional_metadata(payload, key, value), do: Map.put(payload, key, value)
+
+  defp normalize_labels(labels) when is_list(labels), do: Enum.filter(labels, &is_binary/1)
+  defp normalize_labels(labels) when is_binary(labels), do: String.split(labels, ",", trim: true)
+  defp normalize_labels(_labels), do: []
+
+  defp broadcast(%{pubsub: nil} = state, _incident), do: state
+
+  defp broadcast(state, incident) do
+    Phoenix.PubSub.broadcast(
+      state.pubsub,
+      "incidents:#{incident.organization_id}",
+      {:incident_changed, incident}
+    )
+
+    state
+  end
 
   defp active?(%Incident{state: state}), do: state in [:open, :acknowledged]
 

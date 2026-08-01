@@ -33,6 +33,8 @@ config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
   server: false,
   url: [host: "localhost"]
 
+config :exocomp_mission_control, :incidents_server, Exocomp.MissionControl.Incidents
+
 if config_env() != :prod do
   config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
     secret_key_base: "mission-control-test-secret-key-base"
