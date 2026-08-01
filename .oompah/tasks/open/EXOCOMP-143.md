@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-143
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Issue cluster certificates from validated CSRs
 parent: EXOCOMP-129
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-07-30T14:20:07.353440Z'
+updated_at: '2026-08-01T11:48:49.029129Z'
 work_branch: null
 target_branch: null
 review_url: null

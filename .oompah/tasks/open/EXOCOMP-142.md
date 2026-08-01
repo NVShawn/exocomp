@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-142
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Create one-use cluster invitations
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-07-30T14:20:04.316732Z'
+updated_at: '2026-08-01T11:48:47.061530Z'
 work_branch: null
 target_branch: null
 review_url: null

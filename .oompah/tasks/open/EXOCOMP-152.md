@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-152
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Persist current cluster and node status
 parent: EXOCOMP-131
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:36.397265Z'
-updated_at: '2026-07-30T21:41:20.799402Z'
+updated_at: '2026-08-01T11:49:11.364341Z'
 work_branch: null
 target_branch: null
 review_url: null

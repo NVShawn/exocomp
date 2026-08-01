@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-149
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Ingest cluster events idempotently and acknowledge sequences
 parent: EXOCOMP-130
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-07-30T14:20:27.051674Z'
+updated_at: '2026-08-01T11:49:02.988108Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-07-30T14:20:31.976571Z'
+updated_at: '2026-08-01T11:49:05.261869Z'
 work_branch: null
 target_branch: null
 review_url: null

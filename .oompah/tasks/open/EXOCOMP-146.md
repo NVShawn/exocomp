@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-07-30T14:20:12.988811Z'
+updated_at: '2026-08-01T11:48:55.619353Z'
 work_branch: null
 target_branch: null
 review_url: null
