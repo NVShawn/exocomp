@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-35
 type: feature
-status: Merged
+status: In Validation
 priority: 2
 title: Build the reproducible benchmark harness
 parent: EXOCOMP-5
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-07-25T21:07:35.814082Z'
+updated_at: '2026-08-01T21:19:10.481293Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 2081
     cost_usd: 0.0
     recorded_at: '2026-07-23T20:37:27.511958+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-685ae122b987
+    project_id: proj-c260b117
+    task_id: EXOCOMP-35
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 02fbf4f102067607fc34182af87cc43648777186c3e708c7cdff7d307a5fa332
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:08.406398+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -187,5 +209,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 38s
 - Log: EXOCOMP-35__20260723T203351Z.jsonl
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
