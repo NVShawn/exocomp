@@ -695,7 +695,7 @@ install_sudoers() {
     local helper_path="${install_dir}/bin/profile-action-helper"
     local sudoers_dest="${EXOCOMP_SUDOERS_DIR}/${account}"
     local policy
-    
+
     # Only include profile-action-helper path in sudoers for node component
     if [[ "${COMPONENT}" == "node" &&
           ( -f "${install_dir}/bin/profile-action-helper" ||

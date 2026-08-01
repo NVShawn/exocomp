@@ -1648,17 +1648,17 @@ class TestProfileActionHelperInstall:
         """Profile-action helper should be copied to /opt/exocomp/node/bin/profile-action-helper."""
         component = "node"
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
-        
+
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         helper_path = tmp_path / "root" / "opt" / "exocomp" / component / "bin" / "profile-action-helper"
         assert helper_path.exists(), f"Profile-action helper not installed at {helper_path}"
         assert helper_path.is_file()
@@ -1667,17 +1667,17 @@ class TestProfileActionHelperInstall:
         """Profile-action helper should have 755 permissions."""
         component = "node"
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
-        
+
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         helper_path = tmp_path / "root" / "opt" / "exocomp" / component / "bin" / "profile-action-helper"
         mode = helper_path.stat().st_mode & 0o777
         assert mode == 0o755, f"Profile-action helper should have 755 permissions; got {oct(mode)}"
@@ -1686,17 +1686,17 @@ class TestProfileActionHelperInstall:
         """Profile-action helper should be owned by root."""
         component = "node"
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
-        
+
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         helper_path = tmp_path / "root" / "opt" / "exocomp" / component / "bin" / "profile-action-helper"
         # In test mode with EXOCOMP_ROOT set, ownership is skipped, so we just verify it exists
         assert helper_path.exists()
@@ -1705,29 +1705,29 @@ class TestProfileActionHelperInstall:
         """Sudoers should grant exact helper path with no argument wildcards."""
         component = "node"
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
-        
+
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         sudoers_path = tmp_path / "sudoers" / f"exocomp-{component}"
         assert sudoers_path.exists(), f"Sudoers file not found at {sudoers_path}"
-        
+
         content = sudoers_path.read_text()
-        
+
         # Should contain exact helper path
         helper_entry_expected = "/opt/exocomp/node/bin/profile-action-helper"
         assert helper_entry_expected in content, (
             f"Sudoers should contain exact helper path '{helper_entry_expected}'.\n"
             f"Content:\n{content}"
         )
-        
+
         # Verify the entry uses NOPASSWD and no wildcards
         for line in content.split("\n"):
             if "profile-action-helper" in line:
@@ -1742,20 +1742,20 @@ class TestProfileActionHelperInstall:
         """Profile-action helper should be listed in the manifest."""
         component = "node"
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
-        
+
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         manifest_path = tmp_path / "root" / "opt" / "exocomp" / component / "manifest-1.2.3.txt"
         assert manifest_path.exists(), f"Manifest not found at {manifest_path}"
-        
+
         content = manifest_path.read_text()
         helper_entry = "/opt/exocomp/node/bin/profile-action-helper"
         assert helper_entry in content, (
@@ -1767,20 +1767,20 @@ class TestProfileActionHelperInstall:
         """Uninstaller should remove the profile-action helper."""
         component = "node"
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
-        
+
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         helper_path = tmp_path / "root" / "opt" / "exocomp" / component / "bin" / "profile-action-helper"
         assert helper_path.exists()
-        
+
         # Now uninstall
         cmd = [
             "bash", str(info["uninstall_sh"]),
@@ -1790,14 +1790,14 @@ class TestProfileActionHelperInstall:
         ]
         result = subprocess.run(cmd, capture_output=True, text=True, env=env)
         assert result.returncode == 0, f"uninstall.sh failed:\n{result.stderr}"
-        
+
         # Helper should be removed
         assert not helper_path.exists(), f"Helper should be removed after uninstall: {helper_path}"
 
     def test_profile_action_helper_idempotent_on_upgrade(self, tmp_path):
         """Profile-action helper should be properly handled during upgrade."""
         component = "node"
-        
+
         # First install
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
@@ -1805,23 +1805,23 @@ class TestProfileActionHelperInstall:
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         helper_v1 = tmp_path / "root" / "opt" / "exocomp" / component / "bin" / "profile-action-helper"
         assert helper_v1.exists()
         mtime_v1 = helper_v1.stat().st_mtime
-        
+
         # Upgrade to version 1.2.4
         info2 = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.4")
         if src_helper.exists():
             dest_bin = info2["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         _run_install(info2, component, "1.2.4", env=env)
-        
+
         # Helper should still exist and be updated
         helper_v2 = tmp_path / "root" / "opt" / "exocomp" / component / "bin" / "profile-action-helper"
         assert helper_v2.exists(), "Helper should exist after upgrade"
@@ -1862,17 +1862,17 @@ class TestProfileActionHelperInstall:
         """Profile-action helper should only be installed for node component."""
         component = "coordinator"
         info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
-        
+
         # Copy the actual built helper into the bundle (shouldn't be used for coordinator)
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
             shutil.copy(src_helper, dest_bin / "profile-action-helper")
-        
+
         env = _make_env(tmp_path)
         _run_install(info, component, "1.2.3", env=env)
-        
+
         # Coordinator should not have the helper installed
         helper_path = tmp_path / "root" / "opt" / "exocomp" / component / "bin" / "profile-action-helper"
         # Bundle had it, but the installer should not have installed it for coordinator
