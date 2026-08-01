@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-71
 type: task
-status: Needs Human
+status: In Validation
 priority: null
 title: Write focused ExUnit integration tests for all fixture states
 parent: EXOCOMP-29
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:51.547848Z'
-updated_at: '2026-08-01T00:58:52.689917Z'
+updated_at: '2026-08-01T01:45:38.355365Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-71
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/4
@@ -69,7 +69,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-71
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -144,6 +144,23 @@ oompah.terminal_audit:
     previous_state: Merged
     created_at: '2026-07-30T21:55:35.388678+00:00'
     updated_at: '2026-07-30T21:58:07.631298+00:00'
+  - version: 1
+    audit_id: audit-8d1d090b50b1
+    project_id: proj-c260b117
+    task_id: EXOCOMP-71
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2a24896797cca78fd5b82b7bfbfd637693342775b2e9c7872132a7f0860ec5fc
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Needs Human
+    created_at: '2026-08-01T01:45:35.896842+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-26fe706cea4e

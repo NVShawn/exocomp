@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-69
 type: task
-status: Needs Human
+status: In Validation
 priority: null
 title: Create crashable fixture service script with health endpoint and state controls
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:29.970644Z'
-updated_at: '2026-08-01T00:58:51.537243Z'
+updated_at: '2026-08-01T01:45:59.040295Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-69
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/2
@@ -55,7 +55,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-69
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -130,6 +130,42 @@ oompah.terminal_audit:
     previous_state: Merged
     created_at: '2026-07-30T21:55:31.793076+00:00'
     updated_at: '2026-07-30T21:58:05.198657+00:00'
+  - version: 1
+    audit_id: audit-f81e518a6dff
+    project_id: proj-c260b117
+    task_id: EXOCOMP-69
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ce094abf3ebb8e437111fc44351d166b9573e21f8c4675006502b7e48faf3e8a
+    attempts:
+    - version: 1
+      attempt_id: attempt-e526d25e31b7
+      target_state: Archived
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: ce094abf3ebb8e437111fc44351d166b9573e21f8c4675006502b7e48faf3e8a
+      created_at: '2026-08-01T01:45:48.368519+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T01:45:48.368519+00:00'
+      branch_key: epic-EXOCOMP-29--task-EXOCOMP-69
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-01T01:45:56.768357+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-69 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-69, origin/EXOCOMP-69)'
+      next_retry_at: '2026-08-01T01:46:06.768328+00:00'
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Needs Human
+    created_at: '2026-08-01T01:45:30.893737+00:00'
+    updated_at: '2026-08-01T01:45:56.768357+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f99653616be9
@@ -181,6 +217,24 @@ oompah.terminal_audit:
     ended_at: '2026-07-30T21:57:16.510428+00:00'
     failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-4'
     next_retry_at: '2026-07-30T21:57:56.510397+00:00'
+  - version: 1
+    attempt_id: attempt-e526d25e31b7
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ce094abf3ebb8e437111fc44351d166b9573e21f8c4675006502b7e48faf3e8a
+    created_at: '2026-08-01T01:45:48.368519+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T01:45:48.368519+00:00'
+    branch_key: epic-EXOCOMP-29--task-EXOCOMP-69
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-01T01:45:56.768357+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-69 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-69, origin/EXOCOMP-69)'
+    next_retry_at: '2026-08-01T01:46:06.768328+00:00'
 oompah.integration:
   version: 1
   state: working
@@ -443,5 +497,24 @@ author: oompah
 created: 2026-08-01 00:58
 ---
 Direct operator recovery claimed at the project owner's request. This is a failed Archived audit caused by deleted historical branch checkout, not incomplete implementation. Keep Needs Human as a scheduler hold until OOMPAH-671 is deployed; I will rearm and oversee the existing archive audit without reopening implementation.
+---
+author: oompah
+created: 2026-08-01 01:45
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 01:45
+---
+Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 2s
+---
+author: oompah
+created: 2026-08-01 01:45
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-69 (tried: origin/epic-EXOCOMP-29--task-EXOCOMP-69, origin/EXOCOMP-69). A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->

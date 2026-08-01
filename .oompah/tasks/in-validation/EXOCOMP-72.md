@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-72
 type: task
-status: Needs Human
+status: In Validation
 priority: null
 title: Document VM/privileged-container requirements for systemd fixture tests
 parent: EXOCOMP-29
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:59.701752Z'
-updated_at: '2026-08-01T00:58:53.942435Z'
+updated_at: '2026-08-01T01:45:44.497986Z'
 work_branch: epic-EXOCOMP-29--task-EXOCOMP-72
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/3
@@ -61,7 +61,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-72
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -136,6 +136,23 @@ oompah.terminal_audit:
     previous_state: Merged
     created_at: '2026-07-30T21:55:45.452582+00:00'
     updated_at: '2026-07-30T21:59:02.987491+00:00'
+  - version: 1
+    audit_id: audit-38ffdf7f3cc1
+    project_id: proj-c260b117
+    task_id: EXOCOMP-72
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: f98ed9054e723cac9a94a8a2a5f772957c3b8f181e016f2703b64d73c33ccbb4
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Needs Human
+    created_at: '2026-08-01T01:45:42.093986+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4c1657be7bd8

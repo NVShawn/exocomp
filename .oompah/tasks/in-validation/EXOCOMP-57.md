@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T20:39:48.111110Z'
-updated_at: '2026-08-01T01:45:22.600826Z'
+updated_at: '2026-08-01T01:45:53.758628Z'
 work_branch: epic-EXOCOMP-9--task-EXOCOMP-57
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/1
@@ -152,13 +152,32 @@ oompah.terminal_audit:
       version: 1
       algorithm: sha256
       digest: 562e7b401c84a515c7451d1726affa3bdfa260a0522abaf210f64740a240c048
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-34a3c9e3ddc6
+      target_state: Archived
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 562e7b401c84a515c7451d1726affa3bdfa260a0522abaf210f64740a240c048
+      created_at: '2026-08-01T01:45:39.021404+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T01:45:39.021404+00:00'
+      branch_key: epic-EXOCOMP-9--task-EXOCOMP-57
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-01T01:45:50.441180+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-57 (tried: origin/epic-EXOCOMP-9--task-EXOCOMP-57, origin/EXOCOMP-57)'
+      next_retry_at: '2026-08-01T01:46:00.441150+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Needs Human
     created_at: '2026-08-01T01:45:20.793926+00:00'
+    updated_at: '2026-08-01T01:45:50.441180+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a965b4684476
@@ -210,6 +229,24 @@ oompah.terminal_audit:
     ended_at: '2026-07-30T21:57:08.853284+00:00'
     failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-1'
     next_retry_at: '2026-07-30T21:57:48.853258+00:00'
+  - version: 1
+    attempt_id: attempt-34a3c9e3ddc6
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 562e7b401c84a515c7451d1726affa3bdfa260a0522abaf210f64740a240c048
+    created_at: '2026-08-01T01:45:39.021404+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T01:45:39.021404+00:00'
+    branch_key: epic-EXOCOMP-9--task-EXOCOMP-57
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-01T01:45:50.441180+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-57 (tried: origin/epic-EXOCOMP-9--task-EXOCOMP-57, origin/EXOCOMP-57)'
+    next_retry_at: '2026-08-01T01:46:00.441150+00:00'
 oompah.integration:
   version: 1
   state: working
@@ -608,5 +645,24 @@ author: oompah
 created: 2026-08-01 00:58
 ---
 Direct operator recovery claimed at the project owner's request. This is a failed Archived audit caused by deleted historical branch checkout, not incomplete implementation. Keep Needs Human as a scheduler hold until OOMPAH-671 is deployed; I will rearm and oversee the existing archive audit without reopening implementation.
+---
+author: oompah
+created: 2026-08-01 01:45
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 01:45
+---
+Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 3s
+---
+author: oompah
+created: 2026-08-01 01:45
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-57 (tried: origin/epic-EXOCOMP-9--task-EXOCOMP-57, origin/EXOCOMP-57). A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
