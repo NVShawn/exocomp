@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-01T12:41:10.737635Z'
+updated_at: '2026-08-01T12:50:54.451096Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -182,5 +182,52 @@ Approach:
 4. Implement handler logic with orchestrator delegation and model integration
 5. Add comprehensive unit tests covering all scenarios
 6. Run quality gates: make test, make fmt-check, make lint
+---
+author: oompah
+created: 2026-08-01 12:50
+---
+## Implementation
+
+Created three new modules to implement the exocomp.cluster.chat skill:
+
+**ClusterChat skill handler** (104 LOC)
+- Validates input params: operator message, thread context, evidence
+- Delegates to ClusterChatClient for inference
+- Builds artifact with schema-validated response
+
+**ClusterChatClient** (299 LOC)
+- Sends bounded conversation to local OpenAI-compatible endpoint
+- Builds messages from thread + evidence context
+- Implements full error handling: unavailable, timeout, schema errors
+- Audit logging with redacted model output
+- Configurable: max context bytes (default 64KiB), max tokens (default 1024), thread messages (default 50)
+
+**ClusterChatSchema** (174 LOC)
+- Parses model output: direct JSON, markdown code blocks, text extraction
+- Validates response structure: text (required), citations (optional array), proposal (optional)
+- Citation validation: requires evidence_id, node_id, collected_at
+- Proposal validation: requires proposal_id, rationale, affected_resource, confidence (0.0-1.0)
+
+**Test coverage** (733 LOC)
+- 298-line skill tests: valid replies, error cases, schema validation errors
+- 373-line schema tests: parsing strategies, all validation paths
+- 62-line client tests: configuration, availability checks
+- All tests passing; quality gates passing (make test, make fmt-check, make lint)
+
+**Integration points:**
+- Added to dispatcher skill map
+- Added to Agent Card capabilities with description
+- Ready for Mission Control conversation flow integration
+
+Key capabilities verified:
+✓ Valid reply with citations
+✓ No model configured error (inference_unavailable)
+✓ Timeout handling (inference_timeout)
+✓ Invalid/truncated schema handling (schema_error)
+✓ Oversized context handling (truncation at max_bytes)
+✓ Model crash handling (http_error)
+✓ Bounded context: thread limited to 50 messages or 64 KiB
+✓ Evidence summarization in prompt
+✓ Schema-constrained output validation
 ---
 <!-- COMMENTS:END -->
