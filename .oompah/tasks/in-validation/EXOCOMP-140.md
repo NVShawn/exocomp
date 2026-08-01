@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-140
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Implement OIDC login, callback, and logout
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T12:08:40.824500Z'
+updated_at: '2026-08-01T16:31:45.809119Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -93,12 +93,15 @@ oompah.agent_run_id: cba6d4cd-00c2-4026-9ce1-793c7d5f4067
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
+  base_branch: epic-EXOCOMP-129
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: b1a07ccf6044357ada26260ea1e71b052ae17c94
+  integrated_sha: b1a07ccf6044357ada26260ea1e71b052ae17c94
   submitted_at: '2026-08-01T12:08:24.262333+00:00'
-  updated_at: '2026-08-01T12:08:24.262333+00:00'
+  updated_at: '2026-08-01T16:31:40.873471+00:00'
 oompah.task_costs:
   total_input_tokens: 2264
   total_output_tokens: 4769
@@ -131,6 +134,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-129--task-EXOCOMP-140
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T11:50:26.211811+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a53c755ecd42
+    project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c937197b0a69b4324d6ce291afecffa280e6bef61946ea47ce6b28d264911e0b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T16:31:43.533715+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -265,5 +290,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 17m 50s
 - Log: EXOCOMP-140__20260801T115057Z.jsonl
+---
+author: oompah
+created: 2026-08-01 16:31
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
