@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-08-01T21:19:08.148409Z'
+updated_at: '2026-08-01T21:19:13.745170Z'
 work_branch: epic-EXOCOMP-3
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/12
@@ -116,5 +116,10 @@ author: oompah
 created: 2026-08-01 21:18
 ---
 Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
 ---
 <!-- COMMENTS:END -->

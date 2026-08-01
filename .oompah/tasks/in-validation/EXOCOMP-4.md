@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-4
 type: epic
-status: Merged
+status: In Validation
 priority: 1
 title: 'M4: Minimal-impact systemd service recovery'
 parent: null
@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.789340Z'
-updated_at: '2026-07-25T21:07:36.531496Z'
+updated_at: '2026-08-01T21:19:15.402545Z'
 work_branch: epic-EXOCOMP-4
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/10
@@ -29,6 +29,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/10
 oompah.review_number: '10'
 oompah.work_branch: epic-EXOCOMP-4
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-5f6fb7566daa
+    project_id: proj-c260b117
+    task_id: EXOCOMP-4
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: af00412b66a77cdddc18d01772616312cfd6270d6dcaa2526b0b1873470873b3
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:12.334799+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -55,3 +77,11 @@ Acceptance Criteria
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+<!-- COMMENTS:END -->
