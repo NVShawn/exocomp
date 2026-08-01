@@ -16,9 +16,10 @@ start_blocked_by: []
 labels:
 - focus-complete:security
 - focus-complete:docs
+- needs:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:49:41.840187Z'
+updated_at: '2026-08-01T13:49:48.258011Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
