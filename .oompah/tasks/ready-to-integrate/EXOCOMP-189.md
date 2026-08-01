@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-189
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Define desired-service types and deterministic merge rules
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:19:36.249399Z'
+updated_at: '2026-08-01T14:20:32.302874Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -53,12 +53,12 @@ oompah.agent_run_id: caef73ca-1dfc-414c-a784-f41a63261e52
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-189
-  base_branch: epic-EXOCOMP-185
-  base_sha: 0f7969a22949a49ab4ff8cc3a169cc77c2810b21
-  updated_at: '2026-08-01T14:11:25.694852+00:00'
+  head_sha: c3eeb34abbb045e4dcbe3e4703952b1053791cb3
+  submitted_at: '2026-08-01T14:20:30.117288+00:00'
+  updated_at: '2026-08-01T14:20:30.117288+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 2595
@@ -160,5 +160,15 @@ author: oompah
 created: 2026-08-01 14:19
 ---
 Verification: focused compile of both new core modules plus ExUnit execution passed (6 tests, 0 failures); local format check and git diff --check passed. make test completed its offline builder/package checks (13 builder checks plus Python suites) but could not enter the Elixir test/release container because Podman failed to chmod /run/user/1000/libpod on the read-only host filesystem.
+---
+author: oompah
+created: 2026-08-01 14:20
+---
+Completion: delivered and pushed c3eeb34a on epic-EXOCOMP-185--task-EXOCOMP-189. The shared core resolver now produces one deterministic effective expectation per node/unit, preserving sorted sources/probes/profile context and distinguishable manual/profile authority while excluding automatic authority. Focused tests pass; make test's offline checks pass and its containerized Elixir stage is host-blocked by Podman configuration.
+---
+author: oompah
+created: 2026-08-01 14:20
+---
+Added shared desired-service source types, deterministic three-path resolver, and table-driven unit coverage; pushed c3eeb34a. Focused tests pass, while make test's containerized Elixir stage is blocked by host Podman configuration.
 ---
 <!-- COMMENTS:END -->
