@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T15:33:01.760983Z'
+updated_at: '2026-08-01T15:34:16.089729Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -166,5 +166,44 @@ Planned approach:
 5. Modify uninstall.sh to remove the helper and sudoers entry
 6. Extend tests for installer, packaging, and sudoers validation
 7. Verify all test targets pass
+---
+author: oompah
+created: 2026-08-01 15:34
+---
+## Discovery
+
+Key findings:
+1. profile_action_helper.c is already implemented in apps/exocomp_node/priv/
+   - Validates stdin-only request protocol with strict parsing
+   - Supports exactly: Ceph profile v1, restart_failed_daemon action
+   - Validates target units (ceph-osd@N, ceph-mon@id, ceph-crash, etc.)
+   - Executes systemctl show/restart with direct argv (no shell)
+   - Has native tests via make test-profile-action-helper
+
+2. Build system already has:
+   - Makefile target: build-profile-action-helper (creates _build/profile-action-helper/profile_action_helper)
+   - Test target: test-profile-action-helper
+
+3. Action catalog (Exocomp.Node.ActionCatalog):
+   - Uses /usr/bin/sudo to invoke actions
+   - Validates service names against regex before sudo invocation
+   - install.sh already has render_sudoers() function for creating sudo policies
+   - Tests already verify sudoers format, no wildcards, exact entries
+
+Implementation plan:
+1. Modify assemble-bundle.sh to build and include profile_action_helper binary for each architecture
+2. Modify install.sh to:
+   - Install helper to /opt/exocomp/bin/profile-action-helper (root-owned, non-writable)
+   - Create a dedicated sudo entry granting exocomp-node EXACTLY this helper with no arguments
+   - Include helper path in manifest for proper cleanup
+   - Handle visudo validation; fail+rollback if validation fails
+3. Modify uninstall.sh to remove the helper binary and sudoers entry
+4. Extend installer tests to verify profile_action_helper installation, ownership, permissions, and sudoers entry
+
+Next steps:
+- Implement bundle assembly changes
+- Implement installer changes  
+- Implement uninstaller changes
+- Implement and extend tests
 ---
 <!-- COMMENTS:END -->
