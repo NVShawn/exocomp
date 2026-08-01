@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-138
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Add organizations and mandatory organization scoping
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T16:08:22.806006Z'
+updated_at: '2026-08-01T16:08:53.934684Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -61,12 +61,12 @@ oompah.agent_run_id: 78aaf871-667e-480f-bb1e-3fd93dcceed9
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-138
-  base_branch: epic-EXOCOMP-128
-  base_sha: 778b0ae585f105fdcad710ed272f129950a44d54
-  updated_at: '2026-08-01T16:02:20.978798+00:00'
+  head_sha: f34b7d15612196d3963bcaa9378278ba2e142e50
+  submitted_at: '2026-08-01T16:08:51.383532+00:00'
+  updated_at: '2026-08-01T16:08:51.383532+00:00'
 oompah.task_costs:
   total_input_tokens: 26885307
   total_output_tokens: 79500
@@ -355,5 +355,15 @@ author: oompah
 created: 2026-08-01 16:08
 ---
 Verification: targeted mix format --check-formatted passes for every EXOCOMP-138 source/test/config file; git diff --check passes; and lint's offline release-builder, package, dependency-normalizer, documentation, and compliance checks pass. make fmt-check, make lint's Elixir phase, and make test-mission-control-db are blocked before execution because Podman cannot write /run/user/1000/libpod in this sandbox. Native focused mix test is also blocked: installed Elixir is 1.18.3, while the project requires 1.20.2. Database tests now explicitly exercise fail-closed insert, cross-org read/update/delete isolation, FK, and per-org uniqueness when run through the required target.
+---
+author: oompah
+created: 2026-08-01 16:08
+---
+Completion: rebased and pushed EXOCOMP-138 at f34b7d15 onto current epic-EXOCOMP-128. It preserves the organizations/UUID/seed/scoping implementation, adds PostgreSQL-backed isolation and constraint assertions, and is cleanly up to date with origin. Required container tests remain environment-blocked as recorded; targeted formatting and all available non-container checks passed.
+---
+author: oompah
+created: 2026-08-01 16:08
+---
+Rebased onto epic-EXOCOMP-128 and added PostgreSQL-backed organization isolation coverage
 ---
 <!-- COMMENTS:END -->
