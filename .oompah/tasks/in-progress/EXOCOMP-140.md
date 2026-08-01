@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T11:50:57.112055Z'
+updated_at: '2026-08-01T11:52:02.629964Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -181,5 +181,14 @@ author: oompah
 created: 2026-08-01 11:50
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 11:52
+---
+**Understanding:** This task requires implementing OIDC Authorization Code flow with PKCE for Exocomp Mission Control. The deliverables are: (1) Generic OIDC login, callback, and logout routes with server-side sessions; (2) Store only stable OIDC subject, display identity, issuer, and mapped claims; (3) Validate issuer, audience, state, nonce, and callback errors; (4) Secure session cookies (HTTP-only, same-site, rotated at login).
+
+Acceptance criteria: Tests covering success/failure scenarios, secure cookie handling, and token/secret secrecy.
+
+**Initial approach:** Explore existing codebase to find Mission Control app structure, identify authentication patterns, and implement OIDC flow following Elixir/Phoenix best practices.
 ---
 <!-- COMMENTS:END -->
