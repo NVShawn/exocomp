@@ -21,7 +21,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:30.240380Z'
-updated_at: '2026-08-01T23:06:30.200883Z'
+updated_at: '2026-08-01T23:24:19.985664Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-177
 target_branch: null
 review_url: null
@@ -154,5 +154,10 @@ author: oompah
 created: 2026-08-01 23:06
 ---
 Discovery: The existing Mission Control scaffold (dependency commit 3a3d6e61) provides Phoenix Endpoint/Router/Application with GET /health, while later dependency APIs identify Repo, connection/session liveness, incident, command, webhook, and retention boundaries. The current task branch has not yet received those dependency commits, so the implementation will preserve the scaffold-compatible public modules and keep health/telemetry checks injectable and low-cardinality for clean integration when dependencies land.
+---
+author: oompah
+created: 2026-08-01 23:24
+---
+Implementation: Added Mission Control liveness (/health/live), backward-compatible /health, token-guarded redacted readiness (/health/ready), optional Ecto/PostgreSQL readiness checks, local critical-worker supervision checks, and operations documentation. Added a fixed low-cardinality Prometheus registry at /metrics with connection, ingest, incident, conversation/proposal, command, webhook, database, retention, and desired-service/recovery telemetry, including stable zero-valued series and schema validation.
 ---
 <!-- COMMENTS:END -->
