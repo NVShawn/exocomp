@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-98
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Integrate approval gate and implement comprehensive focused replay test suite
 parent: EXOCOMP-24
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:14:05.495739Z'
-updated_at: '2026-07-25T02:18:14.980716Z'
+updated_at: '2026-08-01T03:01:09.898360Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -44,6 +44,28 @@ oompah.task_costs:
     output_tokens: 89407
     cost_usd: 0.0
     recorded_at: '2026-07-24T17:40:40.071838+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-6655930ee783
+    project_id: proj-c260b117
+    task_id: EXOCOMP-98
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b4f9ce8a0af4e09e7ff4398c4a9d9863af58b16faebf9e401bf622fe87db16b4
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:01:07.760359+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -278,5 +300,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 40m 11s
 - Log: EXOCOMP-98__20260724T170118Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:01
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
