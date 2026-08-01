@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:53.481557Z'
-updated_at: '2026-08-01T16:10:30.041861Z'
+updated_at: '2026-08-01T16:12:20.104455Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-183
 target_branch: null
 review_url: null
@@ -240,5 +240,32 @@ Approach:
 - Build around existing event/acknowledgement protocol
 
 Current state: No Mission Control app yet; blocking deps (EXOCOMP-165/177/180/182) likely provide the MC implementation. This work creates the test harness that will validate MC at scale.
+---
+author: oompah
+created: 2026-08-01 16:12
+---
+DISCOVERY: Explored the codebase and plan requirements.
+
+Current state:
+- plans/mission-control.md defines comprehensive M7 (Mission Control) architecture and acceptance criteria (M7-CRIT-1 through M7-CRIT-12)
+- Existing bench app has M5 (llama inference) qualification with modular structure: config, workload, sampler, analysis, reporting
+- No Mission Control app yet (blocked by EXOCOMP-165/177/180/182)
+- Makefile has no M7 qualification targets yet
+- docs/mission-control-qualification.md doesn't exist (future deliverable)
+
+Requirements from plan:
+- Load: 100 clusters, 10,000 nodes, 100 events/sec burst
+- Metrics: p95 latency (target: <3s), event loss (target: 0), connection count, BEAM processes/mailboxes/queue, memory, FDs, DB pool/queue, outbox depth, webhook/retention workers
+- Soak: 4 hours with stability analysis (no unbounded growth)
+- Make targets: short and full qualification modes
+- Output: raw samples, summary, host profile, artifact identity
+
+Implementation strategy:
+1. Extend bench app with Mission Control load workload driver
+2. Create load simulator that generates deterministic traffic patterns (100 cluster connections, node records, event bursts)
+3. Implement MC-specific metrics samplers (connection count, DB metrics, webhook depth)
+4. Add Make targets mc-scale-short and mc-scale-full
+5. Integrate into existing bench CLI and config patterns
+6. Make gracefully skip/fail if MC service not available (can run post-integration of MC tasks)
 ---
 <!-- COMMENTS:END -->

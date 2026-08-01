@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:02.009432Z'
-updated_at: '2026-08-01T16:02:30.776741Z'
+updated_at: '2026-08-01T16:12:24.883490Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-192
 target_branch: null
 review_url: null
@@ -216,5 +216,10 @@ author: oompah
 created: 2026-08-01 16:02
 ---
 Discovery: existing HealthPoller/Registry already provide 30-second jittered health cadence, bounded async workers, timeout isolation, and exponential backoff. Inventory v2 supplies automatic/manual service configuration; node skills expose exocomp.service.inventory and exocomp.service.observe. I will add a supervised ServiceScheduler around those seams, with generation guards and successful-discovery cache preservation.
+---
+author: oompah
+created: 2026-08-01 16:12
+---
+Implementation: added ServiceScheduler with startup/five-minute jittered discovery, successful-cache-only updates, generation guards, bounded supervised workers, per-task timeout, failure backoff, prompt inventory-reload reconciliation, effective manual+automatic service selection, and cancellable work. Wired HealthPoller successful node cadence to queue service observations; Inventory replacement now notifies the scheduler; application starts the service task supervisor and scheduler. Added focused scheduler tests.
 ---
 <!-- COMMENTS:END -->
