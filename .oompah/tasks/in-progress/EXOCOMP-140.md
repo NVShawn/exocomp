@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:17:02.508733Z'
+updated_at: '2026-08-01T18:31:32.844996Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -819,5 +819,15 @@ author: oompah
 created: 2026-08-01 18:17
 ---
 Discovery: Found the ConnCase import issue - Plug.Conn and Phoenix.ConnTest were only inside the 'using do quote do' block, making them unavailable to the helper functions (build_conn, init_test_session, put_session_values). Moved imports to top-level of the module so they're accessible to both the helper functions and test modules that use ConnCase.
+---
+author: oompah
+created: 2026-08-01 18:31
+---
+Implementation: Fixed ConnCase import conflicts by moving Plug.Conn import to top-level and excluding build_conn/0 and init_test_session/2 from Phoenix.ConnTest import in the using block. This allows our session-aware implementations to take precedence over Phoenix's versions.
+---
+author: oompah
+created: 2026-08-01 18:31
+---
+Verification: All 511 tests pass end-to-end including the OIDC test suite (oidc_client_test.exs, oidc_config_cache_test.exs, oidc_integration_test.exs, auth_controller_test.exs). make fmt-check and make lint both pass. Commit 459fb901 is pushed to the branch.
 ---
 <!-- COMMENTS:END -->
