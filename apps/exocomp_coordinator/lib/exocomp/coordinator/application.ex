@@ -74,6 +74,8 @@ defmodule Exocomp.Coordinator.Application do
       {Task.Supervisor, name: Exocomp.Coordinator.DiagTaskSupervisor},
       {Exocomp.Coordinator.Orchestrator,
        Application.get_env(:exocomp_coordinator, :orchestrator, [])},
+      {Exocomp.Coordinator.ClusterEventIngestor,
+       store_path: Application.get_env(:exocomp_coordinator, :event_store_path)},
       Exocomp.Coordinator.TaskRegistry,
       {Exocomp.Coordinator.RemediationLifecycle,
        Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}

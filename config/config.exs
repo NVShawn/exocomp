@@ -14,7 +14,12 @@ config :exocomp_coordinator,
         do: "/var/lib/exocomp-coordinator/event_outbox.json",
         else:
           Path.join(System.tmp_dir!(), "exocomp-coordinator-event-outbox-#{config_env()}.json")
-      )
+      ),
+  event_store_path:
+    if(config_env() == :prod,
+      do: System.get_env("EXOCOMP_EVENT_STORE_PATH", "/var/lib/exocomp-coordinator/events.bin"),
+      else: nil
+    )
 
 replay_ledger_path =
   if config_env() == :prod do

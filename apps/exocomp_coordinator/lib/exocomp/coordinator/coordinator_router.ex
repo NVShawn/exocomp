@@ -8,6 +8,7 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
 
   - `POST /v1/enroll` → `EnrollmentHandler` (Bearer token, no mTLS required)
   - `POST /v1/renew` → `RenewalHandler` (mTLS client certificate required)
+  - `POST /v1/events` → `ClusterEventHandler` (mTLS cluster identity required)
   - All other paths → `A2ARouter` (mTLS required, A2A version header required)
 
   The coordinator listener uses `fail_if_no_peer_cert: false` so that
@@ -19,7 +20,7 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
   @behaviour Plug
 
   alias Exocomp.Coordinator.A2ARouter
-  alias Exocomp.Coordinator.Handlers.{EnrollmentHandler, RenewalHandler}
+  alias Exocomp.Coordinator.Handlers.{ClusterEventHandler, EnrollmentHandler, RenewalHandler}
 
   @impl true
   def init(opts), do: A2ARouter.init(opts)
@@ -31,6 +32,10 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
 
   def call(%Plug.Conn{method: "POST", path_info: ["v1", "renew"]} = conn, _opts) do
     RenewalHandler.call(conn, RenewalHandler.init([]))
+  end
+
+  def call(%Plug.Conn{method: "POST", path_info: ["v1", "events"]} = conn, opts) do
+    ClusterEventHandler.call(conn, ClusterEventHandler.init(opts))
   end
 
   def call(conn, opts) do
