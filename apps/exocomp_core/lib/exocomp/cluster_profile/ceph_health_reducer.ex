@@ -194,6 +194,12 @@ defmodule Exocomp.ClusterProfile.CephHealthReducer do
         do: [:ambiguous_topology | reasons],
         else: reasons
 
+    # Check for critical health status (HEALTH_ERR)
+    reasons =
+      if ceph_status == "HEALTH_ERR",
+        do: [:critical_health_status | reasons],
+        else: reasons
+
     # Determine severity based on ceph status and other factors
     severity =
       cond do
@@ -331,18 +337,19 @@ defmodule Exocomp.ClusterProfile.CephHealthReducer do
   defp check_profile_evidence_health(mapping) do
     local_state = mapping[:local][:state] || %{}
 
-    # Profile evidence is healthy when:
-    # - enablement is as expected
-    # - no errors in the observation
-    enablement = local_state[:enablement]
-    load_state = local_state[:load_state]
-    active_state = local_state[:active_state]
+    # When there is no profile evidence observation (empty state map), treat
+    # as a no-op: the systemd gate alone determines health.
+    if map_size(local_state) == 0 do
+      true
+    else
+      # Profile evidence is healthy when at least one observable field is present.
+      # An observation with all-nil fields is treated as a collection failure.
+      enablement = local_state[:enablement]
+      load_state = local_state[:load_state]
+      active_state = local_state[:active_state]
 
-    has_enablement = enablement != nil
-    has_load_state = load_state != nil
-    has_active_state = active_state != nil
-
-    has_enablement or has_load_state or has_active_state
+      enablement != nil or load_state != nil or active_state != nil
+    end
   end
 
   # ──────────────────────────────────────────────────────────────────────────
