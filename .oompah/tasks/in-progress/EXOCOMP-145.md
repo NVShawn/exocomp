@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:49:11.593382Z'
+updated_at: '2026-08-01T16:49:48.676426Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -306,5 +306,10 @@ author: oompah
 created: 2026-08-01 16:49
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 16:49
+---
+Understanding: Auditor feedback identifies incomplete wiring. Need to: (1) Load mission_control config in config/runtime.exs and wire into app env, (2) Replace 'assert true' supervisor test with real test coverage for three scenarios: nil config, disabled config, enabled config, (3) Add acceptance test proving local inventory/diagnostics/recovery work with Mission Control absent, (4) Re-run full test suite and capture results. Previous work has config validation and supervision tree ready; just needs integration and testing.
 ---
 <!-- COMMENTS:END -->
