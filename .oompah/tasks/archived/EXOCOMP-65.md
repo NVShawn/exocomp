@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:03.498156Z'
-updated_at: '2026-08-01T21:25:25.767937Z'
+updated_at: '2026-08-01T21:25:53.986920Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 4cf18697-7b63-4cd1-be0d-b52712b073f0
 oompah.work_branch: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 2217082
-  total_output_tokens: 27874
+  total_input_tokens: 2217118
+  total_output_tokens: 28799
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 2217082
-      output_tokens: 27874
+      input_tokens: 2217118
+      output_tokens: 28799
       cost_usd: 0.0
   runs:
   - profile: default
@@ -55,6 +55,12 @@ oompah.task_costs:
     output_tokens: 1428
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:26:17.629462+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 36
+    output_tokens: 925
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:25:52.237763+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -502,5 +508,15 @@ Safe evidence:
 - container_run_flags: --rm --init --platform linux/$(DEV_ARCH) --pull always (non-interactive; no -it)
 - scripts_present: build-releases.sh, check-builder-capability.sh, test-release-builders.sh, verify-toolchain.sh
 - downstream_dependents: EXOCOMP-115, EXOCOMP-118, EXOCOMP-122, EXOCOMP-123, EXOCOMP-125 have subsequently landed on top of this tooling
+---
+author: oompah
+created: 2026-08-01 21:25
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 17
+- Tokens: 36 in / 925 out [961 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 12s
+- Log: EXOCOMP-65__20260801T212144Z.jsonl
 ---
 <!-- COMMENTS:END -->
