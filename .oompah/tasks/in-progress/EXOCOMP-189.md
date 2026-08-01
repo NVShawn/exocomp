@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:11:41.982973Z'
+updated_at: '2026-08-01T14:13:03.579771Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -145,5 +145,10 @@ author: oompah
 created: 2026-08-01 14:11
 ---
 Understanding: add shared desired-service data types and a pure deterministic resolver for one node/service. I will preserve source provenance and authority distinctions, merge duplicate expectations/probes predictably, add table-driven coverage for every source combination and ordering, then run the Makefile test gate.
+---
+author: oompah
+created: 2026-08-01 14:13
+---
+Discovery: after reconciling the integrated EXOCOMP-187/188/190 commits, inventory v2 supplies manual monitoring services and a cluster_profile identifier, while automatic discovery remains an observation path. No existing shared desired-state API exists. I will add it in exocomp_core as pure source contributions plus canonical effective expectations, keeping manual allow-list and shipped-profile authority as distinct values and automatic non-authority explicit.
 ---
 <!-- COMMENTS:END -->
