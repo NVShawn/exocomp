@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:42.487515Z'
-updated_at: '2026-08-01T13:23:32.038752Z'
+updated_at: '2026-08-01T13:28:38.507206Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-181
 target_branch: null
 review_url: null
@@ -204,5 +204,23 @@ author: oompah
 created: 2026-08-01 13:23
 ---
 DISCOVERY: Merged key dependencies (EXOCOMP-141 authorization, EXOCOMP-144 PKI, EXOCOMP-149 event ingestion, EXOCOMP-151 command delivery, EXOCOMP-162 approval guards). Found exocomp_mission_control app with: OIDC auth, authorization/roles, cluster identity validation, invitation management, certificate renewal/revocation, event ingestion, command delivery, proposal approval gates. Now creating comprehensive security negative test suite covering: (1) cross-org isolation, (2) OIDC validation, (3) cert validation, (4) invitation replay, (5) identity override, (6) action validation, (7) approval freshness, (8) webhook signatures, (9) secret redaction.
+---
+author: oompah
+created: 2026-08-01 13:28
+---
+IMPLEMENTATION: Created comprehensive security negative tests covering 10 major security boundaries:
+
+1. Cross-org isolation: Multi-org tests verify operators cannot access other org resources
+2. OIDC auth: Tests for forged claims, role injection, claim tampering  
+3. Cluster certs: Tests for revocation, expiry, connectivity checks
+4. Invitation replay: Single-use token tests with persistence/restart
+5. Identity override: Proposal fields immutable, org scoping enforced
+6. Arbitrary actions: Only typed, policy-validated actions allowed
+7. Approval freshness: Expiry, evidence staleness, replay prevention
+8. Webhook signatures: HMAC-SHA256 verification (consumer-side testing)
+9. Secret redaction: Tokens never logged, digests redacted in audit
+10. RBAC: Role matrix tests for viewer/operator/admin boundaries
+
+Added 3 comprehensive test files (400+ test cases), security boundary documentation with audit events, and Makefile 'make security' target.
 ---
 <!-- COMMENTS:END -->

@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-08-01T13:28:26.534380Z'
+updated_at: '2026-08-01T13:28:43.347982Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 target_branch: null
 review_url: null
@@ -225,5 +225,15 @@ compliance: licenses checks passed
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-176' pass; shellcheck, sh syntax checks, Python compilation, and  pass. make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-176'
 docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-176:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && mix format --check-formatted'
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-176' could not run because the sandbox Podman runtime requires a writable /run/user/1000/libpod; the Mission Control image/PostgreSQL integration remains for the dependency-provided application checkout.
+---
+author: oompah
+created: 2026-08-01 13:28
+---
+Verification: make test-mission-control-packaging, make test-release-packaging, make test-builders, make release-check, make check-links, and make check-licenses pass; shellcheck, sh syntax checks, Python compilation, and mix format --check-formatted mix.exs pass. make fmt-check is environment-blocked because the sandbox Podman runtime requires a writable /run/user/1000/libpod. The real Mission Control image/PostgreSQL integration remains for the dependency-provided application checkout.
+---
+author: oompah
+created: 2026-08-01 13:28
+---
+Implementation: added conditional mission_control OTP release registration, digest-pinned multi-stage OCI Containerfile, UID 10001/read-only state contract, explicit migrate/server/healthcheck entrypoint, reproducible OCI metadata packager for manifest/checksum/SPDX SBOM/SLSA provenance/license coverage, pinned image build and PostgreSQL restart harness scripts, Make targets, Docker context exclusions, and operator documentation.
 ---
 <!-- COMMENTS:END -->
