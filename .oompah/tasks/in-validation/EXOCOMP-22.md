@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-22
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement deterministic least-impact policy selection
 parent: EXOCOMP-3
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:08.344504Z'
-updated_at: '2026-07-25T02:14:44.304227Z'
+updated_at: '2026-08-01T02:59:47.474825Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -74,6 +74,28 @@ oompah.task_costs:
     output_tokens: 1776
     cost_usd: 0.0
     recorded_at: '2026-07-23T22:51:30.555284+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8e35626a9ac2
+    project_id: proj-c260b117
+    task_id: EXOCOMP-22
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b6a4a41590fe075b9751c0a2880d8b0a6fbf63f9cb5282366f441369e61cb7dd
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T02:59:45.197132+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -322,5 +344,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 57s
 - Log: EXOCOMP-22__20260723T224737Z.jsonl
+---
+author: oompah
+created: 2026-08-01 02:59
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
