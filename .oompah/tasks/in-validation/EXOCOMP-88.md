@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-08-01T01:43:38.023022Z'
+updated_at: '2026-08-01T01:59:52.185675Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -165,18 +165,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-88
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-4a3bea1edac2
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+      created_at: '2026-08-01T01:59:48.470338+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T01:59:48.470338+00:00'
+      branch_key: epic-EXOCOMP-2
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:35.372682+00:00'
+    updated_at: '2026-08-01T01:59:48.470338+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a299ab532604
@@ -231,6 +245,19 @@ oompah.terminal_audit:
     ended_at: '2026-07-31T19:54:57.713138+00:00'
     failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
     next_retry_at: '2026-07-31T19:55:37.713115+00:00'
+  - version: 1
+    attempt_id: attempt-4a3bea1edac2
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ab640f092239080b3f7f08f66783c616c3e9c35a97403a402615ecba3eb0a4d7
+    created_at: '2026-08-01T01:59:48.470338+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T01:59:48.470338+00:00'
+    branch_key: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -549,5 +576,15 @@ author: oompah
 created: 2026-08-01 01:43
 ---
 Terminal audit rearmed by project owner after recovery: Detached historical audit workspace recovery is deployed; retry the existing Archived audit without reopening implementation.
+---
+author: oompah
+created: 2026-08-01 01:59
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 01:59
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->

@@ -15,7 +15,7 @@ labels:
 - focus-complete:chore
 assignee: null
 created_at: '2026-07-23T23:01:30.250567Z'
-updated_at: '2026-08-01T01:59:24.608062Z'
+updated_at: '2026-08-01T01:59:45.754878Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -24,13 +24,13 @@ merged_at: null
 oompah.agent_run_id: 88b77f25-6138-4b3d-ab2a-d59a830ec285
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 271465
-  total_output_tokens: 98195
+  total_input_tokens: 271519
+  total_output_tokens: 100289
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 271465
-      output_tokens: 98195
+      input_tokens: 271519
+      output_tokens: 100289
       cost_usd: 0.0
   runs:
   - profile: default
@@ -57,6 +57,12 @@ oompah.task_costs:
     output_tokens: 65455
     cost_usd: 0.0
     recorded_at: '2026-07-24T02:28:23.263853+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 54
+    output_tokens: 2094
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T01:59:44.378743+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -814,5 +820,15 @@ Safe evidence:
 - previous_state: Merged
 - auto_archive_trigger: Aged Merged auto-archive (closed 7 days ago)
 - prior_audit_failure_cause: infrastructure_error: git worktree add failed on origin/epic-EXOCOMP-2 (recovered after OOMPAH-671 deploy)
+---
+author: oompah
+created: 2026-08-01 01:59
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 37
+- Tokens: 54 in / 2.1K out [2.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 45s
+- Log: EXOCOMP-77__20260801T015602Z.jsonl
 ---
 <!-- COMMENTS:END -->
