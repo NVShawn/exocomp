@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T16:43:56.128418Z'
+updated_at: '2026-08-01T16:45:02.884735Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -407,5 +407,10 @@ author: oompah
 created: 2026-08-01 16:43
 ---
 Understanding: I will audit the existing OIDC implementation against the auditor findings, fix callback JWT verification and state storage, complete provider-driven integration tests and dependency notices, then run focused tests plus make fmt-check and make lint before pushing and submitting.
+---
+author: oompah
+created: 2026-08-01 16:45
+---
+Discovery: the branch is based directly on main at 8f80aebf, while epic-EXOCOMP-128 at f34b7d15 is the current Mission Control tip containing EXOCOMP-136 and EXOCOMP-138. The auth files are isolated in the earlier implementation, but all tests and the fake provider are placeholders; I will rebase onto that tip before hardening them.
 ---
 <!-- COMMENTS:END -->
