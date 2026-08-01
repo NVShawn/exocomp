@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:22:49.195653Z'
+updated_at: '2026-08-01T23:23:17.588145Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -122,12 +122,12 @@ oompah.agent_run_id: 152f3243-2eb0-4100-ac6a-35a41e0e334d
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
-  base_branch: epic-EXOCOMP-186
-  base_sha: 04f4ea53956dd19036a6244ce848566495296f76
-  updated_at: '2026-08-01T23:01:50.164484+00:00'
+  head_sha: e70d3a0ee5cb1979af450c1642ca93e7db9b9c20
+  submitted_at: '2026-08-01T23:23:14.926169+00:00'
+  updated_at: '2026-08-01T23:23:14.926169+00:00'
 oompah.task_costs:
   total_input_tokens: 186
   total_output_tokens: 5976
@@ -269,5 +269,10 @@ Created CephDaemonRestart remediation adapter that:
 Adapter reuses existing task correlation, idempotency, per-target locking through the remediation lifecycle framework. Automatic-mode discovery cannot authorize - only explicit proposals can.
 
 Added 11 comprehensive tests covering: validation, policy rejection scenarios (active/degraded daemons, stale evidence), execution, verification, and end-to-end flows.
+---
+author: oompah
+created: 2026-08-01 23:23
+---
+Implemented CephDaemonRestart remediation adapter with comprehensive validation, policy enforcement, and safety gates. All acceptance criteria met and tests passing.
 ---
 <!-- COMMENTS:END -->
