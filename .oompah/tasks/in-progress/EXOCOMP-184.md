@@ -15,9 +15,10 @@ blocked_by:
 start_blocked_by: []
 labels:
 - focus-complete:security
+- focus-complete:docs
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:48:38.590048Z'
+updated_at: '2026-08-01T13:49:41.840187Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -518,5 +519,18 @@ author: oompah
 created: 2026-08-01 13:48
 ---
 VERIFICATION (docs): PASS: make check-links; PASS: make test-release-packaging (16 package/normalizer/operator-documentation tests); PASS: make release-check (29 compliance, qualification-workflow, docs, packaging, and input-normalizer tests); PASS: all new shell blocks parse with bash -n; PASS: git diff --check. Live test-m7-qualification execution remains unavailable because the M7 target and outstanding dependency implementations are not integrated into this branch.
+---
+author: oompah
+created: 2026-08-01 13:49
+---
+Focus handoff: docs
+
+OUTCOME: Documentation phase complete. Added and pushed the operator-facing Mission Control qualification contract in docs/mission-control-qualification.md and indexed it in docs/README.md (commit eb637c05).
+
+EVIDENCE/DECISIONS: The runbook requires one signed candidate tag, frozen shipped artifacts for amd64 and arm64, host/builder/dependency/model/migration/config identities, explicit override records, all M7-CRIT-1..12 evidence, and a signed deterministic evidence index. It defines the required Make interfaces: build-mission-control-{amd64,arm64}, security, test-mission-control-packaging, test-mission-control-image, and test-m7-qualification with ARCH and M7_EVIDENCE_DIR. Verified with make check-links, make test-release-packaging, make release-check, bash -n for new shell blocks, and git diff --check; all passed.
+
+REMAINING WORK/RISKS: The current epic base does not yet contain the M7 qualification target or all Mission Control dependencies. A DevOps/test implementation must integrate EXOCOMP-176/178/181/183, implement the documented target/evidence contract, build and sign one final candidate, run both architecture guests through repository, install, migration, security, two-cluster, scale, lifecycle, and docs gates, then commit the checksummed signed evidence. Do not submit EXOCOMP-184 until both architecture results pass; public release creation remains out of scope.
+
+RECOMMENDED NEXT FOCUS: devops, with test support for the full M7 harness.
 ---
 <!-- COMMENTS:END -->
