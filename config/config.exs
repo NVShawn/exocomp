@@ -26,6 +26,9 @@ recovery_audit_path =
 
 config :exocomp_node, :recovery_audit_path, recovery_audit_path
 
+config :exocomp_mission_control,
+  ecto_repos: [Exocomp.MissionControl.Repo]
+
 config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
   adapter: Bandit.PhoenixAdapter,
   http: [ip: {127, 0, 0, 1}, port: 4000],

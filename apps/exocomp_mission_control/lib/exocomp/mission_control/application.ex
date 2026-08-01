@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Exocomp contributors
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.Application do
-  @moduledoc false
+  @moduledoc "OTP application for the Mission Control control plane."
 
   use Application
 
@@ -23,8 +23,8 @@ defmodule Exocomp.MissionControl.Application do
   def children do
     [
       {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
-      Exocomp.MissionControl.Endpoint,
-      Exocomp.MissionControl.Repo
+      Exocomp.MissionControl.Repo,
+      Exocomp.MissionControl.Endpoint
     ]
   end
 end

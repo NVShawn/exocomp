@@ -15,6 +15,7 @@ defmodule Exocomp.MissionControl.MixProject do
       start_permanent: Mix.env() == :prod,
       start_apps_before_run: [:logger],
       elixirc_paths: elixirc_paths(Mix.env()),
+      ecto_repos: [Exocomp.MissionControl.Repo],
       aliases: aliases(),
       deps: deps()
     ]
@@ -39,13 +40,14 @@ defmodule Exocomp.MissionControl.MixProject do
     ]
   end
 
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_env), do: ["lib"]
-
   defp aliases do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"]
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.seed": ["run", "priv/repo/seeds.exs"]
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_env), do: ["lib"]
 end
