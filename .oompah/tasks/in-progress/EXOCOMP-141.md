@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T11:54:21.460398Z'
+updated_at: '2026-08-01T11:55:26.296964Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -129,5 +129,34 @@ author: oompah
 created: 2026-08-01 11:54
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 11:55
+---
+## Understanding & Initial Assessment
+
+**Interpretation:** EXOCOMP-141 requires implementing authorization enforcement for a Mission Control system with three role levels (viewer, operator, admin) scoped to organizations. The deliverables include:
+1. Database schemas for operator identity and role bindings
+2. OIDC claims/groups to role mapping logic
+3. Authorization plugs and context-level enforcement functions
+4. Audit logging for mutations (OIDC subject, correlation ID)
+
+**Task Classification Issue:** This task was dispatched to Frontend Developer role, but the work is primarily backend authorization logic (Elixir/Phoenix):
+- No Mission Control app exists yet; must scaffold it
+- Database schema design is backend work
+- OIDC integration is backend work
+- Authorization plugs/hooks are backend enforcement (not UI)
+- Context functions are backend business logic
+
+The frontend aspect mentioned in acceptance criteria ("Removing a UI control does not bypass context authorization") means the UI should NOT be the only authorization boundary—it's a test of backend enforcement, not frontend work.
+
+**Recommendation:** This should be handed off to a backend/feature focus agent to:
+- Create the mission_control app structure
+- Implement schemas and database migrations
+- Add OIDC authentication and role mapping
+- Implement context-level authorization functions
+- Write comprehensive role matrix tests
+
+The Frontend Developer role is not the right fit for the core implementation. Request dispatch to backend-capable focus.
 ---
 <!-- COMMENTS:END -->
