@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-08-01T02:49:02.482564Z'
+updated_at: '2026-08-01T02:49:12.649882Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 41e13a1f-8569-40d8-a39a-4772bf3a1956
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 425789
-  total_output_tokens: 30615
+  total_input_tokens: 425813
+  total_output_tokens: 34781
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 425789
-      output_tokens: 30615
+      input_tokens: 425813
+      output_tokens: 34781
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 27969
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:23:19.393919+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 24
+    output_tokens: 4166
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:49:10.791779+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -564,5 +570,15 @@ Safe evidence:
 - merged_into_main: yes (e32a175 is ancestor of origin/main; many subsequent commits present)
 - previous_auditor_failure_cause: infrastructure (invalid reference origin/epic-EXOCOMP-2), not implementation
 - operator_recovery_status: OOMPAH-671 deployed; terminal audit rearmed by project owner
+---
+author: oompah
+created: 2026-08-01 02:49
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 25, Tool calls: 18
+- Tokens: 24 in / 4.2K out [4.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 36s
+- Log: EXOCOMP-105__20260801T024739Z.jsonl
 ---
 <!-- COMMENTS:END -->
