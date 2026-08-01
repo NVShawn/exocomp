@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-70
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Create systemd unit file and fixture installer/cleanup scripts
 parent: EXOCOMP-29
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:39.885357Z'
-updated_at: '2026-07-25T02:14:50.384033Z'
+updated_at: '2026-08-01T03:00:32.828111Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 915
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:32:57.695908+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-1fad7258de2b
+    project_id: proj-c260b117
+    task_id: EXOCOMP-70
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c46b41873b028646173d7283743fdc1bb5db464396191ab29ba819deddb455c4
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:30.243317+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -265,5 +287,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 48s
 - Log: EXOCOMP-70__20260723T212912Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
