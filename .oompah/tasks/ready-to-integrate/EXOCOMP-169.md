@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.145960Z'
-updated_at: '2026-08-01T13:12:27.196489Z'
+updated_at: '2026-08-01T13:12:44.236801Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-169
 target_branch: null
 review_url: null
@@ -53,17 +53,19 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-169
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: ccd51b8d4c7d6177ae5aa94ae410596ab367e882
   submitted_at: '2026-08-01T13:12:25.309789+00:00'
-  updated_at: '2026-08-01T13:12:25.309789+00:00'
+  updated_at: '2026-08-01T13:12:43.521302+00:00'
 oompah.task_costs:
-  total_input_tokens: 719357
-  total_output_tokens: 4635
+  total_input_tokens: 719943
+  total_output_tokens: 37686
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 719357
-      output_tokens: 4635
+      input_tokens: 719943
+      output_tokens: 37686
       cost_usd: 0.0
   runs:
   - profile: default
@@ -72,6 +74,12 @@ oompah.task_costs:
     output_tokens: 4635
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:03:20.799865+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 586
+    output_tokens: 33051
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:12:38.350024+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-169__20260801T130130Z
@@ -82,6 +90,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-133--task-EXOCOMP-169
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:03:20.828886+00:00'
+  - run_id: EXOCOMP-169__20260801T130338Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: haiku
+    focus: frontend
+    source_branch: epic-EXOCOMP-133--task-EXOCOMP-169
+    source_sha: ccd51b8d4c7d6177ae5aa94ae410596ab367e882
+    completed_at: '2026-08-01T13:12:38.353753+00:00'
 ---
 ## Summary
 
@@ -216,5 +232,20 @@ author: oompah
 created: 2026-08-01 13:12
 ---
 Implemented proposal controls and action timeline UI for Mission Control. Created exocomp_mission_control Phoenix LiveView app with approve/deny controls (context-guarded), timeline visualization (decision→delivery→execution→verification→terminal), and comprehensive test coverage (60 tests covering approval, denial, offline/expired/stale/terminal states, concurrent conflicts, failures, and approved invariant). All 9 proposal fields rendered, responsive CSS, format checks pass. Ready for backend integration (EXOCOMP-162/163/168).
+---
+author: oompah
+created: 2026-08-01 13:12
+---
+Agent completed successfully in 548s (33637 tokens)
+---
+author: oompah
+created: 2026-08-01 13:12
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 159, Tool calls: 84
+- Tokens: 586 in / 33.1K out [33.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 9m 8s
+- Log: EXOCOMP-169__20260801T130338Z.jsonl
 ---
 <!-- COMMENTS:END -->
