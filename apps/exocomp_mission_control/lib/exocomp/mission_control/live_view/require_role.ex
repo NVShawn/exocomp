@@ -19,6 +19,8 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
       end
   """
 
+  import Phoenix.LiveView
+
   alias Exocomp.MissionControl.Identity.Operator
 
   def require_authenticated_or_redirect({:ok, socket}, session) do

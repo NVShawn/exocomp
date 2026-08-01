@@ -11,6 +11,8 @@ defmodule Exocomp.MissionControl.Plug.RequireRole do
   import Plug.Conn
   require Logger
 
+  alias Phoenix.Controller
+
   def init(opts) do
     opts
   end
