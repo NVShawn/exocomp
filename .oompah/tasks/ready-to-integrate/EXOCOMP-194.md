@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-194
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Define desired-service status events and contract fixtures
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:29:53.220468Z'
+updated_at: '2026-08-01T17:29:56.931793Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -163,5 +163,10 @@ author: oompah
 created: 2026-08-01 17:29
 ---
 Completion: delivered and pushed a163c832. The versioned shared status contract now covers desired-state add/change/remove, service health deltas, profile coverage, periodic full snapshots, mandatory correlation and evidence metadata, strict forward-version/schema checks, recursive redaction, payload/event bounds, and deterministic duplicate/out-of-order replay. Shared JSON fixtures are consumed by core and coordinator tests; branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-08-01 17:29
+---
+Defined and tested the shared versioned desired-service status contract, replay reducer, coordinator facade, and JSON fixtures; pushed a163c832.
 ---
 <!-- COMMENTS:END -->
