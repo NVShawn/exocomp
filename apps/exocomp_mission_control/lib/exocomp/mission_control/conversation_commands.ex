@@ -24,7 +24,8 @@ defmodule Exocomp.MissionControl.ConversationCommands do
   alias Exocomp.MissionControl.{CommandOutbox, Conversations, Message}
 
   @type send_result :: {:ok, %{message: Message.t(), command: term()}} | {:error, term()}
-  @type reply_result :: {:ok, %{operator_message: Message.t(), reply_message: Message.t()}} | {:error, term()}
+  @type reply_result ::
+          {:ok, %{operator_message: Message.t(), reply_message: Message.t()}} | {:error, term()}
 
   @doc """
   Translate an operator message into a durable command and send it to a cluster.
@@ -37,7 +38,14 @@ defmodule Exocomp.MissionControl.ConversationCommands do
   """
   @spec send_message(String.t(), String.t(), String.t(), String.t(), [map()], keyword()) ::
           send_result()
-  def send_message(organization_id, conversation_id, cluster_id, text, evidence_refs \\ [], opts \\ [])
+  def send_message(
+        organization_id,
+        conversation_id,
+        cluster_id,
+        text,
+        evidence_refs \\ [],
+        opts \\ []
+      )
       when is_binary(organization_id) and is_binary(conversation_id) and is_binary(cluster_id) and
              is_binary(text) and is_list(evidence_refs) do
     # Extract command-specific options
@@ -49,12 +57,17 @@ defmodule Exocomp.MissionControl.ConversationCommands do
     conversation_opts = Keyword.delete(Keyword.delete(opts, :command_repo), :now)
 
     with {:ok, message} <-
-           Conversations.append_message(organization_id, conversation_id,
+           Conversations.append_message(
+             organization_id,
+             conversation_id,
              %{sender_type: :operator, body: text, evidence_refs: evidence_refs},
              conversation_opts
            ),
          {:ok, delivered_message} <-
-           Conversations.mark_delivered(organization_id, conversation_id, message.id,
+           Conversations.mark_delivered(
+             organization_id,
+             conversation_id,
+             message.id,
              conversation_opts
            ),
          {:ok, command} <-
@@ -126,13 +139,20 @@ defmodule Exocomp.MissionControl.ConversationCommands do
            Conversations.complete_message(organization_id, conversation_id, message_id, opts),
          # Create the reply message from the cluster
          {:ok, reply_message} <-
-           Conversations.append_message(organization_id, conversation_id,
+           Conversations.append_message(
+             organization_id,
+             conversation_id,
              %{sender_type: :cluster, body: reply_text, evidence_refs: reply_evidence_refs},
              opts
            ),
          # Mark the reply as completed immediately (it's the final state for cluster messages)
          {:ok, reply_message} <-
-           Conversations.complete_message(organization_id, conversation_id, reply_message.id, opts) do
+           Conversations.complete_message(
+             organization_id,
+             conversation_id,
+             reply_message.id,
+             opts
+           ) do
       {:ok, %{operator_message: completed_msg, reply_message: reply_message}}
     end
   end
@@ -175,18 +195,22 @@ defmodule Exocomp.MissionControl.ConversationCommands do
   defp validate_message_can_reply(%Message{state: :queued}),
     do: {:error, :message_not_delivered}
 
-  defp validate_message_can_reply(%Message{state: state}) when state in [:completed, :failed, :expired],
-    do: {:error, {:message_already_terminal, state}}
+  defp validate_message_can_reply(%Message{state: state})
+       when state in [:completed, :failed, :expired],
+       do: {:error, {:message_already_terminal, state}}
 
   defp validate_message_can_reply(_message),
     do: {:error, :invalid_message_state}
 
-  defp evidence_ref_to_map(ref) when is_map(ref), do: ref
-
-  defp evidence_ref_to_map(%_{} = struct) do
-    struct
-    |> Map.from_struct()
-    |> Enum.reject(fn {_k, v} -> is_nil(v) end)
-    |> Map.new()
+  defp evidence_ref_to_map(ref) when is_map(ref) do
+    # Handle both plain maps and structs
+    if Map.has_key?(ref, :__struct__) do
+      ref
+      |> Map.from_struct()
+      |> Enum.reject(fn {_k, v} -> is_nil(v) end)
+      |> Map.new()
+    else
+      ref
+    end
   end
 end

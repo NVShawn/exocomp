@@ -24,9 +24,7 @@ defmodule Exocomp.MissionControl.ConversationCommandsTest do
     start_supervised!({Conversations, [name: conv_name, now_fun: fn -> @now end]})
 
     {:ok, conversation} =
-      Conversations.create_cluster_conversation("org-a", "cluster-1",
-        server: conv_name
-      )
+      Conversations.create_cluster_conversation("org-a", "cluster-1", server: conv_name)
 
     %{
       conv_server: conv_name,
@@ -267,7 +265,12 @@ defmodule Exocomp.MissionControl.ConversationCommandsTest do
         Conversations.complete_message(org_id, conv_id, msg.id, server: conv_server)
 
       assert completed_msg.state == :completed
-      assert Enum.map(completed_msg.state_history, & &1.to) == [:delivered, :reasoning, :completed]
+
+      assert Enum.map(completed_msg.state_history, & &1.to) == [
+               :delivered,
+               :reasoning,
+               :completed
+             ]
     end
   end
 
