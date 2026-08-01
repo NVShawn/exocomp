@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:15:57.567411Z'
+updated_at: '2026-08-01T18:17:02.508733Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -814,5 +814,10 @@ author: oompah
 created: 2026-08-01 18:15
 ---
 Understanding: The previous agent addressed elixirc_paths and encryption_salt, but the auditor identified that Plug.Conn imports must be moved to top-level in ConnCase so the test helpers work correctly. My plan: (1) fix the top-level import in test/support/conn_case.ex, (2) run the full OIDC test suite (client, config-cache, integration, controller tests) to verify they pass end-to-end, (3) run fmt-check and lint, (4) verify compliance-check still passes, (5) commit and submit.
+---
+author: oompah
+created: 2026-08-01 18:17
+---
+Discovery: Found the ConnCase import issue - Plug.Conn and Phoenix.ConnTest were only inside the 'using do quote do' block, making them unavailable to the helper functions (build_conn, init_test_session, put_session_values). Moved imports to top-level of the module so they're accessible to both the helper functions and test modules that use ConnCase.
 ---
 <!-- COMMENTS:END -->
