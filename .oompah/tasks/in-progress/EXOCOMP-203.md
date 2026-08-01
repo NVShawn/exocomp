@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:32:30.146624Z'
+updated_at: '2026-08-01T23:32:49.171926Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -118,19 +118,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 152f3243-2eb0-4100-ac6a-35a41e0e334d
+oompah.agent_run_id: 60d24aed-52a8-4658-9b79-54764cf366fd
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
   base_branch: epic-EXOCOMP-186
-  base_sha: 04f4ea53956dd19036a6244ce848566495296f76
-  head_sha: d9b18e509eb086319096ec487a4ebcc82d0ac027
-  integrated_sha: d9b18e509eb086319096ec487a4ebcc82d0ac027
-  submitted_at: '2026-08-01T23:23:14.926169+00:00'
-  updated_at: '2026-08-01T23:24:53.416942+00:00'
+  base_sha: d9b18e509eb086319096ec487a4ebcc82d0ac027
+  updated_at: '2026-08-01T23:32:46.648922+00:00'
 oompah.task_costs:
   total_input_tokens: 969
   total_output_tokens: 54450
@@ -472,5 +469,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 7m 27s
 - Log: EXOCOMP-203__20260801T232504Z.jsonl
+---
+author: oompah
+created: 2026-08-01 23:32
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 23:32
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
