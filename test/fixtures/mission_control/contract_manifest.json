@@ -1,0 +1,72 @@
+{
+  "corpus_version": 1,
+  "supported_schema_versions": [1],
+  "limits": {
+    "event_payload_bytes": 102400,
+    "command_payload_bytes": 102400
+  },
+  "envelopes": {
+    "event": {
+      "fixture_file": "protocol_events.json",
+      "required_fields": [
+        "schema_version",
+        "event_id",
+        "cluster_seq",
+        "kind",
+        "occurred_at",
+        "payload"
+      ],
+      "allowed_fields": [
+        "schema_version",
+        "event_id",
+        "cluster_seq",
+        "kind",
+        "occurred_at",
+        "correlation_id",
+        "payload"
+      ]
+    },
+    "command": {
+      "fixture_file": "protocol_commands.json",
+      "required_fields": [
+        "command_id",
+        "kind",
+        "issued_at",
+        "expires_at",
+        "payload"
+      ],
+      "allowed_fields": [
+        "command_id",
+        "kind",
+        "issued_at",
+        "expires_at",
+        "payload"
+      ]
+    },
+    "acknowledgement": {
+      "fixture_file": "protocol_acknowledgements.json",
+      "required_fields": [
+        "acknowledged_at",
+        "highest_seq",
+        "session_id"
+      ],
+      "allowed_fields": [
+        "acknowledged_at",
+        "highest_seq",
+        "session_id"
+      ]
+    }
+  },
+  "status_event_fixtures": [
+    "desired_state_added.json",
+    "desired_state_removed.json",
+    "duplicate_delivery.json",
+    "out_of_order_delivery.json",
+    "profile_coverage.json",
+    "service_status_changed.json",
+    "service_summary_snapshot.json"
+  ],
+  "mutation_file": "protocol_errors.json",
+  "replay_file": "protocol_replay.json",
+  "redaction_file": "redaction.json"
+}
