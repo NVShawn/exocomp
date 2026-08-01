@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-3
 type: epic
-status: Merged
+status: In Validation
 priority: 1
 title: 'M3: Safety validation and controlled remediation'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-07-25T21:07:35.139110Z'
+updated_at: '2026-08-01T21:18:57.254645Z'
 work_branch: epic-EXOCOMP-3
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/12
@@ -30,6 +30,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/12
 oompah.review_number: '12'
 oompah.work_branch: epic-EXOCOMP-3
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-72983f0fb0f0
+    project_id: proj-c260b117
+    task_id: EXOCOMP-3
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5512afa98f25aed5df83c0f51cc11d33396f2cb621041ee8fde12d3a19cd082c
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:54.523492+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -62,5 +84,10 @@ author: oompah
 created: 2026-07-25 02:10
 ---
 YOLO: merged PR #12.
+---
+author: oompah
+created: 2026-08-01 21:18
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
