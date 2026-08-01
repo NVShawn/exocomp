@@ -22,6 +22,7 @@ defmodule Exocomp.MissionControl.Router do
     # OIDC Authentication routes
     get("/auth/login", AuthController, :login)
     get("/auth/callback", AuthController, :callback)
+    get("/auth/logout", AuthController, :logout)
     post("/auth/logout", AuthController, :logout)
 
     # Protected routes

@@ -31,7 +31,7 @@ defmodule Exocomp.MissionControl.ConnCase do
   """
   def build_conn do
     Phoenix.ConnTest.build_conn()
-    |> Plug.Session.call(Plug.Session.init(key: "_test_key", store: :cookie))
+    |> Plug.Session.call(Plug.Session.init(Exocomp.MissionControl.Endpoint.session_options()))
     |> fetch_session()
   end
 

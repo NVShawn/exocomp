@@ -19,6 +19,9 @@ defmodule Exocomp.MissionControl.Endpoint do
 
   socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
 
+  @doc false
+  def session_options, do: @session_options
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest

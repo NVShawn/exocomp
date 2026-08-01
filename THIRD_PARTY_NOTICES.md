@@ -71,6 +71,106 @@ upstream license or notice named by their build-specific inventory.
 - Version: 0.9.2.
 - License: [BSD-3-Clause](https://github.com/voltone/x509/blob/HEAD/LICENSE).
 
+### Certifi
+
+- Version: 2.15.0.
+- License: [BSD-3-Clause](https://github.com/certifi/erlang-certifi/blob/main/LICENSE).
+
+### Cowboy
+
+- Version: 2.18.0.
+- License: [MIT](https://github.com/ninenines/cowboy/blob/master/LICENSE).
+
+### Cowboy Telemetry
+
+- Version: 0.4.0.
+- License: [Apache-2.0](https://github.com/beam-telemetry/cowboy_telemetry/blob/main/LICENSE).
+
+### Cowlib
+
+- Version: 2.19.0.
+- License: [MIT](https://github.com/ninenines/cowlib/blob/master/LICENSE).
+
+### DBConnection
+
+- Version: 2.10.2.
+- License: [Apache-2.0](https://github.com/elixir-ecto/db_connection/blob/main/LICENSE).
+
+### Decimal
+
+- Version: 3.1.1.
+- License: [Apache-2.0](https://github.com/ericmj/decimal/blob/main/LICENSE.txt).
+
+### Ecto
+
+- Version: 3.14.1.
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto/blob/main/LICENSE).
+
+### Ecto SQL
+
+- Version: 3.14.0.
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto_sql/blob/main/LICENSE).
+
+### Hackney
+
+- Version: 1.25.0.
+- License: [Apache-2.0](https://github.com/benoitc/hackney/blob/master/LICENSE).
+
+### HTTPoison
+
+- Version: 2.3.0.
+- License: [MIT](https://github.com/edgurgel/httpoison/blob/master/LICENSE).
+
+### IDNA
+
+- Version: 6.1.1.
+- License: [MIT](https://github.com/benoitc/erlang-idna/blob/master/LICENSE).
+
+### JOSE
+
+- Version: 1.11.12.
+- License: [MIT](https://github.com/potatosalad/erlang-jose/blob/main/LICENSE.md).
+
+### Metrics
+
+- Version: 1.0.1.
+- License: [BSD-3-Clause](https://github.com/benoitc/erlang-metrics/blob/master/LICENSE).
+
+### Mimerl
+
+- Version: 1.5.0.
+- License: [MIT](https://github.com/ninenines/mimerl/blob/master/LICENSE).
+
+### Parse Trans
+
+- Version: 3.4.1.
+- License: [Apache-2.0](https://github.com/uwiger/parse_trans/blob/master/LICENSE).
+
+### Plug Cowboy
+
+- Version: 2.9.0.
+- License: [Apache-2.0](https://github.com/elixir-plug/plug_cowboy/blob/main/LICENSE).
+
+### Postgrex
+
+- Version: 0.22.3.
+- License: [Apache-2.0](https://github.com/elixir-ecto/postgrex/blob/main/LICENSE).
+
+### Ranch
+
+- Version: 2.2.1.
+- License: [MIT](https://github.com/ninenines/ranch/blob/master/LICENSE).
+
+### SSL Verify Fun
+
+- Version: 1.1.7.
+- License: [MIT](https://github.com/deadtrickster/ssl_verify_fun.erl/blob/master/LICENSE).
+
+### Unicode Util Compat
+
+- Version: 0.7.1.
+- License: [Apache-2.0](https://github.com/okeuday/unicode_util_compat/blob/master/LICENSE).
+
 ### llama.cpp
 
 - Use: bundled `llama-server` inference runtime.
