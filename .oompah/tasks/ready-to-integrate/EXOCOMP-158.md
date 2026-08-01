@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-158
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Store bounded conversations, messages, and evidence references
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T12:52:29.372971Z'
+updated_at: '2026-08-01T12:52:39.025491Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -49,12 +49,12 @@ oompah.agent_run_id: c6f3b776-ef79-4a71-bfcc-8c95d7ef594a
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-158
-  base_branch: epic-EXOCOMP-132
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:37:02.959416+00:00'
+  head_sha: b8776d44cadc940817874c801768890e1cf82aba
+  submitted_at: '2026-08-01T12:52:36.170166+00:00'
+  updated_at: '2026-08-01T12:52:36.170166+00:00'
 oompah.task_costs:
   total_input_tokens: 897761
   total_output_tokens: 4536
@@ -166,5 +166,10 @@ author: oompah
 created: 2026-08-01 12:52
 ---
 Completion: delivered organization-scoped incident/ad hoc cluster conversations, memberships, ordered 16 KiB-bounded messages, structured evidence references, newest-50/64 KiB context selection, lifecycle states, isolation checks, and focused tests in commit b8776d44. Branch pushed and clean; container-backed gates are pending an available builder runtime.
+---
+author: oompah
+created: 2026-08-01 12:52
+---
+Implemented bounded organization-scoped Mission Control conversations, memberships, ordered messages, evidence references, context selection, lifecycle transitions, validation, and focused tests. Commit b8776d44 pushed; container quality gates are environment-blocked by unavailable Docker/libpod runtime.
 ---
 <!-- COMMENTS:END -->
