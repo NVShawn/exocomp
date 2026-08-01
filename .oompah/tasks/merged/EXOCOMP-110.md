@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:52:37.335927Z'
-updated_at: '2026-08-01T21:55:59.957451Z'
+updated_at: '2026-08-01T21:56:02.616643Z'
 work_branch: epic-EXOCOMP-110
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/14
@@ -94,8 +94,9 @@ oompah.terminal_audit:
     status: Merged
     audit_ids:
     - audit-b1d71a260c0d
-    applied: false
+    applied: true
     created_at: '2026-08-01T21:55:57.568573+00:00'
+    applied_at: '2026-08-01T21:56:01.896920+00:00'
   version: 1
   pending_chain:
   - version: 1
