@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-08-01T15:20:15.502423Z'
+updated_at: '2026-08-01T15:20:55.499892Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 target_branch: null
 review_url: null
@@ -58,13 +58,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:20:13.349900+00:00'
   updated_at: '2026-08-01T15:20:13.349900+00:00'
 oompah.task_costs:
-  total_input_tokens: 1352093
-  total_output_tokens: 5941
+  total_input_tokens: 1352103
+  total_output_tokens: 6461
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 1352093
-      output_tokens: 5941
+      input_tokens: 1352103
+      output_tokens: 6461
       cost_usd: 0.0
   runs:
   - profile: default
@@ -73,6 +73,12 @@ oompah.task_costs:
     output_tokens: 5941
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:55:55.430459+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 10
+    output_tokens: 520
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:20:53.811515+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-156__20260801T145319Z
@@ -218,5 +224,15 @@ author: oompah
 created: 2026-08-01 15:20
 ---
 Implemented incident acknowledgement, assignment, snooze, and resolution mutations with role-based authorization, audit trail recording, and comprehensive test coverage. All quality gates passed (511 tests, fmt-check, lint).
+---
+author: oompah
+created: 2026-08-01 15:20
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 102
+- Tokens: 10 in / 520 out [530 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 24m 44s
+- Log: EXOCOMP-156__20260801T145616Z.jsonl
 ---
 <!-- COMMENTS:END -->
