@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T16:17:03.946427Z'
+updated_at: '2026-08-01T16:17:45.928299Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -49,12 +49,12 @@ oompah.agent_run_id: 555e5f81-a28a-45d3-85a5-55fa44474334
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-202
-  base_branch: epic-EXOCOMP-186
-  base_sha: 7b4b2af51f12b228fbaabe25bbaa3a757e776022
-  updated_at: '2026-08-01T16:07:31.299581+00:00'
+  head_sha: 4204d7548887ae0f284f772ccc276a957d37dc60
+  submitted_at: '2026-08-01T16:17:43.441713+00:00'
+  updated_at: '2026-08-01T16:17:43.441713+00:00'
 oompah.task_costs:
   total_input_tokens: 1055392
   total_output_tokens: 38075
@@ -458,5 +458,15 @@ author: oompah
 created: 2026-08-01 16:17
 ---
 Verification: make test-bundle passes 109 tests (including amd64/arm64 ELF matching and wrong-architecture rejection), make test-installer passes 87 tests (including fake-visudo rollback), make test-release-packaging passes all 16 tests across its three suites, and make test-profile-action-helper passes the native helper tests. No failures; only existing tar extraction deprecation warnings.
+---
+author: oompah
+created: 2026-08-01 16:17
+---
+Completion: pushed commit 4204d754. EXOCOMP-202 now has architecture-validated helper binaries for both bundle architectures, manifest/SBOM/hash/tamper coverage, node-only root-owned installation, atomic visudo-safe sudoers updates, and corrected installer fixtures. Required tests are green; branch is up to date with origin.
+---
+author: oompah
+created: 2026-08-01 16:17
+---
+Closed profile-action-helper packaging audit gaps: architecture-safe amd64/arm64 bundle staging, manifest/SBOM/tamper coverage, node-only secure installation, and atomic visudo rollback. Required quality gates pass.
 ---
 <!-- COMMENTS:END -->
