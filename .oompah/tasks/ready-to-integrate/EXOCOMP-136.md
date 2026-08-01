@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T15:17:19.313067Z'
+updated_at: '2026-08-01T15:18:28.819951Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -67,13 +67,13 @@ oompah.integration:
   submitted_at: '2026-08-01T15:17:15.393095+00:00'
   updated_at: '2026-08-01T15:17:15.393095+00:00'
 oompah.task_costs:
-  total_input_tokens: 12623503
-  total_output_tokens: 53109
+  total_input_tokens: 13942155
+  total_output_tokens: 62797
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 12623497
-      output_tokens: 51964
+      input_tokens: 13942149
+      output_tokens: 61652
       cost_usd: 0.0
     unknown:
       input_tokens: 6
@@ -104,6 +104,12 @@ oompah.task_costs:
     output_tokens: 1145
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:10:49.120476+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1318652
+    output_tokens: 9688
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T15:18:27.578168+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-136__20260801T143445Z
@@ -382,5 +388,15 @@ author: oompah
 created: 2026-08-01 15:17
 ---
 Route Mission Control health through a Phoenix controller and API pipeline; pushed 074712f0. Focused checks pass; container quality gates are environment-blocked by Podman runtime permissions.
+---
+author: oompah
+created: 2026-08-01 15:18
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 51
+- Tokens: 1.3M in / 9.7K out [1.3M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 5m 16s
+- Log: EXOCOMP-136__20260801T151325Z.jsonl
 ---
 <!-- COMMENTS:END -->

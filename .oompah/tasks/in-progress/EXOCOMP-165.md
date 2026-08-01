@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-165
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Build the fleet overview LiveView
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:58.020040Z'
-updated_at: '2026-08-01T15:18:17.209829Z'
+updated_at: '2026-08-01T15:18:41.338092Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-165
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 348efd6a-e30c-42e8-9612-0a34e4c4924f
+oompah.agent_run_id: 4b806305-bd64-4142-b644-1f8f7c465d7f
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-165
 oompah.integration:
   version: 2
@@ -47,7 +47,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-165
   base_branch: epic-EXOCOMP-133
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:14:21.668454+00:00'
+  updated_at: '2026-08-01T15:18:39.651979+00:00'
 oompah.task_costs:
   total_input_tokens: 328548
   total_output_tokens: 4331
@@ -119,5 +119,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 3m 58s
 - Log: EXOCOMP-165__20260801T151425Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:18
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 15:18
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

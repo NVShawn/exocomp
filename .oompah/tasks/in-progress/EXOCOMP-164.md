@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-01T15:15:31.797626Z'
+updated_at: '2026-08-01T15:18:31.525172Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -196,5 +196,17 @@ Planned approach:
 7. Verify accessibility and formatting/lint
 
 Starting discovery now.
+---
+author: oompah
+created: 2026-08-01 15:18
+---
+Discovery: Found baseline Phoenix+LiveView app from EXOCOMP-136. EXOCOMP-140 provides OIDC authentication (OIDCClient, AuthController). EXOCOMP-141 provides authorization framework (Authorization, Operator, role-based access). Merging blockers directly causes conflicts; manually integrating code from both branches instead.
+
+Beginning integration of:
+1. OIDC authentication files
+2. Authorization framework
+3. LiveView root layout with auth guards
+4. Role-aware navigation
+5. Reusable UI components
 ---
 <!-- COMMENTS:END -->
