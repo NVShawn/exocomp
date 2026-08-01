@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-08-01T21:22:38.100325Z'
+updated_at: '2026-08-01T21:23:52.304558Z'
 work_branch: epic-EXOCOMP-3
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/12
@@ -32,6 +32,30 @@ oompah.work_branch: epic-EXOCOMP-3
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-03577dfbb3d4: '2026-08-01T21:23:51.707962+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-3
+    target_state: Archived
+    evidence_fingerprint: 5512afa98f25aed5df83c0f51cc11d33396f2cb621041ee8fde12d3a19cd082c
+    audit_ids:
+    - audit-72983f0fb0f0
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:23:51.707974+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-3
+    audit_id: audit-72983f0fb0f0
+    attempt_id: attempt-03577dfbb3d4
+    target_state: Archived
+    evidence_fingerprint: 5512afa98f25aed5df83c0f51cc11d33396f2cb621041ee8fde12d3a19cd082c
+    status: In Validation
+    audit_ids:
+    - audit-72983f0fb0f0
+    applied: false
+    created_at: '2026-08-01T21:23:51.707990+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -39,7 +63,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-3
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -48,7 +72,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-03577dfbb3d4
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -58,13 +82,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:19:04.163564+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T21:23:51.707784+00:00'
+      ended_at: '2026-08-01T21:23:51.707784+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:18:54.523492+00:00'
-    updated_at: '2026-08-01T21:19:04.163564+00:00'
+    updated_at: '2026-08-01T21:23:51.707784+00:00'
   - version: 1
     audit_id: audit-0206842bbb7e
     project_id: proj-c260b117

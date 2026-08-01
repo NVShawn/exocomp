@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:52:37.335927Z'
-updated_at: '2026-08-01T21:23:25.212480Z'
+updated_at: '2026-08-01T21:23:47.230289Z'
 work_branch: epic-EXOCOMP-110
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/14
@@ -137,6 +137,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-01T21:19:28.683792+00:00'
     branch_key: epic-EXOCOMP-110
+oompah.task_costs:
+  total_input_tokens: 24
+  total_output_tokens: 5419
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 24
+      output_tokens: 5419
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 24
+    output_tokens: 5419
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:23:45.679120+00:00'
 ---
 ## Summary
 
@@ -181,5 +197,15 @@ Safe evidence:
 - aging_days_since_merge: 7
 - previous_state: Merged
 - target_state: Archived
+---
+author: oompah
+created: 2026-08-01 21:23
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 27, Tool calls: 18
+- Tokens: 24 in / 5.4K out [5.4K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 56s
+- Log: EXOCOMP-110__20260801T212005Z.jsonl
 ---
 <!-- COMMENTS:END -->
