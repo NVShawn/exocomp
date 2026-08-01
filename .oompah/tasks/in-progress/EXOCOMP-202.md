@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T16:07:50.728869Z'
+updated_at: '2026-08-01T16:16:19.854335Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -443,5 +443,15 @@ author: oompah
 created: 2026-08-01 16:07
 ---
 Understanding: I will address the auditor's explicit gaps: bundle manifest/tamper coverage, release helper/SBOM assertions, visudo-failure rollback coverage, and architecture-correct helper packaging. I will inspect existing implementation first, then patch only missing behavior/tests and run the required Make targets.
+---
+author: oompah
+created: 2026-08-01 16:16
+---
+Implementation: added --profile-helper and ELF-machine validation, per-architecture Makefile inputs/documentation, explicit helper component manifest metadata, and a dedicated SPDX profile-action-helper package with bundle hash. Restricted installation to node, made sudoers replacement atomic across visudo validation, and corrected helper bundle fixtures. Added bundle manifest/SBOM/tamper/architecture tests plus installer visudo-failure rollback coverage.
+---
+author: oompah
+created: 2026-08-01 16:16
+---
+Discovery: assemble-bundle.sh was host-building/reusing one helper path without checking --arch; helper coverage existed only as incomplete installer assertions. The installer also installed the helper for coordinator and replaced sudoers before visudo validation, which could discard a prior policy. Bundle manifests already hash all payload files, so explicit helper assertions can verify that existing mechanism.
 ---
 <!-- COMMENTS:END -->
