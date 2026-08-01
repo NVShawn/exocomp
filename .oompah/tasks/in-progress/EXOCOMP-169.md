@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-169
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add proposal controls and the action timeline
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.145960Z'
-updated_at: '2026-08-01T13:01:28.538310Z'
+updated_at: '2026-08-01T13:03:37.232144Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-169
 target_branch: null
 review_url: null
@@ -24,17 +24,29 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: b26aa4505930df5677c25a312e9c09525d0fd8b19c06dc0003bfee54613f8808
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T13:03:20.820334+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: 682f0e16-54b8-472d-b8df-136095e23cb6
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T13:01:19.396450+00:00'
-  claim_expires_at: '2026-08-01T13:31:19.396450+00:00'
+  evidence: 'Focus handoff: duplicate_detector
+
+
+    Duplicate preflight verdict: no_duplicate
+
+
+    Matches: none
+
+
+    Evidence: Reviewed active tasks EXOCOMP-161, EXOCOMP-162, EXOCOMP-163, EXOCOMP-168,
+    EXOCOMP-154, and EXOCOMP-182. Their scopes are proposal storage, backend guards,
+    execution, conversation UI, incident timelines, and qualification; none duplicates
+    proposal controls with the correlated action timeline. Terminal tasks were excluded.'
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: ff6d6347-beb2-4f30-86a2-4b1d060e1a03
+oompah.agent_run_id: 05994a3e-7c15-4fb4-a37b-908a043f107f
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-169
 oompah.integration:
   version: 2
@@ -43,7 +55,33 @@ oompah.integration:
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-169
   base_branch: epic-EXOCOMP-133
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:01:26.232498+00:00'
+  updated_at: '2026-08-01T13:03:35.012557+00:00'
+oompah.task_costs:
+  total_input_tokens: 719357
+  total_output_tokens: 4635
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 719357
+      output_tokens: 4635
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 719357
+    output_tokens: 4635
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:03:20.799865+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-169__20260801T130130Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-133--task-EXOCOMP-169
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T13:03:20.828886+00:00'
 ---
 ## Summary
 
@@ -78,5 +116,25 @@ author: oompah
 created: 2026-08-01 13:01
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 13:03
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 15
+- Tokens: 719.4K in / 4.6K out [724.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 0s
+- Log: EXOCOMP-169__20260801T130130Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:03
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 13:03
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
