@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-110
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: Recover completed work omitted from merged epics
 parent: null
@@ -16,7 +16,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-25T17:52:37.335927Z'
-updated_at: '2026-08-01T21:50:10.523808Z'
+updated_at: '2026-08-01T21:55:59.957451Z'
 work_branch: epic-EXOCOMP-110
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/14
@@ -31,6 +31,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-13563274de7d: '2026-08-01T21:23:21.969506+00:00'
     infrastructure-exhausted-audit-4313c6c5ef48-3: '2026-08-01T21:41:47.662823+00:00'
+    attempt-aa58e9f5afa9: '2026-08-01T21:55:57.568531+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-110
@@ -50,6 +51,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T21:41:47.662839+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-110
+    target_state: Merged
+    evidence_fingerprint: 904620a40108f8296ccfb5c0d89add29efe56b2d5cd811727bef6dfb479850dd
+    audit_ids:
+    - audit-b1d71a260c0d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:55:57.568551+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-110
@@ -75,6 +85,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T21:41:47.662858+00:00'
     applied_at: '2026-08-01T21:41:49.877976+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-110
+    audit_id: audit-b1d71a260c0d
+    attempt_id: attempt-aa58e9f5afa9
+    target_state: Merged
+    evidence_fingerprint: 904620a40108f8296ccfb5c0d89add29efe56b2d5cd811727bef6dfb479850dd
+    status: Merged
+    audit_ids:
+    - audit-b1d71a260c0d
+    applied: false
+    created_at: '2026-08-01T21:55:57.568573+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -202,7 +223,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-110
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -211,7 +232,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-aa58e9f5afa9
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -221,13 +242,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:50:05.375000+00:00'
       branch_key: epic-EXOCOMP-110
+      verdict: pass
+      completed_at: '2026-08-01T21:55:57.568331+00:00'
+      ended_at: '2026-08-01T21:55:57.568331+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-01T21:20:28.039483+00:00'
-    updated_at: '2026-08-01T21:50:05.375000+00:00'
+    updated_at: '2026-08-01T21:55:57.568331+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-13563274de7d
@@ -455,5 +479,30 @@ author: oompah
 created: 2026-08-01 21:50
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:55
+---
+Audit PASS — Merged
+
+Epic-EXOCOMP-110 merge commit is present on origin/main and the epic's recovery deliverables are represented on main. The Merged transition is supported by verifiable evidence.
+
+Safe evidence:
+- merge_commit: 2085e441
+- merge_commit_subject: Merge pull request #14 from NVShawn/epic-EXOCOMP-110
+- merge_commit_parents: 725120a9 301d87e8
+- merge_commit_on_origin_main: true
+- child_recovery_commits_on_main_EXOCOMP-49: d22dff88,62717d7d
+- child_recovery_commits_on_main_EXOCOMP-51: d115dd27
+- child_recovery_commits_on_main_EXOCOMP-53: b65ad23a
+- child_recovery_commits_on_main_EXOCOMP-56: c958c8fc
+- child_recovery_commits_on_main_EXOCOMP-111: 2da861a0
+- child_recovery_commits_on_main_EXOCOMP-113: cad1c28b
+- child_recovery_commits_on_main_EXOCOMP-114: 50cd48c2
+- child_recovery_commits_on_main_EXOCOMP-115: 516faf81,301d87e8
+- exocomp_47_followups_on_main: fe95b001,581128d6,06afca42,09181799
+- previous_state: In Validation
+- target_state: Merged
+- prior_archived_audit_verdict: pass
 ---
 <!-- COMMENTS:END -->
