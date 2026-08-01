@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:51.051048Z'
-updated_at: '2026-08-01T14:43:00.162165Z'
+updated_at: '2026-08-01T14:57:03.444319Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-137
 target_branch: null
 review_url: null
@@ -147,5 +147,10 @@ author: oompah
 created: 2026-08-01 14:43
 ---
 Discovery: the umbrella has only a root config/config.exs and runtime.exs, with no environment-specific config files or Mission Control app. Existing git history confirms the app contract (, ) but not this task’s infrastructure. I’ll add a minimal database-only app, env config using DATABASE_URL/PG* variables without credential literals, production validation in a testable helper, a no-op baseline migration (domain tables remain out of scope), and a DataCase SQL-sandbox harness.
+---
+author: oompah
+created: 2026-08-01 14:57
+---
+Implementation: added apps/exocomp_mission_control with Ecto SQL/Postgrex dependencies, supervised Repo, test-support DataCase sandbox ownership, and reversible 20260801000000 baseline migration. Added dev/test/prod database config using DATABASE_URL/PG* environment values, production runtime validation, root release/config wiring, focused Make target, and tests covering config edge cases, supervision, migration round-trip, and concurrent sandbox isolation. Database tests are opt-in via EXOCOMP_RUN_DB_TESTS=1 so ordinary tests remain service-independent; the focused target enables them.
 ---
 <!-- COMMENTS:END -->
