@@ -18,7 +18,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:43:06.231139Z'
+updated_at: '2026-08-01T17:52:38.644569Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -590,5 +590,10 @@ author: oompah
 created: 2026-08-01 17:43
 ---
 DISCOVERY (devops): Reconciled the branch with EXOCOMP-176 (d9cc09d7), which supplies the pinned Mission Control image build, packaging and image tests. The repository now has those real targets, but it still lacks test-m7-qualification and a single orchestration/evidence validator. EXOCOMP-178, -181, -182 and -183 remain separate dependencies; the harness must make their required interfaces explicit and fail closed until they are available.
+---
+author: oompah
+created: 2026-08-01 17:52
+---
+IMPLEMENTATION (devops): Merged EXOCOMP-176 and added the fail-closed M7 automation: Make targets test-m7-qualification and finalize-m7-evidence, frozen node/coordinator/OCI/model/config identity validation, tagged-checkout and native-systemd guest checks, per-phase transcript/status evidence, strict live scenario/scale/lifecycle target availability checks, complete M7-CRIT-1..12 result generation, and symmetric amd64/arm64 index validation with ssh-keygen signing. Added focused tests and updated the operator runbook with the exact input/finalization contract.
 ---
 <!-- COMMENTS:END -->
