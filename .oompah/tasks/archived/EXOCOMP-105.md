@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-105
 type: task
-status: In Validation
+status: Archived
 priority: 1
 title: Verify coordinator diagnostic orchestration end to end
 parent: EXOCOMP-18
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:30:05.161380Z'
-updated_at: '2026-08-01T02:47:39.268010Z'
+updated_at: '2026-08-01T02:48:59.541320Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -46,6 +46,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-78ec2b1e175b-3: '2026-07-31T21:16:16.693296+00:00'
+    attempt-967f33922a96: '2026-08-01T02:48:56.865770+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-105
@@ -53,6 +54,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 5a2adfeb1efde1b308178a208a14964f80a5f2a78e9d087680abf6d2884f6bb1
     audit_ids:
     - audit-78ec2b1e175b
+    - audit-73f8eead1f2c
     kind: result
     applied: true
     retired_at: '2026-07-31T21:16:16.693308+00:00'
@@ -69,6 +71,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:16:16.693325+00:00'
     applied_at: '2026-07-31T21:16:18.603419+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-105
+    audit_id: audit-73f8eead1f2c
+    attempt_id: attempt-967f33922a96
+    target_state: Archived
+    evidence_fingerprint: 5a2adfeb1efde1b308178a208a14964f80a5f2a78e9d087680abf6d2884f6bb1
+    status: Archived
+    audit_ids:
+    - audit-73f8eead1f2c
+    applied: false
+    created_at: '2026-08-01T02:48:56.865801+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -159,7 +172,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-105
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -168,7 +181,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-967f33922a96
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -178,13 +191,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:47:33.728516+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T02:48:56.865594+00:00'
+      ended_at: '2026-08-01T02:48:56.865594+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:44:24.281203+00:00'
-    updated_at: '2026-08-01T02:47:33.728516+00:00'
+    updated_at: '2026-08-01T02:48:56.865594+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-50d445b50e47
@@ -530,5 +546,22 @@ author: oompah
 created: 2026-08-01 02:47
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:48
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- delivery_commit: e32a175aa6c805613dff421aee896b846d6254ac
+- commit_subject: EXOCOMP-105: Add focused multi-node orchestration integration test suite
+- delivery_date: 2026-07-24 18:22:18 +0000
+- delivered_test_file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_orchestration_integration_test.exs
+- delivery_stat: 4 files changed, 1345 insertions(+), 93 deletions(-)
+- merged_into_main: yes (e32a175 is ancestor of origin/main; many subsequent commits present)
+- previous_auditor_failure_cause: infrastructure (invalid reference origin/epic-EXOCOMP-2), not implementation
+- operator_recovery_status: OOMPAH-671 deployed; terminal audit rearmed by project owner
 ---
 <!-- COMMENTS:END -->
