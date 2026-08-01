@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:03.450139Z'
-updated_at: '2026-08-01T15:42:26.815681Z'
+updated_at: '2026-08-01T15:49:16.051895Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-168
 target_branch: null
 review_url: null
@@ -225,5 +225,19 @@ PLANNED APPROACH:
 5. Add comprehensive test suite covering all acceptance criteria
 6. Run make fmt-check and make lint quality gates
 7. Commit and submit work
+---
+author: oompah
+created: 2026-08-01 15:49
+---
+DISCOVERY: Found Mission Control application structure and conversation data models from dependencies (EXOCOMP-164 LiveView shell + EXOCOMP-158 conversation storage). Key structures:
+
+1. Conversation: org-scoped, cluster-based or incident-attached, with memberships and ordered messages
+2. Message: 7 states (queued/delivered/reasoning/completed/failed/expired), max 16KiB, supports evidence references
+3. EvidenceReference: structured citations only (no raw payloads/attachments)
+4. Conversations (GenServer): context API for create, list, append_message, transition_message, select_context
+
+Messages have state_history tracking transitions. Evidence includes validated structured metadata (evidence_id, node_id, service, type, observed_at, hash) - no raw logs or HTML.
+
+ConversationsLive::Index stub already exists in scaffold. Ready to implement full LiveView component with message rendering, evidence cards, state indicators, message input form with cluster state awareness, and comprehensive test suite.
 ---
 <!-- COMMENTS:END -->
