@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-01T12:42:24.574425Z'
+updated_at: '2026-08-01T12:43:52.984213Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -63,12 +63,12 @@ oompah.agent_run_id: ee45f393-6af2-4d9a-98e4-979b9fe3fa9b
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-150
-  base_branch: epic-EXOCOMP-130
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:26:16.391071+00:00'
+  head_sha: 5977f06449f1e8d63f7130a1038ae682b6500dac
+  submitted_at: '2026-08-01T12:43:50.443318+00:00'
+  updated_at: '2026-08-01T12:43:50.443318+00:00'
 oompah.task_costs:
   total_input_tokens: 114
   total_output_tokens: 3850
@@ -169,5 +169,15 @@ author: oompah
 created: 2026-08-01 12:42
 ---
 Verification: focused command-outbox tests pass (9 tests, 0 failures); Ecto-backed modules compile without warnings when compiled against the fetched Ecto/Postgrex dependencies; session-registry smoke test passes. make test and make lint passed their offline builder checks but could not enter the container phase because podman reports the sandbox filesystem is read-only for /run/user/1000/libpod. make fmt-check is similarly blocked at container startup. Scoped source formatting and git diff checks pass.
+---
+author: oompah
+created: 2026-08-01 12:43
+---
+Completion: delivered commit 5977f064 and pushed epic-EXOCOMP-130--task-EXOCOMP-150. The Mission Control outbox persists validated commands, retries them through the active session owner after reconnect/replica replacement, acknowledges exactly once, and expires undelivered rows without execution semantics. Focused tests pass 9/9; Make offline checks pass, while container-backed make test/fmt-check/lint remain environment-blocked by the read-only podman runtime directory.
+---
+author: oompah
+created: 2026-08-01 12:43
+---
+Added durable server-to-cluster command outbox with validated payloads, active-session delivery, exactly-once acknowledgement, expiration, and focused tests.
 ---
 <!-- COMMENTS:END -->

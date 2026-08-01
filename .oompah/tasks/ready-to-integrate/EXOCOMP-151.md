@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-01T12:43:26.914908Z'
+updated_at: '2026-08-01T12:43:48.054085Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -70,13 +70,13 @@ oompah.integration:
   submitted_at: '2026-08-01T12:43:24.347901+00:00'
   updated_at: '2026-08-01T12:43:24.347901+00:00'
 oompah.task_costs:
-  total_input_tokens: 194
-  total_output_tokens: 4521
+  total_input_tokens: 9517362
+  total_output_tokens: 45887
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 194
-      output_tokens: 4521
+      input_tokens: 9517362
+      output_tokens: 45887
       cost_usd: 0.0
   runs:
   - profile: default
@@ -85,6 +85,12 @@ oompah.task_costs:
     output_tokens: 4521
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:28:22.842807+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 9517168
+    output_tokens: 41366
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:43:46.127738+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-151__20260801T122623Z
@@ -179,5 +185,15 @@ author: oompah
 created: 2026-08-01 12:43
 ---
 Implemented durable exactly-once command result reporting with receipt acknowledgements, validation, expiry handling, restart-safe replay, correlated terminal events, supervision wiring, and focused tests.
+---
+author: oompah
+created: 2026-08-01 12:43
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 114
+- Tokens: 9.5M in / 41.4K out [9.6M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 15m 14s
+- Log: EXOCOMP-151__20260801T122841Z.jsonl
 ---
 <!-- COMMENTS:END -->
