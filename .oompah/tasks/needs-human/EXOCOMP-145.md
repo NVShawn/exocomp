@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Progress
+status: Needs Human
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T21:59:32.802480Z'
+updated_at: '2026-08-01T21:59:44.207983Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -1018,5 +1018,10 @@ make test 2>&1 | tail -5
 Failed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system
 make[1]: *** [Makefile:137: test] Error 1
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\n\nmake fmt-check 2>&1 | tail -3\nFailed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system\nmake[1]: *** [Makefile:116: fmt-check] Error 1\nmake[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\n\nmake lint 2>&1 | tail -3\nFailed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system\nmake[1]: *** [Makefile:160: lint] Error 1\nmake[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145'\n\nAll three gates fail before the pinned Elixir 1.20.2 / OTP 28.5.0.3 builder starts. Static git diff --check passes; the host has Elixir 1.18.3 and cannot run this project.
+---
+author: oompah
+created: 2026-08-01 21:59
+---
+Needs Human escalation: The pinned builder toolchain is unavailable in this environment. Both /usr/bin/podman and /usr/bin/docker route through the Podman runtime, and every required Makefile gate fails before container startup with: Failed to obtain podman configuration: set sticky bit on: chmod /run/user/1000/libpod: read-only file system. The host Elixir is 1.18.3 while release/builders.lock requires Elixir 1.20.2 / OTP 28.5.0.3, so local fallback execution is not valid. Please provide a writable Podman runtime or CI runner, then rerun make test, make fmt-check, and make lint. No Done/submit request is being made without that evidence.
 ---
 <!-- COMMENTS:END -->
