@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:34.108558Z'
-updated_at: '2026-08-01T18:15:16.440598Z'
+updated_at: '2026-08-01T18:15:55.562875Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-179
 target_branch: null
 review_url: null
@@ -50,13 +50,13 @@ oompah.integration:
   submitted_at: '2026-08-01T18:15:13.751809+00:00'
   updated_at: '2026-08-01T18:15:13.751809+00:00'
 oompah.task_costs:
-  total_input_tokens: 781264
-  total_output_tokens: 4496
+  total_input_tokens: 11573005
+  total_output_tokens: 49952
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 781264
-      output_tokens: 4496
+      input_tokens: 11573005
+      output_tokens: 49952
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +71,12 @@ oompah.task_costs:
     output_tokens: 4172
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:17:20.779279+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 10791741
+    output_tokens: 45456
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T18:15:53.402098+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-179__20260801T131120Z
@@ -199,5 +205,15 @@ author: oompah
 created: 2026-08-01 18:15
 ---
 Added shared Mission Control contract corpus, field-level drift and mutation tests, replay/gap/redaction coverage, coordinator/core adapters, and make test-mission-control-contract.
+---
+author: oompah
+created: 2026-08-01 18:15
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 111
+- Tokens: 10.8M in / 45.5K out [10.8M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 17m 13s
+- Log: EXOCOMP-179__20260801T175849Z.jsonl
 ---
 <!-- COMMENTS:END -->
