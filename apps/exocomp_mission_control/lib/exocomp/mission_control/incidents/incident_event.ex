@@ -3,7 +3,18 @@
 defmodule Exocomp.MissionControl.Incidents.IncidentEvent do
   @moduledoc "An immutable, organization-scoped entry in an incident timeline."
 
-  @event_types [:opened, :updated, :acknowledged, :resolved]
+  @event_types [
+    :opened,
+    :updated,
+    :acknowledged,
+    :resolved,
+    :acknowledged_by_operator,
+    :assigned,
+    :snoozed,
+    :unsnoozed,
+    :manually_resolved,
+    :reopened
+  ]
 
   defstruct [
     :id,
@@ -86,6 +97,12 @@ defmodule Exocomp.MissionControl.Incidents.IncidentEvent do
   defp event_type("updated"), do: {:ok, :updated}
   defp event_type("acknowledged"), do: {:ok, :acknowledged}
   defp event_type("resolved"), do: {:ok, :resolved}
+  defp event_type("acknowledged_by_operator"), do: {:ok, :acknowledged_by_operator}
+  defp event_type("assigned"), do: {:ok, :assigned}
+  defp event_type("snoozed"), do: {:ok, :snoozed}
+  defp event_type("unsnoozed"), do: {:ok, :unsnoozed}
+  defp event_type("manually_resolved"), do: {:ok, :manually_resolved}
+  defp event_type("reopened"), do: {:ok, :reopened}
   defp event_type("alert.opened"), do: {:ok, :opened}
   defp event_type("alert.updated"), do: {:ok, :updated}
   defp event_type("alert.resolved"), do: {:ok, :resolved}

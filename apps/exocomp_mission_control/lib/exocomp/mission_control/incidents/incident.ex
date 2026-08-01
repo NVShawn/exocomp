@@ -23,6 +23,9 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
     :acknowledged_at,
     :resolved_at,
     :updated_at,
+    :assigned_to,
+    :snoozed_until,
+    :resolution_reason,
     state: :open,
     event_count: 0
   ]
@@ -45,6 +48,9 @@ defmodule Exocomp.MissionControl.Incidents.Incident do
           acknowledged_at: DateTime.t() | nil,
           resolved_at: DateTime.t() | nil,
           updated_at: DateTime.t(),
+          assigned_to: String.t() | nil,
+          snoozed_until: DateTime.t() | nil,
+          resolution_reason: String.t() | nil,
           state: state(),
           event_count: non_neg_integer()
         }
