@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-01T12:15:01.587777Z'
+updated_at: '2026-08-01T12:15:19.300951Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -137,5 +137,10 @@ author: oompah
 created: 2026-08-01 12:15
 ---
 Focus: Refactoring Specialist
+---
+author: oompah
+created: 2026-08-01 12:15
+---
+Understanding: I will inspect the existing coordinator, Mission Control, TLS, and certificate identity paths, then implement the outbound TLS 1.3 WebSocket connection and validated upgrade/session replacement behavior with focused integration tests. I will preserve existing interfaces, run the required Makefile gates, commit, push, and submit the task.
 ---
 <!-- COMMENTS:END -->
