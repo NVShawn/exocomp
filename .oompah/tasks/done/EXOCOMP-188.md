@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-188
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Add coordinator inventory v2 service-monitoring fields
 parent: EXOCOMP-185
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:57.890248Z'
-updated_at: '2026-08-01T13:59:40.885402Z'
+updated_at: '2026-08-01T14:10:39.993323Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 target_branch: null
 review_url: null
@@ -104,6 +104,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:40:27.227347+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-e46d69b8aeca: '2026-08-01T14:10:36.974161+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-188
+    target_state: Done
+    evidence_fingerprint: f5a91af2fc653d72ddff070ab74e7f62f4e1296277e4ab43bf353bed0ccc53bd
+    audit_ids:
+    - audit-e734e02e8d0d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T14:10:36.974173+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-188
+    audit_id: audit-e734e02e8d0d
+    attempt_id: attempt-e46d69b8aeca
+    target_state: Done
+    evidence_fingerprint: f5a91af2fc653d72ddff070ab74e7f62f4e1296277e4ab43bf353bed0ccc53bd
+    status: Done
+    audit_ids:
+    - audit-e734e02e8d0d
+    applied: false
+    created_at: '2026-08-01T14:10:36.974191+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -111,7 +135,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-188
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -120,7 +144,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-e46d69b8aeca
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -130,13 +154,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T13:59:37.809755+00:00'
       branch_key: epic-EXOCOMP-185--task-EXOCOMP-188
+      verdict: pass
+      completed_at: '2026-08-01T14:10:36.973983+00:00'
+      ended_at: '2026-08-01T14:10:36.973983+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T13:59:00.538419+00:00'
-    updated_at: '2026-08-01T13:59:37.809755+00:00'
+    updated_at: '2026-08-01T14:10:36.973983+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-e46d69b8aeca
@@ -298,5 +325,23 @@ author: oompah
 created: 2026-08-01 13:59
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 14:10
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: e211afce695af9a158376ffc5e5eac66044c88c5
+- branch_pushed: origin/epic-EXOCOMP-185--task-EXOCOMP-188
+- files_changed: inventory.ex (+150/-19), inventory/node.ex (+22/-1), inventory_test.exs (+298/-1)
+- new_tests: 26
+- total_inventory_tests: 33
+- make_test_builders: pass (22 checks)
+- make_test_deps: pass (9 checks)
+- make_test_fixture_service: pass (22/22)
+- make_test_full_output: ~80KB stable output, no error surfaced; ExUnit summary not visible due to tool token limit and audit sandbox blocking access to the truncation cache file
 ---
 <!-- COMMENTS:END -->
