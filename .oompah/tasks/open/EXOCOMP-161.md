@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:19.626537Z'
-updated_at: '2026-08-01T12:52:17.944765Z'
+updated_at: '2026-08-01T12:55:58.618312Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-161
 target_branch: null
 review_url: null
@@ -23,14 +23,19 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 74088b2caf2a8431cc204ab33f3062713035a5d1363667b0b053a1bd79b56b70
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T12:55:54.283226+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: aeb53c3d-827b-404f-8e9a-6bdc103c01a8
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T12:52:07.339657+00:00'
-  claim_expires_at: '2026-08-01T13:22:07.339657+00:00'
+  evidence: "Focus handoff: duplicate_detector\n\nDuplicate preflight verdict: no_duplicate\n\
+    \nMatches: none\n\nEvidence: Reviewed active EXOCOMP-159, EXOCOMP-160, EXOCOMP-162,\
+    \ EXOCOMP-163, EXOCOMP-169, EXOCOMP-171, EXOCOMP-175, and EXOCOMP-201. They cover\
+    \ model output, command delivery, approval, execution, UI, audit, retention, or\
+    \ restricted execution\u2014not organization-scoped proposal persistence and validation.\
+    \ Archived EXOCOMP-61 and EXOCOMP-21 are historical and excluded."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
 oompah.agent_run_id: 208def74-9d2e-4847-b071-6f290270cc75
@@ -43,6 +48,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-132
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T12:52:15.949255+00:00'
+oompah.task_costs:
+  total_input_tokens: 411207
+  total_output_tokens: 5101
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 411207
+      output_tokens: 5101
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 411207
+    output_tokens: 5101
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:55:54.276955+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-161__20260801T125219Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-132--task-EXOCOMP-161
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T12:55:54.294428+00:00'
 ---
 ## Summary
 
@@ -77,5 +108,15 @@ author: oompah
 created: 2026-08-01 12:52
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 12:55
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 2, Tool calls: 25
+- Tokens: 411.2K in / 5.1K out [416.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 45s
+- Log: EXOCOMP-161__20260801T125219Z.jsonl
 ---
 <!-- COMMENTS:END -->
