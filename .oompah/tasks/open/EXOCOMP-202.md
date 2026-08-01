@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-08-01T15:45:10.914802Z'
+updated_at: '2026-08-01T16:05:31.734821Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-202
 target_branch: null
 review_url: null
@@ -92,6 +92,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:19:06.142043+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ac94c3968d07: '2026-08-01T16:05:28.240270+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-202
+    target_state: Done
+    evidence_fingerprint: 74af10224fc24ef488443ef63981357b7aa666c947854a6b413d2f73c673cd3f
+    audit_ids:
+    - audit-82b0353dc09f
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T16:05:28.240278+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-202
+    audit_id: audit-82b0353dc09f
+    attempt_id: attempt-ac94c3968d07
+    target_state: Done
+    evidence_fingerprint: 74af10224fc24ef488443ef63981357b7aa666c947854a6b413d2f73c673cd3f
+    status: Open
+    audit_ids:
+    - audit-82b0353dc09f
+    applied: true
+    created_at: '2026-08-01T16:05:28.240288+00:00'
+    applied_at: '2026-08-01T16:05:31.171744+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -99,7 +124,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-202
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -108,7 +133,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ac94c3968d07
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -118,13 +143,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T15:45:07.808522+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-202
+      verdict: fail
+      failure_classification: missing_tests
+      completed_at: '2026-08-01T16:05:28.240135+00:00'
+      ended_at: '2026-08-01T16:05:28.240135+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:43:39.696908+00:00'
-    updated_at: '2026-08-01T15:45:07.808522+00:00'
+    updated_at: '2026-08-01T16:05:28.240135+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ac94c3968d07
@@ -368,5 +397,19 @@ author: oompah
 created: 2026-08-01 15:45
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 16:05
+---
+Audit FAIL — missing tests. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Extend tests/test_bundle.py with explicit profile-action-helper coverage: presence in bundle bin/, entry in manifest.sha256, and a tamper-detection test analogous to test_tampered_llama_server_fails_verification.
+- Extend tests/test_package_release.py or add a helper-specific packaging assertion (bundle contains bin/profile-action-helper for both arches; helper hash recorded in manifest.json files array).
+- Add an SPDX package entry for the profile-action-helper in scripts/generate-sbom.sh (or a documented decision that Exocomp package transitively covers it), and add an SBOM test that asserts helper coverage.
+- Add an installer test that simulates visudo validation failure (e.g. via a stub visudo that exits 1 in PATH) and asserts the sudoers file is removed and installer exits non-zero, per AC #5.
+- Add cross-compile support or document that build-profile-action-helper must be invoked in each arch's native builder before bundle-amd64/bundle-arm64, and add a bundle test that asserts the shipped helper's ELF architecture matches the bundle's --arch.
 ---
 <!-- COMMENTS:END -->
