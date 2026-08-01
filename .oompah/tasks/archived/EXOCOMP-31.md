@@ -18,7 +18,7 @@ labels:
 - focus-complete:merge_conflict
 assignee: null
 created_at: '2026-07-23T19:10:47.061070Z'
-updated_at: '2026-08-01T21:24:17.981570Z'
+updated_at: '2026-08-01T21:24:37.778146Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -27,13 +27,13 @@ merged_at: null
 oompah.agent_run_id: 49d23404-bdf9-433e-ad51-b2fbcff4b2bb
 oompah.work_branch: epic-EXOCOMP-4
 oompah.task_costs:
-  total_input_tokens: 577941
-  total_output_tokens: 6914
+  total_input_tokens: 577970
+  total_output_tokens: 11759
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 577941
-      output_tokens: 6914
+      input_tokens: 577970
+      output_tokens: 11759
       cost_usd: 0.0
   runs:
   - profile: default
@@ -48,6 +48,12 @@ oompah.task_costs:
     output_tokens: 3623
     cost_usd: 0.0
     recorded_at: '2026-07-25T02:14:14.280723+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 29
+    output_tokens: 4845
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T21:24:36.445056+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -466,5 +472,15 @@ Safe evidence:
 - integration_test_file: apps/exocomp_node/test/integration/m4_acceptance_test.exs
 - previous_state: Merged
 - archive_reason: Aged Merged auto-archive (closed 7 days ago)
+---
+author: oompah
+created: 2026-08-01 21:24
+---
+Run #YOLO-reopen [attempt=YOLO-reopen, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 31, Tool calls: 23
+- Tokens: 29 in / 4.8K out [4.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 26s
+- Log: EXOCOMP-31__20260801T212016Z.jsonl
 ---
 <!-- COMMENTS:END -->
