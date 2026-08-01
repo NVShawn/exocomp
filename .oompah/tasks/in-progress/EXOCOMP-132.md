@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-132
 type: epic
-status: Open
+status: In Progress
 priority: 1
 title: 'M7E: Cluster conversations and typed remedies'
 parent: EXOCOMP-127
@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:49.867057Z'
-updated_at: '2026-08-01T11:49:14.111987Z'
+updated_at: '2026-08-01T12:37:01.370751Z'
 work_branch: null
 target_branch: null
 review_url: null

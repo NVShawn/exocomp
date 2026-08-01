@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-01T12:29:35.828061Z'
+updated_at: '2026-08-01T12:36:42.947502Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-08-01 12:29
 ---
 Discovery: no existing Mission Control transport/outbox exists in the coordinator. The implementation boundary is a new Exocomp.Coordinator.EventOutbox module plus supervised startup/config; existing Audit.redact provides the project redaction policy, and the protocol plan requires sequence continuity across snapshot replacement.
+---
+author: oompah
+created: 2026-08-01 12:36
+---
+Implementation: added EventOutbox with versioned atomic JSON persistence, per-cluster monotonic counters, stable generated/supplied event IDs, duplicate idempotency, unsent status.snapshot coalescing with sequence reuse, sent marking, contiguous acknowledgements, size/schema/redaction validation, corrupt/full-storage handling, supervised startup, and production/test path configuration. Added focused ExUnit coverage for restart, duplicates, coalescing, durable kinds, acknowledgements, redaction/schema, full storage, and corruption.
 ---
 <!-- COMMENTS:END -->

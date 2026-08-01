@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-158
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Store bounded conversations, messages, and evidence references
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T12:34:45.835886Z'
+updated_at: '2026-08-01T12:37:05.522488Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -23,17 +23,29 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 832bcb18a7b711dada0dc827d18c063664c39661f8fd3d7af6aeb2fdcdfa7532
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-01T12:36:41.115911+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: 1c99fafe-7466-4190-a005-0fef8f326900
-  claim_owner: 7946c223-6c24-4967-8291-1d20c0e47f05
-  claimed_at: '2026-08-01T12:34:37.272788+00:00'
-  claim_expires_at: '2026-08-01T13:04:37.272788+00:00'
+  evidence: 'Focus handoff: duplicate_detector
+
+
+    Duplicate preflight verdict: no_duplicate
+
+
+    Matches: none
+
+
+    Evidence: Reviewed active EXOCOMP-132, 138, 159, 160, 161, 168, 171, and 175.
+    EXOCOMP-160, the closest match, explicitly depends on EXOCOMP-158 and covers command
+    delivery/replies rather than conversation storage. Other tasks cover chat skill,
+    proposals, UI, audit, retention, or organization foundations.'
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 32e04359-354d-4ead-85b3-fdd498a54ce9
+oompah.agent_run_id: c6f3b776-ef79-4a71-bfcc-8c95d7ef594a
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 oompah.integration:
   version: 2
@@ -42,7 +54,33 @@ oompah.integration:
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-158
   base_branch: epic-EXOCOMP-132
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:34:43.429575+00:00'
+  updated_at: '2026-08-01T12:37:02.959416+00:00'
+oompah.task_costs:
+  total_input_tokens: 897761
+  total_output_tokens: 4536
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 897761
+      output_tokens: 4536
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 897761
+    output_tokens: 4536
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:36:41.115660+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-158__20260801T123446Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-132--task-EXOCOMP-158
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T12:36:41.119316+00:00'
 ---
 ## Summary
 
@@ -78,5 +116,25 @@ author: oompah
 created: 2026-08-01 12:34
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-01 12:36
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 30
+- Tokens: 897.8K in / 4.5K out [902.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 2s
+- Log: EXOCOMP-158__20260801T123446Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:36
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 12:37
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->

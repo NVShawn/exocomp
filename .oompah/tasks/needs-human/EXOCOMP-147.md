@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: In Progress
+status: Needs Human
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T12:36:29.638194Z'
+updated_at: '2026-08-01T12:36:42.315797Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -82,13 +82,17 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T12:21:34.529386+00:00'
 oompah.task_costs:
-  total_input_tokens: 522
-  total_output_tokens: 1270
+  total_input_tokens: 385390
+  total_output_tokens: 5028
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 522
       output_tokens: 1270
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 384868
+      output_tokens: 3758
       cost_usd: 0.0
   runs:
   - profile: default
@@ -103,6 +107,12 @@ oompah.task_costs:
     output_tokens: 90
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:20:10.652900+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 384868
+    output_tokens: 3758
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T12:36:38.626170+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-147__20260801T121453Z
@@ -113,6 +123,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-147
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:17:12.275545+00:00'
+  - run_id: EXOCOMP-147__20260801T122138Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-terra
+    focus: chore
+    source_branch: epic-EXOCOMP-130--task-EXOCOMP-147
+    source_sha: 955a4b15b498bcbc28d770e3472a17f5f0ac633c
+    completed_at: '2026-08-01T12:36:38.630449+00:00'
 ---
 ## Summary
 
@@ -225,5 +243,20 @@ author: oompah
 created: 2026-08-01 12:36
 ---
 Coordination review: EXOCOMP-148, EXOCOMP-149, EXOCOMP-150, and EXOCOMP-151 have started as epic siblings. EXOCOMP-147 is isolated to coordinator Mission Control connection/liveness (heartbeat, disconnect detection, and reconnect backoff), so no sibling dependency or file overlap was identified; no task graph change is required. Branch is clean and already pushed at 955a4b15 (EXOCOMP-147: add Mission Control connection liveness). Quality-gate handoff: make test and make lint passed their offline release/package/doc checks, then could not start the containerized Elixir suite because Podman cannot chmod /run/user/1000/libpod in this sandbox. make fmt-check failed at the same runner boundary. Focused local Mix tests cannot run because host Elixir 1.18.3 is below the pinned 1.20.2. Re-run make test, make fmt-check, and make lint in CI or a runner with the project container toolchain.
+---
+author: oompah
+created: 2026-08-01 12:36
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 2, Tool calls: 82
+- Tokens: 384.9K in / 3.8K out [388.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 15m 8s
+- Log: EXOCOMP-147__20260801T122138Z.jsonl
+---
+author: oompah
+created: 2026-08-01 12:36
+---
+Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
 ---
 <!-- COMMENTS:END -->
