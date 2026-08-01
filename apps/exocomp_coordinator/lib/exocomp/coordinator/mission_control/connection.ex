@@ -83,6 +83,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
       status: :disconnected,
       session: nil,
       session_monitor_ref: nil,
+      connect_pid: nil,
       connect_monitor_ref: nil,
       connect_token: nil,
       connect_generation: 0,
@@ -143,7 +144,11 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
 
   def handle_info({:heartbeat, _generation}, state), do: {:noreply, state}
 
-  def handle_info({:stable, generation}, %{stable_generation: generation} = state) do
+  def handle_info(
+        {:stable, generation},
+        %{stable_generation: generation, status: :connected, session: session} = state
+      )
+      when not is_nil(session) do
     {:noreply, %{state | stable_timer_ref: nil, stable?: true, backoff_attempts: 0}}
   end
 
@@ -189,7 +194,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
     owner = self()
     connect_fn = state.connect_fn
 
-    {_pid, monitor_ref} =
+    {pid, monitor_ref} =
       spawn_monitor(fn ->
         result = safely(fn -> connect_fn.() end)
         send(owner, {:connect_result, token, result})
@@ -198,6 +203,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
     %{
       state
       | status: :connecting,
+        connect_pid: pid,
         connect_monitor_ref: monitor_ref,
         connect_token: token,
         connect_generation: token,
@@ -208,6 +214,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
 
   defp install_session(session, state) do
     state
+    |> stop_connect_worker()
     |> clear_connect_worker()
     |> clear_reconnect_timer()
     |> clear_heartbeat_timer()
@@ -330,7 +337,14 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
 
   defp clear_connect_worker(state) do
     Process.demonitor(state.connect_monitor_ref, [:flush])
-    %{state | connect_monitor_ref: nil, connect_token: nil}
+    %{state | connect_pid: nil, connect_monitor_ref: nil, connect_token: nil}
+  end
+
+  defp stop_connect_worker(%{connect_pid: nil} = state), do: state
+
+  defp stop_connect_worker(state) do
+    _ = Process.exit(state.connect_pid, :kill)
+    state
   end
 
   defp monitor_session(session) when is_pid(session), do: Process.monitor(session)

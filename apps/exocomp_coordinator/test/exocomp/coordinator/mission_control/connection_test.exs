@@ -99,6 +99,51 @@ defmodule Exocomp.Coordinator.MissionControl.ConnectionTest do
     assert_receive {:random_bounds, 0, 1_000}
   end
 
+  test "ignores a stale stability timer after the session disconnects" do
+    owner = self()
+
+    connection =
+      start_connection(
+        random_fn: fn lower, upper ->
+          send(owner, {:random_bounds, lower, upper})
+          upper
+        end
+      )
+
+    assert :ok = Connection.authenticated(:session, connection)
+    %{stable_generation: stable_generation} = Connection.status(connection)
+    assert :ok = Connection.disconnected(:transport_closed, connection)
+    assert_receive {:random_bounds, 0, 1_000}
+
+    send(connection, {:stable, stable_generation})
+
+    assert %{backoff_attempts: 1, stable: false, status: :disconnected} =
+             Connection.status(connection)
+  end
+
+  test "stops an in-flight connect worker when a session is authenticated" do
+    owner = self()
+
+    connection =
+      start_connection(
+        connect_fn: fn ->
+          send(owner, {:connect_started, self()})
+
+          receive do
+            :never -> {:ok, :stale_session}
+          end
+        end
+      )
+
+    assert :ok = Connection.connect_now(connection)
+    assert_receive {:connect_started, worker}
+    worker_ref = Process.monitor(worker)
+
+    assert :ok = Connection.authenticated(:active_session, connection)
+    assert_receive {:DOWN, ^worker_ref, :process, ^worker, :killed}
+    assert %{authenticated: true, status: :connected} = Connection.status(connection)
+  end
+
   test "connector and heartbeat failures cannot crash or block the manager" do
     owner = self()
 

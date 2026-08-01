@@ -63,6 +63,61 @@ defmodule Exocomp.Coordinator.MissionControl.SessionLivenessTest do
     assert Process.alive?(liveness)
   end
 
+  test "does not publish twice when a disconnect timer signal is duplicated" do
+    {liveness, clock} = start_liveness()
+
+    assert :ok = SessionLiveness.authenticated("session-a", liveness)
+    %{timer_generation: generation} = SessionLiveness.status(liveness)
+
+    set_clock(clock, 90_000)
+    send(liveness, {:liveness_check, generation})
+    assert_receive {:committed, "session-a", :disconnected}
+    assert_receive {:published, "session-a", :disconnected}
+
+    send(liveness, {:liveness_check, generation})
+    refute_receive {:committed, "session-a", :disconnected}, 20
+    refute_receive {:published, "session-a", :disconnected}, 20
+  end
+
+  test "retries a failed connected-state commit as connected" do
+    owner = self()
+    {:ok, attempts} = Agent.start_link(fn -> 0 end)
+
+    commit_state_fn = fn session_id, state ->
+      send(owner, {:committed, session_id, state})
+
+      if state == :connected do
+        case Agent.get_and_update(attempts, fn count -> {count, count + 1} end) do
+          0 -> :ok
+          1 -> {:error, :database_unavailable}
+          _other -> :ok
+        end
+      else
+        :ok
+      end
+    end
+
+    {liveness, clock} = start_liveness(commit_state_fn: commit_state_fn)
+
+    assert :ok = SessionLiveness.authenticated("session-a", liveness)
+    assert_receive {:published, "session-a", :connected}
+
+    %{timer_generation: generation} = SessionLiveness.status(liveness)
+    set_clock(clock, 90_000)
+    send(liveness, {:liveness_check, generation})
+    assert_receive {:committed, "session-a", :disconnected}
+    assert_receive {:published, "session-a", :disconnected}
+
+    assert {:error, :database_unavailable} = SessionLiveness.heartbeat("session-a", liveness)
+    assert_receive {:committed, "session-a", :connected}
+    assert_receive {:timer_scheduled, {:liveness_check, retry_generation}, 1_000}
+
+    send(liveness, {:liveness_check, retry_generation})
+    assert_receive {:committed, "session-a", :connected}
+    assert_receive {:published, "session-a", :connected}
+    assert %{status: :connected} = SessionLiveness.status(liveness)
+  end
+
   test "rejects stale sessions and only lets a valid active heartbeat reconnect a timed out session" do
     {liveness, clock} = start_liveness()
 

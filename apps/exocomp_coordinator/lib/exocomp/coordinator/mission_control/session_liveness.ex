@@ -62,6 +62,8 @@ defmodule Exocomp.Coordinator.MissionControl.SessionLiveness do
        last_heartbeat_at_ms: nil,
        timer_ref: nil,
        timer_generation: 0,
+       timer_kind: nil,
+       pending_transition: nil,
        last_error: nil
      }}
   end
@@ -92,8 +94,12 @@ defmodule Exocomp.Coordinator.MissionControl.SessionLiveness do
 
       :disconnected ->
         case transition(state, :connected) do
-          {:ok, state} -> {:reply, :ok, schedule_timeout(state)}
-          {:error, reason, state} -> {:reply, {:error, reason}, schedule_retry(state)}
+          {:ok, state} ->
+            {:reply, :ok, schedule_timeout(state)}
+
+          {:error, reason, state} ->
+            state = %{state | pending_transition: :connected}
+            {:reply, {:error, reason}, schedule_retry(state)}
         end
     end
   end
@@ -102,16 +108,43 @@ defmodule Exocomp.Coordinator.MissionControl.SessionLiveness do
     do: {:reply, {:error, :not_active}, state}
 
   @impl true
-  def handle_info({:liveness_check, generation}, %{timer_generation: generation} = state) do
+  def handle_info(
+        {:liveness_check, generation},
+        %{timer_generation: generation, timer_kind: :timeout, session_id: session_id} = state
+      )
+      when not is_nil(session_id) do
     elapsed = now(state) - state.last_heartbeat_at_ms
 
     if elapsed < state.disconnect_after_ms do
       {:noreply, schedule_timeout(state)}
     else
-      case transition(%{state | timer_ref: nil}, :disconnected) do
+      candidate = %{state | timer_ref: nil, timer_kind: nil, pending_transition: :disconnected}
+
+      case transition(candidate, :disconnected) do
         {:ok, state} -> {:noreply, state}
         {:error, _reason, state} -> {:noreply, schedule_retry(state)}
       end
+    end
+  end
+
+  def handle_info(
+        {:liveness_check, generation},
+        %{
+          timer_generation: generation,
+          timer_kind: :commit_retry,
+          pending_transition: desired_state
+        } = state
+      )
+      when desired_state in [:connected, :disconnected] do
+    candidate = %{state | timer_ref: nil, timer_kind: nil}
+
+    case transition(candidate, desired_state) do
+      {:ok, state} ->
+        state = if desired_state == :connected, do: schedule_timeout(state), else: state
+        {:noreply, state}
+
+      {:error, _reason, state} ->
+        {:noreply, schedule_retry(state)}
     end
   end
 
@@ -142,7 +175,15 @@ defmodule Exocomp.Coordinator.MissionControl.SessionLiveness do
   defp transition_committed(state, desired_state) do
     # Publishing happens strictly after the durable transition succeeds.
     publish_result = safely(fn -> state.publish_state_fn.(state.session_id, desired_state) end)
-    {:ok, %{state | status: desired_state, last_error: publish_error(publish_result)}}
+
+    {:ok,
+     %{
+       state
+       | status: desired_state,
+         timer_kind: nil,
+         pending_transition: nil,
+         last_error: publish_error(publish_result)
+     }}
   end
 
   defp publish_error(:ok), do: nil
@@ -158,21 +199,21 @@ defmodule Exocomp.Coordinator.MissionControl.SessionLiveness do
     deadline = state.last_heartbeat_at_ms + state.disconnect_after_ms
     delay = max(deadline - now(state), 0)
     timer_ref = state.schedule_fn.({:liveness_check, generation}, delay)
-    %{state | timer_ref: timer_ref, timer_generation: generation}
+    %{state | timer_ref: timer_ref, timer_generation: generation, timer_kind: :timeout}
   end
 
   defp schedule_retry(state) do
     state = clear_timer(state)
     generation = state.timer_generation + 1
     timer_ref = state.schedule_fn.({:liveness_check, generation}, state.commit_retry_ms)
-    %{state | timer_ref: timer_ref, timer_generation: generation}
+    %{state | timer_ref: timer_ref, timer_generation: generation, timer_kind: :commit_retry}
   end
 
-  defp clear_timer(%{timer_ref: nil} = state), do: state
+  defp clear_timer(%{timer_ref: nil} = state), do: %{state | timer_kind: nil}
 
   defp clear_timer(state) do
     _ = state.cancel_timer_fn.(state.timer_ref)
-    %{state | timer_ref: nil}
+    %{state | timer_ref: nil, timer_kind: nil}
   end
 
   defp public_status(state) do
