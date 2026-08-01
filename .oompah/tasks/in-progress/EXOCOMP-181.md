@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:42.487515Z'
-updated_at: '2026-08-01T13:20:07.393883Z'
+updated_at: '2026-08-01T13:21:35.977902Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-181
 target_branch: null
 review_url: null
@@ -194,5 +194,10 @@ author: oompah
 created: 2026-08-01 13:20
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-08-01 13:21
+---
+UNDERSTANDING: Task requires adding comprehensive security negative tests for Mission Control, a self-hosted cluster management control plane (Phoenix LiveView app). Key security boundaries to test: (1) cross-organization data isolation, (2) OIDC identity validation, (3) cluster certificate validation, (4) invitation replay prevention, (5) identity payload override prevention, (6) typed action validation, (7) approval freshness/replay prevention, (8) webhook signature verification, (9) secret redaction boundaries. Also need to add dependency and container scans for Phoenix image, and document each failed-closed boundary with expected audit event. Quality gate: make security plus compliance-check, fmt-check, lint. Starting with codebase exploration to understand existing Mission Control implementation.
 ---
 <!-- COMMENTS:END -->
