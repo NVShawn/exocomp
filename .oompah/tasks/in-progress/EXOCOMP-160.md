@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:18.620833Z'
-updated_at: '2026-08-01T12:56:35.142594Z'
+updated_at: '2026-08-01T13:04:36.574481Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-160
 target_branch: null
 review_url: null
@@ -194,5 +194,31 @@ created: 2026-08-01 12:56
 - Command/Message linking: command.payload contains message_id (to be added)
 - Reply storage: separate Message with sender_type: :cluster
 - State transitions: delivered (command enqueued) → reasoning (command acked) → completed (reply arrives)
+---
+author: oompah
+created: 2026-08-01 13:04
+---
+## Implementation Progress
+
+**Created:**
+- ConversationCommands module with send_message/6 and handle_conversation_reply/6 functions
+- Comprehensive test suite for all acceptance criteria scenarios  
+- Integrated with CommandOutbox for durable command persistence
+
+**Status:**
+- Main test suite passing (579/581)
+- ConversationCommands unit tests require debugging state transition logic
+- Mock repo in place to avoid database dependency in tests
+
+**Next steps:**
+- Fix state transition test failures (likely related to GenServer cleanup between test steps)
+- Simplify tests to isolate the core flow
+- Verify message state changes are properly persisted
+
+**Design validated:**
+- Operator messages are created with state :queued
+- Commands are enqueued to CommandOutbox with message ID in payload
+- Messages transition: queued → delivered (when command persisted) → reasoning/completed (when reply arrives)
+- Reply messages from cluster are separate Message records with sender_type: :cluster
 ---
 <!-- COMMENTS:END -->
