@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -18,7 +18,7 @@ labels:
 - needs:test
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T13:37:54.455936Z'
+updated_at: '2026-08-01T13:38:10.627555Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -74,13 +74,13 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-01T13:27:04.044826+00:00'
 oompah.task_costs:
-  total_input_tokens: 218
-  total_output_tokens: 8238
+  total_input_tokens: 340
+  total_output_tokens: 13215
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 218
-      output_tokens: 8238
+      input_tokens: 340
+      output_tokens: 13215
       cost_usd: 0.0
   runs:
   - profile: default
@@ -89,6 +89,12 @@ oompah.task_costs:
     output_tokens: 8238
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:26:44.435606+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 122
+    output_tokens: 4977
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:38:06.557889+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-184__20260801T132400Z
@@ -99,6 +105,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:26:44.441969+00:00'
+  - run_id: EXOCOMP-184__20260801T132707Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: haiku
+    focus: security
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
+    source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+    completed_at: '2026-08-01T13:38:06.562080+00:00'
 ---
 ## Summary
 
@@ -407,5 +421,25 @@ RECOMMENDED NEXT STEPS:
 TEAM DISPATCH: This task is ready for test/DevOps focus once dependencies resolve.
 
 Work in progress. Awaiting EXOCOMP-176 integration and completion of remaining dependencies.
+---
+author: oompah
+created: 2026-08-01 13:38
+---
+Agent completed successfully in 667s (5099 tokens)
+---
+author: oompah
+created: 2026-08-01 13:38
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 166, Tool calls: 82
+- Tokens: 122 in / 5.0K out [5.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 11m 7s
+- Log: EXOCOMP-184__20260801T132707Z.jsonl
+---
+author: oompah
+created: 2026-08-01 13:38
+---
+Focus handoff from `security` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
