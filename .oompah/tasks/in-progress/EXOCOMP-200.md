@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T21:49:04.906363Z'
+updated_at: '2026-08-01T21:52:49.106518Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -138,5 +138,10 @@ author: oompah
 created: 2026-08-01 21:49
 ---
 DISCOVERY: Found integrated dependencies including Ceph evidence collector (EXOCOMP-197), topology correlation (EXOCOMP-199), and profile infrastructure. Existing code provides: raw CLI evidence collection, topology-to-inventory mapping, profile coverage tracking, and basic health_reduction in ClusterProfile.Ceph. Task requires implementing a comprehensive health reduction system that: (1) converts Ceph status (HEALTH_OK/WARN/ERR) to severity states (healthy/degraded/critical); (2) tracks stale/missing evidence and coverage gaps; (3) validates daemon units against systemd and profile evidence; (4) bounds evidence references. Plan to create CephHealthReducer module with table-driven tests covering health levels, partial evidence, missing daemons, unreachable nodes, and profile version issues.
+---
+author: oompah
+created: 2026-08-01 21:52
+---
+IMPLEMENTATION: Created CephHealthReducer module with comprehensive health reduction logic. Module converts Ceph CLI evidence (health status, topology, daemon states) into deterministic cluster and daemon health states. Maps HEALTH_OK→healthy, HEALTH_WARN→degraded, HEALTH_ERR→critical. Handles distinct reasons for degradation: stale_evidence, missing_evidence, incomplete_coverage, ambiguous_topology, daemon_state_failed, critical_health_status, unreachable_cluster, unsupported_profiles. Validates daemon units against systemd state (load_state, active_state, expected_state). Returns bounded evidence references. Deterministic and idempotent. Files: CephHealthReducer (main module), CephHealthReducerTest (85+ table-driven tests covering all acceptance criteria).
 ---
 <!-- COMMENTS:END -->
