@@ -21,7 +21,8 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
 
   use GenServer
 
-  alias Exocomp.Coordinator.{A2A.DiagnosticClient, Inventory, Registry}
+  alias Exocomp.DesiredService
+  alias Exocomp.Coordinator.{A2A.DiagnosticClient, Audit, Inventory, Registry}
 
   @default_discovery_interval_ms 300_000
   @default_discovery_jitter_ms 30_000
@@ -48,6 +49,9 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
     :discovery_adapter,
     :observation_adapter,
     :adapter_options,
+    :audit_server,
+    :profile_resolver,
+    :profile_sources,
     :clock,
     :random,
     :discovery_interval_ms,
@@ -64,7 +68,11 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
     discovery_cache: %{},
     observations: %{},
     failures: %{},
-    generations: %{}
+    generations: %{},
+    expectations: %{},
+    health: %{},
+    retired: %{},
+    transitions: []
   ]
 
   @type service :: %{required(:name) => String.t(), optional(:health_check_url) => String.t()}
@@ -107,6 +115,24 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
     GenServer.call(server, {:effective_services, node_id})
   end
 
+  @doc "Returns resolver-backed effective expectations for a node."
+  @spec expectations(String.t(), GenServer.server()) :: [DesiredService.t()]
+  def expectations(node_id, server \\ __MODULE__) when is_binary(node_id) do
+    GenServer.call(server, {:expectations, node_id})
+  end
+
+  @doc "Returns the current expectation and health view for every node."
+  @spec desired_state(GenServer.server()) :: map()
+  def desired_state(server \\ __MODULE__), do: GenServer.call(server, :desired_state)
+
+  @doc "Returns the latest per-service health records, including pending hysteresis."
+  @spec health(GenServer.server()) :: map()
+  def health(server \\ __MODULE__), do: GenServer.call(server, :health)
+
+  @doc "Returns correlated desired-state and health transition records."
+  @spec transitions(GenServer.server()) :: [map()]
+  def transitions(server \\ __MODULE__), do: GenServer.call(server, :transitions)
+
   @doc "Returns a compact scheduler status useful to health and tests."
   @spec status(GenServer.server()) :: map()
   def status(server \\ __MODULE__), do: GenServer.call(server, :status)
@@ -126,6 +152,11 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
       discovery_adapter: Keyword.get(opts, :discovery_adapter, &default_discovery/2),
       observation_adapter: Keyword.get(opts, :observation_adapter, &default_observation/3),
       adapter_options: Keyword.get(opts, :adapter_options, []),
+      audit_server: Keyword.get(opts, :audit_server, Audit),
+      profile_resolver:
+        Keyword.get(opts, :profile_resolver) ||
+          profile_resolver_from_sources(Keyword.get(opts, :profile_sources, %{})),
+      profile_sources: Keyword.get(opts, :profile_sources, %{}),
       clock: Keyword.get(opts, :clock, &DateTime.utc_now/0),
       random: Keyword.get(opts, :random, &random_between/2),
       discovery_interval_ms:
@@ -150,6 +181,7 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
   end
 
   def handle_call({:observe_now, node_ids}, _from, state) do
+    state = reconcile_desired_state(state)
     nodes = nodes_for_observation(state, node_ids)
     state = request_observation(state, nodes)
     {:reply, :ok, dispatch_pending(state)}
@@ -162,7 +194,23 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
     {:reply, effective_services_for(node_id, state), state}
   end
 
+  def handle_call({:expectations, node_id}, _from, state) do
+    {:reply, effective_expectations_for(node_id, state), state}
+  end
+
+  def handle_call(:desired_state, _from, state) do
+    state = reconcile_desired_state(state)
+    {:reply, desired_state_view(state), state}
+  end
+
+  def handle_call(:health, _from, state), do: {:reply, state.health, state}
+
+  def handle_call(:transitions, _from, state),
+    do: {:reply, Enum.reverse(state.transitions), state}
+
   def handle_call(:status, _from, state) do
+    state = reconcile_desired_state(state)
+
     {:reply,
      %{
        in_flight: Enum.map(state.tasks, fn {_ref, meta} -> {meta.kind, meta.node_id} end),
@@ -171,6 +219,9 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
        discovery_cache: state.discovery_cache,
        observations: state.observations,
        failures: state.failures,
+       desired_state: desired_state_view(state),
+       health: state.health,
+       transitions: Enum.reverse(state.transitions),
        next_discovery_at: state.next_discovery_at
      }, state}
   end
@@ -182,6 +233,7 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
 
   @impl true
   def handle_cast({:observe_node, node_id}, state) do
+    state = reconcile_desired_state(state)
     state = request_observation(state, nodes_for_observation(state, [node_id]))
     {:noreply, dispatch_pending(state)}
   end
@@ -194,6 +246,7 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
       state
       |> cancel_all()
       |> Map.put(:generations, generations)
+      |> reconcile_desired_state()
       |> prune_removed_nodes(current_ids)
       |> request_discovery(automatic_nodes(state), true)
       |> request_observation(nodes_for_observation(state, :all))
@@ -400,7 +453,10 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
 
           state = clear_failure(state, :discovery, node_id)
           state = %{state | discovery_cache: cache}
+
           state
+          |> reconcile_desired_state()
+          |> request_observation(nodes_for_observation(state, [node_id]))
 
         {:error, _reason} ->
           record_failure(state, :discovery, node_id)
@@ -418,17 +474,50 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
     if generation == Map.get(state.generations, node_id, 0) do
       case result do
         {:ok, observation} ->
-          observations =
-            Map.put(state.observations, node_id, %{
-              services: services,
-              result: observation,
-              observed_at: now(state)
-            })
+          correlation_id = observation_correlation(observation)
 
-          %{state | observations: observations} |> clear_failure(:observation, node_id)
+          case normalize_observation(observation, services) do
+            {:ok, summary} ->
+              state =
+                state
+                |> put_observation(node_id, services, observation, summary, correlation_id)
+                |> update_health(node_id, services, summary, correlation_id)
+                |> clear_failure(:observation, node_id)
+
+              state
+
+            {:error, reason, summary} ->
+              state
+              |> put_observation(node_id, services, observation, summary, correlation_id)
+              |> update_failed_observation_health(
+                node_id,
+                services,
+                reason,
+                correlation_id
+              )
+              |> record_failure(:observation, node_id)
+          end
+
+        {:error, reason} ->
+          correlation_id = Audit.correlation_id()
+
+          state
+          |> put_failed_observation(node_id, services, reason, correlation_id)
+          |> update_failed_observation_health(node_id, services, reason, correlation_id)
+          |> record_failure(:observation, node_id)
 
         _failure ->
-          record_failure(state, :observation, node_id)
+          correlation_id = Audit.correlation_id()
+
+          state
+          |> put_failed_observation(node_id, services, :observation_failed, correlation_id)
+          |> update_failed_observation_health(
+            node_id,
+            services,
+            :observation_failed,
+            correlation_id
+          )
+          |> record_failure(:observation, node_id)
       end
     else
       state
@@ -525,14 +614,432 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
   defp artifact_services(other) when is_map(other), do: artifact_services([other])
   defp artifact_services(_other), do: []
 
+  defp put_observation(state, node_id, services, result, summary, correlation_id) do
+    observations =
+      Map.put(state.observations, node_id, %{
+        services: services,
+        result: result,
+        summary: summary,
+        status: summary.status,
+        observed_at: now(state),
+        correlation_id: correlation_id,
+        last_successful_observed_at: now(state)
+      })
+
+    %{state | observations: observations}
+  end
+
+  defp put_failed_observation(state, node_id, services, reason, correlation_id) do
+    previous = Map.get(state.observations, node_id, %{})
+    failure_state = observation_failure_state(reason)
+
+    observation = %{
+      services: services,
+      result: {:error, reason},
+      summary: %{status: failure_state, reason: reason},
+      status: failure_state,
+      observed_at: now(state),
+      correlation_id: correlation_id,
+      last_successful_observed_at: Map.get(previous, :last_successful_observed_at)
+    }
+
+    %{state | observations: Map.put(state.observations, node_id, observation)}
+  end
+
+  defp update_health(state, node_id, services, summary, correlation_id) do
+    Enum.reduce(services, state, fn service, acc ->
+      unit = service_name(service)
+
+      observation =
+        summary.service_states
+        |> Map.get(unit, %{state: :healthy})
+        |> Map.put_new(:observed_at, now(acc))
+
+      apply_health_observation(acc, {node_id, unit}, observation, correlation_id)
+    end)
+  end
+
+  defp update_failed_observation_health(state, node_id, services, reason, correlation_id) do
+    observed_state = observation_failure_state(reason)
+
+    Enum.reduce(services, state, fn service, acc ->
+      apply_health_observation(
+        acc,
+        {node_id, service_name(service)},
+        %{state: observed_state, reason: reason, observed_at: now(acc)},
+        correlation_id
+      )
+    end)
+  end
+
+  defp observation_failure_state(reason) when reason in [:unreachable, :worker_down],
+    do: :unreachable
+
+  defp observation_failure_state(:timeout), do: :stale
+  defp observation_failure_state(:stale), do: :stale
+  defp observation_failure_state(:probe_or_service_failed), do: :unhealthy
+  defp observation_failure_state(_reason), do: :stale
+
+  defp apply_health_observation(state, key, observation, correlation_id) do
+    candidate = Map.get(observation, :state, :unhealthy)
+    previous = Map.get(state.health, key, initial_health())
+    {updated, transition} = next_health(previous, candidate, observation, correlation_id)
+    state = %{state | health: Map.put(state.health, key, updated)}
+
+    case transition do
+      nil ->
+        state
+
+      %{from: from, to: to, attributes: attributes} ->
+        emit_transition(
+          state,
+          :service_health_transition,
+          Map.merge(attributes, %{node_id: elem(key, 0), unit: elem(key, 1), from: from, to: to}),
+          correlation_id
+        )
+    end
+  end
+
+  defp next_health(previous, candidate, observation, correlation_id)
+       when candidate in [:stale, :unreachable] do
+    updated = %{
+      previous
+      | state: candidate,
+        candidate_state: nil,
+        candidate_count: 0,
+        consecutive_observations: 1,
+        last_observed_at: observation_time(observation),
+        last_correlation_id: correlation_id,
+        reason: Map.get(observation, :reason),
+        lifecycle: :active
+    }
+
+    transition =
+      if previous.state == candidate,
+        do: nil,
+        else: %{from: previous.state, to: candidate, attributes: %{observed_state: candidate}}
+
+    {updated, transition}
+  end
+
+  defp next_health(previous, :healthy, observation, correlation_id) do
+    confirmation_count =
+      if previous.candidate_state == :healthy, do: previous.candidate_count + 1, else: 1
+
+    confirmed? = previous.state in [:unknown, :healthy] or confirmation_count >= 2
+    state = if confirmed?, do: :healthy, else: previous.state
+
+    updated = %{
+      previous
+      | state: state,
+        candidate_state: if(state == :healthy, do: nil, else: :healthy),
+        candidate_count: if(state == :healthy, do: 0, else: confirmation_count),
+        consecutive_observations: confirmation_count,
+        last_observed_at: observation_time(observation),
+        last_correlation_id: correlation_id,
+        reason: Map.get(observation, :reason),
+        lifecycle: :active
+    }
+
+    transition =
+      if state != previous.state,
+        do: %{from: previous.state, to: state, attributes: %{observed_state: :healthy}},
+        else: nil
+
+    {updated, transition}
+  end
+
+  defp next_health(previous, :unhealthy, observation, correlation_id) do
+    confirmation_count =
+      if previous.candidate_state == :unhealthy, do: previous.candidate_count + 1, else: 1
+
+    state = if confirmation_count >= 2, do: :unhealthy, else: previous.state
+
+    updated = %{
+      previous
+      | state: state,
+        candidate_state: if(state == :unhealthy, do: nil, else: :unhealthy),
+        candidate_count: if(state == :unhealthy, do: 0, else: confirmation_count),
+        consecutive_observations: confirmation_count,
+        last_observed_at: observation_time(observation),
+        last_correlation_id: correlation_id,
+        reason: Map.get(observation, :reason),
+        lifecycle: :active
+    }
+
+    transition =
+      if state != previous.state,
+        do: %{from: previous.state, to: state, attributes: %{observed_state: :unhealthy}},
+        else: nil
+
+    {updated, transition}
+  end
+
+  defp next_health(previous, _candidate, observation, correlation_id),
+    do: next_health(previous, :unhealthy, observation, correlation_id)
+
+  defp observation_time(observation), do: Map.get(observation, :observed_at)
+
+  defp emit_transition(state, event_type, attributes, correlation_id) do
+    event = %{
+      event_type: event_type,
+      correlation_id: correlation_id,
+      occurred_at: now(state),
+      attributes: attributes
+    }
+
+    _ = safe_audit_emit(state.audit_server, event_type, attributes, correlation_id)
+    %{state | transitions: [event | Enum.take(state.transitions, 999)]}
+  end
+
+  defp safe_audit_emit(server, event_type, attributes, correlation_id) do
+    Audit.emit(event_type, attributes, server: server, correlation_id: correlation_id)
+  catch
+    :exit, _reason -> :ok
+  end
+
+  defp observation_correlation(observation) when is_map(observation) do
+    Map.get(observation, :correlation_id) ||
+      Map.get(observation, "correlation_id") ||
+      Audit.correlation_id()
+  end
+
+  defp observation_correlation(_observation), do: Audit.correlation_id()
+
+  defp normalize_observation({:ok, value}, services), do: normalize_observation(value, services)
+
+  defp normalize_observation(value, services) do
+    payload = observation_payload(value)
+    recognized? = observation_payload_recognized?(payload)
+    probes = observation_probes(payload)
+    probe_map = probe_results_map(all_probe_keys(services), probes)
+
+    service_states =
+      Map.new(services, fn service ->
+        unit = service_name(service)
+        systemd = observed_systemd_state(payload, unit)
+        systemd = expected_systemd_state(service, systemd)
+        explicit = observed_service_state(payload, unit)
+        probe_state = service_probe_state(service, probe_map)
+
+        state =
+          cond do
+            probe_state == :unhealthy -> :unhealthy
+            systemd == :unhealthy -> :unhealthy
+            explicit == :unhealthy -> :unhealthy
+            explicit == :healthy -> :healthy
+            systemd == :healthy and probe_state == :healthy -> :healthy
+            not recognized? -> :healthy
+            true -> :unhealthy
+          end
+
+        {unit, %{state: state, systemd: systemd, probes: probe_state}}
+      end)
+
+    summary = %{
+      status:
+        if(Enum.all?(service_states, fn {_unit, value} -> value.state == :healthy end),
+          do: :healthy,
+          else: :unhealthy
+        ),
+      service_states: service_states,
+      probes: probes
+    }
+
+    if summary.status == :healthy,
+      do: {:ok, summary},
+      else: {:error, :probe_or_service_failed, summary}
+  end
+
+  defp observation_payload(value) when is_map(value) do
+    cond do
+      Map.has_key?(value, :artifacts) -> artifact_payload(Map.get(value, :artifacts))
+      Map.has_key?(value, "artifacts") -> artifact_payload(Map.get(value, "artifacts"))
+      true -> value
+    end
+  end
+
+  defp observation_payload(_value), do: %{}
+
+  defp artifact_payload(artifacts) when is_list(artifacts),
+    do: Enum.find_value(artifacts, %{}, &artifact_payload/1)
+
+  defp artifact_payload(value) when is_map(value) do
+    cond do
+      Map.has_key?(value, :data) -> artifact_payload(Map.get(value, :data))
+      Map.has_key?(value, "data") -> artifact_payload(Map.get(value, "data"))
+      Map.has_key?(value, :parts) -> artifact_payload(Map.get(value, :parts))
+      Map.has_key?(value, "parts") -> artifact_payload(Map.get(value, "parts"))
+      Map.has_key?(value, :skill) or Map.has_key?(value, "skill") -> value
+      true -> value
+    end
+  end
+
+  defp artifact_payload(_value), do: %{}
+
+  defp observation_payload_recognized?(payload) when is_map(payload) do
+    Enum.any?(
+      [
+        :service_states,
+        "service_states",
+        :services,
+        "services",
+        :systemd,
+        "systemd",
+        :probes,
+        "probes"
+      ],
+      &Map.has_key?(payload, &1)
+    )
+  end
+
+  defp observation_payload_recognized?(_payload), do: false
+
+  defp observation_probes(payload) when is_map(payload),
+    do: Map.get(payload, :probes, Map.get(payload, "probes", [])) || []
+
+  defp observation_probes(_payload), do: []
+
+  defp all_probe_keys(services),
+    do: services |> Enum.flat_map(&service_probes/1) |> Enum.uniq()
+
+  defp probe_results_map(keys, results) do
+    keyed =
+      Enum.flat_map(results, fn result ->
+        case result do
+          %{url: key} -> [{key, result}]
+          %{"url" => key} -> [{key, result}]
+          %{probe: key} -> [{key, result}]
+          %{"probe" => key} -> [{key, result}]
+          %{name: key} -> [{key, result}]
+          %{"name" => key} -> [{key, result}]
+          %{id: key} -> [{key, result}]
+          %{"id" => key} -> [{key, result}]
+          _other -> []
+        end
+      end)
+
+    zipped = Enum.zip(keys, results)
+    Map.new(zipped ++ keyed)
+  end
+
+  defp service_probe_state(service, probe_map) do
+    probes = service_probes(service)
+
+    cond do
+      probes == [] -> :healthy
+      Enum.any?(probes, &(not Map.has_key?(probe_map, &1))) -> :unhealthy
+      Enum.all?(probes, &probe_pass?(Map.get(probe_map, &1))) -> :healthy
+      true -> :unhealthy
+    end
+  end
+
+  defp probe_pass?({:ok, status, _time, _size}) when is_integer(status), do: status in 200..299
+  defp probe_pass?(%{status: status}) when is_integer(status), do: status in 200..299
+  defp probe_pass?(%{"status" => status}) when is_integer(status), do: status in 200..299
+  defp probe_pass?(_value), do: false
+
+  defp observed_service_state(payload, unit) when is_map(payload) do
+    states = Map.get(payload, :service_states, Map.get(payload, "service_states", %{})) || %{}
+
+    case Map.get(states, unit, Map.get(states, to_string(unit))) do
+      value when is_map(value) -> service_state_value(value)
+      value -> normalize_health_state(value)
+    end
+  end
+
+  defp observed_service_state(_payload, _unit), do: nil
+
+  defp service_state_value(value) do
+    normalize_health_state(
+      Map.get(
+        value,
+        :state,
+        Map.get(value, "state", Map.get(value, :health, Map.get(value, "health")))
+      )
+    )
+  end
+
+  defp normalize_health_state(value) when value in [:healthy, :ok, :running, :active],
+    do: :healthy
+
+  defp normalize_health_state(value) when value in [:unhealthy, :failed, :degraded, :inactive],
+    do: :unhealthy
+
+  defp normalize_health_state(value) when value in ["healthy", "ok", "running", "active"],
+    do: :healthy
+
+  defp normalize_health_state(value)
+       when value in ["unhealthy", "failed", "degraded", "inactive"],
+       do: :unhealthy
+
+  defp normalize_health_state(_value), do: nil
+
+  defp observed_systemd_state(payload, unit) when is_map(payload) do
+    systemd = Map.get(payload, :systemd, Map.get(payload, "systemd"))
+
+    measurements =
+      case systemd do
+        %{measurements: values} -> values
+        %{"measurements" => values} -> values
+        _ -> Map.get(payload, :measurements, Map.get(payload, "measurements", %{}))
+      end || %{}
+
+    prefix = unit |> String.replace(".", "_") |> String.replace("-", "_")
+    key = String.downcase(prefix <> "_activestate")
+
+    measurements
+    |> measurement_for_key(key)
+    |> measurement_value()
+    |> case do
+      value when value in ["active", "running", :active, :running] -> :healthy
+      value when value in ["inactive", "failed", "dead", :inactive, :failed, :dead] -> :unhealthy
+      _ -> nil
+    end
+  end
+
+  defp observed_systemd_state(_payload, _unit), do: nil
+
+  defp expected_systemd_state(_service, nil), do: nil
+
+  defp expected_systemd_state(service, observed) do
+    expected = service_field(service, :expected_state, :running)
+
+    case expected do
+      state when state in [:running, :active, "running", "active"] ->
+        observed
+
+      state when state in [:stopped, :inactive, "stopped", "inactive"] ->
+        if observed == :healthy, do: :unhealthy, else: :healthy
+
+      _other ->
+        observed
+    end
+  end
+
+  defp measurement_value(%{value: value}), do: value
+  defp measurement_value(%{"value" => value}), do: value
+  defp measurement_value(value), do: value
+
+  defp measurement_for_key(measurements, key) do
+    Map.get(measurements, key) ||
+      Enum.find_value(measurements, fn
+        {candidate, value} when is_atom(candidate) ->
+          if Atom.to_string(candidate) == key, do: value
+
+        _other ->
+          nil
+      end)
+  end
+
   defp normalize_service_names(services) do
     names =
       Enum.flat_map(services, fn
         name when is_binary(name) -> [%{name: name}]
-        %{name: name} when is_binary(name) -> [%{name: name}]
-        %{"name" => name} when is_binary(name) -> [%{name: name}]
-        %{unit: name} when is_binary(name) -> [%{name: name}]
-        %{"unit" => name} when is_binary(name) -> [%{name: name}]
+        %{name: name} = service when is_binary(name) -> [normalize_service_record(service)]
+        %{"name" => name} = service when is_binary(name) -> [normalize_service_record(service)]
+        %{unit: name} = service when is_binary(name) -> [normalize_service_record(service)]
+        %{"unit" => name} = service when is_binary(name) -> [normalize_service_record(service)]
         _other -> []
       end)
 
@@ -545,46 +1052,342 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
     {:ok, names}
   end
 
+  defp normalize_service_record(service) do
+    name = service_name(service)
+
+    service
+    |> Map.put(:name, name)
+    |> Map.delete("name")
+    |> Map.delete(:unit)
+    |> Map.delete("unit")
+  end
+
   defp effective_services_for(node_id, state) do
+    node_id
+    |> effective_expectations_for(state)
+    |> Enum.map(&expectation_to_service/1)
+  end
+
+  defp effective_expectations_for(node_id, state) do
     case find_node(node_id, state) do
-      nil ->
-        []
-
-      node ->
-        manual =
-          case node.monitoring do
-            %{services: services} when is_list(services) ->
-              Enum.map(services, &Map.put(&1, :source, :manual))
-
-            _ ->
-              []
-          end
-
-        automatic =
-          case node.monitoring do
-            %{automatic: true} ->
-              state.discovery_cache
-              |> Map.get(node.id, %{services: []})
-              |> Map.get(:services, [])
-              |> Enum.map(&Map.put(&1, :source, :automatic))
-
-            _ ->
-              []
-          end
-
-        (manual ++ automatic)
-        |> Enum.reduce(%{}, fn service, acc ->
-          Map.put_new(acc, service.name, service)
-        end)
-        |> Map.values()
-        |> Enum.sort_by(& &1.name)
+      nil -> []
+      node -> DesiredService.resolve(source_contributions(node, state))
     end
   end
+
+  defp source_contributions(node, state) do
+    manual =
+      node
+      |> manual_services()
+      |> Enum.map(&contribution(:manual, node.id, &1))
+
+    automatic =
+      if automatic_node?(node) do
+        state.discovery_cache
+        |> Map.get(node.id, %{services: []})
+        |> Map.get(:services, [])
+        |> Enum.map(&contribution(:automatic, node.id, &1))
+      else
+        []
+      end
+
+    profile =
+      node
+      |> profile_services(state)
+      |> Enum.map(&contribution(:cluster_profile, node.id, &1))
+
+    manual ++ automatic ++ profile
+  end
+
+  defp manual_services(%{monitoring: %{services: services}}) when is_list(services), do: services
+  defp manual_services(_node), do: []
+
+  defp contribution(source, node_id, service) do
+    DesiredService.SourceExpectation.new(source, node_id, service_name(service),
+      required_probes: service_probes(service),
+      expected_state: service_field(service, :expected_state, :running),
+      profile_context: service_field(service, :profile_context)
+    )
+  end
+
+  defp expectation_to_service(expectation) do
+    probes = Enum.filter(expectation.required_probes, &probe_url?/1)
+
+    %{
+      name: expectation.unit,
+      source: List.first(expectation.sources),
+      sources: expectation.sources,
+      required_probes: expectation.required_probes,
+      probes: probes,
+      health_check_url: List.first(probes),
+      expected_state: expectation.expected_state,
+      profile_context: expectation.profile_context,
+      recovery_authority_source: expectation.recovery_authority_source
+    }
+    |> Map.reject(fn {_key, value} -> is_nil(value) end)
+  end
+
+  defp service_name(%{name: name}) when is_binary(name), do: name
+  defp service_name(%{"name" => name}) when is_binary(name), do: name
+  defp service_name(%{unit: name}) when is_binary(name), do: name
+  defp service_name(%{"unit" => name}) when is_binary(name), do: name
+  defp service_name(name) when is_binary(name), do: name
+
+  defp service_probes(service) do
+    values =
+      [
+        service_field(service, :health_check_url),
+        service_field(service, :health_check_urls, []),
+        service_field(service, :required_probes, []),
+        service_field(service, :probes, [])
+      ]
+      |> List.flatten()
+
+    values
+    |> Enum.map(fn
+      %{url: url} -> url
+      %{"url" => url} -> url
+      probe -> probe
+    end)
+    |> Enum.reject(&is_nil/1)
+    |> Enum.uniq()
+    |> Enum.sort()
+  end
+
+  defp service_field(service, field, default \\ nil)
+
+  defp service_field(service, field, default) when is_map(service) do
+    Map.get(service, field, Map.get(service, Atom.to_string(field), default))
+  end
+
+  defp service_field(_service, _field, default), do: default
+
+  defp probe_url?(probe) when is_binary(probe), do: String.starts_with?(probe, "http")
+  defp probe_url?(_probe), do: false
 
   defp automatic_nodes(state), do: Enum.filter(inventory_nodes(state), &automatic_node?/1)
 
   defp automatic_node?(%{monitoring: %{automatic: true}}), do: true
   defp automatic_node?(_node), do: false
+
+  defp profile_services(node, state) do
+    profile = inventory_profile(state)
+
+    if is_nil(profile) do
+      []
+    else
+      result = invoke_profile_resolver(state.profile_resolver, profile, node)
+
+      case result do
+        {:ok, value} -> add_profile_context(normalize_profile_services(value, node.id), profile)
+        value -> add_profile_context(normalize_profile_services(value, node.id), profile)
+      end
+    end
+  end
+
+  defp inventory_profile(state) do
+    inventory = inventory_reader_result(state)
+    Map.get(inventory, :cluster_profile, Map.get(inventory, "cluster_profile"))
+  end
+
+  defp inventory_reader_result(state) do
+    state.inventory_reader.(state.inventory)
+  catch
+    :exit, _reason -> %{}
+  end
+
+  defp invoke_profile_resolver(resolver, profile, node) when is_function(resolver, 2),
+    do: resolver.(profile, node)
+
+  defp invoke_profile_resolver(resolver, profile, _node) when is_function(resolver, 1),
+    do: resolver.(profile)
+
+  defp invoke_profile_resolver(_resolver, _profile, _node), do: []
+
+  defp normalize_profile_services(value, node_id) when is_map(value) do
+    cond do
+      Map.has_key?(value, :services) ->
+        normalize_profile_services(Map.get(value, :services), node_id)
+
+      Map.has_key?(value, "services") ->
+        normalize_profile_services(Map.get(value, "services"), node_id)
+
+      Map.has_key?(value, node_id) ->
+        normalize_profile_services(Map.get(value, node_id), node_id)
+
+      Map.has_key?(value, to_string(node_id)) ->
+        normalize_profile_services(Map.get(value, to_string(node_id)), node_id)
+
+      true ->
+        []
+    end
+  end
+
+  defp normalize_profile_services(value, _node_id) when is_list(value), do: value
+  defp normalize_profile_services(_value, _node_id), do: []
+
+  defp add_profile_context(services, profile) do
+    Enum.map(services, fn
+      service when is_map(service) -> Map.put_new(service, :profile_context, profile)
+      service when is_binary(service) -> %{name: service, profile_context: profile}
+      service -> service
+    end)
+  end
+
+  defp default_profile_resolver(profile, _node) do
+    sources = Application.get_env(:exocomp_coordinator, :cluster_profiles, %{})
+    Map.get(sources, profile, Map.get(sources, to_string(profile), []))
+  end
+
+  defp profile_resolver_from_sources(%{}), do: &default_profile_resolver/2
+
+  defp profile_resolver_from_sources(sources) when is_map(sources) do
+    fn profile, _node -> Map.get(sources, profile, Map.get(sources, to_string(profile), [])) end
+  end
+
+  defp profile_resolver_from_sources(_sources), do: &default_profile_resolver/2
+
+  defp reconcile_desired_state(state) do
+    current_ids = state |> inventory_nodes() |> Enum.map(& &1.id) |> MapSet.new()
+
+    Enum.reduce(MapSet.to_list(current_ids), state, fn node_id, acc ->
+      reconcile_node(node_id, acc)
+    end)
+  end
+
+  defp reconcile_node(node_id, state) do
+    previous = Map.get(state.expectations, node_id, %{})
+
+    current =
+      effective_expectations_for(node_id, state)
+      |> Map.new(fn expectation -> {expectation.unit, expectation} end)
+
+    removed = Map.keys(previous) -- Map.keys(current)
+    added = Map.keys(current) -- Map.keys(previous)
+
+    changed =
+      Map.keys(current)
+      |> Enum.filter(fn unit ->
+        Map.has_key?(previous, unit) and previous[unit] != current[unit]
+      end)
+
+    state =
+      Enum.reduce(removed, state, fn unit, acc ->
+        expectation = previous[unit]
+        correlation_id = Audit.correlation_id()
+        key = {node_id, unit}
+
+        acc
+        |> put_retired(key, expectation, correlation_id)
+        |> emit_transition(
+          :desired_state_removed,
+          %{node_id: node_id, unit: unit, sources: expectation.sources},
+          correlation_id
+        )
+      end)
+
+    state =
+      Enum.reduce(added, state, fn unit, acc ->
+        correlation_id = Audit.correlation_id()
+        key = {node_id, unit}
+
+        acc
+        |> clear_retired(key)
+        |> reset_health(key)
+        |> emit_transition(
+          :desired_state_added,
+          %{node_id: node_id, unit: unit, sources: current[unit].sources},
+          correlation_id
+        )
+      end)
+
+    state =
+      Enum.reduce(changed, state, fn unit, acc ->
+        correlation_id = Audit.correlation_id()
+        key = {node_id, unit}
+
+        acc
+        |> reset_health_if_expectation_changed(key)
+        |> emit_transition(
+          :desired_state_changed,
+          %{
+            node_id: node_id,
+            unit: unit,
+            from_sources: previous[unit].sources,
+            to_sources: current[unit].sources,
+            from_probes: previous[unit].required_probes,
+            to_probes: current[unit].required_probes
+          },
+          correlation_id
+        )
+      end)
+
+    %{state | expectations: Map.put(state.expectations, node_id, current)}
+  end
+
+  defp put_retired(state, key, expectation, correlation_id) do
+    health =
+      state.health
+      |> Map.get(key, %{state: :unknown})
+      |> Map.merge(%{state: :retired, lifecycle: :retired, retired_at: now(state)})
+
+    %{
+      state
+      | retired:
+          Map.put(state.retired, key, %{
+            expectation: expectation,
+            retired_at: now(state),
+            correlation_id: correlation_id
+          }),
+        health: Map.put(state.health, key, health)
+    }
+  end
+
+  defp clear_retired(state, key), do: %{state | retired: Map.delete(state.retired, key)}
+
+  defp reset_health(state, key),
+    do: %{state | health: Map.put(state.health, key, initial_health())}
+
+  defp reset_health_if_expectation_changed(state, key), do: reset_health(state, key)
+
+  defp initial_health do
+    %{
+      state: :unknown,
+      candidate_state: nil,
+      candidate_count: 0,
+      consecutive_observations: 0,
+      last_observed_at: nil,
+      last_correlation_id: nil,
+      reason: nil,
+      lifecycle: :active
+    }
+  end
+
+  defp desired_state_view(state) do
+    node_ids =
+      state.expectations
+      |> Map.keys()
+      |> Kernel.++(Enum.map(state.retired, fn {{node_id, _unit}, _value} -> node_id end))
+      |> Enum.uniq()
+      |> Enum.sort()
+
+    Map.new(node_ids, fn node_id ->
+      expectations =
+        Map.get(state.expectations, node_id, %{}) |> Map.values() |> Enum.sort_by(& &1.unit)
+
+      retired =
+        state.retired
+        |> Enum.filter(fn {{id, _unit}, _value} -> id == node_id end)
+        |> Map.new(fn {{_id, unit}, value} -> {unit, value} end)
+
+      health =
+        state.health
+        |> Enum.filter(fn {{id, _unit}, _value} -> id == node_id end)
+        |> Map.new(fn {{_id, unit}, value} -> {unit, value} end)
+
+      {node_id, %{expectations: expectations, health: health, retired: retired}}
+    end)
+  end
 
   defp nodes_for_observation(state, :all), do: inventory_nodes(state)
 
@@ -650,10 +1453,32 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
   defp prune_removed_nodes(state, current_ids) do
     keep = fn {node_id, _value} -> MapSet.member?(current_ids, node_id) end
 
+    removed_node_ids = Map.keys(state.expectations) -- MapSet.to_list(current_ids)
+
+    state =
+      Enum.reduce(removed_node_ids, state, fn node_id, acc ->
+        acc.expectations
+        |> Map.get(node_id, %{})
+        |> Map.keys()
+        |> Enum.reduce(acc, fn unit, inner ->
+          expectation = inner.expectations[node_id][unit]
+          correlation_id = Audit.correlation_id()
+
+          inner
+          |> put_retired({node_id, unit}, expectation, correlation_id)
+          |> emit_transition(
+            :desired_state_removed,
+            %{node_id: node_id, unit: unit, sources: expectation.sources},
+            correlation_id
+          )
+        end)
+      end)
+
     %{
       state
       | discovery_cache: Map.filter(state.discovery_cache, keep),
         observations: Map.filter(state.observations, keep),
+        expectations: Map.filter(state.expectations, keep),
         failures:
           Map.filter(state.failures, fn {{_kind, node_id}, _value} ->
             MapSet.member?(current_ids, node_id)
@@ -695,8 +1520,10 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
       "services" => Enum.map(services, & &1.name),
       "probes" =>
         services
-        |> Enum.filter(&Map.has_key?(&1, :health_check_url))
-        |> Enum.map(fn service -> %{"url" => service.health_check_url} end)
+        |> Enum.flat_map(&Map.get(&1, :probes, []))
+        |> Enum.filter(&probe_url?/1)
+        |> Enum.uniq()
+        |> Enum.map(&%{"url" => &1})
     }
 
     request_task(node, "exocomp.service.observe", params, opts)

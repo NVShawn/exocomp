@@ -277,6 +277,129 @@ defmodule Exocomp.Coordinator.ServiceSchedulerTest do
     assert_receive {:observed_from_health, "node-a", ["manual.service"]}, 1_000
   end
 
+  test "effective expectations use manual, automatic, and profile sources" do
+    node = automatic_node("node-a", [%{name: "shared.service"}])
+    {inventory, reader} = inventory([node])
+    Agent.update(inventory, &Map.put(&1, :cluster_profile, "production"))
+    task_supervisor = task_supervisor()
+
+    scheduler =
+      start_scheduler(inventory, reader, task_supervisor,
+        discovery_adapter: fn _node, _opts ->
+          {:ok, [%{name: "shared.service"}, %{name: "auto.service"}]}
+        end,
+        profile_resolver: fn "production", _node ->
+          [%{name: "profile.service"}, %{name: "shared.service"}]
+        end,
+        start_immediately: false
+      )
+
+    :ok = ServiceScheduler.discover_now(scheduler)
+    eventually(fn -> length(ServiceScheduler.expectations("node-a", scheduler)) == 3 end)
+
+    expectations = ServiceScheduler.expectations("node-a", scheduler)
+    shared = Enum.find(expectations, &(&1.unit == "shared.service"))
+
+    assert shared.sources == [:automatic, :cluster_profile, :manual]
+    assert shared.profile_context == "production"
+
+    assert Enum.map(expectations, & &1.unit) == [
+             "auto.service",
+             "profile.service",
+             "shared.service"
+           ]
+  end
+
+  test "removing an expectation retires it and emits a desired-state event" do
+    node = automatic_node("node-a", [%{name: "manual.service"}])
+    {inventory, reader} = inventory([node])
+    task_supervisor = task_supervisor()
+
+    scheduler = start_scheduler(inventory, reader, task_supervisor, start_immediately: false)
+    assert [%{unit: "manual.service"}] = ServiceScheduler.expectations("node-a", scheduler)
+
+    Agent.update(inventory, fn value -> %{value | nodes: [automatic_node("node-a")]} end)
+    :ok = ServiceScheduler.inventory_replaced(scheduler)
+
+    eventually(fn -> ServiceScheduler.expectations("node-a", scheduler) == [] end)
+    desired = ServiceScheduler.desired_state(scheduler)["node-a"]
+    assert desired.retired["manual.service"].expectation.unit == "manual.service"
+
+    assert Enum.any?(ServiceScheduler.transitions(scheduler), fn transition ->
+             transition.event_type == :desired_state_removed and
+               transition.attributes.unit == "manual.service" and
+               is_binary(transition.correlation_id)
+           end)
+  end
+
+  test "probe failure is unhealthy only after two observations and recovery has hysteresis" do
+    node =
+      automatic_node("node-a", [
+        %{name: "api.service", health_check_url: "http://127.0.0.1:8080/health"}
+      ])
+
+    {inventory, reader} = inventory([node])
+    task_supervisor = task_supervisor()
+    owner = self()
+
+    {:ok, sequence} =
+      Agent.start_link(fn -> [:healthy, :unhealthy, :unhealthy, :healthy, :healthy] end)
+
+    observation = fn _node, _services, _opts ->
+      outcome = Agent.get_and_update(sequence, fn [head | tail] -> {head, tail} end)
+      send(owner, {:observation_outcome, outcome})
+
+      {:ok,
+       %{
+         service_states: %{"api.service" => outcome},
+         probes: [{:ok, if(outcome == :healthy, do: 200, else: 503), 1, 1}]
+       }}
+    end
+
+    scheduler =
+      start_scheduler(inventory, reader, task_supervisor,
+        observation_adapter: observation,
+        start_immediately: false
+      )
+
+    observe = fn ->
+      :ok = ServiceScheduler.observe_now(scheduler, ["node-a"])
+      assert_receive {:observation_outcome, _}, 1_000
+      eventually(fn -> map_size(ServiceScheduler.health(scheduler)) == 1 end)
+    end
+
+    observe.()
+    assert ServiceScheduler.health(scheduler)[{"node-a", "api.service"}].state == :healthy
+    observe.()
+    assert ServiceScheduler.health(scheduler)[{"node-a", "api.service"}].state == :healthy
+    observe.()
+    assert ServiceScheduler.health(scheduler)[{"node-a", "api.service"}].state == :unhealthy
+    observe.()
+    assert ServiceScheduler.health(scheduler)[{"node-a", "api.service"}].state == :unhealthy
+    observe.()
+    assert ServiceScheduler.health(scheduler)[{"node-a", "api.service"}].state == :healthy
+  end
+
+  test "failed observations preserve explicit unreachable state" do
+    node = automatic_node("node-a", [%{name: "api.service"}])
+    {inventory, reader} = inventory([node])
+    task_supervisor = task_supervisor()
+
+    scheduler =
+      start_scheduler(inventory, reader, task_supervisor,
+        observation_adapter: fn _node, _services, _opts -> {:error, :unreachable} end,
+        start_immediately: false
+      )
+
+    :ok = ServiceScheduler.observe_now(scheduler, ["node-a"])
+
+    eventually(fn ->
+      ServiceScheduler.observations(scheduler)["node-a"].status == :unreachable
+    end)
+
+    assert ServiceScheduler.health(scheduler)[{"node-a", "api.service"}].state == :unreachable
+  end
+
   defp start_scheduler(inventory, reader, task_supervisor, opts) do
     name = unique_name(:service_scheduler)
 
