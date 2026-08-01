@@ -18,7 +18,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:19:46.786089Z'
+updated_at: '2026-08-01T13:22:46.736475Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -188,5 +188,32 @@ author: oompah
 created: 2026-08-01 13:19
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-08-01 13:22
+---
+UNDERSTANDING: This task requires building integration tests for Mission Control reconnect and multi-replica scenarios.
+
+Architecture understood from dependency branches:
+- EXOCOMP-147: MissionControl.Connection (coordinator side) + SessionLiveness (heartbeat tracking)
+- EXOCOMP-148: EventOutbox (coordinator durable at-least-once event store, JSON-on-disk)
+- EXOCOMP-149: ClusterEventIngestor + ClusterEvent + ClusterIdentity (Mission Control ingest boundary)
+- EXOCOMP-150: exocomp_mission_control app — CommandOutbox (Ecto/PostgreSQL), SessionRegistry, Command schema
+- EXOCOMP-151: CommandProcessor (coordinator-side command idempotency using DETS)
+- EXOCOMP-179: empty branch (no additions yet)
+
+Plan:
+1. Merge the dependency branches into this branch to access their modules
+2. Create apps/exocomp_coordinator/test/integration/mission_control_reconnect_test.exs with an in-process harness:
+   - One EventOutbox (coordinator event store)
+   - One ClusterEventIngestor (simulating Mission Control side)
+   - Two SessionRegistry instances (two MC replicas)
+   - One CommandProcessor (coordinator command receiver)
+   - One CommandOutbox (PostgreSQL, shared by both replicas)
+3. Test scenarios: disconnect/reconnect, durable event replay, command replay, duplicate delivery, sequence gap, certificate revocation, connection-owner replica termination
+4. Add test-integration-mc Makefile target
+5. Run make fmt-check and make lint
+
+The harness will be in-process (no Docker/real PostgreSQL for unit tests) but structured to use real module boundaries. A Docker-compose variant for the Make target will wire real PostgreSQL.
 ---
 <!-- COMMENTS:END -->
