@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:42.487515Z'
-updated_at: '2026-08-01T13:29:00.864555Z'
+updated_at: '2026-08-01T13:29:21.863884Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-181
 target_branch: null
 review_url: null
@@ -114,13 +114,13 @@ oompah.integration:
   submitted_at: '2026-08-01T13:28:58.827972+00:00'
   updated_at: '2026-08-01T13:28:58.827972+00:00'
 oompah.task_costs:
-  total_input_tokens: 178
-  total_output_tokens: 5249
+  total_input_tokens: 1512
+  total_output_tokens: 5578
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 178
-      output_tokens: 5249
+      input_tokens: 1512
+      output_tokens: 5578
       cost_usd: 0.0
   runs:
   - profile: default
@@ -129,6 +129,12 @@ oompah.task_costs:
     output_tokens: 5249
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:19:29.875178+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1334
+    output_tokens: 329
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:29:20.614714+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-181__20260801T131744Z
@@ -242,5 +248,15 @@ author: oompah
 created: 2026-08-01 13:29
 ---
 Added comprehensive security negative tests covering 10 security boundaries (cross-org isolation, OIDC, cluster certs, invitation replay, identity override, arbitrary actions, approval freshness, webhook sigs, secret redaction, RBAC). Created 3 test files with 400+ test cases and security boundary documentation. Introduced 'make security' Make target.
+---
+author: oompah
+created: 2026-08-01 13:29
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 74
+- Tokens: 1.3K in / 329 out [1.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 9m 21s
+- Log: EXOCOMP-181__20260801T132007Z.jsonl
 ---
 <!-- COMMENTS:END -->

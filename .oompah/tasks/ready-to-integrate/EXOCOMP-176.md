@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-176
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Package the Mission Control release and OCI image
 parent: EXOCOMP-135
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:27.819781Z'
-updated_at: '2026-08-01T13:28:43.347982Z'
+updated_at: '2026-08-01T13:29:28.922536Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: 0da8f466-fed8-443f-9132-80271fe7a18f
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-176
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-176
-  base_branch: epic-EXOCOMP-135
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:11:27.164487+00:00'
+  head_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
+  submitted_at: '2026-08-01T13:29:26.416726+00:00'
+  updated_at: '2026-08-01T13:29:26.416726+00:00'
 oompah.task_costs:
   total_input_tokens: 1157401
   total_output_tokens: 4784
@@ -235,5 +235,15 @@ author: oompah
 created: 2026-08-01 13:28
 ---
 Implementation: added conditional mission_control OTP release registration, digest-pinned multi-stage OCI Containerfile, UID 10001/read-only state contract, explicit migrate/server/healthcheck entrypoint, reproducible OCI metadata packager for manifest/checksum/SPDX SBOM/SLSA provenance/license coverage, pinned image build and PostgreSQL restart harness scripts, Make targets, Docker context exclusions, and operator documentation.
+---
+author: oompah
+created: 2026-08-01 13:29
+---
+Completion: pushed d9cc09d7 on epic-EXOCOMP-135--task-EXOCOMP-176. Mission Control packaging now has pinned OCI/OTP build wiring, unprivileged read-only runtime policy, explicit migration/server operations, supply-chain metadata and license coverage, focused offline tests, and a digest-pinned PostgreSQL restart harness. Branch is clean and synchronized with origin.
+---
+author: oompah
+created: 2026-08-01 13:29
+---
+Packaged Mission Control production OTP release and pinned OCI image with explicit operations, hardened runtime, supply-chain metadata, license coverage, and focused PostgreSQL/restart packaging tests.
 ---
 <!-- COMMENTS:END -->
