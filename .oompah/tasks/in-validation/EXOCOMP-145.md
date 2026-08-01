@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T16:56:01.821888Z'
+updated_at: '2026-08-01T16:56:18.835967Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -346,5 +346,37 @@ author: oompah
 created: 2026-08-01 16:55
 ---
 Added optional Mission Control coordinator configuration with runtime loading and integration testing. Configuration is loaded in config/runtime.exs and wired into app env. Supervision tree (Outbox, Connection) starts conditionally only when enabled. All 536 tests pass (including new integration tests). Local services (Inventory, HealthPoller, Orchestrator, RemediationLifecycle) operate independently when Mission Control is absent or disabled.
+---
+author: oompah
+created: 2026-08-01 16:56
+---
+Agent failed: Path "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-145" does not exist; Error: Failed to load marketplace configuration: JSON Parse error: Unexpected EOF
+    at Hz (/$bunfs/root/src/entrypoints/cli.js:4478:14157)
+    at async o85 (/$bunfs/root/src/entrypoints/cli.js:6361:4914)
+    at async <anonymous> (/$bunfs/root/src/entrypoints/cli.js:6361:6578)
+    at processTicksAndRejections (native:7:39); Error: Failed to load marketplace configuration: JSON Parse error: Unexpected EOF
+    at Hz (/$bunfs/root/src/entrypoints/cli.js:4478:14157)
+    at async gX8 (/$bunfs/root/src/entrypoints/cli.js:9256:29184)
+    at async KhH (/$bunfs/root/src/entrypoints/cli.js:131:247)
+    at async Cm4 (/$bunfs/root/src/entrypoints/cli.js:18740:26710)
+    at async kH (/$bunfs/root/src/entrypoints/cli.js:18764:9376)
+    at processTicksAndRejections (native:7:39); Error: Failed to load marketplace configuration: JSON Parse error: Unexpected EOF
+    at Hz (/$bunfs/root/src/entrypoints/cli.js:4478:14157)
+    at async dOH (/$bunfs/root/src/entrypoints/cli.js:4521:72)
+    at async gX8 (/$bunfs/root/src/entrypoints/cli.js:9256:30037)
+    at async KhH (/$bunfs/root/src/entrypoints/cli.js:131:247)
+    at async Cm4 (/$bunfs/root/src/entrypoints/cli.js:18740:26710)
+    at async kH (/$bunfs/root/src/entrypoints/cli.js:18764:9376)
+    at processTicksAndRejections (native:7:39). Retrying in 10s (attempt #1)
+---
+author: oompah
+created: 2026-08-01 16:56
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 81, Tool calls: 32
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 7m 5s
+- Log: EXOCOMP-145__20260801T164912Z.jsonl
 ---
 <!-- COMMENTS:END -->
