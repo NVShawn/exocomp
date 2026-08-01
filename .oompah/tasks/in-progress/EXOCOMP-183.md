@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:53.481557Z'
-updated_at: '2026-08-01T16:08:45.429306Z'
+updated_at: '2026-08-01T16:10:30.041861Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-183
 target_branch: null
 review_url: null
@@ -219,5 +219,26 @@ author: oompah
 created: 2026-08-01 16:08
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 16:10
+---
+UNDERSTANDING: Task EXOCOMP-183 requires building Mission Control scale and soak qualification infrastructure. The deliverables are:
+
+1. Deterministic load driver: 100 clusters, 10,000 nodes, 100 events/sec burst
+2. Metrics: p95 latency, event loss, connection count, BEAM metrics (processes, mailboxes), memory, FDs, DB pool/queue, outbox depth, webhook/retention workers
+3. 4-hour soak test infrastructure 
+4. Make targets for quality gates (short and full runs)
+
+Acceptance criteria: p95 <3s with zero event loss, soak shows stable bounds (no unbounded growth).
+
+Approach:
+- Extend apps/bench with a new Mission Control qualification module (following M5 llama pattern)
+- Create load driver using existing infrastructure (coordinator connection simulation)
+- Implement metrics collection for MC-specific telemetry
+- Add Make targets: 'mc-scale-short' and 'mc-scale-full' for quality gates
+- Build around existing event/acknowledgement protocol
+
+Current state: No Mission Control app yet; blocking deps (EXOCOMP-165/177/180/182) likely provide the MC implementation. This work creates the test harness that will validate MC at scale.
 ---
 <!-- COMMENTS:END -->

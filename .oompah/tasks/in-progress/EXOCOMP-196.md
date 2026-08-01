@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:09:32.636176Z'
+updated_at: '2026-08-01T16:10:40.351015Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -43,12 +43,12 @@ oompah.agent_run_id: b67013e1-4079-46a6-8ef9-2fd2d22f9f15
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-196
-  base_branch: epic-EXOCOMP-186
-  base_sha: 7b4b2af51f12b228fbaabe25bbaa3a757e776022
-  updated_at: '2026-08-01T15:55:37.297196+00:00'
+  head_sha: f6f24f96d83e6fccb7081fdb4840c44c73b89c0a
+  submitted_at: '2026-08-01T16:10:39.544583+00:00'
+  updated_at: '2026-08-01T16:10:39.544583+00:00'
 oompah.task_costs:
   total_input_tokens: 1289389
   total_output_tokens: 25834
@@ -556,5 +556,10 @@ author: oompah
 created: 2026-08-01 16:09
 ---
 Verification: make test reached all offline builder/release checks (13/13 and Python suites passed) but could not start the pinned Elixir container because Podman cannot create /run/user/1000/libpod on the read-only filesystem. Host Mix is incompatible (Elixir 1.18.3 vs required 1.20.2). Static Code.string_to_quoted!/elixirc compilation of changed runtime modules passed with only expected missing-dependency warnings, git diff --check passed, and make check-links passed.
+---
+author: oompah
+created: 2026-08-01 16:10
+---
+Completion: delivered f6f24f96 and pushed it. Coordinator startup now validates configured Ceph paths/version/files/ownership/mode, emits redacted actionable validation events, keeps unrelated startup alive, and marks Ceph degraded through ProfileCoverage/Agent Card lookup advertisement. Added startup integration coverage for bad keyring mode, missing binary, and root ownership; added audit redaction coverage; fixed the node test compile error; coordinated overlap with EXOCOMP-198. make check-links and offline builder checks pass; full make test remains blocked only at the pinned container launch by the read-only Podman libpod path. Branch is pushed and up to date.
 ---
 <!-- COMMENTS:END -->
