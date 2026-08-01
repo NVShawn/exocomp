@@ -19,7 +19,7 @@ labels:
 - focus-complete:devops
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T18:11:29.363409Z'
+updated_at: '2026-08-01T18:11:44.939032Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -704,5 +704,10 @@ author: oompah
 created: 2026-08-01 18:11
 ---
 IMPLEMENTATION (callback_auth): Hardened M7 qualification evidence handling. Redacted configuration now rejects credential/API/access/signing/webhook-key and passphrase fields (including camelCase); service/endpoint overrides reject credential-bearing URLs; the finalizer enforces the canonical M7 evidence/criterion mapping, verifies each recorded phase passed, validates candidate/operator shape, and rejects all symlinked evidence before signing. Updated the qualification runbook and added regression coverage.
+---
+author: oompah
+created: 2026-08-01 18:11
+---
+VERIFICATION (callback_auth): PASS: make test-m7-qualification-contract (18 offline tests); PASS: make release-check (53 compliance/qualification/docs/packaging tests); PASS: make check-links, Python compilation, and git diff --check. make lint reached its containerized Mix step but cannot run in this managed guest because the docker command is a Podman wrapper that cannot create /run/user/1000/libpod (read-only filesystem); its preceding offline builder/docs/package checks passed. Live test-m7-qualification remains intentionally unavailable pending the signed candidate, supported systemd guests, and dependent scenario/scale/lifecycle targets.
 ---
 <!-- COMMENTS:END -->
