@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-155
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Implement incident health-transition rules
 parent: EXOCOMP-131
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:23:55.672769Z'
+updated_at: '2026-08-01T23:24:09.682935Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -67,12 +67,12 @@ oompah.agent_run_id: 10ce6f6e-c973-4eec-9134-985e0e901af0
 oompah.work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-155
-  base_branch: epic-EXOCOMP-131
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T23:01:44.694357+00:00'
+  head_sha: b4aa7d82e94f51905f3f3510c518d56df86b876c
+  submitted_at: '2026-08-01T23:24:02.292085+00:00'
+  updated_at: '2026-08-01T23:24:02.292085+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 561
