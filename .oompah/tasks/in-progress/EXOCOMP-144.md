@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:13:17.044389Z'
+updated_at: '2026-08-01T12:21:01.432278Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -253,5 +253,10 @@ author: oompah
 created: 2026-08-01 12:13
 ---
 Understanding: EXOCOMP-144 requires implementing PKI certificate renewal and revocation in the coordinator app. As Maintenance Engineer, I'll implement: (1) POST /api/v1/clusters/renew endpoint authenticated via mTLS, (2) renewal eligibility after day 20 with serial rotation, (3) admin revocation of cluster identities and certificate serials, (4) deterministic certificate status lookup for the gateway. Starting with codebase exploration to understand existing PKI patterns before implementing.
+---
+author: oompah
+created: 2026-08-01 12:21
+---
+Discovery: Examined the full coordinator PKI stack. The existing renewal handler (apps/exocomp_coordinator/lib/exocomp/coordinator/handlers/renewal_handler.ex) already handles mTLS cert extraction and CSR validation but has NO eligibility check, no revocation support, and no serial tracking. Key files: pki/{issuer,state,bootstrap}.ex, coordinator_router.ex, enrollment_token.ex (pattern for durable store). Implementation plan: (1) New PKI.CertificateRegistry GenServer tracking issued serials + revocations with disk persistence; (2) Enhanced RenewalHandler with day-20 eligibility check, revocation check, serial registration; (3) New /api/v1/clusters/renew route in CoordinatorRouter alongside existing /v1/renew; (4) Admin revoke_identity/revoke_serial functions; (5) certificate_status/1 for gateway. Tests: unit tests for CertificateRegistry + integration tests covering all 7 acceptance scenarios.
 ---
 <!-- COMMENTS:END -->
