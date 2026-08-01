@@ -12,8 +12,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T13:41:02.526515Z'
-work_branch: null
+updated_at: '2026-08-01T13:41:12.328177Z'
+work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
 review_number: null
@@ -33,6 +33,16 @@ oompah.duplicate_screening:
   claim_expires_at: '2026-08-01T14:11:01.778212+00:00'
   retry_count: 0
   retry_after: null
+oompah.agent_run_id: 851e86c0-8f21-4811-a4c2-b0a82f51c00e
+oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-185--task-EXOCOMP-189
+  base_branch: epic-EXOCOMP-185
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  updated_at: '2026-08-01T13:41:09.929817+00:00'
 ---
 ## Summary
 
@@ -57,3 +67,16 @@ Out of scope: I/O, polling, incident creation, and action execution.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-01 13:41
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-01 13:41
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
