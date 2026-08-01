@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:54:01.279271Z'
+updated_at: '2026-08-01T23:00:43.901244Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -128,6 +128,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-527f89c35566: '2026-08-01T22:16:49.365453+00:00'
     attempt-cd2fda27c3e6: '2026-08-01T22:36:46.714346+00:00'
+    attempt-634f1b64a6ee: '2026-08-01T23:00:41.369090+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-200
@@ -147,6 +148,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T22:36:46.714362+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    target_state: Done
+    evidence_fingerprint: d1b9de150fc045e88dcae7cac965d07d8eea75d2f61085843dd823a7314abcc8
+    audit_ids:
+    - audit-9415dd8f6123
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T23:00:41.369108+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-200
@@ -172,6 +182,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T22:36:46.714380+00:00'
     applied_at: '2026-08-01T22:36:49.849836+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    audit_id: audit-9415dd8f6123
+    attempt_id: attempt-634f1b64a6ee
+    target_state: Done
+    evidence_fingerprint: d1b9de150fc045e88dcae7cac965d07d8eea75d2f61085843dd823a7314abcc8
+    status: Done
+    audit_ids:
+    - audit-9415dd8f6123
+    applied: false
+    created_at: '2026-08-01T23:00:41.369127+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -249,7 +270,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-200
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -258,7 +279,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-634f1b64a6ee
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -268,13 +289,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T22:53:57.557649+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-200
+      verdict: pass
+      completed_at: '2026-08-01T23:00:41.368906+00:00'
+      ended_at: '2026-08-01T23:00:41.368906+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T22:53:55.261945+00:00'
-    updated_at: '2026-08-01T22:53:57.557649+00:00'
+    updated_at: '2026-08-01T23:00:41.368906+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-527f89c35566
@@ -613,5 +637,24 @@ author: oompah
 created: 2026-08-01 22:54
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 23:00
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: 04f4ea53956dd19036a6244ce848566495296f76
+- reducer_file: apps/exocomp_core/lib/exocomp/cluster_profile/ceph_health_reducer.ex
+- test_file: apps/exocomp_core/test/exocomp/cluster_profile/ceph_health_reducer_test.exs
+- critical_health_status_emission: line 200: reasons = if ceph_status == "HEALTH_ERR", do: [:critical_health_status | reasons], else: reasons
+- empty_state_noop: line 342: if map_size(local_state) == 0 do true
+- reduce_3_clause: lines 122-125: def reduce/3 delegates to reduce/4 with %{} profile_coverage
+- datetime_error_clause: line 314: {:error, _reason} ->
+- make_test_deps: 9 passed, 0 failed
+- make_test_profile_action_helper: profile-action-helper tests passed
+- make_test: ran to completion, 82K output exceeded auditor inline token cap
 ---
 <!-- COMMENTS:END -->
