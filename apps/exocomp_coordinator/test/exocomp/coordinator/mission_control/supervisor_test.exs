@@ -14,105 +14,10 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
   end
 
   # ---------------------------------------------------------------------------
-  # Supervision tree starts with Mission Control configuration
-  # ---------------------------------------------------------------------------
-
-  test "supervisor starts when given valid Mission Control config" do
-    ca_cert_path = Path.join(@fixtures_dir, "mc-test-ca.crt")
-    client_cert_path = Path.join(@fixtures_dir, "mc-test-client.crt")
-    client_key_path = Path.join(@fixtures_dir, "mc-test-client.key")
-    outbox_dir = Path.join(@fixtures_dir, "mc-test-outbox")
-
-    File.write!(ca_cert_path, "ca cert")
-    File.write!(client_cert_path, "client cert")
-    File.write!(client_key_path, "client key")
-    File.mkdir_p!(outbox_dir)
-
-    config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://mission-control.example.com:443",
-      trust_root: ca_cert_path,
-      client_cert: client_cert_path,
-      client_key: client_key_path,
-      heartbeat_interval_seconds: 30,
-      reconnect_min_backoff_seconds: 1,
-      reconnect_max_backoff_seconds: 60,
-      outbox_path: outbox_dir
-    }
-
-    assert {:ok, supervisor_pid} =
-             Exocomp.Coordinator.MissionControl.Supervisor.start_link(config,
-               name: :test_mc_supervisor
-             )
-
-    assert is_pid(supervisor_pid)
-    assert Process.alive?(supervisor_pid)
-
-    # Clean up
-    GenServer.stop(supervisor_pid)
-    File.rm!(ca_cert_path)
-    File.rm!(client_cert_path)
-    File.rm!(client_key_path)
-    File.rm_rf!(outbox_dir)
-  end
-
-  # ---------------------------------------------------------------------------
-  # Supervision tree includes required children
-  # ---------------------------------------------------------------------------
-
-  test "supervisor starts Outbox and Connection children" do
-    ca_cert_path = Path.join(@fixtures_dir, "mc-children-ca.crt")
-    client_cert_path = Path.join(@fixtures_dir, "mc-children-client.crt")
-    client_key_path = Path.join(@fixtures_dir, "mc-children-client.key")
-    outbox_dir = Path.join(@fixtures_dir, "mc-children-outbox")
-
-    File.write!(ca_cert_path, "ca cert")
-    File.write!(client_cert_path, "client cert")
-    File.write!(client_key_path, "client key")
-    File.mkdir_p!(outbox_dir)
-
-    config = %Config.MissionControl{
-      enabled: true,
-      url: "wss://mission-control.example.com:443",
-      trust_root: ca_cert_path,
-      client_cert: client_cert_path,
-      client_key: client_key_path,
-      heartbeat_interval_seconds: 30,
-      reconnect_min_backoff_seconds: 1,
-      reconnect_max_backoff_seconds: 60,
-      outbox_path: outbox_dir
-    }
-
-    {:ok, supervisor_pid} =
-      Exocomp.Coordinator.MissionControl.Supervisor.start_link(config,
-        name: :test_mc_supervisor_children
-      )
-
-    # Check that children are running
-    children = :supervisor.which_children(supervisor_pid)
-
-    # Should have exactly 2 children: Outbox and Connection
-    assert length(children) == 2
-
-    # Verify child module names exist
-    child_modules = Enum.map(children, fn {_id, _pid, :worker, modules} -> modules end)
-    assert Enum.any?(child_modules, &(&1 == [Outbox]))
-    assert Enum.any?(child_modules, &(&1 == [Connection]))
-
-    # Clean up
-    GenServer.stop(supervisor_pid)
-    File.rm!(ca_cert_path)
-    File.rm!(client_cert_path)
-    File.rm!(client_key_path)
-    File.rm_rf!(outbox_dir)
-  end
-
-  # ---------------------------------------------------------------------------
-  # Application integration: Mission Control only starts when enabled
+  # Test: mission_control_children returns empty list when config is nil
   # ---------------------------------------------------------------------------
 
   test "mission_control_children returns empty list when config is nil" do
-    # Set mission_control_config to nil
     old_value = Application.get_env(:exocomp_coordinator, :mission_control_config)
     Application.put_env(:exocomp_coordinator, :mission_control_config, nil)
 
@@ -120,7 +25,6 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
       children = Exocomp.Coordinator.Application.mission_control_children_for_test()
       assert children == []
     after
-      # Restore original value
       if old_value != nil do
         Application.put_env(:exocomp_coordinator, :mission_control_config, old_value)
       else
@@ -129,8 +33,11 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
     end
   end
 
+  # ---------------------------------------------------------------------------
+  # Test: mission_control_children returns empty list when config is disabled
+  # ---------------------------------------------------------------------------
+
   test "mission_control_children returns empty list when config is disabled" do
-    # Set mission_control_config to a disabled config
     old_value = Application.get_env(:exocomp_coordinator, :mission_control_config)
 
     disabled_config = %Config.MissionControl{
@@ -151,7 +58,6 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
       children = Exocomp.Coordinator.Application.mission_control_children_for_test()
       assert children == []
     after
-      # Restore original value
       if old_value != nil do
         Application.put_env(:exocomp_coordinator, :mission_control_config, old_value)
       else
@@ -160,7 +66,11 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
     end
   end
 
-  test "mission_control_children returns MissionControl.Supervisor child spec when config is enabled" do
+  # ---------------------------------------------------------------------------
+  # Test: mission_control_children returns child spec when config is enabled
+  # ---------------------------------------------------------------------------
+
+  test "mission_control_children returns child spec when config is enabled" do
     ca_cert_path = Path.join(@fixtures_dir, "mc-app-test-ca.crt")
     client_cert_path = Path.join(@fixtures_dir, "mc-app-test-client.crt")
     client_key_path = Path.join(@fixtures_dir, "mc-app-test-client.key")
@@ -193,11 +103,11 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
       # Should have exactly 1 child spec
       assert length(children) == 1
 
-      # Verify it's the MissionControl.Supervisor child spec
-      [{module, _args} | _rest] = children
+      # Verify it's a tuple with the MissionControl.Supervisor module
+      [{module, config_arg}] = children
       assert module == Exocomp.Coordinator.MissionControl.Supervisor
+      assert config_arg == enabled_config
     after
-      # Restore original value
       if old_value != nil do
         Application.put_env(:exocomp_coordinator, :mission_control_config, old_value)
       else
@@ -209,5 +119,69 @@ defmodule Exocomp.Coordinator.MissionControl.SupervisorTest do
       File.rm!(client_key_path)
       File.rm_rf!(outbox_dir)
     end
+  end
+
+  # ---------------------------------------------------------------------------
+  # Test: Supervisor starts with enabled config and registers children
+  # ---------------------------------------------------------------------------
+
+  test "supervisor starts with enabled config and both children are alive" do
+    ca_cert_path = Path.join(@fixtures_dir, "mc-supervisor-ca.crt")
+    client_cert_path = Path.join(@fixtures_dir, "mc-supervisor-client.crt")
+    client_key_path = Path.join(@fixtures_dir, "mc-supervisor-client.key")
+    outbox_dir = Path.join(@fixtures_dir, "mc-supervisor-outbox")
+
+    File.write!(ca_cert_path, "ca cert")
+    File.write!(client_cert_path, "client cert")
+    File.write!(client_key_path, "client key")
+    File.mkdir_p!(outbox_dir)
+
+    config = %Config.MissionControl{
+      enabled: true,
+      url: "wss://mission-control.example.com:443",
+      trust_root: ca_cert_path,
+      client_cert: client_cert_path,
+      client_key: client_key_path,
+      heartbeat_interval_seconds: 30,
+      reconnect_min_backoff_seconds: 1,
+      reconnect_max_backoff_seconds: 60,
+      outbox_path: outbox_dir
+    }
+
+    # Start the supervisor directly with the config
+    {:ok, supervisor_pid} =
+      Supervisor.start_link(config, name: :test_mc_supervisor_direct)
+
+    # Verify the supervisor is alive
+    assert is_pid(supervisor_pid)
+    assert Process.alive?(supervisor_pid)
+
+    # Verify Outbox and Connection are alive
+    children = :supervisor.which_children(supervisor_pid)
+    assert length(children) == 2
+
+    # Extract child modules
+    child_modules = Enum.map(children, fn {_id, pid, :worker, modules} -> {modules, pid} end)
+
+    # Verify both Outbox and Connection are present and alive
+    outbox_found =
+      Enum.any?(child_modules, fn {modules, pid} ->
+        modules == [Outbox] and is_pid(pid) and Process.alive?(pid)
+      end)
+
+    connection_found =
+      Enum.any?(child_modules, fn {modules, pid} ->
+        modules == [Connection] and is_pid(pid) and Process.alive?(pid)
+      end)
+
+    assert outbox_found, "Outbox child not found or not alive"
+    assert connection_found, "Connection child not found or not alive"
+
+    # Clean up
+    GenServer.stop(supervisor_pid)
+    File.rm!(ca_cert_path)
+    File.rm!(client_cert_path)
+    File.rm!(client_key_path)
+    File.rm_rf!(outbox_dir)
   end
 end
