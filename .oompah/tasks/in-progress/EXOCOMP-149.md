@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-01T12:24:51.334935Z'
+updated_at: '2026-08-01T12:25:05.145971Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -140,5 +140,10 @@ author: oompah
 created: 2026-08-01 12:24
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:25
+---
+Understanding: implement authenticated, version-checked cluster event ingestion with transactional event-plus-cursor commits, organization/cluster/event deduplication, gap detection, and acknowledgements limited to the highest contiguous committed sequence. I will first inspect the protocol plan, current ingestion/persistence code, and Makefile test gates, then add focused contract coverage.
 ---
 <!-- COMMENTS:END -->
