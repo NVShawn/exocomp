@@ -298,13 +298,14 @@ test-installer: ## Run hardened installer/uninstaller tests (requires Python 3.1
 test-bundle: ## Run offline bundle assembly, SBOM, provenance, and tamper-detection tests (requires Python 3.11+).
 	python3 -m pytest tests/test_bundle.py -v
 
-bundle-amd64: ## Assemble complete offline bundle for amd64. Set release archives, LLAMA_SERVER_AMD64, LLAMA_LIB_DIR_AMD64, MODEL_PATH, MODEL_SHA256.
+bundle-amd64: ## Assemble complete offline bundle for amd64. Set PROFILE_ACTION_HELPER_AMD64 to a target-built helper when needed.
 	bash scripts/assemble-bundle.sh \
 		--arch amd64 \
 		--version "$(BUNDLE_VERSION)" \
 		--kind complete \
 		$(if $(NODE_ARCHIVE_AMD64),--node-archive "$(NODE_ARCHIVE_AMD64)") \
 		$(if $(COORD_ARCHIVE_AMD64),--coord-archive "$(COORD_ARCHIVE_AMD64)") \
+		$(if $(PROFILE_ACTION_HELPER_AMD64),--profile-helper "$(PROFILE_ACTION_HELPER_AMD64)") \
 		$(if $(LLAMA_SERVER_AMD64),--llama-server "$(LLAMA_SERVER_AMD64)") \
 		$(if $(LLAMA_LIB_DIR_AMD64),--llama-lib-dir "$(LLAMA_LIB_DIR_AMD64)") \
 		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
@@ -314,13 +315,14 @@ bundle-amd64: ## Assemble complete offline bundle for amd64. Set release archive
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
-bundle-arm64: ## Assemble complete offline bundle for arm64. Set release archives, LLAMA_SERVER_ARM64, LLAMA_LIB_DIR_ARM64, MODEL_PATH, MODEL_SHA256.
+bundle-arm64: ## Assemble complete offline bundle for arm64. Set PROFILE_ACTION_HELPER_ARM64 to a target-built helper.
 	bash scripts/assemble-bundle.sh \
 		--arch arm64 \
 		--version "$(BUNDLE_VERSION)" \
 		--kind complete \
 		$(if $(NODE_ARCHIVE_ARM64),--node-archive "$(NODE_ARCHIVE_ARM64)") \
 		$(if $(COORD_ARCHIVE_ARM64),--coord-archive "$(COORD_ARCHIVE_ARM64)") \
+		$(if $(PROFILE_ACTION_HELPER_ARM64),--profile-helper "$(PROFILE_ACTION_HELPER_ARM64)") \
 		$(if $(LLAMA_SERVER_ARM64),--llama-server "$(LLAMA_SERVER_ARM64)") \
 		$(if $(LLAMA_LIB_DIR_ARM64),--llama-lib-dir "$(LLAMA_LIB_DIR_ARM64)") \
 		$(if $(MODEL_PATH),--model "$(MODEL_PATH)") \
@@ -330,13 +332,14 @@ bundle-arm64: ## Assemble complete offline bundle for arm64. Set release archive
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
-bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64. Set release archives, LLAMA_SERVER_AMD64, LLAMA_LIB_DIR_AMD64.
+bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64. Set PROFILE_ACTION_HELPER_AMD64 to a target-built helper when needed.
 	bash scripts/assemble-bundle.sh \
 		--arch amd64 \
 		--version "$(BUNDLE_VERSION)" \
 		--kind runtime \
 		$(if $(NODE_ARCHIVE_AMD64),--node-archive "$(NODE_ARCHIVE_AMD64)") \
 		$(if $(COORD_ARCHIVE_AMD64),--coord-archive "$(COORD_ARCHIVE_AMD64)") \
+		$(if $(PROFILE_ACTION_HELPER_AMD64),--profile-helper "$(PROFILE_ACTION_HELPER_AMD64)") \
 		$(if $(LLAMA_SERVER_AMD64),--llama-server "$(LLAMA_SERVER_AMD64)") \
 		$(if $(LLAMA_LIB_DIR_AMD64),--llama-lib-dir "$(LLAMA_LIB_DIR_AMD64)") \
 		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \
@@ -344,13 +347,14 @@ bundle-runtime-amd64: ## Assemble runtime-only bundle for amd64. Set release arc
 		--source-commit "$(BUNDLE_SOURCE_COMMIT)" \
 		--dist-dir "$(BUNDLE_DIST)"
 
-bundle-runtime-arm64: ## Assemble runtime-only bundle for arm64. Set release archives, LLAMA_SERVER_ARM64, LLAMA_LIB_DIR_ARM64.
+bundle-runtime-arm64: ## Assemble runtime-only bundle for arm64. Set PROFILE_ACTION_HELPER_ARM64 to a target-built helper.
 	bash scripts/assemble-bundle.sh \
 		--arch arm64 \
 		--version "$(BUNDLE_VERSION)" \
 		--kind runtime \
 		$(if $(NODE_ARCHIVE_ARM64),--node-archive "$(NODE_ARCHIVE_ARM64)") \
 		$(if $(COORD_ARCHIVE_ARM64),--coord-archive "$(COORD_ARCHIVE_ARM64)") \
+		$(if $(PROFILE_ACTION_HELPER_ARM64),--profile-helper "$(PROFILE_ACTION_HELPER_ARM64)") \
 		$(if $(LLAMA_SERVER_ARM64),--llama-server "$(LLAMA_SERVER_ARM64)") \
 		$(if $(LLAMA_LIB_DIR_ARM64),--llama-lib-dir "$(LLAMA_LIB_DIR_ARM64)") \
 		$(if $(BUNDLE_BUILDER_IMAGE),--builder-image "$(BUNDLE_BUILDER_IMAGE)") \

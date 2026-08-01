@@ -98,6 +98,20 @@ if [[ "${KIND}" == "complete" ]]; then
     }'
 fi
 
+# The helper is a separately compiled privileged boundary, so it must be
+# represented independently even though its source lives in the Exocomp tree.
+PROFILE_HELPER_CHECKSUM_JSON=""
+if [[ -n "${BUNDLE_DIR}" && -f "${BUNDLE_DIR}/bin/profile-action-helper" ]]; then
+    PROFILE_HELPER_SHA256="$(sha256sum "${BUNDLE_DIR}/bin/profile-action-helper" | awk '{print $1}')"
+    PROFILE_HELPER_CHECKSUM_JSON=',
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "'"${PROFILE_HELPER_SHA256}"'"
+        }
+      ]'
+fi
+
 cat > "${OUTPUT}" <<SBOM_END
 {
   "SPDXID": "SPDXRef-DOCUMENT",
@@ -185,6 +199,17 @@ cat > "${OUTPUT}" <<SBOM_END
         }
       ],
       "comment": "llama-server binary compiled for linux/${ARCH} from pinned llama.cpp commit."
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ProfileActionHelper",
+      "name": "profile-action-helper",
+      "versionInfo": "${SOURCE_COMMIT}",
+      "downloadLocation": "https://github.com/NVShawn/exocomp/tree/${SOURCE_COMMIT}/apps/exocomp_node/priv/profile_action_helper.c",
+      "filesAnalyzed": false,
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "copyrightText": "Copyright 2026 Exocomp contributors"${PROFILE_HELPER_CHECKSUM_JSON},
+      "comment": "Fixed-argv privileged helper compiled for linux/${ARCH}; it accepts no command-line arguments."
     }${MODEL_PACKAGE}
   ],
   "relationships": [
@@ -207,6 +232,11 @@ cat > "${OUTPUT}" <<SBOM_END
       "spdxElementId": "SPDXRef-Package-Bundle",
       "relationshipType": "CONTAINS",
       "relatedSpdxElement": "SPDXRef-Package-LlamaCpp"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-Bundle",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-Package-ProfileActionHelper"
     }$(
     [[ "${KIND}" == "complete" ]] && echo ',
     {

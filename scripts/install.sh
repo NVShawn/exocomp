@@ -523,6 +523,11 @@ install_release() {
 install_profile_action_helper() {
     log "==> PROFILE-ACTION HELPER"
 
+    if [[ "${COMPONENT}" != "node" ]]; then
+        log "  profile-action-helper is only installed for the node component"
+        return
+    fi
+
     local account="exocomp-${COMPONENT}"
     local install_dir="${INSTALL_BASE}/${COMPONENT}"
     local bin_dir="${install_dir}/bin"
@@ -692,7 +697,9 @@ install_sudoers() {
     local policy
     
     # Only include profile-action-helper path in sudoers for node component
-    if [[ "${COMPONENT}" == "node" && -f "${install_dir}/bin/profile-action-helper" ]]; then
+    if [[ "${COMPONENT}" == "node" &&
+          ( -f "${install_dir}/bin/profile-action-helper" ||
+            ( "${DRY_RUN}" -eq 1 && -f "${BUNDLE_ROOT}/bin/profile-action-helper" ) ) ]]; then
         policy="$(render_sudoers "${account}" "${ALLOW_LIST}" "100M" "${helper_path}")"
     else
         policy="$(render_sudoers "${account}" "${ALLOW_LIST}")"
@@ -715,21 +722,25 @@ install_sudoers() {
     fi
 
     mkdir -p "${EXOCOMP_SUDOERS_DIR}"
-    # Remove existing file first (it may be read-only from a prior install)
-    rm -f "${sudoers_dest}"
-    echo "${policy}" > "${sudoers_dest}"
-    do_chmod 440 "${sudoers_dest}"
-    do_chown root:root "${sudoers_dest}"
+    # Validate a temporary policy before replacing a previous valid policy.
+    # This makes a failed upgrade atomic from sudo's perspective.
+    local sudoers_tmp="${sudoers_dest}.tmp.$$"
+    rm -f "${sudoers_tmp}"
+    echo "${policy}" > "${sudoers_tmp}"
+    do_chmod 440 "${sudoers_tmp}"
+    do_chown root:root "${sudoers_tmp}"
 
     # Validate with visudo if available and not skipped
     if [[ "${EXOCOMP_SKIP_VISUDO}" != "1" ]] && command -v visudo >/dev/null 2>&1; then
         log "  validating with visudo..."
-        if ! visudo -c -f "${sudoers_dest}" 2>&1; then
-            rm -f "${sudoers_dest}"
-            die "sudoers validation failed; policy file removed"
+        if ! visudo -c -f "${sudoers_tmp}" 2>&1; then
+            rm -f "${sudoers_tmp}"
+            die "sudoers validation failed; policy was not installed"
         fi
         log "  visudo check passed"
     fi
+
+    mv -f "${sudoers_tmp}" "${sudoers_dest}"
 
     log "  sudoers policy installed: ${sudoers_dest}"
 }

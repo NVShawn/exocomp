@@ -34,6 +34,8 @@
 #   --kind           complete|runtime                 (default: complete)
 #   --node-archive   PATH                             node OTP release archive
 #   --coord-archive  PATH                             coordinator OTP release archive
+#   --profile-helper PATH                             profile-action-helper binary
+#                                                     built for --arch (optional on native builds)
 #   --llama-server   PATH                             llama-server binary
 #   --llama-lib-dir  PATH                             directory containing its .so files
 #                                                     (default: binary directory)
@@ -60,6 +62,7 @@ VERSION=""
 KIND="complete"
 NODE_ARCHIVE=""
 COORD_ARCHIVE=""
+PROFILE_HELPER_BIN=""
 LLAMA_SERVER_BIN=""
 LLAMA_LIB_DIR=""
 MODEL_PATH=""
@@ -145,6 +148,7 @@ while [[ $# -gt 0 ]]; do
         --kind)           KIND="$2";             shift 2 ;;
         --node-archive)   NODE_ARCHIVE="$2";     shift 2 ;;
         --coord-archive)  COORD_ARCHIVE="$2";    shift 2 ;;
+        --profile-helper) PROFILE_HELPER_BIN="$2"; shift 2 ;;
         --llama-server)   LLAMA_SERVER_BIN="$2"; shift 2 ;;
         --llama-lib-dir)  LLAMA_LIB_DIR="$2";    shift 2 ;;
         --model)          MODEL_PATH="$2";       shift 2 ;;
@@ -322,19 +326,47 @@ log "  staged: release/"
 # 2e. Profile-action helper (Ceph profile execution)
 # The helper is separately compiled for each architecture and used by the node
 # to execute profile-based actions (like restart_failed_daemon) without shell.
-PROFILE_HELPER_PATH="${REPO_ROOT}/_build/profile-action-helper/profile_action_helper"
-if [[ ! -f "${PROFILE_HELPER_PATH}" ]]; then
-    log "  profile-action-helper not found; building..."
-    if command -v make >/dev/null 2>&1; then
-        if make -C "${REPO_ROOT}" build-profile-action-helper >/dev/null 2>&1; then
-            log "  profile-action-helper built successfully"
+# A native build may use the default build output.  Cross-architecture builds
+# must pass --profile-helper from the corresponding native builder so a host
+# helper can never be silently shipped for the wrong target.
+PROFILE_HELPER_PATH="${PROFILE_HELPER_BIN}"
+if [[ -z "${PROFILE_HELPER_PATH}" ]]; then
+    PROFILE_HELPER_PATH="${REPO_ROOT}/_build/profile-action-helper/profile_action_helper"
+    native_arch="$(uname -m)"
+    case "${ARCH}:${native_arch}" in
+        amd64:x86_64|arm64:aarch64) ;;
+        *)
+            die "profile-action-helper for ${ARCH} is required; build it on a ${ARCH} native builder and pass --profile-helper PATH"
+            ;;
+    esac
+    if [[ ! -f "${PROFILE_HELPER_PATH}" ]]; then
+        log "  profile-action-helper not found; building for ${ARCH}..."
+        if command -v make >/dev/null 2>&1; then
+            if make -C "${REPO_ROOT}" build-profile-action-helper >/dev/null 2>&1; then
+                log "  profile-action-helper built successfully"
+            else
+                die "failed to build profile-action-helper; check compiler setup"
+            fi
         else
-            die "failed to build profile-action-helper; check compiler setup"
+            die "make is required to build profile-action-helper"
         fi
-    else
-        die "make is required to build profile-action-helper"
     fi
 fi
+
+[[ -f "${PROFILE_HELPER_PATH}" ]] ||
+    die "profile-action-helper not found: ${PROFILE_HELPER_PATH}"
+[[ -x "${PROFILE_HELPER_PATH}" ]] ||
+    die "profile-action-helper is not executable: ${PROFILE_HELPER_PATH}"
+command -v readelf >/dev/null 2>&1 || die "readelf is required to validate profile-action-helper architecture"
+helper_machine="$(readelf -h "${PROFILE_HELPER_PATH}" 2>/dev/null |
+    sed -n 's/^[[:space:]]*Machine:[[:space:]]*//p')"
+case "${ARCH}:${helper_machine}" in
+    amd64:*"Advanced Micro Devices X86-64"*|amd64:*"x86-64"*) ;;
+    arm64:*"AArch64"*) ;;
+    *)
+        die "profile-action-helper architecture mismatch: bundle=${ARCH}, ELF machine=${helper_machine:-unknown}"
+        ;;
+esac
 
 if [[ -f "${PROFILE_HELPER_PATH}" ]]; then
     mkdir -p "${BUNDLE_STAGE}/bin"
@@ -445,6 +477,7 @@ LLAMA_SERVER_NAME=""
 if [[ -n "${LLAMA_SERVER_BIN}" ]]; then
     LLAMA_SERVER_NAME="llama-server"
 fi
+PROFILE_HELPER_NAME="bin/profile-action-helper"
 
 cat > "${MANIFEST_JSON}" <<MANIFEST_JSON_END
 {
@@ -466,6 +499,7 @@ cat > "${MANIFEST_JSON}" <<MANIFEST_JSON_END
   "components": {
     "node_archive": "${NODE_ARCHIVE_NAME}",
     "coordinator_archive": "${COORD_ARCHIVE_NAME}",
+    "profile_action_helper": "${PROFILE_HELPER_NAME}",
     "llama_server": "${LLAMA_SERVER_NAME}",
     "model": "${MODEL_ARCHIVE_NAME}"
   },

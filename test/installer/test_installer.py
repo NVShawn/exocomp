@@ -194,6 +194,16 @@ def _make_bundle_tree(
     }
 
 
+def _make_profile_helper_bundle_tree(base: Path, component: str, version: str) -> dict:
+    """Build a mock bundle whose outer payload includes the helper binary."""
+    return _make_bundle_tree(
+        base,
+        component,
+        version,
+        contents={"bin/profile-action-helper": "#!/bin/sh\nexit 0\n"},
+    )
+
+
 # ── Environment builder ────────────────────────────────────────────────────────
 
 
@@ -1637,7 +1647,7 @@ class TestProfileActionHelperInstall:
     def test_profile_action_helper_installed_when_present_in_bundle(self, tmp_path):
         """Profile-action helper should be copied to /opt/exocomp/node/bin/profile-action-helper."""
         component = "node"
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
@@ -1656,7 +1666,7 @@ class TestProfileActionHelperInstall:
     def test_profile_action_helper_has_correct_permissions(self, tmp_path):
         """Profile-action helper should have 755 permissions."""
         component = "node"
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
@@ -1675,7 +1685,7 @@ class TestProfileActionHelperInstall:
     def test_profile_action_helper_is_root_owned(self, tmp_path):
         """Profile-action helper should be owned by root."""
         component = "node"
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
@@ -1694,7 +1704,7 @@ class TestProfileActionHelperInstall:
     def test_profile_action_helper_in_sudoers_with_exact_path(self, tmp_path):
         """Sudoers should grant exact helper path with no argument wildcards."""
         component = "node"
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
@@ -1731,7 +1741,7 @@ class TestProfileActionHelperInstall:
     def test_profile_action_helper_in_manifest(self, tmp_path):
         """Profile-action helper should be listed in the manifest."""
         component = "node"
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
@@ -1756,7 +1766,7 @@ class TestProfileActionHelperInstall:
     def test_profile_action_helper_removed_on_uninstall(self, tmp_path):
         """Uninstaller should remove the profile-action helper."""
         component = "node"
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         
         # Copy the actual built helper into the bundle
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
@@ -1789,7 +1799,7 @@ class TestProfileActionHelperInstall:
         component = "node"
         
         # First install
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"
         if src_helper.exists():
             dest_bin = info["bundle_dir"] / "bin"
@@ -1804,7 +1814,7 @@ class TestProfileActionHelperInstall:
         mtime_v1 = helper_v1.stat().st_mtime
         
         # Upgrade to version 1.2.4
-        info2 = _make_bundle_tree(tmp_path, component, "1.2.4")
+        info2 = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.4")
         if src_helper.exists():
             dest_bin = info2["bundle_dir"] / "bin"
             dest_bin.mkdir(exist_ok=True)
@@ -1820,10 +1830,38 @@ class TestProfileActionHelperInstall:
         # We don't assert mtime change as it depends on timing, but we verify it exists
         assert mtime_v2 >= mtime_v1, "Helper should be replaced or at least have newer mtime"
 
+    def test_visudo_failure_does_not_install_sudoers_policy(self, tmp_path):
+        """A rejected policy must leave no newly-created sudoers file behind."""
+        component = "node"
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
+        visudo_dir = tmp_path / "fake-bin"
+        visudo_dir.mkdir()
+        fake_visudo = visudo_dir / "visudo"
+        fake_visudo.write_text("#!/bin/sh\nexit 1\n")
+        fake_visudo.chmod(0o755)
+
+        env = _make_env(
+            tmp_path,
+            {
+                "EXOCOMP_SKIP_VISUDO": "0",
+                "PATH": f"{visudo_dir}:{os.environ['PATH']}",
+            },
+        )
+        result = _run_install(
+            info,
+            component,
+            "1.2.3",
+            env=env,
+            expect_exit=1,
+        )
+
+        assert not (tmp_path / "sudoers" / "exocomp-node").exists()
+        assert "sudoers validation failed" in result.stderr
+
     def test_profile_action_helper_skipped_for_coordinator(self, tmp_path):
         """Profile-action helper should only be installed for node component."""
         component = "coordinator"
-        info = _make_bundle_tree(tmp_path, component, "1.2.3")
+        info = _make_profile_helper_bundle_tree(tmp_path, component, "1.2.3")
         
         # Copy the actual built helper into the bundle (shouldn't be used for coordinator)
         src_helper = REPO_ROOT / "_build" / "profile-action-helper" / "profile_action_helper"

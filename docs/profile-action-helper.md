@@ -59,5 +59,19 @@ make test-profile-action-helper
 ```
 
 The helper binary can be compiled for inspection with
-`make build-profile-action-helper`. Packaging, installation, and sudo policy
-integration are intentionally handled by separate work.
+`make build-profile-action-helper`. Bundle assembly validates the ELF machine
+against `--arch`. Native amd64 assembly can use the default `_build` output;
+arm64 (and any cross-target build) must provide a helper compiled for the
+target and pass it explicitly, for example:
+
+```bash
+make CC=aarch64-linux-gnu-gcc \
+  PROFILE_ACTION_HELPER_BUILD_DIR=_build/profile-action-helper-arm64 \
+  build-profile-action-helper
+PROFILE_ACTION_HELPER_ARM64=_build/profile-action-helper-arm64/profile_action_helper \
+  make bundle-arm64
+```
+
+The resulting `bin/profile-action-helper` is listed in both bundle manifests,
+represented as its own SPDX package, and installed root-owned with an exact
+no-argument sudoers authorization for the node account.

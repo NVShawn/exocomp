@@ -109,6 +109,41 @@ def _make_llama_server(dest_dir: Path) -> Path:
     return p
 
 
+def _build_profile_helper(dest_dir: Path, arch: str) -> Path:
+    """Build the shipped helper for the requested ELF architecture."""
+    compiler = "cc" if arch == "amd64" else "aarch64-linux-gnu-gcc"
+    if shutil.which(compiler) is None:
+        pytest.skip(f"{compiler} is required for {arch} helper packaging coverage")
+    output = dest_dir / f"profile-action-helper-{arch}"
+    subprocess.run(
+        [
+            compiler,
+            "-std=c11",
+            "-O2",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-Wconversion",
+            "-Wshadow",
+            "-Werror",
+            "-D_FORTIFY_SOURCE=2",
+            "-fstack-protector-strong",
+            "-fPIE",
+            "-Wl,-z,relro,-z,now",
+            "-pie",
+            "-I",
+            str(REPO_ROOT / "apps" / "exocomp_node" / "priv"),
+            str(REPO_ROOT / "apps" / "exocomp_node" / "priv" / "profile_action_helper.c"),
+            "-o",
+            str(output),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return output
+
+
 def _make_model(dest_dir: Path, size: int = 1024) -> tuple[Path, str]:
     """Create a fake GGUF model file. Returns (path, sha256)."""
     p = dest_dir / "qwen2.5-1.5b-instruct-q4_k_m.gguf"
@@ -135,6 +170,7 @@ def _run_assemble(
     kind: str = "complete",
     node_archive: Path | None = None,
     coord_archive: Path | None = None,
+    profile_helper: Path | None = None,
     llama_server: Path | None = None,
     llama_lib_dir: Path | None = None,
     model: Path | None = None,
@@ -161,6 +197,8 @@ def _run_assemble(
         cmd += ["--node-archive", str(node_archive)]
     if coord_archive:
         cmd += ["--coord-archive", str(coord_archive)]
+    if profile_helper:
+        cmd += ["--profile-helper", str(profile_helper)]
     if llama_server:
         cmd += ["--llama-server", str(llama_server)]
     if llama_lib_dir:
@@ -302,6 +340,22 @@ class TestCompleteBundleAssembly:
     def test_sbom_present(self):
         assert (self.bundle_dir / "sbom.spdx.json").exists()
 
+    def test_profile_action_helper_present_and_authenticated(self):
+        helper = self.bundle_dir / "bin" / "profile-action-helper"
+        assert helper.is_file()
+        assert helper.stat().st_mode & stat.S_IXUSR
+
+        helper_hash = hashlib.sha256(helper.read_bytes()).hexdigest()
+        manifest_lines = (self.bundle_dir / "manifest.sha256").read_text().splitlines()
+        helper_entries = [line for line in manifest_lines if "bin/profile-action-helper" in line]
+        assert len(helper_entries) == 1
+        assert helper_hash == helper_entries[0].split()[0]
+
+        manifest = json.loads((self.bundle_dir / "manifest.json").read_text())
+        helper_files = [item for item in manifest["files"] if item["path"] == "bin/profile-action-helper"]
+        assert helper_files == [{"path": "bin/profile-action-helper", "sha256": helper_hash}]
+        assert manifest["components"]["profile_action_helper"] == "bin/profile-action-helper"
+
     def test_provenance_present(self):
         assert (self.bundle_dir / "provenance.json").exists()
 
@@ -371,6 +425,7 @@ class TestCompleteBundleAssembly:
         releases = list((self.bundle_dir / "releases").glob("exocomp-coordinator-*.tar.gz"))
         assert releases, "bundle must contain a coordinator OTP release archive"
 
+
     def test_systemd_node_unit_present(self):
         assert (self.bundle_dir / "release" / "node" / "exocomp-node.service").exists()
 
@@ -416,6 +471,58 @@ class TestCompleteBundleAssembly:
 
     def test_verify_bundle_passes(self):
         _run_verify(bundle_dir=self.bundle_dir, expect_exit=0)
+
+
+class TestProfileActionHelperArchitecture:
+    """The helper shipped in each bundle must match that bundle's architecture."""
+
+    @pytest.mark.parametrize(
+        ("arch", "compiler"),
+        (("amd64", "cc"), ("arm64", "aarch64-linux-gnu-gcc")),
+    )
+    def test_helper_elf_machine_matches_bundle_arch(self, tmp_path, artifacts, arch, compiler):
+        if shutil.which(compiler) is None:
+            pytest.skip(f"{compiler} is required for {arch} helper packaging coverage")
+        helper = _build_profile_helper(tmp_path / "artifacts", arch)
+        dist = tmp_path / f"dist-{arch}"
+        _run_assemble(
+            tmp=tmp_path,
+            arch=arch,
+            version=artifacts["version"],
+            kind="runtime",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            profile_helper=helper,
+            llama_server=artifacts["llama_server"],
+            dist_dir=dist,
+        )
+        archive = dist / f"exocomp-runtime-{artifacts['version']}-linux-{arch}.tar.gz"
+        bundle_dir = _extract_bundle(archive, tmp_path / f"extracted-{arch}")
+        shipped = bundle_dir / "bin" / "profile-action-helper"
+        machine = subprocess.run(
+            ["readelf", "-h", str(shipped)],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+        expected = "Advanced Micro Devices X86-64" if arch == "amd64" else "AArch64"
+        assert expected in machine
+        manifest = json.loads((bundle_dir / "manifest.json").read_text())
+        assert manifest["bundle"]["architecture"] == arch
+
+    def test_wrong_architecture_helper_is_rejected(self, tmp_path, artifacts):
+        helper = _build_profile_helper(tmp_path / "artifacts", "amd64")
+        _run_assemble(
+            tmp=tmp_path,
+            arch="arm64",
+            version=artifacts["version"],
+            kind="runtime",
+            node_archive=artifacts["node_archive"],
+            coord_archive=artifacts["coord_archive"],
+            profile_helper=helper,
+            llama_server=artifacts["llama_server"],
+            expect_exit=1,
+        )
 
 
 class TestDocumentedCleanRootWorkflow:
@@ -741,6 +848,26 @@ class TestSBOMStructure:
         names = [p.get("name") for p in packages]
         assert "llama.cpp" in names, f"SBOM must include llama.cpp package; got: {names}"
 
+    def test_profile_action_helper_package_present_and_hash_pinned(self):
+        packages = self.sbom.get("packages", [])
+        helper = next(
+            package for package in packages
+            if package.get("name") == "profile-action-helper"
+        )
+        assert helper["licenseDeclared"] == "Apache-2.0"
+        assert helper["checksums"] == [{
+            "algorithm": "SHA256",
+            "checksumValue": hashlib.sha256(
+                (self.bundle_dir / "bin" / "profile-action-helper").read_bytes()
+            ).hexdigest(),
+        }]
+        assert {
+            relationship["relatedSpdxElement"]
+            for relationship in self.sbom["relationships"]
+            if relationship["spdxElementId"] == "SPDXRef-Package-Bundle"
+            and relationship["relationshipType"] == "CONTAINS"
+        } >= {helper["SPDXID"]}
+
     def test_qwen_model_package_in_complete_bundle(self):
         """Complete bundle SBOM must include the Qwen model package."""
         packages = self.sbom.get("packages", [])
@@ -901,6 +1028,15 @@ class TestTamperDetectionModifiedFile:
         llama = self.bundle_dir / "llama-server"
         assert llama.exists()
         llama.write_bytes(b"#!/bin/sh\necho MALICIOUS\n")
+
+        result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
+        assert result.returncode == 1
+
+    def test_tampered_profile_action_helper_fails_verification(self):
+        """Modifying the privileged helper must cause verification to fail."""
+        helper = self.bundle_dir / "bin" / "profile-action-helper"
+        assert helper.exists()
+        helper.write_bytes(helper.read_bytes() + b"\nTAMPERED\n")
 
         result = _run_verify(bundle_dir=self.bundle_dir, expect_exit=1)
         assert result.returncode == 1
