@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-30
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement the service-recovery state machine
 parent: EXOCOMP-4
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:46.278084Z'
-updated_at: '2026-08-01T03:04:46.179398Z'
+updated_at: '2026-08-01T03:06:47.611832Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -45,6 +45,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T18:42:25.138080+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-b8086b50b9b9: '2026-08-01T03:06:45.664735+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-30
+    target_state: Archived
+    evidence_fingerprint: fd1b19051c47abacd08e52357a80285959ea8454fa358610966446540c9496ac
+    audit_ids:
+    - audit-3277759ea447
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:06:45.664742+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-30
+    audit_id: audit-3277759ea447
+    attempt_id: attempt-b8086b50b9b9
+    target_state: Archived
+    evidence_fingerprint: fd1b19051c47abacd08e52357a80285959ea8454fa358610966446540c9496ac
+    status: Archived
+    audit_ids:
+    - audit-3277759ea447
+    applied: false
+    created_at: '2026-08-01T03:06:45.664752+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -52,7 +76,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-30
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -61,7 +85,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b8086b50b9b9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -71,13 +95,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:04:42.137734+00:00'
       branch_key: epic-EXOCOMP-4
+      verdict: pass
+      completed_at: '2026-08-01T03:06:45.664637+00:00'
+      ended_at: '2026-08-01T03:06:45.664637+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:00:16.993694+00:00'
-    updated_at: '2026-08-01T03:04:42.137734+00:00'
+    updated_at: '2026-08-01T03:06:45.664637+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-b8086b50b9b9
@@ -399,5 +426,23 @@ author: oompah
 created: 2026-08-01 03:04
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:06
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 725120a Merge pull request #10 from NVShawn/epic-EXOCOMP-4
+- impl_commit: 6b69a8e EXOCOMP-30: Implement service-recovery state machine
+- on_main: true
+- state_machine_lines_present: true
+- audit_event_present: true
+- evidence_present: true
+- test_count_test_entries: 78
+- aged_days_since_merge: 7
+- downstream_recovery_touches: EXOCOMP-113, EXOCOMP-114
 ---
 <!-- COMMENTS:END -->
