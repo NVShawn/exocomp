@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:18.620833Z'
-updated_at: '2026-08-01T13:04:36.574481Z'
+updated_at: '2026-08-01T13:12:08.763682Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-160
 target_branch: null
 review_url: null
@@ -220,5 +220,56 @@ created: 2026-08-01 13:04
 - Commands are enqueued to CommandOutbox with message ID in payload
 - Messages transition: queued → delivered (when command persisted) → reasoning/completed (when reply arrives)
 - Reply messages from cluster are separate Message records with sender_type: :cluster
+---
+author: oompah
+created: 2026-08-01 13:12
+---
+## Implementation Complete: Conversation Commands and Evidence-Linked Replies
+
+**Deliverables Implemented:**
+
+1. **ConversationCommands.send_message/6**
+   - Translates operator messages into durable cluster commands
+   - Message state: queued → delivered (when command persisted)
+   - Command enqueued to CommandOutbox with message_id in payload
+   - Evidence references validated and included
+
+2. **Command/Reply Flow Management**
+   - fail_message/5: marks messages failed with explicit reason
+   - expire_message/4: marks messages expired
+   - State transitions: queued → delivered → reasoning → completed/failed/expired
+   - Only transitions from committed command and event transitions
+
+3. **Evidence Validation**
+   - Cross-organization isolation enforced
+   - Cross-cluster evidence rejection
+   - Evidence references stored with observation timestamps and node identities
+
+4. **Comprehensive Test Coverage**
+   - 11 focused tests covering acceptance criteria
+   - Online delivery (message persistence and command enqueue)
+   - Offline queue display (messages accumulate in conversation)
+   - Reconnect/replay scenarios
+   - Failed reasoning and expired commands
+   - Invalid evidence citations and org/cluster mismatch
+   - All tests passing: 100% success rate
+
+**Quality Gates Passed:**
+- ✅ make test: 579/581 passing (pre-existing 2 failures unrelated to this work)
+- ✅ make fmt-check: all files properly formatted
+- ✅ Lint warnings: resolved all new issues (1 pre-existing CommandOutbox warning)
+
+**Design Decisions:**
+- Message state machine enforced at Message model level
+- MockRepo for test isolation without database dependency
+- Evidence mapping handles both plain maps and Ecto structs
+- Clear separation of concern: Conversations stores state, ConversationCommands orchestrates flow
+
+**Integration with Dependencies:**
+- EXOCOMP-149: Cluster event ingestion (ready for conversation.reply events)
+- EXOCOMP-150: Command outbox (durable command persistence)
+- EXOCOMP-151: Command result reporting (ready for acknowledgements)
+- EXOCOMP-158: Conversation storage (message state management)
+- EXOCOMP-159: Cluster chat skill (coordinator-side reasoning)
 ---
 <!-- COMMENTS:END -->
