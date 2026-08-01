@@ -35,9 +35,6 @@ defmodule Exocomp.ClusterProfile.CephHealthReducer do
   checks; freshness is explicit via collected_at timestamp.
   """
 
-  alias Exocomp.Coordinator.Collectors.Ceph
-  alias Exocomp.Coordinator.CephTopology
-
   @type severity :: :healthy | :degraded | :critical | :unknown
 
   @type reason ::
@@ -96,7 +93,7 @@ defmodule Exocomp.ClusterProfile.CephHealthReducer do
     * `daemon_states` — List of daemon systemd state observations with
       node_id, unit, expected_state, active_state, load_state
     * `profile_coverage` — Profile coverage status from
-      `Exocomp.Coordinator.ProfileCoverage`
+      `Exocomp.Coordinator.ProfileCoverage` (optional, defaults to empty map)
 
   ## Returns
 
@@ -126,6 +123,12 @@ defmodule Exocomp.ClusterProfile.CephHealthReducer do
       coverage: coverage_from_topology(topology_result),
       deterministic: true
     }
+  end
+
+  @doc false
+  @spec reduce(map(), map(), [map()]) :: result()
+  def reduce(evidence, topology_result, daemon_states) do
+    reduce(evidence, topology_result, daemon_states, %{})
   end
 
   # ──────────────────────────────────────────────────────────────────────────
@@ -271,7 +274,7 @@ defmodule Exocomp.ClusterProfile.CephHealthReducer do
   defp determine_daemon_severity_and_reasons(
          systemd_state,
          mapping,
-         profile_coverage,
+         _profile_coverage,
          coverage_status
        ) do
     reasons = []
@@ -354,7 +357,7 @@ defmodule Exocomp.ClusterProfile.CephHealthReducer do
         age_ms = DateTime.diff(DateTime.utc_now(), datetime, :millisecond)
         age_ms > threshold
 
-      :error ->
+      {:error, _reason} ->
         true
     end
   end
