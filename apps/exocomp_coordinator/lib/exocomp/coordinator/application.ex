@@ -46,11 +46,11 @@ defmodule Exocomp.Coordinator.Application do
   defp build_children(require_pki?) do
     if require_pki? do
       case pki_and_listener_children() do
-        {:ok, extra} -> {:ok, base_children() ++ extra}
+        {:ok, extra} -> {:ok, base_children() ++ extra ++ mission_control_children()}
         {:error, _} = error -> error
       end
     else
-      {:ok, base_children()}
+      {:ok, base_children() ++ mission_control_children()}
     end
   end
 
@@ -72,6 +72,28 @@ defmodule Exocomp.Coordinator.Application do
       {Exocomp.Coordinator.RemediationLifecycle,
        Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}
     ]
+  end
+
+  # Builds Mission Control supervision subtree children only if Mission Control
+  # is configured and enabled. Returns an empty list otherwise.
+  defp mission_control_children do
+    case Application.get_env(:exocomp_coordinator, :mission_control_config) do
+      nil ->
+        []
+
+      mc_config when is_map(mc_config) ->
+        if Map.get(mc_config, :enabled) == true do
+          [
+            {Exocomp.Coordinator.MissionControl.Supervisor,
+             [mc_config, name: Exocomp.Coordinator.MissionControlSupervisor]}
+          ]
+        else
+          []
+        end
+
+      _ ->
+        []
+    end
   end
 
   # Loads the online PKI state and returns child specs for PKI.State,

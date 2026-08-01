@@ -19,6 +19,17 @@ defmodule Exocomp.Coordinator.Config do
     "listen": {
       "host": "0.0.0.0",
       "port": 4443
+    },
+    "mission_control": {
+      "enabled": true,
+      "url": "wss://mission-control.example.com:443",
+      "trust_root": "/path/to/mc-trust-root.crt",
+      "client_cert": "/path/to/mc-client.crt",
+      "client_key": "/path/to/mc-client.key",
+      "heartbeat_interval_seconds": 30,
+      "reconnect_min_backoff_seconds": 1,
+      "reconnect_max_backoff_seconds": 60,
+      "outbox_path": "/var/lib/exocomp-coordinator/mc-outbox"
     }
   }
   ```
@@ -33,14 +44,23 @@ defmodule Exocomp.Coordinator.Config do
 
   ## Environment overrides
 
-  | Variable                    | Overrides            |
-  |-----------------------------|----------------------|
-  | `EXOCOMP_COORDINATOR_ID`    | `coordinator_id`     |
-  | `EXOCOMP_LISTEN_ADDRESS`    | `listen.host`        |
-  | `EXOCOMP_LISTEN_PORT`       | `listen.port`        |
-  | `EXOCOMP_TLS_CERT_PATH`     | `tls.coord_cert`     |
-  | `EXOCOMP_TLS_KEY_PATH`      | `tls.coord_key`      |
-  | `EXOCOMP_TLS_CA_PATH`       | `tls.ca_cert`        |
+  | Variable                              | Overrides                               |
+  |---------------------------------------|----------------------------------------|
+  | `EXOCOMP_COORDINATOR_ID`              | `coordinator_id`                        |
+  | `EXOCOMP_LISTEN_ADDRESS`              | `listen.host`                           |
+  | `EXOCOMP_LISTEN_PORT`                 | `listen.port`                           |
+  | `EXOCOMP_TLS_CERT_PATH`               | `tls.coord_cert`                        |
+  | `EXOCOMP_TLS_KEY_PATH`                | `tls.coord_key`                         |
+  | `EXOCOMP_TLS_CA_PATH`                 | `tls.ca_cert`                           |
+  | `EXOCOMP_MISSION_CONTROL_ENABLED`     | `mission_control.enabled`               |
+  | `EXOCOMP_MISSION_CONTROL_URL`         | `mission_control.url`                   |
+  | `EXOCOMP_MISSION_CONTROL_TRUST_ROOT`  | `mission_control.trust_root`            |
+  | `EXOCOMP_MISSION_CONTROL_CLIENT_CERT` | `mission_control.client_cert`           |
+  | `EXOCOMP_MISSION_CONTROL_CLIENT_KEY`  | `mission_control.client_key`            |
+  | `EXOCOMP_MISSION_CONTROL_HEARTBEAT`   | `mission_control.heartbeat_interval_seconds` |
+  | `EXOCOMP_MISSION_CONTROL_MIN_BACKOFF` | `mission_control.reconnect_min_backoff_seconds` |
+  | `EXOCOMP_MISSION_CONTROL_MAX_BACKOFF` | `mission_control.reconnect_max_backoff_seconds` |
+  | `EXOCOMP_MISSION_CONTROL_OUTBOX_PATH` | `mission_control.outbox_path`           |
   """
 
   require Logger
@@ -71,14 +91,43 @@ defmodule Exocomp.Coordinator.Config do
           }
   end
 
+  defmodule MissionControl do
+    @moduledoc "Mission Control client configuration (optional)."
+    @enforce_keys [:enabled]
+    defstruct [
+      :enabled,
+      :url,
+      :trust_root,
+      :client_cert,
+      :client_key,
+      :heartbeat_interval_seconds,
+      :reconnect_min_backoff_seconds,
+      :reconnect_max_backoff_seconds,
+      :outbox_path
+    ]
+
+    @type t :: %__MODULE__{
+            enabled: boolean(),
+            url: String.t() | nil,
+            trust_root: String.t() | nil,
+            client_cert: String.t() | nil,
+            client_key: String.t() | nil,
+            heartbeat_interval_seconds: pos_integer() | nil,
+            reconnect_min_backoff_seconds: pos_integer() | nil,
+            reconnect_max_backoff_seconds: pos_integer() | nil,
+            outbox_path: String.t() | nil
+          }
+  end
+
   @enforce_keys [:version, :coordinator_id, :tls, :listen]
-  defstruct [:version, :coordinator_id, :tls, :listen]
+  defstruct [:version, :coordinator_id, :tls, :listen, :mission_control]
 
   @type t :: %__MODULE__{
           version: pos_integer(),
           coordinator_id: String.t(),
           tls: TLS.t(),
-          listen: Listen.t()
+          listen: Listen.t(),
+          mission_control: MissionControl.t() | nil
         }
 
   # ── Public API ───────────────────────────────────────────────────────────────
@@ -153,6 +202,74 @@ defmodule Exocomp.Coordinator.Config do
     |> env_override_tls("coord_cert", "EXOCOMP_TLS_CERT_PATH")
     |> env_override_tls("coord_key", "EXOCOMP_TLS_KEY_PATH")
     |> env_override_tls("ca_cert", "EXOCOMP_TLS_CA_PATH")
+    |> env_override_mission_control_enabled()
+    |> env_override_mission_control("url", "EXOCOMP_MISSION_CONTROL_URL")
+    |> env_override_mission_control("trust_root", "EXOCOMP_MISSION_CONTROL_TRUST_ROOT")
+    |> env_override_mission_control("client_cert", "EXOCOMP_MISSION_CONTROL_CLIENT_CERT")
+    |> env_override_mission_control("client_key", "EXOCOMP_MISSION_CONTROL_CLIENT_KEY")
+    |> env_override_mission_control_int(
+      "heartbeat_interval_seconds",
+      "EXOCOMP_MISSION_CONTROL_HEARTBEAT"
+    )
+    |> env_override_mission_control_int(
+      "reconnect_min_backoff_seconds",
+      "EXOCOMP_MISSION_CONTROL_MIN_BACKOFF"
+    )
+    |> env_override_mission_control_int(
+      "reconnect_max_backoff_seconds",
+      "EXOCOMP_MISSION_CONTROL_MAX_BACKOFF"
+    )
+    |> env_override_mission_control("outbox_path", "EXOCOMP_MISSION_CONTROL_OUTBOX_PATH")
+  end
+
+  defp env_override_mission_control_enabled(parsed) do
+    case System.get_env("EXOCOMP_MISSION_CONTROL_ENABLED") do
+      nil ->
+        parsed
+
+      raw ->
+        enabled =
+          case String.downcase(raw) do
+            val when val in ["true", "1", "yes"] -> true
+            val when val in ["false", "0", "no"] -> false
+            _ -> false
+          end
+
+        Map.update(
+          parsed,
+          "mission_control",
+          %{"enabled" => enabled},
+          &Map.put(&1, "enabled", enabled)
+        )
+    end
+  end
+
+  defp env_override_mission_control(parsed, mc_key, env_var) do
+    case System.get_env(env_var) do
+      nil ->
+        parsed
+
+      value ->
+        Map.update(parsed, "mission_control", %{mc_key => value}, &Map.put(&1, mc_key, value))
+    end
+  end
+
+  defp env_override_mission_control_int(parsed, mc_key, env_var) do
+    case System.get_env(env_var) do
+      nil ->
+        parsed
+
+      raw ->
+        case Integer.parse(raw) do
+          {value, ""} ->
+            Map.update(parsed, "mission_control", %{mc_key => value}, &Map.put(&1, mc_key, value))
+
+          _ ->
+            Logger.warning("#{env_var} #{inspect(raw)} is not a valid integer, ignoring override")
+
+            parsed
+        end
+    end
   end
 
   defp env_override_top(parsed, field, env_var) do
@@ -204,6 +321,16 @@ defmodule Exocomp.Coordinator.Config do
   @required_top_fields ["coordinator_id", "tls", "listen"]
   @required_tls_fields ["ca_cert", "coord_cert", "coord_key"]
   @required_listen_fields ["host", "port"]
+  @required_mission_control_fields [
+    "url",
+    "trust_root",
+    "client_cert",
+    "client_key",
+    "heartbeat_interval_seconds",
+    "reconnect_min_backoff_seconds",
+    "reconnect_max_backoff_seconds",
+    "outbox_path"
+  ]
 
   defp validate_required_fields(parsed) do
     missing = collect_missing(parsed)
@@ -240,7 +367,22 @@ defmodule Exocomp.Coordinator.Config do
           |> Enum.map(&"listen.#{&1}")
       end
 
-    top_missing ++ tls_missing ++ listen_missing
+    mission_control_missing =
+      case parsed["mission_control"] do
+        nil ->
+          []
+
+        mc ->
+          if Map.get(mc, "enabled") == true do
+            @required_mission_control_fields
+            |> Enum.reject(&Map.has_key?(mc, &1))
+            |> Enum.map(&"mission_control.#{&1}")
+          else
+            []
+          end
+      end
+
+    top_missing ++ tls_missing ++ listen_missing ++ mission_control_missing
   end
 
   # ── Validation: field types ──────────────────────────────────────────────────
@@ -254,6 +396,7 @@ defmodule Exocomp.Coordinator.Config do
       |> check_nested_type(parsed["tls"], "tls.coord_key", "coord_key", &is_binary/1, "string")
       |> check_nested_type(parsed["listen"], "listen.host", "host", &is_binary/1, "string")
       |> check_nested_type(parsed["listen"], "listen.port", "port", &is_integer/1, "integer")
+      |> validate_mission_control_types(parsed["mission_control"], parsed)
 
     if errors == [] do
       :ok
@@ -286,14 +429,197 @@ defmodule Exocomp.Coordinator.Config do
     end
   end
 
+  # ── Validation: Mission Control types and values ──────────────────────────
+
+  defp validate_mission_control_types(errors, nil, _parsed), do: errors
+
+  defp validate_mission_control_types(errors, mc, _parsed) when is_map(mc) do
+    if Map.get(mc, "enabled") == true do
+      errors
+      |> check_nested_type(mc, "mission_control.url", "url", &is_binary/1, "string")
+      |> check_nested_type(mc, "mission_control.trust_root", "trust_root", &is_binary/1, "string")
+      |> check_nested_type(
+        mc,
+        "mission_control.client_cert",
+        "client_cert",
+        &is_binary/1,
+        "string"
+      )
+      |> check_nested_type(mc, "mission_control.client_key", "client_key", &is_binary/1, "string")
+      |> check_nested_type(
+        mc,
+        "mission_control.heartbeat_interval_seconds",
+        "heartbeat_interval_seconds",
+        &is_integer/1,
+        "integer"
+      )
+      |> check_nested_type(
+        mc,
+        "mission_control.reconnect_min_backoff_seconds",
+        "reconnect_min_backoff_seconds",
+        &is_integer/1,
+        "integer"
+      )
+      |> check_nested_type(
+        mc,
+        "mission_control.reconnect_max_backoff_seconds",
+        "reconnect_max_backoff_seconds",
+        &is_integer/1,
+        "integer"
+      )
+      |> check_nested_type(
+        mc,
+        "mission_control.outbox_path",
+        "outbox_path",
+        &is_binary/1,
+        "string"
+      )
+      |> validate_mission_control_values(mc)
+    else
+      errors
+    end
+  end
+
+  defp validate_mission_control_types(errors, _mc, _parsed), do: errors
+
+  # ── Validation: Mission Control value constraints ───────────────────────────
+
+  defp validate_mission_control_values(errors, mc) do
+    errors
+    |> validate_numeric_bound(mc, "heartbeat_interval_seconds", 1, nil)
+    |> validate_numeric_bound(mc, "reconnect_min_backoff_seconds", 1, nil)
+    |> validate_numeric_bound(mc, "reconnect_max_backoff_seconds", 1, nil)
+    |> validate_backoff_bounds(mc)
+    |> validate_mission_control_paths(mc)
+  end
+
+  defp validate_numeric_bound(errors, mc, field, min, max) do
+    case Map.get(mc, field) do
+      nil ->
+        errors
+
+      value when is_integer(value) ->
+        cond do
+          min && value < min ->
+            Logger.warning(
+              "Config field mission_control.#{field} must be >= #{min}, got #{value}"
+            )
+
+            ["mission_control.#{field}" | errors]
+
+          max && value > max ->
+            Logger.warning(
+              "Config field mission_control.#{field} must be <= #{max}, got #{value}"
+            )
+
+            ["mission_control.#{field}" | errors]
+
+          true ->
+            errors
+        end
+
+      _ ->
+        errors
+    end
+  end
+
+  defp validate_backoff_bounds(errors, mc) do
+    min = Map.get(mc, "reconnect_min_backoff_seconds")
+    max = Map.get(mc, "reconnect_max_backoff_seconds")
+
+    if is_integer(min) && is_integer(max) && max < min do
+      Logger.warning(
+        "Config field mission_control.reconnect_max_backoff_seconds (#{max}) must be >= " <>
+          "reconnect_min_backoff_seconds (#{min})"
+      )
+
+      ["mission_control.reconnect_max_backoff_seconds" | errors]
+    else
+      errors
+    end
+  end
+
+  defp validate_mission_control_paths(errors, mc) do
+    errors
+    |> validate_file_readable(mc, "trust_root")
+    |> validate_file_readable(mc, "client_cert")
+    |> validate_file_readable(mc, "client_key")
+    |> validate_outbox_path_writable(mc, "outbox_path")
+  end
+
+  defp validate_file_readable(errors, mc, field) do
+    case Map.get(mc, field) do
+      nil ->
+        errors
+
+      path when is_binary(path) ->
+        case File.exists?(path) do
+          true ->
+            errors
+
+          false ->
+            Logger.warning(
+              "Config field mission_control.#{field} points to non-existent file: #{path}"
+            )
+
+            ["mission_control.#{field}" | errors]
+        end
+
+      _ ->
+        errors
+    end
+  end
+
+  defp validate_outbox_path_writable(errors, mc, field) do
+    case Map.get(mc, field) do
+      nil ->
+        errors
+
+      path when is_binary(path) ->
+        case File.exists?(path) do
+          true ->
+            case File.dir?(path) do
+              true ->
+                errors
+
+              false ->
+                Logger.warning(
+                  "Config field mission_control.#{field} must be a directory: #{path}"
+                )
+
+                ["mission_control.#{field}" | errors]
+            end
+
+          false ->
+            # Try to create the directory
+            case File.mkdir_p(path) do
+              :ok ->
+                errors
+
+              {:error, reason} ->
+                Logger.warning(
+                  "Config field mission_control.#{field} cannot be created: #{path} (#{inspect(reason)})"
+                )
+
+                ["mission_control.#{field}" | errors]
+            end
+        end
+
+      _ ->
+        errors
+    end
+  end
+
   # ── Struct construction ──────────────────────────────────────────────────────
 
-  defp to_struct(%{
-         "version" => version,
-         "coordinator_id" => coordinator_id,
-         "tls" => tls,
-         "listen" => listen
-       }) do
+  defp to_struct(
+         %{
+           "version" => version,
+           "coordinator_id" => coordinator_id,
+           "tls" => tls,
+           "listen" => listen
+         } = parsed
+       ) do
     %__MODULE__{
       version: version,
       coordinator_id: coordinator_id,
@@ -305,7 +631,34 @@ defmodule Exocomp.Coordinator.Config do
       listen: %Listen{
         host: listen["host"],
         port: listen["port"]
-      }
+      },
+      mission_control: build_mission_control(parsed["mission_control"])
     }
   end
+
+  # Build the mission_control config, returning nil if not present or disabled.
+  defp build_mission_control(nil), do: nil
+
+  defp build_mission_control(mc) when is_map(mc) do
+    enabled = Map.get(mc, "enabled", false)
+
+    if enabled do
+      %MissionControl{
+        enabled: true,
+        url: mc["url"],
+        trust_root: mc["trust_root"],
+        client_cert: mc["client_cert"],
+        client_key: mc["client_key"],
+        heartbeat_interval_seconds: mc["heartbeat_interval_seconds"],
+        reconnect_min_backoff_seconds: mc["reconnect_min_backoff_seconds"],
+        reconnect_max_backoff_seconds: mc["reconnect_max_backoff_seconds"],
+        outbox_path: mc["outbox_path"]
+      }
+    else
+      # Mission Control is disabled; return nil
+      nil
+    end
+  end
+
+  defp build_mission_control(_), do: nil
 end
