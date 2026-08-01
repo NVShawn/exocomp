@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:42:12.666851Z'
+updated_at: '2026-08-01T22:42:33.980826Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -509,5 +509,17 @@ created: 2026-08-01 22:42
 IMPLEMENTATION: Fixed 2 remaining audit issues in CephHealthReducer:
 1. Added :critical_health_status to reasons in determine_cluster_severity_and_reasons/5 when ceph_status == 'HEALTH_ERR'. The type spec declared this reason atom but it was never emitted; now when HEALTH_ERR is detected the reason is appended before severity calculation.
 2. Fixed check_profile_evidence_health/1 to return true (no-op) when local.state is an empty map (%{}). Previously all fixtures with state: %{} were returning false, making systemd-healthy daemons report :degraded. Empty state means no profile evidence was collected — this should not be a gate, only the systemd check applies.
+---
+author: oompah
+created: 2026-08-01 22:42
+---
+VERIFICATION: make test passed — 558 tests in exocomp_core (0 failures), 885 in exocomp_coordinator (0 failures, 10 excluded), 300 in exocomp_node, 128 in integration suite. Specific CephHealthReducer test cases confirmed passing:
+- HEALTH_ERR → :critical + :critical_health_status in reasons ✓
+- Systemd-healthy daemon with empty local.state → :healthy ✓
+- Systemd-failed daemon → :degraded + :daemon_state_failed ✓
+- Stale evidence, missing evidence, incomplete coverage, ambiguous topology all produce correct reasons ✓
+- Recovery to healthy ✓
+
+Committed 04f4ea53 and pushed to epic-EXOCOMP-186--task-EXOCOMP-200.
 ---
 <!-- COMMENTS:END -->
