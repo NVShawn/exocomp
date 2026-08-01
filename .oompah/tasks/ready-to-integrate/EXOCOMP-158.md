@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-01T12:52:39.025491Z'
+updated_at: '2026-08-01T12:52:48.469763Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -171,5 +171,15 @@ author: oompah
 created: 2026-08-01 12:52
 ---
 Implemented bounded organization-scoped Mission Control conversations, memberships, ordered messages, evidence references, context selection, lifecycle transitions, validation, and focused tests. Commit b8776d44 pushed; container quality gates are environment-blocked by unavailable Docker/libpod runtime.
+---
+author: oompah
+created: 2026-08-01 12:52
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 106
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 15m 49s
+- Log: EXOCOMP-158__20260801T123706Z.jsonl
 ---
 <!-- COMMENTS:END -->
