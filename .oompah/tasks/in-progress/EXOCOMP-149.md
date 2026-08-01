@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-01T12:25:05.145971Z'
+updated_at: '2026-08-01T12:27:10.970949Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -145,5 +145,10 @@ author: oompah
 created: 2026-08-01 12:25
 ---
 Understanding: implement authenticated, version-checked cluster event ingestion with transactional event-plus-cursor commits, organization/cluster/event deduplication, gap detection, and acknowledgements limited to the highest contiguous committed sequence. I will first inspect the protocol plan, current ingestion/persistence code, and Makefile test gates, then add focused contract coverage.
+---
+author: oompah
+created: 2026-08-01 12:27
+---
+Discovery: the current branch contains only the Mission Control protocol plan; no gateway, event schema, database, or ingestion store exists yet. The existing coordinator uses GenServer-owned state and staged file persistence, while cluster identity is certificate-derived (DNS SAN in current coordinator PKI; Mission Control’s planned identity is SPIFFE organization/cluster). I’ll add a focused durable ingestion boundary with injectable authenticated identity and storage, then wire the coordinator HTTP route without coupling event reduction.
 ---
 <!-- COMMENTS:END -->
