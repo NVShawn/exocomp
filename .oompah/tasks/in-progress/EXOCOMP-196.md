@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:56:07.731550Z'
+updated_at: '2026-08-01T16:03:26.899267Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -541,5 +541,10 @@ author: oompah
 created: 2026-08-01 15:56
 ---
 Discovery: the branch is clean and contains the Ceph profile/config/validator work, but startup wiring and degraded-state handling are absent. I am tracing application startup, profile lookup, and audit APIs to fit the existing supervision and registry semantics.
+---
+author: oompah
+created: 2026-08-01 16:03
+---
+Implementation: wired Listener startup through Ceph.Validator with non-fatal degradation, redacted ceph_profile_validation_failed audit metadata, coordinator ProfileCoverage state/filtering, and Agent Card integration; added invalid-config tolerance for startup; added validator version/metadata checks; fixed the node Ceph test's unbound unit pattern.
 ---
 <!-- COMMENTS:END -->
