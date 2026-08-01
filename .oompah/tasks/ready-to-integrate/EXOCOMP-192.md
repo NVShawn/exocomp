@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-192
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Schedule service discovery and observations in the coordinator
 parent: EXOCOMP-185
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:02.009432Z'
-updated_at: '2026-08-01T16:14:57.631287Z'
+updated_at: '2026-08-01T16:16:39.875711Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-192
 target_branch: null
 review_url: null
@@ -119,12 +119,12 @@ oompah.agent_run_id: 967d499b-29ae-446d-8817-9643a47fcf8d
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-192
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-192
-  base_branch: epic-EXOCOMP-185
-  base_sha: 7b3ff4a831259ec5555de09214348b3da5eb554e
-  updated_at: '2026-08-01T15:58:26.939512+00:00'
+  head_sha: 2304acc105f13ebc16792ffc8ea7a57e48be313d
+  submitted_at: '2026-08-01T16:16:37.783943+00:00'
+  updated_at: '2026-08-01T16:16:37.783943+00:00'
 oompah.task_costs:
   total_input_tokens: 242
   total_output_tokens: 6565
@@ -226,5 +226,15 @@ author: oompah
 created: 2026-08-01 16:14
 ---
 Verification: focused ServiceScheduler suite passed 7/7 and existing HealthPoller suite passed 5/5 via direct Elixir compilation under the available 1.18 runtime. git diff --check and targeted format checks pass. make test ran offline checks successfully, then was blocked by the pinned Elixir 1.20.2 Podman container failing to chmod /run/user/1000/libpod on the read-only filesystem.
+---
+author: oompah
+created: 2026-08-01 16:16
+---
+Completion: delivered and pushed commit 2304acc1. ServiceScheduler now performs startup/jittered five-minute automatic discovery, preserves successful cache entries across failed scans, schedules effective-service observation through successful 30-second HealthPoller cadence, isolates slow peers with bounded supervised workers and per-node deadlines, reconciles inventory replacement promptly with generation guards, and supports cancellation. Focused tests cover startup, periodic jitter, cache preservation, effective services, artifact normalization, reload, timeout isolation, cancellation, and health handoff. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-08-01 16:16
+---
+Implemented coordinator service discovery and effective-service observation scheduling with jitter, bounded isolated workers, timeouts, cache preservation, inventory-triggered reconciliation, injectable clock seams, and focused tests. Pushed commit 2304acc1; make test offline checks passed but pinned Elixir container was blocked by read-only Podman runtime.
 ---
 <!-- COMMENTS:END -->
