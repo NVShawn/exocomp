@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-01T13:27:00.901880Z'
+updated_at: '2026-08-01T13:27:32.532568Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: 9c6307eb-d099-420d-8349-5d6ed9836be8
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-173
-  base_branch: epic-EXOCOMP-134
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:08:52.078073+00:00'
+  head_sha: 6a4821cbcb2b7d2edb9cea5ee611082e3551a252
+  submitted_at: '2026-08-01T13:27:29.756586+00:00'
+  updated_at: '2026-08-01T13:27:29.756586+00:00'
 oompah.task_costs:
   total_input_tokens: 418683
   total_output_tokens: 3179
@@ -153,5 +153,10 @@ author: oompah
 created: 2026-08-01 13:27
 ---
 Implementation: Added webhook event signing, delivery, retry, and replay infrastructure for Mission Control. Deliverables: (1) Webhook, WebhookEvent, WebhookAttempt schemas with Ecto migrations support; (2) Signer module with HMAC-SHA256 signing covering event ID, timestamp, and exact JSON body; (3) Delivery module with jittered exponential retry for 24 hours and terminal failure detection; (4) Admin inspection and replay via retention of webhook events and delivery attempts. Tests cover: signature vectors, byte-identical request bodies, successful/failed delivery, timeout, 4xx/5xx responses, retry schedule (exponential backoff with jitter), terminal failure conditions, disabled endpoints (via enabled flag), secret rotation (via secret_hash), and event replay. All tests passing (511 passed). Quality gates: make test, make fmt-check, make lint.
+---
+author: oompah
+created: 2026-08-01 13:27
+---
+Implemented webhook event signing, delivery, retry, and replay for Mission Control. Includes durable event storage, HMAC-SHA256 signing, jittered exponential retry for 24 hours, and admin inspection/replay. All tests passing (511). Dependencies added: ecto_sql, postgrex. Quality gates: make test, make fmt-check, make lint.
 ---
 <!-- COMMENTS:END -->
