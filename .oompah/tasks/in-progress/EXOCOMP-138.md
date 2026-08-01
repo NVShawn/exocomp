@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T15:04:35.734088Z'
+updated_at: '2026-08-01T15:04:47.040275Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -224,5 +224,10 @@ docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull 
 	mix format --check-formatted && \
 	MIX_ENV=test mix compile --force --warnings-as-errors'
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-138' could not run because this environment has no usable Docker/Podman builder (container invocation fails on read-only Podman configuration); lint's offline builder/compliance checks passed before that container step.
+---
+author: oompah
+created: 2026-08-01 15:04
+---
+Verification correction: focused Mission Control tests pass (15 tests, 0 failures), migration modules compile, and explicit format-check passes for all changed Elixir files. The Makefile fmt-check and lint container phases are unavailable here because Docker/Podman cannot initialize; lint offline builder and compliance checks passed.
 ---
 <!-- COMMENTS:END -->
