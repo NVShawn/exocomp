@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-95
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement node-side approval token verifier (signature, bindings, freshness)
 parent: EXOCOMP-24
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:12:09.769791Z'
-updated_at: '2026-07-25T02:18:05.223253Z'
+updated_at: '2026-08-01T03:00:57.892240Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -35,6 +35,28 @@ oompah.task_costs:
     output_tokens: 3593
     cost_usd: 0.0
     recorded_at: '2026-07-24T15:59:52.103138+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-308bf0ecb161
+    project_id: proj-c260b117
+    task_id: EXOCOMP-95
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 87928deddcc4f616910f2095f7cb88e470eaac4955fc101308e5c84939f092c3
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:55.899575+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -279,5 +301,10 @@ author: oompah
 created: 2026-07-24 16:36
 ---
 Implemented and pushed node-side Ed25519 approval-token verification with shared canonical encoding, configurable redacted public-key loading, all required binding/freshness checks, and focused tests. Makefile gates were attempted but could not launch due the host's read-only Podman runtime; review CI must execute them.
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
