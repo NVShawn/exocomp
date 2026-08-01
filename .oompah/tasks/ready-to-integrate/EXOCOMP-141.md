@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-141
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Enforce viewer, operator, and admin authorization
 parent: EXOCOMP-129
@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T19:03:56.608485Z'
+updated_at: '2026-08-01T19:04:05.338174Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: ebf421eb-3adf-43cf-9951-003c3d507c4c
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-141
-  base_branch: epic-EXOCOMP-129
-  base_sha: 459fb9012796c509c9b5c178ce0fb7548afa9ed4
-  updated_at: '2026-08-01T18:53:28.594254+00:00'
+  head_sha: d4c703e94c5ef16a5b0b9474e27a800ae5622d86
+  submitted_at: '2026-08-01T19:04:03.245085+00:00'
+  updated_at: '2026-08-01T19:04:03.245085+00:00'
 oompah.task_costs:
   total_input_tokens: 392787
   total_output_tokens: 9122
@@ -360,5 +360,10 @@ author: oompah
 created: 2026-08-01 19:03
 ---
 Completion: EXOCOMP-141 delivers the Mission Control authorization foundation: (1) operator identity + role-binding schemas scoped to organization_id (cross-org always fails closed with :cross_organization before any role check), (2) OIDC claim→role resolver (subject override, group claim, highest-privilege merge, display name extraction), (3) Plug.RequireRole and LiveView.RequireRole guards (removing UI controls cannot bypass context-level checks), (4) context-level authorize/authorize!/can_read?/can_operate?/can_administer? functions, (5) Mutations.Attribution helper with stable OIDC sub + corr_ correlation IDs. Rebased onto epic-EXOCOMP-129 (EXOCOMP-140 integrated). Branch d4c703e9 is pushed and ready to integrate.
+---
+author: oompah
+created: 2026-08-01 19:04
+---
+Delivered Mission Control authorization foundation: Operator/RoleBinding identity structs scoped to organization_id with cross-org fail-closed isolation; OIDCResolver mapping group claims and subject overrides to viewer/operator/admin roles; context-level authorize/authorize!/can_read?/can_operate?/can_administer? functions; Plug.RequireRole (403 JSON) and LiveView.RequireRole (redirect) guards; Mutations.Attribution with OIDC sub + corr_ correlation IDs. Full 18-cell role×action×org matrix test plus unauthenticated/forbidden-error/plug/attribution tests. Rebased onto epic-EXOCOMP-129 picking up EXOCOMP-140 OIDC foundation. All quality gates pass (fmt-check, lint; tests: 511+866 assertions).
 ---
 <!-- COMMENTS:END -->
