@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:15:37.348682Z'
+updated_at: '2026-08-01T13:16:37.536790Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -140,5 +140,10 @@ author: oompah
 created: 2026-08-01 13:15
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 13:16
+---
+UNDERSTANDING: Task requires building an integration harness to test Mission Control reconnection, multi-replica failover, and durable event handling. Deliverables include a deterministic test harness with PostgreSQL + 1 coordinator + 2 Mission Control replicas, tests for disconnect/reconnect scenarios, a Make target for CI, and validation that WebSocket affinity is not required. This appears to be backend/integration testing work, not frontend UI work. Currently investigating whether there's frontend involvement or if this needs a backend focus.
 ---
 <!-- COMMENTS:END -->
