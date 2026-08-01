@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: In Validation
+status: Archived
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-08-01T21:32:10.747395Z'
+updated_at: '2026-08-01T21:38:08.662945Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -45,6 +45,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:46:28.943080+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-57187319c071: '2026-08-01T21:38:05.838812+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-67
+    target_state: Archived
+    evidence_fingerprint: 5e58bd2d12a6df5d8336b494430a426d9646c264de17d7927f4f96b50903bf6c
+    audit_ids:
+    - audit-96bee72f77e4
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:38:05.838820+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-67
+    audit_id: audit-96bee72f77e4
+    attempt_id: attempt-57187319c071
+    target_state: Archived
+    evidence_fingerprint: 5e58bd2d12a6df5d8336b494430a426d9646c264de17d7927f4f96b50903bf6c
+    status: Archived
+    audit_ids:
+    - audit-96bee72f77e4
+    applied: false
+    created_at: '2026-08-01T21:38:05.838831+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -52,7 +76,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-67
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -61,7 +85,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-57187319c071
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -71,13 +95,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:32:04.012722+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-01T21:38:05.838700+00:00'
+      ended_at: '2026-08-01T21:38:05.838700+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:54.405851+00:00'
-    updated_at: '2026-08-01T21:32:04.012722+00:00'
+    updated_at: '2026-08-01T21:38:05.838700+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-57187319c071
@@ -358,5 +385,25 @@ author: oompah
 created: 2026-08-01 21:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:38
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- recovery_commit: 50cd48c23a0fdc0810441c8c16357f77a112cfdd
+- recovery_pr_merge: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- recovery_pr: PR #14 (EXOCOMP-114)
+- on_main: true (git branch -r --contains includes origin/main)
+- inspect_script_present: scripts/inspect-release-deps.sh
+- test_script_present: scripts/test-runtime-deps.sh
+- baseline_present: release/runtime-baseline.lock
+- docs_present: docs/runtime-dependencies.md
+- fixtures_present: test/fixtures/fake-release-valid, test/fixtures/fake-release-undeclared, test/fixtures/fake-readelf.sh
+- previous_state: Merged
+- archive_trigger: aged Merged auto-archive after 7 days
 ---
 <!-- COMMENTS:END -->
