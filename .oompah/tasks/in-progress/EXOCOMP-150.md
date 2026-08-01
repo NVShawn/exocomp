@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-01T12:26:18.779618Z'
+updated_at: '2026-08-01T12:26:31.034632Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-08-01 12:26
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-01 12:26
+---
+Understanding: I will trace the Mission Control command/session and database patterns, add a durable validated command outbox with ownership-aware delivery and exactly-once acknowledgement/expiry semantics, cover the listed failure cases, then run focused tests and the required Makefile quality gates.
 ---
 <!-- COMMENTS:END -->
