@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:52.527968Z'
-updated_at: '2026-08-01T15:53:19.270638Z'
+updated_at: '2026-08-01T15:59:37.325670Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-138
 target_branch: null
 review_url: null
@@ -270,5 +270,10 @@ author: oompah
 created: 2026-08-01 15:53
 ---
 Focus: Frontend Developer
+---
+author: oompah
+created: 2026-08-01 15:59
+---
+Understanding: EXOCOMP-138 requires adding organizations as the top-level tenant boundary for Mission Control, plus a fail-closed scoping helper that all tenant-owned queries and inserts must pass through. Deliverables: (1) organizations table with UUID PK and unique slug, (2) idempotent dev/test seed, (3) OrganizationScope helper, (4) example scoped schema with FK + unique constraint. All work appears committed in 29426a2f on branch epic-EXOCOMP-128--task-EXOCOMP-138 — reviewing implementation for completeness and correctness.
 ---
 <!-- COMMENTS:END -->
