@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-67
 type: task
-status: Merged
+status: In Validation
 priority: 2
 title: Inspect and document OTP release runtime dependencies
 parent: EXOCOMP-42
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T21:06:24.819914Z'
-updated_at: '2026-07-25T21:11:23.095053Z'
+updated_at: '2026-08-01T21:19:56.611582Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 32163
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:46:28.943080+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-96bee72f77e4
+    project_id: proj-c260b117
+    task_id: EXOCOMP-67
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5e58bd2d12a6df5d8336b494430a426d9646c264de17d7927f4f96b50903bf6c
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:19:54.405851+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -294,5 +316,10 @@ author: oompah
 created: 2026-07-25 21:11
 ---
 Recovered deliverable verified on origin/main via PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:19
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
