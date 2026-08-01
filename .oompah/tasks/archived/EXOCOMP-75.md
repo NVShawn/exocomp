@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-75
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement secure coordinator PKI bootstrap and state validation
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-08-01T01:43:40.760200Z'
+updated_at: '2026-08-01T01:47:48.399376Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -40,6 +40,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     no-auditor-audit-09b89e576d5e-3: '2026-07-31T21:12:45.248960+00:00'
+    attempt-33c4a812ce79: '2026-08-01T01:47:45.328521+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-75
@@ -47,6 +48,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
     audit_ids:
     - audit-09b89e576d5e
+    - audit-2c2fc29cb13d
     kind: result
     applied: true
     retired_at: '2026-07-31T21:12:45.248972+00:00'
@@ -63,6 +65,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-07-31T21:12:45.248988+00:00'
     applied_at: '2026-07-31T21:12:49.744607+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-75
+    audit_id: audit-2c2fc29cb13d
+    attempt_id: attempt-33c4a812ce79
+    target_state: Archived
+    evidence_fingerprint: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
+    status: Archived
+    audit_ids:
+    - audit-2c2fc29cb13d
+    applied: false
+    created_at: '2026-08-01T01:47:45.328559+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -153,7 +166,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-75
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -162,7 +175,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-33c4a812ce79
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -172,13 +185,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T01:43:34.503440+00:00'
       branch_key: epic-EXOCOMP-2
+      verdict: pass
+      completed_at: '2026-08-01T01:47:45.328346+00:00'
+      ended_at: '2026-08-01T01:47:45.328346+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Merged
     created_at: '2026-08-01T01:43:25.289133+00:00'
-    updated_at: '2026-08-01T01:43:34.503440+00:00'
+    updated_at: '2026-08-01T01:47:45.328346+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-2313c5c61c6a
@@ -488,5 +504,20 @@ author: oompah
 created: 2026-08-01 01:43
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 01:47
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- delivered_commit: 7ceead43cf1c5959d2f0ca495baa7e4e9a72f545
+- bootstrap_module_blob_on_main: 57a7d76a72ee337b66b2870d61fec7dd8b323f59
+- downstream_consumers_on_main: EXOCOMP-20, EXOCOMP-77, EXOCOMP-114, EXOCOMP-119, EXOCOMP-123
+- focused_tests: apps/exocomp_coordinator/test/exocomp/coordinator/pki/bootstrap_test.exs (10 tests)
+- dependency_added: x509 ~> 0.9.2
+- acceptance_coverage: chain separation, root absence online, protected backup, distinct approval key, idempotency, secure modes 0700/0600, partial+corrupt fail-closed, atomic cleanup, redacted errors+logs
 ---
 <!-- COMMENTS:END -->
