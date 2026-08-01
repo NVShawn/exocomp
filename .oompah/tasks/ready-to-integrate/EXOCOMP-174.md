@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-174
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Delete status history with bounded retention jobs
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:38.421513Z'
-updated_at: '2026-08-01T16:01:22.491946Z'
+updated_at: '2026-08-01T16:01:35.766420Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-174
 target_branch: null
 review_url: null
@@ -50,12 +50,12 @@ oompah.agent_run_id: a8847780-7970-460f-b442-6778db7fa939
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-174
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-174
-  base_branch: epic-EXOCOMP-134
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:37:28.507128+00:00'
+  head_sha: 98e7dd46cde38f7d28f400d9d27ebc84633b10f8
+  submitted_at: '2026-08-01T16:01:33.269190+00:00'
+  updated_at: '2026-08-01T16:01:33.269190+00:00'
 oompah.task_costs:
   total_input_tokens: 1326315
   total_output_tokens: 5152
@@ -194,5 +194,10 @@ Linting: make lint with --warnings-as-errors ✓
 Branching: Pushed to origin/epic-EXOCOMP-134--task-EXOCOMP-174
 
 Deliverables completed: Configurable org retention settings (90d default), bounded-batch deletion job, validation, and comprehensive test coverage for cutoff boundaries, multi-org isolation, batch continuation, and state preservation.
+---
+author: oompah
+created: 2026-08-01 16:01
+---
+Implemented retention job infrastructure with configurable policies (90-day status-history default), bounded-batch deletion, validation, and comprehensive test coverage. All quality gates passing.
 ---
 <!-- COMMENTS:END -->
