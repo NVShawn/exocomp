@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:01.826681Z'
-updated_at: '2026-08-01T15:40:52.176499Z'
+updated_at: '2026-08-01T15:41:26.608672Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 target_branch: null
 review_url: null
@@ -63,12 +63,12 @@ oompah.agent_run_id: 87f3994c-699c-4f1d-9715-145fb777e1cf
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-167
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-167
-  base_branch: epic-EXOCOMP-133
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:25:10.053672+00:00'
+  head_sha: b621e9369b33b44b14fd1ce61c671bf5d2a53441
+  submitted_at: '2026-08-01T15:41:25.835924+00:00'
+  updated_at: '2026-08-01T15:41:25.835924+00:00'
 oompah.task_costs:
   total_input_tokens: 194
   total_output_tokens: 7614
@@ -169,5 +169,10 @@ author: oompah
 created: 2026-08-01 15:40
 ---
 Verification: mix format --check-formatted, Code.string_to_quoted! parsing for all new Elixir/test files, and git diff --check pass. make lint runs its offline builder/governance checks successfully (13 builder checks plus Python suites), then stops because the pinned Docker/Podman container cannot start in this read-only environment; make fmt-check is blocked by the same Podman configuration error. Focused LiveView execution could not run on host Elixir 1.18.3 because the project requires 1.20.2 and the host lacks OTP syntax_tools/public_key headers.
+---
+author: oompah
+created: 2026-08-01 15:41
+---
+Completion: pushed b621e936 on epic-EXOCOMP-133--task-EXOCOMP-167. Delivered the organization-scoped incident inbox/detail LiveViews, filters/pagination, evidence and related incidents, real-time open/resolve/reopen refreshes, acknowledge/assignment/snooze/manual-resolution controls, stale/invalid/reason/access guards, snooze wake-time display, and focused LiveView coverage. Worktree is clean and matches origin.
 ---
 <!-- COMMENTS:END -->
