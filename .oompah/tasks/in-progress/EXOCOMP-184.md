@@ -18,7 +18,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:52:38.644569Z'
+updated_at: '2026-08-01T17:55:01.437840Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -595,5 +595,10 @@ author: oompah
 created: 2026-08-01 17:52
 ---
 IMPLEMENTATION (devops): Merged EXOCOMP-176 and added the fail-closed M7 automation: Make targets test-m7-qualification and finalize-m7-evidence, frozen node/coordinator/OCI/model/config identity validation, tagged-checkout and native-systemd guest checks, per-phase transcript/status evidence, strict live scenario/scale/lifecycle target availability checks, complete M7-CRIT-1..12 result generation, and symmetric amd64/arm64 index validation with ssh-keygen signing. Added focused tests and updated the operator runbook with the exact input/finalization contract.
+---
+author: oompah
+created: 2026-08-01 17:55
+---
+VERIFICATION (devops): PASS: make test-m7-qualification-contract (12 focused validation/evidence/rollback tests); PASS: make test-release-packaging; PASS: make release-check (47 compliance/qualification/docs/packaging tests); PASS: make check-links; PASS: bash -n, Python compilation, and git diff --check. The live test-m7-qualification invocation is correctly not runnable yet: this branch lacks the dependent Mission Control application and test-mission-control-scenario, mc-scale-full, and test-mission-control-lifecycle targets, plus no signed final candidate or two supported qualification guests are available. The new target fails closed on all of these prerequisites.
 ---
 <!-- COMMENTS:END -->
