@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-106
 type: task
-status: In Validation
+status: Archived
 priority: 0
 title: Rebase epic-EXOCOMP-4 onto main
 parent: EXOCOMP-4
@@ -12,7 +12,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-08-01T02:59:59.630214Z'
+updated_at: '2026-08-01T03:02:12.993637Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -38,6 +38,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T18:50:21.490843+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-347cc930a5b0: '2026-08-01T03:02:10.665253+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-106
+    target_state: Archived
+    evidence_fingerprint: be9179a97763a46bec2d5b6cba87e42a9e2f001ca1eb4128ae53fbcea78972d7
+    audit_ids:
+    - audit-321b20413997
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:02:10.665262+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-106
+    audit_id: audit-321b20413997
+    attempt_id: attempt-347cc930a5b0
+    target_state: Archived
+    evidence_fingerprint: be9179a97763a46bec2d5b6cba87e42a9e2f001ca1eb4128ae53fbcea78972d7
+    status: Archived
+    audit_ids:
+    - audit-321b20413997
+    applied: false
+    created_at: '2026-08-01T03:02:10.665273+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -45,7 +69,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-106
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -54,7 +78,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-347cc930a5b0
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -64,13 +88,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:59:46.079817+00:00'
       branch_key: epic-EXOCOMP-4
+      verdict: pass
+      completed_at: '2026-08-01T03:02:10.665122+00:00'
+      ended_at: '2026-08-01T03:02:10.665122+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T02:59:41.167861+00:00'
-    updated_at: '2026-08-01T02:59:46.079817+00:00'
+    updated_at: '2026-08-01T03:02:10.665122+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-347cc930a5b0
@@ -293,5 +320,20 @@ author: oompah
 created: 2026-08-01 02:59
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:02
+---
+Audit PASS — Archived
+
+Aged-Merged auto-archive is safe. The epic-EXOCOMP-4 rebase deliverable was merged into main as PR #10 (merge commit 725120a) and is an ancestor of current origin/main; many subsequent commits (EXOCOMP-111, EXOCOMP-113-126, epic-EXOCOMP-6, epic-EXOCOMP-110, etc.) build on top of it, confirming durable integration. No follow-up or rollback signals were found.
+
+Safe evidence:
+- merge_commit: 725120a Merge pull request #10 from NVShawn/epic-EXOCOMP-4
+- epic_tip_before_merge: 261a547 EXOCOMP-32: gate active service recovery on approval
+- merge_ancestor_of_main: true (multiple newer commits present on origin/main since 725120a)
+- worktree_status: clean, no uncommitted changes
+- previous_state: Merged
+- requested_target: Archived
 ---
 <!-- COMMENTS:END -->
