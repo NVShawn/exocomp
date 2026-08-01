@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-01T12:31:04.236068Z'
+updated_at: '2026-08-01T12:38:23.625670Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-08-01 12:31
 ---
 Discovery: the task graph confirms EXOCOMP-137 will provide the Mission Control Ecto/Postgrex Repo, EXOCOMP-139 the protocol allow-list/validation, and EXOCOMP-146 the authenticated session owner. This checkout contains none of those merged yet. I will keep the outbox boundary isolated in Exocomp.MissionControl.CommandOutbox, use an organization/cluster-scoped durable schema, and make delivery session-targeted so a reconnecting/new replica can drain the same pending rows without coupling to transport internals.
+---
+author: oompah
+created: 2026-08-01 12:38
+---
+Implementation: added Exocomp.MissionControl.CommandOutbox with validated command creation, organization/cluster-scoped pending queries, atomic pending-to-acknowledged transition, idempotent duplicate acknowledgement, expiry to a terminal non-executed state, and session-targeted at-least-once delivery. Added durable command_outbox migration/schema, local active-session ownership replacement, and focused outbox/registry tests. Ecto/Postgrex dependencies are locked for the new Mission Control app.
 ---
 <!-- COMMENTS:END -->
