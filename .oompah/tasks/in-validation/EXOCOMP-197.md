@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-197
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Collect Ceph health and topology JSON
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:19.643459Z'
-updated_at: '2026-08-01T17:23:04.633427Z'
+updated_at: '2026-08-01T17:23:34.005425Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 target_branch: null
 review_url: null
@@ -60,12 +60,15 @@ oompah.agent_run_id: 13f8b6e3-2588-46dc-9190-3e56e6a5897b
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-197
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-197
+  base_branch: epic-EXOCOMP-186
+  base_sha: 86a4eef228b47d4cd898826045a2fb7ac6cf5b05
   head_sha: c596834e6b50082aaf3023e8695a651f0360ec5f
+  integrated_sha: c596834e6b50082aaf3023e8695a651f0360ec5f
   submitted_at: '2026-08-01T17:22:49.480341+00:00'
-  updated_at: '2026-08-01T17:22:49.480341+00:00'
+  updated_at: '2026-08-01T17:23:29.369525+00:00'
 oompah.task_costs:
   total_input_tokens: 1592
   total_output_tokens: 5133
@@ -98,6 +101,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-197
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:07:56.546050+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-648accbdda98
+    project_id: proj-c260b117
+    task_id: EXOCOMP-197
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 25c2c5da00f5490aebdfb819cc34ed87a4cfa3ee3fd749ff564189ecb62c3167
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T17:23:31.053806+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -188,5 +213,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 10m 7s
 - Log: EXOCOMP-197__20260801T171301Z.jsonl
+---
+author: oompah
+created: 2026-08-01 17:23
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
