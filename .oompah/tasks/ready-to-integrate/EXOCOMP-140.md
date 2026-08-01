@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T17:15:09.990039Z'
+updated_at: '2026-08-01T17:15:21.586835Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -96,17 +96,19 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-140
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 406ad28de7e3e0e2d1985ba22d5e808aea77be9b
   submitted_at: '2026-08-01T17:15:07.653337+00:00'
-  updated_at: '2026-08-01T17:15:07.653337+00:00'
+  updated_at: '2026-08-01T17:15:20.774132+00:00'
 oompah.task_costs:
-  total_input_tokens: 2352
-  total_output_tokens: 24575
+  total_input_tokens: 21150479
+  total_output_tokens: 102168
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 2264
-      output_tokens: 4769
+      input_tokens: 21150391
+      output_tokens: 82362
       cost_usd: 0.0
     unknown:
       input_tokens: 88
@@ -131,6 +133,12 @@ oompah.task_costs:
     output_tokens: 19806
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:43:25.682044+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 21148127
+    output_tokens: 77593
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:15:15.482902+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-140__20260801T114901Z
@@ -141,6 +149,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-129--task-EXOCOMP-140
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T11:50:26.211811+00:00'
+  - run_id: EXOCOMP-140__20260801T164344Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: frontend
+    source_branch: epic-EXOCOMP-129--task-EXOCOMP-140
+    source_sha: 406ad28de7e3e0e2d1985ba22d5e808aea77be9b
+    completed_at: '2026-08-01T17:15:15.486445+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -432,5 +448,20 @@ author: oompah
 created: 2026-08-01 17:15
 ---
 Hardened OIDC PKCE login, callback, logout, token validation, session handling, integration tests, and dependency compliance inventory.
+---
+author: oompah
+created: 2026-08-01 17:15
+---
+Agent completed successfully in 1899s (21225720 tokens)
+---
+author: oompah
+created: 2026-08-01 17:15
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 164
+- Tokens: 21.1M in / 77.6K out [21.2M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 31m 39s
+- Log: EXOCOMP-140__20260801T164344Z.jsonl
 ---
 <!-- COMMENTS:END -->
