@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-139
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Define Mission Control protocol envelopes and fixtures
 parent: EXOCOMP-128
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:53.920011Z'
-updated_at: '2026-07-30T21:41:19.821554Z'
+updated_at: '2026-08-01T11:51:27.396794Z'
 work_branch: null
 target_branch: null
 review_url: null
