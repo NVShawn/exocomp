@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-106
 type: task
-status: Merged
+status: In Validation
 priority: 0
 title: Rebase epic-EXOCOMP-4 onto main
 parent: EXOCOMP-4
@@ -12,7 +12,7 @@ labels:
 - merge-conflict
 assignee: null
 created_at: '2026-07-24T18:47:19.753669Z'
-updated_at: '2026-07-25T02:22:48.085036Z'
+updated_at: '2026-08-01T02:59:43.339553Z'
 work_branch: epic-EXOCOMP-4
 target_branch: null
 review_url: null
@@ -36,6 +36,28 @@ oompah.task_costs:
     output_tokens: 6566
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:50:21.490843+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-321b20413997
+    project_id: proj-c260b117
+    task_id: EXOCOMP-106
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: be9179a97763a46bec2d5b6cba87e42a9e2f001ca1eb4128ae53fbcea78972d7
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T02:59:41.167861+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -229,5 +251,10 @@ author: oompah
 created: 2026-07-25 02:15
 ---
 Rebased epic-EXOCOMP-4 onto main, preserved all mainline and epic services through conflict resolution, delivered tip 261a547, and merged PR #10 as 725120a.
+---
+author: oompah
+created: 2026-08-01 02:59
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
