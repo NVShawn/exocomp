@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T04:29:44.242098Z'
-updated_at: '2026-08-01T02:41:17.749977Z'
+updated_at: '2026-08-01T02:41:20.059350Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -80,8 +80,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-dd5aaf65baab
-    applied: false
+    applied: true
     created_at: '2026-08-01T02:41:15.449279+00:00'
+    applied_at: '2026-08-01T02:41:19.468382+00:00'
   version: 1
   pending_chain:
   - version: 1
