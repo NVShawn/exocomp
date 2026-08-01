@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:03:31.374078Z'
+updated_at: '2026-08-01T23:22:49.195653Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -249,5 +249,25 @@ I'm implementing the capability to propose and execute a profile action for rest
 - Integrate with existing remediation lifecycle and proposal flow
 - Add comprehensive tests following existing patterns
 - Validate against all acceptance criteria before submission
+---
+author: oompah
+created: 2026-08-01 23:22
+---
+## Discovery
+
+Found the remediation lifecycle framework in place with RemediationAdapter behavior and RemediationLifecycle GenServer. Examined existing patterns from ClusterRecover skill and remediation tests to understand proposal format and policy gates.
+
+## Implementation
+
+Created CephDaemonRestart remediation adapter that:
+1. **Validates proposals** - ensures all required parameters (node_id, daemon_id, daemon_type, profile_name) are present and valid
+2. **Collects evidence** - accepts collected evidence about daemon/cluster state  
+3. **Applies policy** - enforces constraints: daemon must be failed (not active/degraded), evidence must be fresh (<5 min), node must exist in inventory, profile must be supported
+4. **Executes safely** - invokes profile helper action with one-attempt semantics
+5. **Verifies health** - confirms daemon is healthy post-restart
+
+Adapter reuses existing task correlation, idempotency, per-target locking through the remediation lifecycle framework. Automatic-mode discovery cannot authorize - only explicit proposals can.
+
+Added 11 comprehensive tests covering: validation, policy rejection scenarios (active/degraded daemons, stale evidence), execution, verification, and end-to-end flows.
 ---
 <!-- COMMENTS:END -->
