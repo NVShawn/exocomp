@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:57.890248Z'
-updated_at: '2026-08-01T13:48:45.978095Z'
+updated_at: '2026-08-01T13:58:01.637536Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-188
 target_branch: null
 review_url: null
@@ -173,5 +173,29 @@ Will implement v2 by:
 2. Updating validate() to accept v1 (backward compatible) and v2 with new fields
 3. Adding validations: .service names (must end with .service), HTTP URLs (loopback), boolean automatic
 4. Adding comprehensive tests for v1 backward-compat, v2 valid/invalid inputs, atomic rejection
+---
+author: oompah
+created: 2026-08-01 13:58
+---
+**Implementation:** Extended coordinator inventory parser to support v2 with service-monitoring fields. Changes:
+
+1. Extended Node struct: Added optional monitoring field with automatic (bool) and services array
+2. Updated inventory validation: Added support for v1 (backward-compatible) and v2 with new cluster_profile field
+3. Added v2-specific validation:
+   - Service names must end with .service (e.g., ceph-mon.service)
+   - Health check URLs restricted to loopback (http://127.0.0.1, http://localhost, http://[::1])
+   - Automatic field must be boolean (defaults to false)
+   - Duplicate service names rejected per node
+   - cluster_profile optional root field
+4. Maintained backward compatibility: v1 inventories load with monitoring=nil and cluster_profile=nil
+5. Atomic rejection: Invalid v2 replacements leave prior inventory unchanged, emit audit event
+
+Test coverage: Added 26 new tests covering:
+- v1 backward compatibility
+- v2 valid/invalid inputs
+- Service name validation (.service suffix, duplicates)
+- Health check URL validation (loopback only, http only, port/path parsing)
+- Automatic boolean validation
+- Atomic rejection scenarios
 ---
 <!-- COMMENTS:END -->
