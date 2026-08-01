@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-107
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement node-agent enrollment client, credential installer, and renewal scheduler
   (EXOCOMP-17 gap)
@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-24T19:29:40.430811Z'
-updated_at: '2026-07-25T02:02:09.681158Z'
+updated_at: '2026-08-01T02:12:17.859505Z'
 work_branch: EXOCOMP-107
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/11
@@ -52,6 +52,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/11
 oompah.review_number: '11'
 oompah.work_branch: EXOCOMP-107
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8733baf0e61c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-107
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5e9f90f9dacef4c13c74f29c138bee97d028b13c20dd5b82c29570fdea6c5967
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T02:12:15.442432+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -264,5 +286,10 @@ author: oompah
 created: 2026-07-25 02:02
 ---
 YOLO: merged PR #11.
+---
+author: oompah
+created: 2026-08-01 02:12
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
