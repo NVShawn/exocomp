@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-21
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Define action, evidence, risk, and data-classification types
 parent: EXOCOMP-3
@@ -13,7 +13,7 @@ labels:
 - focus-complete:security
 assignee: null
 created_at: '2026-07-23T19:10:07.361533Z'
-updated_at: '2026-08-01T02:13:36.067845Z'
+updated_at: '2026-08-01T02:17:47.107379Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -51,6 +51,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T22:13:05.624654+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-caa0e74e3abd: '2026-08-01T02:17:45.376511+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-21
+    target_state: Archived
+    evidence_fingerprint: 6428457e992194afb2a620e20e4565bbfbfa51a2d737c82389318dfd9aeb7e08
+    audit_ids:
+    - audit-05377691e72e
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T02:17:45.376519+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-21
+    audit_id: audit-05377691e72e
+    attempt_id: attempt-caa0e74e3abd
+    target_state: Archived
+    evidence_fingerprint: 6428457e992194afb2a620e20e4565bbfbfa51a2d737c82389318dfd9aeb7e08
+    status: Archived
+    audit_ids:
+    - audit-05377691e72e
+    applied: false
+    created_at: '2026-08-01T02:17:45.376531+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -58,7 +82,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-21
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -67,7 +91,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-caa0e74e3abd
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -77,13 +101,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T02:13:28.182204+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T02:17:45.376377+00:00'
+      ended_at: '2026-08-01T02:17:45.376377+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T02:12:23.970215+00:00'
-    updated_at: '2026-08-01T02:13:28.182204+00:00'
+    updated_at: '2026-08-01T02:17:45.376377+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-caa0e74e3abd
@@ -341,5 +368,26 @@ author: oompah
 created: 2026-08-01 02:13
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 02:17
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merged_commit: 674ad10 EXOCOMP-21: define action, evidence, risk, and data-classification types
+- commit_on_origin_main: true
+- commit_author: NVShawn
+- commit_date: 2026-07-23
+- safety_modules_present: action_definition.ex, data_classification.ex, evidence.ex, proposal.ex, reversibility.ex, risk_rank.ex, validator_result.ex
+- safety_tests_present: action_definition_test.exs (25 test/), data_classification_test.exs (13), evidence_test.exs (25), proposal_test.exs (21), reversibility_test.exs (7), risk_rank_test.exs (17), validator_result_test.exs (21)
+- downstream_consumers: approval_gate.ex, policy_engine.ex, precondition_checker.ex, replay_ledger.ex, approval_verifier.ex, policy_context.ex, disk_pressure_collector.ex
+- ac1_bounded_versioned: verified: ValidatorResult.parse and ActionDefinition.build enforce schema_version 1 and reject unknown_fields
+- ac2_unknown_protected: verified: DataClassification.classify/1 catchall clause returns :protected_user_data; ActionDefinition validate_data_classification(nil) same
+- ac3_deletion_unrepresentable: verified: check_deletion_eligibility(:deletion, :protected_user_data) -> {:error, :user_data_deletion_ineligible}
+- ac4_tests_pass: prior recorded verification: 180 tests, 0 failures; make lint PASS
+- aging: In Merged since 2026-07-23; audit dispatched 2026-08-01 (>7 days)
 ---
 <!-- COMMENTS:END -->
