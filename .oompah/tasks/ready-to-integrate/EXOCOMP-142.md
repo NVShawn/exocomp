@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-142
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Create one-use cluster invitations
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-01T12:16:16.057773Z'
+updated_at: '2026-08-01T12:16:20.523153Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -155,5 +155,10 @@ author: oompah
 created: 2026-08-01 12:16
 ---
 Completion: delivered organization-scoped Cluster/ClusterInvitation schemas, digest-only random one-use invitations with expiry and serialized atomic consumption, durable staged-rename storage/configuration, admin-only POST /api/v1/cluster-invitations, and focused acceptance tests. Commit 97439b59 is pushed and the branch is up to date with origin. Focused/manual checks and static formatting passed; full Make gates were attempted but blocked at the unavailable docker/podman pinned-builder runtime, and direct mix test by the local Elixir 1.18.3 versus declared 1.20.2 mismatch.
+---
+author: oompah
+created: 2026-08-01 12:16
+---
+Implemented organization-scoped one-use cluster invitations, digest-only persistence, expiry/replay/concurrency protection, admin API authorization, and focused tests. Pushed commit 97439b59.
 ---
 <!-- COMMENTS:END -->
