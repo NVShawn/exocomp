@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: Needs CI Fix
+status: In Progress
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:37:03.857509Z'
+updated_at: '2026-08-01T22:38:06.931742Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -38,19 +38,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 39f49fa5-5ef8-4b15-b100-46b2a1438bca
+oompah.agent_run_id: d1cbe3b9-53ce-4fb9-add4-c4aea4d34ffa
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-200
   base_branch: epic-EXOCOMP-186
-  base_sha: 82b0c8cab07d0ceda0cdc52a72b75e5604530204
-  head_sha: 00c63accc25af449949cf9ed3550a164e88879bf
-  integrated_sha: 00c63accc25af449949cf9ed3550a164e88879bf
-  submitted_at: '2026-08-01T22:23:45.915432+00:00'
-  updated_at: '2026-08-01T22:24:42.388355+00:00'
+  base_sha: 00c63accc25af449949cf9ed3550a164e88879bf
+  updated_at: '2026-08-01T22:38:04.513066+00:00'
 oompah.task_costs:
   total_input_tokens: 608053
   total_output_tokens: 83895
@@ -483,5 +480,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 12m 13s
 - Log: EXOCOMP-200__20260801T222451Z.jsonl
+---
+author: oompah
+created: 2026-08-01 22:38
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-01 22:38
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
