@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-75
 type: feature
-status: Needs Human
+status: In Validation
 priority: 1
 title: Implement secure coordinator PKI bootstrap and state validation
 parent: EXOCOMP-16
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T23:01:08.149641Z'
-updated_at: '2026-08-01T00:58:55.140318Z'
+updated_at: '2026-08-01T01:43:40.760200Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -70,7 +70,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-75
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -147,7 +147,38 @@ oompah.terminal_audit:
       source: auto_archive
     previous_state: Merged
     created_at: '2026-07-31T20:46:51.226099+00:00'
-    updated_at: '2026-07-31T21:12:45.248815+00:00'
+    updated_at: '2026-08-01T01:43:25.289133+00:00'
+  - version: 1
+    audit_id: audit-2c2fc29cb13d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-75
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
+    attempts:
+    - version: 1
+      attempt_id: attempt-33c4a812ce79
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
+      created_at: '2026-08-01T01:43:34.503440+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T01:43:34.503440+00:00'
+      branch_key: epic-EXOCOMP-2
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Merged
+    created_at: '2026-08-01T01:43:25.289133+00:00'
+    updated_at: '2026-08-01T01:43:34.503440+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-2313c5c61c6a
@@ -202,6 +233,19 @@ oompah.terminal_audit:
     ended_at: '2026-07-31T21:11:50.226676+00:00'
     failure_reason: 'git worktree add failed: fatal: invalid reference: origin/epic-EXOCOMP-2'
     next_retry_at: '2026-07-31T21:12:30.226649+00:00'
+  - version: 1
+    attempt_id: attempt-33c4a812ce79
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 898363c6b8d2571f058db8da29c53e71a60b5d6bd91d1296a402b03d2f48859c
+    created_at: '2026-08-01T01:43:34.503440+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T01:43:34.503440+00:00'
+    branch_key: epic-EXOCOMP-2
 ---
 ## Summary
 
@@ -429,5 +473,20 @@ author: oompah
 created: 2026-08-01 00:58
 ---
 Direct operator recovery claimed at the project owner's request. This is a failed Archived audit caused by deleted historical branch checkout, not incomplete implementation. Keep Needs Human as a scheduler hold until OOMPAH-671 is deployed; I will rearm and oversee the existing archive audit without reopening implementation.
+---
+author: oompah
+created: 2026-08-01 01:43
+---
+Terminal audit rearmed by project owner after recovery: Detached historical audit workspace recovery is deployed; retry the existing Archived audit without reopening implementation.
+---
+author: oompah
+created: 2026-08-01 01:43
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 01:43
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
