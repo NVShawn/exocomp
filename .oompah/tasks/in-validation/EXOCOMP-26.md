@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-26
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement bounded system-log cleanup action
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:12.273742Z'
-updated_at: '2026-07-25T02:19:45.219511Z'
+updated_at: '2026-08-01T03:00:06.697044Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -45,6 +45,28 @@ oompah.task_costs:
     output_tokens: 2334
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:41:36.160374+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-072a9fa6bdf4
+    project_id: proj-c260b117
+    task_id: EXOCOMP-26
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 4290a2d9193ce5934a82d806b418ed1cd5498ef5b21b01dbfb92b55e31fe588e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:04.371591+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -159,5 +181,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 39s
 - Log: EXOCOMP-26__20260724T013658Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
