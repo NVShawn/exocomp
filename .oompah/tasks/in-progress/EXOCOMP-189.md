@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:59.020887Z'
-updated_at: '2026-08-01T14:19:19.516224Z'
+updated_at: '2026-08-01T14:19:36.249399Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-189
 target_branch: null
 review_url: null
@@ -155,5 +155,10 @@ author: oompah
 created: 2026-08-01 14:19
 ---
 Implementation: added exocomp_core desired-service types and resolver. SourceExpectation constructors model manual, automatic, and cluster-profile inputs; resolve/1 groups duplicate node/unit contributions, merges unique sorted probes, retains sorted provenance/profile context, applies deterministic expected-state precedence, and derives authority as manual_allow_list > shipped_profile > nil. Automatic source is structurally non-authoritative. Added table-driven source/combinations, duplicate, ordering, authority, and conflict tests.
+---
+author: oompah
+created: 2026-08-01 14:19
+---
+Verification: focused compile of both new core modules plus ExUnit execution passed (6 tests, 0 failures); local format check and git diff --check passed. make test completed its offline builder/package checks (13 builder checks plus Python suites) but could not enter the Elixir test/release container because Podman failed to chmod /run/user/1000/libpod on the read-only host filesystem.
 ---
 <!-- COMMENTS:END -->
