@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-74
 type: task
-status: Merged
+status: In Validation
 priority: null
 title: Implement PolicyEngine risk-ordered selection and comprehensive policy tests
 parent: EXOCOMP-22
@@ -13,7 +13,7 @@ labels:
 - focus-complete:test
 assignee: null
 created_at: '2026-07-23T22:51:10.216409Z'
-updated_at: '2026-07-25T02:14:47.366136Z'
+updated_at: '2026-08-01T03:00:41.443962Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -43,6 +43,28 @@ oompah.task_costs:
     output_tokens: 33044
     cost_usd: 0.0
     recorded_at: '2026-07-24T01:34:09.087751+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-20bdbb175499
+    project_id: proj-c260b117
+    task_id: EXOCOMP-74
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7c09cbee18e157550f43adcf58521d6dce36487fe9482387fab2fb31e54d17a6
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:38.990018+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -291,5 +313,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 12m 47s
 - Log: EXOCOMP-74__20260724T012125Z.jsonl
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
