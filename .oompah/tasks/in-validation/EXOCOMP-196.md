@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-196
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Validate Ceph profile configuration and read-only credentials
 parent: EXOCOMP-186
@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T15:40:45.965923Z'
+updated_at: '2026-08-01T15:42:18.327554Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -43,12 +43,15 @@ oompah.agent_run_id: 357fa239-34a6-4f97-89cf-ae5c98374fc5
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-196
-  head_sha: fb8c8d99252d5fed8db97abf8b4ceebfc755784c
+  base_branch: epic-EXOCOMP-186
+  base_sha: 8e3debd59e5a3ca32307b8a0c2e8c219456cb58c
+  head_sha: c934d7555a3d040be1c4b91fe5dee7880a0468b9
+  integrated_sha: c934d7555a3d040be1c4b91fe5dee7880a0468b9
   submitted_at: '2026-08-01T15:39:58.539043+00:00'
-  updated_at: '2026-08-01T15:39:58.539043+00:00'
+  updated_at: '2026-08-01T15:42:12.607295+00:00'
 oompah.task_costs:
   total_input_tokens: 1289383
   total_output_tokens: 25489
@@ -105,6 +108,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-196
     source_sha: f621e16350f8d4665862f19def9592fd5d51d730
     completed_at: '2026-08-01T15:15:38.876058+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8ab9aa8dbea3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-196
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e48fe9c329f6af44ba46be6a0d412bcfbfe68437f3f3838f066a9283078fcbd6
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T15:42:15.964381+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -394,5 +419,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: terminated, Duration: 24m 38s
 - Log: EXOCOMP-196__20260801T151614Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:42
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
