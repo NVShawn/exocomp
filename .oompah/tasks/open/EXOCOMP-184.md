@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-184
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Qualify amd64 and arm64 Mission Control artifacts
 parent: EXOCOMP-135
@@ -20,7 +20,7 @@ labels:
 - needs:test
 assignee: null
 created_at: '2026-07-30T14:18:58.209388Z'
-updated_at: '2026-08-01T17:56:04.944463Z'
+updated_at: '2026-08-01T17:56:26.009634Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-184
 target_branch: null
 review_url: null
@@ -76,8 +76,8 @@ oompah.integration:
   base_sha: d9cc09d75701c1b15febdaff3523261ad017d1bf
   updated_at: '2026-08-01T17:41:22.225292+00:00'
 oompah.task_costs:
-  total_input_tokens: 3180355
-  total_output_tokens: 36208
+  total_input_tokens: 7611509
+  total_output_tokens: 79600
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -85,8 +85,8 @@ oompah.task_costs:
       output_tokens: 13215
       cost_usd: 0.0
     sonnet:
-      input_tokens: 613300
-      output_tokens: 5054
+      input_tokens: 5044454
+      output_tokens: 48446
       cost_usd: 0.0
     opus:
       input_tokens: 2566715
@@ -117,6 +117,12 @@ oompah.task_costs:
     output_tokens: 17939
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:50:05.523386+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 4431154
+    output_tokens: 43392
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T17:56:20.343478+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-184__20260801T132400Z
@@ -151,6 +157,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
     source_sha: eb637c0566242c2ea9d53e19fdd05a536feb67fd
     completed_at: '2026-08-01T13:50:05.527321+00:00'
+  - run_id: EXOCOMP-184__20260801T174127Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-terra
+    focus: devops
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-184
+    source_sha: cff17ef0a6b47856774be014a1dea3b8bed67c9b
+    completed_at: '2026-08-01T17:56:20.347707+00:00'
 ---
 ## Summary
 
@@ -615,5 +629,25 @@ FILES / EVIDENCE: Makefile; scripts/test-m7-qualification.sh; scripts/m7_qualifi
 REMAINING WORK / RISKS: Do not submit EXOCOMP-184 yet. No signed final candidate, supported amd64/arm64 systemd guests, or live evidence exists. The current branch also still lacks the dependent Mission Control application and the canonical test-mission-control-scenario, mc-scale-full, and test-mission-control-lifecycle targets; the new gate intentionally fails rather than skipping them. After EXOCOMP-178/181/182/183 integrate, build one signed candidate on each supported guest, run test-m7-qualification for both architectures, finalize the signed evidence index, and only then submit.
 
 RECOMMENDED NEXT FOCUS: test, after the outstanding dependencies integrate, to exercise the two guest qualification and publish the signed evidence.
+---
+author: oompah
+created: 2026-08-01 17:56
+---
+Agent completed successfully in 902s (4474546 tokens)
+---
+author: oompah
+created: 2026-08-01 17:56
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 1, Tool calls: 92
+- Tokens: 4.4M in / 43.4K out [4.5M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 15m 2s
+- Log: EXOCOMP-184__20260801T174127Z.jsonl
+---
+author: oompah
+created: 2026-08-01 17:56
+---
+Focus handoff from `devops` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
 ---
 <!-- COMMENTS:END -->
