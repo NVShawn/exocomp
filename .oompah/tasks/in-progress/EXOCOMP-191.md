@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:11:59.187927Z'
+updated_at: '2026-08-01T14:13:51.068319Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -136,5 +136,10 @@ author: oompah
 created: 2026-08-01 14:11
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-01 14:13
+---
+**Understanding**: I need to implement the exocomp.service.observe skill for read-only service observation. The skill must: (1) validate service names against a coordinator-selected allow-list, (2) optionally execute loopback-only HTTP probes, (3) return systemd and probe evidence with timestamps and versions, (4) enforce service-count, response-size, and timeout limits. I've located the skills infrastructure in apps/exocomp_node/lib/exocomp/node/skills/ and will create a new ServiceObserve handler following the existing Behaviour pattern. Tests will cover valid observations, invalid names, non-loopback URLs, partial results, timeouts, and bounded responses.
 ---
 <!-- COMMENTS:END -->
