@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: Needs Human
+status: Open
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-01T13:41:45.891570Z'
+updated_at: '2026-08-01T13:42:20.268808Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
