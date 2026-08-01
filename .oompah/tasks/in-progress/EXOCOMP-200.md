@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: Needs CI Fix
+status: In Progress
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:17:19.417323Z'
+updated_at: '2026-08-01T22:17:33.242290Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 5eb9d376-8230-40be-92a6-80d42f095781
+oompah.agent_run_id: c4c060a3-594a-43d7-b2d8-4fdb6f852e44
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 oompah.integration:
   version: 2
