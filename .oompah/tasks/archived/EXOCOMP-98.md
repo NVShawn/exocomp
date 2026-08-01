@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-98
 type: task
-status: In Validation
+status: Archived
 priority: null
 title: Integrate approval gate and implement comprehensive focused replay test suite
 parent: EXOCOMP-24
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-24T03:14:05.495739Z'
-updated_at: '2026-08-01T03:21:33.428483Z'
+updated_at: '2026-08-01T03:23:29.583489Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -46,6 +46,30 @@ oompah.task_costs:
     recorded_at: '2026-07-24T17:40:40.071838+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-806d01dfa71d: '2026-08-01T03:23:27.380149+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-98
+    target_state: Archived
+    evidence_fingerprint: b4f9ce8a0af4e09e7ff4398c4a9d9863af58b16faebf9e401bf622fe87db16b4
+    audit_ids:
+    - audit-6655930ee783
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T03:23:27.380161+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-98
+    audit_id: audit-6655930ee783
+    attempt_id: attempt-806d01dfa71d
+    target_state: Archived
+    evidence_fingerprint: b4f9ce8a0af4e09e7ff4398c4a9d9863af58b16faebf9e401bf622fe87db16b4
+    status: Archived
+    audit_ids:
+    - audit-6655930ee783
+    applied: false
+    created_at: '2026-08-01T03:23:27.380177+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -53,7 +77,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-98
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -62,7 +86,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-806d01dfa71d
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -72,13 +96,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T03:21:30.074443+00:00'
       branch_key: epic-EXOCOMP-3
+      verdict: pass
+      completed_at: '2026-08-01T03:23:27.380000+00:00'
+      ended_at: '2026-08-01T03:23:27.380000+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T03:01:07.760359+00:00'
-    updated_at: '2026-08-01T03:21:30.074443+00:00'
+    updated_at: '2026-08-01T03:23:27.380000+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-806d01dfa71d
@@ -342,5 +369,22 @@ author: oompah
 created: 2026-08-01 03:21
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 03:23
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- branch_head_commit: b46cfc8
+- main_integration_commit: 0c58ab7
+- impl_file: apps/exocomp_node/lib/exocomp/node/safety/approval_gate.ex
+- test_file: apps/exocomp_node/test/exocomp/node/safety/approval_gate_test.exs
+- test_count: 26
+- scenarios_named_1_to_15: confirmed via grep
+- prerequisites_merged: EXOCOMP-21,25,86,95,96,97
+- audit_type: aged_merged_auto_archive_7_days
 ---
 <!-- COMMENTS:END -->
