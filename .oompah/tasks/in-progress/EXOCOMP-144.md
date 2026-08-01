@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ labels:
 - needs:feature
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:10:14.019403Z'
+updated_at: '2026-08-01T12:10:24.700550Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -37,7 +37,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: b82246e9-5217-4e0a-83e5-514461d68dae
+oompah.agent_run_id: 93142dbf-58d1-4e26-b87f-116acf51907e
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
