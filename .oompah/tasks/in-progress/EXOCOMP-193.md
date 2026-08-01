@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-08-01T16:34:29.710520Z'
+updated_at: '2026-08-01T16:50:07.497415Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 target_branch: null
 review_url: null
@@ -195,5 +195,15 @@ author: oompah
 created: 2026-08-01 16:34
 ---
 Discovery: the parent branch contains the shared resolver (EXOCOMP-189), read-only observation behavior (EXOCOMP-191), and scheduler/inventory integration (EXOCOMP-192), while this task branch currently predates them. The reconciliation work belongs around ServiceScheduler's cached discovery/observation results and Registry's node state, with Audit as the transition sink.
+---
+author: oompah
+created: 2026-08-01 16:50
+---
+Verification: standalone Elixir compilation of the changed coordinator/core modules passed; mix format check and git diff --check passed; make test-deps passed (9 runtime-dependency checks). make test completed all offline checks (13 release/package/operator checks passed) but failed at the pinned Elixir container because Podman could not set its sticky bit on read-only /run/user/1000/libpod. The local Mix test command is unavailable because the host has Elixir 1.18.3 while the project requires 1.20.2.
+---
+author: oompah
+created: 2026-08-01 16:50
+---
+Implementation: extended ServiceScheduler with resolver-backed manual/automatic/profile expectations, profile adapters, expectation/health/retirement views, discovery-change reconciliation, probe-aware observation normalization, conflicting-observation precedence, stale/unreachable preservation, two-observation unhealthy/recovery hysteresis, bounded transition history, and Audit-correlated desired_state_added/changed/removed and service_health_transition events. Added focused scheduler tests for source union, profile context, retirement, probe failure/hysteresis, and unreachable preservation.
 ---
 <!-- COMMENTS:END -->
