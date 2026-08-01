@@ -19,9 +19,9 @@ defmodule Exocomp.ClusterProfile.RegistryTest do
   end
 
   test "the release registry exposes the shipped default profile contract" do
-    assert Registry.shipped_modules() == [Exocomp.ClusterProfile.Default]
-    assert Registry.profile_ids() == ["default"]
-    assert Registry.advertised_profiles() == [%{id: "default", versions: [1]}]
+    assert Exocomp.ClusterProfile.Default in Registry.shipped_modules()
+    assert "default" in Registry.profile_ids()
+    assert %{id: "default", versions: [1]} in Registry.advertised_profiles()
 
     assert {:ok, profile} = Registry.lookup("default", 1)
     assert profile.id() == "default"
@@ -33,6 +33,12 @@ defmodule Exocomp.ClusterProfile.RegistryTest do
     assert profile.redaction_metadata().redact_nested_maps
   end
 
+  test "the release registry includes the ceph profile" do
+    assert Exocomp.ClusterProfile.Ceph in Registry.shipped_modules()
+    assert "ceph" in Registry.profile_ids()
+    assert %{id: "ceph", versions: [1]} in Registry.advertised_profiles()
+  end
+
   test "duplicate profile IDs are rejected by static registry validation" do
     assert {:error, %CoverageError{code: :duplicate_profile_id, profile_id: "default"}} =
              Registry.validate_profiles([Exocomp.ClusterProfile.Default, DuplicateProfile])
@@ -42,10 +48,10 @@ defmodule Exocomp.ClusterProfile.RegistryTest do
     assert {:error,
             %CoverageError{
               code: :unknown_profile,
-              profile_id: "ceph",
+              profile_id: "unknown-profile-id",
               requested_version: 1,
               supported_versions: []
-            }} = Registry.lookup("ceph", 1)
+            }} = Registry.lookup("unknown-profile-id", 1)
   end
 
   test "known profiles with unsupported versions return structured coverage errors" do

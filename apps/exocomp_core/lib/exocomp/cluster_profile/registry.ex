@@ -13,7 +13,7 @@ defmodule Exocomp.ClusterProfile.Registry do
   alias Exocomp.ClusterProfile
   alias Exocomp.ClusterProfile.CoverageError
 
-  @shipped_profile_modules [Exocomp.ClusterProfile.Default]
+  @shipped_profile_modules [Exocomp.ClusterProfile.Default, Exocomp.ClusterProfile.Ceph]
 
   @type advertisement :: %{id: ClusterProfile.id(), versions: [ClusterProfile.version()]}
 

@@ -117,7 +117,8 @@ defmodule Exocomp.Coordinator.A2ARouterTest do
 
     assert card["url"] == "https://coordinator.example/"
     assert card["capabilities"]["streaming"] == false
-    assert card["clusterProfiles"] == [%{"id" => "default", "versions" => [1]}]
+    assert %{"id" => "ceph", "versions" => [1]} in card["clusterProfiles"]
+    assert %{"id" => "default", "versions" => [1]} in card["clusterProfiles"]
 
     skill_ids = Enum.map(card["skills"], & &1["id"])
     assert "exocomp.cluster.health" in skill_ids

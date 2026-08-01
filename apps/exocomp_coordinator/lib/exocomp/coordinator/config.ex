@@ -19,9 +19,26 @@ defmodule Exocomp.Coordinator.Config do
     "listen": {
       "host": "0.0.0.0",
       "port": 4443
+    },
+    "cluster_profiles": {
+      "ceph": {
+        "version": 1,
+        "ceph_binary_path": "/usr/bin/ceph",
+        "ceph_conf_path": "/etc/ceph/ceph.conf",
+        "keyring_path": "/etc/ceph/ceph.client.exocomp.keyring"
+      }
     }
   }
   ```
+
+  The `cluster_profiles` section is optional.  When present, the `ceph`
+  sub-section must specify an exact supported version (`1`) and absolute
+  paths for all three Ceph files.  All paths must be absolute; relative
+  paths are rejected with `{:error, {:invalid_ceph_profile, reason}}`.
+
+  Ceph file-system validation (existence, ownership, keyring permissions) is
+  performed separately by `Exocomp.ClusterProfile.Ceph.Validator` and is not
+  part of this module's responsibility.
 
   ## File resolution order
 
@@ -33,20 +50,26 @@ defmodule Exocomp.Coordinator.Config do
 
   ## Environment overrides
 
-  | Variable                    | Overrides            |
-  |-----------------------------|----------------------|
-  | `EXOCOMP_COORDINATOR_ID`    | `coordinator_id`     |
-  | `EXOCOMP_LISTEN_ADDRESS`    | `listen.host`        |
-  | `EXOCOMP_LISTEN_PORT`       | `listen.port`        |
-  | `EXOCOMP_TLS_CERT_PATH`     | `tls.coord_cert`     |
-  | `EXOCOMP_TLS_KEY_PATH`      | `tls.coord_key`      |
-  | `EXOCOMP_TLS_CA_PATH`       | `tls.ca_cert`        |
+  | Variable                      | Overrides                                      |
+  |-------------------------------|------------------------------------------------|
+  | `EXOCOMP_COORDINATOR_ID`      | `coordinator_id`                               |
+  | `EXOCOMP_LISTEN_ADDRESS`      | `listen.host`                                  |
+  | `EXOCOMP_LISTEN_PORT`         | `listen.port`                                  |
+  | `EXOCOMP_TLS_CERT_PATH`       | `tls.coord_cert`                               |
+  | `EXOCOMP_TLS_KEY_PATH`        | `tls.coord_key`                                |
+  | `EXOCOMP_TLS_CA_PATH`         | `tls.ca_cert`                                  |
+  | `EXOCOMP_CEPH_BINARY_PATH`    | `cluster_profiles.ceph.ceph_binary_path`       |
+  | `EXOCOMP_CEPH_CONF_PATH`      | `cluster_profiles.ceph.ceph_conf_path`         |
+  | `EXOCOMP_CEPH_KEYRING_PATH`   | `cluster_profiles.ceph.keyring_path`           |
   """
 
   require Logger
 
+  alias Exocomp.ClusterProfile.Ceph
+
   @default_config_path "/etc/exocomp/coordinator.json"
   @supported_version 1
+  @supported_ceph_version 1
 
   defmodule TLS do
     @moduledoc "TLS certificate and key paths for the coordinator."
@@ -72,13 +95,14 @@ defmodule Exocomp.Coordinator.Config do
   end
 
   @enforce_keys [:version, :coordinator_id, :tls, :listen]
-  defstruct [:version, :coordinator_id, :tls, :listen]
+  defstruct [:version, :coordinator_id, :tls, :listen, ceph_profile: nil]
 
   @type t :: %__MODULE__{
           version: pos_integer(),
           coordinator_id: String.t(),
           tls: TLS.t(),
-          listen: Listen.t()
+          listen: Listen.t(),
+          ceph_profile: Ceph.Config.t() | nil
         }
 
   # ── Public API ───────────────────────────────────────────────────────────────
@@ -105,7 +129,8 @@ defmodule Exocomp.Coordinator.Config do
          :ok <- check_version(parsed),
          parsed <- apply_env_overrides(parsed),
          :ok <- validate_required_fields(parsed),
-         :ok <- validate_field_types(parsed) do
+         :ok <- validate_field_types(parsed),
+         :ok <- validate_ceph_profile(parsed) do
       {:ok, to_struct(parsed)}
     end
   end
@@ -153,6 +178,26 @@ defmodule Exocomp.Coordinator.Config do
     |> env_override_tls("coord_cert", "EXOCOMP_TLS_CERT_PATH")
     |> env_override_tls("coord_key", "EXOCOMP_TLS_KEY_PATH")
     |> env_override_tls("ca_cert", "EXOCOMP_TLS_CA_PATH")
+    |> env_override_ceph("ceph_binary_path", "EXOCOMP_CEPH_BINARY_PATH")
+    |> env_override_ceph("ceph_conf_path", "EXOCOMP_CEPH_CONF_PATH")
+    |> env_override_ceph("keyring_path", "EXOCOMP_CEPH_KEYRING_PATH")
+  end
+
+  defp env_override_ceph(parsed, ceph_key, env_var) do
+    case System.get_env(env_var) do
+      nil ->
+        parsed
+
+      value ->
+        Map.update(
+          parsed,
+          "cluster_profiles",
+          %{"ceph" => %{ceph_key => value}},
+          fn profiles ->
+            Map.update(profiles, "ceph", %{ceph_key => value}, &Map.put(&1, ceph_key, value))
+          end
+        )
+    end
   end
 
   defp env_override_top(parsed, field, env_var) do
@@ -286,6 +331,52 @@ defmodule Exocomp.Coordinator.Config do
     end
   end
 
+  # ── Ceph profile validation ──────────────────────────────────────────────────
+
+  defp validate_ceph_profile(%{"cluster_profiles" => %{"ceph" => ceph}}) when is_map(ceph) do
+    version = ceph["version"]
+    binary_path = ceph["ceph_binary_path"]
+    conf_path = ceph["ceph_conf_path"]
+    keyring_path = ceph["keyring_path"]
+
+    cond do
+      not is_integer(version) or version != @supported_ceph_version ->
+        {:error,
+         {:invalid_ceph_profile,
+          "cluster_profiles.ceph.version must be #{@supported_ceph_version}; got #{inspect(version)}"}}
+
+      not (is_binary(binary_path) and is_binary(conf_path) and is_binary(keyring_path)) ->
+        {:error,
+         {:invalid_ceph_profile,
+          "cluster_profiles.ceph requires string values for ceph_binary_path, ceph_conf_path, and keyring_path"}}
+
+      Path.type(binary_path) != :absolute ->
+        {:error,
+         {:invalid_ceph_profile,
+          "cluster_profiles.ceph.ceph_binary_path must be an absolute path; got #{inspect(binary_path)}"}}
+
+      Path.type(conf_path) != :absolute ->
+        {:error,
+         {:invalid_ceph_profile,
+          "cluster_profiles.ceph.ceph_conf_path must be an absolute path; got #{inspect(conf_path)}"}}
+
+      Path.type(keyring_path) != :absolute ->
+        {:error,
+         {:invalid_ceph_profile,
+          "cluster_profiles.ceph.keyring_path must be an absolute path; got #{inspect(keyring_path)}"}}
+
+      true ->
+        :ok
+    end
+  end
+
+  defp validate_ceph_profile(%{"cluster_profiles" => %{"ceph" => ceph}})
+       when not is_map(ceph) do
+    {:error, {:invalid_ceph_profile, "cluster_profiles.ceph must be a JSON object"}}
+  end
+
+  defp validate_ceph_profile(_parsed), do: :ok
+
   # ── Struct construction ──────────────────────────────────────────────────────
 
   defp to_struct(%{
@@ -293,7 +384,7 @@ defmodule Exocomp.Coordinator.Config do
          "coordinator_id" => coordinator_id,
          "tls" => tls,
          "listen" => listen
-       }) do
+       } = parsed) do
     %__MODULE__{
       version: version,
       coordinator_id: coordinator_id,
@@ -305,7 +396,19 @@ defmodule Exocomp.Coordinator.Config do
       listen: %Listen{
         host: listen["host"],
         port: listen["port"]
-      }
+      },
+      ceph_profile: parse_ceph_profile(parsed)
     }
   end
+
+  defp parse_ceph_profile(%{"cluster_profiles" => %{"ceph" => ceph}}) when is_map(ceph) do
+    %Ceph.Config{
+      version: ceph["version"],
+      ceph_binary_path: ceph["ceph_binary_path"],
+      ceph_conf_path: ceph["ceph_conf_path"],
+      keyring_path: ceph["keyring_path"]
+    }
+  end
+
+  defp parse_ceph_profile(_parsed), do: nil
 end
