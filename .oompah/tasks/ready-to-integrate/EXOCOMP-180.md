@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-180
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add reconnect and multi-replica integration tests
 parent: EXOCOMP-135
@@ -18,7 +18,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:55:21.456839Z'
+updated_at: '2026-08-01T13:55:30.606868Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -54,12 +54,12 @@ oompah.agent_run_id: b1b401a1-2421-4274-bbf7-1f82b1211e6c
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-180
-  base_branch: epic-EXOCOMP-135
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T13:19:44.415638+00:00'
+  head_sha: 28affc657acd6f1ab9da805a9c7e563bbc7ac247
+  submitted_at: '2026-08-01T13:55:28.552639+00:00'
+  updated_at: '2026-08-01T13:55:28.552639+00:00'
 oompah.task_costs:
   total_input_tokens: 536646
   total_output_tokens: 3962
@@ -234,5 +234,10 @@ Scenarios exercised:
 10. Connection — full-jitter backoff resets on stable connection
 
 Bug fixes uncovered: ClusterEvent.validate_fields string key handling, Connection pipe-arg reversal, CommandOutbox dead-code clause, ClusterEventIngestorTest cursor assertion.
+---
+author: oompah
+created: 2026-08-01 13:55
+---
+Delivered a deterministic, noninteractive, in-process integration harness with 10 test scenarios covering: disconnect/reconnect, durable event replay, command replay, duplicate delivery, sequence gap, certificate revocation, connection-owner replica termination, and WebSocket affinity independence. Harness uses real module boundaries (EventOutbox, CommandProcessor, ClusterEventIngestor, SessionRegistry, SessionLiveness, Connection) with a TestCommandStore Agent standing in for PostgreSQL. make test-integration-mc target runs in CI containers. Also fixed 4 bugs found during harness development: ClusterEvent string-key validation, Connection pipe-arg reversal, CommandOutbox dead-code clause, and a wrong cursor assertion in ClusterEventIngestorTest. Compliance: added license inventory for 5 new Ecto/PG transitive deps. All quality gates (fmt-check, lint, test-integration-mc) pass.
 ---
 <!-- COMMENTS:END -->
