@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T18:01:56.180491Z'
+updated_at: '2026-08-01T18:02:23.094916Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: 941af15b-5bdd-4004-963c-880ae42501eb
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-145
-  base_branch: epic-EXOCOMP-130
-  base_sha: ac5d88a054b19141f021700bdcefc88cef878721
-  updated_at: '2026-08-01T17:54:04.490331+00:00'
+  head_sha: e441e9e7dd73f30768c68f9c351b47abdbdd415c
+  submitted_at: '2026-08-01T18:02:20.818793+00:00'
+  updated_at: '2026-08-01T18:02:20.818793+00:00'
 oompah.task_costs:
   total_input_tokens: 745948
   total_output_tokens: 29455
@@ -715,5 +715,15 @@ warning: path "apps/fixtures" is a directory but it has no mix.exs. Mix won't co
 ** (Mix) You're trying to run Exocomp.MixProject on Elixir v1.18.3 but it has declared in its mix.exs file it supports only Elixir 1.20.2
 
 Static verification: git diff --check passed and Elixir syntax parsing passed for all changed .ex/.exs/config files. The required gates were attempted unchanged, but the environment could not start the pinned container/toolchain.
+---
+author: oompah
+created: 2026-08-01 18:02
+---
+Completion: Pushed commit e441e9e7 on epic-EXOCOMP-130--task-EXOCOMP-145. Delivered exact Application child-spec supervision coverage (including registered supervisor and struct propagation), bounded malformed-config validation, fail-fast runtime configuration errors, unique temporary test artifacts, and removal/ignore rules for stale generated fixtures. Branch is clean and up to date with origin. make test/fmt-check/lint were attempted but remain environment-blocked by the pinned container runner's read-only /run/user/1000/libpod; raw tails are recorded above.
+---
+author: oompah
+created: 2026-08-01 18:02
+---
+Harden Mission Control startup configuration and supervision coverage; pushed e441e9e7. Static checks pass. Make quality gates were attempted but blocked by the environment's Podman runtime configuration.
 ---
 <!-- COMMENTS:END -->
