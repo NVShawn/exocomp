@@ -205,7 +205,10 @@ defmodule Exocomp.MissionControl.Proposal do
   defp normalize_risk(risk), do: {:error, {:invalid_risk, risk}}
 
   defp normalize_policy_result(nil), do: {:error, :policy_result_required}
-  defp normalize_policy_result(result) when result in [:allow, :deny, :approval_required], do: {:ok, result}
+
+  defp normalize_policy_result(result) when result in [:allow, :deny, :approval_required],
+    do: {:ok, result}
+
   defp normalize_policy_result("allow"), do: {:ok, :allow}
   defp normalize_policy_result("deny"), do: {:ok, :deny}
   defp normalize_policy_result("approval_required"), do: {:ok, :approval_required}

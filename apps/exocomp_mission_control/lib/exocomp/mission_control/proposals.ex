@@ -175,7 +175,9 @@ defmodule Exocomp.MissionControl.Proposals do
     proposals =
       state.proposals
       |> Map.values()
-      |> Enum.filter(&(&1.organization_id == organization_id and &1.conversation_id == conversation_id))
+      |> Enum.filter(
+        &(&1.organization_id == organization_id and &1.conversation_id == conversation_id)
+      )
       |> Enum.reject(&Proposal.expired?/1)
       |> Enum.sort_by(&{&1.created_at, &1.id})
 
