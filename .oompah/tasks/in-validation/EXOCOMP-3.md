@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:10.012498Z'
-updated_at: '2026-08-01T21:24:44.955458Z'
+updated_at: '2026-08-01T21:30:25.466721Z'
 work_branch: epic-EXOCOMP-3
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/12
@@ -98,7 +98,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-3
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -122,13 +122,27 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-3 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-3)'
       next_retry_at: '2026-08-01T21:24:52.524520+00:00'
+    - version: 1
+      attempt_id: attempt-50bfc9ebe086
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: dfdd06de43ce7298c9622fd8f22ad3f48a983aabef54b3f7b5f0deb405fe18e2
+      created_at: '2026-08-01T21:30:21.686787+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-01T21:30:21.686787+00:00'
+      branch_key: epic-EXOCOMP-3
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-01T21:22:36.455228+00:00'
-    updated_at: '2026-08-01T21:24:42.524550+00:00'
+    updated_at: '2026-08-01T21:30:21.686787+00:00'
   - version: 1
     audit_id: audit-14731edb697d
     project_id: proj-c260b117
@@ -178,6 +192,20 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-3 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-3)'
     next_retry_at: '2026-08-01T21:24:52.524520+00:00'
+  - version: 1
+    attempt_id: attempt-50bfc9ebe086
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: dfdd06de43ce7298c9622fd8f22ad3f48a983aabef54b3f7b5f0deb405fe18e2
+    created_at: '2026-08-01T21:30:21.686787+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-01T21:30:21.686787+00:00'
+    branch_key: epic-EXOCOMP-3
+    candidate_rotation_count: 1
 oompah.task_costs:
   total_input_tokens: 33
   total_output_tokens: 4731
@@ -290,5 +318,10 @@ author: oompah
 created: 2026-08-01 21:24
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-3 (tried: origin/epic-EXOCOMP-3, origin/EXOCOMP-3). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-01 21:30
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
 ---
 <!-- COMMENTS:END -->
