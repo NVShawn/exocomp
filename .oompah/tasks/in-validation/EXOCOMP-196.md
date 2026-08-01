@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:11:11.643205Z'
+updated_at: '2026-08-01T16:11:29.936135Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -53,13 +53,13 @@ oompah.integration:
   submitted_at: '2026-08-01T16:10:39.544583+00:00'
   updated_at: '2026-08-01T16:11:07.866490+00:00'
 oompah.task_costs:
-  total_input_tokens: 1289389
-  total_output_tokens: 25834
+  total_input_tokens: 10695947
+  total_output_tokens: 67137
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 926009
-      output_tokens: 19611
+      input_tokens: 10332567
+      output_tokens: 60914
       cost_usd: 0.0
     sonnet:
       input_tokens: 363374
@@ -100,6 +100,12 @@ oompah.task_costs:
     output_tokens: 345
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:52:54.253315+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 9406558
+    output_tokens: 41303
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:11:23.818348+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -187,18 +193,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-196
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: e40d35346dc9b9710024dc82b52687cdf131389ea93c1d846ae38db7002dd880
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-c6db32ddcae5
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: e40d35346dc9b9710024dc82b52687cdf131389ea93c1d846ae38db7002dd880
+      created_at: '2026-08-01T16:11:26.807898+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-01T16:11:26.807898+00:00'
+      branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T16:11:10.123535+00:00'
+    updated_at: '2026-08-01T16:11:26.807898+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d465f6bfc92e
@@ -212,6 +232,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-01T15:42:33.525104+00:00'
+    branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
+  - version: 1
+    attempt_id: attempt-c6db32ddcae5
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e40d35346dc9b9710024dc82b52687cdf131389ea93c1d846ae38db7002dd880
+    created_at: '2026-08-01T16:11:26.807898+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-01T16:11:26.807898+00:00'
     branch_key: epic-EXOCOMP-186--task-EXOCOMP-196
 ---
 ## Summary
@@ -586,5 +619,25 @@ author: oompah
 created: 2026-08-01 16:10
 ---
 Implemented Ceph startup validation, redacted audit degradation, runtime profile coverage state, integration tests, and repaired the node Ceph test compile error. Pushed f6f24f96; make test offline checks pass but the pinned Elixir container is unavailable due the read-only Podman libpod runtime.
+---
+author: oompah
+created: 2026-08-01 16:11
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 85
+- Tokens: 9.4M in / 41.3K out [9.4M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 15m 50s
+- Log: EXOCOMP-196__20260801T155540Z.jsonl
+---
+author: oompah
+created: 2026-08-01 16:11
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-01 16:11
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
