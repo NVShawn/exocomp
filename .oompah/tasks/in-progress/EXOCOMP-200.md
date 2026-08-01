@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T22:39:35.531215Z'
+updated_at: '2026-08-01T22:42:12.666851Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -502,5 +502,12 @@ Plan:
 (1) Add :critical_health_status to reasons list in determine_cluster_severity_and_reasons/5 when ceph_status == 'HEALTH_ERR'
 (2) Fix check_profile_evidence_health/1 to return true (healthy) when local_state is empty — absent evidence is a no-op, not a failure
 (3) Run make test to confirm 0 failures
+---
+author: oompah
+created: 2026-08-01 22:42
+---
+IMPLEMENTATION: Fixed 2 remaining audit issues in CephHealthReducer:
+1. Added :critical_health_status to reasons in determine_cluster_severity_and_reasons/5 when ceph_status == 'HEALTH_ERR'. The type spec declared this reason atom but it was never emitted; now when HEALTH_ERR is detected the reason is appended before severity calculation.
+2. Fixed check_profile_evidence_health/1 to return true (no-op) when local.state is an empty map (%{}). Previously all fixtures with state: %{} were returning false, making systemd-healthy daemons report :degraded. Empty state means no profile evidence was collected — this should not be a gate, only the systemd check applies.
 ---
 <!-- COMMENTS:END -->
