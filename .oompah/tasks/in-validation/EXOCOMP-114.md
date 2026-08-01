@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-114
 type: chore
-status: Merged
+status: In Validation
 priority: 1
 title: Recover omitted M6 governance, builder, qualification, and bundle work
 parent: EXOCOMP-110
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-25T17:58:22.988216Z'
-updated_at: '2026-07-25T21:09:32.792877Z'
+updated_at: '2026-08-01T21:18:40.089159Z'
 work_branch: epic-EXOCOMP-110
 target_branch: null
 review_url: null
@@ -35,6 +35,28 @@ oompah.task_costs:
     output_tokens: 4105
     cost_usd: 0.0
     recorded_at: '2026-07-25T19:20:06.174751+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-ccb3d1c2c686
+    project_id: proj-c260b117
+    task_id: EXOCOMP-114
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 74fe559ebcf42a6c6d71088d7e097e2b91e3241930c248dc9efb912ace652c7b
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T21:18:37.729269+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -225,5 +247,10 @@ author: oompah
 created: 2026-07-25 21:09
 ---
 Verified recovery delivery on origin/main via merged PR #14 (2085e44).
+---
+author: oompah
+created: 2026-08-01 21:18
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
