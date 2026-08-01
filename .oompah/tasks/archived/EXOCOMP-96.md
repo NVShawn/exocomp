@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T03:12:36.235284Z'
-updated_at: '2026-08-01T03:19:07.002154Z'
+updated_at: '2026-08-01T03:19:22.447647Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -22,13 +22,13 @@ merged_at: null
 oompah.agent_run_id: 61086a84-c136-4dc7-bf80-e6c83cfda1de
 oompah.work_branch: epic-EXOCOMP-3
 oompah.task_costs:
-  total_input_tokens: 73
-  total_output_tokens: 35977
+  total_input_tokens: 111
+  total_output_tokens: 37270
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 73
-      output_tokens: 35977
+      input_tokens: 111
+      output_tokens: 37270
       cost_usd: 0.0
   runs:
   - profile: default
@@ -43,6 +43,12 @@ oompah.task_costs:
     output_tokens: 30183
     cost_usd: 0.0
     recorded_at: '2026-07-24T16:57:22.083203+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 38
+    output_tokens: 1293
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T03:19:20.684818+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -447,5 +453,15 @@ Safe evidence:
 - injection_env_key: :precondition_evidence_collector (Application.get_env)
 - canonical_evidence_restart_service: %{active_state, sub_state, unit_name} string keys, no collected_at
 - canonical_evidence_vacuum_logs: %{available_bytes, path, total_bytes} string keys, integer bytes
+---
+author: oompah
+created: 2026-08-01 03:19
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 23
+- Tokens: 38 in / 1.3K out [1.3K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 28s
+- Log: EXOCOMP-96__20260801T031655Z.jsonl
 ---
 <!-- COMMENTS:END -->
