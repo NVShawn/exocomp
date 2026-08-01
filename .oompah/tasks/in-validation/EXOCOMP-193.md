@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-193
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Reconcile desired services and health transitions
 parent: EXOCOMP-185
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:03.188337Z'
-updated_at: '2026-08-01T16:51:28.333535Z'
+updated_at: '2026-08-01T16:51:59.226733Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 target_branch: null
 review_url: null
@@ -63,12 +63,15 @@ oompah.agent_run_id: 0598a1e5-1715-4cf6-9b1f-4f3dd6804b39
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-193
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-193
+  base_branch: epic-EXOCOMP-185
+  base_sha: 2304acc105f13ebc16792ffc8ea7a57e48be313d
   head_sha: ce0330d8cb83c6467cdfd072f125dc46b04bbff5
+  integrated_sha: ce0330d8cb83c6467cdfd072f125dc46b04bbff5
   submitted_at: '2026-08-01T16:51:19.810891+00:00'
-  updated_at: '2026-08-01T16:51:19.810891+00:00'
+  updated_at: '2026-08-01T16:51:55.566181+00:00'
 oompah.task_costs:
   total_input_tokens: 484
   total_output_tokens: 14018
@@ -109,6 +112,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-185--task-EXOCOMP-193
     source_sha: 6742aa13ef4dc7e3dafa1582cebb5e4550ba9a72
     completed_at: '2026-08-01T14:02:35.560282+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-ddd6819fd86a
+    project_id: proj-c260b117
+    task_id: EXOCOMP-193
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: dc2c33ff7cf8c16c89e14147edcc15fe36a9f2bf71974db2b6f0179a0b8a8b84
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T16:51:56.763882+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -225,5 +250,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 17m 55s
 - Log: EXOCOMP-193__20260801T163339Z.jsonl
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->

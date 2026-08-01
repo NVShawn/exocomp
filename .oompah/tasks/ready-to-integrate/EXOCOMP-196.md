@@ -13,7 +13,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-30T21:38:18.558307Z'
-updated_at: '2026-08-01T16:51:26.106882Z'
+updated_at: '2026-08-01T16:51:55.367759Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-196
 target_branch: null
 review_url: null
@@ -46,17 +46,19 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-196
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 59cffc0a4cd7560e841a4c1f254cbf8ee84e4577
   submitted_at: '2026-08-01T16:51:23.792850+00:00'
-  updated_at: '2026-08-01T16:51:23.792850+00:00'
+  updated_at: '2026-08-01T16:51:54.550855+00:00'
 oompah.task_costs:
-  total_input_tokens: 10696114
-  total_output_tokens: 73219
+  total_input_tokens: 10696124
+  total_output_tokens: 73422
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 10332567
-      output_tokens: 60914
+      input_tokens: 10332577
+      output_tokens: 61117
       cost_usd: 0.0
     sonnet:
       input_tokens: 363374
@@ -109,6 +111,12 @@ oompah.task_costs:
     output_tokens: 6082
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:35:42.823685+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 10
+    output_tokens: 203
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T16:51:50.360487+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-196__20260801T140247Z
@@ -127,6 +135,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-196
     source_sha: f621e16350f8d4665862f19def9592fd5d51d730
     completed_at: '2026-08-01T15:15:38.876058+00:00'
+  - run_id: EXOCOMP-196__20260801T163740Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: haiku
+    focus: chore
+    source_branch: epic-EXOCOMP-186--task-EXOCOMP-196
+    source_sha: 59cffc0a4cd7560e841a4c1f254cbf8ee84e4577
+    completed_at: '2026-08-01T16:51:50.364336+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -716,5 +732,20 @@ author: oompah
 created: 2026-08-01 16:51
 ---
 Fixed CI failures: removed trailing whitespace across all commits, corrected Ceph test daemon ordering expectations, and fixed nil/boolean serialization. make test exits 0 with 524 tests passed, make test-compliance passes all 29 tests, git diff --check is clean.
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Agent completed successfully in 856s (213 tokens)
+---
+author: oompah
+created: 2026-08-01 16:51
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 190, Tool calls: 86
+- Tokens: 10 in / 203 out [213 total]
+- Cost: $0.0000
+- Exit: normal, Duration: 14m 16s
+- Log: EXOCOMP-196__20260801T163740Z.jsonl
 ---
 <!-- COMMENTS:END -->
