@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:04.090360Z'
-updated_at: '2026-08-01T17:28:53.004379Z'
+updated_at: '2026-08-01T17:29:53.220468Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: 9f0948b4-6486-4478-95ca-c4d1622bd1b3
 oompah.work_branch: epic-EXOCOMP-185--task-EXOCOMP-194
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-185--task-EXOCOMP-194
-  base_branch: epic-EXOCOMP-185
-  base_sha: ce0330d8cb83c6467cdfd072f125dc46b04bbff5
-  updated_at: '2026-08-01T17:10:37.951595+00:00'
+  head_sha: a163c8323e9b83e2360af73c9f3e972b99f9dc0d
+  submitted_at: '2026-08-01T17:29:52.148232+00:00'
+  updated_at: '2026-08-01T17:29:52.148232+00:00'
 oompah.task_costs:
   total_input_tokens: 874472
   total_output_tokens: 5054
@@ -158,5 +158,10 @@ author: oompah
 created: 2026-08-01 17:28
 ---
 Verification: focused shared-core plus coordinator-facade contract tests pass 13/13 using compiled Elixir/Jason sources; warning-as-error compile passes for all new production modules; all seven JSON fixtures parse and git diff --check passes. make test passes offline builder/package checks but cannot enter the pinned Elixir container because Podman reports its runtime filesystem is read-only. make compliance-check is blocked by 12 pre-existing trailing-whitespace errors in unrelated inventory tests.
+---
+author: oompah
+created: 2026-08-01 17:29
+---
+Completion: delivered and pushed a163c832. The versioned shared status contract now covers desired-state add/change/remove, service health deltas, profile coverage, periodic full snapshots, mandatory correlation and evidence metadata, strict forward-version/schema checks, recursive redaction, payload/event bounds, and deterministic duplicate/out-of-order replay. Shared JSON fixtures are consumed by core and coordinator tests; branch is clean and up to date with origin.
 ---
 <!-- COMMENTS:END -->
