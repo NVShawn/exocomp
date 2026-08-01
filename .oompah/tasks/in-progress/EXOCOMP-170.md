@@ -17,7 +17,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:05.961611Z'
-updated_at: '2026-08-01T15:46:16.932749Z'
+updated_at: '2026-08-01T15:47:48.757746Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 target_branch: null
 review_url: null
@@ -54,12 +54,12 @@ oompah.agent_run_id: b2a13da6-f3c7-44ef-8fe1-ba4aad82a43e
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-170
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-170
-  base_branch: epic-EXOCOMP-133
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:31:20.028810+00:00'
+  head_sha: 90cbd830cef6ed050f965e3a233180787a07732c
+  submitted_at: '2026-08-01T15:47:47.953381+00:00'
+  updated_at: '2026-08-01T15:47:47.953381+00:00'
 oompah.task_costs:
   total_input_tokens: 849994
   total_output_tokens: 4451
@@ -215,5 +215,10 @@ docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull 
 	mix format --check-formatted && \
 	MIX_ENV=test mix compile --force --warnings-as-errors'
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-170' reach their Docker steps but are blocked by the sandbox podman error: unable to chmod /run/user/1000/libpod (read-only filesystem).
+---
+author: oompah
+created: 2026-08-01 15:47
+---
+Completion: pushed commit 90cbd830 on epic-EXOCOMP-133--task-EXOCOMP-170. Delivered routed admin LiveViews for invitations, cluster certificate/status and confirmed revocation, OIDC mappings, bounded retention, and webhook endpoint navigation; added org-scoped secret-safe administration records and focused tests. Branch status is clean and up to date with origin.
 ---
 <!-- COMMENTS:END -->
