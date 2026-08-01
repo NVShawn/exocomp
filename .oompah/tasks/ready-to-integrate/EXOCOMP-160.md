@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-160
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Deliver conversation commands and evidence-linked replies
 parent: EXOCOMP-132
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:18.620833Z'
-updated_at: '2026-08-01T13:12:08.763682Z'
+updated_at: '2026-08-01T13:12:22.680593Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-160
 target_branch: null
 review_url: null
@@ -53,12 +53,12 @@ oompah.agent_run_id: ccd48f0d-362d-4a4a-a556-0adf03dfbe35
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-160
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-160
-  base_branch: epic-EXOCOMP-132
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T12:52:10.861454+00:00'
+  head_sha: aa92c6d89fd771a8ed51c580d9aeb44be8aed27b
+  submitted_at: '2026-08-01T13:12:20.230179+00:00'
+  updated_at: '2026-08-01T13:12:20.230179+00:00'
 oompah.task_costs:
   total_input_tokens: 471102
   total_output_tokens: 8860
@@ -271,5 +271,10 @@ created: 2026-08-01 13:12
 - EXOCOMP-151: Command result reporting (ready for acknowledgements)
 - EXOCOMP-158: Conversation storage (message state management)
 - EXOCOMP-159: Cluster chat skill (coordinator-side reasoning)
+---
+author: oompah
+created: 2026-08-01 13:12
+---
+Implemented conversation commands and evidence-linked replies: ConversationCommands module with send_message/6 and lifecycle management (fail_message, expire_message), comprehensive test coverage for online delivery, offline queue, reconnect, failed reasoning, expired commands, invalid citations, and cross-org isolation. All acceptance criteria met with focused unit tests and proper state machine enforcement.
 ---
 <!-- COMMENTS:END -->
