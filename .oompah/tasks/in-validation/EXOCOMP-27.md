@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-27
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Integrate remediation lifecycle with A2A tasks and audit
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:13.340897Z'
-updated_at: '2026-07-25T02:19:52.677681Z'
+updated_at: '2026-08-01T03:00:11.109734Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -39,6 +39,28 @@ oompah.task_costs:
     output_tokens: 4970
     cost_usd: 0.0
     recorded_at: '2026-07-24T18:26:30.532188+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-5a1cb7b6399d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-27
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 02a81a2ed71ea4ec7b5ed3b6886edbe9c99e1ebf643bae0d443b5d4f5bb69ecb
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T03:00:08.582687+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -208,5 +230,10 @@ author: oompah
 created: 2026-07-24 18:39
 ---
 Integrated the typed remediation lifecycle with correlated A2A history/artifacts and durable audit-before-action; added approval, failure, cancellation, redaction, bypass, and reconciliation coverage; pushed commit 7813d30 to origin/EXOCOMP-27.
+---
+author: oompah
+created: 2026-08-01 03:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
