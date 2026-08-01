@@ -8,6 +8,11 @@ upstream license or notice named by their build-specific inventory.
 
 ## Runtime components
 
+### CAStore
+
+- Version: 1.0.20.
+- License: [Apache-2.0](https://github.com/elixir-mint/castore/blob/main/LICENSE).
+
 ### Erlang/OTP
 
 - Use: ERTS runtime bundled in node and coordinator OTP releases.
@@ -35,6 +40,31 @@ upstream license or notice named by their build-specific inventory.
 
 - Version: 2.0.7.
 - License: [Apache-2.0](https://github.com/elixir-plug/mime/blob/HEAD/LICENSE).
+
+### Phoenix
+
+- Version: 1.7.24.
+- License: [MIT](https://github.com/phoenixframework/phoenix/blob/v1.7.24/LICENSE.md).
+
+### Phoenix.HTML
+
+- Version: 4.3.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_html/blob/v4.3.0/LICENSE).
+
+### Phoenix LiveView
+
+- Version: 1.2.8.
+- License: [MIT](https://github.com/phoenixframework/phoenix_live_view/blob/v1.2.8/LICENSE.md).
+
+### Phoenix.PubSub
+
+- Version: 2.2.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_pubsub/blob/v2.2.0/LICENSE.md).
+
+### Phoenix Template
+
+- Version: 1.0.4.
+- License: [MIT](https://github.com/phoenixframework/phoenix_template/blob/v1.0.4/LICENSE.md).
 
 ### NimbleOptions
 
@@ -65,6 +95,11 @@ upstream license or notice named by their build-specific inventory.
 
 - Version: 0.5.3.
 - License: [MIT](https://github.com/phoenixframework/websock/blob/HEAD/LICENSE).
+
+### WebSockAdapter
+
+- Version: 0.5.9.
+- License: [MIT](https://github.com/phoenixframework/websock_adapter/blob/v0.5.9/LICENSE).
 
 ### X509
 
