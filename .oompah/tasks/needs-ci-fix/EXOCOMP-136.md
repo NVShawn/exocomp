@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-136
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 2
 title: Scaffold the Mission Control Phoenix application
 parent: EXOCOMP-128
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T14:59:31.013212Z'
+updated_at: '2026-08-01T15:08:45.244286Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -117,6 +117,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:41:07.398843+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-dfcc8a5f108c: '2026-08-01T15:08:41.938933+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-136
+    target_state: Done
+    evidence_fingerprint: 18cc36cf7c735da2bab8cf2478ead7ae1ef5fa3e637939603415d4170ae67a5a
+    audit_ids:
+    - audit-924732ce09f9
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T15:08:41.938941+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-136
+    audit_id: audit-924732ce09f9
+    attempt_id: attempt-dfcc8a5f108c
+    target_state: Done
+    evidence_fingerprint: 18cc36cf7c735da2bab8cf2478ead7ae1ef5fa3e637939603415d4170ae67a5a
+    status: Needs CI Fix
+    audit_ids:
+    - audit-924732ce09f9
+    applied: true
+    created_at: '2026-08-01T15:08:41.938950+00:00'
+    applied_at: '2026-08-01T15:08:44.611481+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -124,7 +149,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-136
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -133,7 +158,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-dfcc8a5f108c
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -143,13 +168,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T14:59:23.890525+00:00'
       branch_key: epic-EXOCOMP-128--task-EXOCOMP-136
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T15:08:41.938836+00:00'
+      ended_at: '2026-08-01T15:08:41.938836+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T14:59:01.940079+00:00'
-    updated_at: '2026-08-01T14:59:23.890525+00:00'
+    updated_at: '2026-08-01T15:08:41.938836+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-dfcc8a5f108c
@@ -294,5 +323,17 @@ author: oompah
 created: 2026-08-01 14:59
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 15:08
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Instructions:
+- Rewrite apps/exocomp_mission_control/lib/exocomp/mission_control/router.ex to use a Phoenix controller with a `health/2` action inside a `pipeline :api` + `scope "/", Exocomp.MissionControl` block.
+- Re-run `make test` and `make lint` inside the pinned builder container so the umbrella compiles and both endpoint and application tests pass.
+- Re-request the terminal audit only after the container-backed `make test` and `make lint` succeed.
 ---
 <!-- COMMENTS:END -->

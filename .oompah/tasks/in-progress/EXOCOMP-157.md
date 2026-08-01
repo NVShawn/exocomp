@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:42.626270Z'
-updated_at: '2026-08-01T15:00:13.133812Z'
+updated_at: '2026-08-01T15:08:50.094012Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-157
 target_branch: null
 review_url: null
@@ -130,5 +130,10 @@ author: oompah
 created: 2026-08-01 15:00
 ---
 Understanding: implement a pure, deterministic incident-grouping module keyed by alert type, service, software version, and configured time window; preserve incident identity/state; add organization-scoped open/recent related-incident query helpers; cover attribute matching, boundaries, missing values, isolation, and ordering without causal/model inference.
+---
+author: oompah
+created: 2026-08-01 15:08
+---
+Implementation: fast-forwarded onto EXOCOMP-154's incident store, added optional service/software_version metadata without changing fingerprint identity, introduced pure Grouping key/related/group/summary functions with inclusive windows and stable ordering, and added organization-scoped open/recent/related query helpers. Focused tests cover the requested grouping and query behavior.
 ---
 <!-- COMMENTS:END -->

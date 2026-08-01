@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-201
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Implement the restricted profile-action helper
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-08-01T14:16:42.047885Z'
+updated_at: '2026-08-01T15:09:07.103908Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 target_branch: null
 review_url: null
@@ -58,7 +58,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 2d44a59d-e4ad-4406-8b98-41baec5f4e88
+oompah.agent_run_id: cd1d87c7-a2e8-45e3-beeb-79db0a7505e8
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-201
 oompah.integration:
   version: 2
@@ -66,8 +66,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-201
   base_branch: epic-EXOCOMP-186
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:14:31.705137+00:00'
+  base_sha: ab25e80c7dae6afdf9e0b9f0f99ad82a0728462b
+  updated_at: '2026-08-01T15:09:04.884275+00:00'
 oompah.task_costs:
   total_input_tokens: 138
   total_output_tokens: 4578
@@ -139,5 +139,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 2m 10s
 - Log: EXOCOMP-201__20260801T141435Z.jsonl
+---
+author: oompah
+created: 2026-08-01 15:09
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-01 15:09
+---
+Focus: Security Auditor
 ---
 <!-- COMMENTS:END -->
