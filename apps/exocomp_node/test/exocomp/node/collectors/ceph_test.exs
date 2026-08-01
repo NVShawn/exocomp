@@ -215,4 +215,54 @@ defmodule Exocomp.Node.Collectors.CephTest do
     assert Ceph.parse_unit_name("ceph-#{@fsid}@monitor.node.service") == :ignore
     assert Ceph.parse_unit_name("ceph-mon@node.service.evil") == :ignore
   end
+
+  test "non-ASCII UTF-8 property value from systemd show is a per-unit malformed error" do
+    # Regression test: valid_property_value?/1 must reject non-ASCII bytes.
+    # The old check `byte != 0x7F` admitted bytes 0x80-0xFF because 0x80 > 0x20
+    # numerically, allowing valid-UTF-8 non-ASCII characters such as é (0xC3 0xA9)
+    # to pass through into the daemon map. The corrected check `byte <= 0x7E`
+    # explicitly enforces the printable-ASCII upper bound.
+    unit = "ceph-mon@alpha.service"
+    listing = "#{unit} loaded active running\n"
+
+    # UnitFileState contains a valid UTF-8 non-ASCII character
+    non_ascii_show =
+      "UnitFileState=\xC3\xA9toile\nLoadState=loaded\nActiveState=active\nSubState=running\n"
+
+    overrides = %{unit => non_ascii_show}
+    observation = Ceph.collect(cmd_runner: fixture_runner(listing, overrides))
+
+    assert observation.measurements.daemons.value == []
+    assert [%{unit: ^unit, error: :malformed}] = observation.measurements.errors.value
+  end
+
+  test "a property value containing a DEL byte (0x7F) is rejected as malformed" do
+    unit = "ceph-mon@alpha.service"
+    listing = "#{unit} loaded active running\n"
+
+    del_show =
+      "UnitFileState=enabled\x7F\nLoadState=loaded\nActiveState=active\nSubState=running\n"
+
+    overrides = %{unit => del_show}
+    observation = Ceph.collect(cmd_runner: fixture_runner(listing, overrides))
+
+    assert observation.measurements.daemons.value == []
+    assert [%{unit: ^unit, error: :malformed}] = observation.measurements.errors.value
+  end
+
+  test "incomplete unit state (fewer properties than requested) is a per-unit malformed error" do
+    # systemctl show --property=... should always return all requested properties,
+    # but if it returns fewer, strict parsing must not silently accept a partial map
+    # with nil fields — that would violate the completeness guarantee.
+    unit = "ceph-mon@alpha.service"
+    listing = "#{unit} loaded active running\n"
+
+    incomplete_show = "UnitFileState=enabled\nLoadState=loaded\n"
+
+    overrides = %{unit => incomplete_show}
+    observation = Ceph.collect(cmd_runner: fixture_runner(listing, overrides))
+
+    assert observation.measurements.daemons.value == []
+    assert [%{unit: ^unit, error: :malformed}] = observation.measurements.errors.value
+  end
 end

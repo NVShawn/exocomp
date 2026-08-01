@@ -261,8 +261,14 @@ defmodule Exocomp.Node.Collectors.Ceph do
           end
         end)
         |> case do
-          {:ok, properties} -> {:ok, properties}
-          error -> error
+          {:ok, properties} when map_size(properties) == length(@show_properties) ->
+            {:ok, properties}
+
+          {:ok, _partial} ->
+            {:error, :malformed, "systemctl returned incomplete unit state"}
+
+          error ->
+            error
         end
     end
   end
@@ -278,8 +284,13 @@ defmodule Exocomp.Node.Collectors.Ceph do
   end
 
   defp valid_property_value?(value) when is_binary(value) do
+    # Restrict to printable ASCII: 0x20 (space) through 0x7E (~).
+    # The original check `!= 0x7F` would admit bytes 0x80-0xFF (UTF-8
+    # continuation/start bytes) because those values are all > 0x20.
+    # The `<= 0x7E` upper bound correctly excludes both 0x7F (DEL) and every
+    # non-ASCII byte, matching the documented intent.
     byte_size(value) <= 256 and
-      value |> :binary.bin_to_list() |> Enum.all?(&(&1 >= 0x20 and &1 != 0x7F))
+      value |> :binary.bin_to_list() |> Enum.all?(&(&1 >= 0x20 and &1 <= 0x7E))
   end
 
   defp valid_property_value?(_value), do: false
