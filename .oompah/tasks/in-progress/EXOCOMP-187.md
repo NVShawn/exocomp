@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:36:56.896701Z'
-updated_at: '2026-08-01T13:37:38.796390Z'
+updated_at: '2026-08-01T13:40:13.309490Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-187
 target_branch: null
 review_url: null
@@ -131,5 +131,15 @@ author: oompah
 created: 2026-08-01 13:37
 ---
 Understanding: This task requires integrating three design paths for desired-state management into the project documentation. The three paths are: (1) Manual host services via static inventory, (2) Automatic enabled-service discovery and reconciliation, and (3) Coordinator-declared cluster profiles via Mission Control. Acceptance criteria require plans/exocomp.md to summarize all paths, with Milestone 2 owning inventory/discovery/reconciliation, Milestone 4 owning profile-authorized safe recovery, Mission Control owning reporting/persistence/incidents/UI (not desired-state authority), and a note about Ceph repairs being separate. Plan: Read existing plans, update exocomp.md to clearly document the three-path architecture, update milestone descriptions for clarity, and run make check-links and make test-compliance.
+---
+author: oompah
+created: 2026-08-01 13:40
+---
+Implementation: Updated plans/exocomp.md to integrate the three-path desired-state design into a coherent roadmap. Changes include: (1) New 'Three-Path Desired-State Design' section documenting Path 1 (manual inventory), Path 2 (automatic reconciliation), Path 3 (Mission Control), (2) Updated Architecture section with Mermaid diagram showing three paths, (3) Reorganized Objectives to reflect path-specific goals, (4) Enhanced Safety Invariants to emphasize cluster-local policy authority, (5) Added Path Coverage table to Milestones section clarifying ownership, (6) Expanded Shared Acceptance section with explicit Mission Control boundaries and Ceph repair non-goals. All internal links validated. Trailing whitespace fixed. Commit: 6742aa13.
+---
+author: oompah
+created: 2026-08-01 13:40
+---
+Verification: All acceptance criteria met. Tests: make check-links PASS (links validated), make test-compliance PASS (29/29 tests). Deliverable checklist: ✓ plans/exocomp.md summarizes all three paths (overview + detailed sections), ✓ Milestone 2 owns inventory/discovery/reconciliation behavior (M2-CRIT-1 through M2-CRIT-8), ✓ Milestone 4 owns profile-authorized safe recovery (recovery state machine + approval + verification), ✓ Mission Control owns reporting/persistence/incidents/UI (explicit boundaries documented), ✓ Documents state Ceph repairs remain separate roadmap (noted in Boundaries section). Branch: epic-EXOCOMP-185--task-EXOCOMP-187 pushed and ready for review.
 ---
 <!-- COMMENTS:END -->
