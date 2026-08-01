@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-66
 type: feature
-status: In Validation
+status: Archived
 priority: 2
 title: Package deterministic OTP release archives and identity manifests
 parent: EXOCOMP-42
@@ -12,7 +12,7 @@ blocked_by:
 labels: []
 assignee: null
 created_at: '2026-07-23T21:06:23.964610Z'
-updated_at: '2026-08-01T21:26:12.099590Z'
+updated_at: '2026-08-01T21:31:28.944148Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -50,6 +50,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:31:12.436920+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-9eec73bc62d9: '2026-08-01T21:31:26.585300+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-66
+    target_state: Archived
+    evidence_fingerprint: 602c79a35e7220185f9a21851fb87b533c7dccba185f732c5e07af9826acfb78
+    audit_ids:
+    - audit-0da68293e20d
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:31:26.585313+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-66
+    audit_id: audit-0da68293e20d
+    attempt_id: attempt-9eec73bc62d9
+    target_state: Archived
+    evidence_fingerprint: 602c79a35e7220185f9a21851fb87b533c7dccba185f732c5e07af9826acfb78
+    status: Archived
+    audit_ids:
+    - audit-0da68293e20d
+    applied: false
+    created_at: '2026-08-01T21:31:26.585329+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +81,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-66
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +90,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-9eec73bc62d9
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,13 +100,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:26:05.405439+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-01T21:31:26.585105+00:00'
+      ended_at: '2026-08-01T21:31:26.585105+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:49.644103+00:00'
-    updated_at: '2026-08-01T21:26:05.405439+00:00'
+    updated_at: '2026-08-01T21:31:26.585105+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9eec73bc62d9
@@ -289,5 +316,23 @@ author: oompah
 created: 2026-08-01 21:26
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:31
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- origin_main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- recovery_merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- recovery_delivery_commit: 516faf81e5f506f9cc7d1ac24a98499e73dbfea0
+- normalizer_commit: 301d87e83f8f73d501afcac88ced532972bc7d79
+- package_release_tests: 6 passed / 6 total (test_package_release.py)
+- release_input_normalizer_tests: 3 passed / 3 total (test_release_input_normalizer.py)
+- archive_matrix_verified: exocomp-node-1.2.3-linux-{amd64,arm64}.tar.gz + exocomp-coordinator-1.2.3-linux-{amd64,arm64}.tar.gz with per-archive .manifest.json
+- make_gate_target: test-release-packaging
+- packager_path: scripts/package_release.py
 ---
 <!-- COMMENTS:END -->
