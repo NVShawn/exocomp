@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-8
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Implement A2A 1.0 shared protocol types and fixtures
 parent: EXOCOMP-1
@@ -16,7 +16,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:08:53.749492Z'
-updated_at: '2026-08-01T21:32:28.113528Z'
+updated_at: '2026-08-01T21:39:45.590428Z'
 work_branch: epic-EXOCOMP-1
 target_branch: null
 review_url: null
@@ -48,6 +48,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T20:37:21.791221+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-be7552089a55: '2026-08-01T21:39:42.815795+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-8
+    target_state: Archived
+    evidence_fingerprint: 399d5e231197d4cd6838b30da22c902090b1cdd15c3ba6afaf0a2030ed95ca4b
+    audit_ids:
+    - audit-7e4ee64e6c2a
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:39:42.815807+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-8
+    audit_id: audit-7e4ee64e6c2a
+    attempt_id: attempt-be7552089a55
+    target_state: Archived
+    evidence_fingerprint: 399d5e231197d4cd6838b30da22c902090b1cdd15c3ba6afaf0a2030ed95ca4b
+    status: Archived
+    audit_ids:
+    - audit-7e4ee64e6c2a
+    applied: false
+    created_at: '2026-08-01T21:39:42.815826+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -55,7 +79,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-8
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -64,7 +88,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-be7552089a55
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -74,13 +98,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:32:18.999511+00:00'
       branch_key: epic-EXOCOMP-1
+      verdict: pass
+      completed_at: '2026-08-01T21:39:42.815584+00:00'
+      ended_at: '2026-08-01T21:39:42.815584+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:20:05.299361+00:00'
-    updated_at: '2026-08-01T21:32:18.999511+00:00'
+    updated_at: '2026-08-01T21:39:42.815584+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-be7552089a55
@@ -270,5 +297,20 @@ author: oompah
 created: 2026-08-01 21:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:39
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- child_task_48_commit_on_main: f231c411 EXOCOMP-48: Define A2A 1.0 protocol type structs and task-state enum (contained in main)
+- child_task_49_commit_on_main: d22dff88 EXOCOMP-49: implement A2A JSON codecs and version handling (contained in main)
+- child_task_51_commit_on_main: d115dd27 EXOCOMP-51: pin A2A 1.0 fixture files and add protocol test suite (contained in main)
+- a2a_lib_modules_tracked: 16 modules under apps/exocomp_core/lib/exocomp/a2a/ including agent_card.ex, message.ex, task.ex, artifact.ex, task_state.ex, codec.ex, version.ex, error.ex, errors.ex, text_part.ex, file_part.ex, data_part.ex, file_content.ex, task_status.ex, agent_capabilities.ex, agent_skill.ex
+- a2a_test_modules_tracked: 19 test modules under apps/exocomp_core/test/exocomp/a2a/ including fixture_test.exs, invalid_payload_test.exs, media_type_test.exs, version_negotiation_test.exs, codec_test.exs
+- audit_reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
