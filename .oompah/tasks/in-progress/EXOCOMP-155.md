@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:03:58.058003Z'
+updated_at: '2026-08-01T23:12:57.682551Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -169,5 +169,10 @@ author: oompah
 created: 2026-08-01 23:03
 ---
 Discovery: current-state observations are map-based status.snapshot data in exocomp_core, while EXOCOMP-154 supplies the organization-scoped Incidents store in exocomp_mission_control. Canonical history also requires desired-state service/profile WARN hysteresis, immediate Ceph HEALTH_ERR/critical handling, explicit coverage incidents, and desired_state_removed resolution without a synthetic healthy sample. I’m reconciling these contracts before implementation.
+---
+author: oompah
+created: 2026-08-01 23:12
+---
+Implementation: added a pure HealthReducer under the EXOCOMP-154 incident app, with two-observation degraded/healthy hysteresis, immediate stale/unreachable/failure/critical/coverage/explicit-alert paths, deterministic alert identity and severity mapping, duplicate-ID conflict detection, desired-state removal resolution, and a store-backed process boundary for persisted/reopened incidents. Focused table-driven coverage is next.
 ---
 <!-- COMMENTS:END -->
