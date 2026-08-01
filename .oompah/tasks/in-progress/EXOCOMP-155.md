@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:22:58.251068Z'
+updated_at: '2026-08-01T23:23:55.672769Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -184,5 +184,10 @@ author: oompah
 created: 2026-08-01 23:22
 ---
 Verification: the changed Mission Control incident sources compile with Elixir warnings-as-errors, focused source formatting checks pass, git diff --check passes, and direct ExUnit passes 30 tests with zero failures. make test, make fmt-check, and make lint ran their offline checks successfully where applicable but cannot reach the pinned container compile step because the environment’s Podman wrapper cannot chmod /run/user/1000/libpod (read-only filesystem); full-project format also reports an unrelated pre-existing bootstrap.ex formatting difference.
+---
+author: oompah
+created: 2026-08-01 23:23
+---
+Completion: delivered and pushed b4aa7d82 (with submitted EXOCOMP-154 ancestor). HealthReducer now deterministically opens, updates, reopens, and resolves incidents across fleet, service/profile, Ceph, coverage, explicit-alert, and control-plane failure evidence; incident records retain severity. Focused ExUnit is green (30 tests), changed sources compile warnings-as-errors, and branch is clean/up to date. Full Makefile container gates remain environment-blocked by the read-only Podman libpod filesystem noted above.
 ---
 <!-- COMMENTS:END -->
