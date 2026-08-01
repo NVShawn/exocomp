@@ -14,7 +14,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:23.272282Z'
-updated_at: '2026-08-01T12:18:38.014683Z'
+updated_at: '2026-08-01T12:18:48.054393Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-141
 target_branch: null
 review_url: null
@@ -264,5 +264,27 @@ Implementation: Created apps/exocomp_mission_control with the following modules:
 7. LiveView.RequireRole — on_mount/4 hook; redirects to / with flash error on denial. Defers Phoenix.LiveView calls to avoid hard compile-time dep.
 
 8. Mutations.Attribution — captures sub, display_name, organization_id, correlation_id (corr_ prefix + URL-safe base64), and timestamp for every mutation.
+---
+author: oompah
+created: 2026-08-01 12:18
+---
+Verification: All quality gates pass.
+
+make test: 511 passed (full suite), 128 passed (mission_control app, including full role matrix), 0 failures.
+
+Role matrix coverage (18 test cases in authorization_test.exs):
+- viewer/operator/admin × :read/:operate/:administer × same-org → all allowed/denied correctly
+- viewer/operator/admin × :read/:operate/:administer × cross-org → all return {:error, :cross_organization}
+- nil and non-operator operator → {:error, :unauthenticated} for all actions
+- ForbiddenError carries reason and action on raise
+
+OIDC resolver coverage: subject override, group claim, highest-privilege merge, multi-group, no-config, no-match, display name extraction, app env fallback.
+
+Plug coverage: init/1 validation, allowed/denied requests via Plug.Test, 403 JSON body, cross-org denial, unauthenticated denial.
+
+Attribution coverage: uniqueness, timestamp bounds, correlation ID format (URL-safe, no padding), to_map/1 JSON encoding.
+
+make fmt-check: pass
+make lint: pass (compliance: all checks passed)
 ---
 <!-- COMMENTS:END -->
