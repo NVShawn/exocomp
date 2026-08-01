@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-202
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Package the profile helper with exact sudo authorization
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:33.244906Z'
-updated_at: '2026-07-30T21:40:15.080870Z'
+updated_at: '2026-08-01T11:50:39.639681Z'
 work_branch: null
 target_branch: null
 review_url: null

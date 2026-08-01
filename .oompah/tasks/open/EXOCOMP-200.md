@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-07-30T21:40:08.102209Z'
+updated_at: '2026-08-01T11:50:35.008972Z'
 work_branch: null
 target_branch: null
 review_url: null

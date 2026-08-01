@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-201
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Implement the restricted profile-action helper
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:30.593722Z'
-updated_at: '2026-07-30T21:40:12.526566Z'
+updated_at: '2026-08-01T11:50:37.047597Z'
 work_branch: null
 target_branch: null
 review_url: null

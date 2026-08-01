@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-198
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Discover local traditional and cephadm daemon units
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:22.833355Z'
-updated_at: '2026-07-30T21:40:02.734010Z'
+updated_at: '2026-08-01T11:50:26.089483Z'
 work_branch: null
 target_branch: null
 review_url: null

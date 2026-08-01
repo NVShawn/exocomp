@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-07-30T21:40:18.855166Z'
+updated_at: '2026-08-01T11:50:41.226116Z'
 work_branch: null
 target_branch: null
 review_url: null

@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-199
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Correlate Ceph topology with coordinator inventory nodes
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:23.958273Z'
-updated_at: '2026-07-30T21:40:06.542334Z'
+updated_at: '2026-08-01T11:50:31.452854Z'
 work_branch: null
 target_branch: null
 review_url: null
