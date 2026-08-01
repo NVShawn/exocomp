@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-35
 type: feature
-status: In Validation
+status: Archived
 priority: 2
 title: Build the reproducible benchmark harness
 parent: EXOCOMP-5
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:11:17.553654Z'
-updated_at: '2026-08-01T21:32:06.896199Z'
+updated_at: '2026-08-01T21:38:15.034503Z'
 work_branch: epic-EXOCOMP-5
 target_branch: null
 review_url: null
@@ -50,6 +50,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T20:37:27.511958+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-8a60e1f6056b: '2026-08-01T21:38:12.814565+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-35
+    target_state: Archived
+    evidence_fingerprint: 02fbf4f102067607fc34182af87cc43648777186c3e708c7cdff7d307a5fa332
+    audit_ids:
+    - audit-685ae122b987
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T21:38:12.814577+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-35
+    audit_id: audit-685ae122b987
+    attempt_id: attempt-8a60e1f6056b
+    target_state: Archived
+    evidence_fingerprint: 02fbf4f102067607fc34182af87cc43648777186c3e708c7cdff7d307a5fa332
+    status: Archived
+    audit_ids:
+    - audit-685ae122b987
+    applied: false
+    created_at: '2026-08-01T21:38:12.814593+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +81,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-35
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +90,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-8a60e1f6056b
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,13 +100,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:32:01.819009+00:00'
       branch_key: epic-EXOCOMP-5
+      verdict: pass
+      completed_at: '2026-08-01T21:38:12.814413+00:00'
+      ended_at: '2026-08-01T21:38:12.814413+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-01T21:19:08.406398+00:00'
-    updated_at: '2026-08-01T21:32:01.819009+00:00'
+    updated_at: '2026-08-01T21:38:12.814413+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-8a60e1f6056b
@@ -251,5 +278,20 @@ author: oompah
 created: 2026-08-01 21:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 21:38
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- main_bench_dir_present: true
+- children_all_archived: EXOCOMP-50,52,53,54,55,56 all Archived
+- merge_commit: 0cff2291 Merge epic-EXOCOMP-35 and epic-EXOCOMP-11
+- make_targets_present: bench-harness, bench-llama-short, bench-llama-short-shipped, bench-llama-full
+- config_schema_versioned: Bench.Config uses @current_schema_version 1 with :incompatible_version rejection
+- queue_reason: Aged Merged auto-archive (closed 7 days ago) per tracker comment #15
 ---
 <!-- COMMENTS:END -->
