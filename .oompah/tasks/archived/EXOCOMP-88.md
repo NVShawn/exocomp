@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-24T02:42:48.305068Z'
-updated_at: '2026-08-01T02:15:53.359966Z'
+updated_at: '2026-08-01T02:16:33.994494Z'
 work_branch: epic-EXOCOMP-2
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: b38c5125-1d98-463c-91df-021324387e5d
 oompah.work_branch: epic-EXOCOMP-2
 oompah.task_costs:
-  total_input_tokens: 164
-  total_output_tokens: 36161
+  total_input_tokens: 190
+  total_output_tokens: 41368
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 164
-      output_tokens: 36161
+      input_tokens: 190
+      output_tokens: 41368
       cost_usd: 0.0
   runs:
   - profile: default
@@ -54,6 +54,12 @@ oompah.task_costs:
     output_tokens: 2586
     cost_usd: 0.0
     recorded_at: '2026-08-01T02:09:09.632401+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 26
+    output_tokens: 5207
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T02:16:32.703251+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -678,5 +684,15 @@ Safe evidence:
 - supervisor_integration: Resolver present in base_children/0 in application.ex after Inventory
 - registry_changes: candidate_addresses field and put_candidates/3 added to Registry
 - test_evidence_from_commit: 133 tests pass (10 excluded), fmt-check and warnings-as-errors clean
+---
+author: oompah
+created: 2026-08-01 02:16
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 48, Tool calls: 31
+- Tokens: 26 in / 5.2K out [5.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 5m 22s
+- Log: EXOCOMP-88__20260801T021113Z.jsonl
 ---
 <!-- COMMENTS:END -->
