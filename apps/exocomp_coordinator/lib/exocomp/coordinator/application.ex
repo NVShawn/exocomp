@@ -57,6 +57,12 @@ defmodule Exocomp.Coordinator.Application do
   defp base_children do
     [
       {Audit, Application.get_env(:exocomp_coordinator, :audit, [])},
+      {Exocomp.Coordinator.EventOutbox,
+       [
+         path: Application.get_env(:exocomp_coordinator, :event_outbox_path),
+         cluster_id: Application.get_env(:exocomp_coordinator, :cluster_id)
+       ]
+       |> Keyword.merge(Application.get_env(:exocomp_coordinator, :event_outbox, []))},
       {Exocomp.Coordinator.Registry, Application.get_env(:exocomp_coordinator, :registry, [])},
       {Exocomp.Coordinator.Inventory,
        inventory_path: Application.get_env(:exocomp_coordinator, :inventory_path)},
