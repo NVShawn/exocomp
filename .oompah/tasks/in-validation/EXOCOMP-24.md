@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-24
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Verify approvals and prevent replay on nodes
 parent: EXOCOMP-3
@@ -18,7 +18,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:10:10.424356Z'
-updated_at: '2026-07-25T02:18:04.275848Z'
+updated_at: '2026-08-01T02:59:56.920893Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 17316
     cost_usd: 0.0
     recorded_at: '2026-07-24T03:14:51.663123+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-13514017a07f
+    project_id: proj-c260b117
+    task_id: EXOCOMP-24
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d541ee05032047d1de04001036aa18dbfd121f3ec32512483833b636b251b4a7
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-01T02:59:54.766560+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -216,5 +238,10 @@ author: oompah
 created: 2026-07-24 03:14
 ---
 Focus handoff from `epic_planner` is complete. Queued a fresh agent run for the next applicable focus. The next agent should begin with the preceding Focus handoff comment.
+---
+author: oompah
+created: 2026-08-01 02:59
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
