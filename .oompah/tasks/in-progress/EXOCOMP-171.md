@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-01T13:07:27.055662Z'
+updated_at: '2026-08-01T13:21:24.440719Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -135,5 +135,31 @@ author: oompah
 created: 2026-08-01 13:07
 ---
 Understanding: This task requires adding immutable, organization-scoped audit-event storage for Mission Control. Deliverables: (1) Audit event model storing actor/cluster identity, timestamp, event type, target, outcome, correlation IDs; (2) One redaction module for sensitive data before serialization; (3) Tests covering actor types, correlation, ordering, rollback, cross-org access, redaction, and prevention of update/delete. Plan reference: plans/mission-control.md 'Persistence and Retention' section. Approach: (1) Review existing audit patterns in coordinator; (2) Create Mission Control audit event schema and redaction module; (3) Add comprehensive tests; (4) Run quality gates.
+---
+author: oompah
+created: 2026-08-01 13:21
+---
+Discovery & Implementation: Created exocomp_mission_control app with:
+
+1. AuditEvent module (lib/exocomp/mission_control/audit_event.ex):
+   - Immutable audit event struct with fields: event_id, organization_id, cluster_id, actor_type, actor_sub, actor_display_name, event_type, target, outcome, outcome_details, correlation_id, occurred_at, inserted_at
+   - Supports three actor types: :operator (human), :system (automatic), :cluster (cluster-initiated)
+   - Generates unique event_id (evt_*) and correlation_id (corr_*) using url-safe base64
+   - Enforces actor_type invariants (e.g., actor_sub only for operators)
+   - Provides to_map/1 for JSON serialization
+   - Organization-scoped immutability by design
+
+2. Redaction module (lib/exocomp/mission_control/redaction.ex):
+   - Redacts sensitive fields: api_key, authorization, cookie, credential, credentials, password, passwd, private_key, secret, token
+   - Supports exact and suffix matches (e.g., db_password, webhook_secret)
+   - Case-insensitive with hyphen/underscore normalization
+   - Recursive redaction for nested maps and lists
+   - Used before audit and webhook serialization
+
+3. Comprehensive test coverage (79 passing tests):
+   - 53 AuditEvent tests: creation, validation, actor types, correlation, organization scoping, JSON serialization
+   - 26 Redaction tests: exact/suffix matches, case insensitivity, nested structures, real-world audit scenarios
+
+Quality gates: make test ✓ (79/79), make fmt-check ✓, make lint ✓
 ---
 <!-- COMMENTS:END -->
