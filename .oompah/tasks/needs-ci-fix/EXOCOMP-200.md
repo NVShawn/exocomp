@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-200
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Reduce Ceph evidence into cluster and daemon health
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:25.539449Z'
-updated_at: '2026-08-01T21:56:51.533898Z'
+updated_at: '2026-08-01T22:16:52.944137Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-200
 target_branch: null
 review_url: null
@@ -93,6 +93,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T21:55:10.947068+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-527f89c35566: '2026-08-01T22:16:49.365453+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    target_state: Done
+    evidence_fingerprint: 3e84d277b099b216ba3029384b64e11e7134be95c11f32935985041de3738ce3
+    audit_ids:
+    - audit-e66a365b8da2
+    kind: result
+    applied: true
+    retired_at: '2026-08-01T22:16:49.365461+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-200
+    audit_id: audit-e66a365b8da2
+    attempt_id: attempt-527f89c35566
+    target_state: Done
+    evidence_fingerprint: 3e84d277b099b216ba3029384b64e11e7134be95c11f32935985041de3738ce3
+    status: Needs CI Fix
+    audit_ids:
+    - audit-e66a365b8da2
+    applied: true
+    created_at: '2026-08-01T22:16:49.365472+00:00'
+    applied_at: '2026-08-01T22:16:52.169992+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -100,7 +125,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-200
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -109,7 +134,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-527f89c35566
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -119,13 +144,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-01T21:56:47.941466+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-200
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-01T22:16:49.365323+00:00'
+      ended_at: '2026-08-01T22:16:49.365323+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-01T21:56:32.422175+00:00'
-    updated_at: '2026-08-01T21:56:47.941466+00:00'
+    updated_at: '2026-08-01T22:16:49.365323+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-527f89c35566
@@ -249,5 +278,22 @@ author: oompah
 created: 2026-08-01 21:56
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-01 22:16
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Questions:
+- Was the reducer intended to expose reduce/3 for a legacy call shape, or should the tests always pass profile_coverage?
+
+Instructions:
+- Add a reduce/3 clause (or lower the required arity) OR update all 3-argument test call sites to include the profile_coverage argument that matches the reducer signature.
+- Remove or use the unused aliases Ceph and CephTopology at lib/exocomp/cluster_profile/ceph_health_reducer.ex:38–39.
+- Prefix the unused profile_coverage parameter in determine_daemon_severity_and_reasons/4 with an underscore or actually consult it.
+- Delete or rework the unreachable :error clause in check_staleness/2 (line 357) since DateTime.from_iso8601 never returns bare :error.
+- Re-run make test in an environment that can capture the summary and confirm 0 failures before requesting a Done audit again.
 ---
 <!-- COMMENTS:END -->
