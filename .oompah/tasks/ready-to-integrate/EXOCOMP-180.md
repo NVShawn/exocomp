@@ -18,7 +18,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:18:37.798315Z'
-updated_at: '2026-08-01T13:55:30.606868Z'
+updated_at: '2026-08-01T13:55:55.078011Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-180
 target_branch: null
 review_url: null
@@ -61,13 +61,17 @@ oompah.integration:
   submitted_at: '2026-08-01T13:55:28.552639+00:00'
   updated_at: '2026-08-01T13:55:28.552639+00:00'
 oompah.task_costs:
-  total_input_tokens: 536646
-  total_output_tokens: 3962
+  total_input_tokens: 536814
+  total_output_tokens: 66233
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 536646
       output_tokens: 3962
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 168
+      output_tokens: 62271
       cost_usd: 0.0
   runs:
   - profile: default
@@ -82,6 +86,12 @@ oompah.task_costs:
     output_tokens: 135
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:18:08.273599+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 168
+    output_tokens: 62271
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T13:55:53.632527+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-180__20260801T131355Z
@@ -239,5 +249,15 @@ author: oompah
 created: 2026-08-01 13:55
 ---
 Delivered a deterministic, noninteractive, in-process integration harness with 10 test scenarios covering: disconnect/reconnect, durable event replay, command replay, duplicate delivery, sequence gap, certificate revocation, connection-owner replica termination, and WebSocket affinity independence. Harness uses real module boundaries (EventOutbox, CommandProcessor, ClusterEventIngestor, SessionRegistry, SessionLiveness, Connection) with a TestCommandStore Agent standing in for PostgreSQL. make test-integration-mc target runs in CI containers. Also fixed 4 bugs found during harness development: ClusterEvent string-key validation, Connection pipe-arg reversal, CommandOutbox dead-code clause, and a wrong cursor assertion in ClusterEventIngestorTest. Compliance: added license inventory for 5 new Ecto/PG transitive deps. All quality gates (fmt-check, lint, test-integration-mc) pass.
+---
+author: oompah
+created: 2026-08-01 13:55
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 198
+- Tokens: 168 in / 62.3K out [62.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 36m 12s
+- Log: EXOCOMP-180__20260801T131947Z.jsonl
 ---
 <!-- COMMENTS:END -->
