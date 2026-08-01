@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-136
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 2
 title: Scaffold the Mission Control Phoenix application
 parent: EXOCOMP-128
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T14:57:48.805268Z'
+updated_at: '2026-08-01T14:59:04.456185Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -60,12 +60,15 @@ oompah.agent_run_id: 69a330c7-605a-4086-bbf7-a8ae82f1cd11
 oompah.work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-128--task-EXOCOMP-136
+  base_branch: epic-EXOCOMP-128
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 3a3d6e6171127328361ee88715d55af03d238a15
+  integrated_sha: 3a3d6e6171127328361ee88715d55af03d238a15
   submitted_at: '2026-08-01T14:57:46.426001+00:00'
-  updated_at: '2026-08-01T14:57:46.426001+00:00'
+  updated_at: '2026-08-01T14:59:00.352029+00:00'
 oompah.task_costs:
   total_input_tokens: 180
   total_output_tokens: 6230
@@ -106,6 +109,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-128--task-EXOCOMP-136
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:41:07.398843+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-924732ce09f9
+    project_id: proj-c260b117
+    task_id: EXOCOMP-136
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 18cc36cf7c735da2bab8cf2478ead7ae1ef5fa3e637939603415d4170ae67a5a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-01T14:59:01.940079+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -211,5 +236,10 @@ author: oompah
 created: 2026-08-01 14:57
 ---
 Scaffolded and pushed the independent Mission Control Phoenix LiveView application with health endpoint, static pipeline, supervision tests, and mission_control OTP release.
+---
+author: oompah
+created: 2026-08-01 14:59
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->

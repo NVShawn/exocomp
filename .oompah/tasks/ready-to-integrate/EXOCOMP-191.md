@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:37:01.048654Z'
-updated_at: '2026-08-01T14:57:53.227015Z'
+updated_at: '2026-08-01T14:59:06.250009Z'
 work_branch: epic-EXOCOMP-185--task-EXOCOMP-191
 target_branch: null
 review_url: null
@@ -56,13 +56,17 @@ oompah.integration:
   submitted_at: '2026-08-01T14:57:51.470556+00:00'
   updated_at: '2026-08-01T14:57:51.470556+00:00'
 oompah.task_costs:
-  total_input_tokens: 563690
-  total_output_tokens: 3190
+  total_input_tokens: 563693
+  total_output_tokens: 3352
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 563690
       output_tokens: 3190
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 3
+      output_tokens: 162
       cost_usd: 0.0
   runs:
   - profile: default
@@ -77,6 +81,12 @@ oompah.task_costs:
     output_tokens: 252
     cost_usd: 0.0
     recorded_at: '2026-08-01T14:20:28.416278+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 3
+    output_tokens: 162
+    cost_usd: 0.0
+    recorded_at: '2026-08-01T14:59:04.670736+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-191__20260801T135300Z
@@ -212,5 +222,15 @@ author: oompah
 created: 2026-08-01 14:57
 ---
 Implemented exocomp.service.observe bounded read-only service observation skill. Resolved rebase conflict with EXOCOMP-190 dispatcher changes. Fixed two bugs: double-wrapped Task.yield results in collect_and_build, and Elixir div/2 function call syntax. All 919 exocomp_node and 537 exocomp_coordinator tests pass.
+---
+author: oompah
+created: 2026-08-01 14:59
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 100, Tool calls: 67
+- Tokens: 3 in / 162 out [165 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 37m 46s
+- Log: EXOCOMP-191__20260801T142126Z.jsonl
 ---
 <!-- COMMENTS:END -->
