@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-07-26T04:00:53.590540Z'
+updated_at: '2026-08-02T04:02:33.529853Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -48,6 +48,28 @@ oompah.task_costs:
     output_tokens: 1920
     cost_usd: 0.0
     recorded_at: '2026-07-26T00:45:03.861151+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-de094d81c4a3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-47
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 48cdddc5bf2aaf3cf6532d7ae2fa8c14690250b34db6803daec5905f16a6bf89
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-02T04:02:30.645996+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -249,5 +271,10 @@ author: oompah
 created: 2026-07-26 03:59
 ---
 Qualification is complete, with a publication-blocking result rather than a human-input blocker. Signed amd64 and full-system arm64 evidence for v0.1.0-rc.2 was merged to main by PR #17 as 01c14b8. The accepted qualification principal is shedwards@nvidia.com with ED25519 fingerprint SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw. Passing evidence covers deterministic OTP archives, clean-container startup, hardening, and protected-state uninstall. Concrete failures are now tracked under remediation epic EXOCOMP-117 as EXOCOMP-118 through EXOCOMP-122; EXOCOMP-123 is dependency-blocked until those fixes land, then will run a fresh signed candidate matrix. This closes the evidence-gathering task only; v0.1.0-rc.2 remains not publication-ready.
+---
+author: oompah
+created: 2026-08-02 04:02
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
