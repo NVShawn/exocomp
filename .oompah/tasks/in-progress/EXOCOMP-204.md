@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:32:53.162590Z'
+updated_at: '2026-08-02T02:51:21.674240Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -601,5 +601,20 @@ author: oompah
 created: 2026-08-02 02:32
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-02 02:51
+---
+Discovery: Found three bugs causing all test failures:
+
+1. **CephCooldown.safe_call** (PRIMARY): The helper returns the raw function result instead of wrapping it in {:ok, ...}. All callers expect {:ok, {:ok, events}}, {:ok, :ok}, etc. but get {:ok, events} or :ok directly. This causes cooldown_status to always hit the {:ok, other} -> {:error, {:invalid_audit_reader_result, other}} case, and record_cooldown to fail. The fail-closed policy then treats EVERY decide call as 'in cooldown'. Confirmed with a minimal REPL test: cooldown_status returns {:error, {:invalid_audit_reader_result, []}} when it should return {:ok, false}.
+
+2. **RemediationLifecycle.safe_call** (SECONDARY): Same bug in safe_audit_events. When durable_audit? is true, safe_audit_events always returns {:error, {:invalid_audit_reader_result, events}} causing reconcile_execution to always fail.
+
+3. **check_active_cooldown node_id not checked**: The node_id parameter is accepted but never used; cooldowns are not node-specific. Elixir 1.20 warns 'variable node_id is unused'.
+
+4. **Dead code branch in apply_decision**: {:ok, state} branch for reconcile_execution result is unreachable (reconcile_execution never returns this); causes Elixir 1.20 type warning.
+
+Fix: wrap safe_call return in {:ok, ...} in both modules; add node_id filter in check_active_cooldown; remove dead branch.
 ---
 <!-- COMMENTS:END -->
