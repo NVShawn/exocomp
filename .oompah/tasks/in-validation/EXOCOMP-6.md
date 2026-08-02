@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-6
 type: epic
-status: Merged
+status: In Validation
 priority: 1
 title: 'M6: Packaging, documentation, and open-source release'
 parent: null
@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-07-26T04:39:24.437911Z'
+updated_at: '2026-08-02T04:59:22.056825Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -29,6 +29,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/6
 oompah.review_number: '6'
 oompah.work_branch: epic-EXOCOMP-6
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-03a8072f482f
+    project_id: proj-c260b117
+    task_id: EXOCOMP-6
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 4da355f41d606c5c4577b8fd193ee6bbcc31c2b5844bb62da06466a05d77c740
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-02T04:59:19.429993+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -61,5 +83,10 @@ author: oompah
 created: 2026-07-23 23:20
 ---
 YOLO: merged PR #6.
+---
+author: oompah
+created: 2026-08-02 04:59
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
