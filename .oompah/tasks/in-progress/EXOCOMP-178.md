@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T03:54:58.996288Z'
+updated_at: '2026-08-02T03:55:18.585650Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -53,7 +53,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 9872768d-a577-4473-ab43-afe0f462aca0
+oompah.agent_run_id: cf8b27c5-1333-4681-9e57-38f4826dd053
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 oompah.integration:
   version: 2
@@ -62,7 +62,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-178
   base_branch: epic-EXOCOMP-135
   base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
-  updated_at: '2026-08-02T03:44:57.560259+00:00'
+  updated_at: '2026-08-02T03:55:16.468451+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 394
@@ -169,5 +169,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 10m 4s
 - Log: EXOCOMP-178__20260802T034500Z.jsonl
+---
+author: oompah
+created: 2026-08-02 03:55
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-02 03:55
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
