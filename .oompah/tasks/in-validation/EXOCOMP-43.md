@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: Merged
+status: In Validation
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-07-26T04:15:59.082821Z'
+updated_at: '2026-08-02T04:30:47.693302Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -73,6 +73,28 @@ oompah.task_costs:
     output_tokens: 3203
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:30:56.455225+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-7e02ae98e3e7
+    project_id: proj-c260b117
+    task_id: EXOCOMP-43
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5e91657d4277344dbb57e181f52b18c63b1a21b21ee56df6ab4cdfbc3c9173b8
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-02T04:30:44.962005+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -488,5 +510,10 @@ author: oompah
 created: 2026-07-26 04:13
 ---
 Resolved without human input. The hardened installer delivery is present on main through the merged M6 and recovery work, and its original focused installer tests passed. PR #17 merely reused the shared epic branch for EXOCOMP-47 evidence and falsely reopened this sibling. The clean-host runtime and payload defects found later are distinct regression work tracked by EXOCOMP-118.
+---
+author: oompah
+created: 2026-08-02 04:30
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
