@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-205
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Document desired-state modes and Ceph profile operations
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-08-02T03:39:41.607660Z'
+updated_at: '2026-08-02T03:39:50.269230Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 target_branch: null
 review_url: null
@@ -52,12 +52,12 @@ oompah.agent_run_id: 7781a56d-65f5-401c-9386-a7fdf225830d
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-205
-  base_branch: epic-EXOCOMP-186
-  base_sha: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
-  updated_at: '2026-08-02T03:33:44.509896+00:00'
+  head_sha: e00a1966987b5ee637696fc5d54080afcb11d9c4
+  submitted_at: '2026-08-02T03:39:48.270937+00:00'
+  updated_at: '2026-08-02T03:39:48.270937+00:00'
 oompah.task_costs:
   total_input_tokens: 471380
   total_output_tokens: 9121
@@ -159,5 +159,10 @@ author: oompah
 created: 2026-08-02 03:39
 ---
 Verification: Documentation tests pass successfully. Ran: (1) make check-links - PASS, (2) test_operator_docs.py - all 7 tests PASS including shell command parsing, documented flags, required topics, bundle layout, PKI ceremony, qualification guidance, and index linking. Documentation provides complete coverage of manual service lists, automatic monitoring, Ceph profile activation, credential bootstrap, coverage errors, and safe restart behavior with troubleshooting guides.
+---
+author: oompah
+created: 2026-08-02 03:39
+---
+Comprehensive user-facing documentation for desired-state modes and Ceph profile operations complete. Covers manual service lists, automatic enabled-service monitoring, Ceph profile activation and credential bootstrap with least-privilege cephx capabilities, coverage error troubleshooting, and safe restart behavior with policy enforcement. All documentation tests pass including link validation and shell command parsing. Added v1-to-v2 migration guide with configuration examples.
 ---
 <!-- COMMENTS:END -->
