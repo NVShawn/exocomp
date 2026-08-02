@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:00:31.244511Z'
+updated_at: '2026-08-02T00:00:46.739347Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -129,13 +129,13 @@ oompah.integration:
   submitted_at: '2026-08-02T00:00:26.668035+00:00'
   updated_at: '2026-08-02T00:00:26.668035+00:00'
 oompah.task_costs:
-  total_input_tokens: 969
-  total_output_tokens: 54450
+  total_input_tokens: 2363
+  total_output_tokens: 54814
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 916
-      output_tokens: 37910
+      input_tokens: 2310
+      output_tokens: 38274
       cost_usd: 0.0
     unknown:
       input_tokens: 53
@@ -160,6 +160,12 @@ oompah.task_costs:
     output_tokens: 16540
     cost_usd: 0.0
     recorded_at: '2026-08-01T23:32:28.709494+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 1394
+    output_tokens: 364
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T00:00:45.008126+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-203__20260801T141919Z
@@ -627,5 +633,15 @@ author: oompah
 created: 2026-08-02 00:00
 ---
 Connected failed Ceph daemons to safe recovery flow with real evidence collection, profile validation, helper invocation, and verification. All auditor requirements met with comprehensive test coverage (587 tests passing).
+---
+author: oompah
+created: 2026-08-02 00:00
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 83
+- Tokens: 1.4K in / 364 out [1.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 28m 3s
+- Log: EXOCOMP-203__20260801T233249Z.jsonl
 ---
 <!-- COMMENTS:END -->
