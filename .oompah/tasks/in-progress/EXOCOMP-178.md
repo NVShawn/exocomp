@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T03:49:03.969504Z'
+updated_at: '2026-08-02T03:54:58.996288Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -159,5 +159,15 @@ author: oompah
 created: 2026-08-02 03:49
 ---
 Discovery: the synced parent provides the Mission Control OCI contract (, , ), read-only UID 10001:10001 runtime, state/log mounts, digest-pinned PostgreSQL image test, and , , ,  interfaces. The roadmap defines OIDC/PKI/enrollment, retention, webhook, and cluster authority contracts; EXOCOMP-205 adds the required inventory-v2, three monitoring paths, Ceph bootstrap, coverage troubleshooting, safe-restart, and monitoring-versus-recovery guidance. I will document these as source-tree-independent operator procedures and make the command tests cover the new pages.
+---
+author: oompah
+created: 2026-08-02 03:54
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 65
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 4s
+- Log: EXOCOMP-178__20260802T034500Z.jsonl
 ---
 <!-- COMMENTS:END -->
