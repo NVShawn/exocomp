@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T04:12:50.698522Z'
+updated_at: '2026-08-02T04:13:12.551043Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -53,7 +53,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: cf8b27c5-1333-4681-9e57-38f4826dd053
+oompah.agent_run_id: d71347eb-48a7-4070-a518-4e0be51211c0
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 oompah.integration:
   version: 2
@@ -62,7 +62,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-178
   base_branch: epic-EXOCOMP-135
   base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
-  updated_at: '2026-08-02T03:55:16.468451+00:00'
+  updated_at: '2026-08-02T04:13:10.399774+00:00'
 oompah.task_costs:
   total_input_tokens: 9624132
   total_output_tokens: 49235
@@ -217,5 +217,15 @@ author: oompah
 created: 2026-08-02 04:12
 ---
 Agent completed without closing this issue (1054s (9672963 tokens)). Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-08-02 04:13
+---
+Agent dispatched (profile: deep)
+---
+author: oompah
+created: 2026-08-02 04:13
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
