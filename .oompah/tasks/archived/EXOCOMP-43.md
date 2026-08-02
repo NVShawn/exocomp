@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-43
 type: feature
-status: In Validation
+status: Archived
 priority: 2
 title: Implement hardened installers and uninstallers
 parent: EXOCOMP-6
@@ -13,7 +13,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:02.637514Z'
-updated_at: '2026-08-02T04:36:19.962719Z'
+updated_at: '2026-08-02T04:38:19.539779Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -75,6 +75,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T23:30:56.455225+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6dbc0adbb629: '2026-08-02T04:38:17.012592+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-43
+    target_state: Archived
+    evidence_fingerprint: 5e91657d4277344dbb57e181f52b18c63b1a21b21ee56df6ab4cdfbc3c9173b8
+    audit_ids:
+    - audit-7e02ae98e3e7
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T04:38:17.012608+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-43
+    audit_id: audit-7e02ae98e3e7
+    attempt_id: attempt-6dbc0adbb629
+    target_state: Archived
+    evidence_fingerprint: 5e91657d4277344dbb57e181f52b18c63b1a21b21ee56df6ab4cdfbc3c9173b8
+    status: Archived
+    audit_ids:
+    - audit-7e02ae98e3e7
+    applied: false
+    created_at: '2026-08-02T04:38:17.012628+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -82,7 +106,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-43
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -91,7 +115,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6dbc0adbb629
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -101,13 +125,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T04:36:14.995822+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-02T04:38:17.012389+00:00'
+      ended_at: '2026-08-02T04:38:17.012389+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:30:44.962005+00:00'
-    updated_at: '2026-08-02T04:36:14.995822+00:00'
+    updated_at: '2026-08-02T04:38:17.012389+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6dbc0adbb629
@@ -552,5 +579,22 @@ author: oompah
 created: 2026-08-02 04:36
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 04:38
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- delivery_commit_on_main: 6af8ec93 present on main (git branch --contains)
+- merge_commit: 3949c53b (PR #6, epic-EXOCOMP-6 → main)
+- installer_files_present: scripts/install.sh, scripts/uninstall.sh
+- systemd_units_present: release/node/exocomp-node.service, release/coordinator/exocomp-coordinator.service
+- config_templates_present: release/templates/node.json, release/templates/coordinator.json
+- test_file_present: test/installer/test_installer.py
+- age_since_merge_days: 10 (merged 2026-07-23, audited 2026-08-02)
+- reopening_reconciled: PR #17 false trigger tracked; regressions handled by EXOCOMP-118
 ---
 <!-- COMMENTS:END -->
