@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:58:42.901410Z'
+updated_at: '2026-08-02T01:59:39.183402Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -394,5 +394,10 @@ author: oompah
 created: 2026-08-02 01:58
 ---
 Discovery: CephCooldown defaults were no-op reader/writer functions, and Audit had no query capability despite JSON-lines being durable. RemediationLifecycle kept execution state only in memory and lacked unfinished-intent reconciliation. The fix uses Coordinator.Audit events/JSON-lines reload, carries audit server and correlation into Ceph actions, adds fail-closed cooldown checks, explicit completed/failed evidence, and durable reconciliation before execution.
+---
+author: oompah
+created: 2026-08-02 01:59
+---
+Implementation: Added Audit.events/1 with JSON-lines read/reload support, durable Ceph cooldown enter/clear events, fail-closed cooldown policy, lifecycle action correlation and audit-server propagation, stability-window polling, explicit completed/failed audit events, and unfinished-intent reconciliation that refuses repeat execution. Added focused tests for reload/expiry, flapping, systemd+Ceph polling, identity changes, audit write failures, real lifecycle cooldown denial, and restart reconciliation.
 ---
 <!-- COMMENTS:END -->
