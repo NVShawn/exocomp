@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-47
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Qualify the M6 open-source release on clean hosts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:06.325063Z'
-updated_at: '2026-08-02T04:08:43.529526Z'
+updated_at: '2026-08-02T04:10:38.450283Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -50,6 +50,30 @@ oompah.task_costs:
     recorded_at: '2026-07-26T00:45:03.861151+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-cebd0171f0ca: '2026-08-02T04:10:36.366131+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-47
+    target_state: Archived
+    evidence_fingerprint: 48cdddc5bf2aaf3cf6532d7ae2fa8c14690250b34db6803daec5905f16a6bf89
+    audit_ids:
+    - audit-de094d81c4a3
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T04:10:36.366143+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-47
+    audit_id: audit-de094d81c4a3
+    attempt_id: attempt-cebd0171f0ca
+    target_state: Archived
+    evidence_fingerprint: 48cdddc5bf2aaf3cf6532d7ae2fa8c14690250b34db6803daec5905f16a6bf89
+    status: Archived
+    audit_ids:
+    - audit-de094d81c4a3
+    applied: false
+    created_at: '2026-08-02T04:10:36.366160+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -57,7 +81,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-47
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +90,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-cebd0171f0ca
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,13 +100,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T04:08:37.994599+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-02T04:10:36.365954+00:00'
+      ended_at: '2026-08-02T04:10:36.365954+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:02:30.645996+00:00'
-    updated_at: '2026-08-02T04:08:37.994599+00:00'
+    updated_at: '2026-08-02T04:10:36.365954+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-cebd0171f0ca
@@ -313,5 +340,23 @@ author: oompah
 created: 2026-08-02 04:08
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 04:10
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- evidence_commit: 09181799c298b1c871d5dc46fa064fd239af1534
+- merge_commit: 01c14b89 (PR #17 from epic-EXOCOMP-6)
+- evidence_path_on_main: docs/release-evidence/v0.1.0-rc.2/
+- candidate_tag_head: 581128d6680ec921b140d97d5018139582a5dd66
+- candidate_signer: shedwards@nvidia.com (ED25519 SHA256:0bWhwCA3OnB/mfvIjgfx1Gvyu7Gaki2rrWNf1BUD5Zw)
+- qualification_result: FAIL/publication-blocked (per README.md); evidence-gathering task itself is complete
+- remediation_followups: EXOCOMP-117 epic; EXOCOMP-118..122 children; EXOCOMP-123 re-qualification (rc.3..rc.23 commits observed)
+- prior_state: Merged
+- days_since_close: >=7 (aged auto-archive queued 2026-08-02, closed 2026-07-26)
 ---
 <!-- COMMENTS:END -->
