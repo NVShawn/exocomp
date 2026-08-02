@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:05:30.090696Z'
+updated_at: '2026-08-02T02:22:37.676185Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -111,6 +111,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-00939df4abfb: '2026-08-02T01:34:48.085508+00:00'
+    attempt-d2aec34b10e0: '2026-08-02T02:22:34.494689+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-204
@@ -121,6 +122,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-02T01:34:48.085519+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    target_state: Done
+    evidence_fingerprint: 978a541baeebe950a42023b91863894824415cec2f40a607acbb80dbb90a42d7
+    audit_ids:
+    - audit-f989696b4330
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T02:22:34.494708+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-204
@@ -134,6 +144,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-02T01:34:48.085534+00:00'
     applied_at: '2026-08-02T01:34:50.938481+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    audit_id: audit-f989696b4330
+    attempt_id: attempt-d2aec34b10e0
+    target_state: Done
+    evidence_fingerprint: 978a541baeebe950a42023b91863894824415cec2f40a607acbb80dbb90a42d7
+    status: Needs CI Fix
+    audit_ids:
+    - audit-f989696b4330
+    applied: true
+    created_at: '2026-08-02T02:22:34.494727+00:00'
+    applied_at: '2026-08-02T02:22:36.899509+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -176,7 +198,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-204
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -185,7 +207,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d2aec34b10e0
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -195,13 +217,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T02:05:18.089159+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-204
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-02T02:22:34.494398+00:00'
+      ended_at: '2026-08-02T02:22:34.494398+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-02T02:05:12.161949+00:00'
-    updated_at: '2026-08-02T02:05:18.089159+00:00'
+    updated_at: '2026-08-02T02:22:34.494398+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-00939df4abfb
@@ -500,5 +526,22 @@ author: oompah
 created: 2026-08-02 02:05
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 02:22
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Questions:
+- Which specific ExUnit failures are recorded when make test runs to completion in your environment, and are they present at 69ffa374 or introduced by an environmental interaction with the pinned container?
+
+Instructions:
+- Rerun make test in the pinned Elixir container until it succeeds end to end (mix test, both mix release invocations, and smoke-releases.sh test) and post the ExUnit and release summaries in the task before requesting another terminal audit.
+- Investigate why apps/exocomp_coordinator/test/exocomp/coordinator/remediation_adapter/ceph_cooldown_test.exs and ceph_daemon_restart_test.exs are listed in _build/test/lib/bench/.mix/.mix_test_failures under make test — inspect each failing case (e.g., mix test --failed apps/exocomp_coordinator/test/...) and fix the regressions before resubmitting.
+- Verify that fresh_evidence/1 pre-execution data used in verify carries a topology identity or that the adapter tolerates its absence in the way the tests expect, and that the stability-window polling (window_ms/poll_interval_ms) plays well with the test-env config (:ceph_stability_window_ms 0, :ceph_stability_poll_interval_ms 1) plus the per-test overrides in ceph_daemon_restart_test.exs.
+- Confirm the durable Audit.events reader path returns the exact shape CephCooldown.default_audit_reader expects (attributes with daemon_id/expires_at) after JSONLines reload, and that the RemediationLifecycle reconcile_execution intent match works when action fields are re-serialized as strings by json_safe.
+- After a clean make test, capture and paste the ExUnit summary line (Finished in X seconds, N tests, 0 failures) into the task so the auditor can rely on the ExUnit result rather than inferring from _build side effects.
 ---
 <!-- COMMENTS:END -->
