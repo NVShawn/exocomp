@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T05:11:33.927932Z'
+updated_at: '2026-08-02T05:11:47.907838Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -102,13 +102,32 @@ oompah.terminal_audit:
       version: 1
       algorithm: sha256
       digest: b05cc655e5fcd63c10affb9f1d80b91268486819509f0631ef3d402d449ab3d4
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-9cc742341961
+      target_state: Done
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: b05cc655e5fcd63c10affb9f1d80b91268486819509f0631ef3d402d449ab3d4
+      created_at: '2026-08-02T05:11:40.825777+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-02T05:11:40.825777+00:00'
+      branch_key: epic-EXOCOMP-6
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-02T05:11:45.880536+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-6 (tried: origin/epic-EXOCOMP-6, origin/EXOCOMP-6)'
+      next_retry_at: '2026-08-02T05:11:55.880506+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-02T04:59:37.597467+00:00'
+    updated_at: '2026-08-02T05:11:45.880536+00:00'
   - version: 1
     audit_id: audit-659620b2b5f0
     project_id: proj-c260b117
@@ -140,6 +159,24 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-02T05:09:53.582945+00:00'
     branch_key: epic-EXOCOMP-6
+  - version: 1
+    attempt_id: attempt-9cc742341961
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b05cc655e5fcd63c10affb9f1d80b91268486819509f0631ef3d402d449ab3d4
+    created_at: '2026-08-02T05:11:40.825777+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-02T05:11:40.825777+00:00'
+    branch_key: epic-EXOCOMP-6
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-02T05:11:45.880536+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-6 (tried: origin/epic-EXOCOMP-6, origin/EXOCOMP-6)'
+    next_retry_at: '2026-08-02T05:11:55.880506+00:00'
 oompah.task_costs:
   total_input_tokens: 21
   total_output_tokens: 3215
@@ -228,5 +265,24 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 38s
 - Log: EXOCOMP-6__20260802T050958Z.jsonl
+---
+author: oompah
+created: 2026-08-02 05:11
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-02 05:11
+---
+Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 3s
+---
+author: oompah
+created: 2026-08-02 05:11
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-6 (tried: origin/epic-EXOCOMP-6, origin/EXOCOMP-6). A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
