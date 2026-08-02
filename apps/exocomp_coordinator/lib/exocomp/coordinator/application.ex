@@ -70,11 +70,24 @@ defmodule Exocomp.Coordinator.Application do
       {Exocomp.Coordinator.Orchestrator,
        Application.get_env(:exocomp_coordinator, :orchestrator, [])},
       Exocomp.Coordinator.TaskRegistry,
-      {Exocomp.Coordinator.CommandProcessor,
-       Application.get_env(:exocomp_coordinator, :command_processor, [])},
+      {Exocomp.Coordinator.CommandProcessor, command_processor_opts()},
       {Exocomp.Coordinator.RemediationLifecycle,
        Application.get_env(:exocomp_coordinator, :remediation_lifecycle, [])}
     ]
+  end
+
+  defp command_processor_opts do
+    configured = Application.get_env(:exocomp_coordinator, :command_processor, [])
+    configured_handlers = Keyword.get(configured, :handlers, %{})
+
+    handlers =
+      %{
+        "proposal.approve" => Exocomp.Coordinator.RemediationCommandHandler,
+        "proposal.deny" => Exocomp.Coordinator.RemediationCommandHandler
+      }
+      |> Map.merge(Map.new(configured_handlers))
+
+    Keyword.put(configured, :handlers, handlers)
   end
 
   # Loads the online PKI state and returns child specs for PKI.State,
