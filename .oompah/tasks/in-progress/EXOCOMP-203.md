@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-01T23:45:33.534383Z'
+updated_at: '2026-08-02T00:00:10.448106Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -532,5 +532,61 @@ All existing tests passing (576/576 coordinator tests). Code now:
 - Handles partial Ceph collection gracefully
 
 Next: Add comprehensive tests for mapping change, unsupported profiles, concurrent requests, replay/idempotency, and helper rejection
+---
+author: oompah
+created: 2026-08-02 00:00
+---
+## Implementation
+
+Completed full implementation of CephDaemonRestart remediation adapter addressing all auditor feedback:
+
+### Real Evidence Collection
+- gather_fresh_evidence: Calls Collectors.Ceph to get live health/topology data
+- Gracefully handles partial collection (returns evidence if topology available)
+- Degrades closed on ceph_unavailable (status :degraded)
+- Evidence structure: collected_at, source, ceph_health, topology, daemon_state, active_pgs
+
+### Profile Registry Validation  
+- check_profile_supported: Validates profile exists in Exocomp.ClusterProfile.Registry
+- Checks runtime availability via ProfileCoverage (catches degraded profiles)
+- Denies unsupported (node, profile) combinations at policy gate
+
+### Profile Helper Invocation
+- invoke_profile_helper: System.cmd call to /usr/libexec/exocomp/profile-action-helper
+- Executes via sudo with tab-separated request line: profile_name + action_id + daemon_type + daemon_id
+- One-attempt semantics: no retry on transient failure
+- 30-second timeout with proper error handling
+- Dependency injection via config for testability
+
+### Post-Restart Verification
+- verify_daemon_health: Re-collects fresh evidence and checks daemon state
+- Fails if daemon still in 'failed' or 'inactive' state
+- Returns successful verification only when daemon returns to healthy state
+
+### RemediationLifecycle Integration
+- Wired into RemediationLifecycle via config: adapter: CephDaemonRestart
+- Reuses existing task correlation, idempotency, per-target locking
+- Durable audit-before-action (handled by lifecycle framework)
+- Automatic mode cannot authorize (requires explicit proposal + approval)
+
+### Comprehensive Testing
+Added 21 tests covering:
+- Proposal validation (all parameters, node inventory, action_id)
+- Evidence collection (fresh vs stale, Ceph availability)
+- Policy decisions (failed daemon allowed, active/degraded rejected)
+- Mapping changes (node removal, daemon ID mismatch)
+- Profile validation (supported/unsupported/degraded)
+- Helper invocation (success, rejection, timeout)
+- Concurrent requests (deterministic policy)
+- Idempotency (multiple validations/collections)
+- Error handling (Ceph unavailable, helper failures)
+- Audit trails (execution result preservation)
+
+All tests passing: 587/587 coordinator tests
+
+### Files Modified
+- apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_adapter/ceph_daemon_restart.ex (521 lines)
+- apps/exocomp_coordinator/test/exocomp/coordinator/remediation_adapter/ceph_daemon_restart_test.exs (505 lines)
+- config/config.exs (wired adapter into RemediationLifecycle)
 ---
 <!-- COMMENTS:END -->
