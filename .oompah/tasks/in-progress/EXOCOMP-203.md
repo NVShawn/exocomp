@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:13:02.096503Z'
+updated_at: '2026-08-02T00:35:41.613846Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -773,5 +773,10 @@ author: oompah
 created: 2026-08-02 00:13
 ---
 Discovery: the existing Ceph adapter directly forks sudo at the wrong /usr/libexec path, sends a 4-field request, and the global config selects it for every remediation action. The node package installs /opt/exocomp/node/bin/profile-action-helper and its C parser requires exact 5-field bytes. I will move execution behind a typed node A2A profile-action skill/catalog, add a constrained coordinator client, collect node profile evidence, and route adapters by action_id.
+---
+author: oompah
+created: 2026-08-02 00:35
+---
+Implementation: replaced coordinator helper forking with the typed exocomp.profile.action A2A path; added the node-side fixed Ceph action catalog at /opt/exocomp/node/bin/profile-action-helper with exact five-field newline-terminated wire bytes and per-target lock; added fresh typed profile inspection, shipped-profile checks, mapping validation, action-id routing, and lifecycle integration tests including audit-before-action suppression.
 ---
 <!-- COMMENTS:END -->
