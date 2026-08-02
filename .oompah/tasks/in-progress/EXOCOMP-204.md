@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T00:50:36.195693Z'
+updated_at: '2026-08-02T00:52:18.256737Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -129,5 +129,27 @@ author: oompah
 created: 2026-08-02 00:50
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-02 00:52
+---
+UNDERSTANDING: Verifying Ceph daemon recovery requires:
+1. Enhanced post-action verification to collect fresh systemd+Ceph evidence 
+2. Verify daemon running, same topology identity, cluster health not worsened
+3. Implement cooldown logic to prevent flapping on verification failure
+4. Emit correlated completed/failed/verification_failed/cooldown evidence
+5. Support reconciliation across node/coordinator restart
+
+Current state: EXOCOMP-203 has implemented CephDaemonRestart adapter with basic verify() that:
+- Collects fresh evidence after execution ✓
+- Checks daemon is healthy ✓ 
+- Validates topology mapping unchanged ✓
+- Missing: cooldown on verification failure, cluster health regression detection, audit events
+
+Plan: Enhance verify() to:
+1. Add cluster health regression detection in verify function
+2. Implement cooldown state tracking to prevent flapping
+3. Emit properly correlated audit events for all terminal states
+4. Add comprehensive test coverage for all scenarios
 ---
 <!-- COMMENTS:END -->
