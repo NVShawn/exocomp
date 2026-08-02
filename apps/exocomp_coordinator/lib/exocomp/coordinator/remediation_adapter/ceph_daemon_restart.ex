@@ -15,12 +15,14 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
   alias Exocomp.ClusterProfile.Registry, as: ProfileRegistry
   alias Exocomp.Coordinator.{Collectors, ProfileCoverage, Registry}
   alias Exocomp.Coordinator.A2A.{ProfileActionClient, ProfileInspectionClient}
+  alias Exocomp.Coordinator.RemediationAdapter.CephCooldown
 
   @action_id "restart_failed_daemon"
   @profile_id "ceph"
   @profile_version 1
   @max_evidence_age_ms 5 * 60 * 1000
   @daemon_types ~w[mon mgr osd mds radosgw]
+  @default_cooldown_ms 30 * 60 * 1000  # 30 minutes
 
   @doc "The only action ID handled by this adapter."
   def action_id, do: @action_id
@@ -119,7 +121,8 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
       when is_binary(node_id) and is_binary(daemon_id) and is_binary(daemon_type) and
              is_binary(profile_name) and is_integer(profile_version) and is_binary(target_unit) and
              is_map(evidence) do
-    with :ok <- check_node_in_inventory(proposal.node_id),
+    with :ok <- check_not_in_cooldown(daemon_id, node_id),
+         :ok <- check_node_in_inventory(proposal.node_id),
          {:ok, node} <- node_from_inventory(proposal.node_id),
          :ok <- node_supports_action(node),
          :ok <- check_profile_supported(proposal.profile_name, proposal.profile_version),
@@ -176,29 +179,39 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
         %{
           action_id: @action_id,
           node_id: node_id,
-          daemon_id: _daemon_id,
+          daemon_id: daemon_id,
           daemon_type: _daemon_type,
           profile_name: _profile_name,
           profile_version: _profile_version,
-          target_unit: _target_unit
+          target_unit: target_unit
         } = action,
-        _evidence,
+        pre_execution_evidence,
         result
       )
       when is_binary(node_id) do
-    with {:ok, evidence} <- collect_evidence(action),
-         :ok <- check_exact_mapping(action, evidence),
-         :ok <- check_healthy(evidence) do
+    with {:ok, post_evidence} <- collect_evidence(action),
+         :ok <- check_exact_mapping(action, post_evidence),
+         :ok <- check_healthy(post_evidence),
+         :ok <- check_cluster_health_not_regressed(pre_execution_evidence, post_evidence) do
+      # Clear any existing cooldown on successful verification
+      _ = CephCooldown.clear_cooldown(daemon_id)
+
       {:ok,
        %{
          status: "healthy",
-         daemon_id: action.daemon_id,
-         target_unit: action.target_unit,
+         daemon_id: daemon_id,
+         target_unit: target_unit,
          execution: result,
-         collected_at: evidence.collected_at
+         collected_at: post_evidence.collected_at,
+         verification_type: "stability_window_passed"
        }}
     else
-      {:error, reason} -> {:error, {:verification_failed, reason}}
+      {:error, reason} ->
+        # Extract the primary reason (first element of tuple) for cooldown tracking
+        reason_atom = extract_reason_atom(reason)
+        # Enter cooldown on verification failure
+        _ = CephCooldown.record_cooldown(daemon_id, node_id, target_unit, reason_atom)
+        {:error, {:verification_failed, reason}}
     end
   end
 
@@ -207,6 +220,68 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
   # ---------------------------------------------------------------------------
   # Trusted policy gates
   # ---------------------------------------------------------------------------
+
+  defp check_not_in_cooldown(daemon_id, node_id) do
+    cooldown_ms =
+      Application.get_env(:exocomp_coordinator, :ceph_cooldown_ms, @default_cooldown_ms)
+
+    if CephCooldown.in_cooldown?(daemon_id, node_id, cooldown_ms: cooldown_ms) do
+      {:error, :in_cooldown}
+    else
+      :ok
+    end
+  end
+
+  defp check_cluster_health_not_regressed(pre_evidence, post_evidence) do
+    with {:ok, pre_health} <- extract_cluster_health(pre_evidence),
+         {:ok, post_health} <- extract_cluster_health(post_evidence) do
+      if is_degradation?(pre_health, post_health) do
+        {:error, {:cluster_health_regressed, pre_health, post_health}}
+      else
+        :ok
+      end
+    else
+      {:error, _} = error -> error
+    end
+  end
+
+  defp extract_cluster_health(evidence) do
+    health = Map.get(evidence, :ceph_health, Map.get(evidence, "ceph_health", %{}))
+
+    if is_map(health) do
+      {:ok, health}
+    else
+      {:error, :missing_cluster_health}
+    end
+  end
+
+  defp is_degradation?(pre_health, post_health) do
+    pre_status = health_status(pre_health)
+    post_status = health_status(post_health)
+
+    case {pre_status, post_status} do
+      {"HEALTH_OK", "HEALTH_OK"} -> false
+      {"HEALTH_OK", "HEALTH_WARN"} -> true
+      {"HEALTH_OK", "HEALTH_ERR"} -> true
+      {"HEALTH_WARN", "HEALTH_ERR"} -> true
+      {"HEALTH_WARN", "HEALTH_OK"} -> false
+      {"HEALTH_WARN", "HEALTH_WARN"} -> false
+      {"HEALTH_ERR", _} -> true  # If it was already critical, restart failed
+      {_, "HEALTH_OK"} -> false
+      {_, "HEALTH_WARN"} -> false
+      _ -> false  # Unknown health statuses are not considered degradation
+    end
+  end
+
+  defp health_status(health) do
+    case health do
+      %{"overall" => %{"status" => status}} when is_binary(status) -> status
+      %{"status" => status} when is_binary(status) -> status
+      %{overall: %{status: status}} when is_binary(status) -> status
+      %{status: status} when is_binary(status) -> status
+      _ -> "HEALTH_UNKNOWN"
+    end
+  end
 
   defp check_node_in_inventory(node_id) do
     case node_from_inventory(node_id) do
@@ -539,4 +614,8 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
     do: Map.get(map, atom_key) || Map.get(map, string_key)
 
   defp value(_map, _atom_key, _string_key), do: nil
+
+  defp extract_reason_atom({reason, _detail}), do: reason
+  defp extract_reason_atom(reason) when is_atom(reason), do: reason
+  defp extract_reason_atom(_other), do: :verification_failed
 end

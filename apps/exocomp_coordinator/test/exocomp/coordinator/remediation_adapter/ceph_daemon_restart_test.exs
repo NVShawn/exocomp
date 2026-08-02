@@ -633,6 +633,219 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
   end
 
   # ---------------------------------------------------------------------------
+  # Cluster health regression tests
+  # ---------------------------------------------------------------------------
+
+  test "verifies fails when cluster health regresses from OK to WARN" do
+    raw_proposal = valid_proposal()
+    {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
+
+    # Pre-execution: cluster is healthy
+    pre_evidence = fresh_evidence_with_health("failed", "HEALTH_OK")
+
+    {:allow, action} = CephDaemonRestart.decide(proposal, pre_evidence)
+    {:ok, exec_result} = CephDaemonRestart.execute(action, pre_evidence, nil)
+
+    # Mock collector to return degraded health after execution
+    previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
+
+    Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
+      %{
+        schema_version: 1,
+        collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+        status: :ok,
+        health: %{"status" => "HEALTH_WARN", "overall" => %{"status" => "HEALTH_WARN"}},
+        topology: %{
+          "osds" => %{@daemon_id => %{"state" => "up"}},
+          "monitors" => %{},
+          "managers" => %{},
+          "mdss" => %{}
+        },
+        errors: []
+      }
+    end)
+
+    try do
+      case CephDaemonRestart.verify(action, pre_evidence, exec_result) do
+        {:error, {:verification_failed, {:cluster_health_regressed, _, _}}} ->
+          :ok
+
+        result ->
+          flunk("expected verification failure on health regression, got #{inspect(result)}")
+      end
+    after
+      if previous_collector do
+        Application.put_env(:exocomp_coordinator, :ceph_collector, previous_collector)
+      end
+    end
+  end
+
+  test "verifies fails when cluster health regresses from OK to ERR" do
+    raw_proposal = valid_proposal()
+    {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
+
+    pre_evidence = fresh_evidence_with_health("failed", "HEALTH_OK")
+
+    {:allow, action} = CephDaemonRestart.decide(proposal, pre_evidence)
+    {:ok, exec_result} = CephDaemonRestart.execute(action, pre_evidence, nil)
+
+    # Mock collector to return critical health after execution
+    previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
+
+    Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
+      %{
+        schema_version: 1,
+        collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+        status: :ok,
+        health: %{"status" => "HEALTH_ERR", "overall" => %{"status" => "HEALTH_ERR"}},
+        topology: %{
+          "osds" => %{@daemon_id => %{"state" => "up"}},
+          "monitors" => %{},
+          "managers" => %{},
+          "mdss" => %{}
+        },
+        errors: []
+      }
+    end)
+
+    try do
+      case CephDaemonRestart.verify(action, pre_evidence, exec_result) do
+        {:error, {:verification_failed, {:cluster_health_regressed, _, _}}} ->
+          :ok
+
+        result ->
+          flunk("expected verification failure on health regression, got #{inspect(result)}")
+      end
+    after
+      if previous_collector do
+        Application.put_env(:exocomp_coordinator, :ceph_collector, previous_collector)
+      end
+    end
+  end
+
+  test "verifies succeeds when cluster health remains OK" do
+    raw_proposal = valid_proposal()
+    {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
+
+    pre_evidence = fresh_evidence_with_health("failed", "HEALTH_OK")
+
+    {:allow, action} = CephDaemonRestart.decide(proposal, pre_evidence)
+    {:ok, exec_result} = CephDaemonRestart.execute(action, pre_evidence, nil)
+
+    # Mock collector to return same health after execution
+    previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
+
+    Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
+      %{
+        schema_version: 1,
+        collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+        status: :ok,
+        health: %{"status" => "HEALTH_OK", "overall" => %{"status" => "HEALTH_OK"}},
+        topology: %{
+          "osds" => %{@daemon_id => %{"state" => "up"}},
+          "monitors" => %{},
+          "managers" => %{},
+          "mdss" => %{}
+        },
+        errors: []
+      }
+    end)
+
+    try do
+      assert {:ok, verification} = CephDaemonRestart.verify(action, pre_evidence, exec_result)
+
+      assert verification.status == "healthy"
+      assert verification.verification_type == "stability_window_passed"
+    after
+      if previous_collector do
+        Application.put_env(:exocomp_coordinator, :ceph_collector, previous_collector)
+      end
+    end
+  end
+
+  test "verifies succeeds when cluster health improves from WARN to OK" do
+    raw_proposal = valid_proposal()
+    {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
+
+    pre_evidence = fresh_evidence_with_health("failed", "HEALTH_WARN")
+
+    {:allow, action} = CephDaemonRestart.decide(proposal, pre_evidence)
+    {:ok, exec_result} = CephDaemonRestart.execute(action, pre_evidence, nil)
+
+    # Mock collector to return improved health after execution
+    previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
+
+    Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
+      %{
+        schema_version: 1,
+        collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+        status: :ok,
+        health: %{"status" => "HEALTH_OK", "overall" => %{"status" => "HEALTH_OK"}},
+        topology: %{
+          "osds" => %{@daemon_id => %{"state" => "up"}},
+          "monitors" => %{},
+          "managers" => %{},
+          "mdss" => %{}
+        },
+        errors: []
+      }
+    end)
+
+    try do
+      assert {:ok, verification} = CephDaemonRestart.verify(action, pre_evidence, exec_result)
+
+      assert verification.status == "healthy"
+    after
+      if previous_collector do
+        Application.put_env(:exocomp_coordinator, :ceph_collector, previous_collector)
+      end
+    end
+  end
+
+  test "verifies fails when cluster was already critical before restart" do
+    raw_proposal = valid_proposal()
+    {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
+
+    pre_evidence = fresh_evidence_with_health("failed", "HEALTH_ERR")
+
+    {:allow, action} = CephDaemonRestart.decide(proposal, pre_evidence)
+    {:ok, exec_result} = CephDaemonRestart.execute(action, pre_evidence, nil)
+
+    # Mock collector to keep cluster critical
+    previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
+
+    Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
+      %{
+        schema_version: 1,
+        collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+        status: :ok,
+        health: %{"status" => "HEALTH_ERR", "overall" => %{"status" => "HEALTH_ERR"}},
+        topology: %{
+          "osds" => %{@daemon_id => %{"state" => "up"}},
+          "monitors" => %{},
+          "managers" => %{},
+          "mdss" => %{}
+        },
+        errors: []
+      }
+    end)
+
+    try do
+      case CephDaemonRestart.verify(action, pre_evidence, exec_result) do
+        {:error, {:verification_failed, {:cluster_health_regressed, _, _}}} ->
+          :ok
+
+        result ->
+          flunk("expected verification failure when cluster critical, got #{inspect(result)}")
+      end
+    after
+      if previous_collector do
+        Application.put_env(:exocomp_coordinator, :ceph_collector, previous_collector)
+      end
+    end
+  end
+
+  # ---------------------------------------------------------------------------
   # Helpers
   # ---------------------------------------------------------------------------
 
@@ -653,12 +866,17 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
   end
 
   defp fresh_evidence(state) do
+    fresh_evidence_with_health(state, "HEALTH_OK")
+  end
+
+  defp fresh_evidence_with_health(state, health_status) do
     %{
       collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       node_collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       node_id: @node_id,
       daemon_state: state,
       active_pgs: 0,
+      ceph_health: %{"status" => health_status, "overall" => %{"status" => health_status}},
       mapping: %{node_id: @node_id, daemon_id: @daemon_id, target_unit: "ceph-osd@42.service"}
     }
   end
