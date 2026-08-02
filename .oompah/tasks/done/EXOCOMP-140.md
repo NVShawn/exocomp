@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-01T18:53:08.910467Z'
+updated_at: '2026-08-02T02:14:59.250906Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -511,7 +511,6 @@ Acceptance:
 
 Out of scope: role mapping and administration UI.
 Quality gate: focused auth tests plus make fmt-check and make lint.
-
 ## Acceptance Criteria
 
 - [ ] Define acceptance criteria.
