@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: Merged
+status: In Validation
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -18,7 +18,7 @@ labels:
 - needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-07-26T03:59:32.831668Z'
+updated_at: '2026-08-02T04:02:28.698890Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -54,6 +54,28 @@ oompah.task_costs:
     output_tokens: 3934
     cost_usd: 0.0
     recorded_at: '2026-07-23T21:04:07.400459+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-1712ec8c5df6
+    project_id: proj-c260b117
+    task_id: EXOCOMP-42
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e32d5356d751bc1866106d43b2ad7b729fa9a5c4ca591ae18d8ac6a66456743a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-02T04:02:26.225929+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -294,5 +316,10 @@ author: oompah
 created: 2026-07-26 03:55
 ---
 The parent epic EXOCOMP-6 merged from epic-EXOCOMP-6, but this task was In Review with work branch epic-EXOCOMP-6. Its work is not proven to be in the merged epic. Inspect the task's agent history and remote branches, recover any missing commits through a new recovery epic or approved follow-up PR, then move this task to Done only after the recovered work is verified on the target branch.
+---
+author: oompah
+created: 2026-08-02 04:02
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
