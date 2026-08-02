@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T04:13:12.551043Z'
+updated_at: '2026-08-02T04:18:31.896277Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -227,5 +227,10 @@ author: oompah
 created: 2026-08-02 04:13
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-02 04:18
+---
+Discovery update: the prior commit is clean and pushed, and focused operator-doc tests plus link/compliance gates pass. Cross-checking dependency branches confirmed the exact Mission Control health endpoints, readiness-token guard, OIDC callback variables, webhook X-Exocomp headers/canonical HMAC input, PostgreSQL image contract, and EXOCOMP-205 service-management scope. The remaining review fixes are to make those contracts explicit and strengthen end-to-end VM/Kubernetes, restore/rollback, and secret-rotation verification steps before submission.
 ---
 <!-- COMMENTS:END -->
