@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-08-02T05:03:58.926256Z'
+updated_at: '2026-08-02T05:05:34.967072Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -44,6 +44,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T19:28:01.512921+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-d19792e0b68b: '2026-08-02T05:05:32.290778+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-41
+    target_state: Archived
+    evidence_fingerprint: 5cb02802235bfe04271b1aa5714951ab584505570fd835804e56450b9f5d50cc
+    audit_ids:
+    - audit-4778ea290c60
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T05:05:32.290793+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-41
+    audit_id: audit-4778ea290c60
+    attempt_id: attempt-d19792e0b68b
+    target_state: Archived
+    evidence_fingerprint: 5cb02802235bfe04271b1aa5714951ab584505570fd835804e56450b9f5d50cc
+    status: Archived
+    audit_ids:
+    - audit-4778ea290c60
+    applied: false
+    created_at: '2026-08-02T05:05:32.290811+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -51,7 +75,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-41
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -60,7 +84,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d19792e0b68b
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -70,13 +94,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T05:03:53.747164+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-02T05:05:32.290588+00:00'
+      ended_at: '2026-08-02T05:05:32.290588+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:59:11.386194+00:00'
-    updated_at: '2026-08-02T05:03:53.747164+00:00'
+    updated_at: '2026-08-02T05:05:32.290588+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d19792e0b68b
@@ -352,5 +379,27 @@ author: oompah
 created: 2026-08-02 05:03
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 05:05
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- current_main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- recovery_commit: 50cd48c23a0fdc0810441c8c16357f77a112cfdd
+- recovery_merge_commit: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- recovery_merge_pr: PR #14 epic-EXOCOMP-110
+- recovery_commit_on_main: yes
+- license_file: LICENSE (Apache-2.0 canonical)
+- security_reporting: private (github security advisories)
+- compliance_script: scripts/check_compliance.py
+- compliance_tests: tests/test_check_compliance.py
+- components_inventory: licenses/components.toml
+- prior_task_state: Merged
+- requested_target: Archived
+- aging_days_reported: 7
 ---
 <!-- COMMENTS:END -->
