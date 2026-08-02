@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:35:24.070774Z'
+updated_at: '2026-08-02T01:44:20.153425Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -38,19 +38,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: f2a6a29e-3621-46b2-a34c-f572f5e5c75a
+oompah.agent_run_id: b90eceec-5781-4f06-aea6-f9a4626a9f1b
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
   base_branch: epic-EXOCOMP-186
-  base_sha: c6a135bf82581e11696de8b4d0e32946ec563677
-  head_sha: f682ae36cb428650ab43789d45a490d384431d73
-  integrated_sha: f682ae36cb428650ab43789d45a490d384431d73
-  submitted_at: '2026-08-02T01:07:02.891474+00:00'
-  updated_at: '2026-08-02T01:07:54.713111+00:00'
+  base_sha: f682ae36cb428650ab43789d45a490d384431d73
+  updated_at: '2026-08-02T01:44:17.037038+00:00'
 oompah.task_costs:
   total_input_tokens: 555437
   total_output_tokens: 23098
@@ -377,5 +374,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 24m 8s
 - Log: EXOCOMP-204__20260802T011120Z.jsonl
+---
+author: oompah
+created: 2026-08-02 01:44
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-02 01:44
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
