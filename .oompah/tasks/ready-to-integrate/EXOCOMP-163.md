@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-163
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Revalidate and execute approved remedies inside the cluster
 parent: EXOCOMP-132
@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:22.081454Z'
-updated_at: '2026-08-02T04:04:39.761768Z'
+updated_at: '2026-08-02T04:04:50.727465Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-163
 target_branch: null
 review_url: null
@@ -73,16 +73,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 0bf810b5-86d7-40af-8373-6a62bf13c457
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-163
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-163
-  base_branch: epic-EXOCOMP-132
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-02T03:33:38.537087+00:00'
+  head_sha: c4f02ab48cd40dfe22aa55dbb1fc3d2a77ff04b7
+  submitted_at: '2026-08-02T04:04:44.061978+00:00'
+  updated_at: '2026-08-02T04:04:44.061978+00:00'
 oompah.task_costs:
   total_input_tokens: 18
   total_output_tokens: 931
@@ -189,5 +189,10 @@ author: oompah
 created: 2026-08-02 04:04
 ---
 Completion: delivered typed proposal.approve/proposal.deny coordinator handling with strict payload/context validation, fresh evidence and policy revalidation, fail-closed binding checks, local Ed25519 signing, node adapter safety boundary, durable command idempotency/outbox integration, restart rehydration, and correlated lifecycle/artifact reporting. Commit c4f02ab4 is pushed; official container gates are blocked by host Podman configuration and direct Mix by the pinned-version mismatch.
+---
+author: oompah
+created: 2026-08-02 04:04
+---
+Implemented typed approved-remedy execution with local Ed25519 signing, fail-closed revalidation, durable command boundaries, node safety integration, restart recovery, and correlated execution artifacts. Pushed c4f02ab4.
 ---
 <!-- COMMENTS:END -->
