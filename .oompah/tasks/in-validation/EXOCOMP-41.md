@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-41
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Add licensing and open-source governance files
 parent: EXOCOMP-6
@@ -12,7 +12,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:00.656358Z'
-updated_at: '2026-07-26T04:39:25.260530Z'
+updated_at: '2026-08-02T04:59:13.676120Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 6356
     cost_usd: 0.0
     recorded_at: '2026-07-23T19:28:01.512921+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-4778ea290c60
+    project_id: proj-c260b117
+    task_id: EXOCOMP-41
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5cb02802235bfe04271b1aa5714951ab584505570fd835804e56450b9f5d50cc
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-02T04:59:11.386194+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -288,5 +310,10 @@ author: oompah
 created: 2026-07-26 04:35
 ---
 Recovered delivery verified on main; stale remote and managed-local branch refs removed.
+---
+author: oompah
+created: 2026-08-02 04:59
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
