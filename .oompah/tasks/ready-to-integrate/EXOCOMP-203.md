@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:39:42.914225Z'
+updated_at: '2026-08-02T00:40:07.349815Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -125,17 +125,19 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: c6a135bf82581e11696de8b4d0e32946ec563677
   submitted_at: '2026-08-02T00:39:40.397854+00:00'
-  updated_at: '2026-08-02T00:39:40.397854+00:00'
+  updated_at: '2026-08-02T00:40:06.622741+00:00'
 oompah.task_costs:
-  total_input_tokens: 2423
-  total_output_tokens: 71593
+  total_input_tokens: 26910702
+  total_output_tokens: 150227
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 2310
-      output_tokens: 38274
+      input_tokens: 26910589
+      output_tokens: 116908
       cost_usd: 0.0
     unknown:
       input_tokens: 113
@@ -172,6 +174,12 @@ oompah.task_costs:
     output_tokens: 16779
     cost_usd: 0.0
     recorded_at: '2026-08-02T00:07:42.933780+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 26908279
+    output_tokens: 78634
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T00:39:55.087487+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-203__20260801T141919Z
@@ -190,6 +198,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-203
     source_sha: e70d3a0ee5cb1979af450c1642ca93e7db9b9c20
     completed_at: '2026-08-01T23:23:35.221407+00:00'
+  - run_id: EXOCOMP-203__20260802T000759Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: callback_auth
+    source_branch: epic-EXOCOMP-186--task-EXOCOMP-203
+    source_sha: c6a135bf82581e11696de8b4d0e32946ec563677
+    completed_at: '2026-08-02T00:39:55.091182+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -793,5 +809,20 @@ author: oompah
 created: 2026-08-02 00:39
 ---
 Connected failed Ceph daemon recovery to the typed node action catalog with fresh evidence, profile authority, exact helper protocol, locking, audit gating, and verification.
+---
+author: oompah
+created: 2026-08-02 00:40
+---
+Agent completed successfully in 1924s (26986913 tokens)
+---
+author: oompah
+created: 2026-08-02 00:40
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 222
+- Tokens: 26.9M in / 78.6K out [27.0M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 32m 4s
+- Log: EXOCOMP-203__20260802T000759Z.jsonl
 ---
 <!-- COMMENTS:END -->
