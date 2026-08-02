@@ -14,6 +14,8 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 - [Installation and first host](installation.md)
 - [PKI operations](pki-operations.md)
 - [Policy and operations](policy-operations.md)
+- [Service management, monitoring, and Ceph integration](service-management.md)
+- [Ceph cluster profile configuration](ceph-profile-configuration.md)
 - [Upgrade, backup, rollback, and removal](lifecycle.md)
 - [Clean-host release qualification](clean-host-qualification.md)
 - [Testing the Systemd Fixture](testing-systemd-fixture.md)
