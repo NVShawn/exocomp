@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:03:46.400584Z'
+updated_at: '2026-08-02T02:04:02.483760Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -45,17 +45,19 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 69ffa374c520da342743c1e580e178ed2bcd6f77
   submitted_at: '2026-08-02T02:03:41.936216+00:00'
-  updated_at: '2026-08-02T02:03:41.936216+00:00'
+  updated_at: '2026-08-02T02:04:01.678213+00:00'
 oompah.task_costs:
-  total_input_tokens: 555437
-  total_output_tokens: 23098
+  total_input_tokens: 10818694
+  total_output_tokens: 79403
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 555358
-      output_tokens: 5314
+      input_tokens: 10818615
+      output_tokens: 61619
       cost_usd: 0.0
     unknown:
       input_tokens: 79
@@ -80,6 +82,12 @@ oompah.task_costs:
     output_tokens: 17784
     cost_usd: 0.0
     recorded_at: '2026-08-02T01:35:22.190005+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 10263257
+    output_tokens: 56305
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T02:03:56.316287+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-204__20260801T142307Z
@@ -90,6 +98,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-204
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:24:56.610408+00:00'
+  - run_id: EXOCOMP-204__20260802T014425Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: callback_auth
+    source_branch: epic-EXOCOMP-186--task-EXOCOMP-204
+    source_sha: 69ffa374c520da342743c1e580e178ed2bcd6f77
+    completed_at: '2026-08-02T02:03:56.324556+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -414,5 +430,20 @@ author: oompah
 created: 2026-08-02 02:03
 ---
 Durable Ceph recovery verification, cooldown enforcement, audit correlation, and restart reconciliation implemented; focused checks pass, make test blocked only by host Podman runtime configuration.
+---
+author: oompah
+created: 2026-08-02 02:03
+---
+Agent completed successfully in 1184s (10319562 tokens)
+---
+author: oompah
+created: 2026-08-02 02:03
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 87
+- Tokens: 10.3M in / 56.3K out [10.3M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 19m 44s
+- Log: EXOCOMP-204__20260802T014425Z.jsonl
 ---
 <!-- COMMENTS:END -->
