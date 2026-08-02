@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T05:19:46.032370Z'
+updated_at: '2026-08-02T05:19:57.019148Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -340,13 +340,13 @@ oompah.terminal_audit:
     started_at: '2026-08-02T05:15:57.247441+00:00'
     branch_key: epic-EXOCOMP-6
 oompah.task_costs:
-  total_input_tokens: 21
-  total_output_tokens: 3215
+  total_input_tokens: 74
+  total_output_tokens: 11649
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 21
-      output_tokens: 3215
+      input_tokens: 74
+      output_tokens: 11649
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -355,6 +355,12 @@ oompah.task_costs:
     output_tokens: 3215
     cost_usd: 0.0
     recorded_at: '2026-08-02T05:11:32.194568+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 53
+    output_tokens: 8434
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T05:19:55.242316+00:00'
 ---
 ## Summary
 
@@ -517,5 +523,15 @@ Safe evidence:
 - rc23_evidence: docs/release-evidence/v0.1.0-rc.23/qualification-results.json decision=pass, publication_ready=true, all criteria PASS on amd64+arm64, tag v0.1.0-rc.23 signature_verified=true, qualified 2026-07-27
 - signed_artifacts: bundle.minisig, evidence-index.sha256.sig, manifest.sha256, provenance.json, sbom.spdx.json present under rc.2 and rc.23
 - prior_audit_status: audit-03a8072f482f (Archived) passed 2026-08-02; audit-69383d5fc681 (Done) exhausted infra retries without disputing evidence
+---
+author: oompah
+created: 2026-08-02 05:19
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 56, Tool calls: 47
+- Tokens: 53 in / 8.4K out [8.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 57s
+- Log: EXOCOMP-6__20260802T051603Z.jsonl
 ---
 <!-- COMMENTS:END -->
