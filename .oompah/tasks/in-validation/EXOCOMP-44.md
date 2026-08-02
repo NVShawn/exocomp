@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-44
 type: chore
-status: Merged
+status: In Validation
 priority: 2
 title: Assemble signed offline bundles, SBOMs, and provenance
 parent: EXOCOMP-6
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-07-26T04:39:27.704168Z'
+updated_at: '2026-08-02T04:59:17.760981Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -44,6 +44,28 @@ oompah.task_costs:
     output_tokens: 3808
     cost_usd: 0.0
     recorded_at: '2026-07-23T23:44:45.361268+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-efcdca97ad83
+    project_id: proj-c260b117
+    task_id: EXOCOMP-44
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: a3f891fe7ddb2caa23a79b29274da8609dc81aa2dd16fce92eae9cdffc94bb5f
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-02T04:59:15.452661+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -264,5 +286,10 @@ author: oompah
 created: 2026-07-26 04:36
 ---
 Recovered delivery verified on main; stale remote and managed-local branch refs removed.
+---
+author: oompah
+created: 2026-08-02 04:59
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
