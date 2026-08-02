@@ -223,9 +223,6 @@ defmodule Exocomp.Coordinator.RemediationLifecycle do
         state = update_entry(state, task_id, &Map.put(&1, :action, action))
 
         case reconcile_execution(action, state) do
-          {:ok, state} ->
-            {{:ok, task!(state, task_id)}, state}
-
           {:error, reason, state} ->
             {task, state} =
               terminal(state, task_id, :failed, :audit_reconciliation_required, reason)
@@ -472,7 +469,7 @@ defmodule Exocomp.Coordinator.RemediationLifecycle do
   defp value(_map, _key), do: nil
 
   defp safe_call(function) do
-    function.()
+    {:ok, function.()}
   rescue
     error -> {:error, {:exception, Exception.message(error)}}
   catch

@@ -183,6 +183,7 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldown do
     |> Enum.reverse()
     |> Enum.reduce_while(false, fn event, _acc ->
       event_daemon_id = value(event, :daemon_id, "daemon_id")
+      event_node_id = value(event, :node_id, "node_id")
       event_type = value(event, :type, "type")
 
       cond do
@@ -193,9 +194,14 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldown do
           {:halt, false}
 
         event_type in [nil, "cooldown_entered", :cooldown_entered] ->
-          case expiry(event, cooldown_ms) do
-            {:ok, expiry_at} -> {:halt, DateTime.compare(now, expiry_at) == :lt}
-            :error -> {:cont, false}
+          # Only match cooldown events that belong to this node (when node_id is recorded)
+          if not is_nil(event_node_id) and event_node_id != node_id do
+            {:cont, false}
+          else
+            case expiry(event, cooldown_ms) do
+              {:ok, expiry_at} -> {:halt, DateTime.compare(now, expiry_at) == :lt}
+              :error -> {:cont, false}
+            end
           end
 
         true ->
@@ -269,7 +275,7 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldown do
   defp value(_map, _atom_key, _string_key), do: nil
 
   defp safe_call(function) do
-    function.()
+    {:ok, function.()}
   rescue
     error -> {:error, {:exception, Exception.message(error)}}
   catch

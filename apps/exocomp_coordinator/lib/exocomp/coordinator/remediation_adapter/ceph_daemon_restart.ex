@@ -242,7 +242,7 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
   defp verify_stability_window(action, pre_execution_evidence) do
     poll_interval_ms = stability_poll_interval_ms()
 
-    with {:ok, evidence} <- collect_evidence(action),
+    with {:ok, evidence} <- fresh_post_evidence(action),
          :ok <- verify_sample(action, pre_execution_evidence, evidence) do
       deadline = System.monotonic_time(:millisecond) + stability_window_ms()
 
@@ -264,10 +264,20 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
       remaining = max(deadline - System.monotonic_time(:millisecond), 0)
       Process.sleep(min(poll_interval, remaining))
 
-      with {:ok, next_evidence} <- collect_evidence(action),
+      with {:ok, next_evidence} <- fresh_post_evidence(action),
            :ok <- verify_sample(action, pre, next_evidence) do
         poll_stability(action, pre, next_evidence, deadline, poll_interval, samples + 1)
       end
+    end
+  end
+
+  # Collect post-execution evidence, unwrapping the evidence_collection_failed wrapper
+  # so verification failures from topology/mapping changes surface with the root reason.
+  defp fresh_post_evidence(action) do
+    case collect_evidence(action) do
+      {:ok, evidence} -> {:ok, evidence}
+      {:error, {:evidence_collection_failed, reason}} -> {:error, reason}
+      {:error, reason} -> {:error, reason}
     end
   end
 
