@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:51:21.674240Z'
+updated_at: '2026-08-02T02:59:44.702531Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -616,5 +616,28 @@ Discovery: Found three bugs causing all test failures:
 4. **Dead code branch in apply_decision**: {:ok, state} branch for reconcile_execution result is unreachable (reconcile_execution never returns this); causes Elixir 1.20 type warning.
 
 Fix: wrap safe_call return in {:ok, ...} in both modules; add node_id filter in check_active_cooldown; remove dead branch.
+---
+author: oompah
+created: 2026-08-02 02:59
+---
+Verification: make test passes cleanly after fixing 5 bugs identified from auditor's CI failure report.
+
+Fixed files:
+- apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_adapter/ceph_cooldown.ex
+- apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_adapter/ceph_daemon_restart.ex
+- apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_lifecycle.ex
+
+Bugs fixed:
+1. CephCooldown.safe_call: wasn't wrapping return in {:ok, ...}, causing all callers to hit fail-closed error branch — cooldown_status always returned error.
+2. CephCooldown.check_active_cooldown: node_id parameter was unused; added filtering so cooldown_entered events from a different node are ignored (fixes 'cooldown is node-specific' test + Elixir 1.20 warning).
+3. RemediationLifecycle.safe_call: same {:ok, ...} wrapping fix; reconcile_execution was always failing with {:audit_history_unavailable, ...} when durable_audit?=true.
+4. RemediationLifecycle.apply_decision: removed unreachable {:ok, state} branch from reconcile_execution case (Elixir 1.20 dead-code warning).
+5. CephDaemonRestart.fresh_post_evidence/1: new helper that unwraps {:evidence_collection_failed, reason} from collect_evidence; verify_stability_window and poll_stability now return bare reason (e.g. :target_mapping_changed) matching test expectations.
+
+ExUnit results (pinned container hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim):
+- Targeted ceph tests: 60 passed, 0 failures (Finished in 0.7 seconds)
+- Full exocomp_coordinator suite: 300 passed, 0 failures (Finished in 20.6 seconds)
+- Full exocomp_node suite: 128 passed, 0 failures
+- make test exit code: 0 (including mix release + smoke-releases.sh)
 ---
 <!-- COMMENTS:END -->
