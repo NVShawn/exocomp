@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:39:14.147575Z'
+updated_at: '2026-08-02T00:39:42.914225Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -122,12 +122,12 @@ oompah.agent_run_id: 6e2b69f7-ddda-418e-bb38-d864f012ed69
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
-  base_branch: epic-EXOCOMP-186
-  base_sha: 8b83bcf4d507bef19ddee323659836c7f8bad026
-  updated_at: '2026-08-02T00:07:55.063523+00:00'
+  head_sha: c6a135bf82581e11696de8b4d0e32946ec563677
+  submitted_at: '2026-08-02T00:39:40.397854+00:00'
+  updated_at: '2026-08-02T00:39:40.397854+00:00'
 oompah.task_costs:
   total_input_tokens: 2423
   total_output_tokens: 71593
@@ -783,5 +783,15 @@ author: oompah
 created: 2026-08-02 00:39
 ---
 Verification: focused coordinator suite passed 32/32 and node profile-action suite passed 5/5; changed-file mix format check passed; make test-profile-action-helper passed. make test and make lint completed offline checks but could not start the pinned Elixir container because Podman failed on read-only /run/user/1000/libpod configuration.
+---
+author: oompah
+created: 2026-08-02 00:39
+---
+Completion: delivered and pushed c6a135bf. Ceph failed-daemon remediation now validates fresh typed node/Ceph evidence and shipped profile coverage, routes only restart_failed_daemon through the node A2A catalog, invokes the fixed sudoers helper once per locked target with exact wire bytes, verifies post-action health, and preserves lifecycle audit-before-action behavior.
+---
+author: oompah
+created: 2026-08-02 00:39
+---
+Connected failed Ceph daemon recovery to the typed node action catalog with fresh evidence, profile authority, exact helper protocol, locking, audit gating, and verification.
 ---
 <!-- COMMENTS:END -->
