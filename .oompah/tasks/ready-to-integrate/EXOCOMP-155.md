@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-155
 type: task
-status: Needs Human
+status: Ready to Integrate
 priority: 1
 title: Implement incident health-transition rules
 parent: EXOCOMP-131
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-02T00:06:56.594157Z'
+updated_at: '2026-08-02T00:13:46.813527Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -70,9 +70,9 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-131--task-EXOCOMP-155
-  head_sha: b4aa7d82e94f51905f3f3510c518d56df86b876c
-  submitted_at: '2026-08-01T23:24:02.292085+00:00'
-  updated_at: '2026-08-01T23:24:02.292085+00:00'
+  head_sha: 8bf319da5aa0c3a8479a1d790fdacdd7051f4a90
+  submitted_at: '2026-08-02T00:13:44.541960+00:00'
+  updated_at: '2026-08-02T00:13:44.541960+00:00'
 oompah.task_costs:
   total_input_tokens: 20385261
   total_output_tokens: 62796
@@ -228,5 +228,15 @@ author: oompah
 created: 2026-08-02 00:06
 ---
 Operator taking ownership of recovery. The branch is clean and pushed at b4aa7d82; the Needs Human transition was a false positive from the pre-OOMPAH-678 service process treating expected peer-view scope denials as a failed own-task handoff after submit succeeded. Running the required Makefile gates from the operator environment before resubmission.
+---
+author: oompah
+created: 2026-08-02 00:13
+---
+Operator recovery complete at 8bf319da. Pinned Elixir 1.20 lint exposed an unreachable immediate-condition check; removed it and added a regression proving immediate unhealthy evidence bypasses ordinary hysteresis. Validation is green: make test (128 bench, 31 Mission Control, 195 core, 511 node tests plus release smoke), make fmt-check, make lint, and git diff --check. Branch is clean, pushed, and matches origin. The false Needs Human handoff regression is filed as OOMPAH-689; OOMPAH-678 covered only running peer targets.
+---
+author: oompah
+created: 2026-08-02 00:13
+---
+Operator recovery complete at 8bf319da: deterministic incident reducer fixed for pinned lint, fully tested, pushed, and ready to integrate; handoff false-positive tracked by OOMPAH-689.
 ---
 <!-- COMMENTS:END -->
