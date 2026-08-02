@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:07:24.996789Z'
+updated_at: '2026-08-02T01:07:58.712906Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -42,12 +42,15 @@ oompah.agent_run_id: f2a6a29e-3621-46b2-a34c-f572f5e5c75a
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
+  base_branch: epic-EXOCOMP-186
+  base_sha: c6a135bf82581e11696de8b4d0e32946ec563677
   head_sha: f682ae36cb428650ab43789d45a490d384431d73
+  integrated_sha: f682ae36cb428650ab43789d45a490d384431d73
   submitted_at: '2026-08-02T01:07:02.891474+00:00'
-  updated_at: '2026-08-02T01:07:02.891474+00:00'
+  updated_at: '2026-08-02T01:07:54.713111+00:00'
 oompah.task_costs:
   total_input_tokens: 555358
   total_output_tokens: 5314
@@ -80,6 +83,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-204
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T14:24:56.610408+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-56c465c0fd2c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: aa0b214207bd9e0c183daa69e3c7be54fc41206e9d2b3b2cca34238795c2dc26
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-02T01:07:55.940013+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -244,5 +269,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 16m 57s
 - Log: EXOCOMP-204__20260802T005039Z.jsonl
+---
+author: oompah
+created: 2026-08-02 01:07
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
