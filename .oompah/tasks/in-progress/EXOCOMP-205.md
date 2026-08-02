@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-08-02T03:35:35.725223Z'
+updated_at: '2026-08-02T03:37:41.799449Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-08-02 03:35
 ---
 Discovery: Project is a distributed AI agent system with node and coordinator components. Existing docs cover installation, PKI ops, policy, lifecycle, and Ceph profiles. Task requires new docs for: (1) manual service lists configuration, (2) automatic service monitoring features, (3) Ceph profile activation workflow, (4) credential bootstrap for Ceph, (5) coverage errors and unsupported nodes, (6) safe restart behavior with policy system. Examining implementation to identify exact features to document.
+---
+author: oompah
+created: 2026-08-02 03:37
+---
+Implementation: Created comprehensive docs/service-management.md covering (1) manual service list configuration and allow-lists, (2) automatic enabled-service monitoring for Ceph, (3) Ceph profile activation workflow, (4) credential bootstrap with least-privilege cephx caps, (5) coverage errors and troubleshooting, (6) safe restart behavior with policy enforcement. Document includes configuration examples, validation procedures, and v1-to-v2 migration guidance.
 ---
 <!-- COMMENTS:END -->
