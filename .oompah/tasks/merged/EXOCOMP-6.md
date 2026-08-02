@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T05:19:43.390457Z'
+updated_at: '2026-08-02T05:19:46.032370Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -97,8 +97,9 @@ oompah.terminal_audit:
     status: Merged
     audit_ids:
     - audit-659620b2b5f0
-    applied: false
+    applied: true
     created_at: '2026-08-02T05:19:40.239469+00:00'
+    applied_at: '2026-08-02T05:19:45.243603+00:00'
   version: 1
   pending_chain:
   - version: 1
