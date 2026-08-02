@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:39.771394Z'
-updated_at: '2026-08-01T23:24:32.769495Z'
+updated_at: '2026-08-02T00:06:56.594157Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-155
 target_branch: null
 review_url: null
@@ -223,5 +223,10 @@ author: oompah
 created: 2026-08-01 23:24
 ---
 Task handoff failed after the worker ran: the server-owned, task-scoped tracker capability could not update this task. The task is held in Needs Human and will not be redispatched automatically; verify the handoff service and reconcile the worker's branch before resuming it.
+---
+author: oompah
+created: 2026-08-02 00:06
+---
+Operator taking ownership of recovery. The branch is clean and pushed at b4aa7d82; the Needs Human transition was a false positive from the pre-OOMPAH-678 service process treating expected peer-view scope denials as a failed own-task handoff after submit succeeded. Running the required Makefile gates from the operator environment before resubmission.
 ---
 <!-- COMMENTS:END -->
