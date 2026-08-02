@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:59:44.702531Z'
+updated_at: '2026-08-02T03:00:00.725392Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: a0774afc-5d43-4483-a12f-889bfbb1b474
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
-  base_branch: epic-EXOCOMP-186
-  base_sha: 69ffa374c520da342743c1e580e178ed2bcd6f77
-  updated_at: '2026-08-02T02:32:50.819225+00:00'
+  head_sha: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
+  submitted_at: '2026-08-02T02:59:51.355757+00:00'
+  updated_at: '2026-08-02T02:59:51.355757+00:00'
 oompah.task_costs:
   total_input_tokens: 10818835
   total_output_tokens: 117681
@@ -639,5 +639,10 @@ ExUnit results (pinned container hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-book
 - Full exocomp_coordinator suite: 300 passed, 0 failures (Finished in 20.6 seconds)
 - Full exocomp_node suite: 128 passed, 0 failures
 - make test exit code: 0 (including mix release + smoke-releases.sh)
+---
+author: oompah
+created: 2026-08-02 03:00
+---
+Fixed 5 CI regressions in Ceph recovery verification and cooldown enforcement. Root causes: safe_call wrappers returned raw values instead of {:ok, value} tuples (cooldown always errored fail-closed; reconcile_execution always failed); node_id was unused in check_active_cooldown (wrong node cooldowns matched); unreachable {:ok, state} branch in apply_decision (Elixir 1.20 dead-code); collect_evidence error wrapping not unwrapped in verify path (identity-change test got double-wrapped error). All 60 targeted tests and full 300-test exocomp_coordinator suite pass under make test (exit 0) with pinned elixir:1.20.2 container. Commit 40cda2a0.
 ---
 <!-- COMMENTS:END -->
