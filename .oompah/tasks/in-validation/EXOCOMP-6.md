@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T04:59:22.056825Z'
+updated_at: '2026-08-02T04:59:39.267111Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -50,6 +50,40 @@ oompah.terminal_audit:
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:59:19.429993+00:00'
+  - version: 1
+    audit_id: audit-69383d5fc681
+    project_id: proj-c260b117
+    task_id: EXOCOMP-6
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b05cc655e5fcd63c10affb9f1d80b91268486819509f0631ef3d402d449ab3d4
+    attempts: []
+    requested_by:
+      version: 1
+      identity: epic-rollup-reconciliation
+      source: oompah
+    previous_state: In Validation
+    created_at: '2026-08-02T04:59:37.597467+00:00'
+  - version: 1
+    audit_id: audit-659620b2b5f0
+    project_id: proj-c260b117
+    task_id: EXOCOMP-6
+    target_state: Merged
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b05cc655e5fcd63c10affb9f1d80b91268486819509f0631ef3d402d449ab3d4
+    attempts: []
+    requested_by:
+      version: 1
+      identity: epic-rollup-reconciliation
+      source: oompah
+    previous_state: In Validation
+    created_at: '2026-08-02T04:59:37.597467+00:00'
   attempt_history: []
 ---
 ## Summary
