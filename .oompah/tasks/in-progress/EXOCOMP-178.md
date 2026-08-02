@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T03:44:59.478317Z'
+updated_at: '2026-08-02T03:45:13.985840Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -149,5 +149,10 @@ author: oompah
 created: 2026-08-02 03:44
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-02 03:45
+---
+Understanding: I will audit the Mission Control implementation and existing docs, then add source-tree-independent operator guides covering installation, auth/PKI, enrollment, webhooks, retention, backup/restore, rotation, upgrades, troubleshooting, and uninstall. I will also incorporate the EXOCOMP-205 inventory/monitoring/Ceph/restart/authority guidance, link docs and release checklist entries, validate examples with the repository's Makefile gates, then commit, push, and submit.
 ---
 <!-- COMMENTS:END -->
