@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:44:20.153425Z'
+updated_at: '2026-08-02T01:45:11.007760Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -384,5 +384,10 @@ author: oompah
 created: 2026-08-02 01:44
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-02 01:45
+---
+Understanding: I will audit the existing Ceph restart verification and lifecycle wiring, connect cooldown state to the production durable audit store, implement stability-window recollection with restart-safe reconciliation, add focused real-path tests for the auditor's scenarios, then run the Makefile quality gate.
 ---
 <!-- COMMENTS:END -->
