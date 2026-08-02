@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T04:27:08.898882Z'
+updated_at: '2026-08-02T04:27:37.985353Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -237,5 +237,10 @@ author: oompah
 created: 2026-08-02 04:27
 ---
 Implementation: completed and hardened the Mission Control operator guides. The deployment guide now has exact runtime/OIDC inputs; ordered VM and split Kubernetes migration/workload installs; isolated PostgreSQL restore promotion and rollback; an offline control-plane PKI ceremony plus certificate checks; a protected invitation/CSR enrollment exchange; contract-accurate constant-time webhook verification; per-secret rotation verification/rollback; and narrow VM/Kubernetes uninstall steps. The linked service-management guide covers inventory v2, all three monitoring paths, Ceph bootstrap, coverage troubleshooting, safe restart, and monitoring-versus-recovery authority. Focused tests now validate these contracts and manifest boundaries.
+---
+author: oompah
+created: 2026-08-02 04:27
+---
+Verification: PASS. make test-release-packaging passed (6 release packaging, 3 input normalizer, 14 operator-doc, and 6 Mission Control packaging tests); make check-links passed; make compliance-check passed. All documented shell blocks pass bash -n, both Kubernetes multi-document examples parse as YAML, and git diff --check is clean.
 ---
 <!-- COMMENTS:END -->
