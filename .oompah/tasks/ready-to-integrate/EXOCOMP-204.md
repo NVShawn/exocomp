@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:06:51.572207Z'
+updated_at: '2026-08-02T01:07:05.974517Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -42,12 +42,12 @@ oompah.agent_run_id: f2a6a29e-3621-46b2-a34c-f572f5e5c75a
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
-  base_branch: epic-EXOCOMP-186
-  base_sha: c6a135bf82581e11696de8b4d0e32946ec563677
-  updated_at: '2026-08-02T00:50:31.566391+00:00'
+  head_sha: f682ae36cb428650ab43789d45a490d384431d73
+  submitted_at: '2026-08-02T01:07:02.891474+00:00'
+  updated_at: '2026-08-02T01:07:02.891474+00:00'
 oompah.task_costs:
   total_input_tokens: 554238
   total_output_tokens: 5017
@@ -192,5 +192,41 @@ Added comprehensive post-action verification:
 - Edge cases and reconciliation (11 tests)
 
 All 608 coordinator tests passing.
+---
+author: oompah
+created: 2026-08-02 01:07
+---
+VERIFICATION: Test results and implementation completeness
+
+All acceptance criteria met:
+
+✓ Recollect systemd and Ceph evidence - collect_evidence() in verify()
+✓ Stability window verification - fresh_ceph_evidence() + fresh_node_state()
+✓ Daemon running, same topology identity - check_exact_mapping() + check_healthy()
+✓ Cluster evidence no worse - check_cluster_health_not_regressed()
+✓ Cooldown on verification failure - CephCooldown.record_cooldown() 
+✓ Prevent flapping - check_not_in_cooldown() in decide()
+✓ Durable state reconciliation - audit trail via RemediationLifecycle
+✓ Correlated evidence events - verification_failed/completed/cooldown
+
+Test results:
+- 608/608 coordinator tests PASS
+- 890/890 core tests PASS (10 excluded)
+- 300/300 node tests PASS
+- 128/128 additional tests PASS
+
+Coverage:
+- Health regression (5 test cases)
+- Cooldown management (8 test cases)
+- Audit trail (5 test cases)
+- Error handling (6 test cases)
+- Edge cases (5 test cases)
+
+Ready for integration.
+---
+author: oompah
+created: 2026-08-02 01:07
+---
+Implemented post-action verification and cooldown enforcement for Ceph daemon recovery. Enhanced verify() to detect health regression and track durable cooldown state. All tests passing: 608/608 coordinator, 890/890 core, 300/300 node tests.
 ---
 <!-- COMMENTS:END -->
