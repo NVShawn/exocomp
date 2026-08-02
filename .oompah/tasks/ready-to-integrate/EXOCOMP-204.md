@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T03:00:00.725392Z'
+updated_at: '2026-08-02T03:00:15.450101Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -45,12 +45,14 @@ oompah.integration:
   state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
+  base_branch: main
+  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   head_sha: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
   submitted_at: '2026-08-02T02:59:51.355757+00:00'
-  updated_at: '2026-08-02T02:59:51.355757+00:00'
+  updated_at: '2026-08-02T03:00:14.812960+00:00'
 oompah.task_costs:
-  total_input_tokens: 10818835
-  total_output_tokens: 117681
+  total_input_tokens: 10818893
+  total_output_tokens: 194129
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -62,8 +64,8 @@ oompah.task_costs:
       output_tokens: 54957
       cost_usd: 0.0
     sonnet:
-      input_tokens: 35
-      output_tokens: 1105
+      input_tokens: 93
+      output_tokens: 77553
       cost_usd: 0.0
   runs:
   - profile: default
@@ -102,6 +104,12 @@ oompah.task_costs:
     output_tokens: 1105
     cost_usd: 0.0
     recorded_at: '2026-08-02T02:32:32.366561+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 58
+    output_tokens: 76448
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T03:00:10.803738+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-204__20260801T142307Z
@@ -120,6 +128,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-186--task-EXOCOMP-204
     source_sha: 69ffa374c520da342743c1e580e178ed2bcd6f77
     completed_at: '2026-08-02T02:03:56.324556+00:00'
+  - run_id: EXOCOMP-204__20260802T023254Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: sonnet
+    focus: callback_auth
+    source_branch: epic-EXOCOMP-186--task-EXOCOMP-204
+    source_sha: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
+    completed_at: '2026-08-02T03:00:10.806648+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -644,5 +660,20 @@ author: oompah
 created: 2026-08-02 03:00
 ---
 Fixed 5 CI regressions in Ceph recovery verification and cooldown enforcement. Root causes: safe_call wrappers returned raw values instead of {:ok, value} tuples (cooldown always errored fail-closed; reconcile_execution always failed); node_id was unused in check_active_cooldown (wrong node cooldowns matched); unreachable {:ok, state} branch in apply_decision (Elixir 1.20 dead-code); collect_evidence error wrapping not unwrapped in verify path (identity-change test got double-wrapped error). All 60 targeted tests and full 300-test exocomp_coordinator suite pass under make test (exit 0) with pinned elixir:1.20.2 container. Commit 40cda2a0.
+---
+author: oompah
+created: 2026-08-02 03:00
+---
+Agent completed successfully in 1644s (76506 tokens)
+---
+author: oompah
+created: 2026-08-02 03:00
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 99, Tool calls: 62
+- Tokens: 58 in / 76.4K out [76.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 27m 24s
+- Log: EXOCOMP-204__20260802T023254Z.jsonl
 ---
 <!-- COMMENTS:END -->
