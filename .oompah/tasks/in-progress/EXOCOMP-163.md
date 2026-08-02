@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:22.081454Z'
-updated_at: '2026-08-02T03:33:41.194529Z'
+updated_at: '2026-08-02T03:34:00.763224Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-163
 target_branch: null
 review_url: null
@@ -169,5 +169,10 @@ author: oompah
 created: 2026-08-02 03:33
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-02 03:34
+---
+Understanding: implement typed approval handling in the coordinator, revalidate fresh evidence and deterministic policy/target/parameters, sign short-lived Ed25519 approvals locally, execute through node safety/idempotency boundaries, and emit correlated lifecycle/verification events. I will preserve the existing failed-service recovery policy and cover the listed replay, mismatch, failure, and restart cases.
 ---
 <!-- COMMENTS:END -->
