@@ -168,15 +168,29 @@ class OperatorDocumentationTest(unittest.TestCase):
 
     def test_mission_control_kubernetes_example_preserves_runtime_boundaries(self):
         guide = DOCS["mission_control"].read_text()
-        fence = chr(96) * 3
-        sections = guide.split(f"{fence}yaml\n")
+        manifests = re.findall(r"```yaml\n(.*?)```", guide, re.DOTALL)
 
-        self.assertEqual(len(sections), 2)
-        manifest = sections[1].split(fence, maxsplit=1)[0]
+        self.assertEqual(len(manifests), 2)
+        migration, workload = manifests
+        for manifest in manifests:
+            self.assertNotIn("\t", manifest)
+            for document in manifest.split("\n---\n"):
+                self.assertRegex(document, r"(?m)^apiVersion: \S+$")
+                self.assertRegex(document, r"(?m)^kind: \S+$")
+
         for token in (
+            "kind: PersistentVolumeClaim",
             "kind: Job",
-            "kind: Deployment",
             'args: ["migrate"]',
+            "mission-control-state",
+            "ReadWriteOnce",
+        ):
+            self.assertIn(token, migration)
+        self.assertNotIn("kind: Deployment", migration)
+
+        for token in (
+            "kind: Deployment",
+            "kind: Service",
             'args: ["server"]',
             "runAsNonRoot: true",
             "readOnlyRootFilesystem: true",
@@ -186,8 +200,73 @@ class OperatorDocumentationTest(unittest.TestCase):
             "/var/lib/exocomp/mission-control",
             "/var/log/exocomp/mission-control",
         ):
-            self.assertIn(token, manifest)
-        self.assertNotIn("supplied-by-a-probe-secret", manifest)
+            self.assertIn(token, workload)
+        self.assertNotIn("kind: Job", workload)
+        self.assertNotIn("supplied-by-a-probe-secret", workload)
+
+        self.assertLess(
+            guide.index("kubectl apply -f /secure/input/mission-control-migrate.yaml"),
+            guide.index("kubectl apply -f /secure/input/mission-control-workload.yaml"),
+        )
+
+    def test_mission_control_auth_and_webhook_examples_match_versioned_contracts(self):
+        guide = DOCS["mission_control"].read_text()
+
+        for variable in (
+            "OIDC_PROVIDER_URL",
+            "OIDC_CLIENT_ID",
+            "OIDC_CLIENT_SECRET",
+            "OIDC_REDIRECT_URI",
+            "EXOCOMP_READINESS_TOKEN",
+        ):
+            self.assertIn(variable, guide)
+        for header in (
+            "X-Exocomp-Event-Id",
+            "X-Exocomp-Delivery-Timestamp",
+            "X-Exocomp-Event-Type",
+            "X-Exocomp-Signature",
+        ):
+            self.assertIn(header, guide)
+        for verifier_token in (
+            'f"{event_id}.{timestamp}.".encode("utf-8") + body',
+            "hmac.new(",
+            "hmac.compare_digest(expected, signature)",
+            "datetime.now(timezone.utc)",
+        ):
+            self.assertIn(verifier_token, guide)
+
+    def test_mission_control_enrollment_walkthrough_keeps_invitation_off_command_line(self):
+        guide = DOCS["mission_control"].read_text()
+
+        for token in (
+            "POST /api/v1/clusters/enroll",
+            "ec_paramgen_curve:P-256",
+            "extendedKeyUsage = clientAuth",
+            '"invitation": invitation',
+            '--data-binary "@$REQUEST_FILE"',
+            "cleanup_enrollment_files",
+            "cluster-chain.pem",
+            "spiffe://exocomp/organizations/$ORGANIZATION_ID/clusters/$CLUSTER_ID",
+        ):
+            self.assertIn(token, guide)
+        self.assertNotRegex(guide, r"curl[^\n]*(INVITATION|invitation)")
+
+    def test_mission_control_restore_rotation_and_uninstall_are_reversible(self):
+        guide = DOCS["mission_control"].read_text()
+
+        for token in (
+            "--no-owner --no-privileges",
+            "mission_control_restore",
+            "mission-control-restore-test",
+            "mission-control-pre-restore",
+            "mission-control-failed-restore",
+            "old-token `401`",
+            "kubectl -n \"$MC_NAMESPACE\" delete deployment mission-control",
+            "kubectl -n \"$MC_NAMESPACE\" get pvc mission-control-state",
+        ):
+            self.assertIn(token, guide)
+        self.assertIn("production is unchanged", guide)
+        self.assertIn("matching image, state/schema compatibility, and whole secret revision", guide)
 
     def test_service_management_documents_all_monitoring_authority_boundaries(self):
         guide = DOCS["service_management"].read_text().lower()

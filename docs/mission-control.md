@@ -44,6 +44,8 @@ Before making the service reachable, provide:
   https://mission-control.example/auth/callback.
 - A secret manager and a separate encrypted location for backups and the
   offline Mission Control root ceremony.
+- OpenSSL, curl, Python 3, and a container engine for the VM procedure, or
+  kubectl with access to a dedicated namespace for the Kubernetes procedure.
 
 Record the Mission Control image digest, PostgreSQL identity, OIDC issuer,
 migration result, and certificate fingerprints in the change record. Do not
@@ -51,12 +53,13 @@ silently retarget a tag in a running deployment.
 
 ## Runtime secret projection
 
-The OCI entrypoint requires DATABASE_URL, SECRET_KEY_BASE, and RELEASE_COOKIE
-for migrate, server, and healthcheck. Current releases also read
-MISSION_CONTROL_SECRET_KEY_BASE for the Phoenix endpoint; set it to the same
-value as SECRET_KEY_BASE until that compatibility alias is retired. Set
-EXOCOMP_READINESS_TOKEN whenever readiness is reachable outside the workload
-network.
+The OCI entrypoint requires `DATABASE_URL`, `SECRET_KEY_BASE`, and
+`RELEASE_COOKIE` for `migrate`, `server`, and `healthcheck`. Current releases
+also read `MISSION_CONTROL_SECRET_KEY_BASE` for the Phoenix endpoint; set it to
+the same value as `SECRET_KEY_BASE` until that compatibility alias is retired.
+OIDC uses `OIDC_PROVIDER_URL`, `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, and
+`OIDC_REDIRECT_URI`. Set `EXOCOMP_READINESS_TOKEN` whenever readiness is
+reachable outside the workload network.
 
 Create the environment file outside the image and make it readable only by the
 deployment identity:
@@ -64,10 +67,16 @@ deployment identity:
 ```sh
 set -eu
 umask 077
-: "${MC_DATABASE_URL:?set the PostgreSQL application URL}"
-: "${MC_SECRET_KEY_BASE:?set a cryptographically random secret}"
-: "${MC_RELEASE_COOKIE:?set a cryptographically random release cookie}"
-: "${MC_READINESS_TOKEN:?set a cryptographically random readiness token}"
+: "${MC_OIDC_PROVIDER_URL:?set the exact HTTPS OIDC issuer URL}"
+: "${MC_OIDC_CLIENT_ID:?set the OIDC client ID}"
+: "${MC_OIDC_CLIENT_SECRET:?set the OIDC client secret from the secret manager}"
+: "${MC_OIDC_REDIRECT_URI:?set the exact Mission Control callback URL}"
+
+: "${POSTGRES_PASSWORD:=$(openssl rand -hex 32)}"
+: "${MC_DATABASE_URL:=ecto://mission_control:${POSTGRES_PASSWORD}@mission-control-postgres/mission_control}"
+: "${MC_SECRET_KEY_BASE:=$(openssl rand -hex 64)}"
+: "${MC_RELEASE_COOKIE:=$(openssl rand -hex 32)}"
+: "${MC_READINESS_TOKEN:=$(openssl rand -hex 32)}"
 
 install -d -m 0700 /srv/mission-control/secrets
 {
@@ -76,9 +85,20 @@ install -d -m 0700 /srv/mission-control/secrets
   printf 'MISSION_CONTROL_SECRET_KEY_BASE=%s\n' "$MC_SECRET_KEY_BASE"
   printf 'RELEASE_COOKIE=%s\n' "$MC_RELEASE_COOKIE"
   printf 'EXOCOMP_READINESS_TOKEN=%s\n' "$MC_READINESS_TOKEN"
+  printf 'OIDC_PROVIDER_URL=%s\n' "$MC_OIDC_PROVIDER_URL"
+  printf 'OIDC_CLIENT_ID=%s\n' "$MC_OIDC_CLIENT_ID"
+  printf 'OIDC_CLIENT_SECRET=%s\n' "$MC_OIDC_CLIENT_SECRET"
+  printf 'OIDC_REDIRECT_URI=%s\n' "$MC_OIDC_REDIRECT_URI"
 } > /srv/mission-control/secrets/runtime.env
 chmod 0600 /srv/mission-control/secrets/runtime.env
 ```
+
+The generated PostgreSQL password is hexadecimal so it is safe in the example
+URL without additional percent-encoding. For an external database, supply its
+pre-created least-privilege role through `MC_DATABASE_URL` instead. Confirm the
+redirect URI is exactly the public `https://.../auth/callback` value; reject a
+plain-HTTP or wildcard callback. Clear the provisioning shell after the
+deployment so its variables do not outlive the change window.
 
 Keep OIDC claim mapping, PKI paths, webhook encryption key, and retention
 policy in release-specific deployment configuration or a secret manager.
@@ -160,19 +180,30 @@ before the Deployment; application replicas must not race a schema migration.
 
 ```sh
 set -eu
-: "${MC_NAMESPACE:=mission-control}"
+MC_NAMESPACE=mission-control
 kubectl create namespace "$MC_NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
 kubectl -n "$MC_NAMESPACE" create secret generic mission-control-runtime \
   --from-env-file=/srv/mission-control/secrets/runtime.env \
   --dry-run=client -o yaml | kubectl apply -f -
 ```
 
-Use this workload template after replacing both image values with the same
-published digest. Use the shipped healthcheck entrypoint for readiness so a
-probe does not copy a secret into an HTTP header, ConfigMap, or committed
+Save the first template as `/secure/input/mission-control-migrate.yaml` after
+replacing its image value with the published digest. It creates the dedicated
+state PVC and the one-shot migration Job. Do not put Secret values in either
 manifest.
 
 ```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mission-control-state
+  namespace: mission-control
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -212,14 +243,22 @@ spec:
         - name: state
           persistentVolumeClaim:
             claimName: mission-control-state
----
+```
+
+Save the second template as `/secure/input/mission-control-workload.yaml`,
+using the same image digest. The shipped healthcheck entrypoint keeps the
+readiness token out of an HTTP header, ConfigMap, or committed manifest. The
+single-replica default works with a `ReadWriteOnce` PVC; scale only after the
+storage and release contracts have been qualified for multi-replica access.
+
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mission-control
   namespace: mission-control
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: mission-control
@@ -273,11 +312,38 @@ spec:
             claimName: mission-control-state
         - name: logs
           emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mission-control
+  namespace: mission-control
+spec:
+  selector:
+    app.kubernetes.io/name: mission-control
+  ports:
+    - name: http
+      port: 4000
+      targetPort: http
 ```
 
-Apply the Job, wait for Complete, inspect its result, then apply the Deployment
-and Service/Ingress. Register the resulting exact HTTPS URL as the OIDC
-callback. A horizontally scaled deployment still runs migrate exactly once.
+Apply the migration file alone, wait for `Complete`, inspect its result, and
+only then apply the workload file. Add a provider-specific TLS Ingress or
+Gateway that exposes the Service but not PostgreSQL. Register that exact HTTPS
+URL as the OIDC callback. A horizontally scaled deployment still runs migrate
+exactly once.
+
+```sh
+set -eu
+MC_NAMESPACE=mission-control
+kubectl apply -f /secure/input/mission-control-migrate.yaml
+kubectl -n "$MC_NAMESPACE" wait \
+  --for=condition=complete job/mission-control-migrate --timeout=5m
+kubectl -n "$MC_NAMESPACE" logs job/mission-control-migrate
+kubectl apply -f /secure/input/mission-control-workload.yaml
+kubectl -n "$MC_NAMESPACE" rollout status deployment/mission-control --timeout=5m
+kubectl -n "$MC_NAMESPACE" get deployment,service,pvc
+```
 
 ## PostgreSQL backup and restore
 
@@ -292,46 +358,121 @@ install -d -m 0700 /srv/mission-control/backups
 backup=/srv/mission-control/backups/mission-control-$(date -u +%Y%m%dT%H%M%SZ).sql.gz
 docker exec mission-control-postgres \
   pg_dump --username mission_control --dbname mission_control --format=plain \
+  --no-owner --no-privileges \
   | gzip -9 > "$backup"
 sha256sum "$backup" > "$backup.sha256"
 test -s "$backup"
 sha256sum -c "$backup.sha256"
 ```
 
-For a restore test, stop the application, restore the dump to a new isolated
-database, run the same immutable image's migrate command once, and check
-readiness. Do not overwrite production until that test succeeds. For a real
-rollback, preserve the failed database and logs, restore a verified backup,
-return to the prior image only if its schema compatibility is documented, and
-verify OIDC, an mTLS cluster, current state, and audit continuity before
-reopening ingress.
-
-For the VM container example, this restores to an isolated database and proves
-the dump can be read without touching production. The application role must be
-allowed to create the isolated database, or the PostgreSQL administrator must
-create it first.
+Restore to a new isolated database while production remains online. The
+application role must be allowed to create that database, or the PostgreSQL
+administrator must create it first. `MC_RESTORE_DATABASE_URL` is the same
+least-privilege URL as `DATABASE_URL`, but names the new database. The loop
+below copies the runtime file without putting either database credential on a
+process command line.
 
 ```sh
 set -eu
 : "${BACKUP:?set BACKUP to a verified mission-control SQL backup}"
+: "${MISSION_CONTROL_IMAGE:?set the immutable candidate image reference}"
+: "${MC_RESTORE_DATABASE_URL:?set the isolated restore database URL}"
 : "${RESTORE_DATABASE:=mission_control_restore}"
+RESTORE_ENV=/srv/mission-control/secrets/restore.env
 sha256sum -c "$BACKUP.sha256"
-docker stop mission-control
 docker exec mission-control-postgres \
   createdb --username mission_control "$RESTORE_DATABASE"
 gzip -dc "$BACKUP" | docker exec -i mission-control-postgres \
   psql --set ON_ERROR_STOP=on --username mission_control --dbname "$RESTORE_DATABASE"
-docker exec mission-control-postgres \
+table_count=$(docker exec mission-control-postgres \
   psql --tuples-only --no-align --username mission_control \
-  --dbname "$RESTORE_DATABASE" --command 'select current_database()'
-docker start mission-control
+  --dbname "$RESTORE_DATABASE" \
+  --command "select count(*) from information_schema.tables where table_schema = 'public'")
+test "$table_count" -gt 0
+
+umask 077
+while IFS= read -r line; do
+  case "$line" in
+    DATABASE_URL=*) printf 'DATABASE_URL=%s\n' "$MC_RESTORE_DATABASE_URL" ;;
+    *) printf '%s\n' "$line" ;;
+  esac
+done < /srv/mission-control/secrets/runtime.env > "$RESTORE_ENV"
+chmod 0600 "$RESTORE_ENV"
+
+docker volume create mission-control-restore-state
+docker volume create mission-control-restore-logs
+docker run --rm --read-only --tmpfs /tmp:rw,nosuid,nodev \
+  --network mission-control-net \
+  --mount type=volume,source=mission-control-restore-state,target=/var/lib/exocomp/mission-control \
+  --env-file "$RESTORE_ENV" \
+  "$MISSION_CONTROL_IMAGE" migrate
+docker run -d --name mission-control-restore-test \
+  --network mission-control-net \
+  --read-only --tmpfs /tmp:rw,nosuid,nodev \
+  --mount type=volume,source=mission-control-restore-state,target=/var/lib/exocomp/mission-control \
+  --mount type=volume,source=mission-control-restore-logs,target=/var/log/exocomp/mission-control \
+  --env-file "$RESTORE_ENV" \
+  "$MISSION_CONTROL_IMAGE" server
+attempt=0
+until docker exec mission-control-restore-test \
+  /usr/local/bin/mission-control-entrypoint healthcheck; do
+  attempt=$((attempt + 1))
+  test "$attempt" -lt 30
+  sleep 2
+done
+docker rm -f mission-control-restore-test
 ```
 
-Configure an isolated runtime secret with the restored database URL, run the
-candidate image's migrate command once against it, and check readiness before a
-production restore. If any verification fails, leave the production database
-unchanged, remove only the isolated test database under the database retention
-procedure, and investigate using the captured migration and database logs.
+If any verification fails, production is unchanged: retain the isolated
+database and logs for investigation, then remove them only under the database
+retention procedure. To promote the verified restore, keep the original
+container and database as the rollback point, recreate Mission Control with
+`restore.env`, and verify health, OIDC, one mTLS cluster, current fleet state,
+and audit continuity before reopening ingress:
+
+```sh
+set -eu
+: "${MISSION_CONTROL_IMAGE:?set the verified immutable image reference}"
+RESTORE_ENV=/srv/mission-control/secrets/restore.env
+docker stop mission-control
+docker rename mission-control mission-control-pre-restore
+docker run -d --name mission-control \
+  --network mission-control-net \
+  --restart unless-stopped \
+  --read-only --tmpfs /tmp:rw,nosuid,nodev \
+  --mount type=volume,source=mission-control-restore-state,target=/var/lib/exocomp/mission-control \
+  --mount type=volume,source=mission-control-restore-logs,target=/var/log/exocomp/mission-control \
+  --env-file "$RESTORE_ENV" \
+  --publish 127.0.0.1:4000:4000 \
+  "$MISSION_CONTROL_IMAGE" server
+attempt=0
+until docker exec mission-control \
+  /usr/local/bin/mission-control-entrypoint healthcheck; do
+  attempt=$((attempt + 1))
+  test "$attempt" -lt 30
+  sleep 2
+done
+```
+
+On a failed cutover, preserve its logs and roll back to the untouched original
+container and database. Do not run the prior image against the restored
+database if the candidate migrated it:
+
+```sh
+set -eu
+docker stop mission-control
+docker rename mission-control mission-control-failed-restore
+docker rename mission-control-pre-restore mission-control
+docker start mission-control
+docker exec mission-control /usr/local/bin/mission-control-entrypoint healthcheck
+```
+
+After the change window succeeds, remove the stopped rollback container only
+after its logs are retained. Keep both databases and their verified backup
+until the approved retention window closes. For managed PostgreSQL or
+Kubernetes, use the same new-database promotion pattern with provider-native
+dump/restore and an atomic Secret revision; never restore destructively over a
+running database.
 
 ## OIDC, roles, and audit
 
@@ -361,6 +502,35 @@ client certificates only; it must not reuse a node PKI or contain the offline
 root key. Verify root and issuer fingerprints over an authenticated out-of-band
 channel before enabling invitations.
 
+Run the release-provided control-plane PKI bootstrap as a two-person change on
+a disconnected ceremony host. Generate the root there, sign a constrained
+online cluster-client issuer, export only the root certificate and online
+issuer bundle, record their SHA-256 fingerprints, encrypt two offline-root
+backups under separate control, and remove the root key from the online host.
+Do not adapt the node-PKI files or use generic OpenSSL signing in place of the
+shipped bootstrap: if the candidate release cannot perform and audit this
+ceremony, it is not qualified for cluster enrollment. The installed
+[PKI operations guide](pki-operations.md) describes the same offline handling
+and verification principles for the separate node PKI.
+
+Verify the non-secret certificates before projecting the online issuer into
+Mission Control:
+
+```sh
+set -eu
+: "${MC_ROOT_CERT:?set the exported Mission Control root certificate path}"
+: "${MC_ISSUER_CERT:?set the online issuer certificate path}"
+openssl x509 -in "$MC_ROOT_CERT" -noout -subject -fingerprint -sha256
+openssl x509 -in "$MC_ISSUER_CERT" -noout -subject -issuer -fingerprint -sha256
+openssl verify -CAfile "$MC_ROOT_CERT" "$MC_ISSUER_CERT"
+openssl x509 -checkend 2592000 -noout -in "$MC_ISSUER_CERT"
+```
+
+Match both fingerprints to the ceremony record through an authenticated
+out-of-band channel. The issuer must be a CA, must chain to this root, must
+have more validity remaining than the cluster renewal window, and its key must
+be readable only by the Mission Control deployment identity.
+
 ```mermaid
 sequenceDiagram
     participant Admin
@@ -374,12 +544,103 @@ sequenceDiagram
     Coord->>MC: Outbound mTLS connection
 ```
 
-An admin creates one short-lived invitation in Administration, then
-Invitations, bound to the intended organization and cluster name. Transfer the
-shown-once token through an approved secret channel. On the installed
-coordinator, use the release's enrollment integration to make the key and CSR
-locally and submit the invitation. Never paste a token into a shell command,
-unit, or configuration file.
+An admin creates one short-lived invitation at Administration, then
+Invitations (`/admin/invitations`), bound to the intended organization and
+cluster name. Transfer the shown-once token through an approved secret channel.
+Never paste it into a shell command, unit, durable configuration file, or
+ticket.
+
+The installed coordinator's enrollment integration normally performs the
+following protocol atomically. This explicit walkthrough qualifies the same
+API when bringing up a clean cluster: it creates the private key locally,
+requests the exact SPIFFE identity, reads the invitation from a protected
+temporary file, and submits it to `POST /api/v1/clusters/enroll` without placing
+the token on a process command line. The organization and cluster identifiers
+must already have been accepted by Mission Control.
+
+```sh
+set -eu
+umask 077
+: "${MISSION_CONTROL_URL:?set the public Mission Control HTTPS origin}"
+: "${ORGANIZATION_ID:?set the invited organization ID}"
+: "${CLUSTER_ID:?set the invited cluster ID}"
+: "${INVITATION_INPUT:?set the protected shown-once invitation file}"
+case "$MISSION_CONTROL_URL" in https://*) ;; *) exit 64 ;; esac
+case "$ORGANIZATION_ID" in ''|*[!A-Za-z0-9._-]*) exit 64 ;; esac
+case "$CLUSTER_ID" in ''|*[!A-Za-z0-9._-]*) exit 64 ;; esac
+
+ENROLLMENT_DIR=/var/lib/exocomp-coordinator/mission-control
+INVITATION_FILE=/run/exocomp-mission-control-invitation
+REQUEST_FILE=/run/exocomp-mission-control-enroll.json
+RESPONSE_FILE=/run/exocomp-mission-control-enroll-response.json
+CSR_CONFIG=/run/exocomp-mission-control-csr.cnf
+cleanup_enrollment_files() {
+  rm -f "$INVITATION_FILE" "$REQUEST_FILE" "$RESPONSE_FILE" "$CSR_CONFIG"
+}
+trap cleanup_enrollment_files EXIT
+trap 'exit 130' HUP INT TERM
+install -d -o exocomp-coordinator -g exocomp-coordinator -m 0700 "$ENROLLMENT_DIR"
+install -o exocomp-coordinator -g exocomp-coordinator -m 0600 \
+  "$INVITATION_INPUT" "$INVITATION_FILE"
+
+{
+  printf '%s\n' '[req]' 'prompt = no' 'distinguished_name = dn' 'req_extensions = ext'
+  printf '%s\n' '[dn]' 'O = Exocomp' "CN = $CLUSTER_ID"
+  printf '%s\n' '[ext]' 'basicConstraints = critical,CA:FALSE'
+  printf '%s\n' 'keyUsage = critical,digitalSignature' 'extendedKeyUsage = clientAuth'
+  printf 'subjectAltName = URI:spiffe://exocomp/organizations/%s/clusters/%s\n' \
+    "$ORGANIZATION_ID" "$CLUSTER_ID"
+} > "$CSR_CONFIG"
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 \
+  -out "$ENROLLMENT_DIR/cluster-key.pem"
+openssl req -new -key "$ENROLLMENT_DIR/cluster-key.pem" \
+  -config "$CSR_CONFIG" -out "$ENROLLMENT_DIR/cluster.csr"
+
+export ORGANIZATION_ID CLUSTER_ID
+python3 - "$INVITATION_FILE" "$ENROLLMENT_DIR/cluster.csr" "$REQUEST_FILE" <<'PY'
+import json
+import os
+from pathlib import Path
+import sys
+
+invitation = Path(sys.argv[1]).read_text().strip()
+csr = Path(sys.argv[2]).read_text()
+request = {
+    "organization_id": os.environ["ORGANIZATION_ID"],
+    "cluster_id": os.environ["CLUSTER_ID"],
+    "invitation": invitation,
+    "csr": csr,
+}
+Path(sys.argv[3]).write_text(json.dumps(request, separators=(",", ":")))
+PY
+curl --fail-with-body --silent --show-error \
+  --header 'Content-Type: application/json' \
+  --data-binary "@$REQUEST_FILE" \
+  "$MISSION_CONTROL_URL/api/v1/clusters/enroll" > "$RESPONSE_FILE"
+python3 - "$RESPONSE_FILE" "$ENROLLMENT_DIR/cluster-chain.pem" <<'PY'
+import json
+from pathlib import Path
+import sys
+
+response = json.loads(Path(sys.argv[1]).read_text())
+chain = response.get("chain_pem")
+if not isinstance(chain, str) or not chain.startswith("-----BEGIN CERTIFICATE-----"):
+    raise SystemExit("enrollment response did not contain a certificate chain")
+Path(sys.argv[2]).write_text(chain)
+PY
+chown exocomp-coordinator:exocomp-coordinator \
+  "$ENROLLMENT_DIR/cluster-key.pem" "$ENROLLMENT_DIR/cluster.csr" \
+  "$ENROLLMENT_DIR/cluster-chain.pem"
+chmod 0600 "$ENROLLMENT_DIR/cluster-key.pem" "$ENROLLMENT_DIR/cluster-chain.pem"
+rm -f "$INVITATION_FILE" "$REQUEST_FILE" "$RESPONSE_FILE" "$CSR_CONFIG"
+```
+
+If the request fails, the invitation may already be consumed. Preserve the
+redacted audit result, delete the untrusted response, and ask an admin for a new
+invitation only after verifying the cluster identity; never replay the old
+token. Have the installed coordinator integration validate and atomically
+activate the local key and returned chain. Do not invent environment-variable
+names or copy credentials into a unit outside that release boundary.
 
 Confirm the returned certificate has the expected SPIFFE SAN
 spiffe://exocomp/organizations/{organization_id}/clusters/{cluster_id}, correct
@@ -387,6 +648,25 @@ chain and expiry, and that the private key remains local. Then verify outbound
 mTLS, heartbeat, and a status snapshot. The normal cadence is a 30-second
 heartbeat; 90 seconds without valid contact is disconnected and reconnect uses
 full-jitter exponential backoff capped at 60 seconds.
+
+```sh
+set -eu
+: "${MC_ROOT_CERT:?set the pinned Mission Control root certificate path}"
+: "${MC_ISSUER_CERT:?set the Mission Control issuer certificate path}"
+: "${CLUSTER_CERT:?set the enrolled cluster leaf certificate path}"
+: "${ORGANIZATION_ID:?set the enrolled organization ID}"
+: "${CLUSTER_ID:?set the enrolled cluster ID}"
+openssl verify -CAfile "$MC_ROOT_CERT" -untrusted "$MC_ISSUER_CERT" "$CLUSTER_CERT"
+openssl x509 -in "$CLUSTER_CERT" -noout -serial -dates -ext subjectAltName \
+  | tee /dev/stderr \
+  | grep -F "URI:spiffe://exocomp/organizations/$ORGANIZATION_ID/clusters/$CLUSTER_ID" \
+  > /dev/null
+```
+
+The command prints no private key. Record only the serial, validity, SAN, and
+certificate fingerprints. A token replay, organization mismatch, cluster
+mismatch, malformed CSR, CA-capable CSR, or wrong SAN must fail without
+issuing a chain; preserve the corresponding audit event.
 
 Renew before expiry through the authenticated path. A failed renewal retains
 the current valid key and certificate. For compromise, disable the cluster in
@@ -407,28 +687,62 @@ link-local, private, and redirecting destinations; revalidate DNS before each
 delivery. The endpoint secret is shown once, stored encrypted, and distributed
 through a secret manager.
 
-Each delivery includes event ID, timestamp, type, and exact JSON body. Verify
-HMAC-SHA256 over event ID, timestamp, and unmodified body before parsing it.
-Use constant-time digest comparison, reject timestamps outside the replay
-window, and store event IDs durably so duplicate delivery is a no-op.
+Each delivery uses `X-Exocomp-Event-Id`,
+`X-Exocomp-Delivery-Timestamp` (RFC 3339 UTC), `X-Exocomp-Event-Type`, and
+`X-Exocomp-Signature` (64 lowercase hexadecimal characters). The signature is
+HMAC-SHA256 over the exact bytes `event_id.timestamp.body`. Verify those bytes
+before JSON parsing. Use constant-time comparison, reject timestamps outside
+the receiver's documented replay window, and durably claim the event ID so a
+duplicate delivery returns success without repeating side effects.
 
 ```sh
 set -eu
 : "${WEBHOOK_SECRET:?set the one-time endpoint secret}"
 : "${WEBHOOK_ID:?set the received event ID}"
 : "${WEBHOOK_TIMESTAMP:?set the received timestamp}"
+: "${WEBHOOK_SIGNATURE:?set the received lowercase hexadecimal signature}"
 : "${WEBHOOK_BODY_FILE:?set a file containing the exact received bytes}"
+export WEBHOOK_SECRET WEBHOOK_ID WEBHOOK_TIMESTAMP WEBHOOK_SIGNATURE
 
-expected=$(printf '%s.%s.' "$WEBHOOK_ID" "$WEBHOOK_TIMESTAMP"; cat "$WEBHOOK_BODY_FILE")
-printf '%s' "$expected" | openssl dgst -sha256 -hmac "$WEBHOOK_SECRET"
+python3 - "$WEBHOOK_BODY_FILE" <<'PY'
+from datetime import datetime, timezone
+import hashlib
+import hmac
+import os
+from pathlib import Path
+import sys
+
+event_id = os.environ["WEBHOOK_ID"]
+timestamp = os.environ["WEBHOOK_TIMESTAMP"]
+signature = os.environ["WEBHOOK_SIGNATURE"]
+body = Path(sys.argv[1]).read_bytes()
+
+if not timestamp.endswith("Z"):
+    raise SystemExit("webhook timestamp must use RFC 3339 UTC with Z")
+delivered_at = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+if delivered_at.tzinfo is None:
+    raise SystemExit("webhook timestamp must include a UTC offset")
+if abs((datetime.now(timezone.utc) - delivered_at).total_seconds()) > 300:
+    raise SystemExit("webhook timestamp is outside the 5-minute replay window")
+
+canonical = f"{event_id}.{timestamp}.".encode("utf-8") + body
+expected = hmac.new(
+    os.environ["WEBHOOK_SECRET"].encode("utf-8"), canonical, hashlib.sha256
+).hexdigest()
+if not hmac.compare_digest(expected, signature):
+    raise SystemExit("webhook signature mismatch")
+PY
 ```
 
-The calculation is diagnostic only: a receiver must compare to the supplied
-signature in constant time and must not log secret or body. Failed deliveries
-retry with jittered exponential backoff for up to 24 hours. Rotate by enabling
-the new receiver secret, verifying a signed event, then revoking the old
-secret. Roll back only to the still-valid old secret and record affected event
-IDs.
+The script is a verification diagnostic, not a complete receiver: export the
+four received header values into its guarded variables without logging them.
+A receiver must place signature verification and the durable event-ID claim
+before downstream work, acknowledge an already-claimed ID without repeating
+work, and never log the secret or body. Failed deliveries retry with jittered
+exponential backoff for up to 24 hours; a receiver must not assume ordering.
+Rotate by accepting old and new secrets during a bounded overlap, verifying a
+new-secret event, then revoking the old secret. Roll back only to the
+still-valid old secret and record affected event IDs.
 
 ## Retention, monitoring, and troubleshooting
 
@@ -473,6 +787,28 @@ or login, then revoke the old secret. On failure restore the previous secret
 reference and known-good revision; never print both values to compare them.
 Mission Control PKI rotation follows the separate overlap ceremony above.
 
+Use one immutable secret revision per attempt. Keep the previous revision
+enabled until the matching verification below succeeds, and record secret
+version identifiers rather than values:
+
+| Material | Rotation and verification | Rollback |
+|---|---|---|
+| PostgreSQL role password | Create a provider-supported overlapping credential or maintenance window, update `DATABASE_URL`, recreate one instance, and require readiness plus a backup query. | Restore the prior Secret revision and database credential, recreate the instance, and recheck readiness; do not change schema. |
+| OIDC client secret | Add the new IdP secret while the old one remains valid, update the runtime Secret, and complete login/logout plus viewer/admin denial tests. | Restore the prior runtime revision while the old IdP secret is valid; revoke the failed candidate. |
+| `SECRET_KEY_BASE` / `MISSION_CONTROL_SECRET_KEY_BASE` | Replace both with the same value, restart all replicas in one window, and expect existing browser sessions to end; verify new login and CSRF-protected mutation. | Restore both prior values together and the prior workload revision; never mix them across replicas. |
+| `RELEASE_COOKIE` | Quiesce clustered release operations, replace all replicas as one cohort, and verify release healthcheck plus inter-replica operations. | Restore the entire prior cohort and cookie revision; do not leave split-cookie replicas running. |
+| `EXOCOMP_READINESS_TOKEN` | Update the probe Secret and every authorized scraper/probe, then require new-token `200` and old-token `401`. | Restore the old workload and probe revisions together before revoking the old token. |
+| Webhook endpoint secret | Accept both receiver secrets during a bounded overlap, deliver and deduplicate a signed test event using the new one, then retire the old one. | Re-enable only the still-valid old secret and replay by event ID after signature verification. |
+| Webhook encryption key | Use the release's versioned rewrap operation, verify every endpoint decrypts and a signed test delivery succeeds, then retire the old wrapping key. | Retain the old key and pre-rotation database backup until rewrap verification; restore both together if rollback is required. |
+| Mission Control issuer or root | Follow the issuer-overlap or out-of-band root ceremony; verify chains and renew every active cluster before retirement. | Keep the old trust path active and stop new issuance; never restore a revoked or compromised private key. |
+
+For Kubernetes, create a new named Secret revision instead of mutating the
+in-use object, reference it from a candidate Deployment, and wait for rollout
+and application verification before deleting the old Deployment or revoking
+the old credential. For the VM example, keep the stopped prior container and
+runtime file until the candidate passes. A rollback always restores the
+matching image, state/schema compatibility, and whole secret revision.
+
 For uninstall, retain required database backups, persistent state, audit export,
 image digest, and OIDC/PKI change records. Disable invitations and webhooks,
 revoke or expire cluster identities under the incident policy, remove ingress,
@@ -495,6 +831,23 @@ docker network rm mission-control-net
 docker volume inspect mission-control-postgres mission-control-state mission-control-logs
 ```
 
-For Kubernetes, delete the Mission Control Job, Deployment, Service, and
-Ingress by their exact names in the dedicated namespace. Preserve the PVCs,
-Secret, and database until the approved retention deletion has completed.
+For Kubernetes, delete only the named Mission Control workload and ingress
+resources. Preserve the PVC, Secret, namespace, and database until the approved
+retention deletion has completed and another restore test has passed:
+
+```sh
+set -eu
+MC_NAMESPACE=mission-control
+kubectl -n "$MC_NAMESPACE" delete ingress mission-control --ignore-not-found
+kubectl -n "$MC_NAMESPACE" delete service mission-control --ignore-not-found
+kubectl -n "$MC_NAMESPACE" delete deployment mission-control --ignore-not-found
+kubectl -n "$MC_NAMESPACE" delete job mission-control-migrate --ignore-not-found
+kubectl -n "$MC_NAMESPACE" get pvc mission-control-state
+kubectl -n "$MC_NAMESPACE" get secret mission-control-runtime
+```
+
+Finally revoke the OIDC client, readiness token, webhook secrets, database
+role, and online issuer access only after rollback is no longer permitted.
+Deletion of the preserved PVC, volumes, Secret, backup, database, or namespace
+is a separate destructive retention change and is intentionally not part of
+these uninstall commands.
