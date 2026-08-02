@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-44
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Assemble signed offline bundles, SBOMs, and provenance
 parent: EXOCOMP-6
@@ -14,7 +14,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:12:03.621738Z'
-updated_at: '2026-08-02T05:06:04.005161Z'
+updated_at: '2026-08-02T05:09:20.026014Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -46,6 +46,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T23:44:45.361268+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-0b5276e2516c: '2026-08-02T05:09:16.446687+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-44
+    target_state: Archived
+    evidence_fingerprint: a3f891fe7ddb2caa23a79b29274da8609dc81aa2dd16fce92eae9cdffc94bb5f
+    audit_ids:
+    - audit-efcdca97ad83
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T05:09:16.446698+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-44
+    audit_id: audit-efcdca97ad83
+    attempt_id: attempt-0b5276e2516c
+    target_state: Archived
+    evidence_fingerprint: a3f891fe7ddb2caa23a79b29274da8609dc81aa2dd16fce92eae9cdffc94bb5f
+    status: Archived
+    audit_ids:
+    - audit-efcdca97ad83
+    applied: false
+    created_at: '2026-08-02T05:09:16.446713+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -53,7 +77,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-44
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -62,7 +86,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-0b5276e2516c
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -72,13 +96,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T05:05:58.881040+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-02T05:09:16.446488+00:00'
+      ended_at: '2026-08-02T05:09:16.446488+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:59:15.452661+00:00'
-    updated_at: '2026-08-02T05:05:58.881040+00:00'
+    updated_at: '2026-08-02T05:09:16.446488+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-0b5276e2516c
@@ -328,5 +355,20 @@ author: oompah
 created: 2026-08-02 05:06
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 05:09
+---
+Audit PASS — Archived
+
+Aged Merged auto-archive is safe. EXOCOMP-44 deliverables (scripts/assemble-bundle.sh, verify-bundle.sh, generate-sbom.sh, generate-provenance.sh, sign-bundle.sh, tests/test_bundle.py) were recovered by 50cd48c2 under recovery epic EXOCOMP-114 and are present on origin/main via merge commit 2085e441 (PR #14). Follow-up reproducibility and metadata defects are tracked separately under EXOCOMP-120 (commit 101ef491). No outstanding tracker actions or risks block archival.
+
+Safe evidence:
+- recovery_commit_on_main: 50cd48c23a0fdc0810441c8c16357f77a112cfdd
+- merge_commit_on_main: 2085e44152f03ffd41f35cbfeee89a0da53b8bce
+- follow_up_task: EXOCOMP-120 (commit 101ef491)
+- bundle_assets_on_main: scripts/assemble-bundle.sh, scripts/verify-bundle.sh, scripts/generate-sbom.sh, scripts/generate-provenance.sh, scripts/sign-bundle.sh, tests/test_bundle.py (1086 lines)
+- previous_state: Merged (per trusted metadata)
+- archive_reason: Aged Merged auto-archive after 7 days
 ---
 <!-- COMMENTS:END -->
