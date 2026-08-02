@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:08:10.169414Z'
+updated_at: '2026-08-02T00:13:02.096503Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -768,5 +768,10 @@ author: oompah
 created: 2026-08-02 00:08
 ---
 Understanding: I will trace the remediation lifecycle, Ceph adapter, typed node action-catalog boundary, and shipped profile registry; then fix helper routing/wire format and action-id selection, add integration and focused regression tests, run Makefile quality gates, and push/submit the branch.
+---
+author: oompah
+created: 2026-08-02 00:13
+---
+Discovery: the existing Ceph adapter directly forks sudo at the wrong /usr/libexec path, sends a 4-field request, and the global config selects it for every remediation action. The node package installs /opt/exocomp/node/bin/profile-action-helper and its C parser requires exact 5-field bytes. I will move execution behind a typed node A2A profile-action skill/catalog, add a constrained coordinator client, collect node profile evidence, and route adapters by action_id.
 ---
 <!-- COMMENTS:END -->
