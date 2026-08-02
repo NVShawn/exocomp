@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:22.081454Z'
-updated_at: '2026-08-02T04:04:05.501449Z'
+updated_at: '2026-08-02T04:04:39.761768Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-163
 target_branch: null
 review_url: null
@@ -184,5 +184,10 @@ author: oompah
 created: 2026-08-02 04:04
 ---
 Verification update: after adding explicit execution_completed history and correlation-checked action_started/action_completed audit assertions, the isolated typed suite passes 13/13. Official gates remain environment-blocked as reported.
+---
+author: oompah
+created: 2026-08-02 04:04
+---
+Completion: delivered typed proposal.approve/proposal.deny coordinator handling with strict payload/context validation, fresh evidence and policy revalidation, fail-closed binding checks, local Ed25519 signing, node adapter safety boundary, durable command idempotency/outbox integration, restart rehydration, and correlated lifecycle/artifact reporting. Commit c4f02ab4 is pushed; official container gates are blocked by host Podman configuration and direct Mix by the pinned-version mismatch.
 ---
 <!-- COMMENTS:END -->
