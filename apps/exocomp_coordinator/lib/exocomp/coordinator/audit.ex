@@ -32,6 +32,17 @@ defmodule Exocomp.Coordinator.Audit do
   @spec status(GenServer.server()) :: map()
   def status(server \\ __MODULE__), do: GenServer.call(server, :status)
 
+  @doc """
+  Return audit events in durable write order.
+
+  The default JSON-lines sink reloads its current and rotated files when the
+  Audit process starts, allowing safety decisions to survive a coordinator
+  restart. Custom sinks may provide the optional read/1 callback; otherwise
+  their history is available only while this process remains alive.
+  """
+  @spec events(GenServer.server()) :: {:ok, [map()]} | {:error, term()}
+  def events(server \\ __MODULE__), do: GenServer.call(server, :events)
+
   @spec correlation_id() :: String.t()
   def correlation_id do
     entropy = :crypto.strong_rand_bytes(16) |> Base.url_encode64(padding: false)
@@ -59,6 +70,15 @@ defmodule Exocomp.Coordinator.Audit do
     {:reply, status, state}
   end
 
+  @impl true
+  def handle_call(:events, _from, %{events_error: nil} = state) do
+    {:reply, {:ok, state.events}, state}
+  end
+
+  def handle_call(:events, _from, state) do
+    {:reply, {:error, {:audit_history_unavailable, state.events_error}}, state}
+  end
+
   def handle_call({:emit, type, correlation_id, attributes}, _from, state) do
     event =
       %{
@@ -72,7 +92,7 @@ defmodule Exocomp.Coordinator.Audit do
 
     case deliver(state, event) do
       {:ok, updated} ->
-        {:reply, :ok, updated}
+        {:reply, :ok, %{updated | events: updated.events ++ [event]}}
 
       {:error, reason, updated} ->
         error =
@@ -96,7 +116,16 @@ defmodule Exocomp.Coordinator.Audit do
   defp initialize_sink({module, opts}) do
     case safe_sink_call(fn -> module.init(opts) end) do
       {:ok, sink_state} ->
-        %{sink_module: module, sink_opts: opts, sink_state: sink_state, last_error: nil}
+        {events, events_error} = load_events(module, sink_state)
+
+        %{
+          sink_module: module,
+          sink_opts: opts,
+          sink_state: sink_state,
+          last_error: nil,
+          events: events,
+          events_error: events_error
+        }
 
       {:error, reason} ->
         %{
@@ -106,7 +135,9 @@ defmodule Exocomp.Coordinator.Audit do
           last_error:
             Error.new(:audit_unavailable, "audit sink failed to initialize", %{
               reason: inspect(reason)
-            })
+            }),
+          events: [],
+          events_error: reason
         }
     end
   end
@@ -138,6 +169,18 @@ defmodule Exocomp.Coordinator.Audit do
     error -> {:error, {:exception, Exception.message(error)}}
   catch
     kind, reason -> {:error, {kind, reason}}
+  end
+
+  defp load_events(module, sink_state) do
+    if function_exported?(module, :read, 1) do
+      case safe_sink_call(fn -> module.read(sink_state) end) do
+        {:ok, events} when is_list(events) -> {events, nil}
+        {:ok, other} -> {[], {:invalid_event_history, other}}
+        {:error, reason} -> {[], reason}
+      end
+    else
+      {[], nil}
+    end
   end
 
   defp redact_value(%_{} = struct), do: struct |> Map.from_struct() |> redact_value()

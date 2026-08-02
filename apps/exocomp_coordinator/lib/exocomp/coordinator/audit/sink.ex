@@ -6,4 +6,7 @@ defmodule Exocomp.Coordinator.Audit.Sink do
   @callback init(keyword()) :: {:ok, term()} | {:error, term()}
   @callback write(term(), map()) :: {:ok, term()} | {:error, term()}
   @callback close(term()) :: :ok
+  @callback read(term()) :: {:ok, [map()]} | {:error, term()}
+
+  @optional_callbacks read: 1
 end

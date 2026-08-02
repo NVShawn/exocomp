@@ -81,11 +81,21 @@ defmodule Exocomp.Coordinator.RemediationLifecycle do
         Audit.emit(type, attributes, server: audit_server, correlation_id: correlation_id)
       end)
 
+    audit_events =
+      Keyword.get(opts, :audit_reader, fn ->
+        Audit.events(audit_server)
+      end)
+
     {:ok,
      %{
        tasks: %{},
        adapter: Keyword.get(opts, :adapter, FailClosed),
        audit: audit,
+       audit_events: audit_events,
+       durable_audit?:
+         Keyword.has_key?(opts, :audit_reader) or
+           not Keyword.has_key?(opts, :audit_fun),
+       audit_server: audit_server,
        approval_timeout_ms: Keyword.get(opts, :approval_timeout_ms, @default_approval_timeout_ms),
        model_output_bytes: Keyword.get(opts, :model_output_bytes, @default_model_output_bytes),
        redactor: Keyword.get(opts, :redactor, &Audit.redact/1)
@@ -178,8 +188,9 @@ defmodule Exocomp.Coordinator.RemediationLifecycle do
 
   defp process_proposal(task_id, raw, state) do
     state = transition(state, task_id, :working, :validation_started, %{})
+    adapter_raw = adapter_context(raw, task!(state, task_id), state)
 
-    with {:ok, proposal} <- invoke(state.adapter, :validate_proposal, [raw]),
+    with {:ok, proposal} <- invoke(state.adapter, :validate_proposal, [adapter_raw]),
          :ok <- stage_audit(state, task_id, :proposal_validated, %{proposal: proposal}),
          {:ok, evidence} <- invoke(state.adapter, :collect_evidence, [proposal]),
          :ok <- stage_audit(state, task_id, :evidence_collected, %{evidence: evidence}),
@@ -208,9 +219,23 @@ defmodule Exocomp.Coordinator.RemediationLifecycle do
   defp apply_decision(task_id, {:allow, action}, state) do
     case stage_audit(state, task_id, :policy_decided, %{decision: :allow, action: action}) do
       :ok ->
+        action = correlate_action(action, task!(state, task_id), state)
         state = update_entry(state, task_id, &Map.put(&1, :action, action))
-        {task, state} = execute(task_id, nil, state)
-        {{:ok, task}, state}
+
+        case reconcile_execution(action, state) do
+          {:ok, state} ->
+            {{:ok, task!(state, task_id)}, state}
+
+          {:error, reason, state} ->
+            {task, state} =
+              terminal(state, task_id, :failed, :audit_reconciliation_required, reason)
+
+            {{:ok, task}, state}
+
+          {:none, state} ->
+            {task, state} = execute(task_id, nil, state)
+            {{:ok, task}, state}
+        end
 
       {:error, reason} ->
         {task, state} = terminal(state, task_id, :failed, :audit_unavailable, reason)
@@ -219,6 +244,8 @@ defmodule Exocomp.Coordinator.RemediationLifecycle do
   end
 
   defp apply_decision(task_id, {:approval_required, action, request}, state) do
+    action = correlate_action(action, task!(state, task_id), state)
+
     with :ok <-
            stage_audit(state, task_id, :policy_decided, %{
              decision: :approval_required,
@@ -324,7 +351,132 @@ defmodule Exocomp.Coordinator.RemediationLifecycle do
         detail: detail
       })
 
+    terminal_audit_event =
+      case task_state do
+        :completed -> :remediation_completed
+        :failed -> :remediation_failed
+        _ -> nil
+      end
+
+    if terminal_audit_event do
+      _ =
+        audit(state, terminal_audit_event, task, %{
+          state: task_state,
+          outcome: event,
+          detail: detail
+        })
+    end
+
     {task, state}
+  end
+
+  defp adapter_context(proposal, task, state) do
+    proposal
+    |> Map.put("_audit_server", state.audit_server)
+    |> Map.put("_correlation_id", task.contextId)
+  end
+
+  defp correlate_action(action, task, state) when is_map(action) do
+    action
+    |> Map.put(:audit_server, state.audit_server)
+    |> Map.put(:correlation_id, task.contextId)
+  end
+
+  defp correlate_action(action, _task, _state), do: action
+
+  defp reconcile_execution(_action, %{durable_audit?: false} = state),
+    do: {:none, state}
+
+  defp reconcile_execution(action, state) do
+    case safe_audit_events(state) do
+      {:ok, events} ->
+        case unfinished_execution(events, action) do
+          nil ->
+            {:none, state}
+
+          %{intent: intent, execution: execution} ->
+            detail = %{
+              reason: :durable_execution_reconciled,
+              intent: intent,
+              execution: execution
+            }
+
+            {:error, detail, state}
+        end
+
+      {:error, reason} ->
+        {:error, {:audit_history_unavailable, reason}, state}
+    end
+  end
+
+  defp safe_audit_events(state) do
+    case safe_call(fn -> state.audit_events.() end) do
+      {:ok, {:ok, events}} when is_list(events) -> {:ok, events}
+      {:ok, {:error, reason}} -> {:error, reason}
+      {:ok, other} -> {:error, {:invalid_audit_reader_result, other}}
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  defp unfinished_execution(events, action) do
+    events
+    |> Enum.filter(fn event ->
+      event_type(event) == "remediation_intent_accepted" and
+        action_matches?(event_attributes(event)["action"], action)
+    end)
+    |> Enum.reverse()
+    |> Enum.find_value(fn intent ->
+      correlation_id = event_correlation_id(intent)
+
+      if terminal_for_correlation?(events, correlation_id) do
+        nil
+      else
+        execution =
+          Enum.find(events, fn event ->
+            event_type(event) == "execution_finished" and
+              event_correlation_id(event) == correlation_id
+          end)
+
+        %{intent: intent_attributes(intent), execution: event_attributes(execution)}
+      end
+    end)
+  end
+
+  defp terminal_for_correlation?(events, correlation_id) do
+    Enum.any?(events, fn event ->
+      event_type(event) == "remediation_terminal" and
+        event_correlation_id(event) == correlation_id
+    end)
+  end
+
+  defp action_matches?(event_action, action) when is_map(event_action) and is_map(action) do
+    Enum.all?([:action_id, :node_id, :daemon_id, :target_unit], fn key ->
+      value(event_action, key) == Map.get(action, key)
+    end)
+  end
+
+  defp action_matches?(_event_action, _action), do: false
+
+  defp event_type(event), do: value(event, "event_type") || value(event, :event_type)
+  defp event_attributes(event), do: value(event, "attributes") || value(event, :attributes) || %{}
+
+  defp event_correlation_id(event),
+    do: value(event, "correlation_id") || value(event, :correlation_id)
+
+  defp intent_attributes(event), do: event_attributes(event)
+
+  defp value(map, atom_key) when is_map(map) and is_atom(atom_key),
+    do: Map.get(map, atom_key) || Map.get(map, Atom.to_string(atom_key))
+
+  defp value(map, key) when is_map(map), do: Map.get(map, key)
+  defp value(_map, _key), do: nil
+
+  defp safe_call(function) do
+    function.()
+  rescue
+    error -> {:error, {:exception, Exception.message(error)}}
+  catch
+    kind, reason -> {:error, {kind, reason}}
   end
 
   defp transition(state, task_id, new_state, event, data) do

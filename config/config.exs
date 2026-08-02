@@ -7,6 +7,8 @@ config :exocomp_coordinator,
   pki_online_state: System.get_env("EXOCOMP_PKI_ONLINE_STATE"),
   pki_offline_root_backup: System.get_env("EXOCOMP_PKI_OFFLINE_ROOT_BACKUP"),
   enrollment_token_store_path: System.get_env("EXOCOMP_ENROLLMENT_TOKEN_STORE"),
+  ceph_stability_window_ms: if(config_env() == :test, do: 0, else: 30_000),
+  ceph_stability_poll_interval_ms: if(config_env() == :test, do: 1, else: 1_000),
   remediation_lifecycle: [
     adapter: Exocomp.Coordinator.RemediationAdapter.Router
   ]

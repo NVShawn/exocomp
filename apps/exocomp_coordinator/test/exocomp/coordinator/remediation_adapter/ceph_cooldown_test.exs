@@ -14,18 +14,44 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
 
   use ExUnit.Case, async: false
 
+  alias Exocomp.Coordinator.Audit
+  alias Exocomp.Coordinator.Audit.JSONLines
   alias Exocomp.Coordinator.RemediationAdapter.CephCooldown
 
   @node_id "osd-node-1"
   @daemon_id "osd.42"
   @target_unit "ceph-osd@42.service"
 
+  setup do
+    audit_name = unique_name(:ceph_cooldown_audit)
+    audit_path = Path.join(System.tmp_dir!(), "#{audit_name}.jsonl")
+    previous_audit_server = Application.get_env(:exocomp_coordinator, :ceph_audit_server)
+
+    start_supervised!(
+      {Audit, name: audit_name, sink: {JSONLines, path: audit_path}},
+      id: audit_name
+    )
+
+    Application.put_env(:exocomp_coordinator, :ceph_audit_server, audit_name)
+
+    on_exit(fn ->
+      if previous_audit_server do
+        Application.put_env(:exocomp_coordinator, :ceph_audit_server, previous_audit_server)
+      else
+        Application.delete_env(:exocomp_coordinator, :ceph_audit_server)
+      end
+    end)
+
+    :ok
+  end
+
   # ---------------------------------------------------------------------------
   # Cooldown recording tests
   # ---------------------------------------------------------------------------
 
   test "records a cooldown event on verification failure" do
-    {:ok, event} = CephCooldown.record_cooldown(@daemon_id, @node_id, @target_unit, :health_regressed)
+    {:ok, event} =
+      CephCooldown.record_cooldown(@daemon_id, @node_id, @target_unit, :health_regressed)
 
     assert event.daemon_id == @daemon_id
     assert event.node_id == @node_id
@@ -36,7 +62,8 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
   end
 
   test "cooldown expiration time is in the future" do
-    {:ok, event} = CephCooldown.record_cooldown(@daemon_id, @node_id, @target_unit, :mapping_changed)
+    {:ok, event} =
+      CephCooldown.record_cooldown(@daemon_id, @node_id, @target_unit, :mapping_changed)
 
     {:ok, expires_at, _} = DateTime.from_iso8601(event.expires_at)
     now = DateTime.utc_now()
@@ -45,15 +72,17 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
   end
 
   test "cooldown expiration is configurable" do
-    cooldown_ms = 60 * 1000  # 1 minute
+    # 1 minute
+    cooldown_ms = 60 * 1000
 
-    {:ok, event} = CephCooldown.record_cooldown(
-      @daemon_id,
-      @node_id,
-      @target_unit,
-      :health_regressed,
-      cooldown_ms: cooldown_ms
-    )
+    {:ok, event} =
+      CephCooldown.record_cooldown(
+        @daemon_id,
+        @node_id,
+        @target_unit,
+        :health_regressed,
+        cooldown_ms: cooldown_ms
+      )
 
     {:ok, expires_at, _} = DateTime.from_iso8601(event.expires_at)
     {:ok, timestamp, _} = DateTime.from_iso8601(event.timestamp)
@@ -62,6 +91,19 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
     diff_ms = DateTime.diff(expires_at, timestamp, :millisecond)
 
     assert diff_ms >= cooldown_ms - 100 and diff_ms <= cooldown_ms + 100
+  end
+
+  test "default durable cooldown expires and permits a fresh decision" do
+    assert {:ok, _event} =
+             CephCooldown.record_cooldown(
+               @daemon_id,
+               @node_id,
+               @target_unit,
+               :health_regressed,
+               cooldown_ms: 0
+             )
+
+    refute CephCooldown.in_cooldown?(@daemon_id, @node_id, cooldown_ms: 0)
   end
 
   # ---------------------------------------------------------------------------
@@ -81,13 +123,14 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
       :ok
     end
 
-    {:ok, event} = CephCooldown.record_cooldown(
-      @daemon_id,
-      @node_id,
-      @target_unit,
-      :health_regressed,
-      audit_writer: audit_writer
-    )
+    {:ok, event} =
+      CephCooldown.record_cooldown(
+        @daemon_id,
+        @node_id,
+        @target_unit,
+        :health_regressed,
+        audit_writer: audit_writer
+      )
 
     assert_receive {:audit_event, _event}
 
@@ -212,13 +255,14 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
     end
 
     # First failure
-    {:ok, _event1} = CephCooldown.record_cooldown(
-      @daemon_id,
-      @node_id,
-      @target_unit,
-      :health_regressed,
-      audit_writer: audit_writer
-    )
+    {:ok, _event1} =
+      CephCooldown.record_cooldown(
+        @daemon_id,
+        @node_id,
+        @target_unit,
+        :health_regressed,
+        audit_writer: audit_writer
+      )
 
     assert_receive {:audit_event, _event1}
 
@@ -228,13 +272,14 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
     assert_receive {:audit_event, _event2}
 
     # Second failure (after cooldown cleared)
-    {:ok, _event3} = CephCooldown.record_cooldown(
-      @daemon_id,
-      @node_id,
-      @target_unit,
-      :mapping_changed,
-      audit_writer: audit_writer
-    )
+    {:ok, _event3} =
+      CephCooldown.record_cooldown(
+        @daemon_id,
+        @node_id,
+        @target_unit,
+        :mapping_changed,
+        audit_writer: audit_writer
+      )
 
     assert_receive {:audit_event, _event3}
   end
@@ -250,6 +295,35 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
 
     # When audit reader fails, assume no cooldown (fail open for checks)
     assert CephCooldown.in_cooldown?(@daemon_id, @node_id, audit_reader: audit_reader) == false
+
+    assert {:error, :audit_unavailable} =
+             CephCooldown.cooldown_status(@daemon_id, @node_id, audit_reader: audit_reader)
+  end
+
+  test "default audit reader survives an Audit process restart" do
+    audit_name = Application.fetch_env!(:exocomp_coordinator, :ceph_audit_server)
+
+    {:ok, _event} =
+      CephCooldown.record_cooldown(
+        @daemon_id,
+        @node_id,
+        @target_unit,
+        :health_regressed
+      )
+
+    assert CephCooldown.in_cooldown?(@daemon_id, @node_id)
+    assert :ok = stop_supervised(audit_name)
+
+    restarted_name = unique_name(:ceph_cooldown_audit_restarted)
+    audit_path = Path.join(System.tmp_dir!(), "#{audit_name}.jsonl")
+
+    start_supervised!(
+      {Audit, name: restarted_name, sink: {JSONLines, path: audit_path}},
+      id: restarted_name
+    )
+
+    Application.put_env(:exocomp_coordinator, :ceph_audit_server, restarted_name)
+    assert CephCooldown.in_cooldown?(@daemon_id, @node_id)
   end
 
   test "handles audit writer failures gracefully" do
@@ -257,13 +331,14 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
       {:error, :audit_unavailable}
     end
 
-    result = CephCooldown.record_cooldown(
-      @daemon_id,
-      @node_id,
-      @target_unit,
-      :health_regressed,
-      audit_writer: audit_writer
-    )
+    result =
+      CephCooldown.record_cooldown(
+        @daemon_id,
+        @node_id,
+        @target_unit,
+        :health_regressed,
+        audit_writer: audit_writer
+      )
 
     assert {:error, :audit_unavailable} = result
   end
@@ -283,4 +358,6 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldownTest do
     |> DateTime.add(-minutes, :minute)
     |> DateTime.to_iso8601()
   end
+
+  defp unique_name(prefix), do: :"#{prefix}_#{System.unique_integer([:positive])}"
 end

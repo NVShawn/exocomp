@@ -22,7 +22,9 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
   @profile_version 1
   @max_evidence_age_ms 5 * 60 * 1000
   @daemon_types ~w[mon mgr osd mds radosgw]
-  @default_cooldown_ms 30 * 60 * 1000  # 30 minutes
+  @default_cooldown_ms 30 * 60 * 1000
+  @default_stability_window_ms 30_000
+  @default_stability_poll_interval_ms 1_000
 
   @doc "The only action ID handled by this adapter."
   def action_id, do: @action_id
@@ -60,17 +62,18 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
          :ok <- node_supports_action(node),
          :ok <- profile_is_shipped(profile_name, profile_version) do
       if Map.get(proposal, "target_id") == daemon_id do
-        {:ok,
-         %{
-           action_id: @action_id,
-           node_id: node_id,
-           daemon_id: daemon_id,
-           daemon_type: daemon_type,
-           profile_name: profile_name,
-           profile_version: profile_version,
-           target_unit: target_unit,
-           evidence_refs: Map.get(proposal, "evidence_refs", [])
-         }}
+        validated = %{
+          action_id: @action_id,
+          node_id: node_id,
+          daemon_id: daemon_id,
+          daemon_type: daemon_type,
+          profile_name: profile_name,
+          profile_version: profile_version,
+          target_unit: target_unit,
+          evidence_refs: Map.get(proposal, "evidence_refs", [])
+        }
+
+        {:ok, copy_internal_context(validated, proposal)}
       else
         {:error, :target_mapping_mismatch}
       end
@@ -121,7 +124,7 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
       when is_binary(node_id) and is_binary(daemon_id) and is_binary(daemon_type) and
              is_binary(profile_name) and is_integer(profile_version) and is_binary(target_unit) and
              is_map(evidence) do
-    with :ok <- check_not_in_cooldown(daemon_id, node_id),
+    with :ok <- check_not_in_cooldown(proposal),
          :ok <- check_node_in_inventory(proposal.node_id),
          {:ok, node} <- node_from_inventory(proposal.node_id),
          :ok <- node_supports_action(node),
@@ -189,13 +192,9 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
         result
       )
       when is_binary(node_id) do
-    with {:ok, post_evidence} <- collect_evidence(action),
-         :ok <- check_exact_mapping(action, post_evidence),
-         :ok <- check_healthy(post_evidence),
-         :ok <- check_cluster_health_not_regressed(pre_execution_evidence, post_evidence) do
-      # Clear any existing cooldown on successful verification
-      _ = CephCooldown.clear_cooldown(daemon_id)
-
+    with {:ok, post_evidence, sample_count} <-
+           verify_stability_window(action, pre_execution_evidence),
+         :ok <- clear_cooldown(action) do
       {:ok,
        %{
          status: "healthy",
@@ -203,15 +202,21 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
          target_unit: target_unit,
          execution: result,
          collected_at: post_evidence.collected_at,
-         verification_type: "stability_window_passed"
+         verification_type: "stability_window_passed",
+         stability_window_ms: stability_window_ms(),
+         samples: sample_count
        }}
     else
       {:error, reason} ->
-        # Extract the primary reason (first element of tuple) for cooldown tracking
         reason_atom = extract_reason_atom(reason)
-        # Enter cooldown on verification failure
-        _ = CephCooldown.record_cooldown(daemon_id, node_id, target_unit, reason_atom)
-        {:error, {:verification_failed, reason}}
+
+        case record_cooldown(action, reason_atom) do
+          {:ok, _event} ->
+            {:error, {:verification_failed, reason}}
+
+          {:error, audit_reason} ->
+            {:error, {:verification_failed, {:cooldown_record_failed, audit_reason, reason}}}
+        end
     end
   end
 
@@ -221,24 +226,171 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
   # Trusted policy gates
   # ---------------------------------------------------------------------------
 
-  defp check_not_in_cooldown(daemon_id, node_id) do
+  defp check_not_in_cooldown(proposal) do
     cooldown_ms =
       Application.get_env(:exocomp_coordinator, :ceph_cooldown_ms, @default_cooldown_ms)
 
-    if CephCooldown.in_cooldown?(daemon_id, node_id, cooldown_ms: cooldown_ms) do
-      {:error, :in_cooldown}
+    opts = cooldown_opts(proposal, cooldown_ms)
+
+    case CephCooldown.cooldown_status(proposal.daemon_id, proposal.node_id, opts) do
+      {:ok, true} -> {:error, :in_cooldown}
+      {:ok, false} -> :ok
+      {:error, _reason} -> {:error, :in_cooldown}
+    end
+  end
+
+  defp verify_stability_window(action, pre_execution_evidence) do
+    poll_interval_ms = stability_poll_interval_ms()
+
+    with {:ok, evidence} <- collect_evidence(action),
+         :ok <- verify_sample(action, pre_execution_evidence, evidence) do
+      deadline = System.monotonic_time(:millisecond) + stability_window_ms()
+
+      poll_stability(
+        action,
+        pre_execution_evidence,
+        evidence,
+        deadline,
+        poll_interval_ms,
+        1
+      )
+    end
+  end
+
+  defp poll_stability(action, pre, evidence, deadline, poll_interval, samples) do
+    if System.monotonic_time(:millisecond) >= deadline do
+      {:ok, evidence, samples}
     else
+      remaining = max(deadline - System.monotonic_time(:millisecond), 0)
+      Process.sleep(min(poll_interval, remaining))
+
+      with {:ok, next_evidence} <- collect_evidence(action),
+           :ok <- verify_sample(action, pre, next_evidence) do
+        poll_stability(action, pre, next_evidence, deadline, poll_interval, samples + 1)
+      end
+    end
+  end
+
+  defp verify_sample(action, pre_execution_evidence, post_evidence) do
+    with :ok <- check_exact_mapping(action, post_evidence),
+         :ok <- check_topology_identity(pre_execution_evidence, post_evidence),
+         :ok <- check_healthy(post_evidence),
+         :ok <- check_cluster_health_not_regressed(pre_execution_evidence, post_evidence) do
       :ok
+    end
+  end
+
+  defp check_topology_identity(pre_evidence, post_evidence) do
+    pre_identity = topology_identity(pre_evidence)
+    post_identity = topology_identity(post_evidence)
+
+    cond do
+      is_nil(pre_identity) ->
+        :ok
+
+      pre_identity == post_identity ->
+        :ok
+
+      true ->
+        {:error, :topology_identity_changed}
+    end
+  end
+
+  defp topology_identity(evidence) do
+    topology = Map.get(evidence, :topology, Map.get(evidence, "topology", %{}))
+
+    if is_map(topology) do
+      value(topology, :fsid, "fsid") ||
+        value(topology, :cluster_id, "cluster_id") ||
+        value(topology, :cluster_fsid, "cluster_fsid") ||
+        value(topology, :identity, "identity")
+    end
+  end
+
+  defp stability_window_ms do
+    configured =
+      Application.get_env(
+        :exocomp_coordinator,
+        :ceph_stability_window_ms,
+        @default_stability_window_ms
+      )
+
+    if is_integer(configured) and configured >= 0,
+      do: configured,
+      else: @default_stability_window_ms
+  end
+
+  defp stability_poll_interval_ms do
+    configured =
+      Application.get_env(
+        :exocomp_coordinator,
+        :ceph_stability_poll_interval_ms,
+        @default_stability_poll_interval_ms
+      )
+
+    if is_integer(configured) and configured > 0,
+      do: configured,
+      else: @default_stability_poll_interval_ms
+  end
+
+  defp clear_cooldown(action) do
+    case CephCooldown.clear_cooldown(action.daemon_id, cooldown_opts(action)) do
+      :ok -> :ok
+      {:error, reason} -> {:error, {:cooldown_clear_failed, reason}}
+    end
+  end
+
+  defp record_cooldown(action, reason) do
+    CephCooldown.record_cooldown(
+      action.daemon_id,
+      action.node_id,
+      action.target_unit,
+      reason,
+      cooldown_opts(action)
+    )
+  end
+
+  defp cooldown_opts(value, cooldown_ms \\ nil) do
+    opts = if is_integer(cooldown_ms), do: [cooldown_ms: cooldown_ms], else: []
+
+    case Map.get(value, :audit_server) do
+      nil -> opts
+      audit_server -> Keyword.put(opts, :audit_server, audit_server)
+    end
+    |> maybe_put_correlation_id(Map.get(value, :correlation_id))
+  end
+
+  defp maybe_put_correlation_id(opts, correlation_id)
+       when is_binary(correlation_id) and byte_size(correlation_id) > 0,
+       do: Keyword.put(opts, :correlation_id, correlation_id)
+
+  defp maybe_put_correlation_id(opts, _correlation_id), do: opts
+
+  defp copy_internal_context(validated, proposal) do
+    validated
+    |> maybe_copy(proposal, "_audit_server", :audit_server)
+    |> maybe_copy(proposal, "_correlation_id", :correlation_id)
+  end
+
+  defp maybe_copy(map, source, source_key, target_key) do
+    case Map.get(source, source_key) do
+      value when not is_nil(value) -> Map.put(map, target_key, value)
+      _ -> map
     end
   end
 
   defp check_cluster_health_not_regressed(pre_evidence, post_evidence) do
     with {:ok, pre_health} <- extract_cluster_health(pre_evidence),
          {:ok, post_health} <- extract_cluster_health(post_evidence) do
-      if is_degradation?(pre_health, post_health) do
-        {:error, {:cluster_health_regressed, pre_health, post_health}}
+      if health_status(pre_health) == "HEALTH_UNKNOWN" or
+           health_status(post_health) == "HEALTH_UNKNOWN" do
+        {:error, :cluster_health_unknown}
       else
-        :ok
+        if is_degradation?(pre_health, post_health) do
+          {:error, {:cluster_health_regressed, pre_health, post_health}}
+        else
+          :ok
+        end
       end
     else
       {:error, _} = error -> error
@@ -266,10 +418,12 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
       {"HEALTH_WARN", "HEALTH_ERR"} -> true
       {"HEALTH_WARN", "HEALTH_OK"} -> false
       {"HEALTH_WARN", "HEALTH_WARN"} -> false
-      {"HEALTH_ERR", _} -> true  # If it was already critical, restart failed
+      # If it was already critical, restart failed
+      {"HEALTH_ERR", _} -> true
       {_, "HEALTH_OK"} -> false
       {_, "HEALTH_WARN"} -> false
-      _ -> false  # Unknown health statuses are not considered degradation
+      # Unknown health statuses are not considered degradation
+      _ -> false
     end
   end
 

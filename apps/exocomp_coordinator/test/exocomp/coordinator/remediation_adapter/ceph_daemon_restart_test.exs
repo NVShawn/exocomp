@@ -17,8 +17,11 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
   use ExUnit.Case, async: false
 
+  alias Exocomp.Coordinator.Audit
+  alias Exocomp.Coordinator.Audit.JSONLines
   alias Exocomp.Coordinator.Inventory.Node
   alias Exocomp.Coordinator.{ProfileCoverage, Registry}
+  alias Exocomp.Coordinator.RemediationAdapter.CephCooldown
   alias Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart
 
   @node_id "osd-node-1"
@@ -29,8 +32,15 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
   setup do
     registry_name = unique_name(:registry)
     coverage_name = unique_name(:coverage)
+    audit_name = unique_name(:ceph_restart_audit)
+    audit_path = Path.join(System.tmp_dir!(), "#{audit_name}.jsonl")
     start_supervised!({Registry, name: registry_name})
     start_supervised!({ProfileCoverage, name: coverage_name})
+
+    start_supervised!(
+      {Audit, name: audit_name, sink: {JSONLines, path: audit_path}},
+      id: audit_name
+    )
 
     node = %Node{
       id: @node_id,
@@ -49,8 +59,17 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
     previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
     previous_node_client = Application.get_env(:exocomp_coordinator, :node_state_client)
     previous_action_client = Application.get_env(:exocomp_coordinator, :profile_action_client)
+    previous_audit_server = Application.get_env(:exocomp_coordinator, :ceph_audit_server)
+    previous_window = Application.get_env(:exocomp_coordinator, :ceph_stability_window_ms)
+
+    previous_poll_interval =
+      Application.get_env(:exocomp_coordinator, :ceph_stability_poll_interval_ms)
+
     Application.put_env(:exocomp_coordinator, :registry, registry_name)
     Application.put_env(:exocomp_coordinator, :profile_coverage, coverage_name)
+    Application.put_env(:exocomp_coordinator, :ceph_audit_server, audit_name)
+    Application.put_env(:exocomp_coordinator, :ceph_stability_window_ms, 0)
+    Application.put_env(:exocomp_coordinator, :ceph_stability_poll_interval_ms, 1)
 
     Application.put_env(
       :exocomp_coordinator,
@@ -91,9 +110,31 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
       else
         Application.delete_env(:exocomp_coordinator, :profile_action_client)
       end
+
+      if previous_audit_server do
+        Application.put_env(:exocomp_coordinator, :ceph_audit_server, previous_audit_server)
+      else
+        Application.delete_env(:exocomp_coordinator, :ceph_audit_server)
+      end
+
+      if previous_window do
+        Application.put_env(:exocomp_coordinator, :ceph_stability_window_ms, previous_window)
+      else
+        Application.delete_env(:exocomp_coordinator, :ceph_stability_window_ms)
+      end
+
+      if previous_poll_interval do
+        Application.put_env(
+          :exocomp_coordinator,
+          :ceph_stability_poll_interval_ms,
+          previous_poll_interval
+        )
+      else
+        Application.delete_env(:exocomp_coordinator, :ceph_stability_poll_interval_ms)
+      end
     end)
 
-    %{registry_name: registry_name, coverage_name: coverage_name}
+    %{registry_name: registry_name, coverage_name: coverage_name, audit_name: audit_name}
   end
 
   # ---------------------------------------------------------------------------
@@ -843,6 +884,301 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
         Application.put_env(:exocomp_coordinator, :ceph_collector, previous_collector)
       end
     end
+  end
+
+  test "recollects systemd and Ceph evidence across the configured stability window" do
+    {:ok, calls} = Agent.start_link(fn -> 0 end)
+    previous_node_client = Application.get_env(:exocomp_coordinator, :node_state_client)
+
+    Application.put_env(:exocomp_coordinator, :ceph_stability_window_ms, 20)
+    Application.put_env(:exocomp_coordinator, :ceph_stability_poll_interval_ms, 2)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      Agent.update(calls, &(&1 + 1))
+      mock_node_state(node_id, "active")
+    end)
+
+    try do
+      {:ok, proposal} = CephDaemonRestart.validate_proposal(valid_proposal())
+      {:allow, action} = CephDaemonRestart.decide(proposal, fresh_evidence("failed"))
+      {:ok, execution} = CephDaemonRestart.execute(action, fresh_evidence("failed"), nil)
+
+      assert {:ok, verification} =
+               CephDaemonRestart.verify(action, fresh_evidence("failed"), execution)
+
+      assert verification.verification_type == "stability_window_passed"
+      assert verification.samples >= 2
+      assert Agent.get(calls, & &1) >= verification.samples
+    after
+      if previous_node_client do
+        Application.put_env(:exocomp_coordinator, :node_state_client, previous_node_client)
+      else
+        Application.delete_env(:exocomp_coordinator, :node_state_client)
+      end
+    end
+  end
+
+  test "systemd-only recovery is insufficient when the daemon is flapping" do
+    {:ok, states} = Agent.start_link(fn -> ["active", "failed"] end)
+    previous_node_client = Application.get_env(:exocomp_coordinator, :node_state_client)
+
+    Application.put_env(:exocomp_coordinator, :ceph_stability_window_ms, 20)
+    Application.put_env(:exocomp_coordinator, :ceph_stability_poll_interval_ms, 2)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      Agent.get_and_update(states, fn
+        [state | rest] -> {mock_node_state(node_id, state), rest}
+        [] -> {mock_node_state(node_id, "failed"), []}
+      end)
+    end)
+
+    try do
+      {:ok, proposal} = CephDaemonRestart.validate_proposal(valid_proposal())
+      {:allow, action} = CephDaemonRestart.decide(proposal, fresh_evidence("failed"))
+      {:ok, execution} = CephDaemonRestart.execute(action, fresh_evidence("failed"), nil)
+
+      assert {:error, {:verification_failed, {:daemon_not_healthy, "failed"}}} =
+               CephDaemonRestart.verify(action, fresh_evidence("failed"), execution)
+
+      assert CephCooldown.in_cooldown?(@daemon_id, @node_id)
+    after
+      if previous_node_client do
+        Application.put_env(:exocomp_coordinator, :node_state_client, previous_node_client)
+      else
+        Application.delete_env(:exocomp_coordinator, :node_state_client)
+      end
+    end
+  end
+
+  test "verification identity change enters cooldown" do
+    previous_node_client = Application.get_env(:exocomp_coordinator, :node_state_client)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn _node_id ->
+      %{
+        "observed_at" => DateTime.utc_now() |> DateTime.to_iso8601(),
+        "measurements" => %{
+          "daemons" => %{
+            "value" => [
+              %{
+                "id" => "osd.43",
+                "unit" => "ceph-osd@43.service",
+                "active_state" => "active"
+              }
+            ]
+          }
+        }
+      }
+    end)
+
+    try do
+      {:ok, proposal} = CephDaemonRestart.validate_proposal(valid_proposal())
+      {:allow, action} = CephDaemonRestart.decide(proposal, fresh_evidence("failed"))
+      {:ok, execution} = CephDaemonRestart.execute(action, fresh_evidence("failed"), nil)
+
+      assert {:error, {:verification_failed, :target_mapping_changed}} =
+               CephDaemonRestart.verify(action, fresh_evidence("failed"), execution)
+
+      assert CephCooldown.in_cooldown?(@daemon_id, @node_id)
+    after
+      if previous_node_client do
+        Application.put_env(:exocomp_coordinator, :node_state_client, previous_node_client)
+      else
+        Application.delete_env(:exocomp_coordinator, :node_state_client)
+      end
+    end
+  end
+
+  test "verification rejects a changed Ceph topology identity" do
+    previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
+    pre_evidence = Map.put(fresh_evidence("failed"), :topology, %{"fsid" => "old-fsid"})
+
+    Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
+      base = mock_ceph_collector()
+      %{base | topology: Map.put(base.topology, "fsid", "new-fsid")}
+    end)
+
+    try do
+      {:ok, proposal} = CephDaemonRestart.validate_proposal(valid_proposal())
+      {:allow, action} = CephDaemonRestart.decide(proposal, pre_evidence)
+      {:ok, execution} = CephDaemonRestart.execute(action, pre_evidence, nil)
+
+      assert {:error, {:verification_failed, :topology_identity_changed}} =
+               CephDaemonRestart.verify(action, pre_evidence, execution)
+    after
+      if previous_collector do
+        Application.put_env(:exocomp_coordinator, :ceph_collector, previous_collector)
+      end
+    end
+  end
+
+  test "cooldown audit write failure is surfaced as verification failure" do
+    previous_node_client = Application.get_env(:exocomp_coordinator, :node_state_client)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      mock_node_state(node_id, "failed")
+    end)
+
+    try do
+      {:ok, proposal} = CephDaemonRestart.validate_proposal(valid_proposal())
+      {:allow, action} = CephDaemonRestart.decide(proposal, fresh_evidence("failed"))
+      {:ok, execution} = CephDaemonRestart.execute(action, fresh_evidence("failed"), nil)
+      action = Map.put(action, :audit_server, unique_name(:missing_audit))
+
+      assert {:error, {:verification_failed, {:cooldown_record_failed, _, _}}} =
+               CephDaemonRestart.verify(action, fresh_evidence("failed"), execution)
+    after
+      if previous_node_client do
+        Application.put_env(:exocomp_coordinator, :node_state_client, previous_node_client)
+      else
+        Application.delete_env(:exocomp_coordinator, :node_state_client)
+      end
+    end
+  end
+
+  test "coordinator restart reconciles an unfinished durable intent without repeating it" do
+    audit_name = Application.fetch_env!(:exocomp_coordinator, :ceph_audit_server)
+    correlation_id = "corr_orphaned_ceph_action"
+
+    durable_action = %{
+      action_id: "restart_failed_daemon",
+      node_id: @node_id,
+      daemon_id: @daemon_id,
+      daemon_type: @daemon_type,
+      profile_name: @profile_name,
+      profile_version: 1,
+      target_unit: "ceph-osd@42.service"
+    }
+
+    assert :ok =
+             Audit.emit(
+               :remediation_intent_accepted,
+               %{action: durable_action, evidence: fresh_evidence("failed"), approved: false},
+               server: audit_name,
+               correlation_id: correlation_id
+             )
+
+    {:ok, action_calls} = Agent.start_link(fn -> 0 end)
+    previous_node_client = Application.get_env(:exocomp_coordinator, :node_state_client)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      mock_node_state(node_id, "failed")
+    end)
+
+    Application.put_env(:exocomp_coordinator, :profile_action_client, fn _node_id, _action ->
+      Agent.update(action_calls, &(&1 + 1))
+      {:ok, %{status: "accepted"}}
+    end)
+
+    server = unique_name(:reconciled_ceph_lifecycle)
+
+    start_supervised!(
+      {Exocomp.Coordinator.RemediationLifecycle,
+       [name: server, adapter: Exocomp.Coordinator.RemediationAdapter.Router, audit: audit_name]},
+      id: server
+    )
+
+    try do
+      assert {:ok, task} =
+               Exocomp.Coordinator.RemediationLifecycle.submit(valid_proposal(), server: server)
+
+      assert task.status.state == :failed
+      assert last_event(task) == "audit_reconciliation_required"
+      assert Agent.get(action_calls, & &1) == 0
+    after
+      if previous_node_client do
+        Application.put_env(:exocomp_coordinator, :node_state_client, previous_node_client)
+      else
+        Application.delete_env(:exocomp_coordinator, :node_state_client)
+      end
+    end
+  end
+
+  test "real lifecycle persists cooldown and denies the next automatic restart" do
+    audit_name = Application.fetch_env!(:exocomp_coordinator, :ceph_audit_server)
+    {:ok, health_states} = Agent.start_link(fn -> ["HEALTH_OK", "HEALTH_WARN"] end)
+    {:ok, node_states} = Agent.start_link(fn -> ["failed", "active", "failed"] end)
+    {:ok, action_calls} = Agent.start_link(fn -> 0 end)
+
+    Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
+      health =
+        Agent.get_and_update(health_states, fn
+          [value | rest] -> {value, rest}
+          [] -> {"HEALTH_WARN", []}
+        end)
+
+      base = mock_ceph_collector()
+      %{base | health: %{"status" => health, "overall" => %{"status" => health}}}
+    end)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      Agent.get_and_update(node_states, fn
+        [state | rest] -> {mock_node_state(node_id, state), rest}
+        [] -> {mock_node_state(node_id, "failed"), []}
+      end)
+    end)
+
+    Application.put_env(:exocomp_coordinator, :profile_action_client, fn _node_id, _action ->
+      Agent.update(action_calls, &(&1 + 1))
+      {:ok, %{status: "accepted"}}
+    end)
+
+    server = unique_name(:real_ceph_lifecycle)
+
+    start_supervised!(
+      {Exocomp.Coordinator.RemediationLifecycle,
+       [name: server, adapter: Exocomp.Coordinator.RemediationAdapter.Router, audit: audit_name]},
+      id: server
+    )
+
+    first = Exocomp.Coordinator.RemediationLifecycle.submit(valid_proposal(), server: server)
+    assert {:ok, failed} = first
+    assert failed.status.state == :failed
+    assert last_event(failed) == "verification_failed"
+
+    assert {:ok, denied} =
+             Exocomp.Coordinator.RemediationLifecycle.submit(valid_proposal(), server: server)
+
+    assert denied.status.state == :completed
+    assert last_event(denied) == "policy_denied"
+    assert Agent.get(action_calls, & &1) == 1
+
+    assert {:ok, events} = Audit.events(audit_name)
+    correlation_events = Enum.filter(events, &(&1["correlation_id"] == failed.contextId))
+    assert Enum.any?(correlation_events, &(&1["event_type"] == "verification_failed"))
+    assert Enum.any?(correlation_events, &(&1["event_type"] == "cooldown_entered"))
+    assert Enum.any?(correlation_events, &(&1["event_type"] == "remediation_failed"))
+  end
+
+  test "real lifecycle emits correlated completion evidence after stable recovery" do
+    audit_name = Application.fetch_env!(:exocomp_coordinator, :ceph_audit_server)
+    {:ok, node_states} = Agent.start_link(fn -> ["failed", "active"] end)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      Agent.get_and_update(node_states, fn
+        [state | rest] -> {mock_node_state(node_id, state), rest}
+        [] -> {mock_node_state(node_id, "active"), []}
+      end)
+    end)
+
+    server = unique_name(:real_ceph_success_lifecycle)
+
+    start_supervised!(
+      {Exocomp.Coordinator.RemediationLifecycle,
+       [name: server, adapter: Exocomp.Coordinator.RemediationAdapter.Router, audit: audit_name]},
+      id: server
+    )
+
+    assert {:ok, completed} =
+             Exocomp.Coordinator.RemediationLifecycle.submit(valid_proposal(), server: server)
+
+    assert completed.status.state == :completed
+    assert last_event(completed) == "verified"
+
+    assert {:ok, events} = Audit.events(audit_name)
+    correlation_events = Enum.filter(events, &(&1["correlation_id"] == completed.contextId))
+    assert Enum.any?(correlation_events, &(&1["event_type"] == "verification_completed"))
+    assert Enum.any?(correlation_events, &(&1["event_type"] == "remediation_completed"))
+    assert Enum.any?(correlation_events, &(&1["event_type"] == "cooldown_cleared"))
   end
 
   # ---------------------------------------------------------------------------

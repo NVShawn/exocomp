@@ -48,6 +48,18 @@ defmodule Exocomp.Coordinator.Audit.JSONLines do
 
   def close(_state), do: :ok
 
+  @impl true
+  def read(%{path: path}) do
+    [path <> ".1", path]
+    |> Enum.reduce_while({:ok, []}, fn candidate, {:ok, events} ->
+      case read_file(candidate) do
+        {:ok, file_events} -> {:cont, {:ok, events ++ file_events}}
+        {:error, :enoent} -> {:cont, {:ok, events}}
+        {:error, reason} -> {:halt, {:error, reason}}
+      end
+    end)
+  end
+
   defp append(state, line, size) do
     with :ok <- IO.binwrite(state.io, line),
          :ok <- :file.sync(state.io) do
@@ -71,6 +83,20 @@ defmodule Exocomp.Coordinator.Audit.JSONLines do
       :ok -> :ok
       {:error, :enoent} -> :ok
       error -> error
+    end
+  end
+
+  defp read_file(path) do
+    with {:ok, contents} <- File.read(path) do
+      contents
+      |> String.split("\n", trim: true)
+      |> Enum.reduce_while({:ok, []}, fn line, {:ok, events} ->
+        case Jason.decode(line) do
+          {:ok, event} when is_map(event) -> {:cont, {:ok, events ++ [event]}}
+          {:ok, _other} -> {:halt, {:error, :malformed_event}}
+          {:error, reason} -> {:halt, {:error, reason}}
+        end
+      end)
     end
   end
 

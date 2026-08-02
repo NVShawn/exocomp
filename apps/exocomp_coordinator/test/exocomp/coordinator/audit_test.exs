@@ -57,6 +57,37 @@ defmodule Exocomp.Coordinator.AuditTest do
     assert File.stat!(path <> ".1").size <= 250
   end
 
+  @tag :tmp_dir
+  test "reloads durable events after the Audit process restarts", %{tmp_dir: tmp_dir} do
+    path = Path.join(tmp_dir, "restart.jsonl")
+    first_server = unique_name(:audit_restart_first)
+
+    start_supervised!(
+      {Audit, name: first_server, sink: {JSONLines, path: path}},
+      id: first_server
+    )
+
+    assert :ok =
+             Audit.emit(
+               :cooldown_entered,
+               %{daemon_id: "osd.42", node_id: "node-a", expires_at: "future"},
+               server: first_server,
+               correlation_id: "corr_restart"
+             )
+
+    assert {:ok, [%{"correlation_id" => "corr_restart"}]} = Audit.events(first_server)
+    assert :ok = stop_supervised(first_server)
+
+    restarted_server = unique_name(:audit_restart_second)
+
+    start_supervised!(
+      {Audit, name: restarted_server, sink: {JSONLines, path: path}},
+      id: restarted_server
+    )
+
+    assert {:ok, [%{"correlation_id" => "corr_restart"}]} = Audit.events(restarted_server)
+  end
+
   test "reports an outage without crashing and retries the sink" do
     server = start_audit({OfflineSink, []})
 
@@ -84,7 +115,9 @@ defmodule Exocomp.Coordinator.AuditTest do
   end
 
   defp start_audit(sink) do
-    name = :"audit_test_#{System.unique_integer([:positive])}"
-    start_supervised!({Audit, name: name, sink: sink})
+    name = unique_name(:audit_test)
+    start_supervised!({Audit, name: name, sink: sink}, id: name)
   end
+
+  defp unique_name(prefix), do: :"#{prefix}_#{System.unique_integer([:positive])}"
 end

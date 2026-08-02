@@ -2,20 +2,15 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldown do
   @moduledoc """
-  Cooldown tracking for Ceph daemon restart recovery.
+  Durable cooldown tracking for Ceph daemon restart recovery.
 
-  Prevents flapping when verification fails by tracking failed restart attempts
-  and enforcing a configurable cooldown period. The cooldown is durable across
-  coordinator restarts through audit event tracking.
-
-  A daemon enters cooldown when:
-  - Verification of a restart attempt fails
-  - Cluster health has regressed after the restart
-  - The node or daemon mapping has changed unexpectedly
-
-  During cooldown, new restart requests are rejected with `:in_cooldown` reason
-  until the cooldown period expires.
+  Cooldown state is stored as correlated Coordinator.Audit events by default.
+  Tests and alternate deployments may inject reader/writer functions, but a
+  missing or unreadable durable audit trail is treated as unavailable by
+  cooldown_status/3 so policy can fail closed.
   """
+
+  alias Exocomp.Coordinator.Audit
 
   @type cooldown_event :: %{
           node_id: String.t(),
@@ -26,150 +21,258 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephCooldown do
           expires_at: String.t()
         }
 
-  @default_cooldown_ms 30 * 60 * 1000  # 30 minutes
+  @default_cooldown_ms 30 * 60 * 1000
 
-  @doc """
-  Check if a daemon is currently in cooldown.
-
-  Returns `true` if the daemon has a recent failed verification and the cooldown
-  period has not yet expired. Otherwise returns `false`.
-  """
+  @doc "Return whether a daemon is in cooldown; audit-read errors are false here for compatibility."
   @spec in_cooldown?(String.t(), String.t(), keyword()) :: boolean()
   def in_cooldown?(daemon_id, node_id, opts \\ []) do
-    cooldown_ms = Keyword.get(opts, :cooldown_ms, @default_cooldown_ms)
-    audit_reader = Keyword.get(opts, :audit_reader, &default_audit_reader/1)
-
-    case audit_reader.(daemon_id) do
-      {:ok, events} ->
-        check_active_cooldown(events, node_id, cooldown_ms)
-
-      {:error, _reason} ->
-        # If we can't read the audit trail, assume no cooldown
-        false
+    case cooldown_status(daemon_id, node_id, opts) do
+      {:ok, value} -> value
+      {:error, _reason} -> false
     end
   end
 
   @doc """
-  Record a cooldown event when verification fails.
+  Return cooldown state while preserving an audit availability error.
 
-  This function should be called after verification failure to record the
-  cooldown period in the audit trail.
+  Callers that are deciding whether to execute an action should use this
+  function and deny when it returns an error. That prevents an audit outage
+  from turning into an unbounded restart loop.
   """
+  @spec cooldown_status(String.t(), String.t(), keyword()) ::
+          {:ok, boolean()} | {:error, term()}
+  def cooldown_status(daemon_id, node_id, opts \\ []) do
+    cooldown_ms = Keyword.get(opts, :cooldown_ms, @default_cooldown_ms)
+    audit_reader = audit_reader(opts)
+
+    case safe_call(fn -> audit_reader.(daemon_id) end) do
+      {:ok, {:ok, events}} when is_list(events) ->
+        {:ok, check_active_cooldown(events, daemon_id, node_id, cooldown_ms)}
+
+      {:ok, {:error, reason}} ->
+        {:error, reason}
+
+      {:ok, other} ->
+        {:error, {:invalid_audit_reader_result, other}}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  @doc "Record a durable cooldown event after a verification failure."
   @spec record_cooldown(String.t(), String.t(), String.t(), atom(), keyword()) ::
           {:ok, cooldown_event()} | {:error, term()}
   def record_cooldown(daemon_id, node_id, target_unit, reason, opts \\ []) do
     cooldown_ms = Keyword.get(opts, :cooldown_ms, @default_cooldown_ms)
-    audit_writer = Keyword.get(opts, :audit_writer, &default_audit_writer/2)
-
     timestamp = DateTime.utc_now() |> DateTime.to_iso8601()
-    expires_at = DateTime.utc_now() |> DateTime.add(cooldown_ms, :millisecond) |> DateTime.to_iso8601()
 
-    event = %{
-      "node_id" => node_id,
-      "daemon_id" => daemon_id,
-      "target_unit" => target_unit,
-      "reason" => Atom.to_string(reason),
-      "timestamp" => timestamp,
-      "expires_at" => expires_at
-    }
+    expires_at =
+      DateTime.utc_now() |> DateTime.add(cooldown_ms, :millisecond) |> DateTime.to_iso8601()
 
-    case audit_writer.(daemon_id, event) do
-      :ok -> {:ok, to_atom_keys(event)}
-      {:error, _} = error -> error
+    event =
+      %{
+        "type" => "cooldown_entered",
+        "node_id" => node_id,
+        "daemon_id" => daemon_id,
+        "target_unit" => target_unit,
+        "reason" => reason_to_string(reason),
+        "timestamp" => timestamp,
+        "expires_at" => expires_at
+      }
+      |> maybe_put_correlation_id(opts)
+
+    case safe_call(fn -> audit_writer(opts).(daemon_id, event) end) do
+      {:ok, :ok} -> {:ok, to_atom_keys(event)}
+      {:ok, {:error, _} = error} -> error
+      {:ok, other} -> {:error, {:invalid_audit_writer_result, other}}
+      {:error, reason} -> {:error, reason}
     end
   end
 
-  @doc """
-  Clear cooldown for a daemon after successful recovery.
-
-  This function should be called after successful verification to clear any
-  existing cooldown.
-  """
+  @doc "Record a durable event clearing cooldown after successful recovery."
   @spec clear_cooldown(String.t(), keyword()) :: :ok | {:error, term()}
   def clear_cooldown(daemon_id, opts \\ []) do
-    audit_writer = Keyword.get(opts, :audit_writer, &default_audit_writer/2)
+    event =
+      %{
+        "type" => "cooldown_cleared",
+        "daemon_id" => daemon_id,
+        "timestamp" => DateTime.utc_now() |> DateTime.to_iso8601()
+      }
+      |> maybe_put_correlation_id(opts)
 
-    timestamp = DateTime.utc_now() |> DateTime.to_iso8601()
-
-    event = %{
-      daemon_id: daemon_id,
-      type: "cooldown_cleared",
-      timestamp: timestamp
-    }
-
-    case audit_writer.(daemon_id, event) do
-      :ok -> :ok
-      {:error, _} = error -> error
+    case safe_call(fn -> audit_writer(opts).(daemon_id, event) end) do
+      {:ok, :ok} -> :ok
+      {:ok, {:error, _} = error} -> error
+      {:ok, other} -> {:error, {:invalid_audit_writer_result, other}}
+      {:error, reason} -> {:error, reason}
     end
   end
 
-  # ---------------------------------------------------------------------------
-  # Helpers
-  # ---------------------------------------------------------------------------
+  defp audit_reader(opts) do
+    case Keyword.fetch(opts, :audit_reader) do
+      {:ok, reader} -> reader
+      :error -> fn daemon_id -> default_audit_reader(daemon_id, audit_server(opts)) end
+    end
+  end
 
-  defp check_active_cooldown(events, node_id, cooldown_ms) do
+  defp audit_writer(opts) do
+    case Keyword.fetch(opts, :audit_writer) do
+      {:ok, writer} ->
+        writer
+
+      :error ->
+        fn daemon_id, event ->
+          default_audit_writer(
+            daemon_id,
+            event,
+            audit_server(opts),
+            Keyword.get(opts, :correlation_id)
+          )
+        end
+    end
+  end
+
+  defp audit_server(opts) do
+    Keyword.get(
+      opts,
+      :audit_server,
+      Application.get_env(:exocomp_coordinator, :ceph_audit_server, Audit)
+    )
+  end
+
+  defp default_audit_reader(daemon_id, audit_server) do
+    case Audit.events(audit_server) do
+      {:ok, events} ->
+        {:ok,
+         Enum.flat_map(events, fn event ->
+           event_type = Map.get(event, "event_type") || Map.get(event, :event_type)
+           attributes = Map.get(event, "attributes") || Map.get(event, :attributes) || %{}
+           event_daemon_id = Map.get(attributes, "daemon_id") || Map.get(attributes, :daemon_id)
+
+           if event_daemon_id == daemon_id and
+                event_type in ["cooldown_entered", "cooldown_cleared"] do
+             [Map.put(attributes, "type", event_type)]
+           else
+             []
+           end
+         end)}
+
+      {:error, _reason} = error ->
+        error
+    end
+  end
+
+  defp default_audit_writer(_daemon_id, event, audit_server, correlation_id) do
+    event_type = Map.get(event, "type", "cooldown_entered")
+
+    Audit.emit(event_type, event,
+      server: audit_server,
+      correlation_id: correlation_id || Map.get(event, "correlation_id")
+    )
+  rescue
+    error -> {:error, {:audit_exception, Exception.message(error)}}
+  catch
+    kind, reason -> {:error, {kind, reason}}
+  end
+
+  defp check_active_cooldown(events, daemon_id, node_id, cooldown_ms) do
     now = DateTime.utc_now()
 
-    # Check for active cooldown: find the most recent cooldown event
-    # and verify it hasn't been cleared and hasn't expired
     events
     |> Enum.reverse()
     |> Enum.reduce_while(false, fn event, _acc ->
-      case event do
-        %{"type" => "cooldown_cleared"} ->
-          # Hit a cleared event, stop looking - no active cooldown
+      event_daemon_id = value(event, :daemon_id, "daemon_id")
+      event_type = value(event, :type, "type")
+
+      cond do
+        event_daemon_id != daemon_id ->
+          {:cont, false}
+
+        event_type in ["cooldown_cleared", :cooldown_cleared] ->
           {:halt, false}
 
-        %{type: "cooldown_cleared"} ->
-          # Hit a cleared event (atom keys), stop looking - no active cooldown
-          {:halt, false}
-
-        event when is_map(event) ->
-          event_node_id = Map.get(event, "node_id") || Map.get(event, :node_id)
-          expires_at = Map.get(event, "expires_at") || Map.get(event, :expires_at)
-
-          if event_node_id == node_id and is_binary(expires_at) do
-            case DateTime.from_iso8601(expires_at) do
-              {:ok, expiry, _} ->
-                # Found a cooldown event for this node, check if it's still active
-                is_active = DateTime.compare(now, expiry) == :lt
-                {:halt, is_active}
-
-              _ ->
-                {:cont, false}
-            end
-          else
-            {:cont, false}
+        event_type in [nil, "cooldown_entered", :cooldown_entered] ->
+          case expiry(event, cooldown_ms) do
+            {:ok, expiry_at} -> {:halt, DateTime.compare(now, expiry_at) == :lt}
+            :error -> {:cont, false}
           end
 
-        _ ->
+        true ->
           {:cont, false}
       end
     end)
   end
 
-  defp default_audit_reader(_daemon_id) do
-    # When no custom audit reader is provided, return empty event list
-    {:ok, []}
+  defp expiry(event, cooldown_ms) do
+    case value(event, :expires_at, "expires_at") do
+      expires_at when is_binary(expires_at) ->
+        case DateTime.from_iso8601(expires_at) do
+          {:ok, datetime, _offset} -> {:ok, datetime}
+          _ -> :error
+        end
+
+      _ ->
+        case value(event, :timestamp, "timestamp") do
+          timestamp when is_binary(timestamp) ->
+            case DateTime.from_iso8601(timestamp) do
+              {:ok, datetime, _offset} -> {:ok, DateTime.add(datetime, cooldown_ms, :millisecond)}
+              _ -> :error
+            end
+
+          _ ->
+            :error
+        end
+    end
   end
 
-  defp default_audit_writer(_daemon_id, _event) do
-    # When no custom audit writer is provided, succeed silently
-    :ok
-  end
-
-  defp to_atom_keys(map) when is_map(map) do
+  defp to_atom_keys(map) do
     Map.new(map, fn
-      {"node_id", v} -> {:node_id, v}
-      {"daemon_id", v} -> {:daemon_id, v}
-      {"target_unit", v} -> {:target_unit, v}
-      {"reason", v} when is_binary(v) -> {:reason, String.to_existing_atom(v)}
-      {"reason", v} -> {:reason, v}
-      {"timestamp", v} -> {:timestamp, v}
-      {"expires_at", v} -> {:expires_at, v}
-      {k, v} -> {k, v}
+      {"type", value} -> {:type, value}
+      {"node_id", value} -> {:node_id, value}
+      {"daemon_id", value} -> {:daemon_id, value}
+      {"target_unit", value} -> {:target_unit, value}
+      {"reason", value} -> {:reason, reason_atom(value)}
+      {"timestamp", value} -> {:timestamp, value}
+      {"expires_at", value} -> {:expires_at, value}
+      {key, value} -> {key, value}
     end)
   end
 
-  defp to_atom_keys(other), do: other
+  defp reason_atom(value) when is_atom(value), do: value
+
+  defp reason_atom(value) when is_binary(value) do
+    try do
+      String.to_existing_atom(value)
+    rescue
+      ArgumentError -> value
+    end
+  end
+
+  defp reason_atom(value), do: value
+  defp reason_to_string(value) when is_atom(value), do: Atom.to_string(value)
+  defp reason_to_string(value), do: inspect(value)
+
+  defp maybe_put_correlation_id(event, opts) do
+    case Keyword.get(opts, :correlation_id) do
+      value when is_binary(value) and byte_size(value) > 0 ->
+        Map.put(event, "correlation_id", value)
+
+      _ ->
+        event
+    end
+  end
+
+  defp value(map, atom_key, string_key) when is_map(map),
+    do: Map.get(map, atom_key) || Map.get(map, string_key)
+
+  defp value(_map, _atom_key, _string_key), do: nil
+
+  defp safe_call(function) do
+    function.()
+  rescue
+    error -> {:error, {:exception, Exception.message(error)}}
+  catch
+    kind, reason -> {:error, {kind, reason}}
+  end
 end
