@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:34:51.627495Z'
+updated_at: '2026-08-02T01:35:24.070774Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -52,13 +52,17 @@ oompah.integration:
   submitted_at: '2026-08-02T01:07:02.891474+00:00'
   updated_at: '2026-08-02T01:07:54.713111+00:00'
 oompah.task_costs:
-  total_input_tokens: 555358
-  total_output_tokens: 5314
+  total_input_tokens: 555437
+  total_output_tokens: 23098
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 555358
       output_tokens: 5314
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 79
+      output_tokens: 17784
       cost_usd: 0.0
   runs:
   - profile: default
@@ -73,6 +77,12 @@ oompah.task_costs:
     output_tokens: 297
     cost_usd: 0.0
     recorded_at: '2026-08-02T01:07:23.530614+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 79
+    output_tokens: 17784
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T01:35:22.190005+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-204__20260801T142307Z
@@ -357,5 +367,15 @@ Instructions:
 - Add an end-to-end test that drives the real production path: run a full submit -> verify (health regression) -> submit again cycle through RemediationLifecycle and assert the second submit is denied with :in_cooldown without injecting a custom audit_reader/writer.
 - Add tests for the explicitly enumerated scenarios: systemd-only recovery (Ceph evidence clean, systemd cycled), process/coordinator restart reconciliation (state survives GenServer restart), cooldown expiry (after configured window a fresh submit is allowed via the real path), and audit-write failure during record_cooldown surfacing verification_failed correctly.
 - Implement (or explicitly scope out and document) the 'across the configured stability window' recollection — currently verify/3 collects post-evidence once and labels the result 'stability_window_passed' without polling.
+---
+author: oompah
+created: 2026-08-02 01:35
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 97, Tool calls: 73
+- Tokens: 79 in / 17.8K out [17.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 24m 8s
+- Log: EXOCOMP-204__20260802T011120Z.jsonl
 ---
 <!-- COMMENTS:END -->
