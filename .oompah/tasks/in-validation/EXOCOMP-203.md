@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:40:07.349815Z'
+updated_at: '2026-08-02T00:40:57.672685Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -122,14 +122,15 @@ oompah.agent_run_id: 6e2b69f7-ddda-418e-bb38-d864f012ed69
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
-  base_branch: main
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  base_branch: epic-EXOCOMP-186
+  base_sha: 8b83bcf4d507bef19ddee323659836c7f8bad026
   head_sha: c6a135bf82581e11696de8b4d0e32946ec563677
+  integrated_sha: c6a135bf82581e11696de8b4d0e32946ec563677
   submitted_at: '2026-08-02T00:39:40.397854+00:00'
-  updated_at: '2026-08-02T00:40:06.622741+00:00'
+  updated_at: '2026-08-02T00:40:53.886417+00:00'
 oompah.task_costs:
   total_input_tokens: 26910702
   total_output_tokens: 150227
@@ -297,7 +298,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-203
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -327,6 +328,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-02T00:01:35.666552+00:00'
     updated_at: '2026-08-02T00:07:31.488726+00:00'
+  - version: 1
+    audit_id: audit-20b571f4eb9c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-203
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b31f2d20a88cb4d2aaa18fed00b836c558ed4e2b6abf09b98d30c58358dc8b3f
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-02T00:40:55.375441+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-702564a799be
