@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:32:33.834061Z'
+updated_at: '2026-08-02T02:32:53.162590Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: d8cb4dde-59c1-43b6-9f4b-07160076f753
+oompah.agent_run_id: a0774afc-5d43-4483-a12f-889bfbb1b474
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
@@ -47,7 +47,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
   base_branch: epic-EXOCOMP-186
   base_sha: 69ffa374c520da342743c1e580e178ed2bcd6f77
-  updated_at: '2026-08-02T02:23:17.158524+00:00'
+  updated_at: '2026-08-02T02:32:50.819225+00:00'
 oompah.task_costs:
   total_input_tokens: 10818835
   total_output_tokens: 117681
@@ -591,5 +591,15 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: terminated, Duration: 9m 21s
 - Log: EXOCOMP-204__20260802T022321Z.jsonl
+---
+author: oompah
+created: 2026-08-02 02:32
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-02 02:32
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
