@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-205
 type: task
-status: In Validation
+status: Done
 priority: 2
 title: Document desired-state modes and Ceph profile operations
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-08-02T03:41:05.690545Z'
+updated_at: '2026-08-02T03:44:48.232763Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 target_branch: null
 review_url: null
@@ -95,6 +95,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T16:26:40.706782+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-bdbf1b1d5cf2: '2026-08-02T03:44:46.191924+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-205
+    target_state: Done
+    evidence_fingerprint: 77317d1368bda8add455e9dfd450fc9201759e82e79f8d076234e88665d9cc92
+    audit_ids:
+    - audit-8379ab4792f2
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T03:44:46.191939+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-205
+    audit_id: audit-8379ab4792f2
+    attempt_id: attempt-bdbf1b1d5cf2
+    target_state: Done
+    evidence_fingerprint: 77317d1368bda8add455e9dfd450fc9201759e82e79f8d076234e88665d9cc92
+    status: Done
+    audit_ids:
+    - audit-8379ab4792f2
+    applied: false
+    created_at: '2026-08-02T03:44:46.191962+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -102,7 +126,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-205
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -111,7 +135,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-bdbf1b1d5cf2
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -121,13 +145,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T03:41:02.671545+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-205
+      verdict: pass
+      completed_at: '2026-08-02T03:44:46.191676+00:00'
+      ended_at: '2026-08-02T03:44:46.191676+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-02T03:40:57.169724+00:00'
-    updated_at: '2026-08-02T03:41:02.671545+00:00'
+    updated_at: '2026-08-02T03:44:46.191676+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-bdbf1b1d5cf2
@@ -252,5 +279,25 @@ author: oompah
 created: 2026-08-02 03:41
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 03:44
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch_head: 35efbaa230ecd552e2c472a89a279d2585aff186
+- commit_stat: docs/README.md +2; docs/service-management.md +653; total +655 lines
+- pushed_to_origin: origin/epic-EXOCOMP-186--task-EXOCOMP-205 and origin/epic-EXOCOMP-186 both point at HEAD
+- test_operator_docs: 7 tests pass (unittest discover)
+- test_check_compliance: 9 tests pass (unittest discover)
+- acceptance_criteria_1_config_and_v1_v2: docs/service-management.md contains validated JSON config examples and a 'Migration Guide: v1 to v2' section
+- acceptance_criteria_2_cephx_caps: client.exocomp created with mon/mgr/osd/mds 'allow r' and keyring modes 0600/0640 documented
+- acceptance_criteria_3_authority_split: Automatic mode is diagnostics-only; approval-required restart for active/degraded services; fail-closed policy documented
+- acceptance_criteria_4_troubleshooting: Sections for unsupported nodes, topology mismatches, stale evidence, helper denial, cooldown all present
+- acceptance_criteria_5_no_broad_ceph_repair: Ceph collector documented as read-only; profile does not automatically restart Ceph daemons
+- sandbox_limits: Raw `make check-links` and `python3 scripts/check_compliance.py --check links` blocked by auditor sandbox; verified via unittest discover of tests/test_check_compliance.py which exercises the same link-check code path
 ---
 <!-- COMMENTS:END -->
