@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T03:22:39.459231Z'
+updated_at: '2026-08-02T03:32:54.943690Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -142,6 +142,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-00939df4abfb: '2026-08-02T01:34:48.085508+00:00'
     attempt-d2aec34b10e0: '2026-08-02T02:22:34.494689+00:00'
+    attempt-5d5a8a088b74: '2026-08-02T03:32:52.216883+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-204
@@ -161,6 +162,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-02T02:22:34.494708+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    target_state: Done
+    evidence_fingerprint: 389b465cc9486104770e7bc1aa4e57e9cf762c2575e292210db655d18840df3e
+    audit_ids:
+    - audit-603249916f36
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T03:32:52.216907+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-204
@@ -186,6 +196,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-02T02:22:34.494727+00:00'
     applied_at: '2026-08-02T02:22:36.899509+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    audit_id: audit-603249916f36
+    attempt_id: attempt-5d5a8a088b74
+    target_state: Done
+    evidence_fingerprint: 389b465cc9486104770e7bc1aa4e57e9cf762c2575e292210db655d18840df3e
+    status: Done
+    audit_ids:
+    - audit-603249916f36
+    applied: false
+    created_at: '2026-08-02T03:32:52.216930+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -263,7 +284,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-204
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -272,7 +293,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-5d5a8a088b74
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -282,13 +303,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T03:22:34.240900+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-204
+      verdict: pass
+      completed_at: '2026-08-02T03:32:52.216702+00:00'
+      ended_at: '2026-08-02T03:32:52.216702+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-02T03:22:27.769316+00:00'
-    updated_at: '2026-08-02T03:22:34.240900+00:00'
+    updated_at: '2026-08-02T03:32:52.216702+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-00939df4abfb
@@ -730,5 +754,20 @@ author: oompah
 created: 2026-08-02 03:22
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 03:32
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
+- branch: epic-EXOCOMP-186--task-EXOCOMP-204
+- changed_files_since_c6a135bf: 9 files, +1729/-31 (audit.ex, audit/json_lines.ex, audit/sink.ex, ceph_cooldown.ex NEW, ceph_daemon_restart.ex, remediation_lifecycle.ex, audit_test.exs, ceph_cooldown_test.exs NEW, ceph_daemon_restart_test.exs)
+- release_builds: _build/test/rel/exocomp_node/bin/exocomp_node ts=1785641230, exocomp_coordinator ts=1785641231
+- mix_test_failures: no .mix_test_failures present for exocomp_coordinator/exocomp_core/exocomp_node; only bench has one at 10 bytes (empty ETF)
+- reported_exunit_summary: run #2 reported: 300 exocomp_coordinator passed / 0 failures; 128 exocomp_node passed / 0 failures; 60 targeted ceph tests passed / 0 failures; make test exit 0
 ---
 <!-- COMMENTS:END -->
