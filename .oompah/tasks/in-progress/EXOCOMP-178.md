@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T03:55:18.585650Z'
+updated_at: '2026-08-02T04:12:50.698522Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -64,13 +64,17 @@ oompah.integration:
   base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
   updated_at: '2026-08-02T03:55:16.468451+00:00'
 oompah.task_costs:
-  total_input_tokens: 10
-  total_output_tokens: 394
+  total_input_tokens: 9624132
+  total_output_tokens: 49235
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 10
       output_tokens: 394
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 9624122
+      output_tokens: 48841
       cost_usd: 0.0
   runs:
   - profile: default
@@ -79,6 +83,12 @@ oompah.task_costs:
     output_tokens: 394
     cost_usd: 0.0
     recorded_at: '2026-08-01T15:50:41.192201+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 9624122
+    output_tokens: 48841
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T04:12:46.112326+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-178__20260801T154520Z
@@ -89,6 +99,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-178
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T15:50:41.205980+00:00'
+  - run_id: EXOCOMP-178__20260802T035519Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-terra
+    focus: callback_auth
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-178
+    source_sha: 74d6049b1e2c1da5c9537c5e07f393135b692dc4
+    completed_at: '2026-08-02T04:12:46.116585+00:00'
 ---
 ## Summary
 
@@ -179,5 +197,25 @@ author: oompah
 created: 2026-08-02 03:55
 ---
 Focus: Callback Auth Validation Specialist
+---
+author: oompah
+created: 2026-08-02 04:12
+---
+Agent completed successfully in 1054s (9672963 tokens)
+---
+author: oompah
+created: 2026-08-02 04:12
+---
+Run #2 [attempt=2, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 1, Tool calls: 146
+- Tokens: 9.6M in / 48.8K out [9.7M total]
+- Cost: $0.0000
+- Exit: normal, Duration: 17m 34s
+- Log: EXOCOMP-178__20260802T035519Z.jsonl
+---
+author: oompah
+created: 2026-08-02 04:12
+---
+Agent completed without closing this issue (1054s (9672963 tokens)). Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
 ---
 <!-- COMMENTS:END -->
