@@ -70,6 +70,17 @@ defmodule Exocomp.MissionControl.Incidents.HealthReducerTest do
   end
 
   describe "immediate evidence" do
+    test "immediate unhealthy evidence bypasses ordinary health hysteresis" do
+      {_state, [action]} =
+        apply_observation(
+          HealthReducer.new(),
+          observation(id: "immediate-unreachable", health: :unreachable)
+        )
+
+      assert action.action == :open
+      assert action.trigger == "immediate evidence"
+    end
+
     for {label, overrides, expected_severity} <- [
           {"stale", [health: :stale], :warning},
           {"unreachable", [health: :unreachable], :critical},

@@ -217,7 +217,7 @@ defmodule Exocomp.MissionControl.Incidents.HealthReducer do
         target.incident_state == :open ->
           {target, action(:update, key, observation, target, "continued unhealthy health", opts)}
 
-        observation.immediate? or consecutive >= @degraded_threshold ->
+        consecutive >= @degraded_threshold ->
           {%{target | incident_state: :open},
            action(:open, key, observation, target, "health threshold", opts)}
 
