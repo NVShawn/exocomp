@@ -10,6 +10,10 @@ record or CI system, not only in a local shell history.
 - [ ] Start from a clean checkout and pinned builder images.
 - [ ] Run `make release-check` and every application, installer, packaging,
       documentation, and qualification gate affected by the release.
+- [ ] For a Mission Control release, run the link and compliance checks plus
+      focused operator-documentation tests; verify
+      [Mission Control deployment and operations](mission-control.md) against
+      immutable OCI and installed coordinator artifacts.
 - [ ] Resolve every `Unreleased` changelog entry and prepare release notes from
       the [template](release-notes-template.md).
 - [ ] Point `LLAMA_SERVER_<ARCH>` at the pinned executable and
@@ -44,6 +48,9 @@ record or CI system, not only in a local shell history.
 - [ ] Start both the extracted and installed `llama-server` launchers, then
       complete backup and restore with the installed `exocomp-state-backup`.
 - [ ] Verify user-facing commands against the final artifacts.
+- [ ] Complete the Mission Control operator walkthrough on shipped artifacts:
+      VM or Kubernetes install, OIDC login, cluster enrollment, backup and
+      isolated restore, secret/certificate rotation, and safe uninstall.
 
 ## M5 performance gate
 

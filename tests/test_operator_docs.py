@@ -17,6 +17,8 @@ DOCS = {
     "policy": ROOT / "docs" / "policy-operations.md",
     "lifecycle": ROOT / "docs" / "lifecycle.md",
     "qualification": ROOT / "docs" / "clean-host-qualification.md",
+    "mission_control": ROOT / "docs" / "mission-control.md",
+    "service_management": ROOT / "docs" / "service-management.md",
 }
 
 
@@ -52,6 +54,12 @@ class OperatorDocumentationTest(unittest.TestCase):
             "backup",
             "restore",
             "removal",
+            "oidc",
+            "webhook",
+            "postgresql",
+            "kubernetes",
+            "ceph",
+            "monitoring",
         )
         for topic in required:
             self.assertIn(topic, text, f"operator guides do not cover {topic!r}")
@@ -129,6 +137,73 @@ class OperatorDocumentationTest(unittest.TestCase):
             "performance-only failure under emulation is inconclusive",
         ):
             self.assertIn(phrase, qualification)
+
+    def test_mission_control_guide_matches_the_shipped_image_contract(self):
+        guide = DOCS["mission_control"].read_text()
+        entrypoint = (ROOT / "release" / "mission_control" / "entrypoint.sh").read_text()
+        containerfile = (ROOT / "release" / "mission_control" / "Containerfile").read_text()
+
+        for command in ("migrate", "server", "healthcheck"):
+            self.assertIn(command, entrypoint)
+            self.assertIn(command, guide)
+        for variable in ("DATABASE_URL", "SECRET_KEY_BASE", "RELEASE_COOKIE"):
+            self.assertIn(variable, entrypoint)
+            self.assertIn(variable, guide)
+        for path in (
+            "/var/lib/exocomp/mission-control",
+            "/var/log/exocomp/mission-control",
+        ):
+            self.assertIn(path, containerfile)
+            self.assertIn(path, guide)
+        for endpoint in ("/health/live", "/health/ready", "/metrics"):
+            self.assertIn(endpoint, guide)
+
+    def test_mission_control_guide_is_source_tree_independent(self):
+        guide = DOCS["mission_control"].read_text()
+
+        self.assertIn("not require a source checkout", guide)
+        self.assertNotIn("./scripts/", guide)
+        self.assertNotIn("make build-mission-control", guide)
+        self.assertIn("immutable Mission Control image reference", guide)
+
+    def test_mission_control_kubernetes_example_preserves_runtime_boundaries(self):
+        guide = DOCS["mission_control"].read_text()
+        fence = chr(96) * 3
+        sections = guide.split(f"{fence}yaml\n")
+
+        self.assertEqual(len(sections), 2)
+        manifest = sections[1].split(fence, maxsplit=1)[0]
+        for token in (
+            "kind: Job",
+            "kind: Deployment",
+            'args: ["migrate"]',
+            'args: ["server"]',
+            "runAsNonRoot: true",
+            "readOnlyRootFilesystem: true",
+            "drop: [\"ALL\"]",
+            "/usr/local/bin/mission-control-entrypoint",
+            "- healthcheck",
+            "/var/lib/exocomp/mission-control",
+            "/var/log/exocomp/mission-control",
+        ):
+            self.assertIn(token, manifest)
+        self.assertNotIn("supplied-by-a-probe-secret", manifest)
+
+    def test_service_management_documents_all_monitoring_authority_boundaries(self):
+        guide = DOCS["service_management"].read_text().lower()
+
+        for phrase in (
+            "inventory v2",
+            "manual service list",
+            "enabled-service discovery",
+            "ceph profile",
+            "client.exocomp",
+            "coverage is degraded",
+            "monitoring is not recovery",
+            "fresh evidence",
+            "approval flow",
+        ):
+            self.assertIn(phrase, guide)
 
 
 if __name__ == "__main__":

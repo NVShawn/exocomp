@@ -24,6 +24,8 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 - [Release qualification](release-qualification.md)
 - [Runtime dependencies](runtime-dependencies.md)
 - [Mission Control OCI image](mission-control-operations.md)
+- [Mission Control deployment and operations](mission-control.md)
+- [Service management, monitoring, and Ceph integration](service-management.md)
 
 ## Keeping Docs In Sync
 

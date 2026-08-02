@@ -1,4 +1,9 @@
-# Mission Control OCI image
+# Mission Control OCI Image
+
+This page documents the released OCI image contract. For a source-tree-
+independent VM or Kubernetes installation; PostgreSQL, OIDC, PKI, enrollment,
+webhooks, retention, rotation, upgrade, rollback, and uninstall procedures,
+see [Mission Control deployment and operations](mission-control.md).
 
 Mission Control is published as a Linux OCI image containing the production
 `mission_control` OTP release. The image is built in the same architecture-
