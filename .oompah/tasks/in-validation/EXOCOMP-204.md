@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T03:00:15.450101Z'
+updated_at: '2026-08-02T03:22:34.948511Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -42,14 +42,15 @@ oompah.agent_run_id: a0774afc-5d43-4483-a12f-889bfbb1b474
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
-  base_branch: main
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+  base_branch: epic-EXOCOMP-186
+  base_sha: 69ffa374c520da342743c1e580e178ed2bcd6f77
   head_sha: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
+  integrated_sha: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
   submitted_at: '2026-08-02T02:59:51.355757+00:00'
-  updated_at: '2026-08-02T03:00:14.812960+00:00'
+  updated_at: '2026-08-02T03:22:25.964764+00:00'
 oompah.task_costs:
   total_input_tokens: 10818893
   total_output_tokens: 194129
@@ -227,7 +228,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-204
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -257,6 +258,37 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-02T02:05:12.161949+00:00'
     updated_at: '2026-08-02T02:22:34.494398+00:00'
+  - version: 1
+    audit_id: audit-603249916f36
+    project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 389b465cc9486104770e7bc1aa4e57e9cf762c2575e292210db655d18840df3e
+    attempts:
+    - version: 1
+      attempt_id: attempt-5d5a8a088b74
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 389b465cc9486104770e7bc1aa4e57e9cf762c2575e292210db655d18840df3e
+      created_at: '2026-08-02T03:22:34.240900+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-02T03:22:34.240900+00:00'
+      branch_key: epic-EXOCOMP-186--task-EXOCOMP-204
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-02T03:22:27.769316+00:00'
+    updated_at: '2026-08-02T03:22:34.240900+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-00939df4abfb
@@ -283,6 +315,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-02T02:05:18.089159+00:00'
+    branch_key: epic-EXOCOMP-186--task-EXOCOMP-204
+  - version: 1
+    attempt_id: attempt-5d5a8a088b74
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 389b465cc9486104770e7bc1aa4e57e9cf762c2575e292210db655d18840df3e
+    created_at: '2026-08-02T03:22:34.240900+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-02T03:22:34.240900+00:00'
     branch_key: epic-EXOCOMP-186--task-EXOCOMP-204
 ---
 ## Summary
