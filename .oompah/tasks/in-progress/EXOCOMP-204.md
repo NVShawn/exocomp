@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:45:11.007760Z'
+updated_at: '2026-08-02T01:58:42.901410Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -389,5 +389,10 @@ author: oompah
 created: 2026-08-02 01:45
 ---
 Understanding: I will audit the existing Ceph restart verification and lifecycle wiring, connect cooldown state to the production durable audit store, implement stability-window recollection with restart-safe reconciliation, add focused real-path tests for the auditor's scenarios, then run the Makefile quality gate.
+---
+author: oompah
+created: 2026-08-02 01:58
+---
+Discovery: CephCooldown defaults were no-op reader/writer functions, and Audit had no query capability despite JSON-lines being durable. RemediationLifecycle kept execution state only in memory and lacked unfinished-intent reconciliation. The fix uses Coordinator.Audit events/JSON-lines reload, carries audit server and correlation into Ceph actions, adds fail-closed cooldown checks, explicit completed/failed evidence, and durable reconciliation before execution.
 ---
 <!-- COMMENTS:END -->
