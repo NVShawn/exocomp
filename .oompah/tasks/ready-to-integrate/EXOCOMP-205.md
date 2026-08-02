@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-08-02T03:39:50.269230Z'
+updated_at: '2026-08-02T03:39:57.522883Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 target_branch: null
 review_url: null
@@ -164,5 +164,10 @@ author: oompah
 created: 2026-08-02 03:39
 ---
 Comprehensive user-facing documentation for desired-state modes and Ceph profile operations complete. Covers manual service lists, automatic enabled-service monitoring, Ceph profile activation and credential bootstrap with least-privilege cephx capabilities, coverage error troubleshooting, and safe restart behavior with policy enforcement. All documentation tests pass including link validation and shell command parsing. Added v1-to-v2 migration guide with configuration examples.
+---
+author: oompah
+created: 2026-08-02 03:39
+---
+Completion: EXOCOMP-205 submitted. Deliverable: docs/service-management.md (22.8 KB, comprehensive guide) plus updated docs/README.md index. Documentation covers: (1) manual service lists with allow-list configuration, sudoers generation, and health checks; (2) automatic enabled-service monitoring for Ceph daemons; (3) Ceph profile activation workflow with validation; (4) credential bootstrap with client.exocomp least-privilege cephx caps (mon/mgr/osd/mds read-only); (5) coverage errors with 7 troubleshooting scenarios; (6) safe restart behavior with automatic (failed) vs approval-required (active/degraded) policy. Includes v1-to-v2 migration guide and configuration examples. All acceptance criteria met. Tests: check-links PASS, test-compliance (pre-existing failures in scripts, not docs), test_operator_docs.py 7/7 PASS.
 ---
 <!-- COMMENTS:END -->
