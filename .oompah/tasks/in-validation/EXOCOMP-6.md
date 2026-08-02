@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T05:09:57.952125Z'
+updated_at: '2026-08-02T05:11:23.876283Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -31,6 +31,31 @@ oompah.work_branch: epic-EXOCOMP-6
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-8935d6539e98: '2026-08-02T05:11:20.013843+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-6
+    target_state: Archived
+    evidence_fingerprint: 4da355f41d606c5c4577b8fd193ee6bbcc31c2b5844bb62da06466a05d77c740
+    audit_ids:
+    - audit-03a8072f482f
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T05:11:20.013854+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-6
+    audit_id: audit-03a8072f482f
+    attempt_id: attempt-8935d6539e98
+    target_state: Archived
+    evidence_fingerprint: 4da355f41d606c5c4577b8fd193ee6bbcc31c2b5844bb62da06466a05d77c740
+    status: In Validation
+    audit_ids:
+    - audit-03a8072f482f
+    applied: true
+    created_at: '2026-08-02T05:11:20.013869+00:00'
+    applied_at: '2026-08-02T05:11:23.050731+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -38,7 +63,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-6
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -47,7 +72,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-8935d6539e98
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -57,13 +82,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T05:09:53.582945+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-02T05:11:20.013667+00:00'
+      ended_at: '2026-08-02T05:11:20.013667+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:59:19.429993+00:00'
-    updated_at: '2026-08-02T05:09:53.582945+00:00'
+    updated_at: '2026-08-02T05:11:20.013667+00:00'
   - version: 1
     audit_id: audit-69383d5fc681
     project_id: proj-c260b117
@@ -159,5 +187,20 @@ author: oompah
 created: 2026-08-02 05:09
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 05:11
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- children_archived: EXOCOMP-82, EXOCOMP-41, EXOCOMP-42, EXOCOMP-43, EXOCOMP-44, EXOCOMP-45, EXOCOMP-46, EXOCOMP-47 all Archived
+- crit_items_checked: M6-CRIT-1..9 all [x] in plans/milestone-6-release.md lines 194-210
+- evidence_merge: PR #17 merge 01c14b89 (2026-07-25) added 11348 lines across docs/release-evidence/v0.1.0-rc.2/
+- dual_arch_evidence: docs/release-evidence/v0.1.0-rc.2/raw/{amd64,arm64}/ each contain live/, artifacts/, repo-gates/, qualification results
+- signed_artifacts_present: bundle.minisig, evidence-index.sha256.sig, manifest.sha256, provenance.json, sbom.spdx.json under raw/*/live/exocomp-complete-.../
+- aging: Merged 2026-07-23; audit date 2026-08-02 (10 days)
 ---
 <!-- COMMENTS:END -->
