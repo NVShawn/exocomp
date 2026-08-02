@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-42
 type: feature
-status: In Validation
+status: Archived
 priority: 2
 title: Build reproducible amd64 and arm64 OTP release artifacts
 parent: EXOCOMP-6
@@ -17,7 +17,7 @@ labels:
 - focus-complete:epic_planner
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-08-02T04:02:49.424702Z'
+updated_at: '2026-08-02T04:08:14.600198Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -55,6 +55,30 @@ oompah.task_costs:
     recorded_at: '2026-07-23T21:04:07.400459+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-dbf27fff234b: '2026-08-02T04:08:12.371499+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-42
+    target_state: Archived
+    evidence_fingerprint: e32d5356d751bc1866106d43b2ad7b729fa9a5c4ca591ae18d8ac6a66456743a
+    audit_ids:
+    - audit-1712ec8c5df6
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T04:08:12.371510+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-42
+    audit_id: audit-1712ec8c5df6
+    attempt_id: attempt-dbf27fff234b
+    target_state: Archived
+    evidence_fingerprint: e32d5356d751bc1866106d43b2ad7b729fa9a5c4ca591ae18d8ac6a66456743a
+    status: Archived
+    audit_ids:
+    - audit-1712ec8c5df6
+    applied: false
+    created_at: '2026-08-02T04:08:12.371526+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -62,7 +86,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-42
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -71,7 +95,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-dbf27fff234b
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -81,13 +105,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T04:02:44.496835+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-02T04:08:12.371274+00:00'
+      ended_at: '2026-08-02T04:08:12.371274+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:02:26.225929+00:00'
-    updated_at: '2026-08-02T04:02:44.496835+00:00'
+    updated_at: '2026-08-02T04:08:12.371274+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-dbf27fff234b
@@ -357,5 +384,29 @@ author: oompah
 created: 2026-08-02 04:02
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 04:08
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- main_head: 8f80aebf
+- recovery_merge_commit: 2085e441 Merge pull request #14 from NVShawn/epic-EXOCOMP-110
+- m6_recovery_commit: 50cd48c2 EXOCOMP-114: recover M6 release governance tooling
+- deterministic_archives_recovery: 516faf81 EXOCOMP-115: recover missing release and recovery delivery
+- children_status: EXOCOMP-65 Archived, EXOCOMP-66 Archived, EXOCOMP-67 Archived, EXOCOMP-68 Archived
+- release_files_present: release/builders.lock, release/runtime-baseline.lock, release/Containerfile.clean-target, release/templates/node.json, release/templates/coordinator.json, release/node/exocomp-node.service, release/coordinator/exocomp-coordinator.service
+- scripts_present: build-releases.sh, package-releases.sh, inspect-release-deps.sh, test-release-builders.sh, test-release-matrix.sh, test-clean-container.sh, test-runtime-deps.sh, check-builder-capability.sh, verify-toolchain.sh
+- make_targets_present: build-amd64, build-arm64, test-builders, test-release-matrix, test-release-packaging, release-check, test-deps
+- builders_lock_amd64_digest: sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d
+- builders_lock_arm64_digest: sha256:0ae929af91a43a4ae2563b5de6e2f71be0a8181bce93cfcb09690bc037e5eecc
+- supported_architectures: amd64,arm64
+- elixir_version: 1.20.2
+- otp_version: 28.5.0.3
+- glibc_baseline: 2.36
+- auto_archive_source: aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
