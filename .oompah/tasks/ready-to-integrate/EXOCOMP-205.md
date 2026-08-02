@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-08-02T03:39:57.522883Z'
+updated_at: '2026-08-02T03:40:19.270310Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 target_branch: null
 review_url: null
@@ -59,13 +59,13 @@ oompah.integration:
   submitted_at: '2026-08-02T03:39:48.270937+00:00'
   updated_at: '2026-08-02T03:39:48.270937+00:00'
 oompah.task_costs:
-  total_input_tokens: 471380
-  total_output_tokens: 9121
+  total_input_tokens: 472282
+  total_output_tokens: 9358
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 471380
-      output_tokens: 9121
+      input_tokens: 472282
+      output_tokens: 9358
       cost_usd: 0.0
   runs:
   - profile: default
@@ -74,6 +74,12 @@ oompah.task_costs:
     output_tokens: 9121
     cost_usd: 0.0
     recorded_at: '2026-08-01T16:26:40.692322+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 902
+    output_tokens: 237
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T03:40:17.706854+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-205__20260801T160834Z
@@ -169,5 +175,15 @@ author: oompah
 created: 2026-08-02 03:39
 ---
 Completion: EXOCOMP-205 submitted. Deliverable: docs/service-management.md (22.8 KB, comprehensive guide) plus updated docs/README.md index. Documentation covers: (1) manual service lists with allow-list configuration, sudoers generation, and health checks; (2) automatic enabled-service monitoring for Ceph daemons; (3) Ceph profile activation workflow with validation; (4) credential bootstrap with client.exocomp least-privilege cephx caps (mon/mgr/osd/mds read-only); (5) coverage errors with 7 troubleshooting scenarios; (6) safe restart behavior with automatic (failed) vs approval-required (active/degraded) policy. Includes v1-to-v2 migration guide and configuration examples. All acceptance criteria met. Tests: check-links PASS, test-compliance (pre-existing failures in scripts, not docs), test_operator_docs.py 7/7 PASS.
+---
+author: oompah
+created: 2026-08-02 03:40
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 53
+- Tokens: 902 in / 237 out [1.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 6m 39s
+- Log: EXOCOMP-205__20260802T033350Z.jsonl
 ---
 <!-- COMMENTS:END -->
