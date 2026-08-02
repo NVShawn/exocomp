@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:01:44.238889Z'
+updated_at: '2026-08-02T00:07:34.783455Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -191,6 +191,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-702564a799be: '2026-08-01T23:32:10.855003+00:00'
+    attempt-34517d8bc5e8: '2026-08-02T00:07:31.488953+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-203
@@ -201,6 +202,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T23:32:10.855015+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-203
+    target_state: Done
+    evidence_fingerprint: 0fea647f2a12e173d5c2108c13d92a225d24dd74ad39f33a75404e42365ae1d5
+    audit_ids:
+    - audit-e4af9f19277c
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T00:07:31.488970+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-203
@@ -214,6 +224,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T23:32:10.855031+00:00'
     applied_at: '2026-08-01T23:32:13.561539+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-203
+    audit_id: audit-e4af9f19277c
+    attempt_id: attempt-34517d8bc5e8
+    target_state: Done
+    evidence_fingerprint: 0fea647f2a12e173d5c2108c13d92a225d24dd74ad39f33a75404e42365ae1d5
+    status: Open
+    audit_ids:
+    - audit-e4af9f19277c
+    applied: true
+    created_at: '2026-08-02T00:07:31.488991+00:00'
+    applied_at: '2026-08-02T00:07:34.022026+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -256,7 +278,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-203
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -265,7 +287,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-34517d8bc5e8
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -275,13 +297,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T00:01:40.412104+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-203
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-02T00:07:31.488726+00:00'
+      ended_at: '2026-08-02T00:07:31.488726+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-02T00:01:35.666552+00:00'
-    updated_at: '2026-08-02T00:01:40.412104+00:00'
+    updated_at: '2026-08-02T00:07:31.488726+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-702564a799be
@@ -700,5 +726,19 @@ author: oompah
 created: 2026-08-02 00:01
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 00:07
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Fix the helper invocation path to match the installed location (/opt/exocomp/node/bin/profile-action-helper) or make it configurable and validated at startup.
+- Emit the exact 5-field tab-separated wire format terminated by a newline: '1\tceph\t1\trestart_failed_daemon\t<target_unit>\n', and derive target_unit from daemon_type+daemon_id (e.g., ceph-osd@42.service).
+- Route helper invocation through the node's typed A2A action catalog rather than forking sudo from the coordinator; the coordinator's RemediationAdapter contract forbids direct command/path callbacks.
+- Replace the global 'adapter: CephDaemonRestart' wiring in config/config.exs with an action-id router (or an adapter that delegates to CephDaemonRestart only for restart_failed_daemon) so other action_ids are not rejected.
+- Add an integration test that runs the full RemediationLifecycle → CephDaemonRestart path (including a simulated durable-audit-before-action failure that prevents helper invocation) and a test that validates the exact wire bytes sent to the helper.
 ---
 <!-- COMMENTS:END -->
