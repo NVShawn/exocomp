@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:11:17.801755Z'
+updated_at: '2026-08-02T01:34:51.627495Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -85,6 +85,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T14:24:56.610408+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-00939df4abfb: '2026-08-02T01:34:48.085508+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    target_state: Done
+    evidence_fingerprint: aa0b214207bd9e0c183daa69e3c7be54fc41206e9d2b3b2cca34238795c2dc26
+    audit_ids:
+    - audit-56c465c0fd2c
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T01:34:48.085519+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-204
+    audit_id: audit-56c465c0fd2c
+    attempt_id: attempt-00939df4abfb
+    target_state: Done
+    evidence_fingerprint: aa0b214207bd9e0c183daa69e3c7be54fc41206e9d2b3b2cca34238795c2dc26
+    status: Open
+    audit_ids:
+    - audit-56c465c0fd2c
+    applied: true
+    created_at: '2026-08-02T01:34:48.085534+00:00'
+    applied_at: '2026-08-02T01:34:50.938481+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -92,7 +117,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-204
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -101,7 +126,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-00939df4abfb
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -111,13 +136,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T01:11:13.213789+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-204
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-02T01:34:48.085245+00:00'
+      ended_at: '2026-08-02T01:34:48.085245+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-02T01:07:55.940013+00:00'
-    updated_at: '2026-08-02T01:11:13.213789+00:00'
+    updated_at: '2026-08-02T01:34:48.085245+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-00939df4abfb
@@ -311,5 +340,22 @@ author: oompah
 created: 2026-08-02 01:11
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 01:34
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Questions:
+- Is CephCooldown intended to be wired to Coordinator.Audit or another durable store before Done, and if so where is that wiring expected to live?
+- Should verify/3 poll across a configured stability window, or is a single post-execution observation the intended behavior for this milestone?
+
+Instructions:
+- Wire CephCooldown.default_audit_reader/1 and default_audit_writer/2 (or the call sites in CephDaemonRestart.verify/decide) to a persistent event store (e.g. Coordinator.Audit with a query capability) so a verification failure durably blocks the next decide() and survives coordinator restart.
+- Add an end-to-end test that drives the real production path: run a full submit -> verify (health regression) -> submit again cycle through RemediationLifecycle and assert the second submit is denied with :in_cooldown without injecting a custom audit_reader/writer.
+- Add tests for the explicitly enumerated scenarios: systemd-only recovery (Ceph evidence clean, systemd cycled), process/coordinator restart reconciliation (state survives GenServer restart), cooldown expiry (after configured window a fresh submit is allowed via the real path), and audit-write failure during record_cooldown surfacing verification_failed correctly.
+- Implement (or explicitly scope out and document) the 'across the configured stability window' recollection — currently verify/3 collects post-evidence once and labels the result 'stability_window_passed' without polling.
 ---
 <!-- COMMENTS:END -->
