@@ -4,9 +4,9 @@ defmodule Exocomp.Coordinator.A2A.DiagnosticClient do
   @moduledoc """
   Coordinator-side A2A 1.0 boundary for node tasks.
 
-  Permitted skills: `exocomp.system.diagnose`, `exocomp.service.diagnose`,
-  and `exocomp.service.recover`.  There is no generic message API, so
-  arbitrary remediation and executor traffic cannot cross this boundary.
+  Permitted skills are the fixed diagnostic and typed profile skills. There is
+  no generic message API, so arbitrary remediation and executor traffic cannot
+  cross this boundary.
   """
 
   alias Exocomp.A2A.Task
@@ -16,6 +16,8 @@ defmodule Exocomp.Coordinator.A2A.DiagnosticClient do
   @diagnostic_skills [
     "exocomp.system.diagnose",
     "exocomp.service.diagnose",
+    "exocomp.profile.inspect",
+    "exocomp.profile.action",
     "exocomp.service.recover"
   ]
   @default_timeout_ms 5_000
@@ -66,6 +68,42 @@ defmodule Exocomp.Coordinator.A2A.DiagnosticClient do
              opts
            ) do
       decode_success(response, [200], operation, node_id, version)
+    end
+  end
+
+  @doc "Polls a node task until it reaches a terminal state without resubmitting it."
+  @spec await_terminal(Task.t(), keyword()) :: {:ok, Task.t()} | {:error, term()}
+  def await_terminal(%Task{} = task, opts \\ []) do
+    if task.status && task.status.state in [:completed, :failed, :canceled] do
+      {:ok, task}
+    else
+      node_id = Keyword.fetch!(opts, :node_id)
+      timeout_ms = Keyword.get(opts, :timeout_ms, @default_timeout_ms)
+      poll_interval_ms = Keyword.get(opts, :poll_interval_ms, 10)
+      deadline = System.monotonic_time(:millisecond) + timeout_ms
+      await_task(node_id, task.id, opts, deadline, poll_interval_ms)
+    end
+  end
+
+  defp await_task(node_id, task_id, opts, deadline, poll_interval_ms) do
+    remaining = deadline - System.monotonic_time(:millisecond)
+
+    if remaining <= 0 do
+      {:error, :timeout}
+    else
+      Process.sleep(min(poll_interval_ms, remaining))
+
+      case get_task(node_id, task_id, Keyword.put(opts, :timeout_ms, remaining)) do
+        {:ok, %Task{} = task} ->
+          if task.status && task.status.state in [:completed, :failed, :canceled] do
+            {:ok, task}
+          else
+            await_task(node_id, task_id, opts, deadline, poll_interval_ms)
+          end
+
+        {:error, reason} ->
+          {:error, reason}
+      end
     end
   end
 

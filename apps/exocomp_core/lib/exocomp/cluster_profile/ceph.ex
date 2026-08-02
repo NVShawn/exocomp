@@ -76,9 +76,9 @@ defmodule Exocomp.ClusterProfile.Ceph do
   def health_reduction(_observations), do: %{status: :unknown, observation_count: 0}
 
   @impl true
-  # The Ceph profile provides diagnostic observation only; remediation
-  # actions on Ceph daemons require operator approval outside this profile.
-  def supported_typed_actions, do: ["diagnose_service"]
+  # The typed action is exposed only through the coordinator's policy and
+  # audit gates; the profile itself does not authorize a restart.
+  def supported_typed_actions, do: ["diagnose_service", "restart_failed_daemon"]
 
   @impl true
   def redaction_metadata do

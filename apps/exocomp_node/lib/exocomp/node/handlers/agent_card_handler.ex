@@ -29,6 +29,12 @@ defmodule Exocomp.Node.Handlers.AgentCardHandler do
       description: "Discover local Ceph daemon units and their systemd state."
     },
     %AgentSkill{
+      id: "exocomp.profile.action",
+      name: "Profile Action",
+      description:
+        "Execute one typed, shipped Ceph profile action after coordinator authorization."
+    },
+    %AgentSkill{
       id: "exocomp.remediation.propose",
       name: "Remediation Propose",
       description: "Propose a known remediation intent given current diagnostic context."

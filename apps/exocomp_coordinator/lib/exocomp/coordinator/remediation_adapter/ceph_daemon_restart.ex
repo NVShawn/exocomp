@@ -2,50 +2,48 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
   @moduledoc """
-  Remediation adapter for restarting failed Ceph daemons.
+  Policy adapter for one already-failed, expected Ceph daemon.
 
-  This adapter validates proposals for restarting already-failed Ceph daemons,
-  collects fresh evidence about daemon and cluster state, applies policy to
-  ensure safety constraints are met, and executes through a restricted profile
-  helper action.
-
-  ## Proposal format
-
-      %{
-        "schema_version" => "1",
-        "action_id" => "restart_failed_daemon",
-        "target_id" => "osd.42",
-        "parameters" => %{
-          "node_id" => "node-1",
-          "daemon_id" => "osd.42",
-          "daemon_type" => "osd",
-          "profile_name" => "ceph-default"
-        },
-        "evidence_refs" => ["ceph-health-evidence-1", "ceph-topology-evidence-1"],
-        "rationale" => "Daemon failed, restarting after health verification"
-      }
-
-  ## Constraints
-
-  - Daemon must be in a failed state (not active or merely degraded)
-  - Node must exist in the coordinator's inventory
-  - Profile must be supported on the node
-  - Evidence must be fresh (within 5 minutes of collection)
-  - Exact node/daemon mapping must be validated
-  - Automatic-mode discovery alone cannot authorize the action
+  The coordinator decides whether a restart is safe and sends a typed A2A
+  profile action to the node. It never receives or executes a command, helper
+  path, or shell callback. The node's installed profile-action catalog owns
+  those details.
   """
 
   @behaviour Exocomp.Coordinator.RemediationAdapter
 
-  alias Exocomp.Coordinator.{Collectors, ProfileCoverage, Registry}
   alias Exocomp.ClusterProfile.Registry, as: ProfileRegistry
+  alias Exocomp.Coordinator.{Collectors, ProfileCoverage, Registry}
+  alias Exocomp.Coordinator.A2A.{ProfileActionClient, ProfileInspectionClient}
 
   @action_id "restart_failed_daemon"
-  @max_evidence_age_ms 5 * 60 * 1000  # 5 minutes
+  @profile_id "ceph"
+  @profile_version 1
+  @max_evidence_age_ms 5 * 60 * 1000
+  @daemon_types ~w[mon mgr osd mds radosgw]
 
-  # ---------------------------------------------------------------------------
-  # RemediationAdapter callbacks
-  # ---------------------------------------------------------------------------
+  @doc "The only action ID handled by this adapter."
+  def action_id, do: @action_id
+
+  @doc "Derives the canonical systemd target from the typed daemon identity."
+  @spec target_unit(String.t(), String.t()) :: {:ok, String.t()} | {:error, term()}
+  def target_unit(daemon_type, daemon_id)
+      when daemon_type in @daemon_types and is_binary(daemon_id) do
+    instance =
+      case String.split(daemon_id, ".", parts: 2) do
+        [^daemon_type, value] -> value
+        [value] -> value
+        _ -> ""
+      end
+
+    if valid_instance?(daemon_type, instance) do
+      {:ok, "ceph-#{daemon_type}@#{instance}.service"}
+    else
+      {:error, :invalid_daemon_identity}
+    end
+  end
+
+  def target_unit(_daemon_type, _daemon_id), do: {:error, :invalid_daemon_identity}
 
   @impl true
   def validate_proposal(%{"action_id" => @action_id, "parameters" => params} = proposal)
@@ -53,457 +51,492 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestart do
     with {:ok, node_id} <- fetch_string(params, "node_id"),
          {:ok, daemon_id} <- fetch_string(params, "daemon_id"),
          {:ok, daemon_type} <- fetch_string(params, "daemon_type"),
-         {:ok, profile_name} <- fetch_string(params, "profile_name") do
-      # Validate the node exists in inventory
-      registry_name = Application.get_env(:exocomp_coordinator, :registry, Registry)
-
-      case Registry.get(node_id, registry_name) do
-        {:ok, _node} ->
-          {:ok,
-           %{
-             node_id: node_id,
-             daemon_id: daemon_id,
-             daemon_type: daemon_type,
-             profile_name: profile_name,
-             evidence_refs: Map.get(proposal, "evidence_refs", [])
-           }}
-
-        :error ->
-          {:error, {:node_not_found, node_id}}
+         {:ok, profile_name} <- fetch_string(params, "profile_name"),
+         {:ok, target_unit} <- target_unit(daemon_type, daemon_id),
+         {:ok, profile_version} <- profile_version(params),
+         {:ok, node} <- node_from_inventory(node_id),
+         :ok <- node_supports_action(node),
+         :ok <- profile_is_shipped(profile_name, profile_version) do
+      if Map.get(proposal, "target_id") == daemon_id do
+        {:ok,
+         %{
+           action_id: @action_id,
+           node_id: node_id,
+           daemon_id: daemon_id,
+           daemon_type: daemon_type,
+           profile_name: profile_name,
+           profile_version: profile_version,
+           target_unit: target_unit,
+           evidence_refs: Map.get(proposal, "evidence_refs", [])
+         }}
+      else
+        {:error, :target_mapping_mismatch}
       end
     end
   end
 
-  def validate_proposal(%{"action_id" => @action_id}),
-    do: {:error, :invalid_parameters}
+  def validate_proposal(%{"action_id" => @action_id}), do: {:error, :invalid_parameters}
 
   def validate_proposal(%{"action_id" => action_id}),
     do: {:error, {:unsupported_action, action_id}}
 
-  def validate_proposal(_proposal),
-    do: {:error, :malformed_proposal}
+  def validate_proposal(_proposal), do: {:error, :malformed_proposal}
 
   @impl true
-  def collect_evidence(proposal) do
-    # Collect fresh evidence from Ceph and node state through existing typed diagnostic paths
-    case gather_fresh_evidence(proposal) do
-      {:ok, evidence} -> {:ok, evidence}
+  def collect_evidence(
+        %{
+          node_id: node_id,
+          daemon_id: daemon_id,
+          daemon_type: daemon_type,
+          target_unit: target_unit
+        } = proposal
+      )
+      when is_binary(node_id) and is_binary(daemon_id) and is_binary(daemon_type) and
+             is_binary(target_unit) do
+    with {:ok, ceph} <- fresh_ceph_evidence(),
+         {:ok, node_state} <- fresh_node_state(proposal.node_id),
+         {:ok, evidence} <- normalize_evidence(ceph, node_state, proposal) do
+      {:ok, evidence}
+    else
       {:error, reason} -> {:error, {:evidence_collection_failed, reason}}
     end
   end
 
+  def collect_evidence(_proposal), do: {:error, {:evidence_collection_failed, :invalid_proposal}}
+
   @impl true
-  def decide(proposal, evidence) do
-    node_id = proposal.node_id
-    daemon_id = proposal.daemon_id
-    daemon_type = proposal.daemon_type
-    profile_name = proposal.profile_name
-
-    with :ok <- check_node_in_inventory(node_id),
-         :ok <- check_profile_supported(node_id, profile_name),
+  def decide(
+        %{
+          node_id: node_id,
+          daemon_id: daemon_id,
+          daemon_type: daemon_type,
+          profile_name: profile_name,
+          profile_version: profile_version,
+          target_unit: target_unit
+        } = proposal,
+        evidence
+      )
+      when is_binary(node_id) and is_binary(daemon_id) and is_binary(daemon_type) and
+             is_binary(profile_name) and is_integer(profile_version) and is_binary(target_unit) and
+             is_map(evidence) do
+    with :ok <- check_node_in_inventory(proposal.node_id),
+         {:ok, node} <- node_from_inventory(proposal.node_id),
+         :ok <- node_supports_action(node),
+         :ok <- check_profile_supported(proposal.profile_name, proposal.profile_version),
          :ok <- check_evidence_fresh(evidence),
-         :ok <- check_daemon_failed(evidence, daemon_id),
-         :ok <- check_no_active_workload(evidence, daemon_id) do
-      action = %{
-        node_id: node_id,
-        daemon_id: daemon_id,
-        daemon_type: daemon_type,
-        profile_name: profile_name
-      }
-
-      {:allow, action}
+         :ok <- check_exact_mapping(proposal, evidence),
+         :ok <- check_daemon_failed(evidence),
+         :ok <- check_no_active_workload(evidence) do
+      {:allow,
+       %{
+         action_id: @action_id,
+         node_id: proposal.node_id,
+         daemon_id: proposal.daemon_id,
+         daemon_type: proposal.daemon_type,
+         profile_name: proposal.profile_name,
+         profile_version: proposal.profile_version,
+         target_unit: proposal.target_unit
+       }}
     else
       {:error, reason} -> {:deny, reason}
     end
   end
 
-  @impl true
-  def execute(action, _evidence, _approval) do
-    # Execute through the restricted profile helper action
-    # This invokes a profile-specific helper that performs the restart
-    case invoke_profile_helper(action) do
-      {:ok, result} ->
-        {:ok, result}
+  def decide(_proposal, _evidence), do: {:deny, :invalid_policy_input}
 
-      {:error, reason} ->
-        {:error, reason}
+  @impl true
+  def execute(
+        %{
+          action_id: @action_id,
+          node_id: node_id,
+          daemon_id: _daemon_id,
+          daemon_type: _daemon_type,
+          profile_name: _profile_name,
+          profile_version: _profile_version,
+          target_unit: _target_unit
+        } = action,
+        _evidence,
+        _approval
+      )
+      when is_binary(node_id) do
+    client =
+      Application.get_env(:exocomp_coordinator, :profile_action_client, ProfileActionClient)
+
+    case invoke_action_client(client, action) do
+      {:ok, result} -> {:ok, result}
+      {:error, reason} -> {:error, {:action_dispatch_failed, reason}}
+      other -> {:error, {:invalid_action_client_result, other}}
     end
   end
 
-  @impl true
-  def verify(action, _evidence, result) do
-    # Verify that the daemon is now in a healthy state
-    case verify_daemon_health(action, result) do
-      {:ok, status} ->
-        {:ok, status}
+  def execute(_action, _evidence, _approval), do: {:error, :invalid_action}
 
-      {:error, reason} ->
-        {:error, reason}
+  @impl true
+  def verify(
+        %{
+          action_id: @action_id,
+          node_id: node_id,
+          daemon_id: _daemon_id,
+          daemon_type: _daemon_type,
+          profile_name: _profile_name,
+          profile_version: _profile_version,
+          target_unit: _target_unit
+        } = action,
+        _evidence,
+        result
+      )
+      when is_binary(node_id) do
+    with {:ok, evidence} <- collect_evidence(action),
+         :ok <- check_exact_mapping(action, evidence),
+         :ok <- check_healthy(evidence) do
+      {:ok,
+       %{
+         status: "healthy",
+         daemon_id: action.daemon_id,
+         target_unit: action.target_unit,
+         execution: result,
+         collected_at: evidence.collected_at
+       }}
+    else
+      {:error, reason} -> {:error, {:verification_failed, reason}}
     end
   end
+
+  def verify(_action, _evidence, _result), do: {:error, :invalid_action}
 
   # ---------------------------------------------------------------------------
-  # Private: validation helpers
+  # Trusted policy gates
   # ---------------------------------------------------------------------------
 
   defp check_node_in_inventory(node_id) do
-    registry_name = Application.get_env(:exocomp_coordinator, :registry, Registry)
-
-    case Registry.get(node_id, registry_name) do
+    case node_from_inventory(node_id) do
       {:ok, _node} -> :ok
+      {:error, _} = error -> error
+    end
+  end
+
+  defp node_from_inventory(node_id) do
+    registry = Application.get_env(:exocomp_coordinator, :registry, Registry)
+
+    case Registry.get(node_id, registry) do
+      {:ok, node} -> {:ok, node}
       :error -> {:error, {:node_not_found, node_id}}
     end
   end
 
-  defp check_profile_supported(node_id, profile_name) do
-    # Consult the shipped cluster profile registry to validate profile support
-    registry_name = Application.get_env(:exocomp_coordinator, :registry, Registry)
-    profile_coverage = Application.get_env(:exocomp_coordinator, :profile_coverage, ProfileCoverage)
+  defp node_supports_action(node) do
+    capabilities = Map.get(node, :capabilities, Map.get(node, "capabilities", []))
 
-    with {:ok, _node} <- Registry.get(node_id, registry_name),
-         true <- check_profile_available(profile_name, profile_coverage) do
+    if "exocomp.profile.action" in capabilities do
       :ok
     else
-      :error -> {:error, {:node_not_found, node_id}}
-      false -> {:error, {:unsupported_profile, profile_name}}
+      {:error, :node_profile_action_unsupported}
     end
   end
 
-  defp check_profile_available(profile_id, profile_coverage) do
-    # Check if the profile is available in the registry and at runtime
-    case ProfileRegistry.advertised_profiles()
-         |> Enum.find(&(&1.id == profile_id)) do
-      %{} -> ProfileCoverage.available?(profile_id, profile_coverage)
-      nil -> false
+  defp profile_is_shipped(profile_id, version) do
+    case {profile_id, ProfileRegistry.lookup(profile_id, version)} do
+      {@profile_id, {:ok, profile}} ->
+        if @action_id in profile.supported_typed_actions(),
+          do: :ok,
+          else: {:error, {:unsupported_profile, profile_id}}
+
+      {_other, {:ok, _profile}} ->
+        {:error, {:unsupported_profile, profile_id}}
+
+      {_profile_id, {:error, _}} ->
+        {:error, {:unsupported_profile, profile_id}}
+    end
+  end
+
+  defp check_profile_supported(profile_id, version) do
+    coverage = Application.get_env(:exocomp_coordinator, :profile_coverage, ProfileCoverage)
+
+    with :ok <- profile_is_shipped(profile_id, version),
+         true <- ProfileCoverage.available?(profile_id, coverage) do
+      :ok
+    else
+      false -> {:error, {:unsupported_profile, profile_id}}
+      {:error, _} = error -> error
     end
   end
 
   defp check_evidence_fresh(evidence) do
-    # Verify evidence was collected recently enough
-    case evidence_timestamp(evidence) do
-      {:ok, timestamp} ->
-        age_ms = DateTime.utc_now() |> DateTime.diff(timestamp, :millisecond)
-
-        if age_ms <= @max_evidence_age_ms do
-          :ok
-        else
-          {:error, {:stale_evidence, age_ms}}
-        end
-
-      :error ->
-        {:error, :missing_evidence_timestamp}
+    with {:ok, ceph_at} <- evidence_timestamp(evidence, :collected_at),
+         {:ok, node_at} <- evidence_timestamp(evidence, :node_collected_at),
+         :ok <- fresh_timestamp(ceph_at),
+         :ok <- fresh_timestamp(node_at) do
+      :ok
+    else
+      {:error, _} = error -> error
     end
   end
 
-  defp check_daemon_failed(evidence, daemon_id) do
-    # Verify that the daemon is actually in a failed state
-    case daemon_state(evidence, daemon_id) do
-      {:ok, "failed"} -> :ok
-      {:ok, "inactive"} -> :ok
-      {:ok, state} -> {:error, {:daemon_not_failed, state}}
-      :error -> {:error, :daemon_state_unknown}
-    end
-  end
-
-  defp check_no_active_workload(evidence, daemon_id) do
-    # Verify that the daemon has no active workload
-    # (i.e., no PGs are being served by this daemon)
-    case daemon_workload(evidence, daemon_id) do
-      {:ok, 0} -> :ok
-      {:ok, count} -> {:error, {:daemon_has_active_pgs, count}}
-      :error -> :ok  # If we can't determine workload, assume it's safe
-    end
-  end
-
-  # ---------------------------------------------------------------------------
-  # Private: evidence extraction
-  # ---------------------------------------------------------------------------
-
-  defp evidence_timestamp(evidence) when is_map(evidence) do
-    case Map.get(evidence, :collected_at) || Map.get(evidence, "collected_at") do
-      timestamp when is_binary(timestamp) ->
-        case DateTime.from_iso8601(timestamp) do
-          {:ok, dt, _} -> {:ok, dt}
-          _error -> :error
-        end
-
-      _other ->
-        :error
-    end
-  end
-
-  defp evidence_timestamp(_), do: :error
-
-  defp daemon_state(evidence, _daemon_id) when is_map(evidence) do
-    # Extract daemon state from normalized evidence
-    case Map.get(evidence, :daemon_state) || Map.get(evidence, "daemon_state") do
-      state when is_binary(state) -> {:ok, state}
-      _other -> :error
-    end
-  end
-
-  defp daemon_state(_evidence, _daemon_id), do: :error
-
-  defp daemon_workload(evidence, _daemon_id) when is_map(evidence) do
-    # Extract daemon workload information
-    case Map.get(evidence, :active_pgs) || Map.get(evidence, "active_pgs") do
-      count when is_integer(count) -> {:ok, count}
-      _other -> :error
-    end
-  end
-
-  defp daemon_workload(_evidence, _daemon_id), do: :error
-
-  # ---------------------------------------------------------------------------
-  # Private: execution
-  # ---------------------------------------------------------------------------
-
-  defp invoke_profile_helper(action) do
-    # Invoke the restricted profile helper action via bin/profile-action-helper
-    # The helper is executed with sudoers to run with necessary privileges
-    # Format: profile-action-helper <profile_id> <action_id> <tab-separated-params>
-    helper_path = "/usr/libexec/exocomp/profile-action-helper"
-
-    request_line =
-      [
-        action.profile_name,
-        "restart_failed_daemon",
-        action.daemon_type,
-        action.daemon_id
-      ]
-      |> Enum.join("\t")
-
-    # Allow dependency injection for testing
-    case invoke_helper_with_sudo(helper_path, request_line) do
-      {:ok, _output} ->
-        # Helper executed successfully, action has been initiated
-        {:ok, %{status: "restart_initiated", daemon_id: action.daemon_id, timestamp: iso_now()}}
-
-      {:error, reason} ->
-        {:error, {:helper_execution_failed, reason}}
-    end
-  end
-
-  defp invoke_helper_with_sudo(helper_path, request_line) do
-    # Allow dependency injection for testing via application configuration
-    helper_fn = Application.get_env(:exocomp_coordinator, :profile_helper, :default)
-    
-    case helper_fn do
-      :default ->
-        # Execute the profile helper via sudo with the request line on stdin
-        # One-attempt semantics: no retry on transient failure
-        execute_profile_helper_via_sudo(helper_path, request_line)
-        
-      function when is_function(function, 2) ->
-        function.(helper_path, request_line)
-        
-      {module, function_atom, extra_args} when is_atom(module) and is_atom(function_atom) ->
-        apply(module, function_atom, [helper_path, request_line] ++ extra_args)
-        
-      _ ->
-        execute_profile_helper_via_sudo(helper_path, request_line)
-    end
-  end
-
-  defp execute_profile_helper_via_sudo(helper_path, request_line) do
-    # Execute the profile helper via sudo with the request line on stdin
-    # One-attempt semantics: no retry on transient failure
-    timeout_ms = 30_000
-
-    task =
-      Task.async(fn ->
-        System.cmd("sudo", [helper_path], input: request_line, stderr_to_stdout: true)
-      end)
-
-    case Task.yield(task, timeout_ms) || Task.shutdown(task, :brutal_kill) do
-      {:ok, {output, 0}} when is_binary(output) ->
-        {:ok, output}
-
-      {:ok, {output, exit_code}} when is_integer(exit_code) and exit_code != 0 ->
-        reason = String.trim(output)
-        {:error, "helper exited with status #{exit_code}: #{reason}"}
-
-      {:exit, reason} ->
-        {:error, "helper process crashed: #{inspect(reason)}"}
-
-      nil ->
-        {:error, "helper execution timed out after #{timeout_ms}ms"}
-
-      _other ->
-        {:error, "invalid helper response"}
-    end
-  rescue
-    error ->
-      {:error, Exception.message(error)}
-  catch
-    _kind, _reason ->
-      {:error, "helper execution failed"}
-  end
-
-  defp verify_daemon_health(action, _result) do
-    # Verify that the daemon is now in a healthy state by collecting fresh evidence
-    case gather_fresh_evidence(%{node_id: action.node_id, daemon_id: action.daemon_id}) do
-      {:ok, evidence} ->
-        # Check if the daemon is now healthy (not failed)
-        case check_daemon_health_status(evidence, action.daemon_id) do
-          :ok -> {:ok, %{status: "healthy", daemon_id: action.daemon_id, timestamp: iso_now()}}
-          {:error, reason} -> {:error, {:verification_failed, reason}}
-        end
-
-      {:error, reason} ->
-        {:error, {:verification_evidence_failed, reason}}
-    end
-  end
-
-  defp check_daemon_health_status(evidence, daemon_id) do
-    # Verify the daemon is no longer in a failed state
-    case daemon_state(evidence, daemon_id) do
-      {:ok, "failed"} -> {:error, "daemon still in failed state"}
-      {:ok, "inactive"} -> {:error, "daemon is inactive"}
-      {:ok, _healthy_state} -> :ok
-      :error -> {:error, "could not determine daemon state"}
-    end
-  end
-
-  # ---------------------------------------------------------------------------
-  # Private: helpers
-  # ---------------------------------------------------------------------------
-
-  defp fetch_string(map, key) when is_map(map) and is_binary(key) do
-    case Map.get(map, key) do
-      value when is_binary(value) and byte_size(value) > 0 -> {:ok, value}
-      _other -> {:error, {:invalid_parameter, key}}
-    end
-  end
-
-  # ---------------------------------------------------------------------------
-  # Private: evidence gathering
-  # ---------------------------------------------------------------------------
-
-  defp gather_fresh_evidence(proposal_or_action) when is_map(proposal_or_action) do
-    # Collect fresh Ceph health/topology and node state evidence
-    # through the existing typed diagnostic paths, not caller-supplied evidence
-    ceph_evidence = invoke_ceph_collector()
-
-    case ceph_evidence.status do
-      :degraded ->
-        {:error, :ceph_unavailable}
-
-      :ok ->
-        {:ok, normalize_evidence(ceph_evidence, proposal_or_action)}
-
-      :partial ->
-        # Partial collection is acceptable if we have topology data
-        if map_size(ceph_evidence.topology) > 0 do
-          {:ok, normalize_evidence(ceph_evidence, proposal_or_action)}
-        else
-          {:error, :ceph_partially_unavailable}
-        end
-    end
-  end
-
-  defp invoke_ceph_collector do
-    # Allow dependency injection for testing
-    collector_fn = Application.get_env(:exocomp_coordinator, :ceph_collector, {Collectors.Ceph, :collect, []})
-    
-    case collector_fn do
-      {module, function, extra_args} when is_atom(module) and is_atom(function) ->
-        apply(module, function, extra_args)
-      function when is_function(function, 0) ->
-        function.()
-      _ ->
-        Collectors.Ceph.collect()
-    end
-  rescue
-    _error -> 
-      %{
-        schema_version: 1,
-        collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
-        status: :degraded,
-        health: %{},
-        topology: %{},
-        errors: []
-      }
-  end
-
-  defp normalize_evidence(ceph_evidence, context) do
-    # Normalize Ceph evidence into a standard format for policy checks
-    daemon_id = Map.get(context, :daemon_id) || Map.get(context, "daemon_id")
-
-    %{
-      collected_at: ceph_evidence.collected_at,
-      source: :ceph_collector,
-      ceph_health: Map.get(ceph_evidence, :health, %{}),
-      topology: Map.get(ceph_evidence, :topology, %{}),
-      daemon_id: daemon_id,
-      daemon_state: extract_daemon_state_from_ceph(ceph_evidence, daemon_id),
-      active_pgs: extract_active_pgs_from_ceph(ceph_evidence, daemon_id)
-    }
-  end
-
-  defp extract_daemon_state_from_ceph(ceph_evidence, daemon_id) when is_binary(daemon_id) do
-    # Extract daemon state from Ceph topology data
-    osds = Map.get(ceph_evidence.topology, "osds", %{})
-    mons = Map.get(ceph_evidence.topology, "monitors", %{})
-    mgrs = Map.get(ceph_evidence.topology, "managers", %{})
+  defp fresh_timestamp(timestamp) do
+    age_ms = DateTime.diff(DateTime.utc_now(), timestamp, :millisecond)
 
     cond do
-      is_map(osds) and Map.has_key?(osds, daemon_id) ->
-        extract_osd_state(osds[daemon_id])
-
-      is_map(mons) and Map.has_key?(mons, daemon_id) ->
-        extract_mon_state(mons[daemon_id])
-
-      is_map(mgrs) and Map.has_key?(mgrs, daemon_id) ->
-        extract_mgr_state(mgrs[daemon_id])
-
-      true ->
-        "unknown"
+      age_ms < 0 -> {:error, :future_evidence}
+      age_ms > @max_evidence_age_ms -> {:error, {:stale_evidence, age_ms}}
+      true -> :ok
     end
   end
 
-  defp extract_daemon_state_from_ceph(_evidence, _daemon_id), do: "unknown"
+  defp check_exact_mapping(action, evidence) do
+    mapping = Map.get(evidence, :mapping, Map.get(evidence, "mapping", %{}))
 
-  defp extract_osd_state(osd_data) when is_map(osd_data) do
-    # OSD state mapping from Ceph metadata
-    case Map.get(osd_data, "state") do
+    if is_map(mapping) and value(evidence, :node_id, "node_id") == action.node_id and
+         value(mapping, :node_id, "node_id") == action.node_id and
+         value(mapping, :daemon_id, "daemon_id") == action.daemon_id and
+         value(mapping, :target_unit, "target_unit") == action.target_unit do
+      :ok
+    else
+      {:error, :target_mapping_changed}
+    end
+  end
+
+  defp check_daemon_failed(evidence) do
+    case Map.get(evidence, :daemon_state, Map.get(evidence, "daemon_state")) do
+      state when state in ["failed", "inactive"] -> :ok
+      state when is_binary(state) -> {:error, {:daemon_not_failed, state}}
+      _ -> {:error, :daemon_state_unknown}
+    end
+  end
+
+  defp check_no_active_workload(evidence) do
+    case Map.get(evidence, :active_pgs, Map.get(evidence, "active_pgs")) do
+      0 -> :ok
+      count when is_integer(count) -> {:error, {:daemon_has_active_pgs, count}}
+      _ -> {:error, :active_workload_unknown}
+    end
+  end
+
+  defp check_healthy(evidence) do
+    case Map.get(evidence, :daemon_state, Map.get(evidence, "daemon_state")) do
+      state when state in ["active", "healthy", "running"] -> :ok
+      state when is_binary(state) -> {:error, {:daemon_not_healthy, state}}
+      _ -> {:error, :daemon_state_unknown}
+    end
+  end
+
+  # ---------------------------------------------------------------------------
+  # Fresh typed evidence
+  # ---------------------------------------------------------------------------
+
+  defp fresh_ceph_evidence do
+    collector =
+      Application.get_env(:exocomp_coordinator, :ceph_collector, {Collectors.Ceph, :collect, []})
+
+    result = invoke_collector(collector)
+
+    case result do
+      %{status: :ok, topology: topology, health: health, collected_at: collected_at}
+      when is_map(topology) and is_map(health) and is_binary(collected_at) ->
+        {:ok, result}
+
+      %{status: status} ->
+        {:error, {:ceph_evidence_unavailable, status}}
+
+      _ ->
+        {:error, :malformed_ceph_evidence}
+    end
+  end
+
+  defp fresh_node_state(node_id) do
+    client =
+      Application.get_env(:exocomp_coordinator, :node_state_client, ProfileInspectionClient)
+
+    result =
+      case client do
+        module when is_atom(module) -> module.collect(node_id, [])
+        fun when is_function(fun, 1) -> fun.(node_id)
+        fun when is_function(fun, 2) -> fun.(node_id, [])
+        _ -> {:error, :invalid_node_state_client}
+      end
+
+    case result do
+      {:ok, state} when is_map(state) -> {:ok, state}
+      state when is_map(state) -> {:ok, state}
+      {:error, reason} -> {:error, {:node_state_unavailable, reason}}
+      _ -> {:error, :malformed_node_state}
+    end
+  rescue
+    error -> {:error, {:node_state_client_failed, Exception.message(error)}}
+  end
+
+  defp normalize_evidence(ceph, node_state, proposal) do
+    node_state = unwrap_profile_observation(node_state)
+    node_collected_at = node_timestamp(node_state)
+
+    with {:ok, _node_datetime} <- parse_timestamp(node_collected_at),
+         {:ok, _} <- evidence_timestamp(%{collected_at: ceph.collected_at}, :collected_at),
+         {:ok, daemon_state, active_pgs} <- daemon_observation(node_state, ceph, proposal),
+         {:ok, target_unit} <- target_unit(proposal.daemon_type, proposal.daemon_id) do
+      {:ok,
+       %{
+         collected_at: ceph.collected_at,
+         node_collected_at: node_collected_at,
+         source: :ceph_and_node,
+         node_id: proposal.node_id,
+         ceph_health: ceph.health,
+         topology: ceph.topology,
+         daemon_id: proposal.daemon_id,
+         daemon_state: daemon_state,
+         active_pgs: active_pgs,
+         mapping: %{
+           node_id: proposal.node_id,
+           daemon_id: proposal.daemon_id,
+           target_unit: target_unit
+         }
+       }}
+    else
+      {:error, _} = error -> error
+    end
+  end
+
+  defp unwrap_profile_observation(%{"observations" => %{"ceph" => observation}}),
+    do: observation
+
+  defp unwrap_profile_observation(%{observations: %{ceph: observation}}), do: observation
+  defp unwrap_profile_observation(state), do: state
+
+  defp daemon_observation(node_state, ceph, proposal) do
+    target = proposal.target_unit
+    daemon = node_daemon(node_state, target, proposal.daemon_id)
+
+    if is_nil(daemon) do
+      {:error, :target_mapping_changed}
+    else
+      state =
+        daemon_state_from(daemon) ||
+          daemon_state_from_ceph(ceph, proposal.daemon_type, proposal.daemon_id)
+
+      pgs = daemon_workload_from(daemon) || 0
+
+      if is_binary(state), do: {:ok, state, pgs}, else: {:error, :daemon_state_unknown}
+    end
+  end
+
+  defp node_daemon(node_state, target_unit, daemon_id) do
+    node_state
+    |> daemon_list()
+    |> Enum.find(fn daemon ->
+      value(daemon, :unit, "unit") == target_unit or
+        value(daemon, :id, "id") in [daemon_id, String.replace_prefix(daemon_id, "osd.", "")]
+    end)
+  end
+
+  defp daemon_list(state) do
+    measurements = value(state, :measurements, "measurements") || %{}
+    daemons = value(measurements, :daemons, "daemons") || value(state, :daemons, "daemons")
+
+    case value(daemons, :value, "value") do
+      list when is_list(list) -> list
+      list when is_map(list) -> Map.values(list)
+      _ -> []
+    end
+  end
+
+  defp daemon_state_from(nil), do: nil
+
+  defp daemon_state_from(daemon) do
+    value(daemon, :active_state, "active_state") || value(daemon, :state, "state")
+  end
+
+  defp daemon_workload_from(nil), do: nil
+
+  defp daemon_workload_from(daemon) do
+    value(daemon, :active_pgs, "active_pgs") || value(daemon, :pg_count, "pg_count")
+  end
+
+  defp daemon_state_from_ceph(ceph, daemon_type, daemon_id) do
+    section =
+      case daemon_type do
+        "osd" -> "osds"
+        "mon" -> "monitors"
+        "mgr" -> "managers"
+        "mds" -> "mdss"
+        _ -> "gateways"
+      end
+
+    data =
+      get_in(ceph.topology, [section, daemon_id]) ||
+        get_in(ceph.topology, [section, String.replace_prefix(daemon_id, "#{daemon_type}.", "")])
+
+    case value(data, :state, "state") do
       "up" -> "active"
       "down" -> "failed"
-      "autoout" -> "failed"
       state when is_binary(state) -> String.downcase(state)
-      _ -> "unknown"
+      _ -> nil
     end
   end
 
-  defp extract_osd_state(_), do: "unknown"
+  defp node_timestamp(state),
+    do: value(state, :observed_at, "observed_at") || value(state, :collected_at, "collected_at")
 
-  defp extract_mon_state(mon_data) when is_map(mon_data) do
-    # Mon state - typically up or down
-    if Map.get(mon_data, "rank") != nil, do: "active", else: "failed"
-  end
-
-  defp extract_mon_state(_), do: "unknown"
-
-  defp extract_mgr_state(mgr_data) when is_map(mgr_data) do
-    # Mgr state - typically active or standby
-    case Map.get(mgr_data, "state") do
-      "active" -> "active"
-      "standby" -> "active"
-      _ -> "failed"
+  defp evidence_timestamp(evidence, key) do
+    case value(evidence, key, Atom.to_string(key)) do
+      timestamp when is_binary(timestamp) -> parse_timestamp(timestamp)
+      _ -> {:error, {:missing_evidence_timestamp, key}}
     end
   end
 
-  defp extract_mgr_state(_), do: "unknown"
-
-  defp extract_active_pgs_from_ceph(_ceph_evidence, daemon_id) when is_binary(daemon_id) do
-    # Extract number of active PGs for the daemon from health data
-    # For now, return 0 as we don't have detailed PG mapping
-    0
+  defp parse_timestamp(timestamp) when is_binary(timestamp) do
+    case DateTime.from_iso8601(timestamp) do
+      {:ok, datetime, _} -> {:ok, datetime}
+      _ -> {:error, :invalid_evidence_timestamp}
+    end
   end
 
-  defp extract_active_pgs_from_ceph(_evidence, _daemon_id), do: 0
+  defp parse_timestamp(_timestamp), do: {:error, :invalid_evidence_timestamp}
 
-  defp iso_now do
-    DateTime.utc_now() |> DateTime.to_iso8601()
+  defp invoke_collector({module, function, args}) when is_atom(module),
+    do: apply(module, function, args)
+
+  defp invoke_collector(fun) when is_function(fun, 0), do: fun.()
+  defp invoke_collector(_), do: %{status: :degraded}
+
+  defp invoke_action_client(module, action) when is_atom(module),
+    do: module.execute(action.node_id, action, [])
+
+  defp invoke_action_client(fun, action) when is_function(fun, 2),
+    do: fun.(action.node_id, action)
+
+  defp invoke_action_client(fun, action) when is_function(fun, 3),
+    do: fun.(action.node_id, action, [])
+
+  defp invoke_action_client(_client, _action), do: {:error, :invalid_action_client}
+
+  defp profile_version(params) do
+    case Map.get(params, "profile_version", @profile_version) do
+      version when is_integer(version) and version > 0 ->
+        {:ok, version}
+
+      version when is_binary(version) ->
+        case Integer.parse(version) do
+          {parsed, ""} when parsed > 0 -> {:ok, parsed}
+          _ -> {:error, {:invalid_parameter, "profile_version"}}
+        end
+
+      _ ->
+        {:error, {:invalid_parameter, "profile_version"}}
+    end
   end
+
+  defp fetch_string(map, key) do
+    case Map.get(map, key) do
+      value when is_binary(value) and byte_size(value) > 0 -> {:ok, value}
+      _ -> {:error, {:invalid_parameter, key}}
+    end
+  end
+
+  defp valid_instance?("osd", instance), do: Regex.match?(~r/\A[0-9]{1,10}\z/, instance)
+
+  defp valid_instance?(_type, instance),
+    do: Regex.match?(~r/\A[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\z/, instance)
+
+  defp value(map, atom_key, string_key) when is_map(map),
+    do: Map.get(map, atom_key) || Map.get(map, string_key)
+
+  defp value(_map, _atom_key, _string_key), do: nil
 end

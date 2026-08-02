@@ -24,6 +24,7 @@ defmodule Exocomp.Node.OsCommander do
 
   @type run_opts :: [
           env: [{String.t(), String.t()}],
+          input: binary(),
           timeout_ms: pos_integer(),
           output_limit_bytes: pos_integer()
         ]
@@ -60,11 +61,13 @@ defmodule Exocomp.Node.SystemCommander do
     timeout_ms = Keyword.get(opts, :timeout_ms, 30_000)
     output_limit = Keyword.get(opts, :output_limit_bytes, 65_536)
     env = Keyword.get(opts, :env, [])
+    input = Keyword.get(opts, :input, "")
 
     task =
       Task.async(fn ->
         System.cmd(executable, argv,
           env: env,
+          input: input,
           stderr_to_stdout: true
         )
       end)

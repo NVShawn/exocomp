@@ -11,6 +11,7 @@ defmodule Exocomp.Node.Skills.Dispatcher do
   | `"exocomp.system.diagnose"`     | `Exocomp.Node.Skills.SystemDiagnose`         |
   | `"exocomp.service.diagnose"`    | `Exocomp.Node.Skills.ServiceDiagnose`        |
   | `"exocomp.profile.inspect"`     | `Exocomp.Node.Skills.ProfileInspect`         |
+  | `"exocomp.profile.action"`      | `Exocomp.Node.Skills.ProfileAction`         |
   | `"exocomp.remediation.propose"` | `Exocomp.Node.Skills.RemediationPropose`     |
   | `"exocomp.service.recover"`     | `Exocomp.Node.Skills.ServiceRecover`         |
 
@@ -22,7 +23,8 @@ defmodule Exocomp.Node.Skills.Dispatcher do
     ServiceDiagnose,
     ProfileInspect,
     RemediationPropose,
-    ServiceRecover
+    ServiceRecover,
+    ProfileAction
   }
 
   @skill_map %{
@@ -30,7 +32,8 @@ defmodule Exocomp.Node.Skills.Dispatcher do
     "exocomp.service.diagnose" => ServiceDiagnose,
     "exocomp.profile.inspect" => ProfileInspect,
     "exocomp.remediation.propose" => RemediationPropose,
-    "exocomp.service.recover" => ServiceRecover
+    "exocomp.service.recover" => ServiceRecover,
+    "exocomp.profile.action" => ProfileAction
   }
 
   @doc """

@@ -23,6 +23,8 @@ defmodule Exocomp.Node.A2A.Codec do
   @supported_skills ~w[
     exocomp.system.diagnose
     exocomp.service.diagnose
+    exocomp.profile.inspect
+    exocomp.profile.action
     exocomp.remediation.propose
     exocomp.service.recover
   ]

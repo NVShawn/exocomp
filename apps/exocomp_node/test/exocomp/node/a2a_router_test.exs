@@ -105,6 +105,7 @@ defmodule Exocomp.Node.A2ARouterTest do
              "exocomp.system.diagnose",
              "exocomp.service.diagnose",
              "exocomp.profile.inspect",
+             "exocomp.profile.action",
              "exocomp.remediation.propose",
              "exocomp.service.recover"
            ]

@@ -37,7 +37,7 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
       hostname: "osd-node-1.example.test",
       port: 4433,
       certificate_identity: "spiffe://node/#{@node_id}",
-      capabilities: ["exocomp.cluster.recover"]
+      capabilities: ["exocomp.profile.action", "exocomp.profile.inspect"]
     }
 
     :ok = Registry.rebuild([node], registry_name)
@@ -47,11 +47,19 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
     previous_registry = Application.get_env(:exocomp_coordinator, :registry)
     previous_coverage = Application.get_env(:exocomp_coordinator, :profile_coverage)
     previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
-    previous_helper = Application.get_env(:exocomp_coordinator, :profile_helper)
+    previous_node_client = Application.get_env(:exocomp_coordinator, :node_state_client)
+    previous_action_client = Application.get_env(:exocomp_coordinator, :profile_action_client)
     Application.put_env(:exocomp_coordinator, :registry, registry_name)
     Application.put_env(:exocomp_coordinator, :profile_coverage, coverage_name)
-    Application.put_env(:exocomp_coordinator, :ceph_collector, {__MODULE__, :mock_ceph_collector, []})
-    Application.put_env(:exocomp_coordinator, :profile_helper, {__MODULE__, :mock_profile_helper, []})
+
+    Application.put_env(
+      :exocomp_coordinator,
+      :ceph_collector,
+      {__MODULE__, :mock_ceph_collector, []}
+    )
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, &mock_node_state/1)
+    Application.put_env(:exocomp_coordinator, :profile_action_client, &mock_action_client/2)
 
     on_exit(fn ->
       if previous_registry do
@@ -72,10 +80,16 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
         Application.delete_env(:exocomp_coordinator, :ceph_collector)
       end
 
-      if previous_helper do
-        Application.put_env(:exocomp_coordinator, :profile_helper, previous_helper)
+      if previous_node_client do
+        Application.put_env(:exocomp_coordinator, :node_state_client, previous_node_client)
       else
-        Application.delete_env(:exocomp_coordinator, :profile_helper)
+        Application.delete_env(:exocomp_coordinator, :node_state_client)
+      end
+
+      if previous_action_client do
+        Application.put_env(:exocomp_coordinator, :profile_action_client, previous_action_client)
+      else
+        Application.delete_env(:exocomp_coordinator, :profile_action_client)
       end
     end)
 
@@ -100,28 +114,32 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
   test "rejects proposal with missing node_id" do
     proposal = valid_proposal() |> update_in(["parameters"], &Map.delete(&1, "node_id"))
 
-    assert {:error, {:invalid_parameter, "node_id"}} = CephDaemonRestart.validate_proposal(proposal)
+    assert {:error, {:invalid_parameter, "node_id"}} =
+             CephDaemonRestart.validate_proposal(proposal)
   end
 
   test "rejects proposal with missing daemon_id" do
     proposal =
       valid_proposal() |> update_in(["parameters"], &Map.delete(&1, "daemon_id"))
 
-    assert {:error, {:invalid_parameter, "daemon_id"}} = CephDaemonRestart.validate_proposal(proposal)
+    assert {:error, {:invalid_parameter, "daemon_id"}} =
+             CephDaemonRestart.validate_proposal(proposal)
   end
 
   test "rejects proposal with missing daemon_type" do
     proposal =
       valid_proposal() |> update_in(["parameters"], &Map.delete(&1, "daemon_type"))
 
-    assert {:error, {:invalid_parameter, "daemon_type"}} = CephDaemonRestart.validate_proposal(proposal)
+    assert {:error, {:invalid_parameter, "daemon_type"}} =
+             CephDaemonRestart.validate_proposal(proposal)
   end
 
   test "rejects proposal with missing profile_name" do
     proposal =
       valid_proposal() |> update_in(["parameters"], &Map.delete(&1, "profile_name"))
 
-    assert {:error, {:invalid_parameter, "profile_name"}} = CephDaemonRestart.validate_proposal(proposal)
+    assert {:error, {:invalid_parameter, "profile_name"}} =
+             CephDaemonRestart.validate_proposal(proposal)
   end
 
   test "rejects proposal for node not in inventory" do
@@ -129,13 +147,15 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
       valid_proposal()
       |> put_in(["parameters", "node_id"], "unknown-node")
 
-    assert {:error, {:node_not_found, "unknown-node"}} = CephDaemonRestart.validate_proposal(proposal)
+    assert {:error, {:node_not_found, "unknown-node"}} =
+             CephDaemonRestart.validate_proposal(proposal)
   end
 
   test "rejects proposal with wrong action_id" do
     proposal = valid_proposal() |> Map.put("action_id", "restart_service")
 
-    assert {:error, {:unsupported_action, "restart_service"}} = CephDaemonRestart.validate_proposal(proposal)
+    assert {:error, {:unsupported_action, "restart_service"}} =
+             CephDaemonRestart.validate_proposal(proposal)
   end
 
   test "rejects malformed proposal" do
@@ -147,10 +167,36 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
   # ---------------------------------------------------------------------------
 
   test "collects evidence successfully" do
-    proposal = valid_proposal()
+    raw_proposal = valid_proposal()
+    {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
 
     assert {:ok, evidence} = CephDaemonRestart.collect_evidence(proposal)
     assert is_map(evidence)
+  end
+
+  test "rejects evidence when the node daemon mapping changes" do
+    raw_proposal = valid_proposal()
+    {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn _node_id ->
+      %{
+        "observed_at" => DateTime.utc_now() |> DateTime.to_iso8601(),
+        "measurements" => %{
+          "daemons" => %{
+            "value" => [
+              %{
+                "id" => "osd.43",
+                "unit" => "ceph-osd@43.service",
+                "active_state" => "failed"
+              }
+            ]
+          }
+        }
+      }
+    end)
+
+    assert {:error, {:evidence_collection_failed, :target_mapping_changed}} =
+             CephDaemonRestart.collect_evidence(proposal)
   end
 
   # ---------------------------------------------------------------------------
@@ -182,7 +228,8 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
     {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
     evidence = fresh_evidence("degraded")
 
-    assert {:deny, {:daemon_not_failed, "degraded"}} = CephDaemonRestart.decide(proposal, evidence)
+    assert {:deny, {:daemon_not_failed, "degraded"}} =
+             CephDaemonRestart.decide(proposal, evidence)
   end
 
   test "denies restart when evidence is stale" do
@@ -199,7 +246,8 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
     {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
     evidence = %{daemon_state: "failed"}
 
-    assert {:deny, :missing_evidence_timestamp} = CephDaemonRestart.decide(proposal, evidence)
+    assert {:deny, {:missing_evidence_timestamp, :collected_at}} =
+             CephDaemonRestart.decide(proposal, evidence)
   end
 
   # ---------------------------------------------------------------------------
@@ -214,8 +262,8 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
     assert {:ok, result} = CephDaemonRestart.execute(action, evidence, nil)
 
-    assert result.status == "restart_initiated"
-    assert result.daemon_id == @daemon_id
+    assert result.status == "accepted"
+    assert result.target_unit == "ceph-osd@42.service"
   end
 
   # ---------------------------------------------------------------------------
@@ -276,19 +324,20 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
   test "detects mapping change: node no longer in inventory during decide" do
     registry_name = Application.get_env(:exocomp_coordinator, :registry, Registry)
-    
+
     raw_proposal = valid_proposal()
     {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
     evidence = fresh_evidence("failed")
 
     # Node is in inventory at validation time
-    assert {:allow, action} = CephDaemonRestart.decide(proposal, evidence)
+    assert {:allow, _action} = CephDaemonRestart.decide(proposal, evidence)
 
     # Simulate node removal from inventory
     :ok = Registry.rebuild([], registry_name)
 
     # A subsequent decide call would detect the node is no longer available
     evidence2 = fresh_evidence("failed")
+
     case CephDaemonRestart.decide(proposal, evidence2) do
       {:deny, {:node_not_found, _}} -> :ok
       result -> flunk("expected node_not_found, got #{inspect(result)}")
@@ -312,15 +361,13 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
   # ---------------------------------------------------------------------------
 
   test "denies restart with unsupported profile" do
-    coverage_name = Application.get_env(:exocomp_coordinator, :profile_coverage)
-    
     # Use a valid profile name for validation
     raw_proposal = valid_proposal()
     {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
-    
+
     # Create a modified proposal with unsupported profile
     proposal_unsupported = %{proposal | profile_name: "unsupported-profile"}
-    
+
     evidence = fresh_evidence("failed")
 
     # Decide should deny due to unsupported profile
@@ -332,24 +379,17 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
   test "denies restart when profile is degraded" do
     coverage_name = Application.get_env(:exocomp_coordinator, :profile_coverage)
-    
+
     raw_proposal = valid_proposal()
     {:ok, proposal} = CephDaemonRestart.validate_proposal(raw_proposal)
 
     # Mark profile as degraded
-    ProfileCoverage.mark_degraded(@profile_name, coverage_name)
+    ProfileCoverage.mark_degraded(@profile_name, %{}, coverage_name)
 
     evidence = fresh_evidence("failed")
 
-    # Decide should deny due to degraded profile
-    case CephDaemonRestart.decide(proposal, evidence) do
-      {:allow, _action} -> 
-        # ProfileCoverage check might not deny if profile_id doesn't exist in registry
-        # This is expected - if profile isn't in the registry, it's treated as unknown/available
-        :ok
-      {:deny, {:unsupported_profile, _}} -> :ok
-      result -> flunk("expected allow or unsupported_profile denial, got #{inspect(result)}")
-    end
+    assert {:deny, {:unsupported_profile, @profile_name}} =
+             CephDaemonRestart.decide(proposal, evidence)
   end
 
   # ---------------------------------------------------------------------------
@@ -362,19 +402,20 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
     evidence = fresh_evidence("failed")
 
     # Validate multiple proposals concurrently
-    tasks = Enum.map(1..5, fn _ ->
-      Task.async(fn ->
-        CephDaemonRestart.decide(proposal, evidence)
+    tasks =
+      Enum.map(1..5, fn _ ->
+        Task.async(fn ->
+          CephDaemonRestart.decide(proposal, evidence)
+        end)
       end)
-    end)
 
     results = Task.await_many(tasks)
 
     # All should allow the action (policy is deterministic)
     assert Enum.all?(results, fn
-      {:allow, _action} -> true
-      _ -> false
-    end)
+             {:allow, _action} -> true
+             _ -> false
+           end)
   end
 
   test "proposal is idempotent across multiple validations" do
@@ -423,22 +464,23 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
     {:allow, action} = CephDaemonRestart.decide(proposal, evidence)
 
-    # Configure a failing helper
-    previous_helper = Application.get_env(:exocomp_coordinator, :profile_helper)
-    Application.put_env(:exocomp_coordinator, :profile_helper, fn _path, _line ->
-      {:error, "helper rejected restart: daemon has active workload"}
+    # Configure a failing typed node action client
+    previous_client = Application.get_env(:exocomp_coordinator, :profile_action_client)
+
+    Application.put_env(:exocomp_coordinator, :profile_action_client, fn _node_id, _action ->
+      {:error, :helper_rejected}
     end)
 
     try do
       case CephDaemonRestart.execute(action, evidence, nil) do
-        {:error, {:helper_execution_failed, _reason}} -> :ok
-        result -> flunk("expected helper_execution_failed, got #{inspect(result)}")
+        {:error, {:action_dispatch_failed, :helper_rejected}} -> :ok
+        result -> flunk("expected action_dispatch_failed, got #{inspect(result)}")
       end
     after
-      if previous_helper do
-        Application.put_env(:exocomp_coordinator, :profile_helper, previous_helper)
+      if previous_client do
+        Application.put_env(:exocomp_coordinator, :profile_action_client, previous_client)
       else
-        Application.delete_env(:exocomp_coordinator, :profile_helper)
+        Application.delete_env(:exocomp_coordinator, :profile_action_client)
       end
     end
   end
@@ -450,24 +492,26 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
     {:allow, action} = CephDaemonRestart.decide(proposal, evidence)
 
-    # Configure a timing-out helper
-    previous_helper = Application.get_env(:exocomp_coordinator, :profile_helper)
-    Application.put_env(:exocomp_coordinator, :profile_helper, fn _path, _line ->
-      {:error, "helper execution timed out after 30000ms"}
+    # Configure a timing-out typed node action client
+    previous_client = Application.get_env(:exocomp_coordinator, :profile_action_client)
+
+    Application.put_env(:exocomp_coordinator, :profile_action_client, fn _node_id, _action ->
+      {:error, :timeout}
     end)
 
     try do
       case CephDaemonRestart.execute(action, evidence, nil) do
-        {:error, {:helper_execution_failed, reason}} ->
-          assert String.contains?(reason, "timed out")
-        result -> 
-          flunk("expected helper_execution_failed, got #{inspect(result)}")
+        {:error, {:action_dispatch_failed, :timeout}} ->
+          :ok
+
+        result ->
+          flunk("expected action_dispatch_failed, got #{inspect(result)}")
       end
     after
-      if previous_helper do
-        Application.put_env(:exocomp_coordinator, :profile_helper, previous_helper)
+      if previous_client do
+        Application.put_env(:exocomp_coordinator, :profile_action_client, previous_client)
       else
-        Application.delete_env(:exocomp_coordinator, :profile_helper)
+        Application.delete_env(:exocomp_coordinator, :profile_action_client)
       end
     end
   end
@@ -478,6 +522,7 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
     # Configure a degraded collector
     previous_collector = Application.get_env(:exocomp_coordinator, :ceph_collector)
+
     Application.put_env(:exocomp_coordinator, :ceph_collector, fn ->
       %{
         schema_version: 1,
@@ -485,13 +530,15 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
         status: :degraded,
         health: %{},
         topology: %{},
-        errors: [%{timestamp: "", command: "ceph", error: :unavailable, reason: "Ceph API unavailable"}]
+        errors: [
+          %{timestamp: "", command: "ceph", error: :unavailable, reason: "Ceph API unavailable"}
+        ]
       }
     end)
 
     try do
       case CephDaemonRestart.collect_evidence(proposal) do
-        {:error, {:evidence_collection_failed, :ceph_unavailable}} -> :ok
+        {:error, {:evidence_collection_failed, {:ceph_evidence_unavailable, :degraded}}} -> :ok
         result -> flunk("expected evidence_collection_failed error, got #{inspect(result)}")
       end
     after
@@ -516,9 +563,73 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
     {:ok, exec_result} = CephDaemonRestart.execute(action, evidence, nil)
 
     # Verify execution result contains audit-relevant data
-    assert exec_result.status == "restart_initiated"
-    assert exec_result.daemon_id == @daemon_id
-    assert is_binary(exec_result.timestamp)
+    assert exec_result.status == "accepted"
+    assert exec_result.target_unit == "ceph-osd@42.service"
+  end
+
+  test "full lifecycle never invokes the node action when durable intent audit fails" do
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      mock_node_state(node_id, "failed")
+    end)
+
+    {:ok, action_calls} = Agent.start_link(fn -> 0 end)
+
+    Application.put_env(:exocomp_coordinator, :profile_action_client, fn _node_id, _action ->
+      Agent.update(action_calls, &(&1 + 1))
+      {:ok, %{status: "accepted"}}
+    end)
+
+    audit = fn type, _attrs, _correlation_id ->
+      if type == :remediation_intent_accepted, do: {:error, :sink_down}, else: :ok
+    end
+
+    server = unique_name(:lifecycle_audit_failure)
+
+    start_supervised!(
+      {Exocomp.Coordinator.RemediationLifecycle,
+       [name: server, adapter: Exocomp.Coordinator.RemediationAdapter.Router, audit_fun: audit]}
+    )
+
+    assert {:ok, task} =
+             Exocomp.Coordinator.RemediationLifecycle.submit(valid_proposal(), server: server)
+
+    assert task.status.state == :failed
+    assert last_event(task) == "audit_unavailable_before_action"
+    assert Agent.get(action_calls, & &1) == 0
+  end
+
+  test "full lifecycle reaches the typed node action and verifies fresh health" do
+    {:ok, states} = Agent.start_link(fn -> ["failed", "active"] end)
+    parent = self()
+
+    Application.put_env(:exocomp_coordinator, :node_state_client, fn node_id ->
+      Agent.get_and_update(states, fn
+        [state | rest] -> {mock_node_state(node_id, state), rest}
+        [] -> {mock_node_state(node_id, "active"), []}
+      end)
+    end)
+
+    Application.put_env(:exocomp_coordinator, :profile_action_client, fn _node_id, action ->
+      send(parent, {:typed_action, action})
+      {:ok, %{status: "accepted", target_unit: action.target_unit}}
+    end)
+
+    server = unique_name(:lifecycle_success)
+    audit = fn _type, _attrs, _correlation_id -> :ok end
+
+    start_supervised!(
+      {Exocomp.Coordinator.RemediationLifecycle,
+       [name: server, adapter: Exocomp.Coordinator.RemediationAdapter.Router, audit_fun: audit]}
+    )
+
+    assert {:ok, task} =
+             Exocomp.Coordinator.RemediationLifecycle.submit(valid_proposal(), server: server)
+
+    assert task.status.state == :completed
+    assert last_event(task) == "verified"
+
+    assert_receive {:typed_action,
+                    %{action_id: "restart_failed_daemon", target_unit: "ceph-osd@42.service"}}
   end
 
   # ---------------------------------------------------------------------------
@@ -544,8 +655,11 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
   defp fresh_evidence(state) do
     %{
       collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+      node_collected_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+      node_id: @node_id,
       daemon_state: state,
-      active_pgs: 0
+      active_pgs: 0,
+      mapping: %{node_id: @node_id, daemon_id: @daemon_id, target_unit: "ceph-osd@42.service"}
     }
   end
 
@@ -557,8 +671,11 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
 
     %{
       collected_at: ten_minutes_ago,
+      node_collected_at: ten_minutes_ago,
+      node_id: @node_id,
       daemon_state: state,
-      active_pgs: 0
+      active_pgs: 0,
+      mapping: %{node_id: @node_id, daemon_id: @daemon_id, target_unit: "ceph-osd@42.service"}
     }
   end
 
@@ -595,9 +712,33 @@ defmodule Exocomp.Coordinator.RemediationAdapter.CephDaemonRestartTest do
     }
   end
 
-  # Mock profile helper for testing
   @doc false
-  def mock_profile_helper(_helper_path, _request_line) do
-    {:ok, "restart initiated"}
+  def mock_node_state(node_id), do: mock_node_state(node_id, "active")
+
+  def mock_node_state(_node_id, state) do
+    %{
+      "observed_at" => DateTime.utc_now() |> DateTime.to_iso8601(),
+      "measurements" => %{
+        "daemons" => %{
+          "value" => [
+            %{"id" => "osd.42", "unit" => "ceph-osd@42.service", "active_state" => state}
+          ]
+        }
+      }
+    }
+  end
+
+  @doc false
+  def mock_action_client(_node_id, action) do
+    {:ok, %{status: "accepted", target_unit: action.target_unit, daemon_id: action.daemon_id}}
+  end
+
+  defp last_event(task) do
+    task.history
+    |> List.last()
+    |> Map.fetch!(:parts)
+    |> List.first()
+    |> Map.fetch!(:data)
+    |> Map.fetch!("event")
   end
 end
