@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-01T14:24:59.591863Z'
+updated_at: '2026-08-02T00:50:32.840912Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 67ef4cb6-030c-4966-b7ce-ee95ad215c1f
+oompah.agent_run_id: f2a6a29e-3621-46b2-a34c-f572f5e5c75a
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
@@ -46,8 +46,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-204
   base_branch: epic-EXOCOMP-186
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T14:23:02.998547+00:00'
+  base_sha: c6a135bf82581e11696de8b4d0e32946ec563677
+  updated_at: '2026-08-02T00:50:31.566391+00:00'
 oompah.task_costs:
   total_input_tokens: 554238
   total_output_tokens: 5017
@@ -119,5 +119,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 58s
 - Log: EXOCOMP-204__20260801T142307Z.jsonl
+---
+author: oompah
+created: 2026-08-02 00:50
+---
+Agent dispatched (profile: default)
 ---
 <!-- COMMENTS:END -->
