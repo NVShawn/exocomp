@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T01:59:39.183402Z'
+updated_at: '2026-08-02T02:03:13.285270Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -399,5 +399,10 @@ author: oompah
 created: 2026-08-02 01:59
 ---
 Implementation: Added Audit.events/1 with JSON-lines read/reload support, durable Ceph cooldown enter/clear events, fail-closed cooldown policy, lifecycle action correlation and audit-server propagation, stability-window polling, explicit completed/failed audit events, and unfinished-intent reconciliation that refuses repeat execution. Added focused tests for reload/expiry, flapping, systemd+Ceph polling, identity changes, audit write failures, real lifecycle cooldown denial, and restart reconciliation.
+---
+author: oompah
+created: 2026-08-02 02:03
+---
+Verification: mix format --check-formatted, Elixir AST parsing of all changed .ex/.exs files, and git diff --check pass. make test ran builder/offline checks successfully (13/13 structural checks and Python suites), then could not enter the pinned Elixir container because the host Podman runtime reports a read-only /run/user/1000/libpod sticky-bit configuration; no Mix tests executed in this environment.
 ---
 <!-- COMMENTS:END -->
