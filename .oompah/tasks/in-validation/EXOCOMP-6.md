@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T04:59:39.267111Z'
+updated_at: '2026-08-02T05:09:57.952125Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -38,18 +38,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-6
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 4da355f41d606c5c4577b8fd193ee6bbcc31c2b5844bb62da06466a05d77c740
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-8935d6539e98
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 4da355f41d606c5c4577b8fd193ee6bbcc31c2b5844bb62da06466a05d77c740
+      created_at: '2026-08-02T05:09:53.582945+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-02T05:09:53.582945+00:00'
+      branch_key: epic-EXOCOMP-6
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:59:19.429993+00:00'
+    updated_at: '2026-08-02T05:09:53.582945+00:00'
   - version: 1
     audit_id: audit-69383d5fc681
     project_id: proj-c260b117
@@ -84,7 +98,20 @@ oompah.terminal_audit:
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-02T04:59:37.597467+00:00'
-  attempt_history: []
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-8935d6539e98
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 4da355f41d606c5c4577b8fd193ee6bbcc31c2b5844bb62da06466a05d77c740
+    created_at: '2026-08-02T05:09:53.582945+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-02T05:09:53.582945+00:00'
+    branch_key: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -122,5 +149,15 @@ author: oompah
 created: 2026-08-02 04:59
 ---
 Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+author: oompah
+created: 2026-08-02 05:09
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-02 05:09
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
