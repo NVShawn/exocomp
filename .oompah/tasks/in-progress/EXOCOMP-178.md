@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T04:27:37.985353Z'
+updated_at: '2026-08-02T04:28:31.794997Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -53,7 +53,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: d71347eb-48a7-4070-a518-4e0be51211c0
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 oompah.integration:
   version: 2
@@ -242,5 +242,10 @@ author: oompah
 created: 2026-08-02 04:27
 ---
 Verification: PASS. make test-release-packaging passed (6 release packaging, 3 input normalizer, 14 operator-doc, and 6 Mission Control packaging tests); make check-links passed; make compliance-check passed. All documented shell blocks pass bash -n, both Kubernetes multi-document examples parse as YAML, and git diff --check is clean.
+---
+author: oompah
+created: 2026-08-02 04:28
+---
+Completion: delivered and pushed Mission Control installation/operations documentation at 84acdf07. Guides cover source-tree-independent VM/Kubernetes deployment, PostgreSQL, OIDC/RBAC, separate control-plane PKI, protected cluster enrollment/revocation, signed webhook verification, retention, upgrades, backup/restore promotion and rollback, secret/certificate rotation, troubleshooting, and safe uninstall. docs/README.md and the maintainer release checklist link the guides; EXOCOMP-205 desired-state/Ceph operations are linked and tested. All required gates pass and the branch is clean and synchronized with origin.
 ---
 <!-- COMMENTS:END -->
