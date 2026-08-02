@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: Needs CI Fix
+status: In Progress
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:22:53.557596Z'
+updated_at: '2026-08-02T02:23:05.102643Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: b90eceec-5781-4f06-aea6-f9a4626a9f1b
+oompah.agent_run_id: d8cb4dde-59c1-43b6-9f4b-07160076f753
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 oompah.integration:
   version: 2
