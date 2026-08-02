@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-178
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Document Mission Control installation and operations
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-02T04:28:31.794997Z'
+updated_at: '2026-08-02T04:28:35.964021Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -57,12 +57,12 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-178
-  base_branch: epic-EXOCOMP-135
-  base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
-  updated_at: '2026-08-02T04:13:10.399774+00:00'
+  head_sha: 84acdf07dc91362c3617211c9641b3c3690d400f
+  submitted_at: '2026-08-02T04:28:30.772857+00:00'
+  updated_at: '2026-08-02T04:28:30.772857+00:00'
 oompah.task_costs:
   total_input_tokens: 9624132
   total_output_tokens: 49235
@@ -247,5 +247,10 @@ author: oompah
 created: 2026-08-02 04:28
 ---
 Completion: delivered and pushed Mission Control installation/operations documentation at 84acdf07. Guides cover source-tree-independent VM/Kubernetes deployment, PostgreSQL, OIDC/RBAC, separate control-plane PKI, protected cluster enrollment/revocation, signed webhook verification, retention, upgrades, backup/restore promotion and rollback, secret/certificate rotation, troubleshooting, and safe uninstall. docs/README.md and the maintainer release checklist link the guides; EXOCOMP-205 desired-state/Ceph operations are linked and tested. All required gates pass and the branch is clean and synchronized with origin.
+---
+author: oompah
+created: 2026-08-02 04:28
+---
+Documented and validated Mission Control installation, enrollment, PKI/auth/webhook operations, backup/restore, rotation, upgrades, troubleshooting, and safe removal for VM and Kubernetes operators.
 ---
 <!-- COMMENTS:END -->
