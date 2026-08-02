@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:00:10.448106Z'
+updated_at: '2026-08-02T00:00:27.673348Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -122,12 +122,12 @@ oompah.agent_run_id: 60d24aed-52a8-4658-9b79-54764cf366fd
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
-  base_branch: epic-EXOCOMP-186
-  base_sha: d9b18e509eb086319096ec487a4ebcc82d0ac027
-  updated_at: '2026-08-01T23:32:46.648922+00:00'
+  head_sha: 8b83bcf4d507bef19ddee323659836c7f8bad026
+  submitted_at: '2026-08-02T00:00:26.668035+00:00'
+  updated_at: '2026-08-02T00:00:26.668035+00:00'
 oompah.task_costs:
   total_input_tokens: 969
   total_output_tokens: 54450
@@ -588,5 +588,39 @@ All tests passing: 587/587 coordinator tests
 - apps/exocomp_coordinator/lib/exocomp/coordinator/remediation_adapter/ceph_daemon_restart.ex (521 lines)
 - apps/exocomp_coordinator/test/exocomp/coordinator/remediation_adapter/ceph_daemon_restart_test.exs (505 lines)
 - config/config.exs (wired adapter into RemediationLifecycle)
+---
+author: oompah
+created: 2026-08-02 00:00
+---
+## Verification
+
+All acceptance criteria and auditor requirements verified:
+
+✅ Fresh evidence collection via Collectors.Ceph (not caller-supplied)
+✅ Profile support validated against shipped cluster profile registry
+✅ Real invocation of bin/profile-action-helper via sudoers with tab-separated format
+✅ Post-restart health verification with fresh evidence re-collection
+✅ RemediationLifecycle adapter integration and configuration
+✅ Durable audit-before-action maintained by lifecycle framework
+✅ One-attempt semantics and per-target locking (via lifecycle)
+✅ Automatic discovery cannot authorize (explicit proposal required)
+✅ Active/degraded daemon rejection at policy gate
+✅ Stale evidence rejection (>5min)
+✅ Unsupported profile rejection
+✅ Coverage gaps prevent execution
+
+### Test Coverage
+- 21 comprehensive tests for CephDaemonRestart
+- 587/587 coordinator tests passing
+- Coverage: validation, evidence, policy gates, mapping changes, profiles, concurrent requests, idempotency, helper errors, error handling
+
+### Quality Gates
+✅ All tests passing
+✅ Code follows existing patterns
+✅ No breaking changes to existing APIs
+✅ Dependency injection for testability
+✅ Comprehensive error handling and logging
+
+Ready for integration.
 ---
 <!-- COMMENTS:END -->
