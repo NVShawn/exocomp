@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-08-02T03:44:48.232763Z'
+updated_at: '2026-08-02T03:45:06.413367Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 target_branch: null
 review_url: null
@@ -62,13 +62,17 @@ oompah.integration:
   submitted_at: '2026-08-02T03:39:48.270937+00:00'
   updated_at: '2026-08-02T03:40:55.984635+00:00'
 oompah.task_costs:
-  total_input_tokens: 472282
-  total_output_tokens: 9358
+  total_input_tokens: 472329
+  total_output_tokens: 18261
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 472282
       output_tokens: 9358
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 47
+      output_tokens: 8903
       cost_usd: 0.0
   runs:
   - profile: default
@@ -83,6 +87,12 @@ oompah.task_costs:
     output_tokens: 237
     cost_usd: 0.0
     recorded_at: '2026-08-02T03:40:17.706854+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 47
+    output_tokens: 8903
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T03:45:04.222837+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-205__20260801T160834Z
@@ -117,8 +127,9 @@ oompah.terminal_audit:
     status: Done
     audit_ids:
     - audit-8379ab4792f2
-    applied: false
+    applied: true
     created_at: '2026-08-02T03:44:46.191962+00:00'
+    applied_at: '2026-08-02T03:44:50.037658+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -299,5 +310,15 @@ Safe evidence:
 - acceptance_criteria_4_troubleshooting: Sections for unsupported nodes, topology mismatches, stale evidence, helper denial, cooldown all present
 - acceptance_criteria_5_no_broad_ceph_repair: Ceph collector documented as read-only; profile does not automatically restart Ceph daemons
 - sandbox_limits: Raw `make check-links` and `python3 scripts/check_compliance.py --check links` blocked by auditor sandbox; verified via unittest discover of tests/test_check_compliance.py which exercises the same link-check code path
+---
+author: oompah
+created: 2026-08-02 03:45
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 50, Tool calls: 41
+- Tokens: 47 in / 8.9K out [8.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 1s
+- Log: EXOCOMP-205__20260802T034106Z.jsonl
 ---
 <!-- COMMENTS:END -->

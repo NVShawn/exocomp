@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-178
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Document Mission Control installation and operations
 parent: EXOCOMP-135
@@ -19,7 +19,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:18:32.596455Z'
-updated_at: '2026-08-01T15:50:44.602290Z'
+updated_at: '2026-08-02T03:44:59.478317Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 target_branch: null
 review_url: null
@@ -53,7 +53,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 28c32ca2-c980-47d0-9303-9e0323559ff2
+oompah.agent_run_id: 9872768d-a577-4473-ab43-afe0f462aca0
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-178
 oompah.integration:
   version: 2
@@ -61,8 +61,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-178
   base_branch: epic-EXOCOMP-135
-  base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
-  updated_at: '2026-08-01T15:45:18.178569+00:00'
+  base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
+  updated_at: '2026-08-02T03:44:57.560259+00:00'
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 394
@@ -139,5 +139,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: normal, Duration: 5m 26s
 - Log: EXOCOMP-178__20260801T154520Z.jsonl
+---
+author: oompah
+created: 2026-08-02 03:44
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-02 03:44
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
