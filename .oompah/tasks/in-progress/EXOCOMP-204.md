@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T00:52:18.256737Z'
+updated_at: '2026-08-02T01:06:51.572207Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -151,5 +151,46 @@ Plan: Enhance verify() to:
 2. Implement cooldown state tracking to prevent flapping
 3. Emit properly correlated audit events for all terminal states
 4. Add comprehensive test coverage for all scenarios
+---
+author: oompah
+created: 2026-08-02 01:06
+---
+IMPLEMENTATION: Verification and cooldown logic for Ceph daemon recovery
+
+Added comprehensive post-action verification:
+
+**CephCooldown module** (new):
+- Durable cooldown tracking via audit events
+- Configurable cooldown duration (default 30 min)
+- Checks for active cooldown by examining audit trail
+- Records cooldown events with expiration timestamps
+- Clears cooldown after successful recovery
+
+**Enhanced CephDaemonRestart.verify()**:
+- Collects fresh evidence after execution (systemd+Ceph)
+- Detects cluster health regression (HEALTH_OK -> HEALTH_WARN/ERR)
+- Verifies daemon is healthy and mapping unchanged
+- Clears cooldown on success, enters cooldown on failure
+- Returns structured verification result with type: 'stability_window_passed'
+
+**Enhanced CephDaemonRestart.decide()**:
+- Checks if daemon is in cooldown before allowing restart
+- Rejects proposals with :in_cooldown reason
+- Prevents flapping during cooldown period
+
+**Audit integration**:
+- verification_failed events include reason tuple
+- Supports audit trail reconciliation across restarts
+- Durable execution state via audit events
+
+**Test coverage** (29 new tests):
+- Health regression detection (5 scenarios)
+- Cooldown recording/expiration (6 tests)
+- Cooldown clearing after success (2 tests)
+- Audit trail persistence (3 tests)
+- Error handling (2 tests)
+- Edge cases and reconciliation (11 tests)
+
+All 608 coordinator tests passing.
 ---
 <!-- COMMENTS:END -->
