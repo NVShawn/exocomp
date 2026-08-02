@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T05:11:23.876283Z'
+updated_at: '2026-08-02T05:11:33.927932Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -140,6 +140,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-02T05:09:53.582945+00:00'
     branch_key: epic-EXOCOMP-6
+oompah.task_costs:
+  total_input_tokens: 21
+  total_output_tokens: 3215
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 21
+      output_tokens: 3215
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 21
+    output_tokens: 3215
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T05:11:32.194568+00:00'
 ---
 ## Summary
 
@@ -202,5 +218,15 @@ Safe evidence:
 - dual_arch_evidence: docs/release-evidence/v0.1.0-rc.2/raw/{amd64,arm64}/ each contain live/, artifacts/, repo-gates/, qualification results
 - signed_artifacts_present: bundle.minisig, evidence-index.sha256.sig, manifest.sha256, provenance.json, sbom.spdx.json under raw/*/live/exocomp-complete-.../
 - aging: Merged 2026-07-23; audit date 2026-08-02 (10 days)
+---
+author: oompah
+created: 2026-08-02 05:11
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 20, Tool calls: 15
+- Tokens: 21 in / 3.2K out [3.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 38s
+- Log: EXOCOMP-6__20260802T050958Z.jsonl
 ---
 <!-- COMMENTS:END -->
