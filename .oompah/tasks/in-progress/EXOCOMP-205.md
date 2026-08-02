@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-205
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Document desired-state modes and Ceph profile operations
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:37.688511Z'
-updated_at: '2026-08-01T16:26:51.060435Z'
+updated_at: '2026-08-02T03:33:46.802619Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 target_branch: null
 review_url: null
@@ -48,7 +48,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 21250acb-0b35-403a-9bb7-a38d4b1663c3
+oompah.agent_run_id: 7781a56d-65f5-401c-9386-a7fdf225830d
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-205
 oompah.integration:
   version: 2
@@ -56,8 +56,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-205
   base_branch: epic-EXOCOMP-186
-  base_sha: 7b4b2af51f12b228fbaabe25bbaa3a757e776022
-  updated_at: '2026-08-01T16:08:29.023340+00:00'
+  base_sha: 40cda2a08fa095fc8ce41aad92b603bfe54c176f
+  updated_at: '2026-08-02T03:33:44.509896+00:00'
 oompah.task_costs:
   total_input_tokens: 471380
   total_output_tokens: 9121
@@ -129,5 +129,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 18m 17s
 - Log: EXOCOMP-205__20260801T160834Z.jsonl
+---
+author: oompah
+created: 2026-08-02 03:33
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-02 03:33
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
