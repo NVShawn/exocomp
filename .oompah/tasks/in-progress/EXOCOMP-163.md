@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:22.081454Z'
-updated_at: '2026-08-02T04:02:08.599101Z'
+updated_at: '2026-08-02T04:04:05.501449Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-163
 target_branch: null
 review_url: null
@@ -179,5 +179,10 @@ author: oompah
 created: 2026-08-02 04:02
 ---
 Verification: typed remediation suite compiled and exercised 12 scenarios in an isolated host harness with 0 failures: success/revalidation/signing, stale and mismatched evidence, policy/target/parameter drift, expiry, duplicate, denial, restart rehydration, execution failure, and verification failure. Local mix format check, syntax parsing, and git diff check pass. Official make test, make fmt-check, and make lint are blocked before execution by the host read-only Podman configuration; direct Mix is blocked by Elixir 1.18.3 versus pinned 1.20.2.
+---
+author: oompah
+created: 2026-08-02 04:04
+---
+Verification update: after adding explicit execution_completed history and correlation-checked action_started/action_completed audit assertions, the isolated typed suite passes 13/13. Official gates remain environment-blocked as reported.
 ---
 <!-- COMMENTS:END -->
