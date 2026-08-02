@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:07:34.783455Z'
+updated_at: '2026-08-02T00:07:57.438050Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -118,22 +118,19 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 60d24aed-52a8-4658-9b79-54764cf366fd
+oompah.agent_run_id: 6e2b69f7-ddda-418e-bb38-d864f012ed69
 oompah.work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-186--task-EXOCOMP-203
   base_branch: epic-EXOCOMP-186
-  base_sha: d9b18e509eb086319096ec487a4ebcc82d0ac027
-  head_sha: 8b83bcf4d507bef19ddee323659836c7f8bad026
-  integrated_sha: 8b83bcf4d507bef19ddee323659836c7f8bad026
-  submitted_at: '2026-08-02T00:00:26.668035+00:00'
-  updated_at: '2026-08-02T00:01:34.505533+00:00'
+  base_sha: 8b83bcf4d507bef19ddee323659836c7f8bad026
+  updated_at: '2026-08-02T00:07:55.063523+00:00'
 oompah.task_costs:
-  total_input_tokens: 2363
-  total_output_tokens: 54814
+  total_input_tokens: 2423
+  total_output_tokens: 71593
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -141,8 +138,8 @@ oompah.task_costs:
       output_tokens: 38274
       cost_usd: 0.0
     unknown:
-      input_tokens: 53
-      output_tokens: 16540
+      input_tokens: 113
+      output_tokens: 33319
       cost_usd: 0.0
   runs:
   - profile: default
@@ -169,6 +166,12 @@ oompah.task_costs:
     output_tokens: 364
     cost_usd: 0.0
     recorded_at: '2026-08-02T00:00:45.008126+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 60
+    output_tokens: 16779
+    cost_usd: 0.0
+    recorded_at: '2026-08-02T00:07:42.933780+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-203__20260801T141919Z
@@ -740,5 +743,25 @@ Instructions:
 - Route helper invocation through the node's typed A2A action catalog rather than forking sudo from the coordinator; the coordinator's RemediationAdapter contract forbids direct command/path callbacks.
 - Replace the global 'adapter: CephDaemonRestart' wiring in config/config.exs with an action-id router (or an adapter that delegates to CephDaemonRestart only for restart_failed_daemon) so other action_ids are not rejected.
 - Add an integration test that runs the full RemediationLifecycle → CephDaemonRestart path (including a simulated durable-audit-before-action failure that prevents helper invocation) and a test that validates the exact wire bytes sent to the helper.
+---
+author: oompah
+created: 2026-08-02 00:07
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 74, Tool calls: 54
+- Tokens: 60 in / 16.8K out [16.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 1s
+- Log: EXOCOMP-203__20260802T000144Z.jsonl
+---
+author: oompah
+created: 2026-08-02 00:07
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-02 00:07
+---
+Focus: Callback Auth Validation Specialist
 ---
 <!-- COMMENTS:END -->
