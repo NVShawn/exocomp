@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-204
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Verify Ceph daemon recovery and enforce cooldown
 parent: EXOCOMP-186
@@ -12,7 +12,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:35.429036Z'
-updated_at: '2026-08-02T02:03:42.733112Z'
+updated_at: '2026-08-02T02:03:46.400584Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-204
 target_branch: null
 review_url: null
@@ -409,5 +409,10 @@ author: oompah
 created: 2026-08-02 02:03
 ---
 Completion: Delivered durable Coordinator.Audit-backed Ceph cooldown enforcement, correlated terminal/cooldown evidence, stability-window recollection with systemd/Ceph identity and health checks, fail-closed audit handling, and restart-safe unfinished-intent reconciliation. Focused tests cover successful and systemd-only recovery, health regression, identity changes, flapping, process restart, cooldown expiry, audit failure, and audit reload. Commit 69ffa374 is pushed and the worktree is clean.
+---
+author: oompah
+created: 2026-08-02 02:03
+---
+Durable Ceph recovery verification, cooldown enforcement, audit correlation, and restart reconciliation implemented; focused checks pass, make test blocked only by host Podman runtime configuration.
 ---
 <!-- COMMENTS:END -->
