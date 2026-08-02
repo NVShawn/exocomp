@@ -15,10 +15,9 @@ blocked_by:
 labels:
 - focus-complete:duplicate_detector
 - focus-complete:epic_planner
-- needs:devops
 assignee: null
 created_at: '2026-07-23T19:12:01.640063Z'
-updated_at: '2026-08-02T04:02:28.698890Z'
+updated_at: '2026-08-02T04:02:49.424702Z'
 work_branch: epic-EXOCOMP-6
 target_branch: null
 review_url: null
@@ -63,19 +62,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-42
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: e32d5356d751bc1866106d43b2ad7b729fa9a5c4ca591ae18d8ac6a66456743a
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-dbf27fff234b
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: e32d5356d751bc1866106d43b2ad7b729fa9a5c4ca591ae18d8ac6a66456743a
+      created_at: '2026-08-02T04:02:44.496835+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-02T04:02:44.496835+00:00'
+      branch_key: epic-EXOCOMP-6
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-02T04:02:26.225929+00:00'
-  attempt_history: []
+    updated_at: '2026-08-02T04:02:44.496835+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-dbf27fff234b
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e32d5356d751bc1866106d43b2ad7b729fa9a5c4ca591ae18d8ac6a66456743a
+    created_at: '2026-08-02T04:02:44.496835+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-02T04:02:44.496835+00:00'
+    branch_key: epic-EXOCOMP-6
 ---
 ## Summary
 
@@ -321,5 +347,15 @@ author: oompah
 created: 2026-08-02 04:02
 ---
 Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+author: oompah
+created: 2026-08-02 04:02
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-02 04:02
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
