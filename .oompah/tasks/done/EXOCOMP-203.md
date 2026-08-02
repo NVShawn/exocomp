@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-203
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Connect failed Ceph daemons to the safe recovery flow
 parent: EXOCOMP-186
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-07-30T21:38:34.423102Z'
-updated_at: '2026-08-02T00:41:12.765723Z'
+updated_at: '2026-08-02T00:49:49.013467Z'
 work_branch: epic-EXOCOMP-186--task-EXOCOMP-203
 target_branch: null
 review_url: null
@@ -212,6 +212,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-702564a799be: '2026-08-01T23:32:10.855003+00:00'
     attempt-34517d8bc5e8: '2026-08-02T00:07:31.488953+00:00'
+    attempt-1977f3b939b3: '2026-08-02T00:49:45.525422+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-203
@@ -231,6 +232,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-02T00:07:31.488970+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-203
+    target_state: Done
+    evidence_fingerprint: b31f2d20a88cb4d2aaa18fed00b836c558ed4e2b6abf09b98d30c58358dc8b3f
+    audit_ids:
+    - audit-20b571f4eb9c
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T00:49:45.525434+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-203
@@ -256,6 +266,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-02T00:07:31.488991+00:00'
     applied_at: '2026-08-02T00:07:34.022026+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-203
+    audit_id: audit-20b571f4eb9c
+    attempt_id: attempt-1977f3b939b3
+    target_state: Done
+    evidence_fingerprint: b31f2d20a88cb4d2aaa18fed00b836c558ed4e2b6abf09b98d30c58358dc8b3f
+    status: Done
+    audit_ids:
+    - audit-20b571f4eb9c
+    applied: false
+    created_at: '2026-08-02T00:49:45.525446+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -333,7 +354,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-203
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -342,7 +363,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-1977f3b939b3
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -352,13 +373,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T00:41:09.369807+00:00'
       branch_key: epic-EXOCOMP-186--task-EXOCOMP-203
+      verdict: pass
+      completed_at: '2026-08-02T00:49:45.525304+00:00'
+      ended_at: '2026-08-02T00:49:45.525304+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-02T00:40:55.375441+00:00'
-    updated_at: '2026-08-02T00:41:09.369807+00:00'
+    updated_at: '2026-08-02T00:49:45.525304+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-702564a799be
@@ -879,5 +903,27 @@ author: oompah
 created: 2026-08-02 00:41
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 00:49
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: c6a135bf82581e11696de8b4d0e32946ec563677
+- commit_title: EXOCOMP-203: Route Ceph recovery through typed node action
+- branch_pushed: origin/epic-EXOCOMP-186--task-EXOCOMP-203
+- router_action_routing: restart_failed_daemon -> CephDaemonRestart; other -> FailClosed
+- config_adapter: Exocomp.Coordinator.RemediationAdapter.Router
+- helper_path_owned_by_node: /opt/exocomp/node/bin/profile-action-helper
+- wire_format_asserted: 1\tceph\t1\trestart_failed_daemon\tceph-osd@42.service\n (51 bytes)
+- coordinator_typed_a2a_skill: exocomp.profile.action
+- make_test_profile_action_helper: passed
+- coordinator_ceph_daemon_restart_tests: 32 tests defined
+- node_profile_action_catalog_tests: 5 tests defined
+- lifecycle_audit_before_action_test: full lifecycle never invokes the node action when durable intent audit fails
+- lifecycle_success_test: full lifecycle reaches the typed node action and verifies fresh health
 ---
 <!-- COMMENTS:END -->
