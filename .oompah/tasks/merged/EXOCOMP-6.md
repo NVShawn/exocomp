@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-6
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M6: Packaging, documentation, and open-source release'
 parent: null
@@ -19,7 +19,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:08:12.347323Z'
-updated_at: '2026-08-02T05:16:02.633081Z'
+updated_at: '2026-08-02T05:19:43.390457Z'
 work_branch: epic-EXOCOMP-6
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/6
@@ -34,6 +34,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-8935d6539e98: '2026-08-02T05:11:20.013843+00:00'
     infrastructure-exhausted-audit-69383d5fc681-3: '2026-08-02T05:13:58.213736+00:00'
+    attempt-76e70983938c: '2026-08-02T05:19:40.239431+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-6
@@ -53,6 +54,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-02T05:13:58.213754+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-6
+    target_state: Merged
+    evidence_fingerprint: b05cc655e5fcd63c10affb9f1d80b91268486819509f0631ef3d402d449ab3d4
+    audit_ids:
+    - audit-659620b2b5f0
+    kind: result
+    applied: true
+    retired_at: '2026-08-02T05:19:40.239450+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-6
@@ -78,6 +88,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-02T05:13:58.213773+00:00'
     applied_at: '2026-08-02T05:14:00.531699+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-6
+    audit_id: audit-659620b2b5f0
+    attempt_id: attempt-76e70983938c
+    target_state: Merged
+    evidence_fingerprint: b05cc655e5fcd63c10affb9f1d80b91268486819509f0631ef3d402d449ab3d4
+    status: Merged
+    audit_ids:
+    - audit-659620b2b5f0
+    applied: false
+    created_at: '2026-08-02T05:19:40.239469+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -205,7 +226,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-6
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -214,7 +235,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-76e70983938c
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -224,13 +245,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-02T05:15:57.247441+00:00'
       branch_key: epic-EXOCOMP-6
+      verdict: pass
+      completed_at: '2026-08-02T05:19:40.239229+00:00'
+      ended_at: '2026-08-02T05:19:40.239229+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-02T04:59:37.597467+00:00'
-    updated_at: '2026-08-02T05:15:57.247441+00:00'
+    updated_at: '2026-08-02T05:19:40.239229+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-8935d6539e98
@@ -476,5 +500,21 @@ author: oompah
 created: 2026-08-02 05:16
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-02 05:19
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commits_on_main: 3949c53b (PR #6, 2026-07-23) and 01c14b89 (PR #17, 2026-07-25) both in `git branch --contains` main
+- children_archived: EXOCOMP-82, EXOCOMP-41, EXOCOMP-42, EXOCOMP-43, EXOCOMP-44, EXOCOMP-45, EXOCOMP-46, EXOCOMP-47 all Archived (per prior audit safe evidence)
+- crit_items_checked: M6-CRIT-1..9 all [x] in plans/milestone-6-release.md lines 194-210
+- rc2_evidence: docs/release-evidence/v0.1.0-rc.2/ raw/{amd64,arm64}/live/ present but rc.2 qualification-results.json decision=fail
+- rc23_evidence: docs/release-evidence/v0.1.0-rc.23/qualification-results.json decision=pass, publication_ready=true, all criteria PASS on amd64+arm64, tag v0.1.0-rc.23 signature_verified=true, qualified 2026-07-27
+- signed_artifacts: bundle.minisig, evidence-index.sha256.sig, manifest.sha256, provenance.json, sbom.spdx.json present under rc.2 and rc.23
+- prior_audit_status: audit-03a8072f482f (Archived) passed 2026-08-02; audit-69383d5fc681 (Done) exhausted infra retries without disputing evidence
 ---
 <!-- COMMENTS:END -->
