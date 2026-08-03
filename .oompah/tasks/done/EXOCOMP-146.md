@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T20:07:22.879384Z'
+updated_at: '2026-08-03T20:25:21.590526Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -120,6 +120,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-693d886d5000: '2026-08-03T19:16:22.689492+00:00'
+    attempt-45236976794e: '2026-08-03T20:25:17.268864+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-146
@@ -130,6 +131,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-03T19:16:22.689505+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-146
+    target_state: Done
+    evidence_fingerprint: b57766e16b7beb0e4d75ecce82c597424991f02424b91c4faa9f80c28f010a00
+    audit_ids:
+    - audit-00f797db2b07
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T20:25:17.268885+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-146
@@ -143,6 +153,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T19:16:22.689524+00:00'
     applied_at: '2026-08-03T19:16:27.670828+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-146
+    audit_id: audit-00f797db2b07
+    attempt_id: attempt-45236976794e
+    target_state: Done
+    evidence_fingerprint: b57766e16b7beb0e4d75ecce82c597424991f02424b91c4faa9f80c28f010a00
+    status: Done
+    audit_ids:
+    - audit-00f797db2b07
+    applied: false
+    created_at: '2026-08-03T20:25:17.268908+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -205,7 +226,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-146
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -233,7 +254,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-45236976794e
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -244,13 +265,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T20:07:14.483497+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-146
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T20:25:17.268655+00:00'
+      ended_at: '2026-08-03T20:25:17.268655+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T19:28:31.678497+00:00'
-    updated_at: '2026-08-03T20:07:14.483497+00:00'
+    updated_at: '2026-08-03T20:25:17.268655+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4d34a1388d60
@@ -656,5 +680,23 @@ author: oompah
 created: 2026-08-03 20:07
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 20:25
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
+- head_message: EXOCOMP-146: prevent duplicate Mission Control startup
+- origin_ref: remotes/origin/epic-EXOCOMP-130--task-EXOCOMP-146 at 14898301
+- base_children_ends_with: ClusterInvitationStore only - no mission_control_children()
+- application_test: application_test.exs: 'starts one Mission Control supervisor' asserts exactly one MissionControl.Supervisor child
+- integration_test_coverage: cluster_gateway_test.exs: success, missing cert, wrong cert, wrong trust root, revoked identity, payload spoofing, session replacement
+- tls_version: versions: [:"tlsv1.3"] in web_socket.ex tls_options and cluster_gateway server_tls_options
+- session_id_generation: sess_ + Base.url_encode64(:crypto.strong_rand_bytes(32), padding: false)
+- no_inbound_listener: MissionControl.Supervisor starts only Outbox + Connection
 ---
 <!-- COMMENTS:END -->
