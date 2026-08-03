@@ -191,7 +191,8 @@ defmodule Exocomp.Coordinator.Handlers.ClusterInvitationHandler do
       Map.get(
         map,
         Atom.to_string(key),
-        Map.get(map, alternate, alternate && Atom.to_string(alternate))
+        alternate &&
+          Map.get(map, alternate, Map.get(map, Atom.to_string(alternate)))
       )
     )
   end

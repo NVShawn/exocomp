@@ -29,10 +29,8 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
   end
 
   defp issue(store, attrs \\ %{}) do
-    attrs = if is_map(attrs), do: attrs, else: Map.new(attrs)
-
     ClusterInvitationStore.create(
-      Map.merge(%{organization_id: @organization_id, name: "cluster-a"}, attrs),
+      Map.merge(%{organization_id: @organization_id, name: "cluster-a"}, Map.new(attrs)),
       server: store
     )
   end
@@ -111,10 +109,14 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
     assert {:ok, invitation, token} = issue(store)
 
     assert {:error, %Error{code: :cluster_mismatch}} =
-             ClusterInvitationStore.consume(token, @organization_id, "other-cluster", server: store)
+             ClusterInvitationStore.consume(token, @organization_id, "other-cluster",
+               server: store
+             )
 
     assert {:ok, _invitation} =
-             ClusterInvitationStore.consume(token, @organization_id, invitation.cluster_id, server: store)
+             ClusterInvitationStore.consume(token, @organization_id, invitation.cluster_id,
+               server: store
+             )
   end
 
   test "cluster names are unique per organization" do

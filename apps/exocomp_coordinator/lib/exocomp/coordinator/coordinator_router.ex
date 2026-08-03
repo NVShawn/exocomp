@@ -22,6 +22,7 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
   @behaviour Plug
 
   alias Exocomp.Coordinator.A2ARouter
+
   alias Exocomp.Coordinator.Handlers.{
     ClusterInvitationHandler,
     ClusterEnrollmentHandler,
@@ -48,7 +49,10 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
     ClusterInvitationHandler.call(conn, ClusterInvitationHandler.init(router_opts(opts)))
   end
 
-  def call(%Plug.Conn{method: "POST", path_info: ["api", "v1", "clusters", "enroll"]} = conn, opts) do
+  def call(
+        %Plug.Conn{method: "POST", path_info: ["api", "v1", "clusters", "enroll"]} = conn,
+        opts
+      ) do
     ClusterEnrollmentHandler.call(conn, ClusterEnrollmentHandler.init(router_opts(opts)))
   end
 
