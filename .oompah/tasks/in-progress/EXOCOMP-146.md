@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T18:33:31.965193Z'
+updated_at: '2026-08-03T18:37:08.201414Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -255,5 +255,10 @@ author: oompah
 created: 2026-08-03 18:33
 ---
 Understanding: I will reconcile the task branch with epic-EXOCOMP-130, retain the existing outbound mTLS WebSocket behavior unchanged, and verify the focused transport plus required project gates before resubmission.
+---
+author: oompah
+created: 2026-08-03 18:37
+---
+Verification: rebase completed cleanly; git diff --check and conflict-marker scan pass; all changed transport/gateway sources and tests parse under the available Elixir. make test reruns its offline release, packaging, and documentation checks successfully but its required pinned Mix phase is blocked because Podman cannot create /run/user/1000/libpod. make fmt-check and make lint are blocked by the same Podman restriction; direct focused Mix tests are blocked because host Elixir 1.18.3 is below the required 1.20.2.
 ---
 <!-- COMMENTS:END -->
