@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T23:25:36.986282Z'
+updated_at: '2026-08-03T23:27:19.310720Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -87,8 +87,8 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-146: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
 oompah.task_costs:
-  total_input_tokens: 1819552
-  total_output_tokens: 55653
+  total_input_tokens: 1819569
+  total_output_tokens: 61739
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -104,8 +104,8 @@ oompah.task_costs:
       output_tokens: 30236
       cost_usd: 0.0
     unknown:
-      input_tokens: 60
-      output_tokens: 1639
+      input_tokens: 77
+      output_tokens: 7725
       cost_usd: 0.0
   runs:
   - profile: default
@@ -150,6 +150,12 @@ oompah.task_costs:
     output_tokens: 1639
     cost_usd: 0.0
     recorded_at: '2026-08-03T23:17:04.770398+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 17
+    output_tokens: 6086
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T23:27:17.680090+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-147__20260801T121453Z
@@ -657,5 +663,15 @@ Safe evidence:
 - commit_before_publish: verified in transition/2 -> transition_committed/2 call sequence
 - crash_isolation: spawn_monitor workers + safely/1 wrapper on all external calls
 - umbrella_build_blocker: pre-existing router.ex error from EXOCOMP-146, not regressed by this task
+---
+author: oompah
+created: 2026-08-03 23:27
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 0, Tool calls: 14
+- Tokens: 17 in / 6.1K out [6.1K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 8m 55s
+- Log: EXOCOMP-147__20260803T231828Z.jsonl
 ---
 <!-- COMMENTS:END -->
