@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-164
 type: task
-status: In Validation
+status: Done
 priority: 2
 title: Build the authenticated LiveView shell and navigation
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T20:34:35.538153Z'
+updated_at: '2026-08-03T21:17:51.604830Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -152,6 +152,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T15:14:09.929660+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-c52f6f1c8d14: '2026-08-03T21:17:47.496114+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-164
+    target_state: Done
+    evidence_fingerprint: c3d5031938d1eecdf724c73305cd97550654a93773b9c7cf106266db81b06738
+    audit_ids:
+    - audit-e493d67f0318
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T21:17:47.496126+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-164
+    audit_id: audit-e493d67f0318
+    attempt_id: attempt-c52f6f1c8d14
+    target_state: Done
+    evidence_fingerprint: c3d5031938d1eecdf724c73305cd97550654a93773b9c7cf106266db81b06738
+    status: Done
+    audit_ids:
+    - audit-e493d67f0318
+    applied: false
+    created_at: '2026-08-03T21:17:47.496145+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -159,7 +183,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-164
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -187,7 +211,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-c52f6f1c8d14
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -198,13 +222,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T20:34:20.168412+00:00'
       branch_key: epic-EXOCOMP-133--task-EXOCOMP-164
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T21:17:47.495908+00:00'
+      ended_at: '2026-08-03T21:17:47.495908+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T19:47:38.292130+00:00'
-    updated_at: '2026-08-03T20:34:20.168412+00:00'
+    updated_at: '2026-08-03T21:17:47.495908+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ad0690b2df92
@@ -587,5 +614,22 @@ author: oompah
 created: 2026-08-03 20:34
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 21:17
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 6b07eb2e361922c218cd4d0b568077acc04a779e
+- branch: epic-EXOCOMP-133--task-EXOCOMP-164
+- remote_branch: origin/epic-EXOCOMP-133--task-EXOCOMP-164
+- commit_message: EXOCOMP-164: Finalize authenticated LiveView shell and navigation — Focused LiveView tests: 94 passing. make fmt-check + make lint clean.
+- test_files_present: navigation_test.exs, require_role_test.exs, components_test.exs, authenticated_shell_test.exs
+- key_files_present: components.ex, require_role.ex, app.html.heex, root.html.heex, error_html.ex, error_controller.ex, router.ex
+- lazy_html_notices: Present in THIRD_PARTY_NOTICES.md and licenses/components.toml
+- signing_salt_config: live_view: [signing_salt: mission-control-live-view-signing-salt] present in config/config.exs
 ---
 <!-- COMMENTS:END -->
