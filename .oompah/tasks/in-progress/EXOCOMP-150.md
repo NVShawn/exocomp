@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T22:22:00.692357Z'
+updated_at: '2026-08-03T22:22:28.295108Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -322,5 +322,10 @@ author: oompah
 created: 2026-08-03 22:22
 ---
 Implementation: rebased the task branch and removed the historical duplicate replay by skipping two patch-equivalent commits. The resulting linear branch retains the six intended command-outbox changes and removes the redundant merge that caused integration conflicts.
+---
+author: oompah
+created: 2026-08-03 22:22
+---
+Verification: make test and make lint completed their offline checks (release builders: 9/9; structural checks: 13/13; package/docs Python checks passed) before Podman failed at container startup: chmod /run/user/1000/libpod is read-only. make fmt-check and make test-mission-control-db hit the same sandbox-only failure before Elixir ran. The clean rebased head is the previously verified 511-test implementation; git diff --check passes.
 ---
 <!-- COMMENTS:END -->
