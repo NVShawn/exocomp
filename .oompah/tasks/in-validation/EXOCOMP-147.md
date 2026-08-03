@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T23:17:07.450348Z'
+updated_at: '2026-08-03T23:17:11.037435Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -185,7 +185,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-147
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -194,7 +194,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-77c2dd7872b6
       target_state: Done
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -204,18 +204,24 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T22:54:40.583615+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-147
+      failure_classification: policy_incompatibility
+      ended_at: '2026-08-03T23:17:06.526959+00:00'
+      failure_reason: 'read-only auditor exceeded the policy-denial limit (3): Error:
+        auditor capability policy permits only read-only repository inspection and
+        configured test commands; command denied'
+      next_retry_at: '2026-08-03T23:17:16.526932+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T22:54:02.659318+00:00'
-    updated_at: '2026-08-03T22:54:40.583615+00:00'
+    updated_at: '2026-08-03T23:17:06.526959+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-77c2dd7872b6
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -225,6 +231,12 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-03T22:54:40.583615+00:00'
     branch_key: epic-EXOCOMP-130--task-EXOCOMP-147
+    failure_classification: policy_incompatibility
+    ended_at: '2026-08-03T23:17:06.526959+00:00'
+    failure_reason: 'read-only auditor exceeded the policy-denial limit (3): Error:
+      auditor capability policy permits only read-only repository inspection and configured
+      test commands; command denied'
+    next_retry_at: '2026-08-03T23:17:16.526932+00:00'
 ---
 ## Summary
 
