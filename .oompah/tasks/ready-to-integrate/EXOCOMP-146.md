@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T17:51:50.456540Z'
+updated_at: '2026-08-03T17:51:56.680576Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
-  base_branch: epic-EXOCOMP-130
-  base_sha: eaeeaf0872984e655611d0092397e9c800e1bf6b
-  updated_at: '2026-08-03T17:40:15.432023+00:00'
+  head_sha: 0bb80c72ca4078f9d9f1e94ec2be692f09c5e6f6
+  submitted_at: '2026-08-03T17:51:48.982028+00:00'
+  updated_at: '2026-08-03T17:51:48.982028+00:00'
 oompah.task_costs:
   total_input_tokens: 20434066
   total_output_tokens: 71814
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-08-03 17:51
 ---
 Completion: rebased the preserved implementation onto epic head 8400a54, pushed clean head 0bb80c72, and verified origin matches the worktree. Delivered the outbound wss/TLS 1.3 mTLS coordinator connection, Mission Control certificate-derived gateway and revocation/session replacement enforcement, mounted upgrade route, and fail-closed production TLS configuration. Ready to integrate.
+---
+author: oompah
+created: 2026-08-03 17:51
+---
+Rebased and delivered outbound coordinator mTLS WebSocket plus Mission Control certificate-authenticated gateway, revocation, and session replacement
 ---
 <!-- COMMENTS:END -->
