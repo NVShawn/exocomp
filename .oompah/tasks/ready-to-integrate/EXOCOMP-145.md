@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-03T16:24:18.658687Z'
+updated_at: '2026-08-03T16:57:24.310479Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -384,7 +384,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -414,6 +414,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T21:37:05.378873+00:00'
     updated_at: '2026-08-01T21:55:32.047939+00:00'
+  - version: 1
+    audit_id: audit-b32803d40aac
+    project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 97aef0e2d3b77e167be010f25d356cbe7dc736de7f0aa95bacdf76175b362f84
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T16:57:21.997250+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
