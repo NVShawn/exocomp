@@ -113,9 +113,7 @@ defmodule Exocomp.MissionControl.WebhookEventsTest do
   end
 
   defp dispatch(org_id, event_type \\ "incident.opened", payload \\ %{"id" => "ev-1"}) do
-    WebhookEvents.dispatch(org_id, event_type, payload,
-      http_adapter: FakeHttpAdapter
-    )
+    WebhookEvents.dispatch(org_id, event_type, payload, http_adapter: FakeHttpAdapter)
   end
 
   # ---------------------------------------------------------------------------
@@ -217,7 +215,9 @@ defmodule Exocomp.MissionControl.WebhookEventsTest do
       sig_with_old = Signer.sign(old_secret, event_id, ts, body)
 
       assert {:ok, :valid} = Signer.verify(old_secret, event_id, ts, body, sig_with_old)
-      assert {:error, :invalid_signature} = Signer.verify(new_secret, event_id, ts, body, sig_with_old)
+
+      assert {:error, :invalid_signature} =
+               Signer.verify(new_secret, event_id, ts, body, sig_with_old)
     end
   end
 
@@ -339,8 +339,10 @@ defmodule Exocomp.MissionControl.WebhookEventsTest do
       for status <- [400, 401, 403, 404, 410] do
         FakeHttpAdapter.set_response({:ok, status})
         {:ok, _event, [attempt]} = dispatch(org.id)
+
         assert attempt.status == :terminal_failure,
                "Expected terminal_failure for #{status}, got #{attempt.status}"
+
         assert attempt.http_status == status
         assert attempt.next_retry_at == nil
       end

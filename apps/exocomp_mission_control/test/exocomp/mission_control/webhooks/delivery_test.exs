@@ -184,11 +184,14 @@ defmodule Exocomp.MissionControl.Webhooks.DeliveryTest do
       signature = Signer.sign(secret, event.event_id, timestamp, body_json)
 
       # Verification must use the exact same bytes
-      assert {:ok, :valid} = Signer.verify(secret, event.event_id, timestamp, body_json, signature)
+      assert {:ok, :valid} =
+               Signer.verify(secret, event.event_id, timestamp, body_json, signature)
 
       # Adding whitespace breaks verification
       modified = ~s({"type": "alert.opened", "cluster_id": "cluster_1"})
-      assert {:error, :invalid_signature} = Signer.verify(secret, event.event_id, timestamp, modified, signature)
+
+      assert {:error, :invalid_signature} =
+               Signer.verify(secret, event.event_id, timestamp, modified, signature)
     end
   end
 
@@ -208,7 +211,8 @@ defmodule Exocomp.MissionControl.Webhooks.DeliveryTest do
       body_json = event.body_json
       signature = Signer.sign(secret, event.event_id, timestamp, body_json)
 
-      assert {:ok, :valid} = Signer.verify(secret, event.event_id, timestamp, body_json, signature)
+      assert {:ok, :valid} =
+               Signer.verify(secret, event.event_id, timestamp, body_json, signature)
     end
 
     test "signature fails if payload is modified" do
@@ -228,7 +232,9 @@ defmodule Exocomp.MissionControl.Webhooks.DeliveryTest do
       signature = Signer.sign(secret, event.event_id, timestamp, body_json)
 
       modified = ~s({"incident_id":"inc_123","severity":"low"})
-      assert {:error, :invalid_signature} = Signer.verify(secret, event.event_id, timestamp, modified, signature)
+
+      assert {:error, :invalid_signature} =
+               Signer.verify(secret, event.event_id, timestamp, modified, signature)
     end
 
     test "signature fails if event_id is modified" do

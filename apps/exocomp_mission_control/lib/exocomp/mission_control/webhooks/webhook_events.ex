@@ -219,9 +219,15 @@ defmodule Exocomp.MissionControl.WebhookEvents do
       endpoint = attempt && event && repo.get(WebhookEndpoint, attempt.webhook_endpoint_id)
 
       cond do
-        is_nil(attempt) -> {:error, :not_found}
-        is_nil(event) -> {:error, :not_found}
-        is_nil(endpoint) -> {:error, :not_found}
+        is_nil(attempt) ->
+          {:error, :not_found}
+
+        is_nil(event) ->
+          {:error, :not_found}
+
+        is_nil(endpoint) ->
+          {:error, :not_found}
+
         true ->
           now = DateTime.utc_now()
           updated = execute_delivery(repo, attempt, event, endpoint, now, opts)
@@ -335,7 +341,13 @@ defmodule Exocomp.MissionControl.WebhookEvents do
   defp outcome_attrs(http_status, event, attempt, now) do
     event_naive = datetime_to_naive(event.inserted_at)
     now_naive = datetime_to_naive(now)
-    terminal? = WebhookAttempt.terminal_failure?(%{attempt | http_status: http_status}, event_naive, now_naive)
+
+    terminal? =
+      WebhookAttempt.terminal_failure?(
+        %{attempt | http_status: http_status},
+        event_naive,
+        now_naive
+      )
 
     if terminal? do
       %{status: :terminal_failure, http_status: http_status}
@@ -349,7 +361,9 @@ defmodule Exocomp.MissionControl.WebhookEvents do
   defp error_attrs(reason, event, attempt, now) do
     event_naive = datetime_to_naive(event.inserted_at)
     now_naive = datetime_to_naive(now)
-    terminal? = WebhookAttempt.terminal_failure?(%{attempt | http_status: nil}, event_naive, now_naive)
+
+    terminal? =
+      WebhookAttempt.terminal_failure?(%{attempt | http_status: nil}, event_naive, now_naive)
 
     if terminal? do
       %{status: :terminal_failure, error_reason: inspect(reason)}

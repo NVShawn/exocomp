@@ -8,6 +8,11 @@ upstream license or notice named by their build-specific inventory.
 
 ## Runtime components
 
+### CAStore
+
+- Version: 1.0.20.
+- License: [Apache-2.0](https://github.com/elixir-mint/castore/blob/main/LICENSE).
+
 ### Erlang/OTP
 
 - Use: ERTS runtime bundled in node and coordinator OTP releases.
@@ -35,6 +40,31 @@ upstream license or notice named by their build-specific inventory.
 
 - Version: 2.0.7.
 - License: [Apache-2.0](https://github.com/elixir-plug/mime/blob/HEAD/LICENSE).
+
+### Phoenix
+
+- Version: 1.7.24.
+- License: [MIT](https://github.com/phoenixframework/phoenix/blob/v1.7.24/LICENSE.md).
+
+### Phoenix.HTML
+
+- Version: 4.3.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_html/blob/v4.3.0/LICENSE).
+
+### Phoenix LiveView
+
+- Version: 1.2.8.
+- License: [MIT](https://github.com/phoenixframework/phoenix_live_view/blob/v1.2.8/LICENSE.md).
+
+### Phoenix.PubSub
+
+- Version: 2.2.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_pubsub/blob/v2.2.0/LICENSE.md).
+
+### Phoenix Template
+
+- Version: 1.0.4.
+- License: [MIT](https://github.com/phoenixframework/phoenix_template/blob/v1.0.4/LICENSE.md).
 
 ### NimbleOptions
 
@@ -66,35 +96,195 @@ upstream license or notice named by their build-specific inventory.
 - Version: 0.5.3.
 - License: [MIT](https://github.com/phoenixframework/websock/blob/HEAD/LICENSE).
 
+### WebSockAdapter
+
+- Version: 0.5.9.
+- License: [MIT](https://github.com/phoenixframework/websock_adapter/blob/v0.5.9/LICENSE).
+
 ### X509
 
 - Version: 0.9.2.
 - License: [BSD-3-Clause](https://github.com/voltone/x509/blob/HEAD/LICENSE).
 
-### DB Connection
+### Certifi
+
+- Version: 2.15.0.
+- License: [BSD-3-Clause](https://github.com/certifi/erlang-certifi/blob/main/LICENSE).
+
+### Cowboy
+
+- Version: 2.18.0.
+- License: [MIT](https://github.com/ninenines/cowboy/blob/master/LICENSE).
+
+### Cowboy Telemetry
+
+- Version: 0.4.0.
+- License: [Apache-2.0](https://github.com/beam-telemetry/cowboy_telemetry/blob/main/LICENSE).
+
+### Cowlib
+
+- Version: 2.19.0.
+- License: [MIT](https://github.com/ninenines/cowlib/blob/master/LICENSE).
+
+### DBConnection
 
 - Version: 2.10.2.
-- License: [Apache-2.0](https://github.com/elixir-ecto/db_connection/blob/HEAD/LICENSE).
+- License: [Apache-2.0](https://github.com/elixir-ecto/db_connection/blob/main/LICENSE).
 
 ### Decimal
 
 - Version: 3.1.1.
-- License: [Apache-2.0](https://github.com/ericmj/decimal/blob/HEAD/LICENSE).
+- License: [Apache-2.0](https://github.com/ericmj/decimal/blob/main/LICENSE.txt).
 
 ### Ecto
 
 - Version: 3.14.1.
-- License: [Apache-2.0](https://github.com/elixir-ecto/ecto/blob/HEAD/LICENSE).
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto/blob/main/LICENSE).
 
 ### Ecto SQL
 
 - Version: 3.14.0.
-- License: [Apache-2.0](https://github.com/elixir-ecto/ecto_sql/blob/HEAD/LICENSE).
+- License: [Apache-2.0](https://github.com/elixir-ecto/ecto_sql/blob/main/LICENSE).
+
+### Hackney
+
+- Version: 1.25.0.
+- License: [Apache-2.0](https://github.com/benoitc/hackney/blob/master/LICENSE).
+
+### HTTPoison
+
+- Version: 2.3.0.
+- License: [MIT](https://github.com/edgurgel/httpoison/blob/master/LICENSE).
+
+### IDNA
+
+- Version: 6.1.1.
+- License: [MIT](https://github.com/benoitc/erlang-idna/blob/master/LICENSE).
+
+### JOSE
+
+- Version: 1.11.12.
+- License: [MIT](https://github.com/potatosalad/erlang-jose/blob/main/LICENSE.md).
+
+### Metrics
+
+- Version: 1.0.1.
+- License: [BSD-3-Clause](https://github.com/benoitc/erlang-metrics/blob/master/LICENSE).
+
+### Mimerl
+
+- Version: 1.5.0.
+- License: [MIT](https://github.com/ninenines/mimerl/blob/master/LICENSE).
+
+### Parse Trans
+
+- Version: 3.4.1.
+- License: [Apache-2.0](https://github.com/uwiger/parse_trans/blob/master/LICENSE).
+
+### Plug Cowboy
+
+- Version: 2.9.0.
+- License: [Apache-2.0](https://github.com/elixir-plug/plug_cowboy/blob/main/LICENSE).
 
 ### Postgrex
 
 - Version: 0.22.3.
-- License: [Apache-2.0](https://github.com/elixir-ecto/postgrex/blob/HEAD/LICENSE).
+- License: [Apache-2.0](https://github.com/elixir-ecto/postgrex/blob/main/LICENSE).
+
+### Ranch
+
+- Version: 2.2.1.
+- License: [MIT](https://github.com/ninenines/ranch/blob/master/LICENSE).
+
+### SSL Verify Fun
+
+- Version: 1.1.7.
+- License: [MIT](https://github.com/deadtrickster/ssl_verify_fun.erl/blob/master/LICENSE).
+
+### Unicode Util Compat
+
+- Version: 0.7.1.
+- License: [Apache-2.0](https://github.com/okeuday/unicode_util_compat/blob/master/LICENSE).
+
+### CAStore
+
+- Version: 1.0.20.
+- License: [Apache-2.0](https://github.com/elixir-mint/castore/blob/main/LICENSE).
+
+### Expo
+
+- Version: 1.1.1.
+- License: [MIT](https://github.com/elixir-gettext/expo/blob/main/LICENSE).
+
+### Floki
+
+- Version: 0.38.4.
+- License: [MIT](https://github.com/philss/floki/blob/main/LICENSE).
+
+### Gettext
+
+- Version: 0.26.2.
+- License: [Apache-2.0](https://github.com/elixir-gettext/gettext/blob/master/LICENSE).
+
+### OAuth2
+
+- Version: 2.1.1.
+- License: [MIT](https://github.com/scrogson/oauth2/blob/master/LICENSE).
+
+### Phoenix
+
+- Version: 1.7.24.
+- License: [MIT](https://github.com/phoenixframework/phoenix/blob/main/LICENSE.md).
+
+### Phoenix HTML
+
+- Version: 4.3.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_html/blob/master/LICENSE.md).
+
+### Phoenix LiveDashboard
+
+- Version: 0.8.7.
+- License: [MIT](https://github.com/phoenixframework/phoenix_live_dashboard/blob/master/LICENSE).
+
+### Phoenix LiveView
+
+- Version: 0.20.17.
+- License: [MIT](https://github.com/phoenixframework/phoenix_live_view/blob/main/LICENSE.md).
+
+### Phoenix PubSub
+
+- Version: 2.2.0.
+- License: [MIT](https://github.com/phoenixframework/phoenix_pubsub/blob/master/LICENSE).
+
+### Phoenix Template
+
+- Version: 1.0.4.
+- License: [MIT](https://github.com/phoenixframework/phoenix_template/blob/master/LICENSE).
+
+### Phoenix Test
+
+- Version: 0.7.1.
+- License: [MIT](https://github.com/germsvel/phoenix_test/blob/main/LICENSE).
+
+### Telemetry Metrics
+
+- Version: 0.6.2.
+- License: [Apache-2.0](https://github.com/beam-telemetry/telemetry_metrics/blob/main/LICENSE).
+
+### Telemetry Poller
+
+- Version: 1.3.0.
+- License: [Apache-2.0](https://github.com/beam-telemetry/telemetry_poller/blob/main/LICENSE).
+
+### Tesla
+
+- Version: 1.20.0.
+- License: [MIT](https://github.com/elixir-tesla/tesla/blob/master/LICENSE).
+
+### Websock Adapter
+
+- Version: 0.5.9.
+- License: [MIT](https://github.com/mtrudel/websock_adapter/blob/main/LICENSE).
 
 ### llama.cpp
 
