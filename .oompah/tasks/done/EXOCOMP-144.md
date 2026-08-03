@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-03T16:55:07.556287Z'
+updated_at: '2026-08-03T17:00:16.794610Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -120,6 +120,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:12:46.707573+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-dd5474e68831: '2026-08-03T17:00:12.497463+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-144
+    target_state: Done
+    evidence_fingerprint: 8e2e28bb0108f6c40b366e0fb981643adf8a18efbdf99927e52adb661561366a
+    audit_ids:
+    - audit-e167a2bfb05b
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T17:00:12.497476+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-144
+    audit_id: audit-e167a2bfb05b
+    attempt_id: attempt-dd5474e68831
+    target_state: Done
+    evidence_fingerprint: 8e2e28bb0108f6c40b366e0fb981643adf8a18efbdf99927e52adb661561366a
+    status: Done
+    audit_ids:
+    - audit-e167a2bfb05b
+    applied: false
+    created_at: '2026-08-03T17:00:12.497495+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -127,7 +151,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-144
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -155,7 +179,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-dd5474e68831
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -166,13 +190,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T16:55:02.707275+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-144
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T17:00:12.497262+00:00'
+      ended_at: '2026-08-03T17:00:12.497262+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T16:20:47.640167+00:00'
-    updated_at: '2026-08-03T16:55:02.707275+00:00'
+    updated_at: '2026-08-03T17:00:12.497262+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-e8808c5377ea
@@ -525,5 +552,25 @@ author: oompah
 created: 2026-08-03 16:55
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 17:00
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch: epic-EXOCOMP-129--task-EXOCOMP-144
+- head_commit: 0a82a703f55d97a54f36c87f9d3edec3ffaad25a
+- remote_head_commit: 0a82a703f55d97a54f36c87f9d3edec3ffaad25a
+- changed_files: 6
+- new_source_files: apps/exocomp_coordinator/lib/exocomp/coordinator/pki/certificate_registry.ex
+- new_test_files: apps/exocomp_coordinator/test/exocomp/coordinator/pki/certificate_registry_test.exs, apps/exocomp_coordinator/test/integration/coordinator_pki_renewal_test.exs
+- modified_files: application.ex, coordinator_router.ex, renewal_handler.ex
+- unit_test_count: 22
+- integration_test_describes: 10 describe blocks covering early renewal, valid renewal, expired cert, serial revocation, identity revocation, identity mismatch, concurrent renewal, signing failure, gateway status, /api/v1/clusters/renew routing
+- branch_sync: local and origin match at 0a82a703
+- working_tree: clean
 ---
 <!-- COMMENTS:END -->
