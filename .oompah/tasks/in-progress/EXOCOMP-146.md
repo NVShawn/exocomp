@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T17:40:18.366224Z'
+updated_at: '2026-08-03T17:41:04.985964Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -200,5 +200,10 @@ author: oompah
 created: 2026-08-03 17:40
 ---
 Focus: Refactoring Specialist
+---
+author: oompah
+created: 2026-08-03 17:41
+---
+Understanding: implement the outbound coordinator mTLS WebSocket client and Mission Control upgrade authentication, deriving identity only from validated certificates, rejecting revoked identities, and superseding older live sessions. I will inspect the current enrollment/revocation interfaces, add focused integration coverage, then run the required quality gates.
 ---
 <!-- COMMENTS:END -->
