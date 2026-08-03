@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T15:44:47.844731Z'
+updated_at: '2026-08-03T15:53:22.122598Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -209,5 +209,10 @@ author: oompah
 created: 2026-08-03 15:44
 ---
 Discovery: the task branch diverged before EXOCOMP-142 was integrated (merge-base 8f80aeb; current epic base 5b60d46). EXOCOMP-143's first commit also adds ClusterInvitation, so the rebase will overlap the dependency. I will preserve EXOCOMP-142 as the canonical invitation implementation and reconcile EXOCOMP-143's issuer, handler, router, supervision, and tests around it.
+---
+author: oompah
+created: 2026-08-03 15:53
+---
+Implementation: rebased the certificate enrollment work onto EXOCOMP-142 and resolved its invitation-store overlap. The enrollment endpoint now uses ClusterInvitationStore's durable records with atomic organization-and-cluster binding, validates the CSR before burning the invitation, emits a persisted audit record containing only certificate serial/fingerprint/expiry metadata, and returns the leaf-plus-intermediate chain. I also tightened URI SAN validation and replaced the stale integration tests with dependency-compatible acceptance coverage.
 ---
 <!-- COMMENTS:END -->
