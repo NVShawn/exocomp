@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-241
 type: task
-status: In Progress
+status: In Validation
 priority: 0
 title: Rebase epic-EXOCOMP-132 onto main
 parent: EXOCOMP-132
@@ -11,15 +11,15 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:43:20.923068Z'
-work_branch: epic-EXOCOMP-132--task-EXOCOMP-241
+updated_at: '2026-08-03T14:46:15.574484Z'
+work_branch: epic-EXOCOMP-132
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
 oompah.agent_run_id: 6b3f1991-94bb-47fe-ad3b-200b9717c4c0
-oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-241
+oompah.work_branch: epic-EXOCOMP-132
 oompah.integration:
   version: 2
   state: working
@@ -138,6 +138,45 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-5d7ea8997801
+    project_id: proj-c260b117
+    task_id: EXOCOMP-241
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: In Progress
+    created_at: '2026-08-03T14:46:12.200922+00:00'
+  - version: 1
+    audit_id: audit-a46e08b89fa3
+    project_id: proj-c260b117
+    task_id: EXOCOMP-241
+    target_state: Merged
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: In Progress
+    created_at: '2026-08-03T14:46:12.200922+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -262,5 +301,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 22s
 - Log: EXOCOMP-241__20260803T144054Z.jsonl
+---
+author: oompah
+created: 2026-08-03 14:46
+---
+Operator completion: atomically claimed the task after the duplicate-preflight race and rebased epic-EXOCOMP-132 onto origin/main. The epic had no unique commits, so the rebase was a clean fast-forward to 4e01311060eee5be3c1d18d86d809f4007664497, then pushed with lease. Verification: branch is 0 behind/0 ahead, worktree is clean, and local/remote tips match origin/main. No source changes were made, so no test suite was required. Root-cause regression is tracked by OOMPAH-721.
+---
+author: oompah
+created: 2026-08-03 14:46
+---
+Queued for terminal transition to Merged. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
