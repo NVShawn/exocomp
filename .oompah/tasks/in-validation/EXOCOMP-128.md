@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T20:55:39.111970Z'
+updated_at: '2026-08-03T20:57:25.183703Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -168,7 +168,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-128
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -191,13 +191,27 @@ oompah.terminal_audit:
       ended_at: '2026-08-03T20:55:00.309604+00:00'
       failure_reason: normal
       next_retry_at: '2026-08-03T20:55:10.309580+00:00'
+    - version: 1
+      attempt_id: attempt-492d64b9af7b
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+      created_at: '2026-08-03T20:57:23.874488+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-03T20:57:23.874488+00:00'
+      branch_key: epic-EXOCOMP-128
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Review
     created_at: '2026-08-03T20:43:53.494982+00:00'
-    updated_at: '2026-08-03T20:55:00.309604+00:00'
+    updated_at: '2026-08-03T20:57:23.874488+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9e721291b92b
@@ -242,6 +256,20 @@ oompah.terminal_audit:
     ended_at: '2026-08-03T20:55:00.309604+00:00'
     failure_reason: normal
     next_retry_at: '2026-08-03T20:55:10.309580+00:00'
+  - version: 1
+    attempt_id: attempt-492d64b9af7b
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+    created_at: '2026-08-03T20:57:23.874488+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-03T20:57:23.874488+00:00'
+    branch_key: epic-EXOCOMP-128
+    candidate_rotation_count: 1
 oompah.task_costs:
   total_input_tokens: 109
   total_output_tokens: 13858
