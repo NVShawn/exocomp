@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:30:41.370731Z'
+updated_at: '2026-08-03T18:34:30.649010Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-08-03 18:30
 ---
 Understanding: Resuming the preserved EXOCOMP-242 branch state. I will inspect the current invitation-auth and CSR fixture edits, reconcile them with the pinned OTP/X509 GeneralName requirements and lifecycle-safe invitation fixtures, run focused regressions plus make fmt-check, make test, and make lint, then commit, push, and submit the exact repaired head.
+---
+author: oompah
+created: 2026-08-03 18:34
+---
+Discovery: The pinned OTP 28/X509 GeneralName encoder requires SPIFFE URI SAN values as Erlang charlists. Current CSR fixtures and production leaf issuance pass binaries, causing valid enrollment requests to fail CSR validation with 422. Decoded SANs also require binary/charlist normalization. The invitation helper needs Map.new(attrs), the clock fixtures are already supervised, and auth fallback must not synthesize an alternate string key while a nil role must map to unauthenticated.
 ---
 <!-- COMMENTS:END -->
