@@ -99,7 +99,8 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
       Extension.key_usage([:digitalSignature]),
       Extension.ext_key_usage([:clientAuth]),
       Extension.subject_alt_name([
-        {:URI, "spiffe://exocomp/organizations/#{organization_id}/clusters/#{cluster_id}"}
+        {:uniformResourceIdentifier,
+         "spiffe://exocomp/organizations/#{organization_id}/clusters/#{cluster_id}"}
       ])
     ]
   end
@@ -207,8 +208,7 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
   end
 
   test "rejects expired and replayed invitations", %{tmp_dir: tmp_dir} do
-    {:ok, clock} = Agent.start_link(fn -> 1_000 end)
-    on_exit(fn -> Agent.stop(clock) end)
+    clock = start_supervised!({Agent, fn -> 1_000 end})
 
     context =
       setup_context(tmp_dir,
@@ -265,9 +265,11 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
       valid_extensions(@organization_id, invitation.cluster_id)
       |> List.replace_at(
         3,
-        Extension.subject_alt_name([
-          {:URI, "spiffe://exocomp/organizations/#{@organization_id}/clusters/#{invitation.cluster_id}"},
-          {:URI, "spiffe://exocomp/organizations/#{@organization_id}/clusters/other"}
+          Extension.subject_alt_name([
+          {:uniformResourceIdentifier,
+           "spiffe://exocomp/organizations/#{@organization_id}/clusters/#{invitation.cluster_id}"},
+          {:uniformResourceIdentifier,
+           "spiffe://exocomp/organizations/#{@organization_id}/clusters/other"}
         ])
       )
 

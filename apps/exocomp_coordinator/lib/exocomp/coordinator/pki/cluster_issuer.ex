@@ -297,7 +297,8 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
           basic_constraints: Extension.basic_constraints(false),
           key_usage: Extension.key_usage([:digitalSignature]),
           ext_key_usage: Extension.ext_key_usage([:clientAuth]),
-          subject_alt_name: Extension.subject_alt_name([{:URI, spiffe_uri}])
+          subject_alt_name:
+            Extension.subject_alt_name([{:uniformResourceIdentifier, spiffe_uri}])
         ]
       )
 

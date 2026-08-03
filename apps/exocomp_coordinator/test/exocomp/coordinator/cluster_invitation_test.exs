@@ -16,8 +16,7 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
   defp unique_name(prefix), do: String.to_atom("#{prefix}_#{System.unique_integer([:positive])}")
 
   defp clock(initial \\ 1_000) do
-    {:ok, agent} = Agent.start_link(fn -> initial end)
-    on_exit(fn -> Agent.stop(agent) end)
+    agent = start_supervised!({Agent, fn -> initial end})
     now = fn -> Agent.get(agent, & &1) end
     set = fn value -> Agent.update(agent, fn _ -> value end) end
     {now, set}
@@ -30,6 +29,8 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
   end
 
   defp issue(store, attrs \\ %{}) do
+    attrs = if is_map(attrs), do: attrs, else: Map.new(attrs)
+
     ClusterInvitationStore.create(
       Map.merge(%{organization_id: @organization_id, name: "cluster-a"}, attrs),
       server: store
