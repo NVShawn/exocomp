@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-148
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Persist the coordinator event outbox
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-03T18:04:47.209035Z'
+updated_at: '2026-08-03T18:18:06.190659Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -96,6 +96,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:22:31.884686+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-640a0b455ae3: '2026-08-03T18:18:01.445039+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-148
+    target_state: Done
+    evidence_fingerprint: 92bf545d74b9fc5173e5747812d1db03e35d469f672dab8b840d101b0fca75d3
+    audit_ids:
+    - audit-d79586978613
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T18:18:01.445049+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-148
+    audit_id: audit-d79586978613
+    attempt_id: attempt-640a0b455ae3
+    target_state: Done
+    evidence_fingerprint: 92bf545d74b9fc5173e5747812d1db03e35d469f672dab8b840d101b0fca75d3
+    status: Done
+    audit_ids:
+    - audit-d79586978613
+    applied: false
+    created_at: '2026-08-03T18:18:01.445062+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -103,7 +127,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-148
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -131,7 +155,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-640a0b455ae3
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -142,13 +166,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T18:04:32.417674+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-148
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T18:18:01.444906+00:00'
+      ended_at: '2026-08-03T18:18:01.444906+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T17:41:51.024336+00:00'
-    updated_at: '2026-08-03T18:04:32.417674+00:00'
+    updated_at: '2026-08-03T18:18:01.444906+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-95bf8dff885e
@@ -318,5 +345,20 @@ author: oompah
 created: 2026-08-03 18:04
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 18:18
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- commit: 8400a54a72025d415f60d00e4e22540626702567
+- branch_at_origin: remotes/origin/epic-EXOCOMP-130--task-EXOCOMP-148
+- files_changed: event_outbox.ex (+880), event_outbox_test.exs (+223), application.ex (+6), config/config.exs (+10), config/runtime.exs (+4)
+- test_count: 7 ExUnit tests covering all acceptance scenarios
+- prod_path: /var/lib/exocomp-coordinator/event_outbox.json
+- container_gates: make test/lint/fmt-check blocked by read-only Podman (project-wide environment constraint)
 ---
 <!-- COMMENTS:END -->
