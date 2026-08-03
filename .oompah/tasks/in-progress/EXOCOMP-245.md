@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:19:13.927100Z'
+updated_at: '2026-08-03T18:21:31.048547Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -28,6 +28,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-135
   base_sha: 98e26f09ef6da02639714937d8c8007425880e5e
   updated_at: '2026-08-03T18:19:11.034377+00:00'
+oompah.task_costs:
+  total_input_tokens: 418400
+  total_output_tokens: 5555
+  total_cost_usd: 0.0
+  by_model:
+    sonnet:
+      input_tokens: 418400
+      output_tokens: 5555
+      cost_usd: 0.0
+  runs:
+  - profile: standard
+    model: sonnet
+    input_tokens: 418400
+    output_tokens: 5555
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T18:21:25.145470+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-245__20260803T181916Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-terra
+    focus: general
+    source_branch: epic-EXOCOMP-135--task-EXOCOMP-245
+    source_sha: 98f2b738508bb7f1c424332bee03792dc569e2d9
+    completed_at: '2026-08-03T18:21:25.149063+00:00'
 ---
 ## Summary
 
@@ -52,5 +78,25 @@ author: oompah
 created: 2026-08-03 18:19
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-03 18:21
+---
+Agent completed successfully in 138s (423955 tokens)
+---
+author: oompah
+created: 2026-08-03 18:21
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 1, Tool calls: 13
+- Tokens: 418.4K in / 5.6K out [424.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 2m 18s
+- Log: EXOCOMP-245__20260803T181916Z.jsonl
+---
+author: oompah
+created: 2026-08-03 18:21
+---
+Agent completed without closing this issue (138s (423955 tokens)). Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
 ---
 <!-- COMMENTS:END -->
