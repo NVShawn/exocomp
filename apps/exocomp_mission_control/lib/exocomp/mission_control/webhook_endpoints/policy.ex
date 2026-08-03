@@ -218,6 +218,13 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.Policy do
   defp reserved?({198, 51, 100, _}), do: true
   defp reserved?({203, 0, 113, _}), do: true
   defp reserved?({first, _, _, _}) when first >= 224, do: true
+  defp reserved?({0x0064, 0xFF9B, 0, 0, 0, 0, _, _}), do: true
+  defp reserved?({0x0064, 0xFF9B, 1, _, _, _, _, _}), do: true
+  defp reserved?({0x0100, 0, 0, 0, _, _, _, _}), do: true
+  defp reserved?({0x2001, second, _, _, _, _, _, _}) when second < 0x0200, do: true
+  defp reserved?({0x2001, 0x0DB8, _, _, _, _, _, _}), do: true
+  defp reserved?({0x3FFE, _, _, _, _, _, _, _}), do: true
+  defp reserved?({0x3FFF, second, _, _, _, _, _, _}) when second >>> 12 == 0, do: true
   defp reserved?({0, 0, 0, 0, 0, 0, 0, 0}), do: true
   defp reserved?({first, _, _, _, _, _, _, _}) when first >= 0xFF00, do: true
   defp reserved?(address), do: ipv4_mapped?(address, &reserved?/1)
@@ -229,11 +236,22 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.Policy do
   defp ipv4_mapped?(_address, _checker), do: false
 
   defp blocked_ip?(address, blocked_ips) do
-    Enum.any?(blocked_ips, fn rule ->
-      case parse_ip_rule(rule) do
-        {:ok, blocked_address, prefix} -> cidr_match?(address, blocked_address, prefix)
-        :error -> false
+    address_candidates =
+      case address do
+        {0, 0, 0, 0, 0, 0xFFFF, high, low} ->
+          [address, {high >>> 8, high &&& 0xFF, low >>> 8, low &&& 0xFF}]
+
+        _ ->
+          [address]
       end
+
+    Enum.any?(address_candidates, fn candidate ->
+      Enum.any?(blocked_ips, fn rule ->
+        case parse_ip_rule(rule) do
+          {:ok, blocked_address, prefix} -> cidr_match?(candidate, blocked_address, prefix)
+          :error -> false
+        end
+      end)
     end)
   end
 

@@ -127,6 +127,9 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.Encryption do
     {:ok, nonce, tag, ciphertext}
   end
 
-  defp parse_encrypted_blob(<<_other_version, _::binary>>), do: {:error, :unsupported_version}
+  defp parse_encrypted_blob(<<_other_version, rest::binary>>)
+       when byte_size(rest) >= @nonce_bytes + @tag_bytes,
+       do: {:error, :unsupported_version}
+
   defp parse_encrypted_blob(_blob), do: {:error, :invalid_ciphertext}
 end

@@ -73,6 +73,20 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.PolicyTest do
                Policy.validate_destination("https://[::]/hook")
     end
 
+    test "rejects IPv6 special-use and documentation destinations" do
+      for address <- [
+            "2001:2::1",
+            "2001:db8::1",
+            "3fff::1",
+            "64:ff9b::c000:201",
+            "64:ff9b:1::1",
+            "100::1"
+          ] do
+        assert {:error, :destination_is_reserved_ip} =
+                 Policy.validate_destination("https://[#{address}]/hook")
+      end
+    end
+
     test "allows public IP addresses" do
       # Note: These depend on actual DNS resolution. Using generic test
       # that we can't predict exact results for real IPs, but we verify
@@ -185,6 +199,13 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.PolicyTest do
 
       assert {:error, :destination_blocked_by_policy} =
                Policy.validate_destination("https://8.8.8.8/hook")
+    end
+
+    test "applies IPv4 CIDR blocks to IPv4-mapped IPv6 literals" do
+      Application.put_env(:exocomp_mission_control, Policy, blocked_ips: ["8.8.8.0/24"])
+
+      assert {:error, :destination_blocked_by_policy} =
+               Policy.validate_destination("https://[::ffff:8.8.8.8]/hook")
     end
 
     test "fails closed for malformed policy configuration" do
