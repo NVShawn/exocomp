@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T16:35:11.764214Z'
+updated_at: '2026-08-03T16:35:52.332717Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -51,12 +51,18 @@ oompah.agent_run_id: a44485fd-43ee-4e27-bfa5-595eef7cceda
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-173
+  base_branch: epic-EXOCOMP-134
+  base_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
   head_sha: fb5673e4da33054442e6ace089194af5103fdae7
+  integrated_sha: fb5673e4da33054442e6ace089194af5103fdae7
   submitted_at: '2026-08-03T16:34:43.364745+00:00'
-  updated_at: '2026-08-03T16:34:43.364745+00:00'
+  updated_at: '2026-08-03T16:35:46.947023+00:00'
+  dependency_heads:
+    EXOCOMP-171: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
+    EXOCOMP-172: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
 oompah.task_costs:
   total_input_tokens: 420554
   total_output_tokens: 67438
@@ -99,6 +105,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-134--task-EXOCOMP-173
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:08:32.885707+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-121cc3dc69be
+    project_id: proj-c260b117
+    task_id: EXOCOMP-173
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: cbab55e873353c24a2b6e86065712ca982382c07177c85e27496691bce6453e2
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T16:35:48.873978+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -285,5 +313,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: terminated, Duration: 25m 37s
 - Log: EXOCOMP-173__20260803T160944Z.jsonl
+---
+author: oompah
+created: 2026-08-03 16:35
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
