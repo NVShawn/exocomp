@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:56:23.658638Z'
+updated_at: '2026-08-03T14:56:50.286597Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -29,8 +29,8 @@ oompah.integration:
   base_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
   updated_at: '2026-08-03T14:42:14.926035+00:00'
 oompah.task_costs:
-  total_input_tokens: 26
-  total_output_tokens: 5262
+  total_input_tokens: 220
+  total_output_tokens: 11833
   total_cost_usd: 0.0
   by_model:
     sonnet:
@@ -40,6 +40,10 @@ oompah.task_costs:
     opus:
       input_tokens: 8
       output_tokens: 1471
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 194
+      output_tokens: 6571
       cost_usd: 0.0
   runs:
   - profile: standard
@@ -54,6 +58,12 @@ oompah.task_costs:
     output_tokens: 1471
     cost_usd: 0.0
     recorded_at: '2026-08-03T14:41:24.206036+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 194
+    output_tokens: 6571
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T14:56:44.028862+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-240__20260803T143640Z
@@ -157,18 +167,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-240
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 182432d665cbb37547a6271e43aa26ecb93b98f0e825a0a07c0bc689165be8c4
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-e3b65a1a5423
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 182432d665cbb37547a6271e43aa26ecb93b98f0e825a0a07c0bc689165be8c4
+      created_at: '2026-08-03T14:56:46.082404+00:00'
+      provider_id: prov-651d553c
+      model: haiku
+      started_at: '2026-08-03T14:56:46.082404+00:00'
+      branch_key: epic-EXOCOMP-130
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: In Progress
     created_at: '2026-08-03T14:46:07.466093+00:00'
+    updated_at: '2026-08-03T14:56:46.082404+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-1eff8fd15ff7
@@ -182,6 +206,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: haiku
     started_at: '2026-08-03T14:48:42.749795+00:00'
+    branch_key: epic-EXOCOMP-130
+  - version: 1
+    attempt_id: attempt-e3b65a1a5423
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 182432d665cbb37547a6271e43aa26ecb93b98f0e825a0a07c0bc689165be8c4
+    created_at: '2026-08-03T14:56:46.082404+00:00'
+    provider_id: prov-651d553c
+    model: haiku
+    started_at: '2026-08-03T14:56:46.082404+00:00'
     branch_key: epic-EXOCOMP-130
 ---
 ## Summary
@@ -314,5 +351,25 @@ Safe evidence:
 - commits_behind: 0
 - worktree_status: clean
 - first_epic_commit_parent: 4e01311060eee5be3c1d18d86d809f4007664497
+---
+author: oompah
+created: 2026-08-03 14:56
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/haiku]
+- Turns: 57, Tool calls: 23
+- Tokens: 194 in / 6.6K out [6.8K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 52s
+- Log: EXOCOMP-240__20260803T144857Z.jsonl
+---
+author: oompah
+created: 2026-08-03 14:56
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/haiku)
+---
+author: oompah
+created: 2026-08-03 14:56
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
