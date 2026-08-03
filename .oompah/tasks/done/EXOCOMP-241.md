@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-241
 type: task
-status: In Validation
+status: Done
 priority: 0
 title: Rebase epic-EXOCOMP-132 onto main
 parent: EXOCOMP-132
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:55:32.478628Z'
+updated_at: '2026-08-03T14:55:42.713611Z'
 work_branch: epic-EXOCOMP-132
 target_branch: null
 review_url: null
@@ -175,6 +175,28 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T14:55:27.848291+00:00'
     applied_at: '2026-08-03T14:55:31.563413+00:00'
+  oompah.terminal_override_records:
+  - version: 1
+    override_id: override-09341a97860e
+    project_id: proj-c260b117
+    task_id: EXOCOMP-241
+    target_state: Done
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: 'Operator independently verified the maintenance result: local and remote
+      epic-EXOCOMP-132 and origin/main all resolve to 4e01311060eee5be3c1d18d86d809f4007664497,
+      divergence is 0/0, and the worktree is clean. Audit attempt 1 had already reproduced
+      those equal refs before harmless git rev-list inspection exhausted the deployed
+      policy budget; OOMPAH-722 tracks that exact authority-policy defect. Override
+      prevents repeated known-broken candidate rotation.'
+    created_at: '2026-08-03T14:55:39.495922+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
@@ -465,5 +487,12 @@ Safe evidence:
 - origin_epic_EXOCOMP_132_sha: 4e01311060eee5be3c1d18d86d809f4007664497
 - divergence: 0 behind / 0 ahead
 - rebase_type: clean fast-forward (no unique commits on epic)
+---
+author: oompah
+created: 2026-08-03 14:55
+---
+Override by oompah-cli: terminal transition to Done applied by project owner.
+
+Reason: Operator independently verified the maintenance result: local and remote epic-EXOCOMP-132 and origin/main all resolve to 4e01311060eee5be3c1d18d86d809f4007664497, divergence is 0/0, and the worktree is clean. Audit attempt 1 had already reproduced those equal refs before harmless git rev-list inspection exhausted the deployed policy budget; OOMPAH-722 tracks that exact authority-policy defect. Override prevents repeated known-broken candidate rotation.
 ---
 <!-- COMMENTS:END -->
