@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-08-03T12:10:54.391590Z'
+updated_at: '2026-08-03T12:11:03.645694Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -304,5 +304,15 @@ author: oompah
 created: 2026-08-03 12:00
 ---
 Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
+---
+author: oompah
+created: 2026-08-03 12:10
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 12:11
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
