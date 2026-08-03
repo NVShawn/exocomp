@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:46:15.574484Z'
+updated_at: '2026-08-03T14:48:59.175900Z'
 work_branch: epic-EXOCOMP-132
 target_branch: null
 review_url: null
@@ -147,18 +147,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-241
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-767b1eb65fd7
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
+      created_at: '2026-08-03T14:48:57.881577+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T14:48:57.881577+00:00'
+      branch_key: epic-EXOCOMP-132
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: In Progress
     created_at: '2026-08-03T14:46:12.200922+00:00'
+    updated_at: '2026-08-03T14:48:57.881577+00:00'
   - version: 1
     audit_id: audit-a46e08b89fa3
     project_id: proj-c260b117
@@ -176,7 +190,20 @@ oompah.terminal_audit:
       source: api
     previous_state: In Progress
     created_at: '2026-08-03T14:46:12.200922+00:00'
-  attempt_history: []
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-767b1eb65fd7
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
+    created_at: '2026-08-03T14:48:57.881577+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T14:48:57.881577+00:00'
+    branch_key: epic-EXOCOMP-132
 ---
 ## Summary
 

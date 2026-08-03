@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:48:44.265182Z'
+updated_at: '2026-08-03T14:48:55.801788Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -259,5 +259,15 @@ author: oompah
 created: 2026-08-03 14:46
 ---
 Queued for terminal transition to Merged. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-03 14:48
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/haiku)
+---
+author: oompah
+created: 2026-08-03 14:48
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
