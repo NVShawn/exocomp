@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:38:39.363025Z'
+updated_at: '2026-08-03T18:39:33.005499Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -235,5 +235,10 @@ author: oompah
 created: 2026-08-03 18:38
 ---
 Verification: Final pinned Elixir 1.20.2/OTP 28.5.0.3 gates all pass. make test passed every umbrella ExUnit suite (including 530 coordinator tests), assembled both releases, and passed exocomp_node/exocomp_coordinator bundled-ERTS smoke tests. make fmt-check passed. make lint passed release-builder checks, warnings-as-errors compilation, Python syntax checks, and compliance checks.
+---
+author: oompah
+created: 2026-08-03 18:39
+---
+Completion: Delivered commit 8e19679a414b0f22b6d837976486f1e4b2955f41 on origin/EXOCOMP-242. The repair uses pinned-runtime-compatible SPIFFE GeneralNames in CSR fixtures and issued certificates, normalizes URI decoding, hardens missing-auth handling, fixes invitation attrs/clock fixtures, and explicitly covers valid, wrong, and multiple SPIFFE identities plus invitation expiry/replay, plaintext non-persistence, and missing authentication. All required gates and release smoke tests pass; branch is clean and matches origin.
 ---
 <!-- COMMENTS:END -->
