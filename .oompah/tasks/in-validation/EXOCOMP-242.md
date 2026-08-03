@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:52:37.045430Z'
+updated_at: '2026-08-03T18:52:50.761035Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -385,5 +385,10 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 7m 8s
 - Log: EXOCOMP-242__20260803T184529Z.jsonl
+---
+author: oompah
+created: 2026-08-03 18:52
+---
+Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
 ---
 <!-- COMMENTS:END -->
