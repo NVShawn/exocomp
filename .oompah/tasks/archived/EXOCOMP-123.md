@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-123
 type: task
-status: In Validation
+status: Archived
 priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-08-03T12:16:45.020291Z'
+updated_at: '2026-08-03T12:20:00.025282Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -139,6 +139,30 @@ oompah.task_costs:
     recorded_at: '2026-08-03T12:14:33.481450+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ccc25faa1548: '2026-08-03T12:19:56.710215+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-123
+    target_state: Archived
+    evidence_fingerprint: fcc2c1525f5bb8992d26af2799ca23f296e3a947fde8c614a1759fa582e4c3a5
+    audit_ids:
+    - audit-8e2bd34643b7
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T12:19:56.710225+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-123
+    audit_id: audit-8e2bd34643b7
+    attempt_id: attempt-ccc25faa1548
+    target_state: Archived
+    evidence_fingerprint: fcc2c1525f5bb8992d26af2799ca23f296e3a947fde8c614a1759fa582e4c3a5
+    status: Archived
+    audit_ids:
+    - audit-8e2bd34643b7
+    applied: false
+    created_at: '2026-08-03T12:19:56.710250+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -146,7 +170,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-123
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -174,7 +198,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ccc25faa1548
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -185,13 +209,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T12:16:38.804278+00:00'
       branch_key: epic-EXOCOMP-117
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T12:19:56.710011+00:00'
+      ended_at: '2026-08-03T12:19:56.710011+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T12:01:11.940334+00:00'
-    updated_at: '2026-08-03T12:16:38.804278+00:00'
+    updated_at: '2026-08-03T12:19:56.710011+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ab7b4cd57948
@@ -1655,5 +1682,33 @@ author: oompah
 created: 2026-08-03 12:16
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 12:19
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- candidate_tag: v0.1.0-rc.23
+- candidate_commit: 902bee1a52bf037fdaab50bd0c71ba82fa51a8d6
+- evidence_commit: a62f128
+- evidence_dir: docs/release-evidence/v0.1.0-rc.23/
+- index_file: evidence-index.sha256
+- index_file_size_chars: 20316
+- qualification_decision: pass
+- publication_ready: true
+- amd64_status: QUALIFICATION_STATUS=pass
+- arm64_status: QUALIFICATION_STATUS=pass
+- m6_crit_criteria_count: 9
+- live_scenarios_count: 11
+- amd64_make_gates: fmt-check lint release-check test-release-packaging test-installer test-bundle test test-release-matrix test-m5-qualification
+- arm64_make_gates: fmt-check lint release-check test-release-packaging test-installer test-bundle test test-release-matrix test-m5-qualification
+- amd64_m5_full_cpu_pct: 0.181
+- amd64_m5_full_ram_pct: 4.090
+- arm64_m5_full_cpu_pct: 1.560
+- arm64_m5_full_ram_pct: 4.073
+- m5_ceiling_pct: 5.0
 ---
 <!-- COMMENTS:END -->
