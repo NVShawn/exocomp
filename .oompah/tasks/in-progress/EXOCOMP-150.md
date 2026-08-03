@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T22:21:05.847961Z'
+updated_at: '2026-08-03T22:22:00.692357Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -317,5 +317,10 @@ author: oompah
 created: 2026-08-03 22:21
 ---
 Discovery: the private branch contains the complete six-file command-outbox implementation, but its base is no longer an ancestor of the current epic tip. The requested work is therefore a straightforward rebase/conflict reconciliation; no acceptance behavior is being redesigned.
+---
+author: oompah
+created: 2026-08-03 22:22
+---
+Implementation: rebased the task branch and removed the historical duplicate replay by skipping two patch-equivalent commits. The resulting linear branch retains the six intended command-outbox changes and removes the redundant merge that caused integration conflicts.
 ---
 <!-- COMMENTS:END -->
