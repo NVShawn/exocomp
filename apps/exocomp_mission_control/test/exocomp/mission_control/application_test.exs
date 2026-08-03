@@ -20,4 +20,9 @@ defmodule Exocomp.MissionControl.ApplicationTest do
   test "supervises the repository" do
     assert Exocomp.MissionControl.Repo in Exocomp.MissionControl.Application.children()
   end
+
+  test "supervises the default conversation store" do
+    assert Exocomp.MissionControl.Conversations in Exocomp.MissionControl.Application.children()
+    assert is_pid(Process.whereis(Exocomp.MissionControl.Conversations))
+  end
 end
