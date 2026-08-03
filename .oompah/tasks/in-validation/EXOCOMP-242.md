@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:53:28.601777Z'
+updated_at: '2026-08-03T19:11:48.095147Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -125,6 +125,31 @@ oompah.work_branch: EXOCOMP-242
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-61d980e1f759: '2026-08-03T19:11:41.560078+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-242
+    target_state: Done
+    evidence_fingerprint: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    audit_ids:
+    - audit-8b68063b9d88
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T19:11:41.560089+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-242
+    audit_id: audit-8b68063b9d88
+    attempt_id: attempt-61d980e1f759
+    target_state: Done
+    evidence_fingerprint: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    status: In Validation
+    audit_ids:
+    - audit-8b68063b9d88
+    applied: true
+    created_at: '2026-08-03T19:11:41.560105+00:00'
+    applied_at: '2026-08-03T19:11:46.503724+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -132,7 +157,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-242
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -160,7 +185,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-61d980e1f759
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -171,13 +196,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T18:53:20.274838+00:00'
       branch_key: EXOCOMP-242
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T19:11:41.559892+00:00'
+      ended_at: '2026-08-03T19:11:41.559892+00:00'
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T18:43:24.846732+00:00'
-    updated_at: '2026-08-03T18:53:20.274838+00:00'
+    updated_at: '2026-08-03T19:11:41.559892+00:00'
   - version: 1
     audit_id: audit-abb6b25c4ecf
     project_id: proj-c260b117
@@ -428,5 +456,27 @@ author: oompah
 created: 2026-08-03 18:53
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 19:11
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+- repair_commit: 8e19679a414b0f22b6d837976486f1e4b2955f41
+- pr: 25
+- branch: EXOCOMP-242
+- merged_to: main
+- spiffe_charlist_production: cluster_issuer.ex:311 String.to_charlist(spiffe_uri)
+- normalize_uri: cluster_issuer.ex:327-329
+- missing_auth_401: cluster_invitation_handler.ex:143 role == nil -> {:error, :unauthenticated}
+- test_missing_auth: cluster_invitation_test.exs:197 'missing authentication is rejected' asserts 401
+- test_wrong_spiffe: cluster_enrollment_test.exs:295 'rejects a CSR with the wrong SPIFFE identity'
+- test_multiple_uris: cluster_enrollment_test.exs: 'rejects a CSR with multiple URI identities'
+- test_expiry_replay: cluster_enrollment_test.exs: 'rejects expired and replayed invitations'
+- test_plaintext: cluster_invitation_test.exs: 'creates an organization-scoped invitation and never persists its plaintext'
 ---
 <!-- COMMENTS:END -->

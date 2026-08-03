@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-08-03T19:11:30.112758Z'
+updated_at: '2026-08-03T19:11:52.336837Z'
 work_branch: EXOCOMP-125
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/20
@@ -19,13 +19,13 @@ review_number: '20'
 merged_at: null
 oompah.agent_run_id: 804f8637-046c-4f3c-838c-bdcbc500fa88
 oompah.task_costs:
-  total_input_tokens: 162
-  total_output_tokens: 55871
+  total_input_tokens: 181
+  total_output_tokens: 56175
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 162
-      output_tokens: 55871
+      input_tokens: 181
+      output_tokens: 56175
       cost_usd: 0.0
   runs:
   - profile: default
@@ -46,6 +46,12 @@ oompah.task_costs:
     output_tokens: 145
     cost_usd: 0.0
     recorded_at: '2026-07-27T18:43:21.788210+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 19
+    output_tokens: 304
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T19:11:50.162471+00:00'
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/20
 oompah.review_number: '20'
 oompah.work_branch: EXOCOMP-125
@@ -443,5 +449,15 @@ Safe evidence:
 - evidence_amd64: docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/{README.md,samples.jsonl.xz,summary.json}
 - evidence_arm64: docs/release-evidence/v0.1.0-rc.23/raw/arm64/m5-workload-harness/README.md
 - age_days: 7
+---
+author: oompah
+created: 2026-08-03 19:11
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 6
+- Tokens: 19 in / 304 out [323 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 32s
+- Log: EXOCOMP-125__20260803T190925Z.jsonl
 ---
 <!-- COMMENTS:END -->
