@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:37:26.710471Z'
+updated_at: '2026-08-03T14:38:08.180746Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -44,12 +44,15 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
+  base_branch: epic-EXOCOMP-134
+  base_sha: e826d0d584294524cd0abd708456c457a50f11ed
   head_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
+  integrated_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
   submitted_at: '2026-08-03T14:37:20.607169+00:00'
-  updated_at: '2026-08-03T14:37:20.607169+00:00'
+  updated_at: '2026-08-03T14:38:03.747488+00:00'
 oompah.task_costs:
   total_input_tokens: 881910
   total_output_tokens: 43486
@@ -148,7 +151,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-171
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -231,6 +234,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-03T13:52:16.565812+00:00'
     updated_at: '2026-08-03T14:14:08.743499+00:00'
+  - version: 1
+    audit_id: audit-62be65c1dfca
+    project_id: proj-c260b117
+    task_id: EXOCOMP-171
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 4cafedb8469ba8f8a5cbe949611b353ea9c66e4e37221c08a5c70d9a9239cb8d
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T14:38:06.057340+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-180165c919ab
