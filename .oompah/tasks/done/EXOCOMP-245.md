@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-245
 type: task
-status: In Validation
+status: Done
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:38:23.432895Z'
+updated_at: '2026-08-03T18:46:44.113664Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -73,6 +73,30 @@ oompah.duplicate_screening:
   owner_resolution_reason: ''
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-953500838803: '2026-08-03T18:46:41.182866+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-245
+    target_state: Done
+    evidence_fingerprint: 0ff15b149e79575a675185db932777f4b07aac3c4d870de4a479023551fdf58d
+    audit_ids:
+    - audit-2445e1a1cc6d
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T18:46:41.182873+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-245
+    audit_id: audit-2445e1a1cc6d
+    attempt_id: attempt-953500838803
+    target_state: Done
+    evidence_fingerprint: 0ff15b149e79575a675185db932777f4b07aac3c4d870de4a479023551fdf58d
+    status: Done
+    audit_ids:
+    - audit-2445e1a1cc6d
+    applied: false
+    created_at: '2026-08-03T18:46:41.182886+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -80,7 +104,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-245
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -89,7 +113,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-953500838803
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -99,13 +123,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T18:38:16.088913+00:00'
       branch_key: epic-EXOCOMP-135--task-EXOCOMP-245
+      verdict: pass
+      completed_at: '2026-08-03T18:46:41.182745+00:00'
+      ended_at: '2026-08-03T18:46:41.182745+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Ready to Integrate
     created_at: '2026-08-03T18:35:18.275504+00:00'
-    updated_at: '2026-08-03T18:38:16.088913+00:00'
+    updated_at: '2026-08-03T18:46:41.182745+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-953500838803
@@ -291,5 +318,26 @@ author: oompah
 created: 2026-08-03 18:38
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 18:46
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- worktree_head: 542b7fe5bf24d8474b187fe33e12cf9356a16b70
+- remote_epic_head: 542b7fe5bf24d8474b187fe33e12cf9356a16b70
+- parent_epic_head: 2d08fde7072d4c7161f7bab0a4aa36f9754fb475
+- parent_is_ancestor: true
+- divergence_behind_parent: 0
+- divergence_ahead_parent: 2
+- epic_only_commits: EXOCOMP-179 (542b7fe5), EXOCOMP-176 (9da8cc53)
+- recovery_wrong_target: recovery/epic-EXOCOMP-135-wrong-target-98f2b738 -> 98f2b738508bb7f1c424332bee03792dc569e2d9
+- recovery_pre_parent_rebase: recovery/epic-EXOCOMP-135-pre-parent-rebase-98e26f09 -> 98e26f09ef6da02639714937d8c8007425880e5e
+- git_diff_check: clean
+- working_tree: clean
+- packaging_tests: 6/6 pass (make test-mission-control-packaging)
 ---
 <!-- COMMENTS:END -->
