@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:20:10.416781Z'
+updated_at: '2026-08-03T19:20:35.011567Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -486,5 +486,10 @@ author: oompah
 created: 2026-08-03 19:20
 ---
 Focus: Refactoring Specialist
+---
+author: oompah
+created: 2026-08-03 19:20
+---
+Understanding: I will restore base_children/0 so Mission Control is added only through build_children/1, add an isolated application-supervision test proving MissionControlSupervisor starts exactly once with mock config, then run the required checks, commit, push, and submit.
 ---
 <!-- COMMENTS:END -->
