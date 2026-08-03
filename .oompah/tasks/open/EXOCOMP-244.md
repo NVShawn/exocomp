@@ -11,14 +11,14 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:42:34.545000Z'
+updated_at: '2026-08-03T17:44:00.605386Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: null
+oompah.agent_run_id: 7061bf20-f1f9-4899-88ee-2e4917cf725c
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 oompah.integration:
   version: 2
@@ -33,6 +33,23 @@ oompah.integration:
   last_error: epic worktree head 333c3b81b8bcdd448166707f28b5a00ee8e2c469 differs
     from the published epic head 98e26f09ef6da02639714937d8c8007425880e5e; refusing
     to reset a preserved recovery snapshot
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 329630ca81cb6a4375db740c9e87c965b0155e6255504d115e419907473f027a
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: cfd70f85-e3c8-413d-9ad3-51af57fce20a
+  claim_owner: 8a58fb27-42d0-40cf-8dc2-70615b9783dc
+  claimed_at: '2026-08-03T17:43:54.303758+00:00'
+  claim_expires_at: '2026-08-03T18:13:54.303758+00:00'
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: null
+  owner_login: null
+  owner_resolution_reason: ''
 ---
 ## Summary
 
@@ -104,5 +121,10 @@ created: 2026-08-03 17:42
 Integration could not verify `epic-EXOCOMP-135--task-EXOCOMP-244`: epic worktree head 333c3b81b8bcdd448166707f28b5a00ee8e2c469 differs from the published epic head 98e26f09ef6da02639714937d8c8007425880e5e; refusing to reset a preserved recovery snapshot
 
 Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
+---
+author: oompah
+created: 2026-08-03 17:44
+---
+Duplicate screening dispatched (profile: default, task remains Open)
 ---
 <!-- COMMENTS:END -->
