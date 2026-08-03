@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:23:43.097887Z'
+updated_at: '2026-08-03T15:28:38.284255Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -328,5 +328,10 @@ author: oompah
 created: 2026-08-03 15:23
 ---
 Discovery: the implementation is present in commits 1efa833e/113a7337 and is based on the integrated EXOCOMP-134 parent. The only recovery delta is a three-line formatter change in coordinator PKI bootstrap, already preserved in checkpoint 9390df29. Webhook persistence lives in WebhookEndpoint/WebhookEndpoints with AES-GCM encryption, policy validation, migrations, and focused tests; I’m auditing these paths for exploitable gaps before republishing.
+---
+author: oompah
+created: 2026-08-03 15:28
+---
+Verification: make test, make fmt-check, and make lint all reached their offline checks successfully but the pinned Elixir 1.20.2 container phase was blocked by the sandboxed Podman runtime (read-only /run/user/1000/libpod). Direct Elixir checks passed syntax parsing for all changed Elixir files, changed-file formatter compatibility, AES-GCM round-trip/wrong-AAD/missing-key behavior, and IPv4/IPv6 SSRF/policy probes. No uncommitted changes or diff-check errors are present.
 ---
 <!-- COMMENTS:END -->
