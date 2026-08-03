@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-244
 type: task
-status: Open
+status: Ready to Integrate
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,23 +11,23 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:45:58.367478Z'
+updated_at: '2026-08-03T17:46:23.492972Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: d029843d-b3d8-4143-a0cf-46da5de9d7c3
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-244
-  base_branch: epic-EXOCOMP-135
-  base_sha: 98e26f09ef6da02639714937d8c8007425880e5e
-  updated_at: '2026-08-03T17:45:54.176415+00:00'
+  head_sha: 98e26f09ef6da02639714937d8c8007425880e5e
+  submitted_at: '2026-08-03T17:46:15.160309+00:00'
+  updated_at: '2026-08-03T17:46:15.160309+00:00'
 oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 329630ca81cb6a4375db740c9e87c965b0155e6255504d115e419907473f027a
@@ -140,5 +140,10 @@ author: oompah
 created: 2026-08-03 17:45
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 17:46
+---
+Reconciled the clean direct epic checkout to published rebased head 98e26f09; preserved pre-rebase 333c3b81 under recovery/epic-EXOCOMP-135-pre-rebase-333c3b81 and resubmitted the unchanged verified assigned head.
 ---
 <!-- COMMENTS:END -->
