@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:55:52.108735Z'
+updated_at: '2026-08-03T16:08:22.409659Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -104,6 +104,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:06:48.497734+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6ba379e1c446: '2026-08-03T16:08:19.372805+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-172
+    target_state: Done
+    evidence_fingerprint: 5d5cad34663238780df485da145337b0591e8842cdaf7c0e48233e54c64a28ef
+    audit_ids:
+    - audit-313aade08c4e
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T16:08:19.372817+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-172
+    audit_id: audit-313aade08c4e
+    attempt_id: attempt-6ba379e1c446
+    target_state: Done
+    evidence_fingerprint: 5d5cad34663238780df485da145337b0591e8842cdaf7c0e48233e54c64a28ef
+    status: Done
+    audit_ids:
+    - audit-313aade08c4e
+    applied: false
+    created_at: '2026-08-03T16:08:19.372834+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -111,7 +135,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-172
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -139,7 +163,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6ba379e1c446
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -150,13 +174,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T15:55:43.205673+00:00'
       branch_key: epic-EXOCOMP-134--task-EXOCOMP-172
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T16:08:19.372600+00:00'
+      ended_at: '2026-08-03T16:08:19.372600+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T15:41:46.350504+00:00'
-    updated_at: '2026-08-03T15:55:43.205673+00:00'
+    updated_at: '2026-08-03T16:08:19.372600+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4db1bb14f2dc
@@ -502,5 +529,27 @@ author: oompah
 created: 2026-08-03 15:55
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 16:08
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
+- published_branch: origin/epic-EXOCOMP-134--task-EXOCOMP-172
+- branch_head_matches_worktree: true
+- working_tree_clean: true
+- encryption_algorithm: AES-256-GCM with 96-bit random nonce and 128-bit tag
+- aad_binding: organization_id + NUL + endpoint_id
+- inspect_redaction: @derive {Inspect, except: [:encrypted_secret]}
+- admin_enforcement: Authorization.authorize!(operator, organization_id, :administer) called in all 4 mutations
+- [REDACTED-credential-key]: plaintext returned only from create/3 and rotate_secret/3
+- db_test_present: database_test.exs includes raw SQL secret-absence assertion and cross-org isolation
+- makefile_gates: blocked by read-only Podman runtime (infrastructure constraint, not code defect)
+- test_files: encryption_test.exs, policy_test.exs, webhook_endpoints_test.exs, database_test.exs
+- migration: 20260801000500_create_webhook_endpoints.exs
 ---
 <!-- COMMENTS:END -->
