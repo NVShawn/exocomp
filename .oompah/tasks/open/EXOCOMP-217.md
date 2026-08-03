@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:19.702752Z'
-updated_at: '2026-08-03T15:48:35.751192Z'
+updated_at: '2026-08-03T15:50:27.991562Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-217
 target_branch: null
 review_url: null
@@ -28,47 +28,13 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
-    Matches: none\nEvidence: ** The provided task corpus covers EXOCOMP-1 through\
-    \ EXOCOMP-123, but EXOCOMP-217 is part of epic EXOCOMP-209 with related tasks\
-    \ (EXOCOMP-213-218) that lie outside the corpus bounds. No task in the available\
-    \ corpus addresses Mission Control policy override endpoints or hierarchical policy\
-    \ management. The referenced plan (plans/hierarchical-management-modes.md) and\
-    \ coordination peers necessary for definitive duplicate assessment are not available\
-    \ in this corpus. Duplicate screening cannot be conclusively completed without\
-    \ access to EXOCOMP-209 epic tasks or their prior duplicate investigation records.\n\
-    # Duplicate Screening for EXOCOMP-217\n\nI'll analyze whether this issue is a\
-    \ duplicate of any existing tracked work.\n\n## Task Analysis\n\n**EXOCOMP-217\
-    \ Scope:**\n- Title: \"Add management-policy HTTP APIs\"\n- Deliverable: Versioned\
-    \ Mission Control endpoints for policy override CRUD operations\n- Focus: HTTP\
-    \ controller layer with authorization, conflict handling, multi-scope resolution\n\
-    - Plan reference: `plans/hierarchical-management-modes.md`\n- Status: Open (first\
-    \ dispatch for duplicate screening)\n\n**Key Characteristics:**\n- Mission Control\
-    \ endpoints (list, resolve, create, update, delete)\n- Policy override management\n\
-    - Scope resolution (configured, inherited, effective values)\n- Conflict detection\
-    \ and stale-write handling\n- Organization isolation\n- Controller tests required\n\
-    \n## Corpus Review\n\nI searched the provided task corpus (EXOCOMP-1 through EXOCOMP-123)\
-    \ for related work:\n\n**Examined categories:**\n- Coordinator tasks (EXOCOMP-14-20,\
-    \ EXOCOMP-88-105): Orchestration, diagnostics, enrollment, PKI \u2014 not policy\
-    \ management\n- Node tasks (EXOCOMP-7-13): Collectors, A2A service, llama.cpp\
-    \ \u2014 not policy endpoints\n- Release/verification (EXOCOMP-106-123): Bundle\
-    \ assembly, qualification, installation \u2014 not policy APIs\n\n**Finding:**\
-    \ No task in the provided corpus addresses Mission Control policy override HTTP\
-    \ endpoints.\n\n## Critical Data Gap\n\nThe coordination advisory notes reference:\n\
-    - Epic parent: **EXOCOMP-209** (not in corpus)\n- Siblings: **EXOCOMP-213, 214,\
-    \ 215, 216, 218** (not in corpus)\n- Dependencies: **EXOCOMP-127, 216, 218** (not\
-    \ in corpus)\n\nThe provided corpus terminates at EXOCOMP-123. EXOCOMP-217 belongs\
-    \ to the EXOCOMP-209 epic tier, which is significantly higher-numbered and completely\
-    \ absent from the reference data. This suggests the corpus does not include the\
-    \ task family most relevant for duplicate screening.\n\n---\n\nFocus handoff:\
-    \ duplicate_detector\n\nDuplicate preflight verdict: inconclusive\n\nMatches:\
-    \ none\n\n**Evidence:** The provided task corpus covers EXOCOMP-1 thr"
-  claim_id: null
-  claim_owner: null
-  claimed_at: null
-  claim_expires_at: null
+  evidence: ''
+  claim_id: 808cc2f9-2683-42b5-b57b-2e41f28eca75
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T15:50:26.876785+00:00'
+  claim_expires_at: '2026-08-03T16:20:26.876785+00:00'
   retry_count: 1
-  retry_after: '2026-08-03T15:49:32.381429+00:00'
+  retry_after: null
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
