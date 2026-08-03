@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: In Validation
+status: Archived
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -13,7 +13,7 @@ labels:
 - focus-complete:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-08-03T12:08:36.855637Z'
+updated_at: '2026-08-03T12:10:28.652275Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -57,6 +57,30 @@ oompah.task_costs:
     recorded_at: '2026-07-26T04:55:12.896494+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-d5cea3877604: '2026-08-03T12:10:25.335401+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-119
+    target_state: Archived
+    evidence_fingerprint: e3a42de69d2a22910bb50f46e9542cf4fe60d5ca5fb2b20933ce422cfc60efc8
+    audit_ids:
+    - audit-3e8ff25467f9
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T12:10:25.335410+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-119
+    audit_id: audit-3e8ff25467f9
+    attempt_id: attempt-d5cea3877604
+    target_state: Archived
+    evidence_fingerprint: e3a42de69d2a22910bb50f46e9542cf4fe60d5ca5fb2b20933ce422cfc60efc8
+    status: Archived
+    audit_ids:
+    - audit-3e8ff25467f9
+    applied: false
+    created_at: '2026-08-03T12:10:25.335424+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -64,7 +88,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-119
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -73,7 +97,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d5cea3877604
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -83,13 +107,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T12:08:32.250248+00:00'
       branch_key: epic-EXOCOMP-117
+      verdict: pass
+      completed_at: '2026-08-03T12:10:25.335269+00:00'
+      ended_at: '2026-08-03T12:10:25.335269+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T12:00:52.071756+00:00'
-    updated_at: '2026-08-03T12:08:32.250248+00:00'
+    updated_at: '2026-08-03T12:10:25.335269+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-d5cea3877604
@@ -416,5 +443,22 @@ author: oompah
 created: 2026-08-03 12:08
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 12:10
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: d1edad6f75adc3c9acf94e44fe641f87064a7360
+- impl_commit: c8296bf1
+- docs_commit: 6af78a79
+- pr: PR #18 merged into main on 2026-07-27
+- main_head: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
+- verified_files_on_main: application.ex, health.ex, coordinator_router.ex, enrollment_handler.ex, renewal_handler.ex, pki/bootstrap.ex, coordinator_pki_enrollment_test.exs
+- previous_state: Merged
+- reason: Aged Merged auto-archive (closed 7 days ago)
 ---
 <!-- COMMENTS:END -->
