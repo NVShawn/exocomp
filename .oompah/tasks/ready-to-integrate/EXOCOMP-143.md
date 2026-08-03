@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-143
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Issue cluster certificates from validated CSRs
 parent: EXOCOMP-129
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T15:56:42.184025Z'
+updated_at: '2026-08-03T15:57:26.014300Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -46,16 +46,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 679e408e-69d0-45cf-bfb9-7a35b1314ae7
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-143
-  base_branch: epic-EXOCOMP-129
-  base_sha: 5b60d46a078ed14b35d2f5c298f9cdc274dfdb3e
-  updated_at: '2026-08-03T15:43:26.449940+00:00'
+  head_sha: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
+  submitted_at: '2026-08-03T15:57:19.568246+00:00'
+  updated_at: '2026-08-03T15:57:19.568246+00:00'
 oompah.task_costs:
   total_input_tokens: 962
   total_output_tokens: 659
@@ -334,5 +334,15 @@ author: oompah
 created: 2026-08-03 15:56
 ---
 Verification correction: static parsing and git diff whitespace checks pass. Required Make gates are blocked only when their containerized Mix phase starts: the sandboxed Podman runtime cannot modify /run/user/1000/libpod. The host Elixir is 1.18.3 while this project requires 1.20.2, so focused Mix tests cannot run outside the pinned container.
+---
+author: oompah
+created: 2026-08-03 15:57
+---
+Completion: rebased and pushed ad46c4b4 on the task branch. Delivered the durable invitation-store integration, atomic organization and cluster binding, validated CSR issuance of a 30-day SPIFFE client certificate, root-validating returned chain, and persisted public certificate metadata via the durable audit trail. Focused test coverage was updated for all requested success and failure paths. Full Make Mix gates remain host-blocked by the sandboxed Podman runtime; static parsing and diff checks passed.
+---
+author: oompah
+created: 2026-08-03 15:57
+---
+Rebased cluster CSR certificate enrollment onto EXOCOMP-142 and pushed ad46c4b4; Make Mix gates are blocked by the sandboxed Podman runtime.
 ---
 <!-- COMMENTS:END -->
