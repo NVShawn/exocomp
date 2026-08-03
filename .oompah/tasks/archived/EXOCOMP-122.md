@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-08-03T12:07:44.162177Z'
+updated_at: '2026-08-03T12:07:56.151105Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -21,13 +21,13 @@ merged_at: null
 oompah.agent_run_id: 606e8961-8c5e-49c8-9abb-36203f03c7a5
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 1395209
-  total_output_tokens: 9129
+  total_input_tokens: 1395226
+  total_output_tokens: 12391
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 1395209
-      output_tokens: 9129
+      input_tokens: 1395226
+      output_tokens: 12391
       cost_usd: 0.0
   runs:
   - profile: default
@@ -42,6 +42,12 @@ oompah.task_costs:
     output_tokens: 2201
     cost_usd: 0.0
     recorded_at: '2026-07-26T06:34:15.438453+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 17
+    output_tokens: 3262
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T12:07:54.553731+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -372,5 +378,15 @@ Safe evidence:
 - docs_present: docs/performance-qualification.md
 - workflow_present: .github/workflows/m5-harness.yml
 - downstream_requalification_task: EXOCOMP-123
+---
+author: oompah
+created: 2026-08-03 12:07
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 17, Tool calls: 11
+- Tokens: 17 in / 3.3K out [3.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 32s
+- Log: EXOCOMP-122__20260803T120627Z.jsonl
 ---
 <!-- COMMENTS:END -->
