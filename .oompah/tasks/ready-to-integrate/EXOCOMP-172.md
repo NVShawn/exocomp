@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:15:06.267852Z'
+updated_at: '2026-08-03T15:15:48.260748Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -45,16 +45,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 5543f72d-9fc6-4639-8a83-06f30b2527ca
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-172
-  base_branch: epic-EXOCOMP-134
-  base_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
-  updated_at: '2026-08-03T14:58:58.769887+00:00'
+  head_sha: 113a7337cbb9efa1b07b3f23c627b477bc9ac7a5
+  submitted_at: '2026-08-03T15:15:43.261208+00:00'
+  updated_at: '2026-08-03T15:15:43.261208+00:00'
 oompah.task_costs:
   total_input_tokens: 337870
   total_output_tokens: 2915
@@ -281,5 +281,10 @@ author: oompah
 created: 2026-08-03 15:15
 ---
 Completion: committed and pushed 113a7337 (rebased onto EXOCOMP-171's persistence/audit foundation). It delivers durable encrypted webhook endpoints, admin-only tenant-scoped create/update/disable/rotate mutations, transactional audit records, one-time secret returns, AES-GCM endpoint/org AAD binding, strict URL/IPv4/IPv6/DNS/policy controls, migration, deployment guidance, and focused tests. Full container gates remain environment-blocked by the documented read-only Podman runtime setup; static/direct security checks passed.
+---
+author: oompah
+created: 2026-08-03 15:15
+---
+Delivered secure persistent webhook endpoint configuration in 113a7337; full container quality gates blocked by sandboxed Podman runtime.
 ---
 <!-- COMMENTS:END -->
