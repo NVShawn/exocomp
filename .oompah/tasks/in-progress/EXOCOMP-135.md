@@ -19,12 +19,10 @@ children:
 - EXOCOMP-245
 blocked_by: []
 start_blocked_by: []
-labels:
-- rebase-requested
-- epic:rebasing
+labels: []
 assignee: null
 created_at: '2026-07-30T14:12:52.998247Z'
-updated_at: '2026-08-03T18:06:48.297779Z'
+updated_at: '2026-08-03T18:32:46.993337Z'
 work_branch: null
 target_branch: null
 review_url: null

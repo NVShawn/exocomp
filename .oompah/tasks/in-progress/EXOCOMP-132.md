@@ -15,12 +15,10 @@ children:
 - EXOCOMP-241
 blocked_by: []
 start_blocked_by: []
-labels:
-- rebase-requested
-- epic:rebasing
+labels: []
 assignee: null
 created_at: '2026-07-30T14:12:49.867057Z'
-updated_at: '2026-08-03T18:32:23.324180Z'
+updated_at: '2026-08-03T18:32:40.650612Z'
 work_branch: null
 target_branch: null
 review_url: null
