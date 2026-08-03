@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:14:10.463218Z'
+updated_at: '2026-08-03T15:15:06.267852Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -276,5 +276,10 @@ author: oompah
 created: 2026-08-03 15:14
 ---
 Verification: static parse and git diff --check pass; direct Elixir runtime checks passed for AES-GCM round-trip, wrong-AAD rejection, missing-key failure, IPv4/IPv6 SSRF blocks, sensitive-query rejection, and configured CIDR blocking. Attempted make test-mission-control-db, make test, make fmt-check, and make lint. Their pre-container structural tests passed, but each pinned Elixir 1.20.2 container phase was blocked by the sandboxed Podman runtime: 'chmod /run/user/1000/libpod: read-only file system'.
+---
+author: oompah
+created: 2026-08-03 15:15
+---
+Completion: committed and pushed 113a7337 (rebased onto EXOCOMP-171's persistence/audit foundation). It delivers durable encrypted webhook endpoints, admin-only tenant-scoped create/update/disable/rotate mutations, transactional audit records, one-time secret returns, AES-GCM endpoint/org AAD binding, strict URL/IPv4/IPv6/DNS/policy controls, migration, deployment guidance, and focused tests. Full container gates remain environment-blocked by the documented read-only Podman runtime setup; static/direct security checks passed.
 ---
 <!-- COMMENTS:END -->
