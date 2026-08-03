@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T22:20:53.738702Z'
+updated_at: '2026-08-03T22:21:05.847961Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -312,5 +312,10 @@ author: oompah
 created: 2026-08-03 22:20
 ---
 Understanding: this maintenance pass will refresh the submitted command-outbox branch against the current epic head, resolve any integration conflict without changing behavior, rerun the mandated Makefile gates where the environment permits, then push and resubmit the exact rebased head.
+---
+author: oompah
+created: 2026-08-03 22:21
+---
+Discovery: the private branch contains the complete six-file command-outbox implementation, but its base is no longer an ancestor of the current epic tip. The requested work is therefore a straightforward rebase/conflict reconciliation; no acceptance behavior is being redesigned.
 ---
 <!-- COMMENTS:END -->
