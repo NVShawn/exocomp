@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:47:24.973511Z'
+updated_at: '2026-08-03T17:47:38.549100Z'
 work_branch: EXOCOMP-243
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/24
@@ -361,5 +361,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 7m 37s
 - Log: EXOCOMP-243__20260803T173951Z.jsonl
+---
+author: oompah
+created: 2026-08-03 17:47
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 17:47
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->

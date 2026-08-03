@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:45:17.445487Z'
+updated_at: '2026-08-03T17:47:43.666919Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -184,18 +184,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-173
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: cf35a64ee886a4c40da9562bbd751655c0372caae12e7edb49b12847d0d08227
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-ae6569a54c0f
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: cf35a64ee886a4c40da9562bbd751655c0372caae12e7edb49b12847d0d08227
+      created_at: '2026-08-03T17:47:41.845537+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T17:47:41.845537+00:00'
+      branch_key: epic-EXOCOMP-134--task-EXOCOMP-173
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T17:45:15.298092+00:00'
+    updated_at: '2026-08-03T17:47:41.845537+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-45ad8288aaf5
@@ -209,6 +223,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-03T16:55:05.501041+00:00'
+    branch_key: epic-EXOCOMP-134--task-EXOCOMP-173
+  - version: 1
+    attempt_id: attempt-ae6569a54c0f
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: cf35a64ee886a4c40da9562bbd751655c0372caae12e7edb49b12847d0d08227
+    created_at: '2026-08-03T17:47:41.845537+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T17:47:41.845537+00:00'
     branch_key: epic-EXOCOMP-134--task-EXOCOMP-173
 ---
 ## Summary
