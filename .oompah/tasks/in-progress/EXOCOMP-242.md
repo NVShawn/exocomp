@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-242
 type: bug
-status: Backlog
+status: In Progress
 priority: 1
 title: Repair M7B invitation and SPIFFE certificate regressions
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T17:14:37.656789Z'
+updated_at: '2026-08-03T17:14:52.250766Z'
 work_branch: null
 target_branch: null
 review_url: null
