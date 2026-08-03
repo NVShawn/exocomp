@@ -7,17 +7,19 @@ title: Add broker and privilege-boundary security tests
 parent: EXOCOMP-212
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-127
 labels: []
 assignee: null
 created_at: '2026-08-03T14:28:16.134826Z'
-updated_at: '2026-08-03T14:28:16.134826Z'
+updated_at: '2026-08-03T14:29:51.874800Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 
