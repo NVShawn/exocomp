@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T20:52:05.493130Z'
+updated_at: '2026-08-03T20:57:39.390808Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -216,5 +216,10 @@ author: oompah
 created: 2026-08-03 20:52
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 20:57
+---
+Understanding: Implement a durable command outbox in Mission Control to persist server-to-cluster commands and deliver them reliably. Need to: (1) create a database schema for command outbox (ID, kind, issued_at, expires_at, org, cluster, payload), (2) implement delivery logic to route commands to the owning replica, (3) track acknowledgments exactly-once, (4) expire undelivered commands without marking as executed, (5) ensure commands survive process restart. Will focus on command-outbox tests, Makefile quality gates. Plan: explore existing code patterns in coordinator and mission_control, check plans/mission-control.md for protocol details, then implement outbox table/queries and delivery logic.
 ---
 <!-- COMMENTS:END -->

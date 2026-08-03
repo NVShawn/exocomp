@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T20:57:25.183703Z'
+updated_at: '2026-08-03T20:57:48.488502Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -440,5 +440,15 @@ author: oompah
 created: 2026-08-03 20:55
 ---
 Auditor attempt ended: auditor exited (normal) without a result. A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-03 20:57
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-03 20:57
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
