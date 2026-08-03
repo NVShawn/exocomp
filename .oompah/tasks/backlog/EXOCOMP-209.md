@@ -5,13 +5,19 @@ status: Backlog
 priority: 1
 title: 'M8A: Policy model, API, authorization, and UI'
 parent: EXOCOMP-208
-children: []
+children:
+- EXOCOMP-213
+- EXOCOMP-214
+- EXOCOMP-215
+- EXOCOMP-216
+- EXOCOMP-217
+- EXOCOMP-218
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:21.454996Z'
-updated_at: '2026-08-03T14:23:21.454996Z'
+updated_at: '2026-08-03T14:24:22.609016Z'
 work_branch: null
 target_branch: null
 review_url: null
