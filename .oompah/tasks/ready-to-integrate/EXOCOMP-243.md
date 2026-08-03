@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:35:58.217055Z'
+updated_at: '2026-08-03T17:36:25.169677Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -151,5 +151,10 @@ author: oompah
 created: 2026-08-03 17:35
 ---
 Fixed nondeterministic test by adding eventually block to synchronize on peer polling outcome. Test now waits for independently scheduled foxtrot to complete before asserting its status. All 511 tests pass, all linters pass.
+---
+author: oompah
+created: 2026-08-03 17:36
+---
+Completion: EXOCOMP-243 is complete and submitted. Changed file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs. Added eventually block (7 lines) to synchronize on foxtrot's polling outcome before asserting its reachability. This eliminates the nondeterministic test failure caused by concurrent probe execution. The fix has been validated with full test suite (511 tests) and lint gate, both passing.
 ---
 <!-- COMMENTS:END -->
