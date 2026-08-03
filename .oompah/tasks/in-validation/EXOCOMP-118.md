@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: Merged
+status: In Validation
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-07-27T11:12:18.569126Z'
+updated_at: '2026-08-03T12:00:49.121517Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -42,6 +42,28 @@ oompah.task_costs:
     output_tokens: 4203
     cost_usd: 0.0
     recorded_at: '2026-07-26T04:09:28.467391+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-adf246820f14
+    project_id: proj-c260b117
+    task_id: EXOCOMP-118
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 93fccdb0558b7709a45f8e02cb099ca21a930c6d896a32d63216c38fa5530c47
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-03T12:00:46.619768+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -293,5 +315,10 @@ author: oompah
 created: 2026-07-26 04:22
 ---
 Aligned node replay state with installer-owned storage; shipped, validated, and installed llama runtime dependencies plus backup/restore tooling; corrected operator archive/checksum commands; added clean-root, bundled-ERTS, runtime-loader, and shipped-only lifecycle regressions. Required gates pass and commit 53fbc23 is pushed.
+---
+author: oompah
+created: 2026-08-03 12:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
