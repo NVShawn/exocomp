@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:22:00.755324Z'
+updated_at: '2026-08-03T17:22:09.150405Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -552,5 +552,10 @@ docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull 
 	MIX_ENV=test mix do --app exocomp_mission_control cmd mix ecto.migrate && \
 	EXOCOMP_RUN_DB_TESTS=1 MIX_ENV=test mix do --app exocomp_mission_control cmd mix test'
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173' all reach their container invocation but are blocked by the sandboxed Podman runtime (). Native app test setup also cannot compile the full dependency tree on the host because OTP 27 lacks the public_key development headers; the umbrella requires Elixir 1.20.2. Git fetch confirms HEAD is already based on and equal to origin/epic-EXOCOMP-134, so no rebase is needed.
+---
+author: oompah
+created: 2026-08-03 17:22
+---
+Verification correction: native mix format --check-formatted and make check-licenses pass. make test, make lint, make fmt-check, and focused make test-mission-control-db all reach container startup but are blocked by sandboxed Podman: chmod /run/user/1000/libpod: read-only file system. Native app tests cannot compile the full dependency tree because this host has OTP 27 without public_key development headers, while the umbrella requires Elixir 1.20.2. Fetch confirms HEAD equals origin/epic-EXOCOMP-134, so no rebase is needed.
 ---
 <!-- COMMENTS:END -->
