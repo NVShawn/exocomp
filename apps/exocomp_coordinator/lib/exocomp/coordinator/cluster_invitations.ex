@@ -35,4 +35,9 @@ defmodule Exocomp.Coordinator.ClusterInvitations do
           {:ok, ClusterInvitation.t()} | {:error, Exocomp.Coordinator.Error.t()}
   def consume(token, organization_id, opts \\ []),
     do: ClusterInvitationStore.consume(token, organization_id, opts)
+
+  @spec consume(String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, ClusterInvitation.t()} | {:error, Exocomp.Coordinator.Error.t()}
+  def consume(token, organization_id, cluster_id, opts),
+    do: ClusterInvitationStore.consume(token, organization_id, cluster_id, opts)
 end

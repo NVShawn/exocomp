@@ -105,6 +105,17 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
              ClusterInvitationStore.consume(token, @organization_id, server: store)
   end
 
+  test "wrong cluster cannot consume and does not burn the invitation" do
+    store = start_store()
+    assert {:ok, invitation, token} = issue(store)
+
+    assert {:error, %Error{code: :cluster_mismatch}} =
+             ClusterInvitationStore.consume(token, @organization_id, "other-cluster", server: store)
+
+    assert {:ok, _invitation} =
+             ClusterInvitationStore.consume(token, @organization_id, invitation.cluster_id, server: store)
+  end
+
   test "cluster names are unique per organization" do
     store = start_store()
     assert {:ok, _invitation, _token} = issue(store)

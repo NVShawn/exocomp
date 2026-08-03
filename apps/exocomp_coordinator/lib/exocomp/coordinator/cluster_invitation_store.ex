@@ -69,7 +69,16 @@ defmodule Exocomp.Coordinator.ClusterInvitationStore do
   def consume(token, organization_id, opts \\ [])
       when is_binary(token) and is_binary(organization_id) do
     server = Keyword.get(opts, :server, __MODULE__)
-    GenServer.call(server, {:consume, token, organization_id})
+    GenServer.call(server, {:consume, token, organization_id, nil})
+  end
+
+  @doc "Consumes an invitation only when it is bound to the expected cluster."
+  @spec consume(String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, ClusterInvitation.t()} | {:error, Error.t()}
+  def consume(token, organization_id, cluster_id, opts)
+      when is_binary(token) and is_binary(organization_id) and is_binary(cluster_id) do
+    server = Keyword.get(opts, :server, __MODULE__)
+    GenServer.call(server, {:consume, token, organization_id, cluster_id})
   end
 
   @doc "Alias used by enrollment callers."
@@ -146,8 +155,8 @@ defmodule Exocomp.Coordinator.ClusterInvitationStore do
     end
   end
 
-  def handle_call({:consume, token, organization_id}, _from, state) do
-    case do_consume(token, organization_id, state) do
+  def handle_call({:consume, token, organization_id, cluster_id}, _from, state) do
+    case do_consume(token, organization_id, cluster_id, state) do
       {:ok, invitation, new_state} ->
         {:reply, {:ok, invitation}, new_state}
 
@@ -278,11 +287,12 @@ defmodule Exocomp.Coordinator.ClusterInvitationStore do
     end
   end
 
-  defp do_consume(token, organization_id, state) do
+  defp do_consume(token, organization_id, expected_cluster_id, state) do
     with {:ok, digest} <- token_digest(token),
          {:ok, invitation} <- fetch_invitation(state.invitations, digest),
          :ok <- verify_digest(digest, invitation.token_digest),
          :ok <- verify_organization(invitation.organization_id, organization_id),
+         :ok <- verify_cluster(invitation.cluster_id, expected_cluster_id),
          now <- state.now_fn.(),
          :ok <- verify_expiry(invitation, now),
          :ok <- verify_unused(invitation) do
@@ -363,6 +373,12 @@ defmodule Exocomp.Coordinator.ClusterInvitationStore do
 
   defp verify_organization(_bound, _claimed),
     do: {:error, Error.new(:organization_mismatch, "invitation belongs to another organization")}
+
+  defp verify_cluster(_bound, nil), do: :ok
+  defp verify_cluster(expected, expected), do: :ok
+
+  defp verify_cluster(_bound, _claimed),
+    do: {:error, Error.new(:cluster_mismatch, "invitation belongs to another cluster")}
 
   defp verify_expiry(invitation, now) do
     if ClusterInvitation.expired?(invitation, now) do
