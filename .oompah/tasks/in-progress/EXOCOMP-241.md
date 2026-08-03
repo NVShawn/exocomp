@@ -1,18 +1,17 @@
 ---
 id: EXOCOMP-241
 type: task
-status: Open
+status: In Progress
 priority: 0
 title: Rebase epic-EXOCOMP-132 onto main
 parent: EXOCOMP-132
 children: []
 blocked_by: []
 start_blocked_by: []
-labels:
-- human-only
+labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:43:15.623066Z'
+updated_at: '2026-08-03T14:43:20.923068Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-241
 target_branch: null
 review_url: null
