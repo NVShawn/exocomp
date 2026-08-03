@@ -423,7 +423,13 @@ defmodule Exocomp.Coordinator.MultiNodeDiscoveryPollingTest do
     assert echo.consecutive_failures == 1
     refute is_nil(echo.next_eligible_poll_at)
 
-    # Peers are not affected.
+    # Peers are not affected. Synchronize on foxtrot's polling outcome to avoid
+    # a race where foxtrot is still :unknown while its probe is in-flight.
+    eventually(fn ->
+      {:ok, f} = Registry.get("integ-foxtrot", registry)
+      f.reachability == :healthy
+    end)
+
     {:ok, foxtrot} = Registry.get("integ-foxtrot", registry)
     assert foxtrot.reachability == :healthy
   end
