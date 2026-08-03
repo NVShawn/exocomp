@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T17:21:59.344355Z'
+updated_at: '2026-08-03T17:26:55.688133Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -144,5 +144,10 @@ author: oompah
 created: 2026-08-03 17:21
 ---
 Understanding: I will inspect the coordinator's cluster-invitation and SPIFFE certificate paths, reproduce the pinned-runtime regressions, add focused regression coverage, run the required Makefile quality gates, then commit, push, and submit the repaired branch.
+---
+author: oompah
+created: 2026-08-03 17:26
+---
+Operator workaround is validated and published in merge commit 24f84e9459c72cb9354dc47e6f531118e14fcfaa on epic-EXOCOMP-132. It fixes GeneralName encoding/normalization, missing-auth fallback, attrs normalization, and supervised clock fixtures. Focused invitation/enrollment tests: 18 passed. Full make test: 682 passed plus both release smoke tests. make fmt-check and make lint passed. Permanent repair still belongs on the authoritative EXOCOMP-127 parent/main path, so this task is being returned to Open for normal server implementation/integration.
 ---
 <!-- COMMENTS:END -->

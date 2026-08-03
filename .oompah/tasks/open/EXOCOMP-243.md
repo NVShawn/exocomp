@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-243
 type: bug
-status: In Progress
+status: Open
 priority: 2
 title: Remove peer-completion race from discovery polling test
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:23:00.231420Z'
+updated_at: '2026-08-03T17:27:04.233586Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -31,3 +31,11 @@ The full make test gate is nondeterministic in apps/exocomp_coordinator/test/exo
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 17:26
+---
+Operator workaround is validated and published in merge commit 24f84e9459c72cb9354dc47e6f531118e14fcfaa on epic-EXOCOMP-132. The test now waits for the independently scheduled peer result before asserting it. The focused case passed 50 repeat-until-failure runs; full make test passed 682 tests plus release smoke tests, and make lint passed. Permanent repair still belongs on the authoritative parent/main path, so this task is being returned to Open for normal server implementation/integration.
+---
+<!-- COMMENTS:END -->
