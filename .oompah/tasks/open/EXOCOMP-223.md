@@ -13,8 +13,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:17.678179Z'
-updated_at: '2026-08-03T15:37:19.477500Z'
-work_branch: null
+updated_at: '2026-08-03T15:37:39.530642Z'
+work_branch: epic-EXOCOMP-210--task-EXOCOMP-223
 target_branch: null
 review_url: null
 review_number: null
@@ -39,6 +39,15 @@ oompah.duplicate_screening:
   owner_login: null
   owner_resolution_reason: ''
 oompah.agent_run_id: 9f23cb53-e0ba-4759-a5b7-3af67d1c3fd5
+oompah.work_branch: epic-EXOCOMP-210--task-EXOCOMP-223
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-210--task-EXOCOMP-223
+  base_branch: epic-EXOCOMP-210
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:37:36.443232+00:00'
 ---
 ## Summary
 
@@ -63,3 +72,16 @@ Out of scope: Action execution and LiveView rendering.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:37
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:37
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

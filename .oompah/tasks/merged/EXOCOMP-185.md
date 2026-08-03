@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T21:35:54.447822Z'
-updated_at: '2026-08-01T18:27:42.044436Z'
+updated_at: '2026-08-03T15:37:44.873724Z'
 work_branch: epic-EXOCOMP-185
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/22
@@ -428,5 +428,10 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 11m 16s
 - Log: EXOCOMP-185__20260801T181631Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:37
+---
+Operator hygiene repair: safely pruned the stale clean managed epic worktree after verifying exact head a163c8323e9b83e2360af73c9f3e972b99f9dc0d is PR #22 merge second parent and remains reachable from origin/epic-EXOCOMP-127 at e826d0d584294524cd0abd708456c457a50f11ed. Removed only the managed worktree and exact local source ref; no source commit was discarded. OOMPAH-726 tracks automatic nested-target cleanup.
 ---
 <!-- COMMENTS:END -->
