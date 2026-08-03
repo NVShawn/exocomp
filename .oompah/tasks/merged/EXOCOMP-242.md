@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T19:22:36.367092Z'
+updated_at: '2026-08-03T19:22:39.238927Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -175,8 +175,9 @@ oompah.terminal_audit:
     status: Merged
     audit_ids:
     - audit-abb6b25c4ecf
-    applied: false
+    applied: true
     created_at: '2026-08-03T19:22:31.768630+00:00'
+    applied_at: '2026-08-03T19:22:38.346255+00:00'
   version: 1
   pending_chain:
   - version: 1
