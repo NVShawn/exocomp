@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:40:51.868651Z'
+updated_at: '2026-08-03T14:41:12.340492Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-241
 target_branch: null
 review_url: null
@@ -237,5 +237,10 @@ author: oompah
 created: 2026-08-03 14:40
 ---
 Focus: Software Engineer
+---
+author: oompah
+created: 2026-08-03 14:41
+---
+Understanding: Rebase the checked-out epic branch onto origin/main, preserve its commits, resolve any conflicts, verify the rewritten ancestry and clean worktree, then force-push with lease and submit the task.
 ---
 <!-- COMMENTS:END -->
