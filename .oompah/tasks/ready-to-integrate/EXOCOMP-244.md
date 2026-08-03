@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-244
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,23 +11,23 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:38:41.636776Z'
+updated_at: '2026-08-03T17:39:53.268998Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: 304c46f2-7da0-4f99-9201-4a138a4c9a5e
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-244
-  base_branch: epic-EXOCOMP-135
-  base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
-  updated_at: '2026-08-03T17:36:07.055442+00:00'
+  head_sha: 98e26f09ef6da02639714937d8c8007425880e5e
+  submitted_at: '2026-08-03T17:39:27.844546+00:00'
+  updated_at: '2026-08-03T17:39:27.844546+00:00'
 ---
 ## Summary
 
@@ -77,5 +77,20 @@ author: oompah
 created: 2026-08-03 17:38
 ---
 Completion: force-pushed epic-EXOCOMP-135 with --force-with-lease from 333c3b81 to rebased tip 98e26f09. The branch now tracks origin/epic-EXOCOMP-135 cleanly and contains origin/main; no working-tree changes remain.
+---
+author: oompah
+created: 2026-08-03 17:39
+---
+Rebased epic-EXOCOMP-135 onto origin/main and force-pushed rebased history
+---
+author: oompah
+created: 2026-08-03 17:39
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 0, Tool calls: 19
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 50s
+- Log: EXOCOMP-244__20260803T173627Z.jsonl
 ---
 <!-- COMMENTS:END -->

@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:39:03.584376Z'
+updated_at: '2026-08-03T17:39:48.719194Z'
 work_branch: EXOCOMP-243
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/24
@@ -96,18 +96,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-243
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-60dd5c989180
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
+      created_at: '2026-08-03T17:39:41.284787+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T17:39:41.284787+00:00'
+      branch_key: EXOCOMP-243
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T17:38:56.142684+00:00'
+    updated_at: '2026-08-03T17:39:41.284787+00:00'
   - version: 1
     audit_id: audit-70af5bf79277
     project_id: proj-c260b117
@@ -125,7 +139,20 @@ oompah.terminal_audit:
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T17:38:56.142684+00:00'
-  attempt_history: []
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-60dd5c989180
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
+    created_at: '2026-08-03T17:39:41.284787+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T17:39:41.284787+00:00'
+    branch_key: EXOCOMP-243
 ---
 ## Summary
 
@@ -225,5 +252,15 @@ author: oompah
 created: 2026-08-03 17:39
 ---
 YOLO: merged PR #24.
+---
+author: oompah
+created: 2026-08-03 17:39
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 17:39
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->

@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T17:29:36.793881Z'
+updated_at: '2026-08-03T17:39:37.100622Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -174,5 +174,10 @@ author: oompah
 created: 2026-08-03 17:29
 ---
 Understanding: Reviewing the current branch state. The branch has 4 commits implementing cluster invitations (EXOCOMP-142) and certificate enrollment (EXOCOMP-143). Previous work indicated regressions exist in GeneralName encoding, attrs normalization, clock fixtures, and missing-auth handling. Will verify test state and ensure all quality gates pass (make fmt-check, make test, make lint, including release smoke tests).
+---
+author: oompah
+created: 2026-08-03 17:39
+---
+Discovery: 6 tests failing - all cluster enrollment tests returning 422 instead of expected 200/401/503. The issue is with CSR validation likely in SPIFFE URI SAN GeneralName representation. Examining cluster_issuer.ex and test fixtures for: (1) GeneralName encoding for SPIFFE URIs, (2) attrs normalization in test helper, (3) clock fixture lifecycle safety, (4) missing-auth handling returning correct status codes.
 ---
 <!-- COMMENTS:END -->
