@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:43:21.251129Z'
+updated_at: '2026-08-03T15:55:35.581838Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -61,13 +61,17 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-171: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
 oompah.task_costs:
-  total_input_tokens: 337870
-  total_output_tokens: 2915
+  total_input_tokens: 337937
+  total_output_tokens: 5833
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 337870
       output_tokens: 2915
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 67
+      output_tokens: 2918
       cost_usd: 0.0
   runs:
   - profile: default
@@ -82,6 +86,12 @@ oompah.task_costs:
     output_tokens: 451
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:22:38.019387+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 67
+    output_tokens: 2918
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:55:29.355858+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-172__20260801T130549Z
@@ -101,7 +111,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-172
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -110,7 +120,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-4db1bb14f2dc
       target_state: Done
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -120,18 +130,24 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T15:43:14.432767+00:00'
       branch_key: epic-EXOCOMP-134--task-EXOCOMP-172
+      failure_classification: policy_incompatibility
+      ended_at: '2026-08-03T15:55:30.711110+00:00'
+      failure_reason: 'read-only auditor exceeded the policy-denial limit (3): Error:
+        auditor capability policy permits only read-only repository inspection and
+        configured test commands; command denied'
+      next_retry_at: '2026-08-03T15:55:40.711083+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T15:41:46.350504+00:00'
-    updated_at: '2026-08-03T15:43:14.432767+00:00'
+    updated_at: '2026-08-03T15:55:30.711110+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4db1bb14f2dc
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -141,6 +157,12 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-03T15:43:14.432767+00:00'
     branch_key: epic-EXOCOMP-134--task-EXOCOMP-172
+    failure_classification: policy_incompatibility
+    ended_at: '2026-08-03T15:55:30.711110+00:00'
+    failure_reason: 'read-only auditor exceeded the policy-denial limit (3): Error:
+      auditor capability policy permits only read-only repository inspection and configured
+      test commands; command denied'
+    next_retry_at: '2026-08-03T15:55:40.711083+00:00'
 ---
 ## Summary
 
@@ -427,5 +449,20 @@ author: oompah
 created: 2026-08-03 15:43
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 15:55
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 51
+- Tokens: 67 in / 2.9K out [3.0K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 12m 12s
+- Log: EXOCOMP-172__20260803T154323Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:55
+---
+Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
 ---
 <!-- COMMENTS:END -->
