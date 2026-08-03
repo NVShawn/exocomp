@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-159
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Implement the coordinator exocomp.cluster.chat skill
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-03T20:07:28.589507Z'
+updated_at: '2026-08-03T20:07:40.273732Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -151,6 +151,26 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T18:54:26.325887+00:00'
     applied_at: '2026-08-03T18:54:31.663861+00:00'
+  oompah.terminal_override_records:
+  - version: 1
+    override_id: override-7656d6838acf
+    project_id: proj-c260b117
+    task_id: EXOCOMP-159
+    target_state: Done
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: Exact integrated SHA 4217f9c1937e20664b5564facaf31fc042d618bb has a successful
+      full make test from the independent auditor plus successful isolated make fmt-check
+      and make lint operator runs; only OOMPAH-736 command-policy denials prevented
+      ordinary finalization.
+    created_at: '2026-08-03T20:07:35.417142+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
@@ -626,5 +646,12 @@ author: oompah
 created: 2026-08-03 20:07
 ---
 Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-03 20:07
+---
+Override by oompah-cli: terminal transition to Done applied by project owner.
+
+Reason: Exact integrated SHA 4217f9c1937e20664b5564facaf31fc042d618bb has a successful full make test from the independent auditor plus successful isolated make fmt-check and make lint operator runs; only OOMPAH-736 command-policy denials prevented ordinary finalization.
 ---
 <!-- COMMENTS:END -->
