@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:37:12.233188Z'
+updated_at: '2026-08-03T14:37:26.710471Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -40,16 +40,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: b61fa107-2a1a-4289-8a77-a930779ab58e
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
-  base_branch: epic-EXOCOMP-134
-  base_sha: e826d0d584294524cd0abd708456c457a50f11ed
-  updated_at: '2026-08-03T14:37:11.297714+00:00'
+  head_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
+  submitted_at: '2026-08-03T14:37:20.607169+00:00'
+  updated_at: '2026-08-03T14:37:20.607169+00:00'
 oompah.task_costs:
   total_input_tokens: 881910
   total_output_tokens: 43486
@@ -593,5 +593,15 @@ author: oompah
 created: 2026-08-03 14:37
 ---
 Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 14:37
+---
+Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 14:37
+---
+Resubmitted unchanged repaired head f1e60cb4 from the canonical managed worktree after relocating the temporary owner checkout.
 ---
 <!-- COMMENTS:END -->
