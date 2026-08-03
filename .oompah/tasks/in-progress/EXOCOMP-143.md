@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T15:56:24.040997Z'
+updated_at: '2026-08-03T15:56:42.184025Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -329,5 +329,10 @@ docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull 
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-143' completed their offline release-builder/document checks successfully, then were blocked before Mix by the sandboxed Podman runtime (); make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-143'
 docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-143:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && mix format --check-formatted'
 make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-143' is blocked by the same host runtime. A direct focused Mix test is also unavailable because the host has Elixir 1.18.3 while the project requires 1.20.2. The focused integration suite now covers successful root-validating issuance, malformed/tampered CSRs, RSA-2048 rejection, expiration/replay, org/cluster mismatch, signing failure, persisted public certificate metadata, and multi-URI rejection.
+---
+author: oompah
+created: 2026-08-03 15:56
+---
+Verification correction: static parsing and git diff whitespace checks pass. Required Make gates are blocked only when their containerized Mix phase starts: the sandboxed Podman runtime cannot modify /run/user/1000/libpod. The host Elixir is 1.18.3 while this project requires 1.20.2, so focused Mix tests cannot run outside the pinned container.
 ---
 <!-- COMMENTS:END -->
