@@ -136,10 +136,11 @@ defmodule Exocomp.MissionControl.AuthenticatedShellIntegrationTest do
 
   describe "organization context" do
     test "operator identity and organization are displayed in layout" do
-      conn = create_authenticated_conn(%{
-        display_name: "John Operator",
-        organization_id: "org-abc-123"
-      })
+      conn =
+        create_authenticated_conn(%{
+          display_name: "John Operator",
+          organization_id: "org-abc-123"
+        })
 
       {:ok, view, html} = live(conn, "/")
 
@@ -159,11 +160,12 @@ defmodule Exocomp.MissionControl.AuthenticatedShellIntegrationTest do
     end
 
     test "operator identity is preserved across navigation" do
-      conn = create_authenticated_conn(%{
-        sub: "user-stable",
-        organization_id: "org-stable",
-        display_name: "Test Operator"
-      })
+      conn =
+        create_authenticated_conn(%{
+          sub: "user-stable",
+          organization_id: "org-stable",
+          display_name: "Test Operator"
+        })
 
       # Navigate to different pages
       {:ok, _view, html1} = live(conn, "/")
@@ -258,10 +260,11 @@ defmodule Exocomp.MissionControl.AuthenticatedShellIntegrationTest do
   describe "session persistence across reconnect" do
     test "organization_id is preserved and not accepted from client" do
       # Create initial session with specific org
-      conn = create_authenticated_conn(%{
-        organization_id: "org-secure",
-        role: :operator
-      })
+      conn =
+        create_authenticated_conn(%{
+          organization_id: "org-secure",
+          role: :operator
+        })
 
       {:ok, _view, _html} = live(conn, "/")
 
@@ -277,24 +280,26 @@ defmodule Exocomp.MissionControl.AuthenticatedShellIntegrationTest do
     end
 
     test "operator identity is stable across page loads" do
-      conn = create_authenticated_conn(%{
-        sub: "user-identity",
-        organization_id: "org-identity",
-        role: :viewer,
-        display_name: "Identity Test"
-      })
+      conn =
+        create_authenticated_conn(%{
+          sub: "user-identity",
+          organization_id: "org-identity",
+          role: :viewer,
+          display_name: "Identity Test"
+        })
 
       # Load page 1
       {:ok, _view, html1} = live(conn, "/")
       session1 = conn
 
       # In a real app, simulate reconnect by creating new conn with same session
-      conn2 = create_authenticated_conn(%{
-        sub: get_session(session1, :operator_id),
-        organization_id: get_session(session1, :organization_id),
-        role: get_session(session1, :operator_role),
-        display_name: get_session(session1, :operator_name)
-      })
+      conn2 =
+        create_authenticated_conn(%{
+          sub: get_session(session1, :operator_id),
+          organization_id: get_session(session1, :organization_id),
+          role: get_session(session1, :operator_role),
+          display_name: get_session(session1, :operator_name)
+        })
 
       {:ok, _view, html2} = live(conn2, "/")
 

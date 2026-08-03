@@ -67,10 +67,18 @@ defmodule Exocomp.MissionControl.Components do
   def role_badge(%{role: role} = assigns) do
     {bg_class, text, aria_label} =
       case role do
-        :viewer -> {"bg-blue-100 text-blue-800", "Viewer", "Your role: Viewer (read-only access)"}
-        :operator -> {"bg-orange-100 text-orange-800", "Operator", "Your role: Operator (operational permissions)"}
-        :admin -> {"bg-red-100 text-red-800", "Admin", "Your role: Administrator (full permissions)"}
-        _ -> {"bg-gray-100 text-gray-800", "Unknown", "Role: Unknown"}
+        :viewer ->
+          {"bg-blue-100 text-blue-800", "Viewer", "Your role: Viewer (read-only access)"}
+
+        :operator ->
+          {"bg-orange-100 text-orange-800", "Operator",
+           "Your role: Operator (operational permissions)"}
+
+        :admin ->
+          {"bg-red-100 text-red-800", "Admin", "Your role: Administrator (full permissions)"}
+
+        _ ->
+          {"bg-gray-100 text-gray-800", "Unknown", "Role: Unknown"}
       end
 
     assigns =

@@ -149,29 +149,35 @@ defmodule Exocomp.MissionControl.ComponentsTest do
 
   describe "empty_state component" do
     test "renders title and description" do
-      html = render_component(&Components.empty_state/1, %{
-        title: "No Data",
-        description: "No data available"
-      })
+      html =
+        render_component(&Components.empty_state/1, %{
+          title: "No Data",
+          description: "No data available"
+        })
+
       assert html =~ "No Data"
       assert html =~ "No data available"
     end
 
     test "empty_state has proper accessibility" do
-      html = render_component(&Components.empty_state/1, %{
-        title: "Empty",
-        description: "Empty state"
-      })
+      html =
+        render_component(&Components.empty_state/1, %{
+          title: "Empty",
+          description: "Empty state"
+        })
+
       assert html =~ "role=\"status\""
       assert html =~ "aria-label"
     end
 
     test "custom icon is displayed" do
-      html = render_component(&Components.empty_state/1, %{
-        title: "Empty",
-        description: "No items",
-        icon: "📭"
-      })
+      html =
+        render_component(&Components.empty_state/1, %{
+          title: "Empty",
+          description: "No items",
+          icon: "📭"
+        })
+
       assert html =~ "📭"
     end
   end
@@ -203,31 +209,37 @@ defmodule Exocomp.MissionControl.ComponentsTest do
 
   describe "error_state component" do
     test "renders error title and description" do
-      html = render_component(&Components.error_state/1, %{
-        title: "Error",
-        description: "Something went wrong"
-      })
+      html =
+        render_component(&Components.error_state/1, %{
+          title: "Error",
+          description: "Something went wrong"
+        })
+
       assert html =~ "Error"
       assert html =~ "Something went wrong"
       assert html =~ "role=\"alert\""
     end
 
     test "renders action link when provided" do
-      html = render_component(&Components.error_state/1, %{
-        title: "Error",
-        description: "Error occurred",
-        action_label: "Retry",
-        action_path: "/retry"
-      })
+      html =
+        render_component(&Components.error_state/1, %{
+          title: "Error",
+          description: "Error occurred",
+          action_label: "Retry",
+          action_path: "/retry"
+        })
+
       assert html =~ "Retry"
       assert html =~ "/retry"
     end
 
     test "error_state has role=\"alert\"" do
-      html = render_component(&Components.error_state/1, %{
-        title: "Error",
-        description: "Error"
-      })
+      html =
+        render_component(&Components.error_state/1, %{
+          title: "Error",
+          description: "Error"
+        })
+
       assert html =~ "role=\"alert\""
     end
   end
@@ -249,28 +261,34 @@ defmodule Exocomp.MissionControl.ComponentsTest do
 
   describe "data_row component" do
     test "renders label and value" do
-      html = render_component(&Components.data_row/1, %{
-        label: "Name",
-        value: "John Doe"
-      })
+      html =
+        render_component(&Components.data_row/1, %{
+          label: "Name",
+          value: "John Doe"
+        })
+
       assert html =~ "Name"
       assert html =~ "John Doe"
     end
 
     test "data_row with monospace flag applies font-mono class" do
-      html = render_component(&Components.data_row/1, %{
-        label: "ID",
-        value: "abc-123-def",
-        monospace: true
-      })
+      html =
+        render_component(&Components.data_row/1, %{
+          label: "ID",
+          value: "abc-123-def",
+          monospace: true
+        })
+
       assert html =~ "font-mono"
     end
 
     test "data_row has proper grid layout" do
-      html = render_component(&Components.data_row/1, %{
-        label: "Status",
-        value: "Active"
-      })
+      html =
+        render_component(&Components.data_row/1, %{
+          label: "Status",
+          value: "Active"
+        })
+
       assert html =~ "grid-cols-3"
     end
   end
@@ -300,6 +318,7 @@ defmodule Exocomp.MissionControl.ComponentsTest do
         organization_id: "org-1",
         role: :viewer
       }
+
       html = render_component(&Components.navigation/1, %{operator: operator})
       assert html =~ "Fleet"
     end
@@ -310,6 +329,7 @@ defmodule Exocomp.MissionControl.ComponentsTest do
         organization_id: "org-1",
         role: :viewer
       }
+
       html = render_component(&Components.navigation/1, %{operator: operator})
       assert html =~ "Fleet"
       assert html =~ "Incidents"
@@ -323,6 +343,7 @@ defmodule Exocomp.MissionControl.ComponentsTest do
         organization_id: "org-1",
         role: :operator
       }
+
       html = render_component(&Components.navigation/1, %{operator: operator})
       assert html =~ "Fleet"
       assert html =~ "Incidents"
@@ -336,6 +357,7 @@ defmodule Exocomp.MissionControl.ComponentsTest do
         organization_id: "org-1",
         role: :admin
       }
+
       html = render_component(&Components.navigation/1, %{operator: operator})
       assert html =~ "Fleet"
       assert html =~ "Incidents"
@@ -349,6 +371,7 @@ defmodule Exocomp.MissionControl.ComponentsTest do
         organization_id: "org-1",
         role: :viewer
       }
+
       html = render_component(&Components.navigation/1, %{operator: operator})
       assert html =~ "aria-label"
       assert html =~ "role="
@@ -357,33 +380,41 @@ defmodule Exocomp.MissionControl.ComponentsTest do
 
   describe "flash_messages component" do
     test "displays success message" do
-      html = render_component(&Components.flash_messages/1, %{
-        flash: %{"success" => "Operation completed"}
-      })
+      html =
+        render_component(&Components.flash_messages/1, %{
+          flash: %{"success" => "Operation completed"}
+        })
+
       assert html =~ "Operation completed"
       assert html =~ "✓"
     end
 
     test "displays error message" do
-      html = render_component(&Components.flash_messages/1, %{
-        flash: %{"error" => "Operation failed"}
-      })
+      html =
+        render_component(&Components.flash_messages/1, %{
+          flash: %{"error" => "Operation failed"}
+        })
+
       assert html =~ "Operation failed"
       assert html =~ "✕"
     end
 
     test "displays info message" do
-      html = render_component(&Components.flash_messages/1, %{
-        flash: %{"info" => "Please note"}
-      })
+      html =
+        render_component(&Components.flash_messages/1, %{
+          flash: %{"info" => "Please note"}
+        })
+
       assert html =~ "Please note"
       assert html =~ "ℹ"
     end
 
     test "flash messages have proper accessibility roles" do
-      html = render_component(&Components.flash_messages/1, %{
-        flash: %{"error" => "Error"}
-      })
+      html =
+        render_component(&Components.flash_messages/1, %{
+          flash: %{"error" => "Error"}
+        })
+
       assert html =~ "role=\"alert\""
       assert html =~ "aria-live"
     end
