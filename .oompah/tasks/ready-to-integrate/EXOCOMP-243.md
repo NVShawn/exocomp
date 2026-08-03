@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-243
 type: bug
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Remove peer-completion race from discovery polling test
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:35:47.547614Z'
+updated_at: '2026-08-03T17:35:58.217055Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -69,6 +69,14 @@ oompah.work_contributors:
     source_branch: EXOCOMP-243
     source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
     completed_at: '2026-08-03T17:29:18.218435+00:00'
+oompah.integration:
+  version: 2
+  state: ready
+  attempts: 0
+  task_branch: EXOCOMP-243
+  head_sha: e2976fff2dce596ec168d31dc50e25d7f4cd3a62
+  submitted_at: '2026-08-03T17:35:55.601211+00:00'
+  updated_at: '2026-08-03T17:35:55.601211+00:00'
 ---
 ## Summary
 
@@ -138,5 +146,10 @@ author: oompah
 created: 2026-08-03 17:35
 ---
 Verification: All tests passed. Full make test gate: 511 tests passed. make lint gate: all checks passed (format, compile with warnings-as-errors, compliance). The race condition fix is verified and ready for integration.
+---
+author: oompah
+created: 2026-08-03 17:35
+---
+Fixed nondeterministic test by adding eventually block to synchronize on peer polling outcome. Test now waits for independently scheduled foxtrot to complete before asserting its status. All 511 tests pass, all linters pass.
 ---
 <!-- COMMENTS:END -->

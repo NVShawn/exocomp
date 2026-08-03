@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-244
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,13 +11,23 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:34:46.380495Z'
-work_branch: null
+updated_at: '2026-08-03T17:36:10.560051Z'
+work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
+oompah.agent_run_id: 304c46f2-7da0-4f99-9201-4a138a4c9a5e
+oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-135--task-EXOCOMP-244
+  base_branch: epic-EXOCOMP-135
+  base_sha: 333c3b81b8bcdd448166707f28b5a00ee8e2c469
+  updated_at: '2026-08-03T17:36:07.055442+00:00'
 ---
 ## Summary
 
@@ -31,3 +41,16 @@ This task was auto-filed because epic EXOCOMP-135 was detected as stale. Do NOT 
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 17:36
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-03 17:36
+---
+Focus: Software Engineer
+---
+<!-- COMMENTS:END -->
