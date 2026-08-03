@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:25:21.977934Z'
+updated_at: '2026-08-03T19:26:44.327568Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -506,5 +506,10 @@ author: oompah
 created: 2026-08-03 19:25
 ---
 Verification: changed sources parse under the available Elixir and git diff --check is clean. Offline make test checks pass (13 builder checks plus packaging/documentation tests). Focused Mix tests and the pinned Elixir phases of make test, make fmt-check, and make lint cannot run here: host Elixir is 1.18.3 vs required 1.20.2, and Podman cannot initialize because /run/user/1000/libpod is read-only.
+---
+author: oompah
+created: 2026-08-03 19:26
+---
+Completion: published 14898301. base_children/0 now ends after ClusterInvitationStore, build_children/1 is the sole Mission Control child assembly path, and the application test proves one live MissionControlSupervisor under the named coordinator supervisor with enabled mock config. Worktree is clean and HEAD matches origin; submit follows.
 ---
 <!-- COMMENTS:END -->
