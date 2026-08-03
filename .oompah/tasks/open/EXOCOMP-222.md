@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-222
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Validate and atomically cache policy in the coordinator
 parent: EXOCOMP-210
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:16.130462Z'
-updated_at: '2026-08-03T14:30:48.191835Z'
+updated_at: '2026-08-03T15:29:40.419495Z'
 work_branch: null
 target_branch: null
 review_url: null

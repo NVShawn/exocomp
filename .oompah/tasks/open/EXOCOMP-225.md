@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-225
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Define the privileged broker request protocol and action registry
 parent: EXOCOMP-211
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:19.439901Z'
-updated_at: '2026-08-03T14:30:58.637385Z'
+updated_at: '2026-08-03T15:29:49.938090Z'
 work_branch: null
 target_branch: null
 review_url: null

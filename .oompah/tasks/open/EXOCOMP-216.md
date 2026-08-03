@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-216
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Enforce policy mutation authorization and auditing
 parent: EXOCOMP-209
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:17.168394Z'
-updated_at: '2026-08-03T14:30:31.611615Z'
+updated_at: '2026-08-03T15:29:28.941035Z'
 work_branch: null
 target_branch: null
 review_url: null

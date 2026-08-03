@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-219
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Define and sign canonical policy bundles
 parent: EXOCOMP-210
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:05.936225Z'
-updated_at: '2026-08-03T14:30:38.251288Z'
+updated_at: '2026-08-03T15:29:30.961811Z'
 work_branch: null
 target_branch: null
 review_url: null

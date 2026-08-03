@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-223
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Renew policy leases and fall back to observe on expiry
 parent: EXOCOMP-210
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:17.678179Z'
-updated_at: '2026-08-03T14:30:50.386688Z'
+updated_at: '2026-08-03T15:29:46.091924Z'
 work_branch: null
 target_branch: null
 review_url: null

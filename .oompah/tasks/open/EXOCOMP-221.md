@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-221
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Deliver policy bundles through the durable command outbox
 parent: EXOCOMP-210
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:14.532816Z'
-updated_at: '2026-08-03T14:30:44.345426Z'
+updated_at: '2026-08-03T15:29:37.700911Z'
 work_branch: null
 target_branch: null
 review_url: null

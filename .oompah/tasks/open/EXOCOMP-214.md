@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-214
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Map systemd and profile targets to canonical service keys
 parent: EXOCOMP-209
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:11.664051Z'
-updated_at: '2026-08-03T14:30:25.550839Z'
+updated_at: '2026-08-03T15:29:47.749452Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -21,6 +21,24 @@ review_number: null
 review_head: null
 merged_at: null
 oompah.start_blocked_by: *id001
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 6c7da08549a6c621212b6b3d5f0b06918329b6042465d72aaf01e19d194e7015
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 0e8cfcec-d3da-49ff-a315-be88b85d5f44
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T15:29:40.790898+00:00'
+  claim_expires_at: '2026-08-03T15:59:40.790898+00:00'
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: null
+  owner_login: null
+  owner_resolution_reason: ''
+oompah.agent_run_id: 5e5400cd-0392-49af-a857-d07a3c50d28d
 ---
 ## Summary
 
@@ -44,3 +62,11 @@ Out of scope: Policy precedence, desired-service discovery, and action execution
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:29
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+<!-- COMMENTS:END -->

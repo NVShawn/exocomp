@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-220
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Manage Mission Control policy-signing keys
 parent: EXOCOMP-210
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:11.140193Z'
-updated_at: '2026-08-03T14:30:40.525299Z'
+updated_at: '2026-08-03T15:29:35.122322Z'
 work_branch: null
 target_branch: null
 review_url: null
