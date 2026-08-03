@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:29:45.529312Z'
+updated_at: '2026-08-03T18:29:56.836549Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -205,5 +205,10 @@ author: oompah
 created: 2026-08-03 18:29
 ---
 Agent stalled 1 time(s) (3657s (1870 tokens)). Escalating from 'default' to 'deep'. Retrying in 10s (attempt #1)
+---
+author: oompah
+created: 2026-08-03 18:29
+---
+Agent dispatched (profile: deep)
 ---
 <!-- COMMENTS:END -->
