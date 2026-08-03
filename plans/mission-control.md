@@ -408,6 +408,12 @@ incident troubleshooting.
 The coordinator integration is additive and disabled unless Mission Control
 configuration is present.
 
+The follow-on
+[Hierarchical Observe/Manage Policy](hierarchical-management-modes.md) is not
+part of this milestone and may not begin until all Mission Control work is
+complete. Mission Control's reporting-only rollout language does not by itself
+provide that later feature's privileged enforcement boundary.
+
 1. Deploy Mission Control and validate OIDC, PostgreSQL, backup, and PKI.
 2. Connect qualification clusters in reporting-only mode.
 3. Enable incident creation and signed webhooks.
@@ -500,8 +506,8 @@ mailbox, and database queue bounds.
 
 ## Implementation Tracking
 
-Once implementation is accepted, create one oompah epic linked to this plan
-and decompose it into children for:
+Oompah epic `EXOCOMP-127` owns implementation status and is decomposed into
+children for:
 
 - Mission Control protocol and control-plane PKI
 - Coordinator connection client and durable outbox

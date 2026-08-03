@@ -112,6 +112,9 @@ incident deduplication, operator approval, durable audit trail
 - Let operators investigate fleet incidents with cluster-local reasoning.
 - Support operator approval of typed remedies that still pass cluster-local
   policy and re-validation.
+- Default every cluster to observation-only operation and permit management
+  only through the hierarchical policy in
+  [Hierarchical Observe/Manage Policy](hierarchical-management-modes.md).
 - Never move policy authority or execution credentials to the Mission Control plane.
 
 ## Architecture
@@ -211,6 +214,9 @@ events are durable through journald or a configured JSON-lines sink.
 - State-changing work fails closed when policy, approval, audit, or
   verification is unavailable.
 - Cluster-local operation continues even if Mission Control is unreachable.
+- Missing, invalid, or expired management policy is `observe`; all mutations
+  must pass the privileged execution boundary described in the
+  [hierarchical management plan](hierarchical-management-modes.md).
 
 ## Milestones
 
@@ -223,6 +229,7 @@ events are durable through journald or a configured JSON-lines sink.
 | M5 | [Performance and resource analysis](milestone-5-performance.md) | All paths: Scale validation at 100 clusters / 10K nodes | 2026-10-15 |
 | M6 | [Documentation and open-source release](milestone-6-release.md) | All paths: User documentation, release governance, source availability | 2026-10-31 |
 | M7 | [Exocomp Mission Control](mission-control.md) | **Path 3 (Fleet Management)**: Multi-cluster state aggregation, durable incidents, operator approval, audit sink (no policy override) | TBD |
+| M8 | [Hierarchical observe/manage policy](hierarchical-management-modes.md) | All paths: fail-closed observe/manage authority and privileged mutation enforcement | TBD |
 
 ### Path Coverage
 
@@ -238,6 +245,10 @@ Milestone 7 is a post-release extension. Node and coordinator operation remains
 complete without Mission Control configuration, and loss of Mission Control
 connectivity cannot disable cluster-local diagnostics or safe automatic
 failed-service recovery.
+
+Milestone 8 begins only after all Mission Control work is complete. Once M8 is
+installed, missing or expired management authority disables cluster-local
+mutation while preserving diagnostics and proposals.
 
 ## Shared Acceptance
 
