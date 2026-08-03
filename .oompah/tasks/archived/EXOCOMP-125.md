@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-08-03T19:11:25.088094Z'
+updated_at: '2026-08-03T19:11:30.112758Z'
 work_branch: EXOCOMP-125
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/20
@@ -74,8 +74,9 @@ oompah.terminal_audit:
     status: Archived
     audit_ids:
     - audit-16838439f22d
-    applied: false
+    applied: true
     created_at: '2026-08-03T19:11:19.289101+00:00'
+    applied_at: '2026-08-03T19:11:28.340053+00:00'
   version: 1
   pending_chain:
   - version: 1
