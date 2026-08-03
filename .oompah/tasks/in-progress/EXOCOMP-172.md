@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:10:10.106510Z'
+updated_at: '2026-08-03T15:14:10.463218Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -271,5 +271,10 @@ author: oompah
 created: 2026-08-03 15:10
 ---
 Implementation: replaced the partial in-memory/TODO context with a durable webhook_endpoints migration and Ecto schema; create, subscription/update, disable, and rotate now use tenant-scoped queries plus atomic endpoint/audit transactions. Secrets use AES-256-GCM with random nonces and endpoint/org AAD, are excluded from Inspect, never enter audit payloads, and are generated/returned only on create or successful rotation. SSRF validation now rejects credentials, private/loopback/link-local/reserved IPv4 and IPv6 addresses, checks every A/AAAA result, and enforces fail-closed configured domain/IP deny rules.
+---
+author: oompah
+created: 2026-08-03 15:14
+---
+Verification: static parse and git diff --check pass; direct Elixir runtime checks passed for AES-GCM round-trip, wrong-AAD rejection, missing-key failure, IPv4/IPv6 SSRF blocks, sensitive-query rejection, and configured CIDR blocking. Attempted make test-mission-control-db, make test, make fmt-check, and make lint. Their pre-container structural tests passed, but each pinned Elixir 1.20.2 container phase was blocked by the sandboxed Podman runtime: 'chmod /run/user/1000/libpod: read-only file system'.
 ---
 <!-- COMMENTS:END -->
