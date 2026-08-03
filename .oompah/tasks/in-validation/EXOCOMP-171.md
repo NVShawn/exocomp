@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:05:16.545706Z'
+updated_at: '2026-08-03T14:06:13.278809Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -120,7 +120,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-171
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -164,13 +164,27 @@ oompah.terminal_audit:
         auditor capability policy permits only read-only repository inspection and
         configured test commands; command denied'
       next_retry_at: '2026-08-03T14:05:27.790365+00:00'
+    - version: 1
+      attempt_id: attempt-91b404f7bfff
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 00b499747f5172d55c8a645bb55d2aa73400a9c73bab581ca56edf846ba7be01
+      created_at: '2026-08-03T14:06:08.617111+00:00'
+      provider_id: prov-651d553c
+      model: haiku
+      started_at: '2026-08-03T14:06:08.617111+00:00'
+      branch_key: epic-EXOCOMP-134--task-EXOCOMP-171
+      candidate_rotation_count: 2
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T13:52:16.565812+00:00'
-    updated_at: '2026-08-03T14:05:07.790394+00:00'
+    updated_at: '2026-08-03T14:06:08.617111+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-180165c919ab
@@ -210,6 +224,20 @@ oompah.terminal_audit:
       auditor capability policy permits only read-only repository inspection and configured
       test commands; command denied'
     next_retry_at: '2026-08-03T14:05:27.790365+00:00'
+  - version: 1
+    attempt_id: attempt-91b404f7bfff
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 00b499747f5172d55c8a645bb55d2aa73400a9c73bab581ca56edf846ba7be01
+    created_at: '2026-08-03T14:06:08.617111+00:00'
+    provider_id: prov-651d553c
+    model: haiku
+    started_at: '2026-08-03T14:06:08.617111+00:00'
+    branch_key: epic-EXOCOMP-134--task-EXOCOMP-171
+    candidate_rotation_count: 2
 ---
 ## Summary
 
@@ -418,5 +446,15 @@ author: oompah
 created: 2026-08-03 14:05
 ---
 Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
+---
+author: oompah
+created: 2026-08-03 14:06
+---
+Auditor dispatched (attempt #3, candidate: prov-651d553c/haiku)
+---
+author: oompah
+created: 2026-08-03 14:06
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
