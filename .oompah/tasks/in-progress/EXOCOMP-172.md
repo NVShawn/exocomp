@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:23:12.299514Z'
+updated_at: '2026-08-03T15:23:43.097887Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -323,5 +323,10 @@ author: oompah
 created: 2026-08-03 15:23
 ---
 Understanding: I will audit the preserved encrypted webhook implementation against the integrated parent, verify security invariants and focused coverage, resolve any branch/rebase issues, run the required Makefile quality gates, then push and submit the exact verified head.
+---
+author: oompah
+created: 2026-08-03 15:23
+---
+Discovery: the implementation is present in commits 1efa833e/113a7337 and is based on the integrated EXOCOMP-134 parent. The only recovery delta is a three-line formatter change in coordinator PKI bootstrap, already preserved in checkpoint 9390df29. Webhook persistence lives in WebhookEndpoint/WebhookEndpoints with AES-GCM encryption, policy validation, migrations, and focused tests; I’m auditing these paths for exploitable gaps before republishing.
 ---
 <!-- COMMENTS:END -->
