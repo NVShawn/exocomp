@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:26:44.327568Z'
+updated_at: '2026-08-03T19:27:00.525702Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -47,16 +47,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: a3e0ff80-8763-4c15-80f1-0064107eabdc
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
-  base_branch: epic-EXOCOMP-130
-  base_sha: 93a1cd16d5a00cb577bfe8276e55406f4e33bc88
-  updated_at: '2026-08-03T19:20:06.624482+00:00'
+  head_sha: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
+  submitted_at: '2026-08-03T19:26:52.771089+00:00'
+  updated_at: '2026-08-03T19:26:52.771089+00:00'
 oompah.task_costs:
   total_input_tokens: 20434164
   total_output_tokens: 89370
@@ -511,5 +511,10 @@ author: oompah
 created: 2026-08-03 19:26
 ---
 Completion: published 14898301. base_children/0 now ends after ClusterInvitationStore, build_children/1 is the sole Mission Control child assembly path, and the application test proves one live MissionControlSupervisor under the named coordinator supervisor with enabled mock config. Worktree is clean and HEAD matches origin; submit follows.
+---
+author: oompah
+created: 2026-08-03 19:27
+---
+Prevent duplicate Mission Control supervisor startup and add isolated application coverage
 ---
 <!-- COMMENTS:END -->
