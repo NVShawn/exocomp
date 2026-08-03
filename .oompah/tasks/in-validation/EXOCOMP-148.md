@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-148
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Persist the coordinator event outbox
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:04.648480Z'
-updated_at: '2026-08-01T12:41:33.951871Z'
+updated_at: '2026-08-03T17:41:54.178848Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 target_branch: null
 review_url: null
@@ -41,12 +41,17 @@ oompah.agent_run_id: 92ee7e48-f765-427a-9547-3c75ccb876c1
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-148
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-148
-  head_sha: 6e22ba093d545acf8c1d24af8ddd38c5cea8e3ae
+  base_branch: epic-EXOCOMP-130
+  base_sha: eaeeaf0872984e655611d0092397e9c800e1bf6b
+  head_sha: 8400a54a72025d415f60d00e4e22540626702567
+  integrated_sha: 8400a54a72025d415f60d00e4e22540626702567
   submitted_at: '2026-08-01T12:41:03.439762+00:00'
-  updated_at: '2026-08-01T12:41:03.439762+00:00'
+  updated_at: '2026-08-03T17:41:44.088917+00:00'
+  dependency_heads:
+    EXOCOMP-145: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
 oompah.task_costs:
   total_input_tokens: 11794104
   total_output_tokens: 62208
@@ -79,6 +84,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-148
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:22:31.884686+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-d79586978613
+    project_id: proj-c260b117
+    task_id: EXOCOMP-148
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 92bf545d74b9fc5173e5747812d1db03e35d469f672dab8b840d101b0fca75d3
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T17:41:51.024336+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -174,5 +201,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 18m 45s
 - Log: EXOCOMP-148__20260801T122254Z.jsonl
+---
+author: oompah
+created: 2026-08-03 17:41
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
