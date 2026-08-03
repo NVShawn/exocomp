@@ -29,5 +29,11 @@ defmodule Exocomp.MissionControl.Repo.Migrations.CreateCommandOutbox do
         check: "status IN ('pending', 'acknowledged', 'expired')"
       )
     )
+
+    create(
+      constraint(:command_outbox, :command_outbox_expires_after_issued_check,
+        check: "expires_at > issued_at"
+      )
+    )
   end
 end

@@ -8,6 +8,7 @@ defmodule Exocomp.MissionControl.DatabaseTest do
   alias Exocomp.MissionControl.{
     AuditEvent,
     AuditEvents,
+    CommandOutbox,
     Identity.Operator,
     OrganizationScopedRecord,
     OrganizationScopedRecords,
@@ -34,6 +35,7 @@ defmodule Exocomp.MissionControl.DatabaseTest do
     Ecto.Adapters.SQL.Sandbox.mode(Repo, :auto)
 
     assert [
+             20_260_801_000_600,
              20_260_801_000_400,
              20_260_801_000_500,
              20_260_801_000_300,
@@ -50,7 +52,8 @@ defmodule Exocomp.MissionControl.DatabaseTest do
              20_260_801_000_200,
              20_260_801_000_300,
              20_260_801_000_400,
-             20_260_801_000_500
+             20_260_801_000_500,
+             20_260_801_000_600
            ] = Ecto.Migrator.run(Repo, migration_path, :up, all: true)
 
     Ecto.Adapters.SQL.Sandbox.mode(Repo, :manual)
@@ -149,6 +152,86 @@ defmodule Exocomp.MissionControl.DatabaseTest do
              Repo.transaction(transaction)
 
     assert [] == AuditEvents.by_correlation(organization.id, correlation_id)
+  end
+
+  test "command outbox rows persist across callers and rollback with their transaction" do
+    {organization, _other} = create_organizations()
+    cluster_id = Ecto.UUID.generate()
+    now = ~U[2026-08-03 12:00:00.000000Z]
+
+    assert {:ok, command} =
+             CommandOutbox.enqueue(
+               organization.id,
+               cluster_id,
+               %{
+                 command_id: "cmd-durable",
+                 kind: "conversation.message",
+                 issued_at: now,
+                 expires_at: DateTime.add(now, 300, :second),
+                 payload: %{"message" => "persist me"}
+               },
+               repo: Repo,
+               now: now,
+               notifier: fn _scope -> :ok end
+             )
+
+    # CommandOutbox has no process-local command state: a fresh caller reloads
+    # the pending row from PostgreSQL after the original caller has returned.
+    assert [reloaded] = CommandOutbox.pending(organization.id, cluster_id, repo: Repo, now: now)
+    assert reloaded.command_id == command.command_id
+    assert reloaded.payload == %{"message" => "persist me"}
+
+    assert {:ok, :acknowledged} =
+             CommandOutbox.acknowledge(organization.id, cluster_id, command.command_id,
+               repo: Repo,
+               now: now
+             )
+
+    assert {:ok, :already_acknowledged} =
+             CommandOutbox.acknowledge(organization.id, cluster_id, command.command_id,
+               repo: Repo,
+               now: now
+             )
+
+    assert {:ok, expired} =
+             CommandOutbox.enqueue(
+               organization.id,
+               cluster_id,
+               %{
+                 command_id: "cmd-expired",
+                 kind: "conversation.message",
+                 issued_at: DateTime.add(now, -301, :second),
+                 expires_at: DateTime.add(now, -1, :second),
+                 payload: %{}
+               },
+               repo: Repo,
+               now: now,
+               notifier: fn _scope -> :ok end
+             )
+
+    assert {:ok, 1} = CommandOutbox.expire(repo: Repo, now: now)
+
+    assert {:error, :expired} =
+             CommandOutbox.acknowledge(organization.id, cluster_id, expired.command_id,
+               repo: Repo,
+               now: now
+             )
+
+    rollback =
+      Ecto.Multi.new()
+      |> CommandOutbox.put_in_multi(:command, organization.id, cluster_id, %{
+        command_id: "cmd-rolled-back",
+        kind: "conversation.message",
+        issued_at: now,
+        expires_at: DateTime.add(now, 300, :second),
+        payload: %{}
+      })
+      |> Ecto.Multi.run(:forced_failure, fn _repo, _changes -> {:error, :forced} end)
+
+    assert {:error, :forced_failure, :forced, %{command: _command}} = Repo.transaction(rollback)
+
+    assert {:error, :not_found} =
+             CommandOutbox.status(organization.id, cluster_id, "cmd-rolled-back", repo: Repo)
   end
 
   test "normal contexts and the database both reject audit mutation" do

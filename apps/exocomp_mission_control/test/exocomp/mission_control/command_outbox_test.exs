@@ -3,7 +3,14 @@
 defmodule Exocomp.MissionControl.CommandOutboxTest do
   use ExUnit.Case, async: true
 
-  alias Exocomp.MissionControl.{Command, CommandOutbox, SessionRegistry}
+  alias Ecto.Multi
+
+  alias Exocomp.MissionControl.{
+    ClusterGateway,
+    ClusterSessions,
+    Command,
+    CommandOutbox
+  }
 
   defmodule ReadOnlyRepo do
     def all(_query), do: Process.get(:pending_commands, [])
@@ -22,11 +29,23 @@ defmodule Exocomp.MissionControl.CommandOutboxTest do
       end
     end
 
-    def one(_query), do: %Command{status: Process.get(:command_status, "acknowledged")}
+    def one(_query), do: Process.get(:command_status, "acknowledged")
+    def insert(changeset), do: {:error, %{changeset | valid?: false}}
+  end
 
-    def insert(changeset) do
-      Process.put(:insert_called, true)
-      {:error, %{changeset | valid?: false}}
+  defmodule GatewayOutbox do
+    def deliver_pending(_organization_id, _cluster_id, _session, sender, opts) do
+      sender.(Keyword.fetch!(opts, :command))
+      {:ok, %{sent: 1, failed: []}}
+    end
+
+    def acknowledge(organization_id, cluster_id, command_id, opts) do
+      send(
+        Keyword.fetch!(opts, :test_pid),
+        {:acknowledged, organization_id, cluster_id, command_id}
+      )
+
+      {:ok, :acknowledged}
     end
   end
 
@@ -43,35 +62,31 @@ defmodule Exocomp.MissionControl.CommandOutboxTest do
     }
   end
 
-  test "rejects kinds outside the protocol allow-list before touching the repo" do
+  test "rejects kinds outside the shared protocol allow-list before touching the repo" do
     assert {:error, {:invalid_command_kind, "shell.exec"}} =
-             CommandOutbox.enqueue(
-               %{
-                 command_id: "cmd-invalid",
-                 kind: "shell.exec",
-                 organization_id: "org-1",
-                 cluster_id: "cluster-1",
-                 payload: %{}
-               },
+             CommandOutbox.enqueue("org-1", "cluster-1", %{kind: "shell.exec", payload: %{}},
                repo: ReadOnlyRepo
              )
   end
 
-  test "accepts an explicit protocol kind and string organization aliases" do
-    changeset =
-      Command.changeset(%Command{}, %{
-        command_id: "cmd-valid",
-        kind: "conversation.message",
-        issued_at: ~U[2026-08-01 00:00:00.000000Z],
-        expires_at: ~U[2026-08-01 00:05:00.000000Z],
-        organization_id: "org-1",
-        cluster_id: "cluster-1",
-        payload: %{"message" => "hello"}
-      })
+  test "command changesets preserve the complete durable protocol envelope" do
+    assert {:ok, changeset} =
+             CommandOutbox.insert_changeset("org-1", "cluster-1", %{
+               command_id: "cmd-valid",
+               kind: "approval.decide",
+               issued_at: ~U[2026-08-01 00:00:00.000000Z],
+               expires_at: ~U[2026-08-01 00:05:00.000000Z],
+               payload: %{"approval_id" => "approval-1", "decision" => "approve"}
+             })
 
     assert changeset.valid?
+    assert %Command{} = stored = Ecto.Changeset.apply_changes(changeset)
 
-    assert %Command{command_id: "cmd-valid"} = Ecto.Changeset.apply_changes(changeset)
+    assert %{
+             "command_id" => "cmd-valid",
+             "kind" => "approval.decide",
+             "payload" => %{"approval_id" => "approval-1", "decision" => "approve"}
+           } = Command.envelope(stored)
   end
 
   test "offline delivery does not invoke a sender" do
@@ -84,7 +99,16 @@ defmodule Exocomp.MissionControl.CommandOutboxTest do
              )
   end
 
-  test "reconnect delivery sends pending commands without acknowledging them" do
+  test "a committed command notification reaches the owning cluster topic" do
+    pubsub = :"command_outbox_pubsub_#{System.unique_integer([:positive])}"
+    start_supervised!({Phoenix.PubSub, name: pubsub})
+
+    assert :ok = Phoenix.PubSub.subscribe(pubsub, CommandOutbox.topic("org-1", "cluster-1"))
+    assert :ok = CommandOutbox.notify("org-1", "cluster-1", pubsub: pubsub)
+    assert_received {:command_outbox, :deliver}
+  end
+
+  test "reconnect delivery replays pending commands without acknowledging them" do
     Process.put(:pending_commands, [command("cmd-1")])
     test_pid = self()
 
@@ -105,14 +129,15 @@ defmodule Exocomp.MissionControl.CommandOutboxTest do
     assert hd(Process.get(:pending_commands)).status == "pending"
   end
 
-  test "duplicate acknowledgements are idempotent and do not execute a command twice" do
-    assert {:ok, :acknowledged} = CommandOutbox.acknowledge("cmd-ack", repo: TransitionRepo)
+  test "duplicate acknowledgements make exactly one durable transition" do
+    assert {:ok, :acknowledged} =
+             CommandOutbox.acknowledge("org-1", "cluster-1", "cmd-ack", repo: TransitionRepo)
 
     assert {:ok, :already_acknowledged} =
-             CommandOutbox.acknowledge("cmd-ack", repo: TransitionRepo)
+             CommandOutbox.acknowledge("org-1", "cluster-1", "cmd-ack", repo: TransitionRepo)
   end
 
-  test "expiration marks undelivered commands terminal without acknowledging them" do
+  test "expiration marks an undelivered command terminal without acknowledging it" do
     assert {:ok, 1} =
              CommandOutbox.expire(
                repo: TransitionRepo,
@@ -124,69 +149,107 @@ defmodule Exocomp.MissionControl.CommandOutboxTest do
     Process.put(:command_status, "expired")
 
     assert {:error, :expired} =
-             CommandOutbox.acknowledge("cmd-expired",
+             CommandOutbox.acknowledge("org-1", "cluster-1", "cmd-expired",
                repo: TransitionRepo,
                now: ~U[2026-08-01 00:10:00.000000Z]
              )
   end
 
-  test "a repository failure rolls enqueue back before any command is persisted" do
-    assert {:error, changeset} =
-             CommandOutbox.enqueue(
-               %{
-                 command_id: "cmd-rollback",
-                 kind: "conversation.message",
-                 organization_id: "org-1",
-                 cluster_id: "cluster-1",
-                 payload: %{}
-               },
-               repo: TransitionRepo
-             )
+  test "a transaction rolls back the command insert" do
+    multi =
+      Multi.new()
+      |> CommandOutbox.put_in_multi(:command, "org-1", "cluster-1", %{
+        command_id: "cmd-rollback",
+        kind: "conversation.message",
+        payload: %{}
+      })
+      |> Multi.run(:forced_failure, fn _repo, _changes -> {:error, :forced} end)
 
-    refute changeset.valid?
-    assert Process.get(:insert_called)
+    assert [{:command, {:insert, _changeset, []}}, {:forced_failure, {:run, _}}] =
+             Multi.to_list(multi)
   end
 
-  test "a newer replica session replaces ownership and the previous one cannot unregister it" do
-    name = Module.concat(__MODULE__, Registry)
-    start_supervised!({SessionRegistry, name: name})
+  test "an active replacement session alone receives the next delivery wakeup" do
+    registry = start_registry()
+    identity = identity()
 
-    assert {:ok, nil} = SessionRegistry.register("org-1", "cluster-1", "session-a", self(), name)
+    assert {:ok, first_session} = ClusterSessions.register(registry, identity, self())
+    assert {:ok, replacement_session} = ClusterSessions.register(registry, identity, self())
+    assert first_session != replacement_session
+    assert_receive {:mission_control_session_replaced, ^replacement_session}
 
-    assert {:ok, %{session_id: "session-a"}} =
-             SessionRegistry.register("org-1", "cluster-1", "session-b", self(), name)
+    old_state = gateway_state(registry, identity, first_session)
 
-    assert {:error, :not_owner} =
-             SessionRegistry.unregister("org-1", "cluster-1", "session-a", name)
+    assert {:ok, ^old_state} =
+             ClusterGateway.Socket.handle_info(
+               {:mission_control_command_outbox_delivery, "org-1", "cluster-1"},
+               old_state
+             )
 
-    assert {:ok, %{session_id: "session-b"}} = SessionRegistry.owner("org-1", "cluster-1", name)
+    refute_received {:mission_control_command, _command}
+
+    current_state = gateway_state(registry, identity, replacement_session)
+
+    assert {:ok, ^current_state} =
+             ClusterGateway.Socket.handle_info(
+               {:mission_control_command_outbox_delivery, "org-1", "cluster-1"},
+               current_state
+             )
+
+    assert_received {:mission_control_command, %Command{command_id: "cmd-gateway"}}
   end
 
-  test "registered delivery uses the current session owner after reconnect" do
-    Process.put(:pending_commands, [command("cmd-2")])
-    name = Module.concat(__MODULE__, ReconnectRegistry)
-    start_supervised!({SessionRegistry, name: name})
-    test_pid = self()
+  test "a session-ownership broadcast closes a superseded replica socket" do
+    identity = identity()
+    state = gateway_state(self(), identity, "session-old")
 
-    assert {:ok, nil} =
-             SessionRegistry.register(
-               "org-1",
-               "cluster-1",
-               "session-new",
-               fn delivered ->
-                 send(test_pid, {:replayed, delivered.command_id})
-                 :ok
-               end,
-               name
+    assert {:stop, :session_replaced, 4001, ^state} =
+             ClusterGateway.Socket.handle_info(
+               {:mission_control_session_owner, identity.spiffe_id, "session-new"},
+               state
+             )
+  end
+
+  test "the gateway scopes a command acknowledgement to its certificate identity" do
+    state = gateway_state(self(), identity(), "session-1")
+
+    assert {:push, {:text, payload}, ^state} =
+             ClusterGateway.Socket.handle_in(
+               {Jason.encode!(%{"type" => "command_ack", "command_id" => "cmd-gateway"}),
+                opcode: :text},
+               state
              )
 
-    assert {:ok, %{sent: 1}} =
-             CommandOutbox.deliver_registered("org-1", "cluster-1",
-               registry: name,
-               repo: ReadOnlyRepo,
-               now: ~U[2026-08-01 00:01:00.000000Z]
-             )
+    assert_received {:acknowledged, "org-1", "cluster-1", "cmd-gateway"}
 
-    assert_received {:replayed, "cmd-2"}
+    assert %{
+             "type" => "command_ack",
+             "command_id" => "cmd-gateway",
+             "status" => "acknowledged"
+           } = Jason.decode!(payload)
+  end
+
+  defp start_registry do
+    name = :"command_outbox_sessions_#{System.unique_integer([:positive])}"
+    start_supervised!({ClusterSessions, name: name})
+    name
+  end
+
+  defp identity do
+    %{
+      spiffe_id: "spiffe://exocomp/organizations/org-1/clusters/cluster-1",
+      organization_id: "org-1",
+      cluster_id: "cluster-1"
+    }
+  end
+
+  defp gateway_state(registry, identity, session_id) do
+    %{
+      session_registry: registry,
+      session_id: session_id,
+      identity: identity,
+      command_outbox: GatewayOutbox,
+      command_outbox_opts: [command: command("cmd-gateway"), test_pid: self()]
+    }
   end
 end

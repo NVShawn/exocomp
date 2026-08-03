@@ -14,10 +14,20 @@ defmodule Exocomp.MissionControl.ClusterGateway do
 
   @behaviour Plug
 
-  alias Exocomp.MissionControl.{CertificateIdentity, ClusterEventIngestor, ClusterSessions}
+  alias Exocomp.MissionControl.{
+    CertificateIdentity,
+    ClusterEventIngestor,
+    ClusterSessions,
+    CommandOutbox
+  }
 
   @connect_path ["api", "v1", "clusters", "connect"]
   @connect_request_path "/api/v1/clusters/connect"
+
+  @doc false
+  def session_topic(%{spiffe_id: spiffe_id}) when is_binary(spiffe_id) do
+    "mission-control:cluster-session:" <> Base.url_encode64(spiffe_id, padding: false)
+  end
 
   @doc "Returns strict TLS 1.3 server options for a Mission Control listener."
   @spec server_tls_options(keyword()) :: {:ok, keyword()} | {:error, term()}
@@ -42,6 +52,9 @@ defmodule Exocomp.MissionControl.ClusterGateway do
     %{
       session_registry: Keyword.get(opts, :session_registry, ClusterSessions),
       event_ingestor: Keyword.get(opts, :event_ingestor, ClusterEventIngestor),
+      command_outbox: Keyword.get(opts, :command_outbox, CommandOutbox),
+      command_outbox_opts: Keyword.get(opts, :command_outbox_opts, []),
+      pubsub: Keyword.get(opts, :pubsub, Exocomp.MissionControl.PubSub),
       identity_opts: Keyword.get(opts, :identity_opts, []),
       websocket_opts: Keyword.get(opts, :websocket_opts, [])
     }
@@ -86,6 +99,9 @@ defmodule Exocomp.MissionControl.ClusterGateway do
     state = %{
       session_registry: opts.session_registry,
       event_ingestor: opts.event_ingestor,
+      command_outbox: opts.command_outbox,
+      command_outbox_opts: opts.command_outbox_opts,
+      pubsub: opts.pubsub,
       identity: identity,
       session_id: session_id
     }
@@ -152,19 +168,34 @@ defmodule Exocomp.MissionControl.ClusterGateway do
       ClusterEvent,
       ClusterEventIngestor,
       ClusterSessions,
+      Command,
+      CommandOutbox,
       EventIngestionError
     }
 
     @impl WebSock
     def init(state) do
+      subscribe_to_session_owner(state)
+      announce_session_owner(state)
+      subscribe_to_commands(state)
+      request_pending_delivery(state)
       {:push, {:text, Jason.encode!(connected_payload(state))}, state}
     end
 
     @impl WebSock
     def handle_in({payload, opcode: opcode}, state) when opcode in [:text, :binary] do
-      case ingest(payload, state) do
-        {:ok, result} ->
-          {:push, {:text, Jason.encode!(acknowledgement_payload(state, result))}, state}
+      case decode_payload(payload) do
+        {:ok, %{"type" => "command_ack", "command_id" => command_id}} ->
+          acknowledge_command(command_id, state)
+
+        {:ok, envelope} ->
+          case ingest(envelope, state) do
+            {:ok, result} ->
+              {:push, {:text, Jason.encode!(acknowledgement_payload(state, result))}, state}
+
+            {:error, error} ->
+              {:push, {:text, Jason.encode!(rejection_payload(state, error))}, state}
+          end
 
         {:error, error} ->
           {:push, {:text, Jason.encode!(rejection_payload(state, error))}, state}
@@ -172,6 +203,50 @@ defmodule Exocomp.MissionControl.ClusterGateway do
     end
 
     @impl WebSock
+    def handle_info({:command_outbox, :deliver}, state) do
+      request_pending_delivery(state)
+      {:ok, state}
+    end
+
+    def handle_info(
+          {:mission_control_command_outbox_delivery, organization_id, cluster_id},
+          state
+        ) do
+      if current_session?(state, organization_id, cluster_id) do
+        socket = self()
+        session = %{session_id: state.session_id}
+
+        _ =
+          state.command_outbox.deliver_pending(
+            organization_id,
+            cluster_id,
+            session,
+            fn command ->
+              send(socket, {:mission_control_command, command})
+              :ok
+            end,
+            state.command_outbox_opts
+          )
+      end
+
+      {:ok, state}
+    end
+
+    def handle_info({:mission_control_command, %Command{} = command}, state) do
+      {:push, {:text, Jason.encode!(Command.envelope(command))}, state}
+    end
+
+    def handle_info(
+          {:mission_control_session_owner, spiffe_id, replacement_session_id},
+          %{identity: %{spiffe_id: spiffe_id}, session_id: session_id} = state
+        ) do
+      if replacement_session_id == session_id do
+        {:ok, state}
+      else
+        {:stop, :session_replaced, 4001, state}
+      end
+    end
+
     def handle_info({:mission_control_session_replaced, _new_session_id}, state),
       do: {:stop, :session_replaced, 4001, state}
 
@@ -192,9 +267,8 @@ defmodule Exocomp.MissionControl.ClusterGateway do
       :ok
     end
 
-    defp ingest(payload, state) do
-      with {:ok, envelope} <- decode_envelope(payload),
-           {:ok, result} <-
+    defp ingest(envelope, state) do
+      with {:ok, result} <-
              ClusterEventIngestor.ingest(
                envelope,
                state.identity,
@@ -204,11 +278,34 @@ defmodule Exocomp.MissionControl.ClusterGateway do
       end
     end
 
-    defp decode_envelope(payload) do
+    defp decode_payload(payload) do
       case Jason.decode(payload) do
         {:ok, envelope} when is_map(envelope) -> {:ok, envelope}
         _other -> {:error, EventIngestionError.new(:invalid_event_schema, "event must be JSON")}
       end
+    end
+
+    defp acknowledge_command(command_id, state) when is_binary(command_id) do
+      case state.command_outbox.acknowledge(
+             state.identity.organization_id,
+             state.identity.cluster_id,
+             command_id,
+             state.command_outbox_opts
+           ) do
+        {:ok, status} ->
+          {:push,
+           {:text, Jason.encode!(command_acknowledgement_payload(state, command_id, status))},
+           state}
+
+        {:error, reason} ->
+          {:push, {:text, Jason.encode!(command_rejection_payload(state, command_id, reason))},
+           state}
+      end
+    end
+
+    defp acknowledge_command(_command_id, state) do
+      {:push, {:text, Jason.encode!(command_rejection_payload(state, nil, :invalid_command_id))},
+       state}
     end
 
     defp acknowledgement_payload(state, result) do
@@ -233,6 +330,24 @@ defmodule Exocomp.MissionControl.ClusterGateway do
       %{"type" => "error", "session_id" => state.session_id, "error" => "event_rejected"}
     end
 
+    defp command_acknowledgement_payload(state, command_id, status) do
+      %{
+        "type" => "command_ack",
+        "session_id" => state.session_id,
+        "command_id" => command_id,
+        "status" => Atom.to_string(status)
+      }
+    end
+
+    defp command_rejection_payload(state, command_id, reason) do
+      %{
+        "type" => "command_ack",
+        "session_id" => state.session_id,
+        "command_id" => command_id,
+        "error" => command_acknowledgement_error(reason)
+      }
+    end
+
     defp connected_payload(state) do
       %{
         "type" => "connected",
@@ -242,5 +357,67 @@ defmodule Exocomp.MissionControl.ClusterGateway do
         "schema_version" => ClusterEvent.schema_version()
       }
     end
+
+    defp subscribe_to_commands(%{pubsub: pubsub, identity: identity}) do
+      _ =
+        Phoenix.PubSub.subscribe(
+          pubsub,
+          CommandOutbox.topic(identity.organization_id, identity.cluster_id)
+        )
+
+      :ok
+    rescue
+      _exception -> :ok
+    end
+
+    defp subscribe_to_commands(_state), do: :ok
+
+    defp subscribe_to_session_owner(%{pubsub: pubsub, identity: identity}) do
+      _ = Phoenix.PubSub.subscribe(pubsub, ClusterGateway.session_topic(identity))
+      :ok
+    rescue
+      _exception -> :ok
+    end
+
+    defp subscribe_to_session_owner(_state), do: :ok
+
+    defp announce_session_owner(%{pubsub: pubsub, identity: identity, session_id: session_id}) do
+      _ =
+        Phoenix.PubSub.broadcast(
+          pubsub,
+          ClusterGateway.session_topic(identity),
+          {:mission_control_session_owner, identity.spiffe_id, session_id}
+        )
+
+      :ok
+    rescue
+      _exception -> :ok
+    end
+
+    defp announce_session_owner(_state), do: :ok
+
+    defp request_pending_delivery(%{command_outbox: _outbox, identity: identity}) do
+      send(
+        self(),
+        {:mission_control_command_outbox_delivery, identity.organization_id, identity.cluster_id}
+      )
+    end
+
+    defp request_pending_delivery(_state), do: :ok
+
+    defp current_session?(state, organization_id, cluster_id) do
+      with true <- state.identity.organization_id == organization_id,
+           true <- state.identity.cluster_id == cluster_id,
+           {:ok, %{session_id: session_id}} <-
+             ClusterSessions.get(state.session_registry, state.identity) do
+        session_id == state.session_id
+      else
+        _other -> false
+      end
+    end
+
+    defp command_acknowledgement_error(:expired), do: "expired"
+    defp command_acknowledgement_error(:not_found), do: "not_found"
+    defp command_acknowledgement_error(_reason), do: "command_ack_rejected"
   end
 end

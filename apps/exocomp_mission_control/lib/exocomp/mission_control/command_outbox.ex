@@ -2,59 +2,90 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.CommandOutbox do
   @moduledoc """
-  Persistence and delivery boundary for server-to-cluster commands.
+  Durable server-to-cluster command persistence and delivery boundary.
 
-  Enqueue, acknowledgement, and expiry are database state transitions.  The
-  delivery operation only reads pending rows and calls the active session's
-  sender; it never marks a row as acknowledged.  This separation is what
-  keeps a lost socket, a process restart, or a duplicate acknowledgement from
-  turning an unexecuted command into a completed one.
+  The database is authoritative for every command transition. PubSub only
+  wakes the replica currently holding a WebSocket; it never records delivery.
+  Consequently a restart, missed notification, socket loss, or duplicate
+  acknowledgement leaves an unambiguous durable state.
   """
 
   import Ecto.Query
 
-  alias Exocomp.MissionControl.{Command, Repo, SessionRegistry}
+  alias Ecto.Multi
+  alias Exocomp.MissionControl.{Command, Repo}
 
-  @default_ttl 300
-  @max_payload_bytes 65_536
-
-  @command_kinds ~w(
-    conversation.message
-    conversation.request
-    proposal.approve
-    proposal.deny
-    approval.execute
-  )
+  @default_ttl_seconds 300
 
   @type enqueue_attrs :: %{optional(atom() | String.t()) => term()}
 
+  @doc "Returns the supported protocol command kinds."
   @spec valid_kinds() :: [String.t()]
-  def valid_kinds, do: @command_kinds
+  def valid_kinds, do: Command.valid_kinds()
 
-  @spec enqueue(enqueue_attrs(), keyword()) :: {:ok, Command.t()} | {:error, term()}
-  def enqueue(attrs, opts \\ []) when is_map(attrs) do
-    now = Keyword.get(opts, :now, DateTime.utc_now())
+  @doc "A stable PubSub topic for one organization/cluster pair."
+  @spec topic(String.t(), String.t()) :: String.t()
+  def topic(organization_id, cluster_id) do
+    encoded = Base.url_encode64(organization_id <> <<0>> <> cluster_id, padding: false)
+    "mission-control:command-outbox:" <> encoded
+  end
+
+  @doc "Persists a validated command under the authenticated organization and cluster."
+  @spec enqueue(String.t(), String.t(), enqueue_attrs(), keyword()) ::
+          {:ok, Command.t()} | {:error, Ecto.Changeset.t() | term()}
+  def enqueue(organization_id, cluster_id, attrs, opts \\ [])
+      when is_map(attrs) do
     repo = Keyword.get(opts, :repo, Repo)
 
-    with {:ok, normalized} <- normalize_attrs(attrs, now),
-         :ok <- validate_kind(normalized.kind, opts),
-         :ok <- validate_payload_size(normalized.payload),
-         {:ok, command} <- repo.insert(Command.changeset(%Command{}, normalized)) do
+    with {:ok, changeset} <- insert_changeset(organization_id, cluster_id, attrs, opts),
+         {:ok, command} <- repo.insert(changeset) do
+      _ = notify(command.organization_id, command.cluster_id, opts)
       {:ok, command}
     end
   end
 
-  @doc "Enqueues a command with the tenant and cluster identity supplied by the session."
-  def enqueue(organization_id, cluster_id, attrs, opts \\ [])
-      when is_binary(organization_id) and is_binary(cluster_id) and is_map(attrs) do
-    enqueue(Map.merge(attrs, %{organization_id: organization_id, cluster_id: cluster_id}), opts)
+  @doc "Compatibility form for trusted callers that already supply the scope."
+  @spec enqueue(enqueue_attrs(), keyword()) ::
+          {:ok, Command.t()} | {:error, Ecto.Changeset.t() | term()}
+  def enqueue(attrs, opts \\ [])
+
+  def enqueue(attrs, opts) when is_map(attrs) do
+    with {:ok, organization_id} <- required_value(attrs, :organization_id),
+         {:ok, cluster_id} <- required_value(attrs, :cluster_id) do
+      enqueue(organization_id, cluster_id, attrs, opts)
+    end
   end
 
+  @doc "Builds the validated insert changeset without writing it."
+  @spec insert_changeset(String.t(), String.t(), enqueue_attrs(), keyword()) ::
+          {:ok, Ecto.Changeset.t()} | {:error, term()}
+  def insert_changeset(organization_id, cluster_id, attrs, opts \\ []) when is_map(attrs) do
+    now = Keyword.get(opts, :now, DateTime.utc_now())
+
+    with :ok <- validate_scope(organization_id, :organization_id),
+         :ok <- validate_scope(cluster_id, :cluster_id),
+         {:ok, normalized} <- normalize_attrs(organization_id, cluster_id, attrs, now),
+         :ok <- validate_kind(normalized.kind) do
+      {:ok, Command.changeset(%Command{}, normalized)}
+    end
+  end
+
+  @doc "Adds command insertion to an existing transaction without publishing it early."
+  @spec put_in_multi(Multi.t(), term(), String.t(), String.t(), enqueue_attrs(), keyword()) ::
+          Multi.t()
+  def put_in_multi(%Multi{} = multi, name, organization_id, cluster_id, attrs, opts \\ []) do
+    case insert_changeset(organization_id, cluster_id, attrs, opts) do
+      {:ok, changeset} -> Multi.insert(multi, name, changeset)
+      {:error, reason} -> Multi.error(multi, name, reason)
+    end
+  end
+
+  @doc "Lists pending, unexpired commands in deterministic delivery order."
   @spec pending(String.t(), String.t(), keyword()) :: [Command.t()]
   def pending(organization_id, cluster_id, opts \\ []) do
     repo = Keyword.get(opts, :repo, Repo)
     now = Keyword.get(opts, :now, DateTime.utc_now())
-    _ = expire(opts)
+    _ = expire(Keyword.merge(opts, organization_id: organization_id, cluster_id: cluster_id))
 
     from(command in Command,
       where:
@@ -67,23 +98,20 @@ defmodule Exocomp.MissionControl.CommandOutbox do
   end
 
   @doc """
-  Sends all currently pending commands through an active session.
+  Sends all pending commands through an active session.
 
-  `sender` may be a one-argument function, a two-argument function receiving
-  the session metadata, or a pid (which receives
-  `{:mission_control_command, command}`).  A successful send does not
-  acknowledge the row; the coordinator must call `acknowledge/2` separately.
+  A successful sender result deliberately does not update the command row. The
+  cluster acknowledgement is the only transition to `acknowledged`.
   """
-  @spec deliver_pending(String.t(), String.t(), map(), (Command.t() -> term()), keyword()) ::
-          {:ok, %{sent: non_neg_integer(), failed: [term()]}} | {:error, :offline}
-  def deliver_pending(organization_id, cluster_id, session, sender, opts \\ [])
+  @spec deliver_pending(String.t(), String.t(), map() | nil, function(), keyword()) ::
+          {:ok, %{sent: non_neg_integer(), failed: [{String.t(), term()}]}} | {:error, :offline}
+  def deliver_pending(_organization_id, _cluster_id, nil, _sender, _opts), do: {:error, :offline}
 
   def deliver_pending(organization_id, cluster_id, session, sender, opts)
       when is_map(session) and is_function(sender) do
-    commands = pending(organization_id, cluster_id, opts)
-
     {sent, failed} =
-      Enum.reduce(commands, {0, []}, fn command, {sent, failed} ->
+      Enum.reduce(pending(organization_id, cluster_id, opts), {0, []}, fn command,
+                                                                          {sent, failed} ->
         case call_sender(sender, command, session) do
           :ok -> {sent + 1, failed}
           {:ok, _value} -> {sent + 1, failed}
@@ -97,168 +125,157 @@ defmodule Exocomp.MissionControl.CommandOutbox do
   def deliver_pending(_organization_id, _cluster_id, _session, _sender, _opts),
     do: {:error, :offline}
 
-  @doc "Drains pending commands through the locally registered active session."
-  @spec deliver_registered(String.t(), String.t(), keyword()) ::
-          {:ok, map()} | {:error, :offline}
-  def deliver_registered(organization_id, cluster_id, opts \\ []) do
-    registry = Keyword.get(opts, :registry, SessionRegistry)
-
-    with {:ok, %{session_id: session_id, target: target}} <-
-           lookup_owner(registry, organization_id, cluster_id),
-         sender <- sender_for(target) do
-      deliver_pending(organization_id, cluster_id, %{session_id: session_id}, sender, opts)
-    end
-  end
-
-  @spec acknowledge(String.t(), keyword()) ::
-          {:ok, :acknowledged | :already_acknowledged} | {:error, term()}
-  def acknowledge(command_id, opts \\ []) when is_binary(command_id) do
+  @doc "Acknowledges one command only when it belongs to the authenticated cluster."
+  @spec acknowledge(String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, :acknowledged | :already_acknowledged} | {:error, :expired | :not_found | term()}
+  def acknowledge(organization_id, cluster_id, command_id, opts \\ [])
+      when is_binary(organization_id) and is_binary(cluster_id) and is_binary(command_id) do
     repo = Keyword.get(opts, :repo, Repo)
     now = Keyword.get(opts, :now, DateTime.utc_now())
-    organization_id = Keyword.get(opts, :organization_id)
-    cluster_id = Keyword.get(opts, :cluster_id)
 
     query =
       from(command in Command,
         where:
-          command.command_id == ^command_id and command.status == "pending" and
-            command.expires_at > ^now,
+          command.command_id == ^command_id and
+            command.organization_id == ^organization_id and
+            command.cluster_id == ^cluster_id and
+            command.status == "pending" and command.expires_at > ^now,
         update: [set: [status: "acknowledged", acknowledged_at: ^now, updated_at: ^now]]
       )
 
-    query = maybe_scope(query, :organization_id, organization_id)
-    query = maybe_scope(query, :cluster_id, cluster_id)
-
     case repo.update_all(query, []) do
       {1, _} -> {:ok, :acknowledged}
-      {0, _} -> acknowledgement_result(repo, command_id, organization_id, cluster_id, now)
+      {0, _} -> acknowledgement_result(repo, organization_id, cluster_id, command_id, now)
     end
   rescue
-    error in Ecto.Query.CastError ->
-      {:error, {:invalid_acknowledgement, Exception.message(error)}}
+    error -> {:error, {:acknowledgement_failed, Exception.message(error)}}
   end
 
-  @doc "Acknowledges a command while explicitly scoping it to its authenticated session."
-  def acknowledge(command_id, organization_id, cluster_id, opts \\ [])
-      when is_binary(command_id) and is_binary(organization_id) and is_binary(cluster_id) do
-    acknowledge(
-      command_id,
-      Keyword.merge(opts, organization_id: organization_id, cluster_id: cluster_id)
-    )
-  end
-
-  @doc "Short alias for acknowledgement frame handlers."
-  def ack(command_id, opts \\ []), do: acknowledge(command_id, opts)
-
-  @doc "Alias used by transport handlers receiving an acknowledgement frame."
-  def acknowledge_command(command_id, opts \\ []), do: acknowledge(command_id, opts)
-
+  @doc "Expires pending commands without treating them as acknowledged or executed."
   @spec expire(keyword()) :: {:ok, non_neg_integer()} | {:error, term()}
   def expire(opts \\ []) do
     repo = Keyword.get(opts, :repo, Repo)
     now = Keyword.get(opts, :now, DateTime.utc_now())
-    organization_id = Keyword.get(opts, :organization_id)
-    cluster_id = Keyword.get(opts, :cluster_id)
 
     query =
       from(command in Command,
         where: command.status == "pending" and command.expires_at <= ^now,
         update: [set: [status: "expired", updated_at: ^now]]
       )
-
-    query = maybe_scope(query, :organization_id, organization_id)
-    query = maybe_scope(query, :cluster_id, cluster_id)
+      |> maybe_scope(:organization_id, Keyword.get(opts, :organization_id))
+      |> maybe_scope(:cluster_id, Keyword.get(opts, :cluster_id))
+      |> maybe_scope(:command_id, Keyword.get(opts, :command_id))
 
     case repo.update_all(query, []) do
       {count, _} -> {:ok, count}
     end
   rescue
-    error -> {:error, {:expiry_failed, error}}
+    error -> {:error, {:expiry_failed, Exception.message(error)}}
   end
 
-  @doc "Returns the current terminal state without changing it."
-  @spec status(String.t(), keyword()) :: {:ok, String.t()} | {:error, term()}
-  def status(command_id, opts \\ []) do
+  @doc "Returns the stored state for one organization-scoped command."
+  @spec status(String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, :not_found}
+  def status(organization_id, cluster_id, command_id, opts \\ []) do
     repo = Keyword.get(opts, :repo, Repo)
-    organization_id = Keyword.get(opts, :organization_id)
-    cluster_id = Keyword.get(opts, :cluster_id)
 
-    query = from(command in Command, where: command.command_id == ^command_id)
-    query = maybe_scope(query, :organization_id, organization_id)
-    query = maybe_scope(query, :cluster_id, cluster_id)
-
-    case repo.one(query) do
+    from(command in Command,
+      where:
+        command.command_id == ^command_id and command.organization_id == ^organization_id and
+          command.cluster_id == ^cluster_id,
+      select: command.status
+    )
+    |> repo.one()
+    |> case do
       nil -> {:error, :not_found}
-      command -> {:ok, command.status}
+      value -> {:ok, value}
     end
   end
 
-  defp normalize_attrs(attrs, now) do
-    command_id = value(attrs, :command_id) || Ecto.UUID.generate()
-    kind = attrs |> value(:kind) |> normalize_string()
-    organization_id = value(attrs, :organization_id) || value(attrs, :organization)
-    cluster_id = value(attrs, :cluster_id) || value(attrs, :cluster)
-    issued_at = value(attrs, :issued_at) || now
-    expires_at = value(attrs, :expires_at)
-    payload = value(attrs, :payload)
+  @doc "Notifies the connected replica after a command is committed."
+  @spec notify(String.t(), String.t(), keyword()) :: :ok | {:error, term()}
+  def notify(organization_id, cluster_id, opts \\ []) do
+    case Keyword.get(opts, :notifier) do
+      notifier when is_function(notifier, 2) ->
+        notifier.(organization_id, cluster_id)
 
-    expires_at =
-      if match?(%DateTime{}, issued_at) do
-        expires_at || DateTime.add(issued_at, @default_ttl, :second)
-      else
-        expires_at
-      end
+      notifier when is_function(notifier, 1) ->
+        notifier.({organization_id, cluster_id})
+
+      nil ->
+        Phoenix.PubSub.broadcast(
+          Keyword.get(opts, :pubsub, Exocomp.MissionControl.PubSub),
+          topic(organization_id, cluster_id),
+          {:command_outbox, :deliver}
+        )
+    end
+  rescue
+    error -> {:error, Exception.message(error)}
+  end
+
+  defp normalize_attrs(organization_id, cluster_id, attrs, now) do
+    issued_at = value(attrs, :issued_at) || now
+    expires_at = value(attrs, :expires_at) || default_expiry(issued_at)
 
     normalized = %{
-      command_id: command_id,
-      kind: kind,
+      command_id: value(attrs, :command_id) || Ecto.UUID.generate(),
+      kind: value(attrs, :kind),
       issued_at: issued_at,
       expires_at: expires_at,
       organization_id: organization_id,
       cluster_id: cluster_id,
-      payload: payload,
+      payload: value(attrs, :payload),
       status: "pending"
     }
 
     cond do
-      not is_binary(command_id) or command_id == "" -> {:error, :invalid_command_id}
-      not match?(%DateTime{}, issued_at) -> {:error, :invalid_issued_at}
-      not match?(%DateTime{}, expires_at) -> {:error, :invalid_expires_at}
-      DateTime.compare(expires_at, issued_at) != :gt -> {:error, :invalid_expiry}
-      true -> {:ok, normalized}
+      not is_binary(normalized.command_id) or normalized.command_id == "" ->
+        {:error, :invalid_command_id}
+
+      not is_binary(normalized.kind) ->
+        {:error, :invalid_command_kind}
+
+      not match?(%DateTime{}, normalized.issued_at) ->
+        {:error, :invalid_issued_at}
+
+      not match?(%DateTime{}, normalized.expires_at) ->
+        {:error, :invalid_expires_at}
+
+      DateTime.compare(normalized.expires_at, normalized.issued_at) != :gt ->
+        {:error, :invalid_expiry}
+
+      not is_map(normalized.payload) ->
+        {:error, :invalid_payload}
+
+      true ->
+        {:ok, normalized}
     end
   end
 
-  defp validate_kind(kind, opts) when is_binary(kind) do
-    allowed = Keyword.get(opts, :valid_kinds, @command_kinds)
+  defp default_expiry(%DateTime{} = issued_at),
+    do: DateTime.add(issued_at, @default_ttl_seconds, :second)
 
-    if kind in allowed do
-      :ok
-    else
-      {:error, {:invalid_command_kind, kind}}
+  defp default_expiry(_issued_at), do: nil
+
+  defp validate_scope(value, _field) when is_binary(value) and byte_size(value) in 1..128 do
+    if value == String.trim(value), do: :ok, else: {:error, :invalid_scope}
+  end
+
+  defp validate_scope(_value, field), do: {:error, {:invalid_scope, field}}
+
+  defp validate_kind(kind) do
+    if kind in Command.valid_kinds(), do: :ok, else: {:error, {:invalid_command_kind, kind}}
+  end
+
+  defp required_value(attrs, key) do
+    case value(attrs, key) do
+      value when is_binary(value) and value != "" -> {:ok, value}
+      _other -> {:error, {:missing_scope, key}}
     end
   end
 
-  defp validate_kind(_kind, _opts), do: {:error, :invalid_command_kind}
-
-  defp validate_payload_size(payload) when is_map(payload) do
-    with {:ok, encoded} <- Jason.encode(payload),
-         true <- byte_size(encoded) <= @max_payload_bytes do
-      :ok
-    else
-      false -> {:error, :payload_too_large}
-      {:error, _reason} -> {:error, :invalid_payload}
-    end
-  end
-
-  defp validate_payload_size(_payload), do: {:error, :invalid_payload}
-
-  defp acknowledgement_result(repo, command_id, organization_id, cluster_id, now) do
-    case status(command_id,
-           repo: repo,
-           organization_id: organization_id,
-           cluster_id: cluster_id
-         ) do
+  defp acknowledgement_result(repo, organization_id, cluster_id, command_id, now) do
+    case status(organization_id, cluster_id, command_id, repo: repo) do
       {:ok, "acknowledged"} ->
         {:ok, :already_acknowledged}
 
@@ -270,14 +287,15 @@ defmodule Exocomp.MissionControl.CommandOutbox do
                repo: repo,
                now: now,
                organization_id: organization_id,
-               cluster_id: cluster_id
+               cluster_id: cluster_id,
+               command_id: command_id
              ) do
           {:ok, _count} -> {:error, :expired}
           {:error, reason} -> {:error, reason}
         end
 
-      {:ok, other} ->
-        {:error, {:not_acknowledgeable, other}}
+      {:ok, status} ->
+        {:error, {:not_acknowledgeable, status}}
 
       {:error, :not_found} ->
         {:error, :not_found}
@@ -289,28 +307,16 @@ defmodule Exocomp.MissionControl.CommandOutbox do
   defp maybe_scope(query, field, value),
     do: where(query, [command], field(command, ^field) == ^value)
 
-  defp lookup_owner(registry, organization_id, cluster_id) do
-    if is_atom(registry) and is_pid(Process.whereis(registry)) do
-      SessionRegistry.owner(organization_id, cluster_id, registry)
-    else
-      registry.owner(organization_id, cluster_id)
-    end
-  end
-
   defp value(attrs, key), do: Map.get(attrs, key, Map.get(attrs, Atom.to_string(key)))
 
-  defp normalize_string(value) when is_atom(value), do: Atom.to_string(value)
-  defp normalize_string(value), do: value
-
   defp call_sender(sender, command, session) do
-    case :erlang.fun_info(sender, :arity) do
-      {:arity, 1} -> sender.(command)
-      {:arity, 2} -> sender.(command, session)
+    try do
+      case :erlang.fun_info(sender, :arity) do
+        {:arity, 1} -> sender.(command)
+        {:arity, 2} -> sender.(command, session)
+      end
+    rescue
+      error -> {:error, {:sender_failed, Exception.message(error)}}
     end
   end
-
-  defp sender_for(target) when is_pid(target),
-    do: fn command -> send(target, {:mission_control_command, command}) end
-
-  defp sender_for(target) when is_function(target), do: target
 end
