@@ -11,23 +11,23 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:27:55.435810Z'
+updated_at: '2026-08-03T18:33:53.951576Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: 3ec3a010-394a-4125-a278-feb686b44936
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-245
-  base_branch: epic-EXOCOMP-135
-  base_sha: 542b7fe5bf24d8474b187fe33e12cf9356a16b70
-  updated_at: '2026-08-03T18:27:38.687564+00:00'
+  head_sha: 542b7fe5bf24d8474b187fe33e12cf9356a16b70
+  submitted_at: '2026-08-03T18:33:48.187770+00:00'
+  updated_at: '2026-08-03T18:33:48.187770+00:00'
 oompah.task_costs:
   total_input_tokens: 418400
   total_output_tokens: 5555
@@ -212,5 +212,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 19s
 - Log: EXOCOMP-245__20260803T182743Z.jsonl
+---
+author: oompah
+created: 2026-08-03 18:33
+---
+Direct-maintenance completion retry: the first verified submission was cancelled with integration authority withdrawn before preparation after duplicate screening raced the Ready state. No code or branch head changed; task and authoritative epic refs remain exact at 542b7fe5. OOMPAH-731 tracks this self-invalidating ordinary-child route. Rearming the same head now that duplicate screening has completed.
+---
+author: oompah
+created: 2026-08-03 18:33
+---
+Same-head rearm after OOMPAH-731 authority cancellation: authoritative parent rebase remains published and verified at 542b7fe5.
 ---
 <!-- COMMENTS:END -->
