@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-03T23:13:26.459066Z'
+updated_at: '2026-08-03T23:13:35.285527Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-08-03 23:13
 ---
 Discovery: the earlier EXOCOMP-151 commit is based before the current  integration branch, which now includes the dependent durable outbox/session-routing work.  and its focused nine-case suite are the affected implementation; I will rebase the task commit onto the current parent and resolve any overlap while preserving its receipt/result contract.
+---
+author: oompah
+created: 2026-08-03 23:13
+---
+Discovery correction: commit 33ce64fb predates the current epic-EXOCOMP-130 integration branch, which now includes the dependent durable outbox and session-routing work. The affected EXOCOMP-151 boundary is Exocomp.Coordinator.CommandProcessor and its focused nine-case suite. I will rebase onto the parent and resolve overlap while preserving the receipt/result contract.
 ---
 <!-- COMMENTS:END -->
