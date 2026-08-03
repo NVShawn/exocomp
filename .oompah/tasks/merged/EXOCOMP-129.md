@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:17.258642Z'
-updated_at: '2026-08-03T17:34:13.618829Z'
+updated_at: '2026-08-03T17:34:16.509161Z'
 work_branch: epic-EXOCOMP-129
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/23
@@ -72,8 +72,9 @@ oompah.terminal_audit:
     status: Merged
     audit_ids:
     - audit-16a474483e07
-    applied: false
+    applied: true
     created_at: '2026-08-03T17:34:09.165961+00:00'
+    applied_at: '2026-08-03T17:34:15.765123+00:00'
   version: 1
   pending_chain:
   - version: 1
