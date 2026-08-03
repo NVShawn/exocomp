@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-08-03T12:20:25.886142Z'
+updated_at: '2026-08-03T12:20:42.440953Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -142,13 +142,32 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-117 (tried: origin/epic-EXOCOMP-117, origin/EXOCOMP-117)'
       next_retry_at: '2026-08-03T12:20:33.952852+00:00'
+    - version: 1
+      attempt_id: attempt-5ade35a57c34
+      target_state: Done
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 8eafb4e78dacc6e94adb2429131888845bcd805b63e8687857411d1a1e387eb4
+      created_at: '2026-08-03T12:20:36.246998+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-03T12:20:36.246998+00:00'
+      branch_key: epic-EXOCOMP-117
+      candidate_rotation_count: 1
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-03T12:20:40.543597+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-117 (tried: origin/epic-EXOCOMP-117, origin/EXOCOMP-117)'
+      next_retry_at: '2026-08-03T12:21:00.543574+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-03T12:01:28.271702+00:00'
-    updated_at: '2026-08-03T12:20:23.952877+00:00'
+    updated_at: '2026-08-03T12:20:40.543597+00:00'
   - version: 1
     audit_id: audit-ca4414c9e62a
     project_id: proj-c260b117
@@ -198,6 +217,25 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-117 (tried: origin/epic-EXOCOMP-117, origin/EXOCOMP-117)'
     next_retry_at: '2026-08-03T12:20:33.952852+00:00'
+  - version: 1
+    attempt_id: attempt-5ade35a57c34
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 8eafb4e78dacc6e94adb2429131888845bcd805b63e8687857411d1a1e387eb4
+    created_at: '2026-08-03T12:20:36.246998+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-03T12:20:36.246998+00:00'
+    branch_key: epic-EXOCOMP-117
+    candidate_rotation_count: 1
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-03T12:20:40.543597+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-117 (tried: origin/epic-EXOCOMP-117, origin/EXOCOMP-117)'
+    next_retry_at: '2026-08-03T12:21:00.543574+00:00'
 ---
 ## Summary
 
@@ -345,6 +383,25 @@ Run #YOLO-reopen [attempt=YOLO-reopen, profile=auditor, role=— -> unknown/unkn
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
 - Exit: error, Duration: 3s
+---
+author: oompah
+created: 2026-08-03 12:20
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-117 (tried: origin/epic-EXOCOMP-117, origin/EXOCOMP-117). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-03 12:20
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-03 12:20
+---
+Run #YOLO-reopen [attempt=YOLO-reopen, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 2s
 ---
 author: oompah
 created: 2026-08-03 12:20
