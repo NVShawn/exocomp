@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:43:31.152731Z'
+updated_at: '2026-08-03T18:45:10.157939Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -122,18 +122,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-242
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-1c2a25169f25
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+      created_at: '2026-08-03T18:45:09.181260+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T18:45:09.181260+00:00'
+      branch_key: EXOCOMP-242
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T18:43:24.846732+00:00'
+    updated_at: '2026-08-03T18:45:09.181260+00:00'
   - version: 1
     audit_id: audit-abb6b25c4ecf
     project_id: proj-c260b117
@@ -151,7 +165,20 @@ oompah.terminal_audit:
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T18:43:24.846732+00:00'
-  attempt_history: []
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-1c2a25169f25
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    created_at: '2026-08-03T18:45:09.181260+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T18:45:09.181260+00:00'
+    branch_key: EXOCOMP-242
 ---
 ## Summary
 
