@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: In Progress
+status: Open
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:17:32.542792Z'
+updated_at: '2026-08-03T19:19:08.868724Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
