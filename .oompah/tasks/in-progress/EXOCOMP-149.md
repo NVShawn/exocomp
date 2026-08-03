@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T20:47:19.238068Z'
+updated_at: '2026-08-03T20:52:41.890601Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -220,5 +220,10 @@ author: oompah
 created: 2026-08-03 20:47
 ---
 Implementation: resolved the rebase by moving the event-ingestion boundary to Mission Control’s authenticated WebSocket gateway. The new ingestor validates the strict v1 envelope, scopes IDs and sequences to certificate-derived organization/cluster identity, stages event/index/cursor snapshots atomically, and emits an acknowledgement only after persistence. The coordinator’s newer outbox, mTLS connection, and control-plane routes are preserved.
+---
+author: oompah
+created: 2026-08-03 20:52
+---
+Verification: local formatting checks and git diff --check pass. A direct compile of the new envelope/ingestor modules with the resolved Jason dependency passed, and a manual contract run verified gap-aware acknowledgements, replay deduplication, and rollback without acknowledgement. The focused ExUnit suite cannot start because host Erlang lacks syntax_tools needed by x509. make fmt-check, make test, and make lint were all attempted; their offline structural suites passed, then the pinned container toolchain was blocked by Podman failing to chmod read-only /run/user/1000/libpod.
 ---
 <!-- COMMENTS:END -->
