@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T13:44:23.806125Z'
+updated_at: '2026-08-03T13:46:30.289160Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -40,24 +40,28 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 8a1a4551-6052-47c4-bc77-3dc9b44af996
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
-  base_branch: epic-EXOCOMP-134
-  base_sha: db7ca3ae0e16a528026152aa40f7db646b7b7d52
-  updated_at: '2026-08-03T13:44:21.370672+00:00'
+  head_sha: e826d0d584294524cd0abd708456c457a50f11ed
+  submitted_at: '2026-08-03T13:46:16.874597+00:00'
+  updated_at: '2026-08-03T13:46:16.874597+00:00'
 oompah.task_costs:
-  total_input_tokens: 881317
-  total_output_tokens: 38329
+  total_input_tokens: 881366
+  total_output_tokens: 39703
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 881317
       output_tokens: 38329
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 49
+      output_tokens: 1374
       cost_usd: 0.0
   runs:
   - profile: default
@@ -72,6 +76,12 @@ oompah.task_costs:
     output_tokens: 34253
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:22:22.489491+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 49
+    output_tokens: 1374
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T13:46:28.216184+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-171__20260801T130345Z
@@ -220,5 +230,20 @@ author: oompah
 created: 2026-08-03 13:44
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 13:46
+---
+Rebased the completed audit-event implementation onto the repaired epic ancestry; resolved Mission Control application conflicts, preserved the integrated foundation, and passed all 79 focused audit/redaction tests.
+---
+author: oompah
+created: 2026-08-03 13:46
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 26
+- Tokens: 49 in / 1.4K out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 11s
+- Log: EXOCOMP-171__20260803T134427Z.jsonl
 ---
 <!-- COMMENTS:END -->
