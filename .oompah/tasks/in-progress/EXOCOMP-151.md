@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-03T23:12:44.491328Z'
+updated_at: '2026-08-03T23:13:26.459066Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -215,5 +215,10 @@ author: oompah
 created: 2026-08-03 23:12
 ---
 Understanding: I will extend the coordinator's Mission Control command path so command receipts and terminal results are separately correlated, validated, expiry-aware, durable, and replay-safe. I will reuse the existing delivery/replay boundary, add focused coverage for duplicate and restart scenarios, then run the required Makefile quality gates.
+---
+author: oompah
+created: 2026-08-03 23:13
+---
+Discovery: the earlier EXOCOMP-151 commit is based before the current  integration branch, which now includes the dependent durable outbox/session-routing work.  and its focused nine-case suite are the affected implementation; I will rebase the task commit onto the current parent and resolve any overlap while preserving its receipt/result contract.
 ---
 <!-- COMMENTS:END -->
