@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-211
 type: epic
-status: Backlog
+status: Open
 priority: 1
 title: 'M8C: Privileged broker and mutation enforcement'
 parent: EXOCOMP-208
@@ -22,7 +22,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:26.128876Z'
-updated_at: '2026-08-03T14:28:53.646701Z'
+updated_at: '2026-08-03T15:30:35.682656Z'
 work_branch: null
 target_branch: null
 review_url: null

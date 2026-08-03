@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-235
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Add cross-layer observe/manage integration coverage
 parent: EXOCOMP-212
@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:28:13.272722Z'
-updated_at: '2026-08-03T14:31:55.403928Z'
+updated_at: '2026-08-03T15:30:31.550897Z'
 work_branch: null
 target_branch: null
 review_url: null

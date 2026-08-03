@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-238
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Document hierarchical management policy operations
 parent: EXOCOMP-212
@@ -16,7 +16,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:28:21.152567Z'
-updated_at: '2026-08-03T14:32:17.927923Z'
+updated_at: '2026-08-03T15:30:39.116833Z'
 work_branch: null
 target_branch: null
 review_url: null

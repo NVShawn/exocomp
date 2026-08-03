@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-236
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Add broker and privilege-boundary security tests
 parent: EXOCOMP-212
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:28:16.134826Z'
-updated_at: '2026-08-03T14:32:02.040700Z'
+updated_at: '2026-08-03T15:30:34.217037Z'
 work_branch: null
 target_branch: null
 review_url: null

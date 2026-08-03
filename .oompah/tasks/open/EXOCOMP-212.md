@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-212
 type: epic
-status: Backlog
+status: Open
 priority: 2
 title: 'M8D: Operations, security, and qualification'
 parent: EXOCOMP-208
@@ -17,7 +17,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:28.183269Z'
-updated_at: '2026-08-03T14:28:55.221706Z'
+updated_at: '2026-08-03T15:30:37.985351Z'
 work_branch: null
 target_branch: null
 review_url: null

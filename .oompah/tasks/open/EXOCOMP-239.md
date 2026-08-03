@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-239
 type: task
-status: Backlog
+status: Open
 priority: null
 title: Qualify two clusters on amd64 and arm64
 parent: EXOCOMP-212
@@ -16,7 +16,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:28:24.686582Z'
-updated_at: '2026-08-03T14:32:29.390506Z'
+updated_at: '2026-08-03T15:30:42.605648Z'
 work_branch: null
 target_branch: null
 review_url: null

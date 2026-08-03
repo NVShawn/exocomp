@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-224
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Report policy version, lease, and enforcement status
 parent: EXOCOMP-210
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:19.911306Z'
-updated_at: '2026-08-03T14:30:52.408904Z'
+updated_at: '2026-08-03T15:30:28.289494Z'
 work_branch: null
 target_branch: null
 review_url: null
