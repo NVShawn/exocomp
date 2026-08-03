@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-128
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M7A: Mission Control foundation and persistence'
 parent: EXOCOMP-127
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T20:57:48.488502Z'
+updated_at: '2026-08-03T21:18:29.021125Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -30,6 +30,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-9e721291b92b: '2026-08-01T16:25:28.504381+00:00'
     attempt-effb31c964f7: '2026-08-01T16:30:15.211519+00:00'
+    attempt-492d64b9af7b: '2026-08-03T21:18:25.726717+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-128
@@ -46,8 +47,9 @@ oompah.terminal_audit:
     evidence_fingerprint: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
     audit_ids:
     - audit-8bf58132f5c0
+    - audit-f33556e74f5c
     kind: result
-    applied: false
+    applied: true
     retired_at: '2026-08-01T16:30:15.211532+00:00'
     lifecycle_reconciled: true
     reconciled_to: Done
@@ -80,6 +82,17 @@ oompah.terminal_audit:
     retired_by_reconciliation: true
     retired_reason: shared_epic_parent_not_landed
     reconciled_at: '2026-08-03T20:06:03.322283+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-128
+    audit_id: audit-f33556e74f5c
+    attempt_id: attempt-492d64b9af7b
+    target_state: Merged
+    evidence_fingerprint: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+    status: Merged
+    audit_ids:
+    - audit-f33556e74f5c
+    applied: false
+    created_at: '2026-08-03T21:18:25.726751+00:00'
   oompah.terminal_override_records: []
   oompah.lifecycle_reconciliations:
   - project_id: proj-c260b117
@@ -168,7 +181,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-128
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -194,7 +207,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-492d64b9af7b
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -205,13 +218,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T20:57:23.874488+00:00'
       branch_key: epic-EXOCOMP-128
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T21:18:25.726505+00:00'
+      ended_at: '2026-08-03T21:18:25.726505+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Review
     created_at: '2026-08-03T20:43:53.494982+00:00'
-    updated_at: '2026-08-03T20:57:23.874488+00:00'
+    updated_at: '2026-08-03T21:18:25.726505+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9e721291b92b
@@ -450,5 +466,30 @@ author: oompah
 created: 2026-08-03 20:57
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 21:18
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 2476a39252e92b4690337d7fe706d1b28781bd60
+- pr_number: 21
+- merge_subject: Merge pull request #21 from NVShawn/epic-EXOCOMP-128
+- merge_parents: 8f80aebf f34b7d15
+- files_changed: 42
+- insertions: 3058
+- ancestor_of_epic_EXOCOMP_127: confirmed (exit_code=0)
+- phoenix_app_path: apps/exocomp_mission_control
+- phoenix_deps_verified: phoenix,phoenix_live_view,phoenix_pubsub,bandit,ecto_sql,postgrex,jason
+- organization_scope_module: apps/exocomp_mission_control/lib/exocomp/mission_control/organization_scope.ex
+- baseline_migration: apps/exocomp_mission_control/priv/repo/migrations/20260801000000_create_mission_control_schema.exs
+- protocol_module_path: apps/exocomp_coordinator/lib/exocomp/coordinator/mission_control
+- codec_test_path: apps/exocomp_coordinator/test/exocomp/coordinator/mission_control/codec_test.exs
+- codec_test_coverage: events/commands/acknowledgements/batch/encode/decode/round-trip/edge-cases
+- epic_EXOCOMP_127_head: 2d08fde7 EXOCOMP-127: deliver audited prerequisites
+- downstream_commits_on_epic_branch: approximately 20 Mission Control feature commits after EXOCOMP-128 merge
 ---
 <!-- COMMENTS:END -->
