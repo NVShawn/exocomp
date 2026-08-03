@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T21:28:27.377894Z'
+updated_at: '2026-08-03T21:29:54.217397Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -63,12 +63,12 @@ oompah.agent_run_id: 5d7a9185-fe44-4b50-b928-a2d14a528ee0
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-150
-  base_branch: epic-EXOCOMP-130
-  base_sha: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
-  updated_at: '2026-08-03T20:52:01.970200+00:00'
+  head_sha: 8272b07d81bfeb75d7831a252a7f9fff54db83f2
+  submitted_at: '2026-08-03T21:29:51.498555+00:00'
+  updated_at: '2026-08-03T21:29:51.498555+00:00'
 oompah.task_costs:
   total_input_tokens: 114
   total_output_tokens: 3850
@@ -231,5 +231,10 @@ author: oompah
 created: 2026-08-03 21:28
 ---
 Implementation verified: (1) Durable command outbox schema with command_id, kind, issued_at, expires_at, organization_id, cluster_id, payload, status. (2) SessionRegistry tracks active cluster sessions for replica-aware delivery. (3) CommandOutbox.deliver_registered() routes to owning replica. (4) Acknowledge() provides exactly-once semantics via database state transition. (5) Expire() marks undelivered commands terminal. (6) Tests: reconnect, duplicate ack, expiration, ownership change, invalid kind, rollback. All 511 tests passing. Format: passed. Code quality: improved by removing unreachable clause. Ready to integrate.
+---
+author: oompah
+created: 2026-08-03 21:29
+---
+Completed durable server-to-cluster command outbox with idempotent delivery, replica-aware routing, and terminal expiry. All acceptance tests pass.
 ---
 <!-- COMMENTS:END -->
