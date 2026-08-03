@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T20:52:41.890601Z'
+updated_at: '2026-08-03T20:53:23.893194Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -48,7 +48,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: e81c7b25-029b-45f6-bf51-d7a3669778e8
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 oompah.integration:
   version: 2
@@ -225,5 +225,10 @@ author: oompah
 created: 2026-08-03 20:52
 ---
 Verification: local formatting checks and git diff --check pass. A direct compile of the new envelope/ingestor modules with the resolved Jason dependency passed, and a manual contract run verified gap-aware acknowledgements, replay deduplication, and rollback without acknowledgement. The focused ExUnit suite cannot start because host Erlang lacks syntax_tools needed by x509. make fmt-check, make test, and make lint were all attempted; their offline structural suites passed, then the pinned container toolchain was blocked by Podman failing to chmod read-only /run/user/1000/libpod.
+---
+author: oompah
+created: 2026-08-03 20:53
+---
+Completion: rebased and pushed ea1d7208 to epic-EXOCOMP-130--task-EXOCOMP-149. Mission Control now validates and transactionally persists authenticated cluster events, deduplicates by organization/cluster/event ID, tracks gaps, and acknowledges only the highest contiguous committed sequence over the mTLS WebSocket. Contract coverage includes duplicates/replay, out-of-order gaps, invalid/oversized/unsupported envelopes, restart recovery, and rollback acknowledgement suppression. Local format, parse, targeted compile, and manual ingestion contract checks pass; the full container gates remain blocked by the read-only Podman runtime and the host focused suite by missing Erlang syntax_tools.
 ---
 <!-- COMMENTS:END -->
