@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-03T13:57:16.808833Z'
+updated_at: '2026-08-03T15:18:00.568919Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -181,5 +181,10 @@ author: oompah
 created: 2026-08-03 13:57
 ---
 Operator workaround propagated dependency EXOCOMP-171 exact integrated SHA e826d0d5 through common parent EXOCOMP-127 into epic EXOCOMP-129. This task is no longer container-deadlocked and should become eligible immediately after EXOCOMP-171 passes terminal audit.
+---
+author: oompah
+created: 2026-08-03 15:18
+---
+Operator deadlock workaround: the Ready row was waiting for EXOCOMP-171's repaired integrated SHA f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa to reach epic-EXOCOMP-129, while epic-EXOCOMP-134 already contained EXOCOMP-141's exact integrated SHA d4c703e94c5ef16a5b0b9474e27a800ae5622d86. Fast-forwarded epic-EXOCOMP-129 from e826d0d5 to f1e60cb4 and pushed with an exact lease. Both epic-EXOCOMP-129 and epic-EXOCOMP-134 now resolve to f1e60cb4, and both prerequisite SHAs are ancestors. OOMPAH-718 is the merged server fix that detects/fences this cross-container cycle class.
 ---
 <!-- COMMENTS:END -->

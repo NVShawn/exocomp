@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:15:56.439984Z'
+updated_at: '2026-08-03T15:18:01.825500Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -296,5 +296,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 17m 0s
 - Log: EXOCOMP-172__20260803T145906Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:18
+---
+Operator deadlock workaround: verified EXOCOMP-141's exact integrated SHA d4c703e94c5ef16a5b0b9474e27a800ae5622d86 was already an ancestor of epic-EXOCOMP-134, then delivered EXOCOMP-171's repaired SHA f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa to epic-EXOCOMP-129 by exact-lease fast-forward. Both dependent epic branches now resolve to f1e60cb4 and contain both prerequisite SHAs. OOMPAH-718 tracks/fixes the scheduler's cross-container cycle handling.
 ---
 <!-- COMMENTS:END -->
