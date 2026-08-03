@@ -281,9 +281,6 @@ defmodule Exocomp.MissionControl.CommandOutbox do
 
       {:error, :not_found} ->
         {:error, :not_found}
-
-      other ->
-        other
     end
   end
 
