@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: In Validation
+status: In Progress
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:12:39.367326Z'
+updated_at: '2026-08-03T14:13:04.764874Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -494,5 +494,15 @@ author: oompah
 created: 2026-08-03 14:12
 ---
 Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
+---
+author: oompah
+created: 2026-08-03 14:13
+---
+Reopened after owner verification found missing database persistence and immutability acceptance work; OOMPAH-719 tracks the audit transport failures.
+---
+author: oompah
+created: 2026-08-03 14:13
+---
+Direct owner claim: completing the missing Ecto schema/migration/context and database-backed acceptance tests against current epic ancestry. Do not dispatch a parallel implementation agent.
 ---
 <!-- COMMENTS:END -->
