@@ -12,17 +12,19 @@ children:
 - EXOCOMP-238
 - EXOCOMP-239
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-127
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:28.183269Z'
-updated_at: '2026-08-03T14:28:25.417685Z'
+updated_at: '2026-08-03T14:28:55.221706Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

@@ -7,17 +7,19 @@ title: Map systemd and profile targets to canonical service keys
 parent: EXOCOMP-209
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-127
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:11.664051Z'
-updated_at: '2026-08-03T14:24:11.664051Z'
+updated_at: '2026-08-03T14:28:58.621849Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 
