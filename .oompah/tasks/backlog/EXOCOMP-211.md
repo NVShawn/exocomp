@@ -5,13 +5,23 @@ status: Backlog
 priority: 1
 title: 'M8C: Privileged broker and mutation enforcement'
 parent: EXOCOMP-208
-children: []
+children:
+- EXOCOMP-225
+- EXOCOMP-226
+- EXOCOMP-227
+- EXOCOMP-228
+- EXOCOMP-229
+- EXOCOMP-230
+- EXOCOMP-231
+- EXOCOMP-232
+- EXOCOMP-233
+- EXOCOMP-234
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:26.128876Z'
-updated_at: '2026-08-03T14:23:26.128876Z'
+updated_at: '2026-08-03T14:26:42.323615Z'
 work_branch: null
 target_branch: null
 review_url: null
