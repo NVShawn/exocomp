@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:34:58.756272Z'
+updated_at: '2026-08-03T15:41:44.038403Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -49,12 +49,17 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-172
+  base_branch: epic-EXOCOMP-134
+  base_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
   head_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
+  integrated_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
   submitted_at: '2026-08-03T15:34:20.518857+00:00'
-  updated_at: '2026-08-03T15:34:20.518857+00:00'
+  updated_at: '2026-08-03T15:41:43.237696+00:00'
+  dependency_heads:
+    EXOCOMP-171: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
 oompah.task_costs:
   total_input_tokens: 337870
   total_output_tokens: 2915
