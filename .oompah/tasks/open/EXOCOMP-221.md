@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:14.532816Z'
-updated_at: '2026-08-03T15:40:06.847762Z'
+updated_at: '2026-08-03T15:40:42.907144Z'
 work_branch: epic-EXOCOMP-210--task-EXOCOMP-221
 target_branch: null
 review_url: null
@@ -50,13 +50,13 @@ oompah.integration:
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
   updated_at: '2026-08-03T15:40:04.492352+00:00'
 oompah.task_costs:
-  total_input_tokens: 97925
-  total_output_tokens: 731
+  total_input_tokens: 146425
+  total_output_tokens: 1283
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 97925
-      output_tokens: 731
+      input_tokens: 146425
+      output_tokens: 1283
       cost_usd: 0.0
   runs:
   - profile: default
@@ -65,6 +65,12 @@ oompah.task_costs:
     output_tokens: 731
     cost_usd: 0.0
     recorded_at: '2026-08-03T15:37:47.428783+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 48500
+    output_tokens: 552
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:40:35.413055+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-221__20260803T153700Z
@@ -75,6 +81,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-210--task-EXOCOMP-221
     source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
     completed_at: '2026-08-03T15:37:47.440168+00:00'
+  - run_id: EXOCOMP-221__20260803T154007Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-210--task-EXOCOMP-221
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T15:40:35.416390+00:00'
 ---
 ## Summary
 
@@ -130,5 +144,15 @@ author: oompah
 created: 2026-08-03 15:40
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 15:40
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 0
+- Tokens: 48.5K in / 552 out [49.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 35s
+- Log: EXOCOMP-221__20260803T154007Z.jsonl
 ---
 <!-- COMMENTS:END -->

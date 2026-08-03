@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-142
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Create one-use cluster invitations
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-03T15:26:42.337831Z'
+updated_at: '2026-08-03T15:40:47.542259Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -97,6 +97,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T11:56:05.515247+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-aa659a7e2f18: '2026-08-03T15:40:40.067978+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-142
+    target_state: Done
+    evidence_fingerprint: 7d4b304ab55f1c9ef3c9220a3361432255c208f9c07d75285042450da88db192
+    audit_ids:
+    - audit-361e857359c2
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T15:40:40.067985+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-142
+    audit_id: audit-361e857359c2
+    attempt_id: attempt-aa659a7e2f18
+    target_state: Done
+    evidence_fingerprint: 7d4b304ab55f1c9ef3c9220a3361432255c208f9c07d75285042450da88db192
+    status: Done
+    audit_ids:
+    - audit-361e857359c2
+    applied: false
+    created_at: '2026-08-03T15:40:40.067993+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -104,7 +128,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-142
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -132,7 +156,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-aa659a7e2f18
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -143,13 +167,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T15:26:35.898911+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-142
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T15:40:40.067868+00:00'
+      ended_at: '2026-08-03T15:40:40.067868+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T15:22:15.383447+00:00'
-    updated_at: '2026-08-03T15:26:35.898911+00:00'
+    updated_at: '2026-08-03T15:40:40.067868+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-891d35d962ff
@@ -330,5 +357,24 @@ author: oompah
 created: 2026-08-03 15:26
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 15:40
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_sha: 5b60d46a078ed14b35d2f5c298f9cdc274dfdb3e
+- origin_branch: epic-EXOCOMP-129--task-EXOCOMP-142
+- origin_sha: 5b60d46a078ed14b35d2f5c298f9cdc274dfdb3e
+- files_added: cluster.ex, cluster_invitation.ex, cluster_invitation_store.ex, cluster_invitations.ex, handlers/cluster_invitation_handler.ex, test/cluster_invitation_test.exs
+- files_modified: coordinator_router.ex, application.ex, config/config.exs, config/runtime.exs
+- test_count: 10 test cases covering all acceptance scenarios
+- digest_storage: SHA-256 of full token string; plaintext never stored or logged
+- atomic_consume: GenServer serialization ensures single-use atomicity
+- role_enforcement: admin-only; viewer and operator receive 403
+- quality_gate_status: make test/lint/fmt-check blocked by sandboxed Podman runtime, consistent with all sibling tasks
 ---
 <!-- COMMENTS:END -->

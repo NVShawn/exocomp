@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-216
 type: task
-status: Open
+status: Needs Human
 priority: 1
 title: Enforce policy mutation authorization and auditing
 parent: EXOCOMP-209
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:17.168394Z'
-updated_at: '2026-08-03T15:38:42.599247Z'
+updated_at: '2026-08-03T15:40:44.347784Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-216
 target_branch: null
 review_url: null
@@ -29,13 +29,21 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: ''
-  claim_id: 8bfa7670-5ce1-4615-a340-e3520583e4a0
-  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
-  claimed_at: '2026-08-03T15:38:24.353480+00:00'
-  claim_expires_at: '2026-08-03T16:08:24.353480+00:00'
-  retry_count: 2
-  retry_after: null
+  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
+    Matches: none\nEvidence: The supplied task corpus lacks full records for the active\
+    \ related peers (EXOCOMP-209, 213\u2013218, 227), and the tracker server was unavailable.\
+    \ Local plan review confirms scope but cannot establish non-duplication. No files\
+    \ or tracker state were changed.\nFocus handoff: duplicate_detector  \nDuplicate\
+    \ preflight verdict: inconclusive  \nMatches: none  \n\nEvidence: The supplied\
+    \ task corpus lacks full records for the active related peers (EXOCOMP-209, 213\u2013\
+    218, 227), and the tracker server was unavailable. Local plan review confirms\
+    \ scope but cannot establish non-duplication. No files or tracker state were changed."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
+  retry_count: 3
+  retry_after: '2026-08-03T15:44:31.396041+00:00'
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
@@ -50,13 +58,13 @@ oompah.integration:
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
   updated_at: '2026-08-03T15:38:39.571963+00:00'
 oompah.task_costs:
-  total_input_tokens: 852883
-  total_output_tokens: 4813
+  total_input_tokens: 1514543
+  total_output_tokens: 7481
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 852883
-      output_tokens: 4813
+      input_tokens: 1514543
+      output_tokens: 7481
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +79,12 @@ oompah.task_costs:
     output_tokens: 2539
     cost_usd: 0.0
     recorded_at: '2026-08-03T15:36:07.802694+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 661660
+    output_tokens: 2668
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:40:31.394972+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-216__20260803T153032Z
@@ -89,6 +103,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-209--task-EXOCOMP-216
     source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
     completed_at: '2026-08-03T15:36:07.817749+00:00'
+  - run_id: EXOCOMP-216__20260803T153845Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-209--task-EXOCOMP-216
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T15:40:31.416726+00:00'
 ---
 ## Summary
 
@@ -164,5 +186,20 @@ author: oompah
 created: 2026-08-03 15:38
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 15:40
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 6
+- Tokens: 661.7K in / 2.7K out [664.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 59s
+- Log: EXOCOMP-216__20260803T153845Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:40
+---
+Duplicate screening was inconclusive 3 times. Human action required: a project owner must review the authoritative task corpus and use the authenticated duplicate-screening owner-resolution action (POST /api/v1/issues/EXOCOMP-216/duplicate-screening/owner-resolution) with a conclusive verdict and reason. This records the owner decision, resets the retry budget, and returns no_duplicate tasks to Open (or routes a verified duplicate to Duplicate Candidate). A plain verdict comment is not authoritative.
 ---
 <!-- COMMENTS:END -->

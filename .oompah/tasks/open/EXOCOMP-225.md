@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:19.439901Z'
-updated_at: '2026-08-03T15:39:10.117668Z'
+updated_at: '2026-08-03T15:40:37.500385Z'
 work_branch: epic-EXOCOMP-211--task-EXOCOMP-225
 target_branch: null
 review_url: null
@@ -49,6 +49,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-211
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
   updated_at: '2026-08-03T15:39:06.460559+00:00'
+oompah.task_costs:
+  total_input_tokens: 10
+  total_output_tokens: 1459
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 10
+      output_tokens: 1459
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 10
+    output_tokens: 1459
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:40:31.573848+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-225__20260803T153917Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: haiku
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-211--task-EXOCOMP-225
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T15:40:31.868420+00:00'
 ---
 ## Summary
 
@@ -84,5 +110,15 @@ author: oompah
 created: 2026-08-03 15:39
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 15:40
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 2, Tool calls: 0
+- Tokens: 10 in / 1.5K out [1.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 36s
+- Log: EXOCOMP-225__20260803T153917Z.jsonl
 ---
 <!-- COMMENTS:END -->
