@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:55:42.713611Z'
+updated_at: '2026-08-03T14:55:45.939652Z'
 work_branch: epic-EXOCOMP-132
 target_branch: null
 review_url: null
@@ -159,7 +159,8 @@ oompah.terminal_audit:
     evidence_fingerprint: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
     audit_ids:
     - audit-5d7ea8997801
-    kind: result
+    - audit-a46e08b89fa3
+    kind: override
     applied: true
     retired_at: '2026-08-03T14:55:27.848274+00:00'
   oompah.terminal_audit_result_intents:
@@ -175,6 +176,7 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T14:55:27.848291+00:00'
     applied_at: '2026-08-03T14:55:31.563413+00:00'
+    retired_by_override: true
   oompah.terminal_override_records:
   - version: 1
     override_id: override-09341a97860e
@@ -196,7 +198,7 @@ oompah.terminal_audit:
       policy budget; OOMPAH-722 tracks that exact authority-policy defect. Override
       prevents repeated known-broken candidate rotation.'
     created_at: '2026-08-03T14:55:39.495922+00:00'
-    applied: false
+    applied: true
   version: 1
   pending_chain:
   - version: 1
@@ -258,7 +260,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-241
     target_state: Merged
-    request_state: pending
+    request_state: cancelled
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -270,6 +272,7 @@ oompah.terminal_audit:
       source: api
     previous_state: In Progress
     created_at: '2026-08-03T14:46:12.200922+00:00'
+    updated_at: '2026-08-03T14:55:45.186090+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-767b1eb65fd7
