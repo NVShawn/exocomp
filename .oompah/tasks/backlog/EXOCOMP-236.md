@@ -9,10 +9,11 @@ children: []
 blocked_by: []
 start_blocked_by: &id001
 - EXOCOMP-127
+- EXOCOMP-230
 labels: []
 assignee: null
 created_at: '2026-08-03T14:28:16.134826Z'
-updated_at: '2026-08-03T14:29:51.874800Z'
+updated_at: '2026-08-03T14:31:57.839498Z'
 work_branch: null
 target_branch: null
 review_url: null
