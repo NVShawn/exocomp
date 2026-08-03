@@ -14,14 +14,33 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:29.308857Z'
-updated_at: '2026-08-03T15:30:02.848448Z'
-work_branch: null
+updated_at: '2026-08-03T15:43:45.413225Z'
+work_branch: epic-EXOCOMP-211--task-EXOCOMP-229
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
 oompah.start_blocked_by: *id001
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 7a16b6b54aa67febf96673384a4a4b9120bfb1fe15fea03839e8794d007e43ca
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 6a5b313e-1e14-4cd6-a0fd-6b58e08213d0
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T15:43:33.354833+00:00'
+  claim_expires_at: '2026-08-03T16:13:33.354833+00:00'
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: null
+  owner_login: null
+  owner_resolution_reason: ''
+oompah.agent_run_id: 106349cc-a4a2-43ff-aae2-76a231cf4ba2
+oompah.work_branch: epic-EXOCOMP-211--task-EXOCOMP-229
 ---
 ## Summary
 
@@ -46,3 +65,11 @@ Out of scope: Broker internals, sudoers installation, and specific action adapte
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:43
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+<!-- COMMENTS:END -->
