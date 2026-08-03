@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-143
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Issue cluster certificates from validated CSRs
 parent: EXOCOMP-129
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T16:07:10.645613Z'
+updated_at: '2026-08-03T16:14:02.817346Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -105,6 +105,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T11:58:08.358906+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-d62f77c011df: '2026-08-03T16:13:58.356275+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-143
+    target_state: Done
+    evidence_fingerprint: d7b95d05c1f5a4be0d935c8485c05e5f62292e9b2d9706801bef0f09f070c436
+    audit_ids:
+    - audit-31a7f54c15da
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T16:13:58.356287+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-143
+    audit_id: audit-31a7f54c15da
+    attempt_id: attempt-d62f77c011df
+    target_state: Done
+    evidence_fingerprint: d7b95d05c1f5a4be0d935c8485c05e5f62292e9b2d9706801bef0f09f070c436
+    status: Done
+    audit_ids:
+    - audit-31a7f54c15da
+    applied: false
+    created_at: '2026-08-03T16:13:58.356302+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -112,7 +136,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-143
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -140,7 +164,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-d62f77c011df
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -151,13 +175,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T16:07:05.717533+00:00'
       branch_key: epic-EXOCOMP-129--task-EXOCOMP-143
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T16:13:58.356097+00:00'
+      ended_at: '2026-08-03T16:13:58.356097+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T15:57:59.722266+00:00'
-    updated_at: '2026-08-03T16:07:05.717533+00:00'
+    updated_at: '2026-08-03T16:13:58.356097+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-248d73900b18
@@ -498,5 +525,23 @@ author: oompah
 created: 2026-08-03 16:07
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 16:14
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
+- remote_branch: origin/epic-EXOCOMP-129--task-EXOCOMP-143 @ ad46c4b4
+- task_commits_above_base: 2 (ac5ce945, ad46c4b4)
+- cluster_enrollment_handler: apps/exocomp_coordinator/lib/exocomp/coordinator/handlers/cluster_enrollment_handler.ex
+- cluster_issuer: apps/exocomp_coordinator/lib/exocomp/coordinator/pki/cluster_issuer.ex
+- integration_test: apps/exocomp_coordinator/test/integration/cluster_enrollment_test.exs (7 test cases)
+- unit_test: apps/exocomp_coordinator/test/exocomp/coordinator/cluster_invitation_test.exs
+- offline_gate: 13 passed, 0 failed
+- containerized_gates: blocked by sandboxed Podman runtime (Elixir version mismatch: host 1.18.3 vs required 1.20.2)
 ---
 <!-- COMMENTS:END -->
