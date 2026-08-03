@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-164
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 2
 title: Build the authenticated LiveView shell and navigation
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T19:46:45.319014Z'
+updated_at: '2026-08-03T19:47:41.111968Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -59,12 +59,15 @@ oompah.agent_run_id: 0020328d-4f52-4331-9620-d732622a96cf
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 3
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-164
+  base_branch: epic-EXOCOMP-133
+  base_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
   head_sha: 6b07eb2e361922c218cd4d0b568077acc04a779e
+  integrated_sha: 6b07eb2e361922c218cd4d0b568077acc04a779e
   submitted_at: '2026-08-03T19:46:08.725994+00:00'
-  updated_at: '2026-08-03T19:46:08.725994+00:00'
+  updated_at: '2026-08-03T19:47:36.424187+00:00'
 oompah.task_costs:
   total_input_tokens: 2251
   total_output_tokens: 12574
@@ -137,6 +140,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-133--task-EXOCOMP-164
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T15:14:09.929660+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-e493d67f0318
+    project_id: proj-c260b117
+    task_id: EXOCOMP-164
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c3d5031938d1eecdf724c73305cd97550654a93773b9c7cf106266db81b06738
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T19:47:38.292130+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -445,5 +470,10 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1h 0m 22s
 - Log: EXOCOMP-164__20260803T184633Z.jsonl
+---
+author: oompah
+created: 2026-08-03 19:47
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
