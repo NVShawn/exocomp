@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:41:44.038403Z'
+updated_at: '2026-08-03T15:41:51.051912Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -92,6 +92,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-134--task-EXOCOMP-172
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T13:06:48.497734+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-313aade08c4e
+    project_id: proj-c260b117
+    task_id: EXOCOMP-172
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5d5cad34663238780df485da145337b0591e8842cdaf7c0e48233e54c64a28ef
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T15:41:46.350504+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -363,5 +385,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 12m 9s
 - Log: EXOCOMP-172__20260803T152257Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:41
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->

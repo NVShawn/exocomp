@@ -14,8 +14,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:27.555796Z'
-updated_at: '2026-08-03T15:41:46.116422Z'
-work_branch: null
+updated_at: '2026-08-03T15:42:00.725132Z'
+work_branch: epic-EXOCOMP-211--task-EXOCOMP-228
 target_branch: null
 review_url: null
 review_number: null
@@ -40,6 +40,15 @@ oompah.duplicate_screening:
   owner_login: null
   owner_resolution_reason: ''
 oompah.agent_run_id: 3010693c-5582-4e44-b604-d6cf98f9871a
+oompah.work_branch: epic-EXOCOMP-211--task-EXOCOMP-228
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-211--task-EXOCOMP-228
+  base_branch: epic-EXOCOMP-211
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:41:57.036630+00:00'
 ---
 ## Summary
 
@@ -64,3 +73,16 @@ Out of scope: Broker policy verification, node transport, and action execution.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:41
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:42
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
