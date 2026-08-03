@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-03T19:30:01.810818Z'
+updated_at: '2026-08-03T19:30:21.264662Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -221,18 +221,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-159
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-6affe0adf42c
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
+      created_at: '2026-08-03T19:30:11.984644+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T19:30:11.984644+00:00'
+      branch_key: epic-EXOCOMP-132--task-EXOCOMP-159
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Ready to Integrate
     created_at: '2026-08-03T19:29:58.634883+00:00'
+    updated_at: '2026-08-03T19:30:11.984644+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-bd09075984b7
@@ -273,6 +287,19 @@ oompah.terminal_audit:
       auditor capability policy permits only read-only repository inspection and configured
       test commands; command denied'
     next_retry_at: '2026-08-03T18:54:17.606330+00:00'
+  - version: 1
+    attempt_id: attempt-6affe0adf42c
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
+    created_at: '2026-08-03T19:30:11.984644+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T19:30:11.984644+00:00'
+    branch_key: epic-EXOCOMP-132--task-EXOCOMP-159
 ---
 ## Summary
 
@@ -523,5 +550,15 @@ author: oompah
 created: 2026-08-03 19:30
 ---
 Terminal audit rearmed by project owner after recovery: Rearm after OOMPAH-736 policy-contract exhaustion; exact integrated SHA has independent make test plus operator make fmt-check and make lint pass evidence.
+---
+author: oompah
+created: 2026-08-03 19:30
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 19:30
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
