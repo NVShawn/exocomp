@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-242
 type: bug
-status: Ready to Integrate
+status: In Review
 priority: 1
 title: Repair M7B invitation and SPIFFE certificate regressions
 parent: null
@@ -11,10 +11,10 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:40:10.190605Z'
+updated_at: '2026-08-03T18:41:31.525799Z'
 work_branch: null
 target_branch: null
-review_url: null
+review_url: https://github.com/NVShawn/exocomp/pull/25
 review_number: null
 review_head: null
 merged_at: null
@@ -109,6 +109,7 @@ oompah.integration:
   head_sha: 8e19679a414b0f22b6d837976486f1e4b2955f41
   submitted_at: '2026-08-03T18:39:39.660373+00:00'
   updated_at: '2026-08-03T18:39:39.660373+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/25
 ---
 ## Summary
 
