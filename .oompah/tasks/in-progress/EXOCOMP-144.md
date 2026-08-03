@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-03T16:16:15.034170Z'
+updated_at: '2026-08-03T16:17:44.441183Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -351,5 +351,10 @@ author: oompah
 created: 2026-08-03 16:16
 ---
 Discovery: The branch still contains the prior complete implementation at 2dad75ac, but it is based before the now-integrated enrollment work.  is at ad46c4b4 (EXOCOMP-143), so the required action is to rebase the six PKI/API changes onto that dependency and resolve interface conflicts without broadening scope.
+---
+author: oompah
+created: 2026-08-03 16:17
+---
+Implementation: Rebased the renewal/revocation commit onto EXOCOMP-143 and resolved both conflicts by preserving the dependency's cluster invitation/enrollment wiring while adding CertificateRegistry startup and POST /api/v1/clusters/renew. The named integration supervision tree now starts both the invitation store and isolated certificate registry; production enrollment storage remains correctly wired.
 ---
 <!-- COMMENTS:END -->
