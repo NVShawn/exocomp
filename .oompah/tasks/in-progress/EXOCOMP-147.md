@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T21:50:01.152867Z'
+updated_at: '2026-08-03T21:51:24.642659Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -71,7 +71,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: null
+oompah.agent_run_id: 7f8ab5a0-420f-4e70-9e2b-b834f2bad56c
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 oompah.integration:
   version: 2
@@ -383,5 +383,10 @@ author: oompah
 created: 2026-08-03 21:50
 ---
 Integration found a rebase conflict on `epic-EXOCOMP-130--task-EXOCOMP-147`. Resolve it against `epic-EXOCOMP-130`, run the required tests, push the same private branch, and `oompah task submit` it again.
+---
+author: oompah
+created: 2026-08-03 21:51
+---
+Agent dispatched (profile: standard)
 ---
 <!-- COMMENTS:END -->
