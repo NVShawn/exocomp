@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T21:43:15.239257Z'
+updated_at: '2026-08-03T22:06:05.854075Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -59,16 +59,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: a9e26af0-c439-4d64-bf8d-5ae18e0047d5
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-150
-  base_branch: epic-EXOCOMP-130
-  base_sha: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
-  updated_at: '2026-08-03T21:43:12.124348+00:00'
+  head_sha: 533e51582fab4705965fc24a365338f3fc3350ff
+  submitted_at: '2026-08-03T22:05:58.246641+00:00'
+  updated_at: '2026-08-03T22:05:58.246641+00:00'
 oompah.task_costs:
   total_input_tokens: 768
   total_output_tokens: 4005
@@ -267,5 +267,10 @@ author: oompah
 created: 2026-08-03 21:43
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 22:06
+---
+Rebased durable command-outbox branch is clean and current with origin. The original focused suite (511 tests) and formatting passed before the rebase; this session reran make test, make fmt-check, and make lint. Their offline checks passed, but containerized Elixir checks are blocked by Podman being unable to modify /run/user/1000/libpod in this sandbox. Direct focused tests cannot run with local Elixir 1.18.3 because the project requires 1.20.2. Branch is pushed and ready for integration.
 ---
 <!-- COMMENTS:END -->
