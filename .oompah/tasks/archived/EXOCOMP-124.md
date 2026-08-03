@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:07:00.355913Z'
-updated_at: '2026-08-03T17:00:11.461191Z'
+updated_at: '2026-08-03T17:01:20.590709Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -95,6 +95,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-03T16:57:10.569636+00:00'
     branch_key: EXOCOMP-124
+oompah.task_costs:
+  total_input_tokens: 12
+  total_output_tokens: 2279
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 12
+      output_tokens: 2279
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 12
+    output_tokens: 2279
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T17:01:18.445296+00:00'
 ---
 ## Summary
 
@@ -178,5 +194,15 @@ Safe evidence:
 - followup_EXOCOMP-126_merge_commit: e804b3ff (PR #19, merged into main)
 - previous_state: Merged
 - aged_merged_trigger: closed 7 days ago
+---
+author: oompah
+created: 2026-08-03 17:01
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 10, Tool calls: 6
+- Tokens: 12 in / 2.3K out [2.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 4m 6s
+- Log: EXOCOMP-124__20260803T165719Z.jsonl
 ---
 <!-- COMMENTS:END -->
