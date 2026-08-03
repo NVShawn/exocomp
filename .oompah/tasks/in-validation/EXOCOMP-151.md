@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-151
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Report command results without duplicate execution
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-03T23:18:20.405759Z'
+updated_at: '2026-08-03T23:25:17.642463Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -63,12 +63,19 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-151
+  base_branch: epic-EXOCOMP-130
+  base_sha: 45147355256ffd3e325e23f33329bfdbcdfa5a58
   head_sha: 7bf5506c95f32e68da5d4b70fd24228e63db5f4a
+  integrated_sha: 7bf5506c95f32e68da5d4b70fd24228e63db5f4a
   submitted_at: '2026-08-03T23:17:36.243197+00:00'
-  updated_at: '2026-08-03T23:17:36.243197+00:00'
+  updated_at: '2026-08-03T23:25:08.854133+00:00'
+  dependency_heads:
+    EXOCOMP-148: 6e22ba093d545acf8c1d24af8ddd38c5cea8e3ae
+    EXOCOMP-145: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
+    EXOCOMP-150: 98347b38599081cdd1500fca4cdeb3411078b462
 oompah.task_costs:
   total_input_tokens: 9517362
   total_output_tokens: 45887
@@ -101,6 +108,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-151
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:28:22.855966+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a7bde3df29ac
+    project_id: proj-c260b117
+    task_id: EXOCOMP-151
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 9b44cb507f34b87e68aa20f54b570fbb2b401c485e220dbb1dfdc59644afb37a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T23:25:13.251088+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -255,5 +284,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 6m 19s
 - Log: EXOCOMP-151__20260803T231218Z.jsonl
+---
+author: oompah
+created: 2026-08-03 23:25
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
