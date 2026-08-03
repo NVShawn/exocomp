@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-143
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Issue cluster certificates from validated CSRs
 parent: EXOCOMP-129
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T15:58:00.517656Z'
+updated_at: '2026-08-03T15:58:17.481685Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -102,19 +102,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-143
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: d7b95d05c1f5a4be0d935c8485c05e5f62292e9b2d9706801bef0f09f070c436
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-248d73900b18
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: d7b95d05c1f5a4be0d935c8485c05e5f62292e9b2d9706801bef0f09f070c436
+      created_at: '2026-08-03T15:58:16.636651+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T15:58:16.636651+00:00'
+      branch_key: epic-EXOCOMP-129--task-EXOCOMP-143
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T15:57:59.722266+00:00'
-  attempt_history: []
+    updated_at: '2026-08-03T15:58:16.636651+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-248d73900b18
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d7b95d05c1f5a4be0d935c8485c05e5f62292e9b2d9706801bef0f09f070c436
+    created_at: '2026-08-03T15:58:16.636651+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T15:58:16.636651+00:00'
+    branch_key: epic-EXOCOMP-129--task-EXOCOMP-143
 ---
 ## Summary
 
@@ -381,5 +408,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 14m 14s
 - Log: EXOCOMP-143__20260803T154332Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:58
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
