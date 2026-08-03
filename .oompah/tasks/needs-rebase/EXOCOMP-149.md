@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-149
 type: task
-status: Ready to Integrate
+status: Needs Rebase
 priority: 1
 title: Ingest cluster events idempotently and acknowledge sequences
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T17:36:12.468901Z'
+updated_at: '2026-08-03T20:36:53.752684Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -52,12 +52,30 @@ oompah.agent_run_id: f2a07629-d50d-4176-8679-50a1bccc13c3
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-149
+  base_branch: epic-EXOCOMP-130
+  base_sha: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
   head_sha: 09ac7a782afb7b3ea9382514218b0ecedba0ad40
   submitted_at: '2026-08-01T12:38:37.659158+00:00'
-  updated_at: '2026-08-01T12:38:37.659158+00:00'
+  updated_at: '2026-08-03T20:36:50.578875+00:00'
+  last_error: 'Rebase onto the latest epic head conflicted: Rebasing (1/1)
+
+    error: could not apply 09ac7a78... EXOCOMP-149: ingest cluster events idempotently
+
+    hint: Resolve all conflicts manually, mark them as resolved with
+
+    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+
+    hint: You can instead skip this commit: run "git rebase --skip".
+
+    hint: To abort and get back to the state before "git rebase", run "git rebase
+    --abort".
+
+    hint: Disable this message with "git config set advice.mergeConflict false"
+
+    Could not apply 09ac7a78... # EXOCOMP-149: ingest cluster events idempotently'
 oompah.task_costs:
   total_input_tokens: 6247104
   total_output_tokens: 41361
@@ -190,5 +208,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 14m 58s
 - Log: EXOCOMP-149__20260801T122452Z.jsonl
+---
+author: oompah
+created: 2026-08-03 20:36
+---
+Integration found a rebase conflict on `epic-EXOCOMP-130--task-EXOCOMP-149`. Resolve it against `epic-EXOCOMP-130`, run the required tests, push the same private branch, and `oompah task submit` it again.
 ---
 <!-- COMMENTS:END -->
