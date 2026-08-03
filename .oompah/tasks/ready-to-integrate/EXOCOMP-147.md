@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T21:36:25.005596Z'
+updated_at: '2026-08-03T21:36:49.566991Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -82,8 +82,8 @@ oompah.integration:
   submitted_at: '2026-08-03T21:36:17.853604+00:00'
   updated_at: '2026-08-03T21:36:17.853604+00:00'
 oompah.task_costs:
-  total_input_tokens: 385390
-  total_output_tokens: 5028
+  total_input_tokens: 385546
+  total_output_tokens: 8628
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -91,8 +91,8 @@ oompah.task_costs:
       output_tokens: 1270
       cost_usd: 0.0
     sonnet:
-      input_tokens: 384868
-      output_tokens: 3758
+      input_tokens: 385024
+      output_tokens: 7358
       cost_usd: 0.0
   runs:
   - profile: default
@@ -113,6 +113,12 @@ oompah.task_costs:
     output_tokens: 3758
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:36:38.626170+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 156
+    output_tokens: 3600
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T21:36:46.959041+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-147__20260801T121453Z
@@ -343,5 +349,15 @@ author: oompah
 created: 2026-08-03 21:36
 ---
 Delivered heartbeat, disconnect detection, and reconnect backoff for Mission Control coordinator sessions. connection.ex provides 30s heartbeat cadence, full-jitter exponential backoff 1s-60s, and 90s stability window for backoff reset. session_liveness.ex tracks server-side disconnect detection at 90s with commit-before-publish guarantee. Fixed a latent bug: schedule_reconnect args were reversed in the connect-worker :DOWN handler, which would have crashed the coordinator if a worker was killed externally mid-connect. Added test covering the :DOWN path with uncatchable :kill signal. All 12 focused tests pass, make fmt-check and make lint both clean at 2289df54.
+---
+author: oompah
+created: 2026-08-03 21:36
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 65
+- Tokens: 156 in / 3.6K out [3.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 16m 51s
+- Log: EXOCOMP-147__20260803T212022Z.jsonl
 ---
 <!-- COMMENTS:END -->
