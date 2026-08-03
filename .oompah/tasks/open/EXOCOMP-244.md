@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-244
 type: task
-status: Ready to Integrate
+status: Open
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:39:53.268998Z'
+updated_at: '2026-08-03T17:42:34.545000Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
@@ -22,12 +22,17 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-244
+  base_branch: epic-EXOCOMP-135
+  base_sha: 98e26f09ef6da02639714937d8c8007425880e5e
   head_sha: 98e26f09ef6da02639714937d8c8007425880e5e
   submitted_at: '2026-08-03T17:39:27.844546+00:00'
-  updated_at: '2026-08-03T17:39:27.844546+00:00'
+  updated_at: '2026-08-03T17:42:30.773304+00:00'
+  last_error: epic worktree head 333c3b81b8bcdd448166707f28b5a00ee8e2c469 differs
+    from the published epic head 98e26f09ef6da02639714937d8c8007425880e5e; refusing
+    to reset a preserved recovery snapshot
 ---
 ## Summary
 
@@ -92,5 +97,12 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 50s
 - Log: EXOCOMP-244__20260803T173627Z.jsonl
+---
+author: oompah
+created: 2026-08-03 17:42
+---
+Integration could not verify `epic-EXOCOMP-135--task-EXOCOMP-244`: epic worktree head 333c3b81b8bcdd448166707f28b5a00ee8e2c469 differs from the published epic head 98e26f09ef6da02639714937d8c8007425880e5e; refusing to reset a preserved recovery snapshot
+
+Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
 ---
 <!-- COMMENTS:END -->
