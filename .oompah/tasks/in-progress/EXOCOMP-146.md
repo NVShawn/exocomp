@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:19:08.868724Z'
+updated_at: '2026-08-03T19:20:07.415876Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -47,21 +47,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: null
+oompah.agent_run_id: a3e0ff80-8763-4c15-80f1-0064107eabdc
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
   base_branch: epic-EXOCOMP-130
-  base_sha: 9663f4b21eceefa3601354f72177018fa7e7dcbc
-  head_sha: 93a1cd16d5a00cb577bfe8276e55406f4e33bc88
-  integrated_sha: 93a1cd16d5a00cb577bfe8276e55406f4e33bc88
-  submitted_at: '2026-08-03T18:37:34.381436+00:00'
-  updated_at: '2026-08-03T18:39:21.765919+00:00'
-  dependency_heads:
-    EXOCOMP-145: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
+  base_sha: 93a1cd16d5a00cb577bfe8276e55406f4e33bc88
+  updated_at: '2026-08-03T19:20:06.624482+00:00'
 oompah.task_costs:
   total_input_tokens: 20434164
   total_output_tokens: 89370
@@ -481,5 +476,10 @@ Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: terminated, Duration: 27m 7s
 - Log: EXOCOMP-146__20260803T185004Z.jsonl
+---
+author: oompah
+created: 2026-08-03 19:20
+---
+Agent dispatched (profile: default)
 ---
 <!-- COMMENTS:END -->
