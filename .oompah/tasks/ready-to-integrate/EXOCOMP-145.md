@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-01T22:20:30.636613Z'
+updated_at: '2026-08-03T16:24:18.658687Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -1051,5 +1051,10 @@ author: oompah
 created: 2026-08-01 22:20
 ---
 Operator-owned recovery complete on pushed head b0d047ea: make test, make fmt-check, and make lint all pass in the pinned Elixir 1.20.2 / OTP 28.5.0.3 builder; raw required tails are recorded in the task. Root-cause worker-runtime bug filed as OOMPAH-686.
+---
+author: oompah
+created: 2026-08-03 16:24
+---
+Owner workaround for OOMPAH-729: integration metadata proves exact head b0d047ea97d00deb5c9b83054ddfb6de1491f0a9 was integrated into epic-EXOCOMP-130 in one attempt with no error. Operator verification on that same pushed head recorded exit-zero make test, make fmt-check, and make lint using the pinned Elixir 1.20.2 / OTP 28.5.0.3 builder. The only remaining blocker is the coordinator's completed same-fingerprint audit fence, not missing implementation.
 ---
 <!-- COMMENTS:END -->
