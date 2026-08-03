@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-121
 type: bug
-status: Merged
+status: In Validation
 priority: 2
 title: Make cross-architecture tests robust under full-system arm64 execution
 parent: EXOCOMP-117
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-07-27T11:12:29.159891Z'
+updated_at: '2026-08-03T12:01:03.726306Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -34,6 +34,28 @@ oompah.task_costs:
     output_tokens: 2197
     cost_usd: 0.0
     recorded_at: '2026-07-26T06:24:17.447384+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-20ac607db3d7
+    project_id: proj-c260b117
+    task_id: EXOCOMP-121
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 70792715e0ef93adbee0684c1552b25291f971ae4ead7725f31b823d3c5e2ac0
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-03T12:01:01.012705+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -139,5 +161,10 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 6s
 - Log: EXOCOMP-121__20260726T062013Z.jsonl
+---
+author: oompah
+created: 2026-08-03 12:01
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
