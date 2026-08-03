@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-03T16:19:32.045769Z'
+updated_at: '2026-08-03T16:20:50.741547Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -41,12 +41,17 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-144
+  base_branch: epic-EXOCOMP-129
+  base_sha: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
   head_sha: 0a82a703f55d97a54f36c87f9d3edec3ffaad25a
+  integrated_sha: 0a82a703f55d97a54f36c87f9d3edec3ffaad25a
   submitted_at: '2026-08-03T16:19:14.489977+00:00'
-  updated_at: '2026-08-03T16:19:14.489977+00:00'
+  updated_at: '2026-08-03T16:20:45.793421+00:00'
+  dependency_heads:
+    EXOCOMP-143: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
 oompah.task_costs:
   total_input_tokens: 1841803
   total_output_tokens: 22368
@@ -103,6 +108,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-129--task-EXOCOMP-144
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:12:46.707573+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-e167a2bfb05b
+    project_id: proj-c260b117
+    task_id: EXOCOMP-144
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 8e2e28bb0108f6c40b366e0fb981643adf8a18efbdf99927e52adb661561366a
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T16:20:47.640167+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -381,5 +408,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 4m 17s
 - Log: EXOCOMP-144__20260803T161525Z.jsonl
+---
+author: oompah
+created: 2026-08-03 16:20
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
