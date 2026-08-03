@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-210
 type: epic
-status: Open
+status: In Progress
 priority: 1
 title: 'M8B: Signed policy distribution and leases'
 parent: EXOCOMP-208
@@ -18,7 +18,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:23.861906Z'
-updated_at: '2026-08-03T15:30:33.010584Z'
+updated_at: '2026-08-03T15:45:38.592833Z'
 work_branch: null
 target_branch: null
 review_url: null

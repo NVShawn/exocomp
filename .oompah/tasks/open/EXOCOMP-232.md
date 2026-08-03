@@ -14,8 +14,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:36.951867Z'
-updated_at: '2026-08-03T15:45:10.772445Z'
-work_branch: null
+updated_at: '2026-08-03T15:45:34.619475Z'
+work_branch: epic-EXOCOMP-211--task-EXOCOMP-232
 target_branch: null
 review_url: null
 review_number: null
@@ -40,6 +40,15 @@ oompah.duplicate_screening:
   owner_login: null
   owner_resolution_reason: ''
 oompah.agent_run_id: 530dc570-1d30-4a03-a2e1-c5715af5d86b
+oompah.work_branch: epic-EXOCOMP-211--task-EXOCOMP-232
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-211--task-EXOCOMP-232
+  base_branch: epic-EXOCOMP-211
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:45:32.343227+00:00'
 ---
 ## Summary
 
@@ -64,3 +73,16 @@ Out of scope: Service restart and cluster-profile actions.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:45
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:45
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
