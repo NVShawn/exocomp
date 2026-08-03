@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:28:33.851041Z'
+updated_at: '2026-08-03T19:29:30.275148Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -199,18 +199,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-146
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: b57766e16b7beb0e4d75ecce82c597424991f02424b91c4faa9f80c28f010a00
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-78ccac534482
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: b57766e16b7beb0e4d75ecce82c597424991f02424b91c4faa9f80c28f010a00
+      created_at: '2026-08-03T19:29:23.712537+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T19:29:23.712537+00:00'
+      branch_key: epic-EXOCOMP-130--task-EXOCOMP-146
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T19:28:31.678497+00:00'
+    updated_at: '2026-08-03T19:29:23.712537+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4d34a1388d60
@@ -245,6 +259,19 @@ oompah.terminal_audit:
     started_at: '2026-08-03T18:49:47.239042+00:00'
     branch_key: epic-EXOCOMP-130--task-EXOCOMP-146
     candidate_rotation_count: 1
+  - version: 1
+    attempt_id: attempt-78ccac534482
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b57766e16b7beb0e4d75ecce82c597424991f02424b91c4faa9f80c28f010a00
+    created_at: '2026-08-03T19:29:23.712537+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T19:29:23.712537+00:00'
+    branch_key: epic-EXOCOMP-130--task-EXOCOMP-146
 ---
 ## Summary
 
@@ -548,5 +575,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 7m 11s
 - Log: EXOCOMP-146__20260803T192012Z.jsonl
+---
+author: oompah
+created: 2026-08-03 19:29
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 19:29
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
