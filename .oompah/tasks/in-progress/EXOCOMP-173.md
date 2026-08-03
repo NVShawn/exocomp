@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:18:08.994107Z'
+updated_at: '2026-08-03T17:22:00.755324Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -430,5 +430,127 @@ author: oompah
 created: 2026-08-03 17:18
 ---
 Implementation: restored apps/exocomp_mission_control/mix.exs exactly to the 3377d707 Phoenix application shape (Elixir compatibility, logger startup, test paths, Repo, aliases, Phoenix/HTTP/OAuth dependencies, and Application module). Restored the matching root mix.lock and dependency notice/license inventories so dependency resolution and compliance checks remain consistent; webhook files were left unchanged.
+---
+author: oompah
+created: 2026-08-03 17:22
+---
+Verification: native  and make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173'
+compliance: licenses checks passed
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173' pass. make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173'
+./scripts/test-release-builders.sh
+Test 1: valid release (amd64) — expect PASS
+  PASS: valid amd64 release accepted
+Test 2: valid release (arm64) — expect PASS
+  PASS: valid arm64 release accepted
+Test 3: release with undeclared dependency — expect FAIL
+  PASS: release with undeclared dependency correctly rejected
+Test 4: dep-report.json produced after valid run
+  PASS: dep-report.json includes parsed dependencies and interpreter
+Test 5: dep-report.json produced after failing run
+  PASS: dep-report.json produced on failure and starts with '{'
+Test 6: release without ERTS directory — expect exit 2
+  PASS: missing ERTS directory correctly rejected with exit code 2
+Test 7: unsupported architecture — expect exit 2
+  PASS: unsupported architecture correctly rejected
+Test 8: missing baseline file — expect exit 2
+  PASS: missing baseline file correctly rejected
+Test 9: readelf failure — expect exit 2
+  PASS: readelf failure correctly rejected with exit code 2
+
+Results: 9 passed, 0 failed
+
+=== Offline structural checks ===
+  PASS: test-clean-container.sh exists and is executable
+  PASS: test-release-matrix.sh is non-interactive
+  PASS: test-clean-container.sh is non-interactive
+  PASS: docs/release-qualification.md exists
+  PASS: docs/release-qualification.md documents emulated execution
+  PASS: docs/release-qualification.md documents wrong-arch diagnostic
+  PASS: Makefile has test-release-matrix target
+
+=== Offline fixture: wrong-arch detection ===
+  PASS: wrong-arch produces actionable diagnostic
+
+=== Offline fixture: missing runtime dependency detection ===
+  PASS: missing dep produces actionable diagnostic
+
+=== Offline fixture: path-independent content digest ===
+  PASS: identical trees at different root paths have matching digests
+  PASS: one-byte runtime cookie change produces a different tree digest
+  PASS: deterministic release packagers exist and are executable
+  PASS: packager excludes reusable release cookies
+
+=== Offline mode: skipping build, container, and live negative tests ===
+
+==========================================
+Results: 13 passed, 0 failed
+==========================================
+release builder definitions are pinned and valid
+docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && MIX_ENV=test mix deps.get && \
+	MIX_ENV=test mix test && \
+	MIX_ENV=test mix release exocomp_node --overwrite && \
+	MIX_ENV=test mix release exocomp_coordinator --overwrite && \
+	scripts/smoke-releases.sh test'
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173', make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173'
+./scripts/test-release-builders.sh
+Test 1: valid release (amd64) — expect PASS
+  PASS: valid amd64 release accepted
+Test 2: valid release (arm64) — expect PASS
+  PASS: valid arm64 release accepted
+Test 3: release with undeclared dependency — expect FAIL
+  PASS: release with undeclared dependency correctly rejected
+Test 4: dep-report.json produced after valid run
+  PASS: dep-report.json includes parsed dependencies and interpreter
+Test 5: dep-report.json produced after failing run
+  PASS: dep-report.json produced on failure and starts with '{'
+Test 6: release without ERTS directory — expect exit 2
+  PASS: missing ERTS directory correctly rejected with exit code 2
+Test 7: unsupported architecture — expect exit 2
+  PASS: unsupported architecture correctly rejected
+Test 8: missing baseline file — expect exit 2
+  PASS: missing baseline file correctly rejected
+Test 9: readelf failure — expect exit 2
+  PASS: readelf failure correctly rejected with exit code 2
+
+Results: 9 passed, 0 failed
+
+=== Offline structural checks ===
+  PASS: test-clean-container.sh exists and is executable
+  PASS: test-release-matrix.sh is non-interactive
+  PASS: test-clean-container.sh is non-interactive
+  PASS: docs/release-qualification.md exists
+  PASS: docs/release-qualification.md documents emulated execution
+  PASS: docs/release-qualification.md documents wrong-arch diagnostic
+  PASS: Makefile has test-release-matrix target
+
+=== Offline fixture: wrong-arch detection ===
+  PASS: wrong-arch produces actionable diagnostic
+
+=== Offline fixture: missing runtime dependency detection ===
+  PASS: missing dep produces actionable diagnostic
+
+=== Offline fixture: path-independent content digest ===
+  PASS: identical trees at different root paths have matching digests
+  PASS: one-byte runtime cookie change produces a different tree digest
+  PASS: deterministic release packagers exist and are executable
+  PASS: packager excludes reusable release cookies
+
+=== Offline mode: skipping build, container, and live negative tests ===
+
+==========================================
+Results: 13 passed, 0 failed
+==========================================
+release builder definitions are pinned and valid
+docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && mix deps.get && \
+	mix format --check-formatted && \
+	MIX_ENV=test mix compile --force --warnings-as-errors'
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173', make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173'
+docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && mix format --check-formatted'
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173', and the focused make[1]: Entering directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173'
+docker run --rm --init --user "$(id -u):$(id -g)" --platform linux/amd64 --pull always --env ELIXIR_VERSION=1.20.2 --env OTP_VERSION=28.5.0.3 --env GLIBC_BASELINE=2.36 --env MIX_HOME=/workspace/.mix-home --env HEX_HOME=/workspace/.hex-home --volume "/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173:/workspace" --workdir /workspace docker.io/hexpm/elixir:1.20.2-erlang-28.5.0.3-debian-bookworm-20260713-slim@sha256:9f522dfe44ec958c4c40a8f8d1bb6912ef11a77a36f7ef6db2878ade9608216d sh -c 'mix local.hex --force --quiet && MIX_ENV=test mix deps.get && \
+	MIX_ENV=test mix do --app exocomp_mission_control cmd mix ecto.create --quiet && \
+	MIX_ENV=test mix do --app exocomp_mission_control cmd mix ecto.migrate && \
+	EXOCOMP_RUN_DB_TESTS=1 MIX_ENV=test mix do --app exocomp_mission_control cmd mix test'
+make[1]: Leaving directory '/home/shedwards/.oompah/worktrees/exocomp/EXOCOMP-173' all reach their container invocation but are blocked by the sandboxed Podman runtime (). Native app test setup also cannot compile the full dependency tree on the host because OTP 27 lacks the public_key development headers; the umbrella requires Elixir 1.20.2. Git fetch confirms HEAD is already based on and equal to origin/epic-EXOCOMP-134, so no rebase is needed.
 ---
 <!-- COMMENTS:END -->
