@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T17:18:04.481152Z'
+updated_at: '2026-08-03T17:28:11.015689Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -319,5 +319,10 @@ author: oompah
 created: 2026-08-03 17:18
 ---
 Understanding: Building authenticated LiveView shell and navigation for Mission Control. Current status: Router, AuthController, Authorization, OIDC flow, and basic layout/components are in place. Need to: (1) enhance app.html.heex layout with proper navigation, organization context, flash handling; (2) add reusable components (connectivity, health, severity, timestamps, empty/loading states); (3) enhance LiveView role guards for all pages; (4) comprehensive tests for auth flow, role checks, reconnect resilience; (5) accessibility checks. Plan: Expand components.ex, complete app layout, add missing LiveView hooks, write tests covering all roles and scenarios, run quality gates.
+---
+author: oompah
+created: 2026-08-03 17:28
+---
+Discovery: Authenticated shell foundation is largely in place. Router (OIDC + auth pipeline), AuthController (login/callback/logout), Authorization module (role checks), RequireRole LiveView hook, error pages, app layout with navigation/flash, and 8 reusable components exist. LiveView pages (Dashboard, Incidents, Conversations, Admin) are stubbed with role guards. Some tests exist for role logic. Key gaps: (1) enhanced components for severity/status indicators; (2) comprehensive LiveView integration tests; (3) accessibility (aria labels, landmarks, focus management); (4) organization context handling in sessions for reconnect resilience. Starting implementation of missing pieces.
 ---
 <!-- COMMENTS:END -->
