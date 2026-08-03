@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:17.168394Z'
-updated_at: '2026-08-03T15:30:24.223525Z'
+updated_at: '2026-08-03T15:32:02.451817Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-216
 target_branch: null
 review_url: null
@@ -49,6 +49,22 @@ oompah.integration:
   base_branch: epic-EXOCOMP-209
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
   updated_at: '2026-08-03T15:30:20.469042+00:00'
+oompah.task_costs:
+  total_input_tokens: 493671
+  total_output_tokens: 2274
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 493671
+      output_tokens: 2274
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 493671
+    output_tokens: 2274
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:32:00.640667+00:00'
 ---
 ## Summary
 
@@ -84,5 +100,15 @@ author: oompah
 created: 2026-08-03 15:30
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 15:32
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 5
+- Tokens: 493.7K in / 2.3K out [495.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 45s
+- Log: EXOCOMP-216__20260803T153032Z.jsonl
 ---
 <!-- COMMENTS:END -->

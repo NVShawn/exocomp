@@ -13,8 +13,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:11.140193Z'
-updated_at: '2026-08-03T15:31:30.620282Z'
-work_branch: null
+updated_at: '2026-08-03T15:31:55.894623Z'
+work_branch: epic-EXOCOMP-210--task-EXOCOMP-220
 target_branch: null
 review_url: null
 review_number: null
@@ -39,6 +39,15 @@ oompah.duplicate_screening:
   owner_login: null
   owner_resolution_reason: ''
 oompah.agent_run_id: 496d4278-e1c7-4772-8b3a-7b13055faddc
+oompah.work_branch: epic-EXOCOMP-210--task-EXOCOMP-220
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-210--task-EXOCOMP-220
+  base_branch: epic-EXOCOMP-210
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:31:52.731959+00:00'
 ---
 ## Summary
 
@@ -62,3 +71,16 @@ Out of scope: Cluster certificate PKI, bundle delivery, and action permits.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:31
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:31
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
