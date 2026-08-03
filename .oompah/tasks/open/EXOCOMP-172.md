@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: Ready to Integrate
+status: Open
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:18:01.825500Z'
+updated_at: '2026-08-03T15:22:35.022127Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -49,12 +49,16 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-172
+  base_branch: epic-EXOCOMP-134
   head_sha: 113a7337cbb9efa1b07b3f23c627b477bc9ac7a5
   submitted_at: '2026-08-03T15:15:43.261208+00:00'
-  updated_at: '2026-08-03T15:15:43.261208+00:00'
+  updated_at: '2026-08-03T15:22:31.994941+00:00'
+  last_error: task worktree head 9390df29c8ddb92abd66847b7767b37104313918 differs
+    from the published task head 113a7337cbb9efa1b07b3f23c627b477bc9ac7a5; refusing
+    to reset a preserved recovery snapshot
 oompah.task_costs:
   total_input_tokens: 337870
   total_output_tokens: 2915
@@ -301,5 +305,12 @@ author: oompah
 created: 2026-08-03 15:18
 ---
 Operator deadlock workaround: verified EXOCOMP-141's exact integrated SHA d4c703e94c5ef16a5b0b9474e27a800ae5622d86 was already an ancestor of epic-EXOCOMP-134, then delivered EXOCOMP-171's repaired SHA f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa to epic-EXOCOMP-129 by exact-lease fast-forward. Both dependent epic branches now resolve to f1e60cb4 and contain both prerequisite SHAs. OOMPAH-718 tracks/fixes the scheduler's cross-container cycle handling.
+---
+author: oompah
+created: 2026-08-03 15:22
+---
+Integration could not verify `epic-EXOCOMP-134--task-EXOCOMP-172`: task worktree head 9390df29c8ddb92abd66847b7767b37104313918 differs from the published task head 113a7337cbb9efa1b07b3f23c627b477bc9ac7a5; refusing to reset a preserved recovery snapshot
+
+Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
 ---
 <!-- COMMENTS:END -->
