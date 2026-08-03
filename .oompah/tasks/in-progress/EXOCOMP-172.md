@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:28:38.284255Z'
+updated_at: '2026-08-03T15:32:46.782327Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -333,5 +333,10 @@ author: oompah
 created: 2026-08-03 15:28
 ---
 Verification: make test, make fmt-check, and make lint all reached their offline checks successfully but the pinned Elixir 1.20.2 container phase was blocked by the sandboxed Podman runtime (read-only /run/user/1000/libpod). Direct Elixir checks passed syntax parsing for all changed Elixir files, changed-file formatter compatibility, AES-GCM round-trip/wrong-AAD/missing-key behavior, and IPv4/IPv6 SSRF/policy probes. No uncommitted changes or diff-check errors are present.
+---
+author: oompah
+created: 2026-08-03 15:32
+---
+Implementation update: hardened the policy against IPv4-mapped IPv6 CIDR bypasses and added fail-closed rejection for IPv6 NAT64, discard-only, protocol-assignment, documentation, and deprecated special-use ranges. Fixed encryption parsing so truncated unknown-version blobs return :invalid_ciphertext rather than misclassified :unsupported_version. Added focused regression coverage.
 ---
 <!-- COMMENTS:END -->
