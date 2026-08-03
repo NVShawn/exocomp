@@ -7,17 +7,19 @@ title: Enforce policy and permits at the node safety gate
 parent: EXOCOMP-211
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-127
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:29.308857Z'
-updated_at: '2026-08-03T14:26:29.308857Z'
+updated_at: '2026-08-03T14:29:34.137706Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 

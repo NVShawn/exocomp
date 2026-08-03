@@ -7,17 +7,19 @@ title: Renew policy leases and fall back to observe on expiry
 parent: EXOCOMP-210
 children: []
 blocked_by: []
-start_blocked_by: []
+start_blocked_by: &id001
+- EXOCOMP-127
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:17.678179Z'
-updated_at: '2026-08-03T14:25:17.678179Z'
+updated_at: '2026-08-03T14:29:21.017128Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
+oompah.start_blocked_by: *id001
 ---
 ## Summary
 
