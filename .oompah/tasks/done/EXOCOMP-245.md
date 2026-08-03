@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:46:47.909030Z'
+updated_at: '2026-08-03T18:47:26.992844Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -29,13 +29,17 @@ oompah.integration:
   submitted_at: '2026-08-03T18:33:48.187770+00:00'
   updated_at: '2026-08-03T18:33:48.187770+00:00'
 oompah.task_costs:
-  total_input_tokens: 418400
-  total_output_tokens: 5555
+  total_input_tokens: 418430
+  total_output_tokens: 12262
   total_cost_usd: 0.0
   by_model:
     sonnet:
       input_tokens: 418400
       output_tokens: 5555
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 30
+      output_tokens: 6707
       cost_usd: 0.0
   runs:
   - profile: standard
@@ -44,6 +48,12 @@ oompah.task_costs:
     output_tokens: 5555
     cost_usd: 0.0
     recorded_at: '2026-08-03T18:21:25.145470+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 30
+    output_tokens: 6707
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T18:47:24.765582+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-245__20260803T181916Z
@@ -340,5 +350,15 @@ Safe evidence:
 - git_diff_check: clean
 - working_tree: clean
 - packaging_tests: 6/6 pass (make test-mission-control-packaging)
+---
+author: oompah
+created: 2026-08-03 18:47
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 24
+- Tokens: 30 in / 6.7K out [6.7K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 9m 5s
+- Log: EXOCOMP-245__20260803T183825Z.jsonl
 ---
 <!-- COMMENTS:END -->
