@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:29:56.908291Z'
+updated_at: '2026-08-03T17:30:43.956460Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -118,5 +118,10 @@ author: oompah
 created: 2026-08-03 17:29
 ---
 Focus: Test Engineer
+---
+author: oompah
+created: 2026-08-03 17:30
+---
+Understanding: This is a nondeterministic test in multi_node_discovery_polling_test.exs. The test 'unreachable node retains previously verified addresses and increments failure counter' has a race condition where it waits only for the unreachable echo result, then immediately asserts that the independently scheduled foxtrot peer is healthy. Under valid task interleavings, foxtrot may remain :unknown, causing intermittent failures. The fix is to synchronize on the peer outcome before asserting, while preserving assertions about the unreachable node's state. Previous work on epic-EXOCOMP-132 successfully validated this fix with 50 repeat runs and full test gate passage. I'll locate the test, apply the synchronization fix, and verify with repeated test runs.
 ---
 <!-- COMMENTS:END -->
