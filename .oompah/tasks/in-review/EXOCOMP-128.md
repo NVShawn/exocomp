@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-128
 type: epic
-status: In Validation
+status: In Review
 priority: 1
 title: 'M7A: Mission Control foundation and persistence'
 parent: EXOCOMP-127
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T22:02:42.966855Z'
+updated_at: '2026-08-03T22:09:48.659318Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -31,6 +31,7 @@ oompah.terminal_audit:
     attempt-9e721291b92b: '2026-08-01T16:25:28.504381+00:00'
     attempt-effb31c964f7: '2026-08-01T16:30:15.211519+00:00'
     attempt-492d64b9af7b: '2026-08-03T21:18:25.726717+00:00'
+    attempt-b7b41fe870ef: '2026-08-03T22:09:45.264185+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-128
@@ -48,8 +49,9 @@ oompah.terminal_audit:
     audit_ids:
     - audit-8bf58132f5c0
     - audit-f33556e74f5c
+    - audit-87c928b700fb
     kind: result
-    applied: false
+    applied: true
     retired_at: '2026-08-01T16:30:15.211532+00:00'
     lifecycle_reconciled: true
     reconciled_to: Done
@@ -97,6 +99,17 @@ oompah.terminal_audit:
     retired_by_reconciliation: true
     retired_reason: shared_epic_parent_not_landed
     reconciled_at: '2026-08-03T21:21:52.974456+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-128
+    audit_id: audit-87c928b700fb
+    attempt_id: attempt-b7b41fe870ef
+    target_state: Merged
+    evidence_fingerprint: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+    status: In Review
+    audit_ids:
+    - audit-87c928b700fb
+    applied: false
+    created_at: '2026-08-03T22:09:45.264229+00:00'
   oompah.terminal_override_records: []
   oompah.lifecycle_reconciliations:
   - project_id: proj-c260b117
@@ -248,7 +261,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-128
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -257,7 +270,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b7b41fe870ef
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -267,13 +280,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T22:02:19.523855+00:00'
       branch_key: epic-EXOCOMP-128
+      verdict: fail
+      failure_classification: healthy_unmerged_review
+      completed_at: '2026-08-03T22:09:45.264014+00:00'
+      ended_at: '2026-08-03T22:09:45.264014+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Review
     created_at: '2026-08-03T21:58:34.950936+00:00'
-    updated_at: '2026-08-03T22:02:19.523855+00:00'
+    updated_at: '2026-08-03T22:09:45.264014+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9e721291b92b
@@ -581,5 +598,16 @@ author: oompah
 created: 2026-08-03 22:02
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 22:09
+---
+Audit FAIL — healthy unmerged review. Routing task to In Review.
+
+[REDACTED]
+
+Instructions:
+- Complete parent epic EXOCOMP-127 review and merge it into origin/main before re-queueing EXOCOMP-128 for the terminal Merged transition.
+- Once epic-EXOCOMP-127 lands on main (bringing the EXOCOMP-128 merge commit 2476a392 along with it as an ancestor of main), re-dispatch the auditor — the Merged verdict will then be applyable.
 ---
 <!-- COMMENTS:END -->
