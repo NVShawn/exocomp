@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:23:27.882816Z'
+updated_at: '2026-08-03T17:23:34.365284Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-173
-  base_branch: epic-EXOCOMP-134
-  base_sha: fb5673e4da33054442e6ace089194af5103fdae7
-  updated_at: '2026-08-03T17:15:33.682169+00:00'
+  head_sha: ab56e3105943d1fac9b0c49ad03aa69966404c4b
+  submitted_at: '2026-08-03T17:23:25.514207+00:00'
+  updated_at: '2026-08-03T17:23:25.514207+00:00'
 oompah.task_costs:
   total_input_tokens: 420560
   total_output_tokens: 68032
@@ -562,5 +562,10 @@ author: oompah
 created: 2026-08-03 17:23
 ---
 Completion: pushed ab56e310 on epic-EXOCOMP-134--task-EXOCOMP-173. Restored the audited Phoenix Mission Control mix project/application/dependency shape and synchronized mix.lock plus license/notice inventories; applied formatter-required fixes. Native format and license checks pass, while containerized test/lint/format/database gates remain environment-blocked by Podman sandbox restrictions. Branch is clean and matches origin.
+---
+author: oompah
+created: 2026-08-03 17:23
+---
+Restored Mission Control Phoenix application configuration and synchronized dependencies; branch ab56e310 pushed and quality verification recorded.
 ---
 <!-- COMMENTS:END -->
