@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T20:47:46.251121Z'
+updated_at: '2026-08-03T20:51:11.996727Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -59,7 +59,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: ee45f393-6af2-4d9a-98e4-979b9fe3fa9b
+oompah.agent_run_id: 5d7a9185-fe44-4b50-b928-a2d14a528ee0
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
