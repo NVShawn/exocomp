@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-245
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:33:53.951576Z'
+updated_at: '2026-08-03T18:35:25.666006Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -71,6 +71,28 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-2445e1a1cc6d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-245
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0ff15b149e79575a675185db932777f4b07aac3c4d870de4a479023551fdf58d
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T18:35:18.275504+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -222,5 +244,15 @@ author: oompah
 created: 2026-08-03 18:33
 ---
 Same-head rearm after OOMPAH-731 authority cancellation: authoritative parent rebase remains published and verified at 542b7fe5.
+---
+author: oompah
+created: 2026-08-03 18:35
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-03 18:35
+---
+Requested audited Done maintenance transition after exact parent-target rebase was published and verified at 542b7fe5; ordinary child integration is bypassed only because OOMPAH-731 makes that route self-invalidating.
 ---
 <!-- COMMENTS:END -->
