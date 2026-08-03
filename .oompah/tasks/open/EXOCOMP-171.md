@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: Ready to Integrate
+status: Open
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:36:12.733703Z'
+updated_at: '2026-08-03T14:36:16.910740Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -565,5 +565,13 @@ author: oompah
 created: 2026-08-03 14:32
 ---
 Completed durable immutable audit storage, scoped queries, rollback-safe transaction integration, pre-persistence/webhook redaction, and PostgreSQL-backed acceptance coverage at f1e60cb4.
+---
+author: oompah
+created: 2026-08-03 14:36
+---
+Integration could not verify `epic-EXOCOMP-134--task-EXOCOMP-171`: could not recover integration worktrees: git worktree add failed: Preparing worktree (checking out 'epic-EXOCOMP-134--task-EXOCOMP-171')
+fatal: 'epic-EXOCOMP-134--task-EXOCOMP-171' is already used by worktree at '/home/shedwards/.oompah/tmp/exocomp-171-owner.Sl6Hc9'
+
+Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
 ---
 <!-- COMMENTS:END -->
