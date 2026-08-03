@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T17:49:03.493320Z'
+updated_at: '2026-08-03T17:51:44.504775Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -210,5 +210,15 @@ author: oompah
 created: 2026-08-03 17:49
 ---
 Implementation: rebased the preserved transport onto the current EXOCOMP-130 epic, reconciled the coordinator with the existing Mission Control supervisor, and made the supervised Connection establish the outbound TLS 1.3 WebSocket using trust root plus enrolled client cert/key. Moved the authenticated gateway, certificate identity, and session registry into the Mission Control app, mounted /api/v1/clusters/connect, started the registry, split transport tests, and made production endpoint TLS fail closed with peer certificates required.
+---
+author: oompah
+created: 2026-08-03 17:51
+---
+Verification: offline make test checks passed (13 structural/release checks plus Python packaging/documentation tests). Changed sources parse cleanly, and direct elixirc compilation of coordinator transport/application sources passed with only expected missing-dependency warnings. Focused Mix tests, make test’s pinned Elixir test phase, make fmt-check, and make lint are environment-blocked: host Elixir 1.18.3 vs required 1.20.2, and Podman cannot initialize because /run/user/1000/libpod is read-only. git diff --check is clean.
+---
+author: oompah
+created: 2026-08-03 17:51
+---
+Completion: rebased the preserved implementation onto epic head 8400a54, pushed clean head 0bb80c72, and verified origin matches the worktree. Delivered the outbound wss/TLS 1.3 mTLS coordinator connection, Mission Control certificate-derived gateway and revocation/session replacement enforcement, mounted upgrade route, and fail-closed production TLS configuration. Ready to integrate.
 ---
 <!-- COMMENTS:END -->
