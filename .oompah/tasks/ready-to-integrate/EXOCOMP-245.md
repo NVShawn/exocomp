@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:27:42.899833Z'
+updated_at: '2026-08-03T18:27:55.435810Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -61,13 +61,13 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: ''
-  claim_id: 63c25002-c2d6-4b8b-bac3-191afffb5e91
-  claim_owner: 8a58fb27-42d0-40cf-8dc2-70615b9783dc
-  claimed_at: '2026-08-03T18:27:27.446822+00:00'
-  claim_expires_at: '2026-08-03T18:57:27.446822+00:00'
+  evidence: Duplicate screening worker was terminated.
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
-  retry_after: null
+  retry_after: '2026-08-03T18:27:54.752709+00:00'
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
@@ -202,5 +202,15 @@ author: oompah
 created: 2026-08-03 18:27
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 18:27
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 19s
+- Log: EXOCOMP-245__20260803T182743Z.jsonl
 ---
 <!-- COMMENTS:END -->
