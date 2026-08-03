@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:55:45.939652Z'
+updated_at: '2026-08-03T14:55:59.995900Z'
 work_branch: epic-EXOCOMP-132
 target_branch: null
 review_url: null
@@ -29,8 +29,8 @@ oompah.integration:
   base_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
   updated_at: '2026-08-03T14:40:48.825902+00:00'
 oompah.task_costs:
-  total_input_tokens: 152789
-  total_output_tokens: 4201
+  total_input_tokens: 152806
+  total_output_tokens: 4515
   total_cost_usd: 0.0
   by_model:
     sonnet:
@@ -46,8 +46,8 @@ oompah.task_costs:
       output_tokens: 2333
       cost_usd: 0.0
     unknown:
-      input_tokens: 29
-      output_tokens: 252
+      input_tokens: 46
+      output_tokens: 566
       cost_usd: 0.0
   runs:
   - profile: standard
@@ -74,6 +74,12 @@ oompah.task_costs:
     output_tokens: 252
     cost_usd: 0.0
     recorded_at: '2026-08-03T14:53:01.958316+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 17
+    output_tokens: 314
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T14:55:58.009390+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-241__20260803T143649Z
@@ -497,5 +503,15 @@ created: 2026-08-03 14:55
 Override by oompah-cli: terminal transition to Done applied by project owner.
 
 Reason: Operator independently verified the maintenance result: local and remote epic-EXOCOMP-132 and origin/main all resolve to 4e01311060eee5be3c1d18d86d809f4007664497, divergence is 0/0, and the worktree is clean. Audit attempt 1 had already reproduced those equal refs before harmless git rev-list inspection exhausted the deployed policy budget; OOMPAH-722 tracks that exact authority-policy defect. Override prevents repeated known-broken candidate rotation.
+---
+author: oompah
+created: 2026-08-03 14:55
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 0, Tool calls: 6
+- Tokens: 17 in / 314 out [331 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 32s
+- Log: EXOCOMP-241__20260803T145330Z.jsonl
 ---
 <!-- COMMENTS:END -->
