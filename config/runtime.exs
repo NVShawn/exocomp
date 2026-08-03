@@ -47,6 +47,26 @@ if config_env() == :prod do
     cluster_invitation_store_path: System.get_env("EXOCOMP_CLUSTER_INVITATION_STORE"),
     a2a_tls: a2a_tls
 
+  # Load coordinator configuration and wire Mission Control config into app env.
+  # The coordinator config file is loaded at runtime, and if a mission_control block
+  # is present and enabled, it is wired into the application environment so the
+  # supervisor can conditionally start the Mission Control client.
+  case Exocomp.Coordinator.Config.load() do
+    {:ok, config} ->
+      Application.put_env(:exocomp_coordinator, :mission_control_config, config.mission_control)
+
+    {:error, reason} ->
+      fields =
+        case reason do
+          {:missing_fields, values} when is_list(values) -> Enum.join(values, ", ")
+          {:type_errors, values} when is_list(values) -> Enum.join(values, ", ")
+          _ -> inspect(reason, limit: 10, printable_limit: 512)
+        end
+
+      raise "Invalid coordinator configuration: #{fields}. " <>
+              "Fix the file referenced by EXOCOMP_COORDINATOR_CONFIG_FILE before startup."
+  end
+
   mission_control_port =
     System.get_env("MISSION_CONTROL_PORT", "4000")
     |> String.to_integer()

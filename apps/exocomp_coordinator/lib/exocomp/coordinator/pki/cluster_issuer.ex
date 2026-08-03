@@ -26,8 +26,6 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
     {1, 3, 132, 0, 34},
     {1, 3, 132, 0, 35}
   ]
-  @spiffe_uri_oid {1, 3, 6, 1, 5, 5, 7, 1, 7}
-
   @doc """
   Validates a cluster CSR according to cluster enrollment requirements.
 
@@ -90,7 +88,14 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
          :ok <- validate_intermediate(intermediate, intermediate_key),
          :ok <- reject_intermediate_key(csr, intermediate_key),
          {:ok, leaf} <-
-           sign_leaf(csr, organization_id, cluster_id, intermediate, intermediate_key, validity_days) do
+           sign_leaf(
+             csr,
+             organization_id,
+             cluster_id,
+             intermediate,
+             intermediate_key,
+             validity_days
+           ) do
       {:ok, X509.Certificate.to_pem(leaf) <> intermediate_pem}
     else
       {:error, %Error{} = error} -> {:error, error}
@@ -159,7 +164,10 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
     case extensions_for(extensions, @subject_alt_name_oid) do
       [{:Extension, @subject_alt_name_oid, _critical, san_values}] ->
         uris =
-          for {:uniformResourceIdentifier, uri} <- san_values, do: uri
+          for {:uniformResourceIdentifier, uri} <- san_values,
+              normalized_uri = normalize_uri(uri),
+              not is_nil(normalized_uri),
+              do: normalized_uri
 
         case uris do
           [^expected_uri] -> :ok
@@ -297,7 +305,10 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
           basic_constraints: Extension.basic_constraints(false),
           key_usage: Extension.key_usage([:digitalSignature]),
           ext_key_usage: Extension.ext_key_usage([:clientAuth]),
-          subject_alt_name: Extension.subject_alt_name([{:URI, spiffe_uri}])
+          subject_alt_name:
+            Extension.subject_alt_name([
+              {:uniformResourceIdentifier, String.to_charlist(spiffe_uri)}
+            ])
         ]
       )
 
@@ -311,6 +322,10 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
   defp build_spiffe_uri(organization_id, cluster_id) do
     "spiffe://exocomp/organizations/#{organization_id}/clusters/#{cluster_id}"
   end
+
+  defp normalize_uri(uri) when is_binary(uri), do: uri
+  defp normalize_uri(uri) when is_list(uri), do: List.to_string(uri)
+  defp normalize_uri(_uri), do: nil
 
   defp csr_extensions(
          {:CertificationRequest,

@@ -29,14 +29,28 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
   describe "register/5" do
     test "registers a serial and reports active status" do
       reg = start_registry()
-      assert :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      assert :ok =
+               CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at,
+                 server: reg
+               )
+
       assert CertificateRegistry.certificate_status(@serial_1, server: reg) == :active
     end
 
     test "re-registering the same serial is idempotent" do
       reg = start_registry()
-      assert :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
-      assert :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      assert :ok =
+               CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at,
+                 server: reg
+               )
+
+      assert :ok =
+               CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at,
+                 server: reg
+               )
+
       assert CertificateRegistry.certificate_status(@serial_1, server: reg) == :active
     end
 
@@ -53,7 +67,10 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
   describe "revoke_serial/2" do
     test "revoked serial reports :revoked status" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
       assert :ok = CertificateRegistry.revoke_serial(@serial_1, server: reg)
       assert CertificateRegistry.certificate_status(@serial_1, server: reg) == :revoked
     end
@@ -66,7 +83,10 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
 
     test "revocation is idempotent" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
       assert :ok = CertificateRegistry.revoke_serial(@serial_1, server: reg)
       assert :ok = CertificateRegistry.revoke_serial(@serial_1, server: reg)
       assert CertificateRegistry.certificate_status(@serial_1, server: reg) == :revoked
@@ -74,8 +94,13 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
 
     test "revoking one serial does not affect another serial for the same identity" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
-      :ok = CertificateRegistry.register(@serial_2, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_2, @node_alpha, @issued_at, @expires_at, server: reg)
+
       :ok = CertificateRegistry.revoke_serial(@serial_1, server: reg)
 
       assert CertificateRegistry.certificate_status(@serial_1, server: reg) == :revoked
@@ -90,8 +115,13 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
   describe "revoke_identity/2" do
     test "revoked identity reports :revoked for all its serials" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
-      :ok = CertificateRegistry.register(@serial_2, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_2, @node_alpha, @issued_at, @expires_at, server: reg)
+
       assert :ok = CertificateRegistry.revoke_identity(@node_alpha, server: reg)
 
       assert CertificateRegistry.certificate_status(@serial_1, server: reg) == :revoked
@@ -100,7 +130,10 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
 
     test "revoked identity reports :revoked for identity_status" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
       :ok = CertificateRegistry.revoke_identity(@node_alpha, server: reg)
 
       assert CertificateRegistry.identity_status(@node_alpha, server: reg) == :revoked
@@ -108,8 +141,13 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
 
     test "revoking one identity does not affect another" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
-      :ok = CertificateRegistry.register(@serial_3, @node_beta, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_3, @node_beta, @issued_at, @expires_at, server: reg)
+
       :ok = CertificateRegistry.revoke_identity(@node_alpha, server: reg)
 
       assert CertificateRegistry.identity_status(@node_alpha, server: reg) == :revoked
@@ -119,7 +157,10 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
 
     test "revoke_identity is idempotent" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
       assert :ok = CertificateRegistry.revoke_identity(@node_alpha, server: reg)
       assert :ok = CertificateRegistry.revoke_identity(@node_alpha, server: reg)
       assert CertificateRegistry.identity_status(@node_alpha, server: reg) == :revoked
@@ -129,7 +170,8 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
       reg = start_registry()
       :ok = CertificateRegistry.revoke_identity(@node_alpha, server: reg)
       # Register a new serial for the already-revoked identity
-      :ok = CertificateRegistry.register(@serial_2, @node_alpha, @issued_at, @expires_at, server: reg)
+      :ok =
+        CertificateRegistry.register(@serial_2, @node_alpha, @issued_at, @expires_at, server: reg)
 
       assert CertificateRegistry.certificate_status(@serial_2, server: reg) == :revoked
     end
@@ -147,7 +189,10 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
 
     test "identity with active serial reports :active" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
       assert CertificateRegistry.identity_status(@node_alpha, server: reg) == :active
     end
   end
@@ -159,8 +204,13 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
   describe "status/1" do
     test "returns counts of issued, revoked serials, and revoked identities" do
       reg = start_registry()
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
-      :ok = CertificateRegistry.register(@serial_2, @node_beta, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: reg)
+
+      :ok =
+        CertificateRegistry.register(@serial_2, @node_beta, @issued_at, @expires_at, server: reg)
+
       :ok = CertificateRegistry.revoke_serial(@serial_1, server: reg)
       :ok = CertificateRegistry.revoke_identity(@node_beta, server: reg)
 
@@ -225,7 +275,11 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistryTest do
       name1 = :"certreg_p1_#{System.unique_integer([:positive, :monotonic])}"
       start_supervised!({CertificateRegistry, [name: name1, store_path: store]}, id: name1)
 
-      :ok = CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at, server: name1)
+      :ok =
+        CertificateRegistry.register(@serial_1, @node_alpha, @issued_at, @expires_at,
+          server: name1
+        )
+
       :ok = CertificateRegistry.revoke_identity(@node_alpha, server: name1)
 
       assert CertificateRegistry.identity_status(@node_alpha, server: name1) == :revoked

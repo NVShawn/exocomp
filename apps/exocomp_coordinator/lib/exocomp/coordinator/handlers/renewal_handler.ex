@@ -328,7 +328,8 @@ defmodule Exocomp.Coordinator.Handlers.RenewalHandler do
               {:ok, serial, issued_at, expires_at}
 
             _other ->
-              {:error, Error.new(:pki_operation_failed, "could not extract validity from issued cert")}
+              {:error,
+               Error.new(:pki_operation_failed, "could not extract validity from issued cert")}
           end
 
         _other ->
@@ -343,7 +344,9 @@ defmodule Exocomp.Coordinator.Handlers.RenewalHandler do
   defp register_serial(serial, node_id, issued_at, expires_at) do
     if registry_available?() do
       case CertificateRegistry.register(serial, node_id, issued_at, expires_at) do
-        :ok -> :ok
+        :ok ->
+          :ok
+
         # Non-fatal: log and continue — the cert was issued successfully
         {:error, _error} ->
           Logger.warning(

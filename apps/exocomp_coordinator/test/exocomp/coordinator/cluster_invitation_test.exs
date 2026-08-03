@@ -16,8 +16,7 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
   defp unique_name(prefix), do: String.to_atom("#{prefix}_#{System.unique_integer([:positive])}")
 
   defp clock(initial \\ 1_000) do
-    {:ok, agent} = Agent.start_link(fn -> initial end)
-    on_exit(fn -> Agent.stop(agent) end)
+    agent = start_supervised!({Agent, fn -> initial end})
     now = fn -> Agent.get(agent, & &1) end
     set = fn value -> Agent.update(agent, fn _ -> value end) end
     {now, set}
@@ -31,7 +30,7 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
 
   defp issue(store, attrs \\ %{}) do
     ClusterInvitationStore.create(
-      Map.merge(%{organization_id: @organization_id, name: "cluster-a"}, attrs),
+      Map.merge(%{organization_id: @organization_id, name: "cluster-a"}, Map.new(attrs)),
       server: store
     )
   end
@@ -110,10 +109,14 @@ defmodule Exocomp.Coordinator.ClusterInvitationTest do
     assert {:ok, invitation, token} = issue(store)
 
     assert {:error, %Error{code: :cluster_mismatch}} =
-             ClusterInvitationStore.consume(token, @organization_id, "other-cluster", server: store)
+             ClusterInvitationStore.consume(token, @organization_id, "other-cluster",
+               server: store
+             )
 
     assert {:ok, _invitation} =
-             ClusterInvitationStore.consume(token, @organization_id, invitation.cluster_id, server: store)
+             ClusterInvitationStore.consume(token, @organization_id, invitation.cluster_id,
+               server: store
+             )
   end
 
   test "cluster names are unique per organization" do

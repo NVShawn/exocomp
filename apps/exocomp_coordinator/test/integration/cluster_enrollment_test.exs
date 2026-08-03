@@ -38,9 +38,7 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
                root_key_protection: {:passphrase, @passphrase}
              )
 
-    start_supervised!(
-      {Audit, name: audit, sink: {Audit.JSONLines, path: audit_path}}
-    )
+    start_supervised!({Audit, name: audit, sink: {Audit.JSONLines, path: audit_path}})
 
     start_supervised!({State, metadata: metadata, name: pki_state})
 
@@ -99,7 +97,8 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
       Extension.key_usage([:digitalSignature]),
       Extension.ext_key_usage([:clientAuth]),
       Extension.subject_alt_name([
-        {:URI, "spiffe://exocomp/organizations/#{organization_id}/clusters/#{cluster_id}"}
+        {:uniformResourceIdentifier,
+         ~c"spiffe://exocomp/organizations/#{organization_id}/clusters/#{cluster_id}"}
       ])
     ]
   end
@@ -150,7 +149,12 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
 
     {leaf, _intermediate} = issued_chain(chain_pem)
     {:Validity, not_before, not_after} = X509.Certificate.validity(leaf)
-    assert DateTime.diff(X509.DateTime.to_datetime(not_after), X509.DateTime.to_datetime(not_before)) == 30 * 86_400
+
+    assert DateTime.diff(
+             X509.DateTime.to_datetime(not_after),
+             X509.DateTime.to_datetime(not_before)
+           ) == 30 * 86_400
+
     assert X509.Certificate.subject(leaf, :commonName) == [invitation.cluster_id]
     assert X509.Certificate.subject(leaf, :organizationName) == ["Exocomp"]
 
@@ -158,7 +162,7 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
              X509.Certificate.extension(leaf, :subject_alt_name)
 
     assert {:uniformResourceIdentifier,
-            "spiffe://exocomp/organizations/#{@organization_id}/clusters/#{invitation.cluster_id}"} in san_values
+            ~c"spiffe://exocomp/organizations/#{@organization_id}/clusters/#{invitation.cluster_id}"} in san_values
 
     assert_chain_validates_to_root(chain_pem, context.online)
 
@@ -189,9 +193,24 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
     malformed =
       "-----BEGIN CERTIFICATE REQUEST-----\ninvalid-base64\n-----END CERTIFICATE REQUEST-----"
 
-    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, malformed).status == 422
-    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, tamper_signature(valid_csr_pem)).status == 422
-    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, valid_csr_pem).status == 200
+    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, malformed).status ==
+             422
+
+    assert enrollment_request(
+             context,
+             @organization_id,
+             invitation.cluster_id,
+             token,
+             tamper_signature(valid_csr_pem)
+           ).status == 422
+
+    assert enrollment_request(
+             context,
+             @organization_id,
+             invitation.cluster_id,
+             token,
+             valid_csr_pem
+           ).status == 200
   end
 
   test "rejects unsupported RSA key parameters", %{tmp_dir: tmp_dir} do
@@ -207,8 +226,7 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
   end
 
   test "rejects expired and replayed invitations", %{tmp_dir: tmp_dir} do
-    {:ok, clock} = Agent.start_link(fn -> 1_000 end)
-    on_exit(fn -> Agent.stop(clock) end)
+    clock = start_supervised!({Agent, fn -> 1_000 end})
 
     context =
       setup_context(tmp_dir,
@@ -220,11 +238,16 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
     Agent.update(clock, fn _ -> 1_001 end)
     {_key, csr} = valid_csr(@organization_id, invitation.cluster_id)
 
-    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, csr).status == 401
-    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, csr).status == 401
+    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, csr).status ==
+             401
+
+    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, csr).status ==
+             401
   end
 
-  test "rejects organization and cluster bindings without burning the invitation", %{tmp_dir: tmp_dir} do
+  test "rejects organization and cluster bindings without burning the invitation", %{
+    tmp_dir: tmp_dir
+  } do
     context = setup_context(tmp_dir)
     assert {:ok, invitation, token} = issue_invitation(context)
     {_key, wrong_organization_csr} = valid_csr(@other_organization_id, invitation.cluster_id)
@@ -239,10 +262,22 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
              wrong_organization_csr
            ).status == 401
 
-    assert enrollment_request(context, @organization_id, "other-cluster", token, wrong_cluster_csr).status ==
+    assert enrollment_request(
+             context,
+             @organization_id,
+             "other-cluster",
+             token,
+             wrong_cluster_csr
+           ).status ==
              401
 
-    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, valid_csr_pem).status ==
+    assert enrollment_request(
+             context,
+             @organization_id,
+             invitation.cluster_id,
+             token,
+             valid_csr_pem
+           ).status ==
              200
   end
 
@@ -253,7 +288,8 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
 
     File.write!(Path.join(context.online, "intermediate_ca_key.pem"), "not a private key")
 
-    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, csr).status == 503
+    assert enrollment_request(context, @organization_id, invitation.cluster_id, token, csr).status ==
+             503
   end
 
   test "rejects a CSR with multiple URI identities", %{tmp_dir: tmp_dir} do
@@ -266,8 +302,10 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
       |> List.replace_at(
         3,
         Extension.subject_alt_name([
-          {:URI, "spiffe://exocomp/organizations/#{@organization_id}/clusters/#{invitation.cluster_id}"},
-          {:URI, "spiffe://exocomp/organizations/#{@organization_id}/clusters/other"}
+          {:uniformResourceIdentifier,
+           ~c"spiffe://exocomp/organizations/#{@organization_id}/clusters/#{invitation.cluster_id}"},
+          {:uniformResourceIdentifier,
+           ~c"spiffe://exocomp/organizations/#{@organization_id}/clusters/other"}
         ])
       )
 

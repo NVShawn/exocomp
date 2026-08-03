@@ -190,9 +190,14 @@ defmodule Exocomp.Coordinator.PKI.CertificateRegistry do
       |> Enum.filter(fn {_serial, entry} -> entry.node_id == node_id end)
       |> Enum.map(fn {serial, _entry} -> serial end)
 
-    new_revoked_serials = Enum.reduce(identity_serials, state.revoked_serials, &MapSet.put(&2, &1))
+    new_revoked_serials =
+      Enum.reduce(identity_serials, state.revoked_serials, &MapSet.put(&2, &1))
 
-    new_state = %{state | revoked_identities: new_identities, revoked_serials: new_revoked_serials}
+    new_state = %{
+      state
+      | revoked_identities: new_identities,
+        revoked_serials: new_revoked_serials
+    }
 
     case persist(new_state) do
       :ok -> {:reply, :ok, new_state}

@@ -85,7 +85,15 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
     cert_registry_name = :"#{prefix}_cert_registry"
 
     # Start the standard tree and also the cert registry
-    {:ok, sup_pid} = start_pki_tree_with_cert_registry(online, offline, store, cert_reg_store, prefix, extra_opts)
+    {:ok, sup_pid} =
+      start_pki_tree_with_cert_registry(
+        online,
+        offline,
+        store,
+        cert_reg_store,
+        prefix,
+        extra_opts
+      )
 
     Process.unlink(sup_pid)
 
@@ -252,6 +260,7 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
 
       # Renewal window check: opens at not_before + 20 days
       renewal_opens_at = not_before + 20 * @seconds_per_day
+
       assert simulated_now < renewal_opens_at,
              "19 days after issuance is before the 20-day renewal window"
     end
@@ -267,6 +276,7 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
       simulated_now = not_before + 20 * @seconds_per_day
 
       renewal_opens_at = not_before + 20 * @seconds_per_day
+
       assert simulated_now >= renewal_opens_at,
              "20 days after issuance is at the start of the renewal window"
     end
@@ -381,8 +391,11 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
 
       :ok = CertificateRegistry.revoke_serial(serial_1, server: ctx.cert_registry)
 
-      assert CertificateRegistry.certificate_status(serial_1, server: ctx.cert_registry) == :revoked
-      assert CertificateRegistry.certificate_status(serial_2, server: ctx.cert_registry) == :active
+      assert CertificateRegistry.certificate_status(serial_1, server: ctx.cert_registry) ==
+               :revoked
+
+      assert CertificateRegistry.certificate_status(serial_2, server: ctx.cert_registry) ==
+               :active
     end
   end
 
@@ -422,9 +435,14 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
       # Revoke the identity — all known serials become revoked
       :ok = CertificateRegistry.revoke_identity(@node_alpha, server: ctx.cert_registry)
 
-      assert CertificateRegistry.identity_status(@node_alpha, server: ctx.cert_registry) == :revoked
-      assert CertificateRegistry.certificate_status(serial_1, server: ctx.cert_registry) == :revoked
-      assert CertificateRegistry.certificate_status(serial_2, server: ctx.cert_registry) == :revoked
+      assert CertificateRegistry.identity_status(@node_alpha, server: ctx.cert_registry) ==
+               :revoked
+
+      assert CertificateRegistry.certificate_status(serial_1, server: ctx.cert_registry) ==
+               :revoked
+
+      assert CertificateRegistry.certificate_status(serial_2, server: ctx.cert_registry) ==
+               :revoked
     end
 
     @tag :tmp_dir
@@ -457,9 +475,13 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
 
       :ok = CertificateRegistry.revoke_identity(@node_alpha, server: ctx.cert_registry)
 
-      assert CertificateRegistry.identity_status(@node_alpha, server: ctx.cert_registry) == :revoked
+      assert CertificateRegistry.identity_status(@node_alpha, server: ctx.cert_registry) ==
+               :revoked
+
       assert CertificateRegistry.identity_status(@node_beta, server: ctx.cert_registry) == :active
-      assert CertificateRegistry.certificate_status(serial_b, server: ctx.cert_registry) == :active
+
+      assert CertificateRegistry.certificate_status(serial_b, server: ctx.cert_registry) ==
+               :active
     end
 
     @tag :tmp_dir
@@ -602,7 +624,9 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
         )
 
       assert CertificateRegistry.certificate_status(serial, server: ctx.cert_registry) == :active
-      assert CertificateRegistry.identity_status(@node_alpha, server: ctx.cert_registry) == :active
+
+      assert CertificateRegistry.identity_status(@node_alpha, server: ctx.cert_registry) ==
+               :active
     end
   end
 
@@ -659,7 +683,8 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
 
       # All registrations must have succeeded
       for {serial, node_id} <- results do
-        assert CertificateRegistry.certificate_status(serial, server: ctx.cert_registry) == :active,
+        assert CertificateRegistry.certificate_status(serial, server: ctx.cert_registry) ==
+                 :active,
                "Serial #{serial} for #{node_id} should be active after registration"
       end
 
@@ -692,7 +717,8 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
 
       # All must be revoked
       for serial <- serials do
-        assert CertificateRegistry.certificate_status(serial, server: ctx.cert_registry) == :revoked
+        assert CertificateRegistry.certificate_status(serial, server: ctx.cert_registry) ==
+                 :revoked
       end
     end
   end
@@ -736,7 +762,8 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
       # Corrupt the key
       File.write!(Path.join(metadata.online_state, "intermediate_ca_key.pem"), "bad key data")
 
-      assert {:error, %{code: :pki_operation_failed}} = Issuer.issue_leaf(csr, metadata.online_state)
+      assert {:error, %{code: :pki_operation_failed}} =
+               Issuer.issue_leaf(csr, metadata.online_state)
     end
   end
 
@@ -789,7 +816,9 @@ defmodule Exocomp.Coordinator.PKIRenewalTest do
     @tag :tmp_dir
     test "gateway sees :unknown for unregistered serial", %{tmp_dir: tmp_dir} do
       ctx = start_pki_tree(tmp_dir, "gateway-unknown")
-      assert CertificateRegistry.certificate_status(99_999_999, server: ctx.cert_registry) == :unknown
+
+      assert CertificateRegistry.certificate_status(99_999_999, server: ctx.cert_registry) ==
+               :unknown
     end
 
     @tag :tmp_dir
