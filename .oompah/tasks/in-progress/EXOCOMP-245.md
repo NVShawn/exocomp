@@ -11,14 +11,14 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:22:12.899325Z'
+updated_at: '2026-08-03T18:22:45.614018Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: 7ff56349-cceb-4297-a1d1-6d5bf691695f
+oompah.agent_run_id: 3eb3b00d-a2cc-49e5-9bd6-5d7a9719bedc
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 oompah.integration:
   version: 2
@@ -117,5 +117,10 @@ Run #2 [attempt=2, profile=deep, role=— -> Claude/opus]
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
 - Exit: error, Duration: 11s
+---
+author: oompah
+created: 2026-08-03 18:22
+---
+Retrying (attempt #2, agent: standard)
 ---
 <!-- COMMENTS:END -->
