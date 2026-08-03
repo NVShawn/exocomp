@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T21:21:50.789243Z'
+updated_at: '2026-08-03T21:21:56.188936Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -49,7 +49,7 @@ oompah.terminal_audit:
     - audit-8bf58132f5c0
     - audit-f33556e74f5c
     kind: result
-    applied: true
+    applied: false
     retired_at: '2026-08-01T16:30:15.211532+00:00'
     lifecycle_reconciled: true
     reconciled_to: Done
@@ -81,7 +81,7 @@ oompah.terminal_audit:
     applied_at: '2026-08-01T16:30:19.106664+00:00'
     retired_by_reconciliation: true
     retired_reason: shared_epic_parent_not_landed
-    reconciled_at: '2026-08-03T20:06:03.322283+00:00'
+    reconciled_at: '2026-08-03T21:21:52.974456+00:00'
   - project_id: proj-c260b117
     task_id: EXOCOMP-128
     audit_id: audit-f33556e74f5c
@@ -94,6 +94,9 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T21:18:25.726751+00:00'
     applied_at: '2026-08-03T21:18:30.916142+00:00'
+    retired_by_reconciliation: true
+    retired_reason: shared_epic_parent_not_landed
+    reconciled_at: '2026-08-03T21:21:52.974456+00:00'
   oompah.terminal_override_records: []
   oompah.lifecycle_reconciliations:
   - project_id: proj-c260b117
@@ -107,6 +110,17 @@ oompah.terminal_audit:
     done_audit_ids:
     - audit-8dacff3cc8f3
     created_at: '2026-08-03T20:06:03.322283+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-128
+    from: Merged
+    to: Done
+    reason: shared_epic_parent_not_landed
+    conflict: 'Cannot transition shared-epic child EXOCOMP-128 to Merged: parent epic
+      EXOCOMP-127 could not be verified. The parent review must land on its configured
+      target branch first.'
+    done_audit_ids:
+    - audit-8dacff3cc8f3
+    created_at: '2026-08-03T21:21:52.974456+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -182,7 +196,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-128
     target_state: Merged
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -228,7 +242,7 @@ oompah.terminal_audit:
       source: oompah
     previous_state: In Review
     created_at: '2026-08-03T20:43:53.494982+00:00'
-    updated_at: '2026-08-03T21:18:25.726505+00:00'
+    updated_at: '2026-08-03T21:21:52.974456+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9e721291b92b
@@ -508,5 +522,10 @@ Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: normal, Duration: 22m 8s
 - Log: EXOCOMP-128__20260803T205755Z.jsonl
+---
+author: oompah
+created: 2026-08-03 21:21
+---
+Lifecycle reconciliation restored EXOCOMP-128 to audited Done: Cannot transition shared-epic child EXOCOMP-128 to Merged: parent epic EXOCOMP-127 could not be verified. The parent review must land on its configured target branch first.
 ---
 <!-- COMMENTS:END -->
