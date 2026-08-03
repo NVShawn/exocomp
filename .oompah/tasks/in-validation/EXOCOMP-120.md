@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-120
 type: bug
-status: Merged
+status: In Validation
 priority: 1
 title: Make offline bundles reproducible and cryptographically complete
 parent: EXOCOMP-117
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-07-27T11:12:23.800552Z'
+updated_at: '2026-08-03T12:00:59.054984Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -41,6 +41,28 @@ oompah.task_costs:
     output_tokens: 40197
     cost_usd: 0.0
     recorded_at: '2026-07-26T05:19:35.907188+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-81dd81199f33
+    project_id: proj-c260b117
+    task_id: EXOCOMP-120
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 933bdc58ba9b8de521b65d41a7e892202f701d188866071846b8c3a85b63b018
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-03T12:00:56.640632+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -250,5 +272,10 @@ Run #1 [attempt=1, profile=deep, role=deep -> Claude/default]
 - Cost: $0.0000
 - Exit: normal, Duration: 17m 23s
 - Log: EXOCOMP-120__20260726T050216Z.jsonl
+---
+author: oompah
+created: 2026-08-03 12:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
