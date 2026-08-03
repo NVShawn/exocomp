@@ -58,7 +58,108 @@ defmodule Exocomp.MissionControl.Webhooks.WebhookAttemptTest do
     end
   end
 
-  describe "terminal_failure?/2" do
+  describe "terminal_failure?/3 (event-anchored 24h window)" do
+    test "returns false for attempts within 24 hours of event" do
+      now = ~N[2026-08-01 14:30:00]
+      # Event was created 1 hour ago
+      event_inserted_at = NaiveDateTime.add(now, -3600, :second)
+
+      attempt = %WebhookAttempt{
+        attempt_number: 5,
+        http_status: 500,
+        inserted_at: now
+      }
+
+      refute WebhookAttempt.terminal_failure?(attempt, event_inserted_at, now)
+    end
+
+    test "returns true when event is older than 24 hours" do
+      now = ~N[2026-08-01 14:30:00]
+      # Event was created 25 hours ago
+      event_inserted_at = NaiveDateTime.add(now, -90_000, :second)
+
+      attempt = %WebhookAttempt{
+        attempt_number: 5,
+        http_status: 500,
+        inserted_at: now
+      }
+
+      assert WebhookAttempt.terminal_failure?(attempt, event_inserted_at, now)
+    end
+
+    test "returns true for 4xx status codes (except 429)" do
+      now = ~N[2026-08-01 14:30:00]
+      event_inserted_at = now
+
+      for status <- [400, 401, 403, 404, 410] do
+        attempt = %WebhookAttempt{
+          attempt_number: 1,
+          http_status: status,
+          inserted_at: now
+        }
+
+        assert WebhookAttempt.terminal_failure?(attempt, event_inserted_at, now),
+               "Status #{status} should be terminal"
+      end
+    end
+
+    test "returns false for 429 (too many requests)" do
+      now = ~N[2026-08-01 14:30:00]
+      event_inserted_at = now
+
+      attempt = %WebhookAttempt{
+        attempt_number: 1,
+        http_status: 429,
+        inserted_at: now
+      }
+
+      refute WebhookAttempt.terminal_failure?(attempt, event_inserted_at, now)
+    end
+
+    test "returns false for 5xx within 24 hours" do
+      now = ~N[2026-08-01 14:30:00]
+      event_inserted_at = now
+
+      for status <- [500, 502, 503, 504] do
+        attempt = %WebhookAttempt{
+          attempt_number: 1,
+          http_status: status,
+          inserted_at: now
+        }
+
+        refute WebhookAttempt.terminal_failure?(attempt, event_inserted_at, now),
+               "Status #{status} should be retryable"
+      end
+    end
+
+    test "returns false for nil http_status within 24 hours (network error)" do
+      now = ~N[2026-08-01 14:30:00]
+      event_inserted_at = now
+
+      attempt = %WebhookAttempt{
+        attempt_number: 1,
+        http_status: nil,
+        inserted_at: now
+      }
+
+      refute WebhookAttempt.terminal_failure?(attempt, event_inserted_at, now)
+    end
+
+    test "returns true for nil http_status after 24 hours (network error, expired)" do
+      now = ~N[2026-08-01 14:30:00]
+      event_inserted_at = NaiveDateTime.add(now, -90_000, :second)
+
+      attempt = %WebhookAttempt{
+        attempt_number: 1,
+        http_status: nil,
+        inserted_at: now
+      }
+
+      assert WebhookAttempt.terminal_failure?(attempt, event_inserted_at, now)
+    end
+  end
+
+  describe "terminal_failure?/2 (backward-compatible 2-arity)" do
     test "returns false for attempts within 24 hours" do
       now = ~N[2026-08-01 14:30:00]
       # 1 hour ago
@@ -91,7 +192,6 @@ defmodule Exocomp.MissionControl.Webhooks.WebhookAttemptTest do
       now = ~N[2026-08-01 14:30:00]
       inserted_at = now
 
-      # Test various 4xx codes
       for status <- [400, 401, 403, 404, 410] do
         attempt = %WebhookAttempt{
           attempt_number: 1,
@@ -148,7 +248,6 @@ defmodule Exocomp.MissionControl.Webhooks.WebhookAttemptTest do
 
     test "returns true for nil http_status after 24 hours" do
       now = ~N[2026-08-01 14:30:00]
-      # 25 hours ago
       inserted_at = NaiveDateTime.add(now, -90_000, :second)
 
       attempt = %WebhookAttempt{
@@ -162,38 +261,36 @@ defmodule Exocomp.MissionControl.Webhooks.WebhookAttemptTest do
   end
 
   describe "changeset/2" do
-    test "creates valid changeset" do
+    test "creates valid changeset with required fields" do
       event_id = Ecto.UUID.generate()
-      webhook_id = Ecto.UUID.generate()
+      endpoint_id = Ecto.UUID.generate()
 
       changeset =
         WebhookAttempt.changeset(%WebhookAttempt{}, %{
           "webhook_event_id" => event_id,
-          "webhook_id" => webhook_id,
+          "webhook_endpoint_id" => endpoint_id,
           "status" => "pending"
         })
 
       assert changeset.valid?
-      assert Map.get(changeset.changes, :status, :pending) == :pending
     end
 
     test "validates required fields" do
       changeset = WebhookAttempt.changeset(%WebhookAttempt{}, %{})
 
       refute changeset.valid?
-      # Only the fields that were explicitly validated will have errors
       assert Keyword.has_key?(changeset.errors, :webhook_event_id)
-      assert Keyword.has_key?(changeset.errors, :webhook_id)
+      assert Keyword.has_key?(changeset.errors, :webhook_endpoint_id)
     end
 
     test "validates attempt_number is positive" do
       event_id = Ecto.UUID.generate()
-      webhook_id = Ecto.UUID.generate()
+      endpoint_id = Ecto.UUID.generate()
 
       changeset =
         WebhookAttempt.changeset(%WebhookAttempt{}, %{
           "webhook_event_id" => event_id,
-          "webhook_id" => webhook_id,
+          "webhook_endpoint_id" => endpoint_id,
           "status" => "pending",
           "attempt_number" => 0
         })
@@ -204,17 +301,33 @@ defmodule Exocomp.MissionControl.Webhooks.WebhookAttemptTest do
 
     test "validates status is one of the allowed values" do
       event_id = Ecto.UUID.generate()
-      webhook_id = Ecto.UUID.generate()
+      endpoint_id = Ecto.UUID.generate()
 
       changeset =
         WebhookAttempt.changeset(%WebhookAttempt{}, %{
           "webhook_event_id" => event_id,
-          "webhook_id" => webhook_id,
+          "webhook_endpoint_id" => endpoint_id,
           "status" => "invalid_status"
         })
 
       refute changeset.valid?
       assert Keyword.has_key?(changeset.errors, :status)
+    end
+
+    test "accepts all valid status values" do
+      event_id = Ecto.UUID.generate()
+      endpoint_id = Ecto.UUID.generate()
+
+      for status <- ["pending", "success", "failed", "terminal_failure"] do
+        changeset =
+          WebhookAttempt.changeset(%WebhookAttempt{}, %{
+            "webhook_event_id" => event_id,
+            "webhook_endpoint_id" => endpoint_id,
+            "status" => status
+          })
+
+        assert changeset.valid?, "Status #{status} should be valid"
+      end
     end
   end
 end
