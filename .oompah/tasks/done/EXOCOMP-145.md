@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-145
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Add optional Mission Control coordinator configuration
 parent: EXOCOMP-130
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-03T16:58:57.113279Z'
+updated_at: '2026-08-03T17:14:25.559858Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -130,6 +130,7 @@ oompah.terminal_audit:
     attempt-611078876978: '2026-08-01T17:52:15.037145+00:00'
     attempt-b9a9121becd5: '2026-08-01T18:22:54.722491+00:00'
     attempt-c4a67d6b0f6d: '2026-08-01T21:55:32.048140+00:00'
+    attempt-4275b4b67930: '2026-08-03T17:14:22.061258+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -176,6 +177,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-01T21:55:32.048165+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    target_state: Done
+    evidence_fingerprint: 97aef0e2d3b77e167be010f25d356cbe7dc736de7f0aa95bacdf76175b362f84
+    audit_ids:
+    - audit-b32803d40aac
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T17:14:22.061289+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-145
@@ -237,6 +247,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-01T21:55:32.048190+00:00'
     applied_at: '2026-08-01T21:55:34.569631+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-145
+    audit_id: audit-b32803d40aac
+    attempt_id: attempt-4275b4b67930
+    target_state: Done
+    evidence_fingerprint: 97aef0e2d3b77e167be010f25d356cbe7dc736de7f0aa95bacdf76175b362f84
+    status: Done
+    audit_ids:
+    - audit-b32803d40aac
+    applied: false
+    created_at: '2026-08-03T17:14:22.061319+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -419,7 +440,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -428,7 +449,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-4275b4b67930
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -438,13 +459,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T16:58:45.903364+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+      verdict: pass
+      completed_at: '2026-08-03T17:14:22.061080+00:00'
+      ended_at: '2026-08-03T17:14:22.061080+00:00'
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Ready to Integrate
     created_at: '2026-08-03T16:57:21.997250+00:00'
-    updated_at: '2026-08-03T16:58:45.903364+00:00'
+    updated_at: '2026-08-03T17:14:22.061080+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -1110,5 +1134,23 @@ author: oompah
 created: 2026-08-03 16:58
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 17:14
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
+- make_test_exit_code: 0
+- bench_pass: 128
+- core_pass: 195
+- node_pass: 866
+- node_excluded: 10
+- coordinator_pass: 537
+- smoke_releases: ok
+- operator_prior_gates: make test/fmt-check/lint all exit 0 on same head (recorded 2026-08-01 22:19)
 ---
 <!-- COMMENTS:END -->

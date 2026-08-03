@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:14:10.802926Z'
+updated_at: '2026-08-03T17:14:20.030932Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -47,7 +47,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: ac1d947d-534a-4b58-9ce3-4d0bcafe6412
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
