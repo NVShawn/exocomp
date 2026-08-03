@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:21.377992Z'
-updated_at: '2026-08-02T02:14:59.250906Z'
+updated_at: '2026-08-03T17:08:18.499886Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-140
 target_branch: null
 review_url: null
@@ -440,6 +440,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T18:33:16.063747+00:00'
     updated_at: '2026-08-01T18:52:43.595487+00:00'
+  - version: 1
+    audit_id: audit-129e9981a876
+    project_id: proj-c260b117
+    task_id: EXOCOMP-140
+    target_state: Merged
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 4742c55ff4ef2c3140ff9a2715266b28b6c98f2a26acdf7bc85b091f61e0eed8
+    attempts: []
+    requested_by:
+      version: 1
+      identity: epic-rollup-reconciliation
+      source: oompah
+    previous_state: Done
+    created_at: '2026-08-03T17:08:17.128902+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-31573855ceed
