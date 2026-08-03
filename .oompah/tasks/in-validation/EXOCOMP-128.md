@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-128
 type: epic
-status: In Review
+status: In Validation
 priority: 1
 title: 'M7A: Mission Control foundation and persistence'
 parent: EXOCOMP-127
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T20:09:40.578227Z'
+updated_at: '2026-08-03T20:43:55.622396Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -163,6 +163,23 @@ oompah.terminal_audit:
     previous_state: In Review
     created_at: '2026-08-01T16:17:53.124916+00:00'
     updated_at: '2026-08-03T20:06:03.322283+00:00'
+  - version: 1
+    audit_id: audit-f33556e74f5c
+    project_id: proj-c260b117
+    task_id: EXOCOMP-128
+    target_state: Merged
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+    attempts: []
+    requested_by:
+      version: 1
+      identity: epic-rollup-reconciliation
+      source: oompah
+    previous_state: In Review
+    created_at: '2026-08-03T20:43:53.494982+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9e721291b92b
