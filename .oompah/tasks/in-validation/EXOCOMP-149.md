@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T21:25:05.214369Z'
+updated_at: '2026-08-03T21:25:29.448867Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -304,5 +304,15 @@ author: oompah
 created: 2026-08-03 21:18
 ---
 Queued for terminal transition to Done. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-03 21:25
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 21:25
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
