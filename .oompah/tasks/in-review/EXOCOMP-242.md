@@ -11,11 +11,11 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:41:31.525799Z'
-work_branch: null
-target_branch: null
+updated_at: '2026-08-03T18:41:38.084272Z'
+work_branch: EXOCOMP-242
+target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
-review_number: null
+review_number: '25'
 review_head: null
 merged_at: null
 oompah.duplicate_screening:
@@ -110,6 +110,9 @@ oompah.integration:
   submitted_at: '2026-08-03T18:39:39.660373+00:00'
   updated_at: '2026-08-03T18:39:39.660373+00:00'
 oompah.review_url: https://github.com/NVShawn/exocomp/pull/25
+oompah.review_number: '25'
+oompah.work_branch: EXOCOMP-242
+oompah.target_branch: main
 ---
 ## Summary
 
