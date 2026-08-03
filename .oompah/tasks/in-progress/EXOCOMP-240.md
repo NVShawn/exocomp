@@ -11,14 +11,14 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:40:01.787703Z'
+updated_at: '2026-08-03T14:40:21.370204Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-240
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: b8d7e024-bc8f-42d3-9ce3-827513948838
+oompah.agent_run_id: f08d3521-bce1-4cd4-a92a-159827a405ea
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-240
 oompah.integration:
   version: 2
@@ -98,5 +98,10 @@ author: oompah
 created: 2026-08-03 14:40
 ---
 Agent completed without closing this issue (206s (3809 tokens)). Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-08-03 14:40
+---
+Agent dispatched (profile: deep)
 ---
 <!-- COMMENTS:END -->
