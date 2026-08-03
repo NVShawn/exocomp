@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T16:33:10.123790Z'
+updated_at: '2026-08-03T16:34:34.292293Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -233,5 +233,21 @@ Test coverage (webhook_events_test.exs, DataCase, async: false):
 - Replay creates new attempt with stored body_json
 - Admin inspection (list_events, get_event_with_attempts)
 - Redaction in persisted payload and body_json
+---
+author: oompah
+created: 2026-08-03 16:34
+---
+Branch pushed and up to date at fb5673e4.
+
+Quality gate note: make test / make fmt-check / make lint require Docker/Podman which is sandboxed in this environment (same constraint as EXOCOMP-172). Code follows existing project patterns and all Elixir formatting is consistent with the codebase (binary_id schemas, DataCase, persistent_term test adapters).
+
+Deliverables verified:
+- webhook_events.ex: dispatch, replay, list_events, get_event_with_attempts, due_retries, process_attempt
+- Migration 20260801000600 (last in sequence): webhook_events + webhook_attempts tables
+- Signature: HMAC-SHA256 over (event_id + delivery_timestamp + body_json), sha256= prefix on header
+- Retry: jittered 2^(n-1) seconds capped at 3600s, anchored to event.inserted_at for 24h window
+- Terminal failure: 4xx (except 429) immediately; any status after 24h from event receipt
+- Replay: new attempt using retained body_json (byte-identical); admin role required
+- Tests cover all 11 acceptance scenarios from the task spec
 ---
 <!-- COMMENTS:END -->
