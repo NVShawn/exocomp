@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-08-03T12:06:00.737545Z'
+updated_at: '2026-08-03T12:06:19.295077Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -19,13 +19,13 @@ merged_at: null
 oompah.agent_run_id: d9d58849-1fc3-48d5-b36f-84563dd987fa
 oompah.work_branch: epic-EXOCOMP-117
 oompah.task_costs:
-  total_input_tokens: 68
-  total_output_tokens: 2197
+  total_input_tokens: 113
+  total_output_tokens: 3507
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 68
-      output_tokens: 2197
+      input_tokens: 113
+      output_tokens: 3507
       cost_usd: 0.0
   runs:
   - profile: deep
@@ -34,6 +34,12 @@ oompah.task_costs:
     output_tokens: 2197
     cost_usd: 0.0
     recorded_at: '2026-07-26T06:24:17.447384+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 45
+    output_tokens: 1310
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T12:06:17.646487+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -246,5 +252,15 @@ Safe evidence:
 - on_main: true (git merge-base --is-ancestor 78dbe38a main -> 0)
 - regression_tests_present: await_port_line never-ready timeout test; delayed resolver+probe crash sequencing test
 - no_reverts: no revert commits touching the affected test paths on main
+---
+author: oompah
+created: 2026-08-03 12:06
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 27
+- Tokens: 45 in / 1.3K out [1.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 2m 47s
+- Log: EXOCOMP-121__20260803T120335Z.jsonl
 ---
 <!-- COMMENTS:END -->
