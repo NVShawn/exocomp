@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: Ready to Integrate
+status: Needs Rebase
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T17:52:35.525865Z'
+updated_at: '2026-08-03T18:31:49.264920Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -51,12 +51,45 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
+  base_branch: epic-EXOCOMP-130
+  base_sha: 9663f4b21eceefa3601354f72177018fa7e7dcbc
   head_sha: 0bb80c72ca4078f9d9f1e94ec2be692f09c5e6f6
   submitted_at: '2026-08-03T17:51:48.982028+00:00'
-  updated_at: '2026-08-03T17:51:48.982028+00:00'
+  updated_at: '2026-08-03T18:31:45.943512+00:00'
+  last_error: 'Rebase onto the latest epic head conflicted: warning: skipped previously
+    applied commit e87689fd
+
+    warning: skipped previously applied commit fa3e21bd
+
+    warning: skipped previously applied commit 944785b4
+
+    warning: skipped previously applied commit b760bb12
+
+    warning: skipped previously applied commit 72ade518
+
+    hint: use --reapply-cherry-picks to include skipped commits
+
+    hint: Disable this message with "git config set advice.skippedCherryPicks false"
+
+    Rebasing (1/4)
+
+    error: could not apply 4e013110... docs: plan hierarchical management modes
+
+    hint: Resolve all conflicts manually, mark them as resolved with
+
+    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+
+    hint: You can instead skip this commit: run "git rebase --skip".
+
+    hint: To abort and get back to the state before "git rebase", run "git rebase
+    --abort".
+
+    hint: Disable this message with "git config set advice.mergeConflict false"
+
+    Could not apply 4e013110... # docs: plan hierarchical management modes'
 oompah.task_costs:
   total_input_tokens: 20434066
   total_output_tokens: 71814
@@ -235,5 +268,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 12m 24s
 - Log: EXOCOMP-146__20260803T174025Z.jsonl
+---
+author: oompah
+created: 2026-08-03 18:31
+---
+Integration found a rebase conflict on `epic-EXOCOMP-130--task-EXOCOMP-146`. Resolve it against `epic-EXOCOMP-130`, run the required tests, push the same private branch, and `oompah task submit` it again.
 ---
 <!-- COMMENTS:END -->
