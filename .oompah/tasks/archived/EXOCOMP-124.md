@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-124
 type: chore
-status: In Validation
+status: Archived
 priority: 2
 title: Reconcile milestone plan acceptance checkboxes with main
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:07:00.355913Z'
-updated_at: '2026-08-03T16:57:17.082746Z'
+updated_at: '2026-08-03T17:00:07.393582Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -20,6 +20,30 @@ merged_at: null
 oompah.agent_run_id: bbed2a7c-4fb3-463b-b700-7895a20941aa
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-49db0531af67: '2026-08-03T17:00:03.867589+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-124
+    target_state: Archived
+    evidence_fingerprint: 6f6b9488bf6c644bb84df34743391247c9efd3b14ebd52f78044f1b22cfca218
+    audit_ids:
+    - audit-1c7523594737
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T17:00:03.867599+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-124
+    audit_id: audit-1c7523594737
+    attempt_id: attempt-49db0531af67
+    target_state: Archived
+    evidence_fingerprint: 6f6b9488bf6c644bb84df34743391247c9efd3b14ebd52f78044f1b22cfca218
+    status: Archived
+    audit_ids:
+    - audit-1c7523594737
+    applied: false
+    created_at: '2026-08-03T17:00:03.867614+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -27,7 +51,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-124
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -36,7 +60,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-49db0531af67
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -46,13 +70,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T16:57:10.569636+00:00'
       branch_key: EXOCOMP-124
+      verdict: pass
+      completed_at: '2026-08-03T17:00:03.867451+00:00'
+      ended_at: '2026-08-03T17:00:03.867451+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T16:56:53.700269+00:00'
-    updated_at: '2026-08-03T16:57:10.569636+00:00'
+    updated_at: '2026-08-03T17:00:03.867451+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-49db0531af67
@@ -134,5 +161,21 @@ author: oompah
 created: 2026-08-03 16:57
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 17:00
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- reconcile_commit: fa241b258cbf0328f7aa639d32626c4dd0bec3a4
+- commit_on_main: true
+- commit_files_changed: plans/milestone-1-node-agent.md, plans/milestone-2-coordinator.md, plans/milestone-3-safety-validation.md, plans/milestone-4-service-recovery.md, plans/milestone-5-performance.md, plans/milestone-6-release.md
+- followup_EXOCOMP-125_merge_commit: ac7f12bf (PR #20, merged into main)
+- followup_EXOCOMP-126_merge_commit: e804b3ff (PR #19, merged into main)
+- previous_state: Merged
+- aged_merged_trigger: closed 7 days ago
 ---
 <!-- COMMENTS:END -->
