@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:11.664051Z'
-updated_at: '2026-08-03T15:31:03.116952Z'
+updated_at: '2026-08-03T15:33:14.924414Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-214
 target_branch: null
 review_url: null
@@ -28,21 +28,13 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
-    Matches: none\nEvidence: The supplied corpus omits active EXOCOMP-209 sibling\
-    \ descriptions/comments, and the task server was unavailable for authoritative\
-    \ retrieval. Closest reviewed tasks (EXOCOMP-10, EXOCOMP-14, EXOCOMP-15) are terminal\
-    \ and unrelated in scope.\nFocus handoff: duplicate_detector  \nDuplicate preflight\
-    \ verdict: inconclusive  \nMatches: none  \n\nEvidence: The supplied corpus omits\
-    \ active EXOCOMP-209 sibling descriptions/comments, and the task server was unavailable\
-    \ for authoritative retrieval. Closest reviewed tasks (EXOCOMP-10, EXOCOMP-14,\
-    \ EXOCOMP-15) are terminal and unrelated in scope."
-  claim_id: null
-  claim_owner: null
-  claimed_at: null
-  claim_expires_at: null
+  evidence: ''
+  claim_id: 7386c29e-e271-4aad-b8d7-d72f652f2763
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T15:33:12.735473+00:00'
+  claim_expires_at: '2026-08-03T16:03:12.735473+00:00'
   retry_count: 1
-  retry_after: '2026-08-03T15:31:58.837188+00:00'
+  retry_after: null
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
