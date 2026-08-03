@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:17.168394Z'
-updated_at: '2026-08-03T15:32:02.451817Z'
+updated_at: '2026-08-03T15:32:06.491460Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-216
 target_branch: null
 review_url: null
@@ -29,13 +29,22 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: ''
-  claim_id: 93fae09a-c767-4148-a542-2c195b4e04d8
-  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
-  claimed_at: '2026-08-03T15:30:05.415537+00:00'
-  claim_expires_at: '2026-08-03T16:00:05.415537+00:00'
-  retry_count: 0
-  retry_after: null
+  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
+    Matches: none\nEvidence: The supplied corpus lacks full descriptions/comments\
+    \ for active peers EXOCOMP-209, 213\u2013215, 217\u2013218, and 227, so duplicate\
+    \ status cannot be confirmed. Reviewed terminal tasks EXOCOMP-14 and EXOCOMP-16\
+    \ are distinct historical coordinator/audit and PKI scopes.\nFocus handoff: duplicate_detector\
+    \  \nDuplicate preflight verdict: inconclusive  \nMatches: none\n\nEvidence: The\
+    \ supplied corpus lacks full descriptions/comments for active peers EXOCOMP-209,\
+    \ 213\u2013215, 217\u2013218, and 227, so duplicate status cannot be confirmed.\
+    \ Reviewed terminal tasks EXOCOMP-14 and EXOCOMP-16 are distinct historical coordinator/audit\
+    \ and PKI scopes."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
+  retry_count: 1
+  retry_after: '2026-08-03T15:33:00.642690+00:00'
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
@@ -65,6 +74,16 @@ oompah.task_costs:
     output_tokens: 2274
     cost_usd: 0.0
     recorded_at: '2026-08-03T15:32:00.640667+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-216__20260803T153032Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-209--task-EXOCOMP-216
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T15:32:00.655038+00:00'
 ---
 ## Summary
 

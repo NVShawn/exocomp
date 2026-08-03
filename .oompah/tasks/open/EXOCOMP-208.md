@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-208
 type: epic
-status: Backlog
+status: Open
 priority: 1
 title: 'M8: Hierarchical observe/manage policy'
 parent: null
@@ -16,7 +16,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:02.893809Z'
-updated_at: '2026-08-03T14:35:11.695440Z'
+updated_at: '2026-08-03T15:32:08.698061Z'
 work_branch: null
 target_branch: null
 review_url: null
