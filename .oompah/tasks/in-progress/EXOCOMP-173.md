@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T16:09:39.692536Z'
+updated_at: '2026-08-03T16:10:02.734431Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -194,5 +194,10 @@ author: oompah
 created: 2026-08-03 16:09
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 16:10
+---
+Understanding: Starting fresh agent session for EXOCOMP-173. Task requires: (1) durable webhook event + delivery-attempt DB records, (2) HMAC-SHA256 signing of event ID + timestamp + body, (3) bounded HTTP delivery with jittered exponential backoff up to 24h, (4) admin inspection + manual replay. Dependencies EXOCOMP-171 (audit events), EXOCOMP-172 (webhook endpoints), EXOCOMP-139 have all been integrated. Beginning codebase exploration now.
 ---
 <!-- COMMENTS:END -->
