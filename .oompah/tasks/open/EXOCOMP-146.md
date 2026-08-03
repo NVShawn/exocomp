@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:16:29.209152Z'
+updated_at: '2026-08-03T19:17:08.430511Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -63,8 +63,8 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-145: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
 oompah.task_costs:
-  total_input_tokens: 20434114
-  total_output_tokens: 73577
+  total_input_tokens: 20434164
+  total_output_tokens: 89370
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -72,8 +72,8 @@ oompah.task_costs:
       output_tokens: 71814
       cost_usd: 0.0
     unknown:
-      input_tokens: 48
-      output_tokens: 1763
+      input_tokens: 98
+      output_tokens: 17556
       cost_usd: 0.0
   runs:
   - profile: default
@@ -94,6 +94,12 @@ oompah.task_costs:
     output_tokens: 1763
     cost_usd: 0.0
     recorded_at: '2026-08-03T18:49:28.425337+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 50
+    output_tokens: 15793
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T19:17:06.535670+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-146__20260801T121119Z
@@ -465,5 +471,15 @@ Instructions:
 - Remove the `++ mission_control_children()` tail from `base_children/0` in apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex (restore it to end with `{ClusterInvitationStore, ...}]` only, as in parent commit 9663f4b2). The sole call site for mission_control_children/0 should remain in build_children/1.
 - Add an application test (in a named isolated supervisor) that starts the coordinator with a mock Mission Control config enabled and verifies that MissionControlSupervisor starts exactly once.
 - Re-push the branch and re-submit after confirming the fix and verifying tests pass in an environment with the correct Elixir version.
+---
+author: oompah
+created: 2026-08-03 19:17
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 0, Tool calls: 58
+- Tokens: 50 in / 15.8K out [15.8K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 27m 7s
+- Log: EXOCOMP-146__20260803T185004Z.jsonl
 ---
 <!-- COMMENTS:END -->
