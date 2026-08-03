@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:22:35.022127Z'
+updated_at: '2026-08-03T15:22:54.593421Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -45,20 +45,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: null
+oompah.agent_run_id: 584a68a7-75a3-4708-ae17-e84dc255d826
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 oompah.integration:
   version: 2
-  state: blocked
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-172
   base_branch: epic-EXOCOMP-134
-  head_sha: 113a7337cbb9efa1b07b3f23c627b477bc9ac7a5
-  submitted_at: '2026-08-03T15:15:43.261208+00:00'
-  updated_at: '2026-08-03T15:22:31.994941+00:00'
-  last_error: task worktree head 9390df29c8ddb92abd66847b7767b37104313918 differs
-    from the published task head 113a7337cbb9efa1b07b3f23c627b477bc9ac7a5; refusing
-    to reset a preserved recovery snapshot
+  base_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
+  updated_at: '2026-08-03T15:22:52.248330+00:00'
 oompah.task_costs:
   total_input_tokens: 337870
   total_output_tokens: 2915
@@ -312,5 +308,15 @@ created: 2026-08-03 15:22
 Integration could not verify `epic-EXOCOMP-134--task-EXOCOMP-172`: task worktree head 9390df29c8ddb92abd66847b7767b37104313918 differs from the published task head 113a7337cbb9efa1b07b3f23c627b477bc9ac7a5; refusing to reset a preserved recovery snapshot
 
 Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
+---
+author: oompah
+created: 2026-08-03 15:22
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 15:22
+---
+Focus: Security Auditor
 ---
 <!-- COMMENTS:END -->
