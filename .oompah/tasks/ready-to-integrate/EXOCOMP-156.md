@@ -9,12 +9,11 @@ children: []
 blocked_by:
 - EXOCOMP-141
 - EXOCOMP-155
-- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:41.639331Z'
-updated_at: '2026-08-01T15:20:55.499892Z'
+updated_at: '2026-08-03T17:38:12.108291Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-156
 target_branch: null
 review_url: null

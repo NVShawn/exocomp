@@ -8,12 +8,11 @@ parent: EXOCOMP-131
 children: []
 blocked_by:
 - EXOCOMP-152
-- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:38.872090Z'
-updated_at: '2026-08-01T12:46:30.573142Z'
+updated_at: '2026-08-03T17:38:08.074214Z'
 work_branch: epic-EXOCOMP-131--task-EXOCOMP-154
 target_branch: null
 review_url: null

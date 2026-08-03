@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:37:43.528299Z'
+updated_at: '2026-08-03T17:38:10.453454Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
@@ -67,5 +67,10 @@ author: oompah
 created: 2026-08-03 17:37
 ---
 Implementation: rebased the task worktree branch (tracking epic-EXOCOMP-135) onto origin/main. All four commits replayed cleanly with no conflicts; only commit identities changed as expected for the rebase.
+---
+author: oompah
+created: 2026-08-03 17:38
+---
+Verification: git range-diff confirms all four epic patches are unchanged after replay; git diff --check passed; the rebased tip contains origin/main (0 behind, 4 ahead). make test-mission-control-contract could not start because the container runtime cannot set the sticky bit on /run/user/1000/libpod (read-only filesystem), before any tests executed.
 ---
 <!-- COMMENTS:END -->
