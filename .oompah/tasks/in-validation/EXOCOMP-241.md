@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:53:09.374431Z'
+updated_at: '2026-08-03T14:53:30.200564Z'
 work_branch: epic-EXOCOMP-132
 target_branch: null
 review_url: null
@@ -157,7 +157,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-241
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -182,13 +182,27 @@ oompah.terminal_audit:
         auditor capability policy permits only read-only repository inspection and
         configured test commands; command denied'
       next_retry_at: '2026-08-03T14:53:11.956850+00:00'
+    - version: 1
+      attempt_id: attempt-4ddadc56ccf0
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
+      created_at: '2026-08-03T14:53:21.716066+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-03T14:53:21.716066+00:00'
+      branch_key: epic-EXOCOMP-132
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: In Progress
     created_at: '2026-08-03T14:46:12.200922+00:00'
-    updated_at: '2026-08-03T14:53:01.956883+00:00'
+    updated_at: '2026-08-03T14:53:21.716066+00:00'
   - version: 1
     audit_id: audit-a46e08b89fa3
     project_id: proj-c260b117
@@ -226,6 +240,20 @@ oompah.terminal_audit:
       auditor capability policy permits only read-only repository inspection and configured
       test commands; command denied'
     next_retry_at: '2026-08-03T14:53:11.956850+00:00'
+  - version: 1
+    attempt_id: attempt-4ddadc56ccf0
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2dac64c0c1969e6e642f7ab5ba923b93f78a7946970911471f6eba28d2b331d4
+    created_at: '2026-08-03T14:53:21.716066+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-03T14:53:21.716066+00:00'
+    branch_key: epic-EXOCOMP-132
+    candidate_rotation_count: 1
 ---
 ## Summary
 
@@ -385,5 +413,15 @@ author: oompah
 created: 2026-08-03 14:53
 ---
 Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
+---
+author: oompah
+created: 2026-08-03 14:53
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-03 14:53
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
