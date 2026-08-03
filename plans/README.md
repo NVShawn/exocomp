@@ -44,4 +44,5 @@ tracker.
 - [Milestone 5: Performance and resource analysis](milestone-5-performance.md)
 - [Milestone 6: Documentation and open-source release](milestone-6-release.md)
 - [Milestone 7: Exocomp Mission Control](mission-control.md)
+- [Post-Mission-Control: Hierarchical observe/manage policy](hierarchical-management-modes.md)
 <!-- END OOMPAH PROJECT BOOTSTRAP -->
