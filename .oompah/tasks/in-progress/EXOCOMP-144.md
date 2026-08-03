@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-03T16:18:50.809948Z'
+updated_at: '2026-08-03T16:19:15.650447Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -37,7 +37,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 6397da3e-9a71-4c13-8d99-681e6687bff0
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
@@ -361,5 +361,10 @@ author: oompah
 created: 2026-08-03 16:18
 ---
 Verification: Rebase completed cleanly as 0a82a703; git diff --check is clean and all six changed Elixir source/test files parse successfully. make fmt-check, make test, and make lint were each attempted: their non-container checks passed (make test/lint release-builder checks: 9 plus 13 structural checks and 16 Python tests), then the required pinned Elixir container could not start because the sandbox Podman runtime cannot chmod its read-only /run/user/1000/libpod directory. Focused mix tests also cannot run locally because installed Mix 1.18.3 is rejected by the project requirement for Elixir 1.20.2.
+---
+author: oompah
+created: 2026-08-03 16:19
+---
+Completion: Rebased and pushed the completed certificate renewal/revocation implementation at 0a82a703 on top of EXOCOMP-143 (ad46c4b4). The private branch is clean and matches origin. The resolved integration preserves enrollment plus invitation behavior and adds the certificate registry and renewal endpoint. Full container-backed gates remain environment-blocked as reported; syntax and all available non-container checks passed.
 ---
 <!-- COMMENTS:END -->
