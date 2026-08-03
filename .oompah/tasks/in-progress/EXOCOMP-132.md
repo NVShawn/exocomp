@@ -12,13 +12,15 @@ children:
 - EXOCOMP-161
 - EXOCOMP-162
 - EXOCOMP-163
+- EXOCOMP-241
 blocked_by: []
 start_blocked_by: []
 labels:
 - rebase-requested
+- epic:rebasing
 assignee: null
 created_at: '2026-07-30T14:12:49.867057Z'
-updated_at: '2026-08-03T14:36:03.094119Z'
+updated_at: '2026-08-03T14:36:07.301815Z'
 work_branch: null
 target_branch: null
 review_url: null

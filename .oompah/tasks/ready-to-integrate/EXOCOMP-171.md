@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:32:28.226548Z'
+updated_at: '2026-08-03T14:36:12.733703Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -44,12 +44,17 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
+  base_branch: epic-EXOCOMP-134
   head_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
   submitted_at: '2026-08-03T14:32:23.390890+00:00'
-  updated_at: '2026-08-03T14:32:23.390890+00:00'
+  updated_at: '2026-08-03T14:36:11.844530+00:00'
+  last_error: 'could not recover integration worktrees: git worktree add failed: Preparing
+    worktree (checking out ''epic-EXOCOMP-134--task-EXOCOMP-171'')
+
+    fatal: ''epic-EXOCOMP-134--task-EXOCOMP-171'' is already used by worktree at ''/home/shedwards/.oompah/tmp/exocomp-171-owner.Sl6Hc9'''
 oompah.task_costs:
   total_input_tokens: 881910
   total_output_tokens: 43486
