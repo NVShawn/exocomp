@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-129
 type: epic
-status: In Validation
+status: Merged
 priority: 1
 title: 'M7B: Operator identity and cluster PKI'
 parent: EXOCOMP-127
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:17.258642Z'
-updated_at: '2026-08-03T17:15:23.288182Z'
+updated_at: '2026-08-03T17:34:13.618829Z'
 work_branch: epic-EXOCOMP-129
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/23
@@ -30,6 +30,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     infrastructure-exhausted-audit-f0d409f1d24d-3: '2026-08-03T17:13:42.397125+00:00'
+    attempt-fca3a0ff09ba: '2026-08-03T17:34:09.165934+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-129
@@ -40,6 +41,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-03T17:13:42.397134+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-129
+    target_state: Merged
+    evidence_fingerprint: 1636c1f6ad745c0d8aaa0ffb7cbc310e2063ec7420c3f9a20d014c65ed81a95f
+    audit_ids:
+    - audit-16a474483e07
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T17:34:09.165946+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-129
@@ -53,6 +63,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T17:13:42.397147+00:00'
     applied_at: '2026-08-03T17:13:46.945888+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-129
+    audit_id: audit-16a474483e07
+    attempt_id: attempt-fca3a0ff09ba
+    target_state: Merged
+    evidence_fingerprint: 1636c1f6ad745c0d8aaa0ffb7cbc310e2063ec7420c3f9a20d014c65ed81a95f
+    status: Merged
+    audit_ids:
+    - audit-16a474483e07
+    applied: false
+    created_at: '2026-08-03T17:34:09.165961+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -146,7 +167,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-129
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -155,7 +176,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-fca3a0ff09ba
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -165,13 +186,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T17:15:15.628509+00:00'
       branch_key: epic-EXOCOMP-129
+      verdict: pass
+      completed_at: '2026-08-03T17:34:09.165755+00:00'
+      ended_at: '2026-08-03T17:34:09.165755+00:00'
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T17:07:29.134256+00:00'
-    updated_at: '2026-08-03T17:15:15.628509+00:00'
+    updated_at: '2026-08-03T17:34:09.165755+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-2ca9ceab16f7
@@ -340,5 +364,29 @@ author: oompah
 created: 2026-08-03 17:15
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 17:34
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 869d7c5a08868c4e9f2dd372e8808ec4ee4edfb0
+- merge_commit_message: Merge pull request #23 from NVShawn/epic-EXOCOMP-129
+- merge_parent_target: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
+- merge_parent_work: 0a82a703f55d97a54f36c87f9d3edec3ffaad25a
+- work_branch: epic-EXOCOMP-129
+- work_branch_head: 0a82a703f55d97a54f36c87f9d3edec3ffaad25a
+- target_branch: epic-EXOCOMP-127
+- target_branch_contains_merge: origin/epic-EXOCOMP-127
+- review_pr: https://github.com/NVShawn/exocomp/pull/23
+- child_tasks_status: EXOCOMP-140,141,142,143,144 all in .oompah/tasks/done/
+- child_144_terminal_audit: PASS at 2026-08-03T17:00:12Z (audit-e167a2bfb05b)
+- merge_diff_stat: 17 files, +4174 / -31
+- deliverables_present: cluster_invitation.ex, cluster_invitation_store.ex, cluster_invitation_handler.ex, cluster_enrollment_handler.ex, renewal_handler.ex (expanded), pki/certificate_registry.ex, pki/cluster_issuer.ex, cluster.ex, cluster_invitations.ex, plus tests
+- test_files_added: cluster_invitation_test.exs (206), pki/certificate_registry_test.exs (252), integration/cluster_enrollment_test.exs (279), integration/coordinator_pki_renewal_test.exs (863)
+- prior_done_audit_infrastructure_reason: auditor tried origin/epic-EXOCOMP-129 which was never pushed; the merge is on origin/epic-EXOCOMP-127 (the declared target_branch)
 ---
 <!-- COMMENTS:END -->
