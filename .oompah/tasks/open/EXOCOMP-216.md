@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-216
 type: task
-status: Needs Human
+status: Open
 priority: 1
 title: Enforce policy mutation authorization and auditing
 parent: EXOCOMP-209
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:17.168394Z'
-updated_at: '2026-08-03T15:40:44.347784Z'
+updated_at: '2026-08-03T16:19:48.426162Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-216
 target_branch: null
 review_url: null
@@ -26,27 +26,26 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 94d8ec70989c4cae677576c6db83da1707a701a5ff634e5692ae100733bf9a57
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-03T16:19:45.604689+00:00'
   matched_identifiers: []
-  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
-    Matches: none\nEvidence: The supplied task corpus lacks full records for the active\
-    \ related peers (EXOCOMP-209, 213\u2013218, 227), and the tracker server was unavailable.\
-    \ Local plan review confirms scope but cannot establish non-duplication. No files\
-    \ or tracker state were changed.\nFocus handoff: duplicate_detector  \nDuplicate\
-    \ preflight verdict: inconclusive  \nMatches: none  \n\nEvidence: The supplied\
-    \ task corpus lacks full records for the active related peers (EXOCOMP-209, 213\u2013\
-    218, 227), and the tracker server was unavailable. Local plan review confirms\
-    \ scope but cannot establish non-duplication. No files or tracker state were changed."
+  evidence: Owner reviewed the active EXOCOMP-209 task family. EXOCOMP-213 defines
+    policy types, EXOCOMP-214 maps service keys, EXOCOMP-215 persists policies, EXOCOMP-217
+    exposes HTTP APIs, and EXOCOMP-218 builds the UI; EXOCOMP-216 alone implements
+    transactional mutation authorization and audit. No equivalent active task exists.
   claim_id: null
   claim_owner: null
   claimed_at: null
   claim_expires_at: null
-  retry_count: 3
-  retry_after: '2026-08-03T15:44:31.396041+00:00'
-  owner_resolved_at: null
-  owner_login: null
-  owner_resolution_reason: ''
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: '2026-08-03T16:19:45.604689+00:00'
+  owner_login: oompah-cli
+  owner_resolution_reason: Owner reviewed the active EXOCOMP-209 task family. EXOCOMP-213
+    defines policy types, EXOCOMP-214 maps service keys, EXOCOMP-215 persists policies,
+    EXOCOMP-217 exposes HTTP APIs, and EXOCOMP-218 builds the UI; EXOCOMP-216 alone
+    implements transactional mutation authorization and audit. No equivalent active
+    task exists.
 oompah.agent_run_id: 09144930-380a-4595-a562-5e4393e3f59f
 oompah.work_branch: epic-EXOCOMP-209--task-EXOCOMP-216
 oompah.integration:

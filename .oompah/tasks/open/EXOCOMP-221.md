@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-221
 type: task
-status: Needs Human
+status: Open
 priority: 1
 title: Deliver policy bundles through the durable command outbox
 parent: EXOCOMP-210
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:14.532816Z'
-updated_at: '2026-08-03T15:44:42.709677Z'
+updated_at: '2026-08-03T16:19:53.226108Z'
 work_branch: epic-EXOCOMP-210--task-EXOCOMP-221
 target_branch: null
 review_url: null
@@ -26,27 +26,29 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 465c809ea013c895a78a173c66c096ba2c38f5d0dbba0824ccbc111382404b0b
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-03T16:19:50.405193+00:00'
   matched_identifiers: []
-  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
-    Matches: none\nEvidence: The supplied task corpus does not include the relevant\
-    \ active EXOCOMP-209\u2013224 peer descriptions/comments, so duplicate status\
-    \ cannot be determined without guessing. Reviewed archived EXOCOMP-14 and EXOCOMP-15;\
-    \ neither overlaps.\nFocus handoff: duplicate_detector  \nDuplicate preflight\
-    \ verdict: inconclusive  \nMatches: none\n\nEvidence: The supplied task corpus\
-    \ does not include the relevant active EXOCOMP-209\u2013224 peer descriptions/comments,\
-    \ so duplicate status cannot be determined without guessing. Reviewed archived\
-    \ EXOCOMP-14 and EXOCOMP-15; neither overlaps."
+  evidence: Owner reviewed the active EXOCOMP-210 task family and existing EXOCOMP-150.
+    EXOCOMP-219 defines/signs bundles, EXOCOMP-220 manages signing keys, EXOCOMP-222
+    caches at the coordinator, EXOCOMP-223 renews leases, and EXOCOMP-224 reports
+    status. EXOCOMP-150 supplies the generic durable outbox; EXOCOMP-221 intentionally
+    extends it with policy replacement, supersession, and acknowledgements. No equivalent
+    active task exists.
   claim_id: null
   claim_owner: null
   claimed_at: null
   claim_expires_at: null
-  retry_count: 3
-  retry_after: '2026-08-03T15:48:32.493674+00:00'
-  owner_resolved_at: null
-  owner_login: null
-  owner_resolution_reason: ''
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: '2026-08-03T16:19:50.405193+00:00'
+  owner_login: oompah-cli
+  owner_resolution_reason: Owner reviewed the active EXOCOMP-210 task family and existing
+    EXOCOMP-150. EXOCOMP-219 defines/signs bundles, EXOCOMP-220 manages signing keys,
+    EXOCOMP-222 caches at the coordinator, EXOCOMP-223 renews leases, and EXOCOMP-224
+    reports status. EXOCOMP-150 supplies the generic durable outbox; EXOCOMP-221 intentionally
+    extends it with policy replacement, supersession, and acknowledgements. No equivalent
+    active task exists.
 oompah.agent_run_id: 452a981f-f3ac-44c5-a767-6a976d22a8f2
 oompah.work_branch: epic-EXOCOMP-210--task-EXOCOMP-221
 oompah.integration:
