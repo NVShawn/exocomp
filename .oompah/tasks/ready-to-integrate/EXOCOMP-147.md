@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T21:36:06.989367Z'
+updated_at: '2026-08-03T21:36:25.005596Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -71,16 +71,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: bf92ea4e-aca8-4430-8af4-5670cd28a708
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-147
-  base_branch: epic-EXOCOMP-130
-  base_sha: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
-  updated_at: '2026-08-03T21:20:02.844366+00:00'
+  head_sha: 2289df540b5c3c43445ef1fec685323e93f4031b
+  submitted_at: '2026-08-03T21:36:17.853604+00:00'
+  updated_at: '2026-08-03T21:36:17.853604+00:00'
 oompah.task_costs:
   total_input_tokens: 385390
   total_output_tokens: 5028
@@ -338,5 +338,10 @@ author: oompah
 created: 2026-08-03 21:36
 ---
 Verification: All 12 focused state-machine tests pass (11 pre-existing + 1 new worker DOWN test). make fmt-check passes. make lint passes with no warnings (previously failing with type warning on swapped args). Branch 2289df54 pushed to origin.
+---
+author: oompah
+created: 2026-08-03 21:36
+---
+Delivered heartbeat, disconnect detection, and reconnect backoff for Mission Control coordinator sessions. connection.ex provides 30s heartbeat cadence, full-jitter exponential backoff 1s-60s, and 90s stability window for backoff reset. session_liveness.ex tracks server-side disconnect detection at 90s with commit-before-publish guarantee. Fixed a latent bug: schedule_reconnect args were reversed in the connect-worker :DOWN handler, which would have crashed the coordinator if a worker was killed externally mid-connect. Added test covering the :DOWN path with uncatchable :kill signal. All 12 focused tests pass, make fmt-check and make lint both clean at 2289df54.
 ---
 <!-- COMMENTS:END -->
