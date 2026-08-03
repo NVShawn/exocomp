@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T22:22:40.851129Z'
+updated_at: '2026-08-03T22:22:58.038383Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -59,16 +59,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 03c19ce9-abc3-41ef-865b-fbcc871938f6
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-150
-  base_branch: epic-EXOCOMP-130
-  base_sha: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
-  updated_at: '2026-08-03T22:20:10.815607+00:00'
+  head_sha: 98347b38599081cdd1500fca4cdeb3411078b462
+  submitted_at: '2026-08-03T22:22:41.802803+00:00'
+  updated_at: '2026-08-03T22:22:41.802803+00:00'
 oompah.task_costs:
   total_input_tokens: 13920972
   total_output_tokens: 54228
@@ -332,5 +332,10 @@ author: oompah
 created: 2026-08-03 22:22
 ---
 Completion: resolved the integration conflict by removing the redundant historical merge and preserving the reviewed three-commit command-outbox implementation. The private branch is pushed at 98347b38 and clean/up to date; submitting this rebased head for integration.
+---
+author: oompah
+created: 2026-08-03 22:22
+---
+Rebased the durable command outbox onto the epic and removed duplicate history; retained validated persistence, replica-aware delivery, exactly-once acknowledgement, expiry, and focused tests.
 ---
 <!-- COMMENTS:END -->
