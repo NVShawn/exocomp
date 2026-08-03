@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-242
 type: bug
-status: In Validation
+status: Merged
 priority: 1
 title: Repair M7B invitation and SPIFFE certificate regressions
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T19:13:14.648906Z'
+updated_at: '2026-08-03T19:22:36.367092Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -133,6 +133,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-61d980e1f759: '2026-08-03T19:11:41.560078+00:00'
+    attempt-a15d3ab91c76: '2026-08-03T19:22:31.768592+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-242
@@ -143,6 +144,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-03T19:11:41.560089+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-242
+    target_state: Merged
+    evidence_fingerprint: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    audit_ids:
+    - audit-abb6b25c4ecf
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T19:22:31.768610+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-242
@@ -156,6 +166,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T19:11:41.560105+00:00'
     applied_at: '2026-08-03T19:11:46.503724+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-242
+    audit_id: audit-abb6b25c4ecf
+    attempt_id: attempt-a15d3ab91c76
+    target_state: Merged
+    evidence_fingerprint: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    status: Merged
+    audit_ids:
+    - audit-abb6b25c4ecf
+    applied: false
+    created_at: '2026-08-03T19:22:31.768630+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -217,7 +238,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-242
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -226,7 +247,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-a15d3ab91c76
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -236,13 +257,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T19:13:02.047894+00:00'
       branch_key: EXOCOMP-242
+      verdict: pass
+      completed_at: '2026-08-03T19:22:31.768382+00:00'
+      ended_at: '2026-08-03T19:22:31.768382+00:00'
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T18:43:24.846732+00:00'
-    updated_at: '2026-08-03T19:13:02.047894+00:00'
+    updated_at: '2026-08-03T19:22:31.768382+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-1c2a25169f25
@@ -531,5 +555,31 @@ author: oompah
 created: 2026-08-03 19:13
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 19:22
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+- repair_commit: 8e19679a414b0f22b6d837976486f1e4b2955f41
+- pr: 25
+- branch: EXOCOMP-242
+- merged_to: main
+- origin_main_head: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+- spiffe_charlist_production: cluster_issuer.ex:311 String.to_charlist(spiffe_uri)
+- normalize_uri: cluster_issuer.ex:327-329 binary/charlist -> string
+- missing_auth_401: cluster_invitation_handler.ex:142-143 role == nil and invalid org -> unauthenticated
+- attrs_normalization: cluster_invitation_test.exs:33 Map.new(attrs)
+- clock_supervised: cluster_invitation_test.exs:20 start_supervised!({Agent, ...})
+- test_missing_auth: cluster_invitation_test.exs:197 asserts 401
+- test_wrong_spiffe: cluster_enrollment_test.exs:295
+- test_multiple_uris: cluster_enrollment_test.exs:304 (charlist SANs)
+- test_expiry_replay: cluster_enrollment_test.exs:228
+- test_plaintext: cluster_invitation_test.exs:46
+- working_tree: clean
 ---
 <!-- COMMENTS:END -->
