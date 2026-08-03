@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-126
 type: task
-status: In Validation
+status: Archived
 priority: 1
 title: Complete failed-service recovery through the A2A workflow
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:25.749059Z'
-updated_at: '2026-08-03T18:02:38.946783Z'
+updated_at: '2026-08-03T18:09:05.842056Z'
 work_branch: EXOCOMP-126
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/19
@@ -46,6 +46,30 @@ oompah.work_branch: EXOCOMP-126
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-48588b42769d: '2026-08-03T18:09:00.586492+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-126
+    target_state: Archived
+    evidence_fingerprint: 3ec74d3b29c0fcc214ac8ba6a6fd20c8f053a402645acba59af3465bfd579e33
+    audit_ids:
+    - audit-c0da79b388d6
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T18:09:00.586503+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-126
+    audit_id: audit-c0da79b388d6
+    attempt_id: attempt-48588b42769d
+    target_state: Archived
+    evidence_fingerprint: 3ec74d3b29c0fcc214ac8ba6a6fd20c8f053a402645acba59af3465bfd579e33
+    status: Archived
+    audit_ids:
+    - audit-c0da79b388d6
+    applied: false
+    created_at: '2026-08-03T18:09:00.586517+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -53,7 +77,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-126
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -62,7 +86,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-48588b42769d
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -72,13 +96,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T18:02:15.795733+00:00'
       branch_key: EXOCOMP-126
+      verdict: pass
+      completed_at: '2026-08-03T18:09:00.586372+00:00'
+      ended_at: '2026-08-03T18:09:00.586372+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T18:01:19.355966+00:00'
-    updated_at: '2026-08-03T18:02:15.795733+00:00'
+    updated_at: '2026-08-03T18:09:00.586372+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-48588b42769d
@@ -329,5 +356,20 @@ author: oompah
 created: 2026-08-03 18:02
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 18:09
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: e804b3ff81cc89caaf883503f9ea577b09da3819
+- pr_number: 19
+- delivery_commits: d3c44883, eabc4e19
+- merge_date: 2026-07-27
+- files_on_main: service_recover.ex, cluster_recover.ex, m4_a2a_recovery_test.exs
+- diffstat: 21 files changed, 1694 insertions(+), 57 deletions(-)
 ---
 <!-- COMMENTS:END -->
