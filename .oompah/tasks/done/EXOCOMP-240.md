@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T15:34:12.797781Z'
+updated_at: '2026-08-03T15:40:21.155305Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -456,5 +456,10 @@ created: 2026-08-03 15:34
 Override by oompah-cli: terminal transition to Done applied by project owner.
 
 Reason: Repair lifecycle-incompatible owner override: EXOCOMP-240 is a shared-epic maintenance child whose audited work is contained on epic-EXOCOMP-130, not the default branch. Its Done audit passed at exact epic tip 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc; Merged incorrectly blocks parent rollup because shared-epic children must remain Done until parent landing. OOMPAH-725 tracks prevention and automatic reconciliation.
+---
+author: oompah
+created: 2026-08-03 15:40
+---
+Operator hygiene repair: safely removed the clean auxiliary task-style workspace created by the incorrect Duplicate Investigator dispatch. Its exact head b0d047ea remains published on the EXOCOMP-145 private branch; authoritative epic-EXOCOMP-130 remains clean and exact at 72ade518. Removed only the EXOCOMP-240 local worktree/ref. OOMPAH-727 tracks automatic cleanup for this branch-shape mismatch.
 ---
 <!-- COMMENTS:END -->
