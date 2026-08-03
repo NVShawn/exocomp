@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-03T17:55:25.170159Z'
+updated_at: '2026-08-03T17:57:42.422324Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -55,13 +55,17 @@ oompah.integration:
   submitted_at: '2026-08-03T17:55:17.991706+00:00'
   updated_at: '2026-08-03T17:55:17.991706+00:00'
 oompah.task_costs:
-  total_input_tokens: 897761
-  total_output_tokens: 4536
+  total_input_tokens: 5527536
+  total_output_tokens: 23059
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 897761
       output_tokens: 4536
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 4629775
+      output_tokens: 18523
       cost_usd: 0.0
   runs:
   - profile: default
@@ -70,6 +74,12 @@ oompah.task_costs:
     output_tokens: 4536
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:36:41.115660+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 4629775
+    output_tokens: 18523
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T17:57:40.262886+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-158__20260801T123446Z
@@ -205,5 +215,15 @@ author: oompah
 created: 2026-08-03 17:55
 ---
 Submitted a435774f after reconciling the Mission Control supervision overlap. Delivers organization-scoped bounded conversations, memberships, ordered messages, evidence references, context selection, lifecycle transitions, and supervision integration. Container-backed Mix gates are environment-blocked by read-only libpod; all offline checks passed.
+---
+author: oompah
+created: 2026-08-03 17:57
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
+- Turns: 0, Tool calls: 104
+- Tokens: 4.6M in / 18.5K out [4.6M total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 12m 9s
+- Log: EXOCOMP-158__20260803T174549Z.jsonl
 ---
 <!-- COMMENTS:END -->
