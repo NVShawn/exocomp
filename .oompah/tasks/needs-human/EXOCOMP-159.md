@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-03T18:54:33.172080Z'
+updated_at: '2026-08-03T19:28:48.251195Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -496,5 +496,10 @@ created: 2026-08-03 18:54
 Needs Human — Done audit requires operator input.
 
 No independent auditor candidate is available for this audit (All eligible auditor candidates were already attempted for this audit.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then have a project owner rearm this terminal audit. Please review the audit output, decide the next step, and update this task with your instructions.
+---
+author: oompah
+created: 2026-08-03 19:28
+---
+Operator recovery evidence for the exact integrated SHA 4217f9c1937e20664b5564facaf31fc042d618bb: the first independent auditor completed the configured full make test gate successfully before its attempt was terminated by unrelated command-policy denials. On 2026-08-03, the operator then ran the remaining task-required Makefile gates in an isolated detached worktree at that exact SHA: make fmt-check exited 0 and make lint exited 0. OOMPAH-736 tracks the policy-contract defect that exhausted both auditors.
 ---
 <!-- COMMENTS:END -->
