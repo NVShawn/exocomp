@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T21:58:32.264591Z'
+updated_at: '2026-08-03T21:59:23.448799Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -80,7 +80,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-147
   base_branch: epic-EXOCOMP-130
   base_sha: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
-  updated_at: '2026-08-03T21:51:30.106052+00:00'
+  updated_at: '2026-08-03T21:59:22.486273+00:00'
 oompah.task_costs:
   total_input_tokens: 1819373
   total_output_tokens: 23778
@@ -408,5 +408,10 @@ author: oompah
 created: 2026-08-03 21:58
 ---
 Agent completed without closing this issue (391s (1448977 tokens)). Escalating from 'standard' to 'deep'. Retrying in 10s (1/3).
+---
+author: oompah
+created: 2026-08-03 21:59
+---
+Agent dispatched (profile: deep)
 ---
 <!-- COMMENTS:END -->
