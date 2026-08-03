@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T16:34:46.650833Z'
+updated_at: '2026-08-03T16:35:11.764214Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -58,13 +58,17 @@ oompah.integration:
   submitted_at: '2026-08-03T16:34:43.364745+00:00'
   updated_at: '2026-08-03T16:34:43.364745+00:00'
 oompah.task_costs:
-  total_input_tokens: 420441
-  total_output_tokens: 3637
+  total_input_tokens: 420554
+  total_output_tokens: 67438
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 420441
       output_tokens: 3637
+      cost_usd: 0.0
+    sonnet:
+      input_tokens: 113
+      output_tokens: 63801
       cost_usd: 0.0
   runs:
   - profile: default
@@ -79,6 +83,12 @@ oompah.task_costs:
     output_tokens: 458
     cost_usd: 0.0
     recorded_at: '2026-08-01T13:27:54.071729+00:00'
+  - profile: standard
+    model: sonnet
+    input_tokens: 113
+    output_tokens: 63801
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T16:35:09.665585+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-173__20260801T130716Z
@@ -265,5 +275,15 @@ Added:
 - Secret decryption via WebhookEndpoints.Encryption with correct AAD
 - Deleted duplicate webhook.ex (replaced by WebhookEndpoint from EXOCOMP-172)
 - Tests (webhook_events_test.exs, DataCase, FakeHttpAdapter via persistent_term): all 11 acceptance scenarios covered
+---
+author: oompah
+created: 2026-08-03 16:35
+---
+Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
+- Turns: 0, Tool calls: 154
+- Tokens: 113 in / 63.8K out [63.9K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 25m 37s
+- Log: EXOCOMP-173__20260803T160944Z.jsonl
 ---
 <!-- COMMENTS:END -->
