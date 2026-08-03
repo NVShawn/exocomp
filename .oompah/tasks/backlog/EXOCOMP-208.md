@@ -5,13 +5,17 @@ status: Backlog
 priority: 1
 title: 'M8: Hierarchical observe/manage policy'
 parent: null
-children: []
+children:
+- EXOCOMP-209
+- EXOCOMP-210
+- EXOCOMP-211
+- EXOCOMP-212
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:02.893809Z'
-updated_at: '2026-08-03T14:23:02.893809Z'
+updated_at: '2026-08-03T14:23:28.582368Z'
 work_branch: null
 target_branch: null
 review_url: null
