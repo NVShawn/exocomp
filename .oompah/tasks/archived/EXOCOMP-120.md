@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-120
 type: bug
-status: In Validation
+status: Archived
 priority: 1
 title: Make offline bundles reproducible and cryptographically complete
 parent: EXOCOMP-117
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-26T03:58:32.906799Z'
-updated_at: '2026-08-03T12:11:03.645694Z'
+updated_at: '2026-08-03T12:12:35.398456Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -43,6 +43,30 @@ oompah.task_costs:
     recorded_at: '2026-07-26T05:19:35.907188+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-6fc9f2ca8e28: '2026-08-03T12:12:32.573468+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-120
+    target_state: Archived
+    evidence_fingerprint: 933bdc58ba9b8de521b65d41a7e892202f701d188866071846b8c3a85b63b018
+    audit_ids:
+    - audit-81dd81199f33
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T12:12:32.573480+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-120
+    audit_id: audit-81dd81199f33
+    attempt_id: attempt-6fc9f2ca8e28
+    target_state: Archived
+    evidence_fingerprint: 933bdc58ba9b8de521b65d41a7e892202f701d188866071846b8c3a85b63b018
+    status: Archived
+    audit_ids:
+    - audit-81dd81199f33
+    applied: false
+    created_at: '2026-08-03T12:12:32.573497+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -50,7 +74,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-120
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -59,7 +83,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-6fc9f2ca8e28
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -69,13 +93,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T12:10:49.216491+00:00'
       branch_key: epic-EXOCOMP-117
+      verdict: pass
+      completed_at: '2026-08-03T12:12:32.573332+00:00'
+      ended_at: '2026-08-03T12:12:32.573332+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T12:00:56.640632+00:00'
-    updated_at: '2026-08-03T12:10:49.216491+00:00'
+    updated_at: '2026-08-03T12:12:32.573332+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6fc9f2ca8e28
@@ -314,5 +341,21 @@ author: oompah
 created: 2026-08-03 12:11
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 12:12
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- commit_sha: 101ef491
+- commit_on_main: true
+- licenses_files_present: Apache-2.0.txt,MIT.txt,BSD-3-Clause.txt
+- test_classes_present: 5/5
+- assemble_bundle_source_date_epoch_line: 80
+- assemble_bundle_licenses_hardfail_line: 336
+- generate_sbom_timestamp_flag: present
 ---
 <!-- COMMENTS:END -->
