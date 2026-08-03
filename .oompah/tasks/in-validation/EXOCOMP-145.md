@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-03T16:57:34.500470Z'
+updated_at: '2026-08-03T16:58:52.389293Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -419,18 +419,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-145
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 97aef0e2d3b77e167be010f25d356cbe7dc736de7f0aa95bacdf76175b362f84
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-4275b4b67930
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 97aef0e2d3b77e167be010f25d356cbe7dc736de7f0aa95bacdf76175b362f84
+      created_at: '2026-08-03T16:58:45.903364+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T16:58:45.903364+00:00'
+      branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Ready to Integrate
     created_at: '2026-08-03T16:57:21.997250+00:00'
+    updated_at: '2026-08-03T16:58:45.903364+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ba2e9268bfd5
@@ -496,6 +510,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-01T21:37:34.271130+00:00'
+    branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
+  - version: 1
+    attempt_id: attempt-4275b4b67930
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 97aef0e2d3b77e167be010f25d356cbe7dc736de7f0aa95bacdf76175b362f84
+    created_at: '2026-08-03T16:58:45.903364+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T16:58:45.903364+00:00'
     branch_key: epic-EXOCOMP-130--task-EXOCOMP-145
 ---
 ## Summary
@@ -1073,5 +1100,10 @@ author: oompah
 created: 2026-08-03 16:24
 ---
 Owner workaround for OOMPAH-729: integration metadata proves exact head b0d047ea97d00deb5c9b83054ddfb6de1491f0a9 was integrated into epic-EXOCOMP-130 in one attempt with no error. Operator verification on that same pushed head recorded exit-zero make test, make fmt-check, and make lint using the pinned Elixir 1.20.2 / OTP 28.5.0.3 builder. The only remaining blocker is the coordinator's completed same-fingerprint audit fence, not missing implementation.
+---
+author: oompah
+created: 2026-08-03 16:58
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
 ---
 <!-- COMMENTS:END -->
