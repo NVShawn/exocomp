@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-03T16:19:15.650447Z'
+updated_at: '2026-08-03T16:19:22.125211Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -41,12 +41,12 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-144
-  base_branch: epic-EXOCOMP-129
-  base_sha: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
-  updated_at: '2026-08-03T16:15:16.678646+00:00'
+  head_sha: 0a82a703f55d97a54f36c87f9d3edec3ffaad25a
+  submitted_at: '2026-08-03T16:19:14.489977+00:00'
+  updated_at: '2026-08-03T16:19:14.489977+00:00'
 oompah.task_costs:
   total_input_tokens: 1841803
   total_output_tokens: 22368
@@ -366,5 +366,10 @@ author: oompah
 created: 2026-08-03 16:19
 ---
 Completion: Rebased and pushed the completed certificate renewal/revocation implementation at 0a82a703 on top of EXOCOMP-143 (ad46c4b4). The private branch is clean and matches origin. The resolved integration preserves enrollment plus invitation behavior and adds the certificate registry and renewal endpoint. Full container-backed gates remain environment-blocked as reported; syntax and all available non-container checks passed.
+---
+author: oompah
+created: 2026-08-03 16:19
+---
+Rebased certificate renewal and revocation implementation onto EXOCOMP-143; branch pushed at 0a82a703.
 ---
 <!-- COMMENTS:END -->
