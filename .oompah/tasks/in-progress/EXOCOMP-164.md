@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-164
 type: task
-status: Open
+status: In Progress
 priority: 2
 title: Build the authenticated LiveView shell and navigation
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T17:11:10.299320Z'
+updated_at: '2026-08-03T17:11:55.234293Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -55,7 +55,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 1
   retry_after: null
-oompah.agent_run_id: 2d0e4148-e18e-4524-99f2-018be31c9e1c
+oompah.agent_run_id: 0a99a215-466f-47af-a6f1-0cf981bf0eec
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 oompah.integration:
   version: 2
@@ -309,5 +309,10 @@ created: 2026-08-03 17:11
 Integration could not verify `epic-EXOCOMP-133--task-EXOCOMP-164`: epic worktree head 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef differs from the published epic head 3377d707470a4dbe27fd9c962c0acb4e95e1289d; refusing to reset a preserved recovery snapshot
 
 Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
+---
+author: oompah
+created: 2026-08-03 17:11
+---
+Agent dispatched (profile: default)
 ---
 <!-- COMMENTS:END -->
