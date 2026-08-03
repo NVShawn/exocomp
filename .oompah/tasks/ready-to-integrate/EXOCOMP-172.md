@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-172
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Store encrypted webhook endpoint configuration
 parent: EXOCOMP-134
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:32:46.782327Z'
+updated_at: '2026-08-03T15:34:33.104457Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -45,16 +45,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 584a68a7-75a3-4708-ae17-e84dc255d826
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-172
-  base_branch: epic-EXOCOMP-134
-  base_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
-  updated_at: '2026-08-03T15:22:52.248330+00:00'
+  head_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
+  submitted_at: '2026-08-03T15:34:20.518857+00:00'
+  updated_at: '2026-08-03T15:34:20.518857+00:00'
 oompah.task_costs:
   total_input_tokens: 337870
   total_output_tokens: 2915
@@ -338,5 +338,15 @@ author: oompah
 created: 2026-08-03 15:32
 ---
 Implementation update: hardened the policy against IPv4-mapped IPv6 CIDR bypasses and added fail-closed rejection for IPv6 NAT64, discard-only, protocol-assignment, documentation, and deprecated special-use ranges. Fixed encryption parsing so truncated unknown-version blobs return :invalid_ciphertext rather than misclassified :unsupported_version. Added focused regression coverage.
+---
+author: oompah
+created: 2026-08-03 15:34
+---
+Completion: pushed and verified head 3377d707. Preserved recovery checkpoint 9390df29 and the durable encrypted webhook implementation; added IPv4-mapped IPv6 policy coverage, IPv6 special-use destination blocking, and strict malformed-ciphertext classification. Focused direct runs pass: policy 21/21 and encryption 12/12. Required Makefile gates ran their offline checks successfully; pinned container phases remain environment-blocked by read-only Podman runtime initialization. Branch is clean and up to date with origin.
+---
+author: oompah
+created: 2026-08-03 15:34
+---
+Delivered encrypted organization-scoped webhook storage with admin mutations, one-time secrets, strict SSRF policy, and security regression coverage; pushed verified head 3377d707.
 ---
 <!-- COMMENTS:END -->

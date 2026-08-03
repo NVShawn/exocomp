@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T15:34:09.355703Z'
+updated_at: '2026-08-03T15:34:12.797781Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -116,7 +116,8 @@ oompah.terminal_audit:
     evidence_fingerprint: 182432d665cbb37547a6271e43aa26ecb93b98f0e825a0a07c0bc689165be8c4
     audit_ids:
     - audit-d389e6213849
-    kind: result
+    - audit-c6e2dc17cc05
+    kind: override
     applied: true
     retired_at: '2026-08-03T14:56:19.571287+00:00'
   - project_id: proj-c260b117
@@ -185,7 +186,7 @@ oompah.terminal_audit:
       Merged incorrectly blocks parent rollup because shared-epic children must remain
       Done until parent landing. OOMPAH-725 tracks prevention and automatic reconciliation.'
     created_at: '2026-08-03T15:34:03.999594+00:00'
-    applied: false
+    applied: true
   version: 1
   pending_chain:
   - version: 1
