@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-129
 type: epic
-status: In Validation
+status: Needs Human
 priority: 1
 title: 'M7B: Operator identity and cluster PKI'
 parent: EXOCOMP-127
@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:17.258642Z'
-updated_at: '2026-08-03T17:13:01.866028Z'
+updated_at: '2026-08-03T17:13:47.781092Z'
 work_branch: epic-EXOCOMP-129
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/23
@@ -28,6 +28,31 @@ oompah.work_branch: epic-EXOCOMP-129
 oompah.target_branch: epic-EXOCOMP-127
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    infrastructure-exhausted-audit-f0d409f1d24d-3: '2026-08-03T17:13:42.397125+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-129
+    target_state: Done
+    evidence_fingerprint: 1636c1f6ad745c0d8aaa0ffb7cbc310e2063ec7420c3f9a20d014c65ed81a95f
+    audit_ids:
+    - audit-f0d409f1d24d
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T17:13:42.397134+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-129
+    audit_id: audit-f0d409f1d24d
+    attempt_id: infrastructure-exhausted-audit-f0d409f1d24d-3
+    target_state: Done
+    evidence_fingerprint: 1636c1f6ad745c0d8aaa0ffb7cbc310e2063ec7420c3f9a20d014c65ed81a95f
+    status: Needs Human
+    audit_ids:
+    - audit-f0d409f1d24d
+    applied: true
+    created_at: '2026-08-03T17:13:42.397147+00:00'
+    applied_at: '2026-08-03T17:13:46.945888+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -35,7 +60,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-129
     target_state: Done
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -97,13 +122,25 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-129 (tried: origin/epic-EXOCOMP-129, origin/EXOCOMP-129)'
       next_retry_at: '2026-08-03T17:13:34.152676+00:00'
+    - version: 1
+      attempt_id: infrastructure-exhausted-audit-f0d409f1d24d-3
+      target_state: Done
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 1636c1f6ad745c0d8aaa0ffb7cbc310e2063ec7420c3f9a20d014c65ed81a95f
+      verdict: needs_human
+      failure_classification: infrastructure_error
+      created_at: '2026-08-03T17:13:42.397047+00:00'
+      completed_at: '2026-08-03T17:13:42.397047+00:00'
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T17:07:29.134256+00:00'
-    updated_at: '2026-08-03T17:12:54.152710+00:00'
+    updated_at: '2026-08-03T17:13:42.397047+00:00'
   - version: 1
     audit_id: audit-16a474483e07
     project_id: proj-c260b117
@@ -259,5 +296,12 @@ author: oompah
 created: 2026-08-03 17:13
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-129 (tried: origin/epic-EXOCOMP-129, origin/EXOCOMP-129). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-03 17:13
+---
+Needs Human — Done audit requires operator input.
+
+Independent auditor launches exhausted their retry budget because the audit workspace or transport failed before review began. Restore the audit infrastructure, then have a project owner rearm this terminal audit; do not reopen implementation work.
 ---
 <!-- COMMENTS:END -->
