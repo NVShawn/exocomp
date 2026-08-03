@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:27:13.323352Z'
+updated_at: '2026-08-03T19:28:33.851041Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -51,12 +51,17 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
+  base_branch: epic-EXOCOMP-130
+  base_sha: 93a1cd16d5a00cb577bfe8276e55406f4e33bc88
   head_sha: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
+  integrated_sha: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
   submitted_at: '2026-08-03T19:26:52.771089+00:00'
-  updated_at: '2026-08-03T19:26:52.771089+00:00'
+  updated_at: '2026-08-03T19:28:30.222397+00:00'
+  dependency_heads:
+    EXOCOMP-145: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
 oompah.task_costs:
   total_input_tokens: 20434164
   total_output_tokens: 89370
@@ -139,7 +144,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-146
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -189,6 +194,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-03T18:39:26.709383+00:00'
     updated_at: '2026-08-03T19:16:22.689308+00:00'
+  - version: 1
+    audit_id: audit-00f797db2b07
+    project_id: proj-c260b117
+    task_id: EXOCOMP-146
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b57766e16b7beb0e4d75ecce82c597424991f02424b91c4faa9f80c28f010a00
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T19:28:31.678497+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4d34a1388d60
