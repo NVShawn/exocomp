@@ -11,12 +11,11 @@ blocked_by:
 - EXOCOMP-161
 - EXOCOMP-147
 - EXOCOMP-150
-- EXOCOMP-171
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:20.549186Z'
-updated_at: '2026-08-01T13:16:38.503160Z'
+updated_at: '2026-08-03T17:43:04.622456Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-162
 target_branch: null
 review_url: null
