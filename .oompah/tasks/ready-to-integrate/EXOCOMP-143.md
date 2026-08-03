@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T15:57:39.788539Z'
+updated_at: '2026-08-03T15:58:00.517656Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -50,12 +50,17 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-143
+  base_branch: epic-EXOCOMP-129
+  base_sha: 5b60d46a078ed14b35d2f5c298f9cdc274dfdb3e
   head_sha: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
+  integrated_sha: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
   submitted_at: '2026-08-03T15:57:19.568246+00:00'
-  updated_at: '2026-08-03T15:57:19.568246+00:00'
+  updated_at: '2026-08-03T15:57:53.989589+00:00'
+  dependency_heads:
+    EXOCOMP-142: 97439b59b7134f4bdd7483d64763043aa86109da
 oompah.task_costs:
   total_input_tokens: 962
   total_output_tokens: 659
@@ -88,6 +93,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-129--task-EXOCOMP-143
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T11:58:08.358906+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-31a7f54c15da
+    project_id: proj-c260b117
+    task_id: EXOCOMP-143
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: d7b95d05c1f5a4be0d935c8485c05e5f62292e9b2d9706801bef0f09f070c436
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T15:57:59.722266+00:00'
+  attempt_history: []
 ---
 ## Summary
 
