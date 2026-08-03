@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-242
 type: bug
-status: In Review
+status: In Validation
 priority: 1
 title: Repair M7B invitation and SPIFFE certificate regressions
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:41:38.084272Z'
+updated_at: '2026-08-03T18:43:31.152731Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -113,6 +113,45 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/25
 oompah.review_number: '25'
 oompah.work_branch: EXOCOMP-242
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8b68063b9d88
+    project_id: proj-c260b117
+    task_id: EXOCOMP-242
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    attempts: []
+    requested_by:
+      version: 1
+      identity: NVShawn
+      source: forge
+    previous_state: In Review
+    created_at: '2026-08-03T18:43:24.846732+00:00'
+  - version: 1
+    audit_id: audit-abb6b25c4ecf
+    project_id: proj-c260b117
+    task_id: EXOCOMP-242
+    target_state: Merged
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    attempts: []
+    requested_by:
+      version: 1
+      identity: NVShawn
+      source: forge
+    previous_state: In Review
+    created_at: '2026-08-03T18:43:24.846732+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -267,5 +306,15 @@ Run #2 [attempt=2, profile=deep, role=deep -> Codex/gpt-5.6-sol]
 - Cost: $0.0000
 - Exit: terminated, Duration: 10m 14s
 - Log: EXOCOMP-242__20260803T183023Z.jsonl
+---
+author: oompah
+created: 2026-08-03 18:43
+---
+Queued for terminal transition to Merged. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-03 18:43
+---
+YOLO: merged PR #25.
 ---
 <!-- COMMENTS:END -->
