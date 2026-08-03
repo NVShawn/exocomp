@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T21:58:49.546407Z'
+updated_at: '2026-08-03T22:02:04.919723Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -64,8 +64,8 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-146: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
 oompah.task_costs:
-  total_input_tokens: 6247141
-  total_output_tokens: 42371
+  total_input_tokens: 6247144
+  total_output_tokens: 42797
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -73,8 +73,8 @@ oompah.task_costs:
       output_tokens: 41361
       cost_usd: 0.0
     unknown:
-      input_tokens: 37
-      output_tokens: 1010
+      input_tokens: 40
+      output_tokens: 1436
       cost_usd: 0.0
   runs:
   - profile: default
@@ -95,6 +95,12 @@ oompah.task_costs:
     output_tokens: 1010
     cost_usd: 0.0
     recorded_at: '2026-08-03T21:39:55.817299+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 3
+    output_tokens: 426
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T22:02:02.950337+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-149__20260801T122245Z
@@ -439,5 +445,15 @@ Safe evidence:
 - gateway_test_module: apps/exocomp_mission_control/test/exocomp/mission_control/cluster_gateway_test.exs
 - router_wiring: forward /api/v1/clusters/connect to ClusterGateway confirmed in router.ex
 - supervisor_wiring: ClusterEventIngestor in application.ex children list with event_store_path from config
+---
+author: oompah
+created: 2026-08-03 22:02
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 59, Tool calls: 38
+- Tokens: 3 in / 426 out [429 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 19m 59s
+- Log: EXOCOMP-149__20260803T214211Z.jsonl
 ---
 <!-- COMMENTS:END -->
