@@ -19,6 +19,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
   require Logger
 
   alias Exocomp.Coordinator.Config
+  alias Exocomp.Coordinator.MissionControl.WebSocket
 
   # ── API ────────────────────────────────────────────────────────────────────
 
@@ -50,6 +51,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
           config: Config.MissionControl.t(),
           status: :disconnected | :connecting | :connected,
           connection_pid: pid() | nil,
+          socket: WebSocket.t() | nil,
           backoff_state: backoff_state(),
           heartbeat_timer: reference() | nil
         }
@@ -73,6 +75,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
       config: config,
       status: :disconnected,
       connection_pid: nil,
+      socket: nil,
       backoff_state: init_backoff_state(config),
       heartbeat_timer: nil
     }
@@ -84,23 +87,29 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
   end
 
   @impl true
+  def handle_info(:connect, %{status: :connected} = state), do: {:noreply, state}
+
   def handle_info(:connect, state) do
     Logger.info("[MissionControlConnection] Attempting connection to #{state.config.url}")
 
-    # For now, log the attempt but don't actually establish a connection.
-    # Actual WebSocket connection will be implemented in a follow-up task.
-    new_state = %{
-      state
-      | status: :disconnected,
-        backoff_state: increment_backoff_attempt(state.backoff_state)
-    }
+    case WebSocket.connect(websocket_options(state.config)) do
+      {:ok, socket} ->
+        {:noreply, %{state | status: :connected, socket: socket}}
 
-    # Schedule next reconnection attempt
-    delay = calculate_backoff_delay(new_state.backoff_state)
+      {:error, reason} ->
+        Logger.warning("[MissionControlConnection] Connection failed: #{inspect(reason)}")
 
-    send_after(self(), :connect, delay)
+        new_state = %{
+          state
+          | status: :disconnected,
+            socket: nil,
+            backoff_state: increment_backoff_attempt(state.backoff_state)
+        }
 
-    {:noreply, new_state}
+        delay = calculate_backoff_delay(new_state.backoff_state)
+        send_after(self(), :connect, delay)
+        {:noreply, new_state}
+    end
   end
 
   @impl true
@@ -128,6 +137,10 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
   def handle_call(:connection_status, _from, state) do
     {:reply, state.status, state}
   end
+
+  @impl true
+  def terminate(_reason, %{socket: nil}), do: :ok
+  def terminate(_reason, %{socket: socket}), do: WebSocket.close(socket)
 
   # ── Helper functions ───────────────────────────────────────────────────────
 
@@ -162,6 +175,15 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
 
   defp schedule_heartbeat(interval_seconds) do
     Process.send_after(self(), :heartbeat, interval_seconds * 1000)
+  end
+
+  defp websocket_options(config) do
+    [
+      endpoint: config.url,
+      ca_cert: config.trust_root,
+      client_cert: config.client_cert,
+      client_key: config.client_key
+    ]
   end
 
   defp send_after(pid, msg, delay_ms) do

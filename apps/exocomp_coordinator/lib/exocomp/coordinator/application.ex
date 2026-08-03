@@ -103,8 +103,10 @@ defmodule Exocomp.Coordinator.Application do
     mission_control_children()
   end
 
-  # Builds Mission Control supervision subtree children only if Mission Control
-  # is configured and enabled. Returns an empty list otherwise.
+  # Build the existing Mission Control subtree from the validated config. The
+  # subtree owns the outbound connection; keeping it here preserves the
+  # coordinator's single, optional outbound integration point and never adds an
+  # inbound listener.
   defp mission_control_children do
     case Application.get_env(:exocomp_coordinator, :mission_control_config) do
       nil ->

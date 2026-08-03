@@ -75,8 +75,32 @@ if config_env() == :prod do
     System.get_env("MISSION_CONTROL_PORT", "4000")
     |> String.to_integer()
 
+  mission_control_tls =
+    [
+      System.get_env("MISSION_CONTROL_TLS_CERT"),
+      System.get_env("MISSION_CONTROL_TLS_KEY"),
+      System.get_env("MISSION_CONTROL_TLS_CA")
+    ]
+
+  unless Enum.all?(mission_control_tls, &(is_binary(&1) and String.trim(&1) != "")) do
+    raise "Mission Control mTLS is not configured; set MISSION_CONTROL_TLS_CERT, " <>
+            "MISSION_CONTROL_TLS_KEY, and MISSION_CONTROL_TLS_CA"
+  end
+
+  {:ok, mission_control_tls_options} =
+    Exocomp.MissionControl.ClusterGateway.server_tls_options(
+      certfile: Enum.at(mission_control_tls, 0),
+      keyfile: Enum.at(mission_control_tls, 1),
+      cacertfile: Enum.at(mission_control_tls, 2)
+    )
+
   config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
-    http: [ip: {0, 0, 0, 0}, port: mission_control_port],
+    https:
+      Keyword.merge(mission_control_tls_options,
+        ip: {0, 0, 0, 0},
+        port: mission_control_port
+      ),
+    http: false,
     secret_key_base: System.fetch_env!("MISSION_CONTROL_SECRET_KEY_BASE"),
     server: true
 end

@@ -34,6 +34,7 @@ defmodule Exocomp.MissionControl.Router do
   scope "/", Exocomp.MissionControl do
     pipe_through(:api)
 
+    forward "/api/v1/clusters/connect", to: ClusterGateway
     get("/health", HealthController, :health)
   end
 end

@@ -16,6 +16,7 @@ defmodule Exocomp.MissionControl.ClusterGateway do
   alias Exocomp.MissionControl.{CertificateIdentity, ClusterSessions}
 
   @connect_path ["api", "v1", "clusters", "connect"]
+  @connect_request_path "/api/v1/clusters/connect"
 
   @doc "Returns strict TLS 1.3 server options for a Mission Control listener."
   @spec server_tls_options(keyword()) :: {:ok, keyword()} | {:error, term()}
@@ -45,7 +46,17 @@ defmodule Exocomp.MissionControl.ClusterGateway do
   end
 
   @impl Plug
-  def call(%Plug.Conn{method: "GET", path_info: @connect_path} = conn, opts) do
+  def call(%Plug.Conn{method: "GET"} = conn, opts) do
+    if connect_request?(conn) do
+      connect(conn, opts)
+    else
+      error(conn, 404, "not found")
+    end
+  end
+
+  def call(conn, _opts), do: error(conn, 404, "not found")
+
+  defp connect(conn, opts) do
     with {:ok, identity} <- CertificateIdentity.from_conn(conn, opts.identity_opts),
          false <- ClusterSessions.revoked?(opts.session_registry, identity),
          :ok <- validate_upgrade_request(conn),
@@ -61,7 +72,13 @@ defmodule Exocomp.MissionControl.ClusterGateway do
     end
   end
 
-  def call(conn, _opts), do: error(conn, 404, "not found")
+  defp connect_request?(%Plug.Conn{path_info: @connect_path}), do: true
+
+  # Phoenix's `forward` routes the remaining path to the target Plug while
+  # retaining `request_path`; accept both forms so direct Plug tests and the
+  # mounted production route exercise the same authentication boundary.
+  defp connect_request?(%Plug.Conn{request_path: @connect_request_path}), do: true
+  defp connect_request?(_conn), do: false
 
   defp upgrade(conn, opts, identity, session_id) do
     state = %{

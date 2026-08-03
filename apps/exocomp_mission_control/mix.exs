@@ -48,6 +48,7 @@ defmodule Exocomp.MissionControl.MixProject do
       {:oauth2, "~> 2.1"},
       {:httpoison, "~> 2.0"},
       {:jose, "~> 1.11"},
+      {:x509, "~> 0.9.2"},
       {:exocomp_core, in_umbrella: true},
       {:plug, "~> 1.14"},
       {:bandit, "~> 1.4"}

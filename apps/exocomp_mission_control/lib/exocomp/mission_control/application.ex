@@ -25,6 +25,7 @@ defmodule Exocomp.MissionControl.Application do
       Exocomp.MissionControl.Telemetry,
       {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
       Exocomp.MissionControl.OIDCConfigCache,
+      Exocomp.MissionControl.ClusterSessions,
       Exocomp.MissionControl.Repo,
       Exocomp.MissionControl.Endpoint
     ]
