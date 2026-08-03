@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:59:24.618591Z'
+updated_at: '2026-08-03T18:02:41.086919Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
@@ -57,7 +57,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-244
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -66,7 +66,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-1f5d9accd973
       target_state: Done
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -76,18 +76,22 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T17:58:19.456022+00:00'
       branch_key: epic-EXOCOMP-135--task-EXOCOMP-244
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-03T18:02:27.758183+00:00'
+      failure_reason: normal
+      next_retry_at: '2026-08-03T18:02:37.758145+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T17:52:19.865849+00:00'
-    updated_at: '2026-08-03T17:58:19.456022+00:00'
+    updated_at: '2026-08-03T18:02:27.758183+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-1f5d9accd973
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -97,6 +101,26 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-03T17:58:19.456022+00:00'
     branch_key: epic-EXOCOMP-135--task-EXOCOMP-244
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-03T18:02:27.758183+00:00'
+    failure_reason: normal
+    next_retry_at: '2026-08-03T18:02:37.758145+00:00'
+oompah.task_costs:
+  total_input_tokens: 6
+  total_output_tokens: 1695
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 6
+      output_tokens: 1695
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 1695
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T18:02:27.759559+00:00'
 ---
 ## Summary
 
@@ -222,5 +246,20 @@ author: oompah
 created: 2026-08-03 17:59
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 18:02
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 2, Tool calls: 0
+- Tokens: 6 in / 1.7K out [1.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 3m 14s
+- Log: EXOCOMP-244__20260803T175931Z.jsonl
+---
+author: oompah
+created: 2026-08-03 18:02
+---
+Auditor attempt ended: auditor exited (normal) without a result. A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
