@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T20:40:36.175045Z'
+updated_at: '2026-08-03T20:47:19.238068Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -215,5 +215,10 @@ author: oompah
 created: 2026-08-03 20:40
 ---
 Discovery: the branch contains the prior completed ingestion implementation at 09ac7a78, but its base predates 18 epic commits including the Mission Control mTLS connection and coordinator outbox. Integration’s conflict is therefore expected in application/config/router wiring; the event validation, ingestor, identity, handler, and contract test modules are isolated.
+---
+author: oompah
+created: 2026-08-03 20:47
+---
+Implementation: resolved the rebase by moving the event-ingestion boundary to Mission Control’s authenticated WebSocket gateway. The new ingestor validates the strict v1 envelope, scopes IDs and sequences to certificate-derived organization/cluster identity, stages event/index/cursor snapshots atomically, and emits an acknowledgement only after persistence. The coordinator’s newer outbox, mTLS connection, and control-plane routes are preserved.
 ---
 <!-- COMMENTS:END -->
