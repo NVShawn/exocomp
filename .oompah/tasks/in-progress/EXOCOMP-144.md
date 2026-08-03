@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-03T16:15:20.029599Z'
+updated_at: '2026-08-03T16:15:44.173321Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -341,5 +341,10 @@ author: oompah
 created: 2026-08-03 16:15
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 16:15
+---
+Understanding: I will extend the coordinator PKI flow with authenticated cluster certificate renewal, atomic serial rotation/revocation, admin revocation operations, and gateway status lookup. I will first reconcile the enrollment dependency and existing interfaces, then add focused coverage before running the required gates.
 ---
 <!-- COMMENTS:END -->
