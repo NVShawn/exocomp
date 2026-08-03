@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T21:29:54.217397Z'
+updated_at: '2026-08-03T21:30:20.938024Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -70,13 +70,13 @@ oompah.integration:
   submitted_at: '2026-08-03T21:29:51.498555+00:00'
   updated_at: '2026-08-03T21:29:51.498555+00:00'
 oompah.task_costs:
-  total_input_tokens: 114
-  total_output_tokens: 3850
+  total_input_tokens: 768
+  total_output_tokens: 4005
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 114
-      output_tokens: 3850
+      input_tokens: 768
+      output_tokens: 4005
       cost_usd: 0.0
   runs:
   - profile: default
@@ -85,6 +85,12 @@ oompah.task_costs:
     output_tokens: 3850
     cost_usd: 0.0
     recorded_at: '2026-08-01T12:26:02.846544+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 654
+    output_tokens: 155
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T21:30:19.192793+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-150__20260801T122456Z
@@ -236,5 +242,15 @@ author: oompah
 created: 2026-08-03 21:29
 ---
 Completed durable server-to-cluster command outbox with idempotent delivery, replica-aware routing, and terminal expiry. All acceptance tests pass.
+---
+author: oompah
+created: 2026-08-03 21:30
+---
+Run #1 [attempt=1, profile=default, role=fast -> Claude/haiku]
+- Turns: 0, Tool calls: 35
+- Tokens: 654 in / 155 out [809 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 38m 33s
+- Log: EXOCOMP-150__20260803T205216Z.jsonl
 ---
 <!-- COMMENTS:END -->
