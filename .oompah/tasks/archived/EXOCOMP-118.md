@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-118
 type: bug
-status: In Validation
+status: Archived
 priority: 1
 title: Make the shipped node bundle install and start cleanly
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-26T03:58:30.973367Z'
-updated_at: '2026-08-03T12:01:19.172816Z'
+updated_at: '2026-08-03T12:03:14.336388Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -44,6 +44,30 @@ oompah.task_costs:
     recorded_at: '2026-07-26T04:09:28.467391+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-7eb8249f8814: '2026-08-03T12:03:11.444113+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-118
+    target_state: Archived
+    evidence_fingerprint: 93fccdb0558b7709a45f8e02cb099ca21a930c6d896a32d63216c38fa5530c47
+    audit_ids:
+    - audit-adf246820f14
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T12:03:11.444121+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-118
+    audit_id: audit-adf246820f14
+    attempt_id: attempt-7eb8249f8814
+    target_state: Archived
+    evidence_fingerprint: 93fccdb0558b7709a45f8e02cb099ca21a930c6d896a32d63216c38fa5530c47
+    status: Archived
+    audit_ids:
+    - audit-adf246820f14
+    applied: false
+    created_at: '2026-08-03T12:03:11.444133+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -51,7 +75,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-118
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -60,7 +84,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-7eb8249f8814
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -70,13 +94,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T12:01:01.013664+00:00'
       branch_key: epic-EXOCOMP-117
+      verdict: pass
+      completed_at: '2026-08-03T12:03:11.444005+00:00'
+      ended_at: '2026-08-03T12:03:11.444005+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T12:00:46.619768+00:00'
-    updated_at: '2026-08-03T12:01:01.013664+00:00'
+    updated_at: '2026-08-03T12:03:11.444005+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-7eb8249f8814
@@ -357,5 +384,24 @@ author: oompah
 created: 2026-08-03 12:01
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 12:03
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 53fbc231a7c2e63dad054b8d47f01cd5a43832c8
+- merge_date: 2026-07-26
+- on_main: true
+- files_changed: 13
+- insertions: 654
+- deletions: 39
+- test_coverage_added: test/installer/test_installer.py (+107), tests/test_bundle.py (+335), tests/test_operator_docs.py (+19)
+- config_path_fix_verified: config/config.exs line 13: /var/lib/exocomp -> /var/lib/exocomp-node
+- days_since_merge: 8
+- worktree_status: clean
 ---
 <!-- COMMENTS:END -->
