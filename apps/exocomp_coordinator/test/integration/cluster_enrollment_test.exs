@@ -99,8 +99,7 @@ defmodule Exocomp.Coordinator.ClusterEnrollmentTest do
       Extension.key_usage([:digitalSignature]),
       Extension.ext_key_usage([:clientAuth]),
       Extension.subject_alt_name([
-        {:uniformResourceIdentifier,
-         "spiffe://exocomp/organizations/#{organization_id}/clusters/#{cluster_id}"}
+        {:uniformResourceIdentifier, "spiffe://exocomp/organizations/#{organization_id}/clusters/#{cluster_id}"}
       ])
     ]
   end

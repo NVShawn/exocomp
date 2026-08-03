@@ -140,6 +140,7 @@ defmodule Exocomp.Coordinator.Handlers.ClusterInvitationHandler do
 
     cond do
       not valid_string?(organization_id) -> {:error, :unauthenticated}
+      role == nil -> {:error, :unauthenticated}
       normalize_role(role) != :admin -> {:error, :forbidden}
       true -> {:ok, %{organization_id: String.trim(organization_id)}}
     end
