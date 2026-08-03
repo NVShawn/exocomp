@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T21:19:40.993996Z'
+updated_at: '2026-08-03T21:19:57.191111Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -332,5 +332,10 @@ author: oompah
 created: 2026-08-03 21:08
 ---
 Integration found a rebase conflict on `epic-EXOCOMP-130--task-EXOCOMP-147`. Resolve it against `epic-EXOCOMP-130`, run the required tests, push the same private branch, and `oompah task submit` it again.
+---
+author: oompah
+created: 2026-08-03 21:19
+---
+Agent dispatched (profile: standard)
 ---
 <!-- COMMENTS:END -->

@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T21:18:31.955183Z'
+updated_at: '2026-08-03T21:19:53.358086Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -288,13 +288,13 @@ oompah.terminal_audit:
     branch_key: epic-EXOCOMP-128
     candidate_rotation_count: 1
 oompah.task_costs:
-  total_input_tokens: 109
-  total_output_tokens: 13858
+  total_input_tokens: 123
+  total_output_tokens: 24466
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 109
-      output_tokens: 13858
+      input_tokens: 123
+      output_tokens: 24466
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -315,6 +315,12 @@ oompah.task_costs:
     output_tokens: 2823
     cost_usd: 0.0
     recorded_at: '2026-08-03T20:54:57.020143+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 14
+    output_tokens: 10608
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T21:19:51.692062+00:00'
 ---
 ## Summary
 
@@ -492,5 +498,15 @@ Safe evidence:
 - codec_test_coverage: events/commands/acknowledgements/batch/encode/decode/round-trip/edge-cases
 - epic_EXOCOMP_127_head: 2d08fde7 EXOCOMP-127: deliver audited prerequisites
 - downstream_commits_on_epic_branch: approximately 20 Mission Control feature commits after EXOCOMP-128 merge
+---
+author: oompah
+created: 2026-08-03 21:19
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 32, Tool calls: 20
+- Tokens: 14 in / 10.6K out [10.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 22m 8s
+- Log: EXOCOMP-128__20260803T205755Z.jsonl
 ---
 <!-- COMMENTS:END -->
