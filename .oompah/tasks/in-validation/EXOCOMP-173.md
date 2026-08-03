@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:26:07.683584Z'
+updated_at: '2026-08-03T17:45:17.445487Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -51,12 +51,18 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-173
+  base_branch: epic-EXOCOMP-134
+  base_sha: fb5673e4da33054442e6ace089194af5103fdae7
   head_sha: ab56e3105943d1fac9b0c49ad03aa69966404c4b
+  integrated_sha: ab56e3105943d1fac9b0c49ad03aa69966404c4b
   submitted_at: '2026-08-03T17:23:25.514207+00:00'
-  updated_at: '2026-08-03T17:23:25.514207+00:00'
+  updated_at: '2026-08-03T17:45:11.537564+00:00'
+  dependency_heads:
+    EXOCOMP-171: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
+    EXOCOMP-172: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
 oompah.task_costs:
   total_input_tokens: 420560
   total_output_tokens: 68032
@@ -143,7 +149,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-173
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -173,6 +179,23 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-03T16:35:48.873978+00:00'
     updated_at: '2026-08-03T17:12:29.050491+00:00'
+  - version: 1
+    audit_id: audit-af302ded741a
+    project_id: proj-c260b117
+    task_id: EXOCOMP-173
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: cf35a64ee886a4c40da9562bbd751655c0372caae12e7edb49b12847d0d08227
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T17:45:15.298092+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-45ad8288aaf5
