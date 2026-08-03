@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-158
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Store bounded conversations, messages, and evidence references
 parent: EXOCOMP-132
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-03T17:45:42.647083Z'
+updated_at: '2026-08-03T17:55:25.170159Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -44,16 +44,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 75923846-5c3a-4475-8e17-159a5e5e1012
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-132--task-EXOCOMP-158
-  base_branch: epic-EXOCOMP-132
-  base_sha: 24f84e9459c72cb9354dc47e6f531118e14fcfaa
-  updated_at: '2026-08-03T17:45:39.686459+00:00'
+  head_sha: a435774fc3b9b1a2b9ec17c0ea7a07a4236bd701
+  submitted_at: '2026-08-03T17:55:17.991706+00:00'
+  updated_at: '2026-08-03T17:55:17.991706+00:00'
 oompah.task_costs:
   total_input_tokens: 897761
   total_output_tokens: 4536
@@ -195,5 +195,15 @@ author: oompah
 created: 2026-08-03 17:45
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 17:55
+---
+Coordination reviewed before submission: EXOCOMP-146 overlap is limited to Mission Control.Application supervision; Conversations and ClusterSessions are independent children and the interface boundary was sent to EXOCOMP-146. EXOCOMP-173 was notified to consume the existing Conversations API. Verification rerun on clean a435774f: make test and make lint both passed all offline checks (38 checks total) before the container-backed Mix steps were blocked by the managed read-only libpod runtime (cannot chmod /run/user/1000/libpod); make fmt-check was blocked at that same container startup point. No code or formatting failure was reported.
+---
+author: oompah
+created: 2026-08-03 17:55
+---
+Submitted a435774f after reconciling the Mission Control supervision overlap. Delivers organization-scoped bounded conversations, memberships, ordered messages, evidence references, context selection, lifecycle transitions, and supervision integration. Container-backed Mix gates are environment-blocked by read-only libpod; all offline checks passed.
 ---
 <!-- COMMENTS:END -->
