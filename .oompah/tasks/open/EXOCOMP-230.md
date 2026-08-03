@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-230
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Package the broker and replace direct mutation sudo privileges
 parent: EXOCOMP-211
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:31.243597Z'
-updated_at: '2026-08-03T14:31:22.441331Z'
+updated_at: '2026-08-03T15:30:04.975696Z'
 work_branch: null
 target_branch: null
 review_url: null

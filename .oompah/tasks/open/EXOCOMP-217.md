@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-217
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Add management-policy HTTP APIs
 parent: EXOCOMP-209
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:19.702752Z'
-updated_at: '2026-08-03T14:30:33.354279Z'
+updated_at: '2026-08-03T15:30:21.115767Z'
 work_branch: null
 target_branch: null
 review_url: null

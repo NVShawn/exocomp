@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-232
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Migrate journal vacuum to the broker
 parent: EXOCOMP-211
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:36.951867Z'
-updated_at: '2026-08-03T14:31:32.005718Z'
+updated_at: '2026-08-03T15:30:12.277411Z'
 work_branch: null
 target_branch: null
 review_url: null

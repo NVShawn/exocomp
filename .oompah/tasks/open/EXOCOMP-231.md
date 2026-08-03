@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-231
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Migrate systemd service restart to the broker
 parent: EXOCOMP-211
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:35.002542Z'
-updated_at: '2026-08-03T14:31:26.444467Z'
+updated_at: '2026-08-03T15:30:09.035246Z'
 work_branch: null
 target_branch: null
 review_url: null

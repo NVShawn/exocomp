@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-229
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Enforce policy and permits at the node safety gate
 parent: EXOCOMP-211
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:29.308857Z'
-updated_at: '2026-08-03T14:31:20.361718Z'
+updated_at: '2026-08-03T15:30:02.848448Z'
 work_branch: null
 target_branch: null
 review_url: null

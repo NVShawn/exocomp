@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-228
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Issue short-lived coordinator action permits
 parent: EXOCOMP-211
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:27.555796Z'
-updated_at: '2026-08-03T14:31:08.429136Z'
+updated_at: '2026-08-03T15:29:59.791490Z'
 work_branch: null
 target_branch: null
 review_url: null

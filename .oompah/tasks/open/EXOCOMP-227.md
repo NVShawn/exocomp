@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-227
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Enforce observe mode in Mission Control and coordinator workflows
 parent: EXOCOMP-211
@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:23.857357Z'
-updated_at: '2026-08-03T14:31:15.413138Z'
+updated_at: '2026-08-03T15:29:58.030829Z'
 work_branch: null
 target_branch: null
 review_url: null

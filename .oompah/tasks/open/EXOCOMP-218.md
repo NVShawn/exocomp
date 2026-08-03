@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-218
 type: task
-status: Backlog
+status: Open
 priority: 2
 title: Build management-policy LiveViews
 parent: EXOCOMP-209
@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:22.138173Z'
-updated_at: '2026-08-03T14:30:35.504872Z'
+updated_at: '2026-08-03T15:30:23.462147Z'
 work_branch: null
 target_branch: null
 review_url: null

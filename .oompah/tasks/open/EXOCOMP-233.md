@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-233
 type: task
-status: Backlog
+status: Open
 priority: 1
 title: Migrate shipped cluster-profile actions to the broker
 parent: EXOCOMP-211
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:39.646035Z'
-updated_at: '2026-08-03T14:31:36.268490Z'
+updated_at: '2026-08-03T15:30:14.767499Z'
 work_branch: null
 target_branch: null
 review_url: null

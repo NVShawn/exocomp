@@ -13,8 +13,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:14.313906Z'
-updated_at: '2026-08-03T15:29:51.217932Z'
-work_branch: null
+updated_at: '2026-08-03T15:30:11.264489Z'
+work_branch: epic-EXOCOMP-209--task-EXOCOMP-215
 target_branch: null
 review_url: null
 review_number: null
@@ -38,6 +38,16 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
+oompah.agent_run_id: 0316d372-33a5-4825-a655-89fdef4865f8
+oompah.work_branch: epic-EXOCOMP-209--task-EXOCOMP-215
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-209--task-EXOCOMP-215
+  base_branch: epic-EXOCOMP-209
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:30:08.210154+00:00'
 ---
 ## Summary
 
@@ -62,3 +72,16 @@ Out of scope: RBAC, HTTP endpoints, bundle creation, and UI.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:30
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:30
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
