@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-245
 type: task
-status: In Progress
+status: Needs Human
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:24:16.639306Z'
+updated_at: '2026-08-03T18:24:38.115758Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -155,5 +155,15 @@ Run #4 [attempt=4, profile=standard, role=— -> Claude/sonnet]
 - Tokens: 0 in / 0 out [0 total]
 - Cost: $0.0000
 - Exit: error, Duration: 4s
+---
+author: oompah
+created: 2026-08-03 18:24
+---
+Operator workaround starting. The auto-filed target is incorrect: EXOCOMP-135 is nested under EXOCOMP-127, so its authoritative synchronization target is epic-EXOCOMP-127, not main. The first worker pushed 98f2b738 onto main and then could not submit; the bounded retry is now blocked by the known shared-worktree divergence defect tracked by OOMPAH-731. OOMPAH-733 tracks the fail-open parent-target resolution regression. I am temporarily fencing automated dispatch, preserving the published wrong-target head, and will rebase the four epic-only patches onto the exact parent head with force-with-lease before requesting the Done audit.
+---
+author: oompah
+created: 2026-08-03 18:24
+---
+Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-245 (Rebase epic-EXOCOMP-135 onto main), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
 ---
 <!-- COMMENTS:END -->
