@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T22:52:02.633879Z'
+updated_at: '2026-08-03T23:05:45.310778Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -128,6 +128,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:26:02.852468+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-f4ef0cdaad76: '2026-08-03T23:05:39.562405+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-150
+    target_state: Done
+    evidence_fingerprint: b13442f1691b9be7560a2c6934f5647c252f90f590e04e7d1a6e61e0ecd588d9
+    audit_ids:
+    - audit-23e9dc9c733e
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T23:05:39.562412+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-150
+    audit_id: audit-23e9dc9c733e
+    attempt_id: attempt-f4ef0cdaad76
+    target_state: Done
+    evidence_fingerprint: b13442f1691b9be7560a2c6934f5647c252f90f590e04e7d1a6e61e0ecd588d9
+    status: Done
+    audit_ids:
+    - audit-23e9dc9c733e
+    applied: false
+    created_at: '2026-08-03T23:05:39.562423+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -135,7 +159,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-150
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -163,7 +187,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-f4ef0cdaad76
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -174,13 +198,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T22:51:54.420826+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-150
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T23:05:39.562303+00:00'
+      ended_at: '2026-08-03T23:05:39.562303+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T22:23:49.743298+00:00'
-    updated_at: '2026-08-03T22:51:54.420826+00:00'
+    updated_at: '2026-08-03T23:05:39.562303+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4536ca432dc4
@@ -491,5 +518,20 @@ author: oompah
 created: 2026-08-03 22:52
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 23:05
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_sha: 98347b38599081cdd1500fca4cdeb3411078b462
+- origin_sha: 98347b38599081cdd1500fca4cdeb3411078b462
+- task_commits: 3 commits (8721c514, 4de74f13, 98347b38)
+- changed_files: 6 files: command.ex, command_outbox.ex, cluster_gateway.ex, migration 20260801000600, command_outbox_test.exs, database_test.exs
+- test_scenarios_covered: offline cluster, reconnect, duplicate ack, expiration, replica ownership change, session-ownership broadcast, invalid kind, rollback
+- git_diff_check: exit_code 0 (no whitespace errors)
 ---
 <!-- COMMENTS:END -->
