@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-08-03T12:25:35.078725Z'
+updated_at: '2026-08-03T12:25:38.551015Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -118,8 +118,9 @@ oompah.terminal_audit:
     status: Merged
     audit_ids:
     - audit-ca4414c9e62a
-    applied: false
+    applied: true
     created_at: '2026-08-03T12:25:31.102615+00:00'
+    applied_at: '2026-08-03T12:25:37.229940+00:00'
   version: 1
   pending_chain:
   - version: 1
