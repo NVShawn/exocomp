@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T22:54:31.564786Z'
+updated_at: '2026-08-03T22:54:47.057451Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -175,19 +175,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-147
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: ebbda61f313f32e329e6d306b0d6993121df673e0db2bfe16ad93708e4654b6e
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-77c2dd7872b6
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: ebbda61f313f32e329e6d306b0d6993121df673e0db2bfe16ad93708e4654b6e
+      created_at: '2026-08-03T22:54:40.583615+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T22:54:40.583615+00:00'
+      branch_key: epic-EXOCOMP-130--task-EXOCOMP-147
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T22:54:02.659318+00:00'
-  attempt_history: []
+    updated_at: '2026-08-03T22:54:40.583615+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-77c2dd7872b6
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ebbda61f313f32e329e6d306b0d6993121df673e0db2bfe16ad93708e4654b6e
+    created_at: '2026-08-03T22:54:40.583615+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T22:54:40.583615+00:00'
+    branch_key: epic-EXOCOMP-130--task-EXOCOMP-147
 ---
 ## Summary
 
@@ -495,5 +522,15 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 55m 13s
 - Log: EXOCOMP-147__20260803T215929Z.jsonl
+---
+author: oompah
+created: 2026-08-03 22:54
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 22:54
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
