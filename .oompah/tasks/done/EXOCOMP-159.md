@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-03T20:07:40.273732Z'
+updated_at: '2026-08-03T20:07:44.825067Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -135,7 +135,8 @@ oompah.terminal_audit:
     evidence_fingerprint: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
     audit_ids:
     - audit-321b3be1f6e6
-    kind: result
+    - audit-f450c23c331a
+    kind: override
     applied: true
     retired_at: '2026-08-03T18:54:26.325876+00:00'
   oompah.terminal_audit_result_intents:
@@ -151,6 +152,7 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T18:54:26.325887+00:00'
     applied_at: '2026-08-03T18:54:31.663861+00:00'
+    retired_by_override: true
   oompah.terminal_override_records:
   - version: 1
     override_id: override-7656d6838acf
@@ -170,7 +172,7 @@ oompah.terminal_audit:
       and make lint operator runs; only OOMPAH-736 command-policy denials prevented
       ordinary finalization.
     created_at: '2026-08-03T20:07:35.417142+00:00'
-    applied: false
+    applied: true
   version: 1
   pending_chain:
   - version: 1
@@ -247,7 +249,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-159
     target_state: Done
-    request_state: in_progress
+    request_state: cancelled
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -292,7 +294,7 @@ oompah.terminal_audit:
       source: api
     previous_state: Ready to Integrate
     created_at: '2026-08-03T19:29:58.634883+00:00'
-    updated_at: '2026-08-03T20:07:23.371292+00:00'
+    updated_at: '2026-08-03T20:07:42.746841+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-bd09075984b7
