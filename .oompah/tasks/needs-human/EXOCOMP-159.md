@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-159
 type: task
-status: In Validation
+status: Needs Human
 priority: 1
 title: Implement the coordinator exocomp.cluster.chat skill
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-03T18:54:02.991532Z'
+updated_at: '2026-08-03T18:54:33.172080Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -120,6 +120,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:38:27.529728+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    no-auditor-audit-321b3be1f6e6-2: '2026-08-03T18:54:26.325868+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-159
+    target_state: Done
+    evidence_fingerprint: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
+    audit_ids:
+    - audit-321b3be1f6e6
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T18:54:26.325876+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-159
+    audit_id: audit-321b3be1f6e6
+    attempt_id: no-auditor-audit-321b3be1f6e6-2
+    target_state: Done
+    evidence_fingerprint: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
+    status: Needs Human
+    audit_ids:
+    - audit-321b3be1f6e6
+    applied: true
+    created_at: '2026-08-03T18:54:26.325887+00:00'
+    applied_at: '2026-08-03T18:54:31.663861+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -127,7 +152,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-159
     target_state: Done
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -172,13 +197,25 @@ oompah.terminal_audit:
         auditor capability policy permits only read-only repository inspection and
         configured test commands; command denied'
       next_retry_at: '2026-08-03T18:54:17.606330+00:00'
+    - version: 1
+      attempt_id: no-auditor-audit-321b3be1f6e6-2
+      target_state: Done
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
+      verdict: fail
+      failure_classification: no_auditor
+      created_at: '2026-08-03T18:54:26.325766+00:00'
+      completed_at: '2026-08-03T18:54:26.325766+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T18:32:13.696887+00:00'
-    updated_at: '2026-08-03T18:53:57.606360+00:00'
+    updated_at: '2026-08-03T18:54:26.325766+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-bd09075984b7
@@ -452,5 +489,12 @@ author: oompah
 created: 2026-08-03 18:54
 ---
 Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
+---
+author: oompah
+created: 2026-08-03 18:54
+---
+Needs Human — Done audit requires operator input.
+
+No independent auditor candidate is available for this audit (All eligible auditor candidates were already attempted for this audit.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then have a project owner rearm this terminal audit. Please review the audit output, decide the next step, and update this task with your instructions.
 ---
 <!-- COMMENTS:END -->
