@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:58:35.629260Z'
+updated_at: '2026-08-03T15:34:05.137972Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -166,6 +166,26 @@ oompah.terminal_audit:
       tasks.
     created_at: '2026-08-03T14:58:03.245251+00:00'
     applied: true
+  - version: 1
+    override_id: override-28430caecf1a
+    project_id: proj-c260b117
+    task_id: EXOCOMP-240
+    target_state: Done
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 182432d665cbb37547a6271e43aa26ecb93b98f0e825a0a07c0bc689165be8c4
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: 'Repair lifecycle-incompatible owner override: EXOCOMP-240 is a shared-epic
+      maintenance child whose audited work is contained on epic-EXOCOMP-130, not the
+      default branch. Its Done audit passed at exact epic tip 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc;
+      Merged incorrectly blocks parent rollup because shared-epic children must remain
+      Done until parent landing. OOMPAH-725 tracks prevention and automatic reconciliation.'
+    created_at: '2026-08-03T15:34:03.999594+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
