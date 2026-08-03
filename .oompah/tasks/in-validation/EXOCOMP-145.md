@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:01.267951Z'
-updated_at: '2026-08-03T16:58:52.389293Z'
+updated_at: '2026-08-03T16:58:57.113279Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-145
 target_branch: null
 review_url: null
@@ -1105,5 +1105,10 @@ author: oompah
 created: 2026-08-03 16:58
 ---
 Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 16:58
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
