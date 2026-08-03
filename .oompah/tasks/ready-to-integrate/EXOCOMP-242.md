@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-242
 type: bug
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Repair M7B invitation and SPIFFE certificate regressions
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:39:33.005499Z'
+updated_at: '2026-08-03T18:39:46.849227Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -68,7 +68,7 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
-oompah.agent_run_id: 6c975227-bf9a-4908-a527-20f79bb2c8e7
+oompah.agent_run_id: null
 oompah.task_costs:
   total_input_tokens: 1528
   total_output_tokens: 2043
@@ -101,6 +101,14 @@ oompah.work_contributors:
     source_branch: EXOCOMP-242
     source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
     completed_at: '2026-08-03T17:19:41.142721+00:00'
+oompah.integration:
+  version: 2
+  state: ready
+  attempts: 0
+  task_branch: EXOCOMP-242
+  head_sha: 8e19679a414b0f22b6d837976486f1e4b2955f41
+  submitted_at: '2026-08-03T18:39:39.660373+00:00'
+  updated_at: '2026-08-03T18:39:39.660373+00:00'
 ---
 ## Summary
 
@@ -240,5 +248,10 @@ author: oompah
 created: 2026-08-03 18:39
 ---
 Completion: Delivered commit 8e19679a414b0f22b6d837976486f1e4b2955f41 on origin/EXOCOMP-242. The repair uses pinned-runtime-compatible SPIFFE GeneralNames in CSR fixtures and issued certificates, normalizes URI decoding, hardens missing-auth handling, fixes invitation attrs/clock fixtures, and explicitly covers valid, wrong, and multiple SPIFFE identities plus invitation expiry/replay, plaintext non-persistence, and missing authentication. All required gates and release smoke tests pass; branch is clean and matches origin.
+---
+author: oompah
+created: 2026-08-03 18:39
+---
+Repaired M7B invitation and SPIFFE certificate regressions with OTP-compatible URI GeneralNames, deterministic missing-auth rejection, lifecycle-safe invitation fixtures, and explicit identity regression coverage. Pinned make fmt-check, make test including both release smoke tests, and make lint all pass at 8e19679a414b0f22b6d837976486f1e4b2955f41.
 ---
 <!-- COMMENTS:END -->
