@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:17.168394Z'
-updated_at: '2026-08-03T15:32:06.491460Z'
+updated_at: '2026-08-03T15:33:35.063408Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-216
 target_branch: null
 review_url: null
@@ -29,22 +29,13 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
-    Matches: none\nEvidence: The supplied corpus lacks full descriptions/comments\
-    \ for active peers EXOCOMP-209, 213\u2013215, 217\u2013218, and 227, so duplicate\
-    \ status cannot be confirmed. Reviewed terminal tasks EXOCOMP-14 and EXOCOMP-16\
-    \ are distinct historical coordinator/audit and PKI scopes.\nFocus handoff: duplicate_detector\
-    \  \nDuplicate preflight verdict: inconclusive  \nMatches: none\n\nEvidence: The\
-    \ supplied corpus lacks full descriptions/comments for active peers EXOCOMP-209,\
-    \ 213\u2013215, 217\u2013218, and 227, so duplicate status cannot be confirmed.\
-    \ Reviewed terminal tasks EXOCOMP-14 and EXOCOMP-16 are distinct historical coordinator/audit\
-    \ and PKI scopes."
-  claim_id: null
-  claim_owner: null
-  claimed_at: null
-  claim_expires_at: null
+  evidence: ''
+  claim_id: 0aba8a83-56cc-4ff4-bdae-f470f2bfef84
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T15:33:33.947539+00:00'
+  claim_expires_at: '2026-08-03T16:03:33.947539+00:00'
   retry_count: 1
-  retry_after: '2026-08-03T15:33:00.642690+00:00'
+  retry_after: null
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''

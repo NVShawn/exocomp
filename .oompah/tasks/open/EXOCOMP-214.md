@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:24:11.664051Z'
-updated_at: '2026-08-03T15:33:14.924414Z'
+updated_at: '2026-08-03T15:33:39.968363Z'
 work_branch: epic-EXOCOMP-209--task-EXOCOMP-214
 target_branch: null
 review_url: null
@@ -38,7 +38,7 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
-oompah.agent_run_id: 5e5400cd-0392-49af-a857-d07a3c50d28d
+oompah.agent_run_id: 50c8a206-fa7d-4adc-ae0d-61c515dcd5ae
 oompah.work_branch: epic-EXOCOMP-209--task-EXOCOMP-214
 oompah.integration:
   version: 2
@@ -47,7 +47,7 @@ oompah.integration:
   task_branch: epic-EXOCOMP-209--task-EXOCOMP-214
   base_branch: epic-EXOCOMP-209
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
-  updated_at: '2026-08-03T15:29:55.534006+00:00'
+  updated_at: '2026-08-03T15:33:36.854320+00:00'
 oompah.task_costs:
   total_input_tokens: 430071
   total_output_tokens: 2160
@@ -118,5 +118,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 14s
 - Log: EXOCOMP-214__20260803T153000Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:33
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:33
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
