@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-243
 type: bug
-status: Ready to Integrate
+status: In Review
 priority: 2
 title: Remove peer-completion race from discovery polling test
 parent: null
@@ -11,10 +11,10 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:36:25.169677Z'
+updated_at: '2026-08-03T17:36:53.313825Z'
 work_branch: null
 target_branch: null
-review_url: null
+review_url: https://github.com/NVShawn/exocomp/pull/24
 review_number: null
 review_head: null
 merged_at: null
@@ -77,6 +77,7 @@ oompah.integration:
   head_sha: e2976fff2dce596ec168d31dc50e25d7f4cd3a62
   submitted_at: '2026-08-03T17:35:55.601211+00:00'
   updated_at: '2026-08-03T17:35:55.601211+00:00'
+oompah.review_url: https://github.com/NVShawn/exocomp/pull/24
 ---
 ## Summary
 
