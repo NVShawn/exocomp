@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-142
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Create one-use cluster invitations
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-03T15:18:00.568919Z'
+updated_at: '2026-08-03T15:22:19.355392Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -42,12 +42,17 @@ oompah.agent_run_id: 962749f5-b91a-428a-b530-5c134ad09e35
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-142
-  head_sha: 97439b59b7134f4bdd7483d64763043aa86109da
+  base_branch: epic-EXOCOMP-129
+  base_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
+  head_sha: 5b60d46a078ed14b35d2f5c298f9cdc274dfdb3e
+  integrated_sha: 5b60d46a078ed14b35d2f5c298f9cdc274dfdb3e
   submitted_at: '2026-08-01T12:16:15.061043+00:00'
-  updated_at: '2026-08-01T12:16:15.061043+00:00'
+  updated_at: '2026-08-03T15:22:13.269038+00:00'
+  dependency_heads:
+    EXOCOMP-141: d4c703e94c5ef16a5b0b9474e27a800ae5622d86
 oompah.task_costs:
   total_input_tokens: 10200538
   total_output_tokens: 56711
@@ -80,6 +85,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-129--task-EXOCOMP-142
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T11:56:05.515247+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-361e857359c2
+    project_id: proj-c260b117
+    task_id: EXOCOMP-142
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 7d4b304ab55f1c9ef3c9220a3361432255c208f9c07d75285042450da88db192
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T15:22:15.383447+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -186,5 +213,10 @@ author: oompah
 created: 2026-08-03 15:18
 ---
 Operator deadlock workaround: the Ready row was waiting for EXOCOMP-171's repaired integrated SHA f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa to reach epic-EXOCOMP-129, while epic-EXOCOMP-134 already contained EXOCOMP-141's exact integrated SHA d4c703e94c5ef16a5b0b9474e27a800ae5622d86. Fast-forwarded epic-EXOCOMP-129 from e826d0d5 to f1e60cb4 and pushed with an exact lease. Both epic-EXOCOMP-129 and epic-EXOCOMP-134 now resolve to f1e60cb4, and both prerequisite SHAs are ancestors. OOMPAH-718 is the merged server fix that detects/fences this cross-container cycle class.
+---
+author: oompah
+created: 2026-08-03 15:22
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
