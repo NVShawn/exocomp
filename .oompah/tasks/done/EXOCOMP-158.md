@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-158
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Store bounded conversations, messages, and evidence references
 parent: EXOCOMP-132
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-03T18:25:07.527417Z'
+updated_at: '2026-08-03T18:40:15.939104Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -105,6 +105,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:36:41.119316+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-c1845d1dc7a1: '2026-08-03T18:40:11.799657+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-158
+    target_state: Done
+    evidence_fingerprint: ec221113667b4616c94d4c5b1cf32216419747483a36db8339151849b73daed2
+    audit_ids:
+    - audit-0d7f234f2aad
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T18:40:11.799667+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-158
+    audit_id: audit-0d7f234f2aad
+    attempt_id: attempt-c1845d1dc7a1
+    target_state: Done
+    evidence_fingerprint: ec221113667b4616c94d4c5b1cf32216419747483a36db8339151849b73daed2
+    status: Done
+    audit_ids:
+    - audit-0d7f234f2aad
+    applied: false
+    created_at: '2026-08-03T18:40:11.799681+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -112,7 +136,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-158
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -140,7 +164,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-c1845d1dc7a1
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -151,13 +175,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T18:25:03.434578+00:00'
       branch_key: epic-EXOCOMP-132--task-EXOCOMP-158
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T18:40:11.799483+00:00'
+      ended_at: '2026-08-03T18:40:11.799483+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T18:06:11.414709+00:00'
-    updated_at: '2026-08-03T18:25:03.434578+00:00'
+    updated_at: '2026-08-03T18:40:11.799483+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-8b8ecc5c3f99
@@ -367,5 +394,25 @@ author: oompah
 created: 2026-08-03 18:25
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 18:40
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_sha: a435774fc3b9b1a2b9ec17c0ea7a07a4236bd701
+- remote_branch: remotes/origin/epic-EXOCOMP-132--task-EXOCOMP-158
+- test_file: apps/exocomp_mission_control/test/exocomp/mission_control/conversations_test.exs
+- test_count: 8
+- focused_test_result: 8 tests, 0 failures (self-reported by agent)
+- schemas_present: conversation.ex, conversations.ex, evidence_reference.ex, membership.ex, message.ex
+- supervision: Conversations in Application.children/0, tested in application_test.exs
+- message_limit: @max_bytes = 16 * 1024 in message.ex
+- context_limits: @max_context_messages = 50, @max_context_bytes = 64 * 1024 in conversations.ex
+- rejection_evidence: Message and EvidenceReference both use strict @allowed_fields MapSet whitelists; attachments/raw_log fields trigger :unsupported_message_field error
+- container_gates: make test/fmt-check/lint environment-blocked by read-only libpod runtime; no code failures reported
 ---
 <!-- COMMENTS:END -->

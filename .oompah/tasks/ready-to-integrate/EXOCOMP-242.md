@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:39:46.849227Z'
+updated_at: '2026-08-03T18:40:10.190605Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -253,5 +253,15 @@ author: oompah
 created: 2026-08-03 18:39
 ---
 Repaired M7B invitation and SPIFFE certificate regressions with OTP-compatible URI GeneralNames, deterministic missing-auth rejection, lifecycle-safe invitation fixtures, and explicit identity regression coverage. Pinned make fmt-check, make test including both release smoke tests, and make lint all pass at 8e19679a414b0f22b6d837976486f1e4b2955f41.
+---
+author: oompah
+created: 2026-08-03 18:40
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Codex/gpt-5.6-sol]
+- Turns: 0, Tool calls: 74
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 10m 14s
+- Log: EXOCOMP-242__20260803T183023Z.jsonl
 ---
 <!-- COMMENTS:END -->
