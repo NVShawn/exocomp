@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T23:18:26.020135Z'
+updated_at: '2026-08-03T23:25:34.156954Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -178,6 +178,30 @@ oompah.work_contributors:
     completed_at: '2026-08-03T21:57:54.170645+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-ec433c6273a3: '2026-08-03T23:25:31.054033+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-147
+    target_state: Done
+    evidence_fingerprint: ebbda61f313f32e329e6d306b0d6993121df673e0db2bfe16ad93708e4654b6e
+    audit_ids:
+    - audit-abd49aee5fc0
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T23:25:31.054044+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-147
+    audit_id: audit-abd49aee5fc0
+    attempt_id: attempt-ec433c6273a3
+    target_state: Done
+    evidence_fingerprint: ebbda61f313f32e329e6d306b0d6993121df673e0db2bfe16ad93708e4654b6e
+    status: Done
+    audit_ids:
+    - audit-abd49aee5fc0
+    applied: false
+    created_at: '2026-08-03T23:25:31.054061+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -185,7 +209,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-147
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -213,7 +237,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ec433c6273a3
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -224,13 +248,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T23:18:18.073531+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-147
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T23:25:31.053837+00:00'
+      ended_at: '2026-08-03T23:25:31.053837+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T22:54:02.659318+00:00'
-    updated_at: '2026-08-03T23:18:18.073531+00:00'
+    updated_at: '2026-08-03T23:25:31.053837+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-77c2dd7872b6
@@ -607,5 +634,27 @@ author: oompah
 created: 2026-08-03 23:18
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 23:25
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 45147355
+- origin_branch: origin/epic-EXOCOMP-130--task-EXOCOMP-147
+- working_tree: clean
+- files_changed_from_base: connection.ex, session_liveness.ex, connection_test.exs, session_liveness_test.exs
+- test_count: 12 focused deterministic state-machine tests (7 connection, 5 session_liveness)
+- heartbeat_interval_ms: 30_000 (default)
+- disconnect_after_ms: 90_000 (default)
+- min_backoff_ms: 1_000 (default)
+- max_backoff_ms: 60_000 (default)
+- stable_after_ms: 90_000 (default)
+- commit_before_publish: verified in transition/2 -> transition_committed/2 call sequence
+- crash_isolation: spawn_monitor workers + safely/1 wrapper on all external calls
+- umbrella_build_blocker: pre-existing router.ex error from EXOCOMP-146, not regressed by this task
 ---
 <!-- COMMENTS:END -->
