@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T18:05:05.966897Z'
+updated_at: '2026-08-03T18:21:08.782740Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -125,6 +125,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-45ad8288aaf5: '2026-08-03T17:12:29.050661+00:00'
+    attempt-34c1edcfa90f: '2026-08-03T18:21:05.031385+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-173
@@ -135,6 +136,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-03T17:12:29.050673+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-173
+    target_state: Done
+    evidence_fingerprint: cf35a64ee886a4c40da9562bbd751655c0372caae12e7edb49b12847d0d08227
+    audit_ids:
+    - audit-af302ded741a
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T18:21:05.031405+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-173
@@ -148,6 +158,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T17:12:29.050689+00:00'
     applied_at: '2026-08-03T17:12:33.869527+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-173
+    audit_id: audit-af302ded741a
+    attempt_id: attempt-34c1edcfa90f
+    target_state: Done
+    evidence_fingerprint: cf35a64ee886a4c40da9562bbd751655c0372caae12e7edb49b12847d0d08227
+    status: Done
+    audit_ids:
+    - audit-af302ded741a
+    applied: false
+    created_at: '2026-08-03T18:21:05.031428+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -190,7 +211,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-173
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -218,7 +239,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-34c1edcfa90f
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -229,13 +250,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T18:04:51.620948+00:00'
       branch_key: epic-EXOCOMP-134--task-EXOCOMP-173
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T18:21:05.031186+00:00'
+      ended_at: '2026-08-03T18:21:05.031186+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T17:45:15.298092+00:00'
-    updated_at: '2026-08-03T18:04:51.620948+00:00'
+    updated_at: '2026-08-03T18:21:05.031186+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-45ad8288aaf5
@@ -708,5 +732,23 @@ author: oompah
 created: 2026-08-03 18:05
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 18:21
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- branch: epic-EXOCOMP-134--task-EXOCOMP-173
+- head_sha: ab56e310
+- previous_fix_sha: fb5673e4
+- migration: 20260801000600_create_webhook_events_and_attempts.exs
+- test_files: webhooks/signer_test.exs, webhooks/delivery_test.exs, webhooks/webhook_attempt_test.exs, webhooks/webhook_events_test.exs
+- acceptance_scenarios_verified: 11/11
+- format_check: passed (native)
+- license_check: passed (native)
+- container_gates: blocked by sandboxed Podman (environment limitation)
 ---
 <!-- COMMENTS:END -->
