@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T19:20:52.631389Z'
+updated_at: '2026-08-03T19:25:00.847027Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -496,5 +496,10 @@ author: oompah
 created: 2026-08-03 19:20
 ---
 Discovery: application.ex currently appends mission_control_children/0 inside base_children/0 as well as build_children/1, creating duplicate MissionControlSupervisor specs when Mission Control is enabled. Existing mission_control supervisor tests inspect specs/direct starts but lack an isolated Application.start test for exactly-once startup.
+---
+author: oompah
+created: 2026-08-03 19:25
+---
+Implementation: removed the mission_control_children/0 append from base_children/0, leaving build_children/1 as the sole production call site. Added a serial application test with temporary mock Mission Control credentials that starts the real coordinator application, inspects the named coordinator supervisor, and asserts exactly one live MissionControlSupervisor; teardown restores env and stops the app.
 ---
 <!-- COMMENTS:END -->
