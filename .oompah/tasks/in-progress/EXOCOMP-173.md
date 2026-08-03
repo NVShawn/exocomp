@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T16:19:30.157313Z'
+updated_at: '2026-08-03T16:33:10.123790Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -204,5 +204,34 @@ author: oompah
 created: 2026-08-03 16:19
 ---
 Discovery: Successfully rebased branch onto origin/epic-EXOCOMP-134 (EXOCOMP-171+172 integrated). Found the webhook foundations in place: WebhookEndpoint (encrypted secrets, SSRF policy), AuditEvents, Repo, migrations for organizations/audit_events/webhook_endpoints. Our EXOCOMP-173 commit adds WebhookEvent/WebhookAttempt schemas, Signer, and Delivery modules. What's needed: (1) remove duplicate Webhook schema (conflicts with WebhookEndpoint), (2) migration for webhook_events + webhook_attempts tables, (3) WebhookEvents context with dispatch/replay/inspection, (4) integration of Delivery with WebhookEndpoint encrypted secrets, (5) comprehensive tests for all acceptance criteria. Implementing now.
+---
+author: oompah
+created: 2026-08-03 16:33
+---
+Implementation complete. Deliverables:
+
+1. **WebhookEvent schema** (binary_id PK, body_json for byte-identical delivery, org-scoped unique event_id index)
+2. **WebhookAttempt schema** (binary_id PK, delivery_timestamp, 3-arity terminal_failure?/3 anchored to event's inserted_at)
+3. **Migration** (webhook_events + webhook_attempts tables, uniqueness constraint, partial pending index)
+4. **WebhookEvents context** (dispatch, replay, list_events, get_event_with_attempts, due_retries, process_attempt)
+   - HMAC-SHA256 signing via Signer module with sha256= prefix
+   - Jittered exponential backoff (2^(n-1) seconds, capped at 3600s)
+   - 24h terminal window anchored to event.inserted_at
+   - AAD-authenticated secret decryption via WebhookEndpoints.Encryption
+5. **webhook.ex deleted** (conflicts with WebhookEndpoint from EXOCOMP-172)
+
+Test coverage (webhook_events_test.exs, DataCase, async: false):
+- Signature vectors + tamper detection
+- Successful delivery, byte-identical body_json
+- Multiple/zero endpoint dispatch
+- Duplicate-safe event_id (org-scoped unique constraint)
+- 4xx (terminal), 5xx (retryable), 429 (retryable), 2xx (success)
+- Timeout / network errors
+- Terminal failure after 24h (backdated via Repo.update_all)
+- Disabled endpoint skipped
+- Secret rotation continues delivery
+- Replay creates new attempt with stored body_json
+- Admin inspection (list_events, get_event_with_attempts)
+- Redaction in persisted payload and body_json
 ---
 <!-- COMMENTS:END -->
