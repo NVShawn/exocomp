@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-117
 type: epic
-status: Needs Human
+status: In Validation
 priority: 0
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-08-03T12:22:11.370549Z'
+updated_at: '2026-08-03T12:22:50.510491Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -226,18 +226,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-117
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 8eafb4e78dacc6e94adb2429131888845bcd805b63e8687857411d1a1e387eb4
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-50e5e34f0a17
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 8eafb4e78dacc6e94adb2429131888845bcd805b63e8687857411d1a1e387eb4
+      created_at: '2026-08-03T12:22:43.255941+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T12:22:43.255941+00:00'
+      branch_key: epic-EXOCOMP-117
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-03T12:01:28.271702+00:00'
+    updated_at: '2026-08-03T12:22:43.255941+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-c0e715fc795f
@@ -308,6 +322,19 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-117 (tried: origin/epic-EXOCOMP-117, origin/EXOCOMP-117)'
     next_retry_at: '2026-08-03T12:21:46.367564+00:00'
+  - version: 1
+    attempt_id: attempt-50e5e34f0a17
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 8eafb4e78dacc6e94adb2429131888845bcd805b63e8687857411d1a1e387eb4
+    created_at: '2026-08-03T12:22:43.255941+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T12:22:43.255941+00:00'
+    branch_key: epic-EXOCOMP-117
 ---
 ## Summary
 
@@ -505,5 +532,15 @@ created: 2026-08-03 12:22
 Needs Human — Done audit requires operator input.
 
 Independent auditor launches exhausted their retry budget because the audit workspace or transport failed before review began. Restore the audit infrastructure, then have a project owner rearm this terminal audit; do not reopen implementation work.
+---
+author: oompah
+created: 2026-08-03 12:22
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 12:22
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
