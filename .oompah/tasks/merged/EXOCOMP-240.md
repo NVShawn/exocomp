@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-240
 type: task
-status: In Validation
+status: Merged
 priority: 0
 title: Rebase epic-EXOCOMP-130 onto main
 parent: EXOCOMP-130
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:56:50.286597Z'
+updated_at: '2026-08-03T14:58:07.737151Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -126,6 +126,29 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T14:56:19.571303+00:00'
     applied_at: '2026-08-03T14:56:22.765342+00:00'
+  oompah.terminal_override_records:
+  - version: 1
+    override_id: override-1e1238dc6cd8
+    project_id: proj-c260b117
+    task_id: EXOCOMP-240
+    target_state: Merged
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 182432d665cbb37547a6271e43aa26ecb93b98f0e825a0a07c0bc689165be8c4
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: Operator independently verified the Merged maintenance transition after
+      Audit PASS for Done. The auditor confirmed exact local/remote tip 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc,
+      origin/main base 4e01311060eee5be3c1d18d86d809f4007664497, 0 behind/5 ahead,
+      clean worktree, intact five-commit patch series, and git diff --check pass.
+      A second audit adds no new delivery evidence; OOMPAH-721 and OOMPAH-722 track
+      the scheduler/preflight and read-only command defects encountered by these maintenance
+      tasks.
+    created_at: '2026-08-03T14:58:03.245251+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
@@ -371,5 +394,12 @@ author: oompah
 created: 2026-08-03 14:56
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 14:58
+---
+Override by oompah-cli: terminal transition to Merged applied by project owner.
+
+Reason: Operator independently verified the Merged maintenance transition after Audit PASS for Done. The auditor confirmed exact local/remote tip 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc, origin/main base 4e01311060eee5be3c1d18d86d809f4007664497, 0 behind/5 ahead, clean worktree, intact five-commit patch series, and git diff --check pass. A second audit adds no new delivery evidence; OOMPAH-721 and OOMPAH-722 track the scheduler/preflight and read-only command defects encountered by these maintenance tasks.
 ---
 <!-- COMMENTS:END -->

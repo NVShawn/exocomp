@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:57:36.070955Z'
+updated_at: '2026-08-03T14:57:54.718323Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -54,8 +54,8 @@ oompah.integration:
   submitted_at: '2026-08-03T14:37:20.607169+00:00'
   updated_at: '2026-08-03T14:38:03.747488+00:00'
 oompah.task_costs:
-  total_input_tokens: 881962
-  total_output_tokens: 45577
+  total_input_tokens: 881997
+  total_output_tokens: 54009
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -67,8 +67,8 @@ oompah.task_costs:
       output_tokens: 1374
       cost_usd: 0.0
     unknown:
-      input_tokens: 596
-      output_tokens: 5874
+      input_tokens: 631
+      output_tokens: 14306
       cost_usd: 0.0
   runs:
   - profile: default
@@ -113,6 +113,12 @@ oompah.task_costs:
     output_tokens: 2091
     cost_usd: 0.0
     recorded_at: '2026-08-03T14:44:31.918058+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 35
+    output_tokens: 8432
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T14:57:52.099744+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-171__20260801T130345Z
@@ -775,5 +781,15 @@ Safe evidence:
 - schema_file: apps/exocomp_mission_control/lib/exocomp/mission_control/audit_event.ex
 - test_files: audit_event_test.exs (~30 tests), audit_events_test.exs (4 tests), redaction_test.exs (80+ tests), database_test.exs (6 DB-backed tests)
 - db_test_gate: EXOCOMP_RUN_DB_TESTS=1 (Makefile target test-mission-control-db)
+---
+author: oompah
+created: 2026-08-03 14:57
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 64, Tool calls: 41
+- Tokens: 35 in / 8.4K out [8.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 12m 45s
+- Log: EXOCOMP-171__20260803T144512Z.jsonl
 ---
 <!-- COMMENTS:END -->
