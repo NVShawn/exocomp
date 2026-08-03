@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: In Progress
+status: In Validation
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:13:04.764874Z'
+updated_at: '2026-08-03T14:13:30.197555Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
