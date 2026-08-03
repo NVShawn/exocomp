@@ -13,6 +13,7 @@ works inside or how it might work in the future, see [`../plans/`](../plans/).
 - [Development](development.md)
 - [Installation and first host](installation.md)
 - [PKI operations](pki-operations.md)
+- [Mission Control webhook configuration](mission-control-webhooks.md)
 - [Policy and operations](policy-operations.md)
 - [Upgrade, backup, rollback, and removal](lifecycle.md)
 - [Clean-host release qualification](clean-host-qualification.md)

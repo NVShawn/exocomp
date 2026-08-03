@@ -45,6 +45,24 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
     end)
   end
 
+  defp install_observe_fakes do
+    Application.put_env(:exocomp_node, :allowed_services, ["sshd.service"])
+
+    Application.put_env(:exocomp_node, :service_observe_systemd_collector, fn services ->
+      fake_observation({:systemd, services})
+    end)
+
+    Application.put_env(:exocomp_node, :service_observe_http_prober, fn _url, _timeout, _max ->
+      {:ok, 200, 42, 512}
+    end)
+
+    on_exit(fn ->
+      Application.delete_env(:exocomp_node, :allowed_services)
+      Application.delete_env(:exocomp_node, :service_observe_systemd_collector)
+      Application.delete_env(:exocomp_node, :service_observe_http_prober)
+    end)
+  end
+
   defp install_remediation_fake do
     Application.put_env(:exocomp_node, :remediation_propose_client, fn _ctx ->
       {:ok,
@@ -110,6 +128,23 @@ defmodule Exocomp.Node.Skills.DispatcherTest do
 
     assert {:ok, %Artifact{}} =
              Dispatcher.dispatch("exocomp.service.diagnose", %{"services" => ["sshd.service"]})
+  end
+
+  test "routes 'exocomp.service.observe' to ServiceObserve" do
+    install_observe_fakes()
+
+    assert {:ok, %Artifact{name: "service-observe"}} =
+             Dispatcher.dispatch("exocomp.service.observe", %{"services" => ["sshd.service"]})
+  end
+
+  test "routes 'exocomp.service.observe' with probes to ServiceObserve" do
+    install_observe_fakes()
+
+    assert {:ok, %Artifact{name: "service-observe"}} =
+             Dispatcher.dispatch("exocomp.service.observe", %{
+               "services" => ["sshd.service"],
+               "probes" => [%{"url" => "http://127.0.0.1:8080/health"}]
+             })
   end
 
   test "routes 'exocomp.remediation.propose' to RemediationPropose" do

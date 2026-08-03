@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "event_id": "evt-desired-removed-001",
+  "cluster_seq": 14,
+  "kind": "desired_state.removed",
+  "occurred_at": "2026-08-01T17:01:30Z",
+  "correlation_id": "corr-desired-removed-001",
+  "payload": {
+    "node_id": "node-a",
+    "unit": "retired.service",
+    "source_set": ["automatic"],
+    "health_depth": "none",
+    "recovery_authority": "none",
+    "profile_context": null,
+    "observed_at": "2026-08-01T17:01:29Z",
+    "evidence_refs": ["evidence-retired-001"],
+    "desired_state": "absent",
+    "expected_state": "absent"
+  }
+}

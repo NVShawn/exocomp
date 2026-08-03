@@ -31,6 +31,14 @@ defmodule Exocomp.MixProject do
         ],
         include_erts: true,
         include_executables_for: [:unix]
+      ],
+      mission_control: [
+        applications: [
+          exocomp_core: :permanent,
+          exocomp_mission_control: :permanent
+        ],
+        include_erts: true,
+        include_executables_for: [:unix]
       ]
     ]
   end

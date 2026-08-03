@@ -424,6 +424,11 @@ defmodule Exocomp.Coordinator.MultiNodeDiscoveryPollingTest do
     refute is_nil(echo.next_eligible_poll_at)
 
     # Peers are not affected.
+    eventually(fn ->
+      {:ok, peer} = Registry.get("integ-foxtrot", registry)
+      peer.reachability == :healthy
+    end)
+
     {:ok, foxtrot} = Registry.get("integ-foxtrot", registry)
     assert foxtrot.reachability == :healthy
   end

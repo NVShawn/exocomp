@@ -185,6 +185,24 @@ The initial event vocabulary is:
 - `conversation.reply` and `proposal.created`
 - `approval.result`, `action.status`, and `audit.event`
 
+Desired-service reporting uses schema version 1 status events in addition to
+the general vocabulary. `desired_state.added`, `desired_state.changed`, and
+`desired_state.removed` carry one service record; `service_status.changed`
+carries the latest health observation; and `service_summary.snapshot` carries
+the complete periodic service view used as a replay base. Each service record
+contains `node_id`, `unit`, the sorted `source_set`, `health_depth`,
+`recovery_authority`, optional `profile_context`, `observed_at`, and bounded
+`evidence_refs`. The envelope's `correlation_id` is required for every status
+event. Unknown fields and forward schema versions are rejected, while payload
+and encoded-event limits are enforced before delivery.
+
+The shared JSON contract fixtures live under
+`test/fixtures/mission_control/`. A reducer retains event IDs and sequence
+numbers, treats an identical duplicate as a no-op, rejects conflicting IDs or
+sequences, and reconstructs a view by applying deltas after the newest
+snapshot in sequence order. This makes duplicate and out-of-order delivery
+deterministic for both coordinator and Mission Control contract tests.
+
 Server-to-cluster commands carry `command_id`, `kind`, `issued_at`,
 `expires_at`, and `payload`. Commands remain in a durable server outbox until
 the active cluster session acknowledges them or they expire.
