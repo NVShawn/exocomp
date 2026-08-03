@@ -17,7 +17,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:42.128617Z'
-updated_at: '2026-08-03T15:47:20.656498Z'
+updated_at: '2026-08-03T15:48:03.957268Z'
 work_branch: epic-EXOCOMP-211--task-EXOCOMP-234
 target_branch: null
 review_url: null
@@ -32,13 +32,20 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: ''
-  claim_id: f6a0ca51-5c4f-4e56-9db4-1711813a073e
-  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
-  claimed_at: '2026-08-03T15:47:10.977120+00:00'
-  claim_expires_at: '2026-08-03T16:17:10.977120+00:00'
-  retry_count: 0
-  retry_after: null
+  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
+    Matches: none\nEvidence: The supplied corpus lacks descriptions/comments for relevant\
+    \ active peers (EXOCOMP-211, EXOCOMP-224, and related tasks). The closest reviewed\
+    \ tasks are terminal Archived items, which cannot be duplicate targets.\nFocus\
+    \ handoff: duplicate_detector  \nDuplicate preflight verdict: inconclusive  \n\
+    Matches: none\n\nEvidence: The supplied corpus lacks descriptions/comments for\
+    \ relevant active peers (EXOCOMP-211, EXOCOMP-224, and related tasks). The closest\
+    \ reviewed tasks are terminal Archived items, which cannot be duplicate targets."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
+  retry_count: 1
+  retry_after: '2026-08-03T15:48:57.379159+00:00'
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
@@ -52,6 +59,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-211
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
   updated_at: '2026-08-03T15:47:18.207932+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-234__20260803T154721Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-211--task-EXOCOMP-234
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T15:47:57.386796+00:00'
+oompah.task_costs:
+  total_input_tokens: 168920
+  total_output_tokens: 1404
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 168920
+      output_tokens: 1404
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 168920
+    output_tokens: 1404
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:47:57.377389+00:00'
 ---
 ## Summary
 
@@ -87,5 +120,15 @@ author: oompah
 created: 2026-08-03 15:47
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 15:47
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 1
+- Tokens: 168.9K in / 1.4K out [170.3K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 43s
+- Log: EXOCOMP-234__20260803T154721Z.jsonl
 ---
 <!-- COMMENTS:END -->
