@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:39.646035Z'
-updated_at: '2026-08-03T15:30:14.767499Z'
+updated_at: '2026-08-03T15:46:24.472761Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -22,6 +22,24 @@ review_number: null
 review_head: null
 merged_at: null
 oompah.start_blocked_by: *id001
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: f00033530429fcefd154fe9520e524ddcfc419e6dfd218d288be242b52c246ff
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 1c9c3e02-6a6a-459a-bf4d-90acfa67c4c4
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T15:46:10.449399+00:00'
+  claim_expires_at: '2026-08-03T16:16:10.449399+00:00'
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: null
+  owner_login: null
+  owner_resolution_reason: ''
+oompah.agent_run_id: aca48ed7-9092-40f8-97a7-0bc6b289242a
 ---
 ## Summary
 
@@ -46,3 +64,11 @@ Out of scope: Adding new Ceph repair action types.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:46
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+<!-- COMMENTS:END -->
