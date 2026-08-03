@@ -176,6 +176,43 @@ defmodule Exocomp.Coordinator.MissionControl.ConnectionTest do
     assert Process.alive?(connection)
   end
 
+  test "treats a connect worker killed externally without a result as a failed attempt" do
+    owner = self()
+
+    connection =
+      start_connection(
+        connect_fn: fn ->
+          send(owner, {:connect_started, self()})
+
+          # Block forever so the test can kill us with an uncatchable :kill signal
+          receive do
+            :never -> {:ok, :session}
+          end
+        end,
+        random_fn: fn lower, upper ->
+          send(owner, {:random_bounds, lower, upper})
+          upper
+        end
+      )
+
+    assert :ok = Connection.connect_now(connection)
+    assert_receive {:connect_started, worker}
+
+    # :kill cannot be caught by safely/rescue/catch, so worker exits without sending a result
+    Process.exit(worker, :kill)
+
+    assert_receive {:random_bounds, 0, 1_000}
+    assert_receive {:timer_scheduled, {:reconnect, _generation}, 1_000}
+
+    assert %{
+             status: :disconnected,
+             backoff_attempts: 1,
+             last_error: {:connect_worker_down, :killed}
+           } = Connection.status(connection)
+
+    assert Process.alive?(connection)
+  end
+
   defp start_connection(opts) do
     owner = self()
     name = unique_name(:mission_control_connection)

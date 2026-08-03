@@ -167,8 +167,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
   def handle_info({:DOWN, ref, :process, _pid, reason}, %{connect_monitor_ref: ref} = state) do
     # Successful workers send their result before exiting. A worker that exits
     # without a result is treated as a failed attempt rather than a crash.
-    {:noreply,
-     state |> clear_connect_worker() |> schedule_reconnect({:connect_worker_down, reason})}
+    {:noreply, schedule_reconnect({:connect_worker_down, reason}, clear_connect_worker(state))}
   end
 
   def handle_info({:DOWN, _ref, :process, _pid, _reason}, state), do: {:noreply, state}
