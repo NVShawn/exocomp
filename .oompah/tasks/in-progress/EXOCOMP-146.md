@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T17:41:04.985964Z'
+updated_at: '2026-08-03T17:49:03.493320Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -205,5 +205,10 @@ author: oompah
 created: 2026-08-03 17:41
 ---
 Understanding: implement the outbound coordinator mTLS WebSocket client and Mission Control upgrade authentication, deriving identity only from validated certificates, rejecting revoked identities, and superseding older live sessions. I will inspect the current enrollment/revocation interfaces, add focused integration coverage, then run the required quality gates.
+---
+author: oompah
+created: 2026-08-03 17:49
+---
+Implementation: rebased the preserved transport onto the current EXOCOMP-130 epic, reconciled the coordinator with the existing Mission Control supervisor, and made the supervised Connection establish the outbound TLS 1.3 WebSocket using trust root plus enrolled client cert/key. Moved the authenticated gateway, certificate identity, and session registry into the Mission Control app, mounted /api/v1/clusters/connect, started the registry, split transport tests, and made production endpoint TLS fail closed with peer certificates required.
 ---
 <!-- COMMENTS:END -->
