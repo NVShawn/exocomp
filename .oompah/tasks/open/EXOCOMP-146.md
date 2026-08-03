@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: In Validation
+status: Open
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T18:50:02.814714Z'
+updated_at: '2026-08-03T19:16:29.209152Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -106,6 +106,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:14:39.452481+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-693d886d5000: '2026-08-03T19:16:22.689492+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-146
+    target_state: Done
+    evidence_fingerprint: 83e0b080441f6ad39769345b8ae29078dba965c994c15901797cf8e67a7dec5a
+    audit_ids:
+    - audit-332a570add2f
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T19:16:22.689505+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-146
+    audit_id: audit-332a570add2f
+    attempt_id: attempt-693d886d5000
+    target_state: Done
+    evidence_fingerprint: 83e0b080441f6ad39769345b8ae29078dba965c994c15901797cf8e67a7dec5a
+    status: Open
+    audit_ids:
+    - audit-332a570add2f
+    applied: true
+    created_at: '2026-08-03T19:16:22.689524+00:00'
+    applied_at: '2026-08-03T19:16:27.670828+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -113,7 +138,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-146
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -141,7 +166,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-693d886d5000
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -152,13 +177,17 @@ oompah.terminal_audit:
       started_at: '2026-08-03T18:49:47.239042+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-146
       candidate_rotation_count: 1
+      verdict: fail
+      failure_classification: incomplete
+      completed_at: '2026-08-03T19:16:22.689308+00:00'
+      ended_at: '2026-08-03T19:16:22.689308+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T18:39:26.709383+00:00'
-    updated_at: '2026-08-03T18:49:47.239042+00:00'
+    updated_at: '2026-08-03T19:16:22.689308+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4d34a1388d60
@@ -424,5 +453,17 @@ author: oompah
 created: 2026-08-03 18:50
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 19:16
+---
+Audit FAIL — incomplete. Routing task to Open.
+
+[REDACTED]
+
+Instructions:
+- Remove the `++ mission_control_children()` tail from `base_children/0` in apps/exocomp_coordinator/lib/exocomp/coordinator/application.ex (restore it to end with `{ClusterInvitationStore, ...}]` only, as in parent commit 9663f4b2). The sole call site for mission_control_children/0 should remain in build_children/1.
+- Add an application test (in a named isolated supervisor) that starts the coordinator with a mock Mission Control config enabled and verifies that MissionControlSupervisor starts exactly once.
+- Re-push the branch and re-submit after confirming the fix and verifying tests pass in an environment with the correct Elixir version.
 ---
 <!-- COMMENTS:END -->
