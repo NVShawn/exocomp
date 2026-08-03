@@ -21,7 +21,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:14.308143Z'
-updated_at: '2026-08-01T11:52:17.332188Z'
+updated_at: '2026-08-03T14:35:12.810768Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -68,5 +68,10 @@ author: oompah
 created: 2026-07-30 21:41
 ---
 Three-path desired-state implementation graph added on 2026-07-30: EXOCOMP-185 (host service desired state) with EXOCOMP-187 through EXOCOMP-194; EXOCOMP-186 (cluster profiles and Ceph v1) with EXOCOMP-195 through EXOCOMP-206; and separate roadmap epic EXOCOMP-207 for later broad typed Ceph repair. Existing Mission Control tasks now depend on the relevant new foundations. All new implementation tasks are focused, test-bearing, and kept in Backlog.
+---
+author: oompah
+created: 2026-08-03 14:35
+---
+Post-Mission-Control follow-on EXOCOMP-208 is planned in plans/hierarchical-management-modes.md (main commit 4e013110). EXOCOMP-208, its four area epics, and every leaf task have an explicit hard-start dependency on this full umbrella epic. No hierarchical observe/manage implementation task may begin until EXOCOMP-127 is complete.
 ---
 <!-- COMMENTS:END -->

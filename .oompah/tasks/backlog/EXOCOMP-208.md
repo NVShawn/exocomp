@@ -16,7 +16,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:02.893809Z'
-updated_at: '2026-08-03T14:28:44.831089Z'
+updated_at: '2026-08-03T14:35:11.695440Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -48,3 +48,11 @@ The work is decomposed into area epics and focused junior-sized tasks. Each task
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 14:35
+---
+Planning handoff complete. The plan is committed and pushed on main at 4e013110 (plans/hierarchical-management-modes.md). The tracker graph contains four area epics and 27 junior-scoped leaf tasks. Audit verified all 32 new records carry a hard-start dependency on EXOCOMP-127, every leaf has the required specification sections, and all 53 internal dependency edges are present. Validation passed: make check-links; make test-compliance PYTHON=/home/shedwards/src/oompah/.venv/bin/python; git diff --check.
+---
+<!-- COMMENTS:END -->
