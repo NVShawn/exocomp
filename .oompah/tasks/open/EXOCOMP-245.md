@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-245
 type: task
-status: Needs Human
+status: Open
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:24:38.115758Z'
+updated_at: '2026-08-03T18:27:01.906417Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -165,5 +165,10 @@ author: oompah
 created: 2026-08-03 18:24
 ---
 Moved to Needs Human from the dashboard/API. Human action required: inspect EXOCOMP-245 (Rebase epic-EXOCOMP-135 onto main), add the specific decision, missing information, or manual fix needed, then move the task back to Open when it is ready for agents again.
+---
+author: oompah
+created: 2026-08-03 18:26
+---
+Operator repair complete. Preserved the worker-published wrong-target head 98f2b738 under recovery/epic-EXOCOMP-135-wrong-target-98f2b738 and the prior registered epic head 98e26f09 under recovery/epic-EXOCOMP-135-pre-parent-rebase-98e26f09. Rebased the epic-only series onto authoritative parent origin/epic-EXOCOMP-127 at 2d08fde7. EXOCOMP-139 and EXOCOMP-194 patches were already present upstream; retained the parent stricter timestamp contract and regression test during the only conflict. Published origin/epic-EXOCOMP-135 at 542b7fe5 with an exact force-with-lease, then safely reconciled the clean registered epic checkout to the same head. Verification: parent is an ancestor, divergence is 0 behind/2 ahead, local/remote heads match, git diff --check passes, and make test-mission-control-packaging passes all 6 tests. OOMPAH-733 tracks incorrect fail-open target selection; OOMPAH-731 tracks direct-maintenance completion.
 ---
 <!-- COMMENTS:END -->
