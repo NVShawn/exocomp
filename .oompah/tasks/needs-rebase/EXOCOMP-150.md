@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: Ready to Integrate
+status: Needs Rebase
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-01T12:44:05.149487Z'
+updated_at: '2026-08-03T20:46:30.886637Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -63,12 +63,30 @@ oompah.agent_run_id: ee45f393-6af2-4d9a-98e4-979b9fe3fa9b
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-150
+  base_branch: epic-EXOCOMP-130
+  base_sha: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
   head_sha: 5977f06449f1e8d63f7130a1038ae682b6500dac
   submitted_at: '2026-08-01T12:43:50.443318+00:00'
-  updated_at: '2026-08-01T12:43:50.443318+00:00'
+  updated_at: '2026-08-03T20:46:27.123513+00:00'
+  last_error: 'Rebase onto the latest epic head conflicted: Rebasing (1/1)
+
+    error: could not apply 5977f064... EXOCOMP-150: persist and deliver cluster commands
+
+    hint: Resolve all conflicts manually, mark them as resolved with
+
+    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+
+    hint: You can instead skip this commit: run "git rebase --skip".
+
+    hint: To abort and get back to the state before "git rebase", run "git rebase
+    --abort".
+
+    hint: Disable this message with "git config set advice.mergeConflict false"
+
+    Could not apply 5977f064... # EXOCOMP-150: persist and deliver cluster commands'
 oompah.task_costs:
   total_input_tokens: 114
   total_output_tokens: 3850
@@ -189,5 +207,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 17m 53s
 - Log: EXOCOMP-150__20260801T122619Z.jsonl
+---
+author: oompah
+created: 2026-08-03 20:46
+---
+Integration found a rebase conflict on `epic-EXOCOMP-130--task-EXOCOMP-150`. Resolve it against `epic-EXOCOMP-130`, run the required tests, push the same private branch, and `oompah task submit` it again.
 ---
 <!-- COMMENTS:END -->
