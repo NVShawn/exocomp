@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-117
 type: epic
-status: In Validation
+status: Merged
 priority: 0
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-08-03T12:22:50.510491Z'
+updated_at: '2026-08-03T12:25:35.078725Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -55,6 +55,7 @@ oompah.terminal_audit:
   applied_result_attempts:
     attempt-c0e715fc795f: '2026-08-03T12:16:20.099710+00:00'
     infrastructure-exhausted-audit-075f4014ca50-3: '2026-08-03T12:22:07.544503+00:00'
+    attempt-50e5e34f0a17: '2026-08-03T12:25:31.102571+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-117
@@ -74,6 +75,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-03T12:22:07.544522+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-117
+    target_state: Merged
+    evidence_fingerprint: 8eafb4e78dacc6e94adb2429131888845bcd805b63e8687857411d1a1e387eb4
+    audit_ids:
+    - audit-ca4414c9e62a
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T12:25:31.102592+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-117
@@ -99,6 +109,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T12:22:07.544543+00:00'
     applied_at: '2026-08-03T12:22:10.499085+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-117
+    audit_id: audit-ca4414c9e62a
+    attempt_id: attempt-50e5e34f0a17
+    target_state: Merged
+    evidence_fingerprint: 8eafb4e78dacc6e94adb2429131888845bcd805b63e8687857411d1a1e387eb4
+    status: Merged
+    audit_ids:
+    - audit-ca4414c9e62a
+    applied: false
+    created_at: '2026-08-03T12:25:31.102615+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -226,7 +247,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-117
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -235,7 +256,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-50e5e34f0a17
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -245,13 +266,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T12:22:43.255941+00:00'
       branch_key: epic-EXOCOMP-117
+      verdict: pass
+      completed_at: '2026-08-03T12:25:31.102402+00:00'
+      ended_at: '2026-08-03T12:25:31.102402+00:00'
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Validation
     created_at: '2026-08-03T12:01:28.271702+00:00'
-    updated_at: '2026-08-03T12:22:43.255941+00:00'
+    updated_at: '2026-08-03T12:25:31.102402+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-c0e715fc795f
@@ -542,5 +566,26 @@ author: oompah
 created: 2026-08-03 12:22
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 12:25
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: d1edad6f75adc3c9acf94e44fe641f87064a7360
+- merge_date: 2026-07-27
+- merged_pr_number: 18
+- source_branch: epic-EXOCOMP-117
+- target_branch: main
+- ancestor_of_main: true
+- ancestor_of_origin_main: true
+- current_task_state: In Validation
+- children_archived: EXOCOMP-118, EXOCOMP-119, EXOCOMP-120, EXOCOMP-121, EXOCOMP-122
+- children_open: EXOCOMP-123 (independent follow-up requalification)
+- prior_archived_audit: audit-d439cc785355 PASS 2026-08-03
+- prior_done_audit_infra_failure: audit-075f4014ca50 needs_human (resolvers tried deleted post-merge branch tip, not merge commit)
 ---
 <!-- COMMENTS:END -->
