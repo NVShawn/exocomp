@@ -22,7 +22,9 @@ defmodule Exocomp.MissionControl.Application do
   @doc false
   def children do
     [
+      Exocomp.MissionControl.Telemetry,
       {Phoenix.PubSub, name: Exocomp.MissionControl.PubSub},
+      Exocomp.MissionControl.OIDCConfigCache,
       Exocomp.MissionControl.Repo,
       Exocomp.MissionControl.Endpoint
     ]

@@ -34,6 +34,13 @@ defmodule Exocomp.MissionControl.StatusEventTest do
              StatusEvent.decode(Map.put(raw, "unexpected", true))
   end
 
+  test "rejects malformed timestamps with the field-level contract error" do
+    raw = fixture("desired_state_added.json")
+
+    assert {:error, {:invalid_field, "occurred_at", :iso8601}} =
+             StatusEvent.decode(Map.put(raw, "occurred_at", "not-a-timestamp"))
+  end
+
   test "requires common service contract fields and profile context" do
     raw = fixture("desired_state_added.json")
     payload = Map.delete(raw["payload"], "evidence_refs")

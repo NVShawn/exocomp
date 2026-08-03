@@ -195,6 +195,7 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
   end
 
   def handle_call({:expectations, node_id}, _from, state) do
+    state = reconcile_node(node_id, state)
     {:reply, effective_expectations_for(node_id, state), state}
   end
 
@@ -1239,7 +1240,8 @@ defmodule Exocomp.Coordinator.ServiceScheduler do
     Map.get(sources, profile, Map.get(sources, to_string(profile), []))
   end
 
-  defp profile_resolver_from_sources(%{}), do: &default_profile_resolver/2
+  defp profile_resolver_from_sources(sources) when map_size(sources) == 0,
+    do: &default_profile_resolver/2
 
   defp profile_resolver_from_sources(sources) when is_map(sources) do
     fn profile, _node -> Map.get(sources, profile, Map.get(sources, to_string(profile), [])) end

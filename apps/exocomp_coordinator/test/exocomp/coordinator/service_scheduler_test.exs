@@ -310,6 +310,25 @@ defmodule Exocomp.Coordinator.ServiceSchedulerTest do
            ]
   end
 
+  test "profile source maps configure profile expectations" do
+    node = automatic_node("node-a")
+    {inventory, reader} = inventory([node])
+    Agent.update(inventory, &Map.put(&1, :cluster_profile, "production"))
+
+    scheduler =
+      start_scheduler(inventory, reader, task_supervisor(),
+        discovery_adapter: fn _node, _opts -> {:ok, []} end,
+        profile_sources: %{"production" => [%{name: "profile.service"}]},
+        start_immediately: false
+      )
+
+    :ok = ServiceScheduler.discover_now(scheduler)
+    eventually(fn -> length(ServiceScheduler.expectations("node-a", scheduler)) == 1 end)
+
+    assert [%{unit: "profile.service", profile_context: "production"}] =
+             ServiceScheduler.expectations("node-a", scheduler)
+  end
+
   test "removing an expectation retires it and emits a desired-state event" do
     node = automatic_node("node-a", [%{name: "manual.service"}])
     {inventory, reader} = inventory([node])
@@ -394,7 +413,7 @@ defmodule Exocomp.Coordinator.ServiceSchedulerTest do
     :ok = ServiceScheduler.observe_now(scheduler, ["node-a"])
 
     eventually(fn ->
-      ServiceScheduler.observations(scheduler)["node-a"].status == :unreachable
+      get_in(ServiceScheduler.observations(scheduler), ["node-a", :status]) == :unreachable
     end)
 
     assert ServiceScheduler.health(scheduler)[{"node-a", "api.service"}].state == :unreachable

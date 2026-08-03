@@ -511,12 +511,11 @@ defmodule Exocomp.MissionControl.StatusEvent do
   end
 
   defp timestamp(map, key) do
-    with {:ok, value} <- bounded_string(map, key),
-         {:ok, _datetime, _offset} <- DateTime.from_iso8601(value) do
-      {:ok, value}
-    else
-      {:error, _} = error -> error
-      _ -> {:error, {:invalid_field, key, :iso8601}}
+    with {:ok, value} <- bounded_string(map, key) do
+      case DateTime.from_iso8601(value) do
+        {:ok, _datetime, _offset} -> {:ok, value}
+        {:error, _reason} -> {:error, {:invalid_field, key, :iso8601}}
+      end
     end
   end
 

@@ -87,7 +87,7 @@ defmodule Exocomp.Coordinator.InventoryTest do
     test "loads v1 inventories without monitoring field" do
       node = inventory_node("node-a")
       assert :ok = Inventory.replace_json(inventory_json([node]))
-      
+
       assert %{version: 1, nodes: [loaded]} = Inventory.current()
       assert loaded.id == "node-a"
       assert loaded.monitoring == nil
@@ -96,9 +96,9 @@ defmodule Exocomp.Coordinator.InventoryTest do
     test "rejects monitoring field in v1" do
       node = inventory_node("node-a")
       node_with_monitoring = Map.put(node, "monitoring", %{"automatic" => true, "services" => []})
-      
+
       assert {:error, %{code: :invalid_inventory_node}} =
-        node_with_monitoring |> then(&inventory_json([&1])) |> Inventory.parse()
+               node_with_monitoring |> then(&inventory_json([&1])) |> Inventory.parse()
     end
 
     test "v1 inventories default cluster_profile to nil" do
@@ -109,18 +109,19 @@ defmodule Exocomp.Coordinator.InventoryTest do
 
   describe "version 2 support" do
     test "loads v2 inventories with monitoring fields" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{
-            "name" => "ceph-mon.service",
-            "health_check_url" => "http://127.0.0.1:6800/status"
-          }
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{
+              "name" => "ceph-mon.service",
+              "health_check_url" => "http://127.0.0.1:6800/status"
+            }
+          ]
+        })
 
       assert :ok = Inventory.replace_json(inventory_json_v2([node]))
-      
+
       assert %{version: 2, nodes: [loaded]} = Inventory.current()
       assert loaded.id == "node-a"
       assert loaded.monitoring.automatic == true
@@ -130,10 +131,10 @@ defmodule Exocomp.Coordinator.InventoryTest do
 
     test "v2 supports cluster_profile declaration" do
       node = inventory_node_v2("node-a", nil)
-      
+
       inv = %{"version" => 2, "cluster_profile" => "production", "nodes" => [node]}
       json = inv |> :json.encode() |> IO.iodata_to_binary()
-      
+
       assert {:ok, %{cluster_profile: "production"}} = Inventory.parse(json)
     end
 
@@ -146,16 +147,16 @@ defmodule Exocomp.Coordinator.InventoryTest do
       node = inventory_node_v2("node-a", nil)
       inv = %{"version" => 2, "cluster_profile" => "", "nodes" => [node]}
       json = inv |> :json.encode() |> IO.iodata_to_binary()
-      
+
       assert {:error, %{code: :invalid_inventory_schema}} = Inventory.parse(json)
     end
 
     test "v2 monitoring field is optional per-node" do
       node_with = inventory_node_v2("node-a", %{"automatic" => false, "services" => []})
       node_without = inventory_node_v2("node-b", nil)
-      
+
       assert :ok = Inventory.replace_json(inventory_json_v2([node_with, node_without]))
-      
+
       assert %{nodes: [first, second]} = Inventory.current()
       assert first.monitoring != nil
       assert second.monitoring == nil
@@ -164,38 +165,43 @@ defmodule Exocomp.Coordinator.InventoryTest do
 
   describe "service name validation" do
     test "rejects service names not ending with .service" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{
-            "name" => "ceph-mon",
-            "health_check_url" => "http://127.0.0.1:6800/status"
-          }
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{
+              "name" => "ceph-mon",
+              "health_check_url" => "http://127.0.0.1:6800/status"
+            }
+          ]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "rejects .service-only names" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [%{"name" => ".service", "health_check_url" => "http://127.0.0.1:6800/status"}]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => ".service", "health_check_url" => "http://127.0.0.1:6800/status"}
+          ]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "accepts valid systemd service names" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "ceph-mon.service", "health_check_url" => "http://127.0.0.1:6800/status"},
-          %{"name" => "my-app@1.service", "health_check_url" => "http://127.0.0.1:8080/health"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "ceph-mon.service", "health_check_url" => "http://127.0.0.1:6800/status"},
+            %{"name" => "my-app@1.service", "health_check_url" => "http://127.0.0.1:8080/health"}
+          ]
+        })
 
       assert {:ok, inv} = inventory_json_v2([node]) |> Inventory.parse()
       assert length(inv.nodes) == 1
@@ -203,87 +209,94 @@ defmodule Exocomp.Coordinator.InventoryTest do
     end
 
     test "rejects duplicate service names within a node" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "ceph-mon.service", "health_check_url" => "http://127.0.0.1:6800/status"},
-          %{"name" => "ceph-mon.service", "health_check_url" => "http://127.0.0.1:6801/status"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "ceph-mon.service", "health_check_url" => "http://127.0.0.1:6800/status"},
+            %{"name" => "ceph-mon.service", "health_check_url" => "http://127.0.0.1:6801/status"}
+          ]
+        })
 
       assert {:error, %{code: :invalid_inventory_node, details: %{value: "ceph-mon.service"}}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
   end
 
   describe "health check URL validation" do
     test "accepts http://127.0.0.1 loopback URLs" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "svc.service", "health_check_url" => "http://127.0.0.1:6800/status"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "svc.service", "health_check_url" => "http://127.0.0.1:6800/status"}
+          ]
+        })
 
       assert {:ok, _inv} = inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "accepts http://localhost loopback URLs" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "svc.service", "health_check_url" => "http://localhost:6800/status"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "svc.service", "health_check_url" => "http://localhost:6800/status"}
+          ]
+        })
 
       assert {:ok, _inv} = inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "accepts http://[::1] IPv6 loopback URLs" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "svc.service", "health_check_url" => "http://[::1]:6800/status"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "svc.service", "health_check_url" => "http://[::1]:6800/status"}
+          ]
+        })
 
       assert {:ok, _inv} = inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "rejects non-loopback IPs" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "svc.service", "health_check_url" => "http://192.168.1.1:6800/status"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "svc.service", "health_check_url" => "http://192.168.1.1:6800/status"}
+          ]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "rejects https URLs" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "svc.service", "health_check_url" => "https://127.0.0.1:6800/status"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "svc.service", "health_check_url" => "https://127.0.0.1:6800/status"}
+          ]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "rejects malformed URLs" do
-      node = inventory_node_v2("node-a", %{
-        "automatic" => true,
-        "services" => [
-          %{"name" => "svc.service", "health_check_url" => "not-a-url"}
-        ]
-      })
+      node =
+        inventory_node_v2("node-a", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "svc.service", "health_check_url" => "not-a-url"}
+          ]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
   end
 
@@ -306,14 +319,16 @@ defmodule Exocomp.Coordinator.InventoryTest do
 
     test "rejects non-boolean automatic values" do
       node = inventory_node_v2("node-a", %{"automatic" => "yes", "services" => []})
+
       assert {:error, %{code: :invalid_inventory_node, details: %{field: "monitoring.automatic"}}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
 
     test "rejects numeric automatic values" do
       node = inventory_node_v2("node-a", %{"automatic" => 1, "services" => []})
+
       assert {:error, %{code: :invalid_inventory_node, details: %{field: "monitoring.automatic"}}} =
-        inventory_json_v2([node]) |> Inventory.parse()
+               inventory_json_v2([node]) |> Inventory.parse()
     end
   end
 
@@ -323,13 +338,14 @@ defmodule Exocomp.Coordinator.InventoryTest do
       assert :ok = Inventory.replace_json(inventory_json([v1_node]))
       original = Inventory.current()
 
-      v2_node = inventory_node_v2("node-b", %{
-        "automatic" => true,
-        "services" => [%{"name" => "bad.txt", "health_check_url" => "http://127.0.0.1:6800"}]
-      })
+      v2_node =
+        inventory_node_v2("node-b", %{
+          "automatic" => true,
+          "services" => [%{"name" => "bad.txt", "health_check_url" => "http://127.0.0.1:6800"}]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([v2_node]) |> Inventory.replace_json()
+               inventory_json_v2([v2_node]) |> Inventory.replace_json()
 
       assert Inventory.current() == original
     end
@@ -339,13 +355,16 @@ defmodule Exocomp.Coordinator.InventoryTest do
       assert :ok = Inventory.replace_json(inventory_json([valid]))
       original = Inventory.current()
 
-      invalid = inventory_node_v2("node-b", %{
-        "automatic" => true,
-        "services" => [%{"name" => "missing-extension", "health_check_url" => "http://127.0.0.1:6800"}]
-      })
+      invalid =
+        inventory_node_v2("node-b", %{
+          "automatic" => true,
+          "services" => [
+            %{"name" => "missing-extension", "health_check_url" => "http://127.0.0.1:6800"}
+          ]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([invalid]) |> Inventory.replace_json()
+               inventory_json_v2([invalid]) |> Inventory.replace_json()
 
       assert Inventory.current() == original
     end
@@ -355,13 +374,14 @@ defmodule Exocomp.Coordinator.InventoryTest do
       assert :ok = Inventory.replace_json(inventory_json([valid]))
       original = Inventory.current()
 
-      invalid = inventory_node_v2("node-b", %{
-        "automatic" => true,
-        "services" => [%{"name" => "svc.service", "health_check_url" => "http://10.0.0.1:6800"}]
-      })
+      invalid =
+        inventory_node_v2("node-b", %{
+          "automatic" => true,
+          "services" => [%{"name" => "svc.service", "health_check_url" => "http://10.0.0.1:6800"}]
+        })
 
       assert {:error, %{code: :invalid_inventory_node}} =
-        inventory_json_v2([invalid]) |> Inventory.replace_json()
+               inventory_json_v2([invalid]) |> Inventory.replace_json()
 
       assert Inventory.current() == original
     end

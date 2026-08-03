@@ -119,7 +119,16 @@ defmodule Exocomp.Node.Collectors.ServiceInventory do
   # Returns a list of unit names, or an empty list on error.
   defp list_enabled_units(runner) do
     cmd = "systemctl"
-    args = ["list-unit-files", "--type=service", "--state=enabled,enabled-runtime", "--no-legend", "--no-pager", "--plain"]
+
+    args = [
+      "list-unit-files",
+      "--type=service",
+      "--state=enabled,enabled-runtime",
+      "--no-legend",
+      "--no-pager",
+      "--plain"
+    ]
+
     cmd_opts = [stderr_to_stdout: true]
 
     task =

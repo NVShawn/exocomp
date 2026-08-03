@@ -130,8 +130,11 @@ defmodule Exocomp.Node.Skills.ServiceObserve do
   end
 
   defp validate_limits(services, probes) do
-    max_services = Application.get_env(:exocomp_node, :service_observe_max_services, @default_max_services)
-    max_probes = Application.get_env(:exocomp_node, :service_observe_max_probes, @default_max_probes)
+    max_services =
+      Application.get_env(:exocomp_node, :service_observe_max_services, @default_max_services)
+
+    max_probes =
+      Application.get_env(:exocomp_node, :service_observe_max_probes, @default_max_probes)
 
     cond do
       length(services) > max_services -> {:error, :invalid_params}
@@ -244,7 +247,10 @@ defmodule Exocomp.Node.Skills.ServiceObserve do
   end
 
   defp default_http_prober(url, timeout_ms, max_response_bytes) do
-    Exocomp.Node.Collectors.HttpProbe.probe(url, timeout_ms: timeout_ms, max_response_bytes: max_response_bytes)
+    Exocomp.Node.Collectors.HttpProbe.probe(url,
+      timeout_ms: timeout_ms,
+      max_response_bytes: max_response_bytes
+    )
   end
 
   # ---------------------------------------------------------------------------

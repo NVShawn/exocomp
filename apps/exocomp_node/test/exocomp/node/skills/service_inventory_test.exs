@@ -116,7 +116,14 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
   defp fake_cmd_runner(cmd, args, _opts) do
     case {cmd, args} do
       {"systemctl",
-       ["list-unit-files", "--type=service", "--state=enabled,enabled-runtime", "--no-legend", "--no-pager", "--plain"]} ->
+       [
+         "list-unit-files",
+         "--type=service",
+         "--state=enabled,enabled-runtime",
+         "--no-legend",
+         "--no-pager",
+         "--plain"
+       ]} ->
         {fixture_list_output(), 0}
 
       {"systemctl", ["show", "--no-pager" | _rest]} ->
@@ -245,7 +252,9 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
     # We should have measurements for sshd and nginx at minimum
     measurements = observation.measurements
     sshd_keys = Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "sshd"))
-    nginx_keys = Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "nginx"))
+
+    nginx_keys =
+      Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "nginx"))
 
     assert length(sshd_keys) > 0, "Should have sshd measurements"
     assert length(nginx_keys) > 0, "Should have nginx measurements"
@@ -258,7 +267,9 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
       end)
 
     measurements = observation.measurements
-    exocomp_keys = Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "exocomp_node"))
+
+    exocomp_keys =
+      Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "exocomp_node"))
 
     assert Enum.empty?(exocomp_keys), "exocomp-node.service should be excluded"
   end
@@ -270,7 +281,9 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
       end)
 
     measurements = observation.measurements
-    static_keys = Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "static_service"))
+
+    static_keys =
+      Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "static_service"))
 
     assert Enum.empty?(static_keys), "static-service should be excluded (UnitFileState=static)"
   end
@@ -282,6 +295,7 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
       end)
 
     measurements = observation.measurements
+
     oneshot_keys =
       Map.keys(measurements) |> Enum.filter(&String.starts_with?(to_string(&1), "oneshot_done"))
 
@@ -293,7 +307,14 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
     fake_runner = fn cmd, args, opts ->
       case {cmd, args} do
         {"systemctl",
-         ["list-unit-files", "--type=service", "--state=enabled,enabled-runtime", "--no-legend", "--no-pager", "--plain"]} ->
+         [
+           "list-unit-files",
+           "--type=service",
+           "--state=enabled,enabled-runtime",
+           "--no-legend",
+           "--no-pager",
+           "--plain"
+         ]} ->
           # Return a single service with failed condition
           {"failed-cond.service                    enabled         enabled\n", 0}
 
@@ -384,7 +405,14 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
     bad_runner = fn cmd, args, _opts ->
       case {cmd, args} do
         {"systemctl",
-         ["list-unit-files", "--type=service", "--state=enabled,enabled-runtime", "--no-legend", "--no-pager", "--plain"]} ->
+         [
+           "list-unit-files",
+           "--type=service",
+           "--state=enabled,enabled-runtime",
+           "--no-legend",
+           "--no-pager",
+           "--plain"
+         ]} ->
           {"bad-service.service\n", 0}
 
         {"systemctl", ["show", "--no-pager" | _rest]} ->
@@ -409,7 +437,14 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
     empty_runner = fn cmd, args, _opts ->
       case {cmd, args} do
         {"systemctl",
-         ["list-unit-files", "--type=service", "--state=enabled,enabled-runtime", "--no-legend", "--no-pager", "--plain"]} ->
+         [
+           "list-unit-files",
+           "--type=service",
+           "--state=enabled,enabled-runtime",
+           "--no-legend",
+           "--no-pager",
+           "--plain"
+         ]} ->
           {"", 0}
 
         _ ->
@@ -434,7 +469,14 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
     huge_runner = fn cmd, args, _opts ->
       case {cmd, args} do
         {"systemctl",
-         ["list-unit-files", "--type=service", "--state=enabled,enabled-runtime", "--no-legend", "--no-pager", "--plain"]} ->
+         [
+           "list-unit-files",
+           "--type=service",
+           "--state=enabled,enabled-runtime",
+           "--no-legend",
+           "--no-pager",
+           "--plain"
+         ]} ->
           {"huge-service.service\n", 0}
 
         {"systemctl", ["show", "--no-pager" | _rest]} ->
@@ -472,7 +514,14 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
     complex_runner = fn cmd, args, _opts ->
       case {cmd, args} do
         {"systemctl",
-         ["list-unit-files", "--type=service", "--state=enabled,enabled-runtime", "--no-legend", "--no-pager", "--plain"]} ->
+         [
+           "list-unit-files",
+           "--type=service",
+           "--state=enabled,enabled-runtime",
+           "--no-legend",
+           "--no-pager",
+           "--plain"
+         ]} ->
           """
           enabled.service                        enabled         enabled
           disabled.service                       disabled        enabled
@@ -635,34 +684,47 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
   # ---------------------------------------------------------------------------
 
   test "collector returns all required properties for included services" do
-    required_props = ["Type", "RemainAfterExit", "Condition", "ConditionResult", "UnitFileState", "LoadState", "ActiveState", "SubState"]
-    
+    required_props = [
+      "Type",
+      "RemainAfterExit",
+      "Condition",
+      "ConditionResult",
+      "UnitFileState",
+      "LoadState",
+      "ActiveState",
+      "SubState"
+    ]
+
     {:ok, observation} =
       with_cmd_runner(&fake_cmd_runner/3, fn ->
         Exocomp.Node.Collectors.ServiceInventory.collect()
       end)
 
     measurements = observation.measurements
-    
+
     # Get all properties for sshd service
-    sshd_measurements = Enum.filter(measurements, fn {k, _v} ->
-      String.starts_with?(to_string(k), "sshd_service_")
-    end)
-    
+    sshd_measurements =
+      Enum.filter(measurements, fn {k, _v} ->
+        String.starts_with?(to_string(k), "sshd_service_")
+      end)
+
     # Convert property keys to property names
-    found_props = Enum.map(sshd_measurements, fn {k, _v} ->
-      k
-      |> to_string()
-      |> String.replace_prefix("sshd_service_", "")
-      |> String.upcase()
-    end)
-    
+    found_props =
+      Enum.map(sshd_measurements, fn {k, _v} ->
+        k
+        |> to_string()
+        |> String.replace_prefix("sshd_service_", "")
+        |> String.upcase()
+      end)
+
     # Each required property should be present (in lowercase form)
     Enum.each(required_props, fn prop ->
       prop_lower = String.downcase(prop)
+
       assert Enum.any?(found_props, fn found ->
-        String.downcase(found) == prop_lower
-      end), "Property #{prop} should be collected"
+               String.downcase(found) == prop_lower
+             end),
+             "Property #{prop} should be collected"
     end)
   end
 
@@ -674,7 +736,10 @@ defmodule Exocomp.Node.Skills.ServiceInventoryTest do
   defp with_cmd_runner(runner_fn, _block_fn) do
     # The collector needs to receive the runner via options
     # Pass the runner function directly via cmd_runner and list_runner
-    Exocomp.Node.Collectors.ServiceInventory.collect(cmd_runner: runner_fn, list_runner: runner_fn)
+    Exocomp.Node.Collectors.ServiceInventory.collect(
+      cmd_runner: runner_fn,
+      list_runner: runner_fn
+    )
     |> (fn result -> {:ok, result} end).()
   end
 end

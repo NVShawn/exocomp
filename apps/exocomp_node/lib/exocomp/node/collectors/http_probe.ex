@@ -64,16 +64,10 @@ defmodule Exocomp.Node.Collectors.HttpProbe do
         http_opts = [timeout: timeout_ms]
 
         # Select socket options for inet or inet6
-        request_opts =
-          case socket_family(host) do
-            :inet -> [inet: :inet]
-            :inet6 -> [inet: :inet6]
-            _ -> []
-          end
-          |> Kernel.++(http_opts)
+        request_opts = [socket_opts: [socket_family(host)]]
 
         # Make the HTTP request using httpc from Erlang's inets
-        case :httpc.request(:get, {url_str, []}, request_opts, []) do
+        case :httpc.request(:get, {url_str, []}, http_opts, request_opts) do
           {:ok, {{_version, status_code, _reason}, _headers, body}} ->
             elapsed = System.monotonic_time(:millisecond) - started
             body_size = byte_size(body)
@@ -114,13 +108,14 @@ defmodule Exocomp.Node.Collectors.HttpProbe do
 
   # Determine socket family for the given hostname
   defp socket_family("::1"), do: :inet6
-  defp socket_family("localhost"), do: :inet  # localhost typically resolves to 127.0.0.1
-  defp socket_family(host) when is_binary(host) do
+  # localhost typically resolves to 127.0.0.1
+  defp socket_family("localhost"), do: :inet
+
+  defp socket_family(host) do
     if String.starts_with?(host, "127.") do
       :inet
     else
       :inet6
     end
   end
-  defp socket_family(_), do: :inet
 end

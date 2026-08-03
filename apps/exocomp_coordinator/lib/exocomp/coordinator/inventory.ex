@@ -123,7 +123,8 @@ defmodule Exocomp.Coordinator.Inventory do
         notify_reconciliation(updated.reconcile_server)
         {:reply, :ok, updated}
 
-      {:error, error, unchanged} -> {:reply, {:error, error}, %{unchanged | error: error}}
+      {:error, error, unchanged} ->
+        {:reply, {:error, error}, %{unchanged | error: error}}
     end
   end
 
@@ -152,7 +153,8 @@ defmodule Exocomp.Coordinator.Inventory do
         notify_reconciliation(updated.reconcile_server)
         {:noreply, updated}
 
-      {:error, error, unchanged} -> {:noreply, %{unchanged | error: error}}
+      {:error, error, unchanged} ->
+        {:noreply, %{unchanged | error: error}}
     end
   end
 
@@ -208,7 +210,8 @@ defmodule Exocomp.Coordinator.Inventory do
     :exit, reason -> {:error, {:process_unavailable, reason}}
   end
 
-  defp validate(%{"version" => version, "nodes" => nodes} = input) when is_list(nodes) and version in @supported_versions do
+  defp validate(%{"version" => version, "nodes" => nodes} = input)
+       when is_list(nodes) and version in @supported_versions do
     cluster_profile = Map.get(input, "cluster_profile", nil)
 
     with {:ok, validated} <- validate_cluster_profile(cluster_profile),
@@ -220,7 +223,8 @@ defmodule Exocomp.Coordinator.Inventory do
     end
   end
 
-  defp validate(%{"version" => version, "nodes" => _nodes}) when version not in @supported_versions do
+  defp validate(%{"version" => version, "nodes" => _nodes})
+       when version not in @supported_versions do
     {:error,
      Error.new(:unsupported_inventory_version, "unsupported inventory version", %{
        expected: @version,
@@ -256,8 +260,11 @@ defmodule Exocomp.Coordinator.Inventory do
 
   defp validate_cluster_profile(_value) do
     {:error,
-     Error.new(:invalid_inventory_schema, "cluster_profile must be a non-empty string or null",
-       %{})}
+     Error.new(
+       :invalid_inventory_schema,
+       "cluster_profile must be a non-empty string or null",
+       %{}
+     )}
   end
 
   defp validate_nodes(nodes, version) do
@@ -332,8 +339,7 @@ defmodule Exocomp.Coordinator.Inventory do
   defp validate_monitoring(nil, _index, _version), do: {:ok, nil}
 
   defp validate_monitoring(_value, _index, 1) do
-    {:error,
-     Error.new(:invalid_inventory_node, "monitoring is not supported in version 1", %{})}
+    {:error, Error.new(:invalid_inventory_node, "monitoring is not supported in version 1", %{})}
   end
 
   defp validate_monitoring(monitoring, index, 2) when is_map(monitoring) do
@@ -369,8 +375,11 @@ defmodule Exocomp.Coordinator.Inventory do
         names = Enum.map(valid, & &1.name)
 
         case names -- Enum.uniq(names) do
-          [] -> {:ok, Enum.reverse(valid)}
-          [dup | _] -> {:error, Error.new(:invalid_inventory_node, "duplicate service name", %{value: dup})}
+          [] ->
+            {:ok, Enum.reverse(valid)}
+
+          [dup | _] ->
+            {:error, Error.new(:invalid_inventory_node, "duplicate service name", %{value: dup})}
         end
 
       error ->
@@ -417,9 +426,11 @@ defmodule Exocomp.Coordinator.Inventory do
 
       _other ->
         {:error,
-         Error.new(:invalid_inventory_node,
+         Error.new(
+           :invalid_inventory_node,
            "health_check_url must be http://127.0.0.1:port/path, http://localhost:port/path, or http://[::1]:port/path",
-           %{value: value})}
+           %{value: value}
+         )}
     end
   end
 

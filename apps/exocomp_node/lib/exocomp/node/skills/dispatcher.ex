@@ -18,7 +18,14 @@ defmodule Exocomp.Node.Skills.Dispatcher do
   Unknown skill IDs return `{:error, :unknown_skill}`.
   """
 
-  alias Exocomp.Node.Skills.{SystemDiagnose, ServiceDiagnose, ServiceInventory, ServiceObserve, RemediationPropose, ServiceRecover}
+  alias Exocomp.Node.Skills.{
+    SystemDiagnose,
+    ServiceDiagnose,
+    ServiceInventory,
+    ServiceObserve,
+    RemediationPropose,
+    ServiceRecover
+  }
 
   @skill_map %{
     "exocomp.system.diagnose" => SystemDiagnose,

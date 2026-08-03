@@ -23,31 +23,43 @@ defmodule Exocomp.MissionControl.MixProject do
 
   def application do
     [
-      extra_applications: [:crypto, :logger],
+      extra_applications: [:logger, :crypto],
       mod: {Exocomp.MissionControl.Application, []}
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
     [
       {:phoenix, "~> 1.7.18"},
       {:phoenix_live_view, "~> 1.1"},
+      {:phoenix_live_dashboard, "~> 0.8"},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"},
+      {:phoenix_html, "~> 4.0"},
       {:phoenix_pubsub, "~> 2.1"},
-      {:bandit, "~> 1.0"},
+      {:plug_cowboy, "~> 2.7"},
       {:ecto_sql, "~> 3.14"},
       {:postgrex, "~> 0.22"},
-      {:jason, "~> 1.4"}
+      {:gettext, "~> 0.24"},
+      {:jason, "~> 1.4"},
+      {:oauth2, "~> 2.1"},
+      {:httpoison, "~> 2.0"},
+      {:jose, "~> 1.11"},
+      {:exocomp_core, in_umbrella: true},
+      {:plug, "~> 1.14"},
+      {:bandit, "~> 1.4"}
     ]
   end
 
   defp aliases do
     [
+      setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       "ecto.seed": ["run", "priv/repo/seeds.exs"]
     ]
   end
-
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_env), do: ["lib"]
 end
