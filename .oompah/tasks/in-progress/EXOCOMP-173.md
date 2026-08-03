@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:22:09.150405Z'
+updated_at: '2026-08-03T17:23:27.882816Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -47,7 +47,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: ebdd3b0f-f3b4-47d8-af31-d26849b3540b
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
@@ -557,5 +557,10 @@ author: oompah
 created: 2026-08-03 17:22
 ---
 Verification correction: native mix format --check-formatted and make check-licenses pass. make test, make lint, make fmt-check, and focused make test-mission-control-db all reach container startup but are blocked by sandboxed Podman: chmod /run/user/1000/libpod: read-only file system. Native app tests cannot compile the full dependency tree because this host has OTP 27 without public_key development headers, while the umbrella requires Elixir 1.20.2. Fetch confirms HEAD equals origin/epic-EXOCOMP-134, so no rebase is needed.
+---
+author: oompah
+created: 2026-08-03 17:23
+---
+Completion: pushed ab56e310 on epic-EXOCOMP-134--task-EXOCOMP-173. Restored the audited Phoenix Mission Control mix project/application/dependency shape and synchronized mix.lock plus license/notice inventories; applied formatter-required fixes. Native format and license checks pass, while containerized test/lint/format/database gates remain environment-blocked by Podman sandbox restrictions. Branch is clean and matches origin.
 ---
 <!-- COMMENTS:END -->
