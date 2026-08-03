@@ -1,9 +1,13 @@
 # SPDX-FileCopyrightText: 2026 Exocomp contributors
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.DatabaseTest do
-  use Exocomp.MissionControl.DataCase, async: true
+  # This module tears the shared schema down and rebuilds it in setup_all, so it
+  # must not race the other Mission Control database users.
+  use Exocomp.MissionControl.DataCase, async: false
 
   alias Exocomp.MissionControl.{
+    AuditEvent,
+    AuditEvents,
     OrganizationScopedRecord,
     OrganizationScopedRecords,
     Organizations,
@@ -18,18 +22,35 @@ defmodule Exocomp.MissionControl.DatabaseTest do
 
   setup_all do
     {:ok, _applications} = Application.ensure_all_started(:exocomp_mission_control)
-    Ecto.Adapters.SQL.Sandbox.mode(Repo, :manual)
     migration_path = Application.app_dir(:exocomp_mission_control, "priv/repo/migrations")
 
-    Ecto.Adapters.SQL.Sandbox.unboxed_run(Repo, fn ->
-      Ecto.Migrator.run(Repo, migration_path, :down, all: true)
-      Ecto.Migrator.run(Repo, migration_path, :up, all: true)
-    end)
+    # Migrator transactions run in supervised tasks and need independent pool
+    # checkouts. Auto mode keeps those checkouts outside per-test sandboxes.
+    Ecto.Adapters.SQL.Sandbox.mode(Repo, :auto)
+
+    assert [
+             20_260_801_000_400,
+             20_260_801_000_300,
+             20_260_801_000_200,
+             20_260_801_000_000
+           ] = Ecto.Migrator.run(Repo, migration_path, :down, all: true)
+
+    assert Enum.all?(Ecto.Migrator.migrations(Repo), fn {status, _version, _name} ->
+             status == :down
+           end)
+
+    assert [
+             20_260_801_000_000,
+             20_260_801_000_200,
+             20_260_801_000_300,
+             20_260_801_000_400
+           ] = Ecto.Migrator.run(Repo, migration_path, :up, all: true)
+
+    Ecto.Adapters.SQL.Sandbox.mode(Repo, :manual)
 
     on_exit(fn ->
-      Ecto.Adapters.SQL.Sandbox.unboxed_run(Repo, fn ->
-        Ecto.Migrator.run(Repo, migration_path, :down, all: true)
-      end)
+      Ecto.Adapters.SQL.Sandbox.mode(Repo, :auto)
+      Ecto.Migrator.run(Repo, migration_path, :down, all: true)
 
       Application.stop(:exocomp_mission_control)
     end)
@@ -37,18 +58,124 @@ defmodule Exocomp.MissionControl.DatabaseTest do
     :ok
   end
 
-  test "the clean database migration can be reverted and reapplied" do
-    migration_path = Application.app_dir(:exocomp_mission_control, "priv/repo/migrations")
+  test "audit events persist every actor type, redact secrets, and remain tenant scoped" do
+    {organization_a, organization_b} = create_organizations()
+    correlation_id = "corr_database_acceptance"
+    cluster_id = Ecto.UUID.generate()
 
-    assert [20_260_801_000_300, 20_260_801_000_200, 20_260_801_000_000] =
-             Ecto.Migrator.run(Repo, migration_path, :down, all: true)
+    assert {:ok, operator_event} =
+             AuditEvents.record(organization_a.id, %{
+               actor_type: :operator,
+               actor_sub: "operator-sub",
+               actor_display_name: "operator@example.com",
+               event_type: "approval.granted",
+               target: %{
+                 "type" => "proposal",
+                 "token" => "plaintext-token",
+                 "raw_logs" => ["arbitrary secret log"]
+               },
+               outcome: :ok,
+               outcome_details: %{"private_key" => "plaintext-key"},
+               correlation_id: correlation_id,
+               occurred_at: ~U[2026-08-03 10:00:00.000000Z]
+             })
 
-    assert Enum.all?(Ecto.Migrator.migrations(Repo), fn {status, _version, _name} ->
-             status == :down
-           end)
+    assert {:ok, _system_event} =
+             AuditEvents.record(organization_a.id, %{
+               actor_type: :system,
+               event_type: "command.expired",
+               target: %{"type" => "command"},
+               outcome: :error,
+               correlation_id: correlation_id,
+               occurred_at: ~U[2026-08-03 10:00:01.000000Z]
+             })
 
-    assert [20_260_801_000_000, 20_260_801_000_200, 20_260_801_000_300] =
-             Ecto.Migrator.run(Repo, migration_path, :up, all: true)
+    assert {:ok, _cluster_event} =
+             AuditEvents.record(organization_a.id, %{
+               actor_type: :cluster,
+               cluster_id: cluster_id,
+               event_type: "cluster.connected",
+               target: %{"type" => "cluster"},
+               outcome: :ok,
+               correlation_id: correlation_id,
+               occurred_at: ~U[2026-08-03 10:00:02.000000Z]
+             })
+
+    assert [operator, system, cluster] =
+             AuditEvents.by_correlation(organization_a.id, correlation_id)
+
+    assert [operator.event_id, system.event_id, cluster.event_id] ==
+             Enum.map(AuditEvents.list(organization_a.id), & &1.event_id)
+
+    assert operator.target["token"] == "[REDACTED]"
+    assert operator.target["raw_logs"] == "[REDACTED]"
+    assert operator.outcome_details["private_key"] == "[REDACTED]"
+    refute inspect(operator) =~ "plaintext-token"
+    refute inspect(operator) =~ "plaintext-key"
+    refute inspect(operator) =~ "arbitrary secret log"
+
+    assert operator.actor_type == :operator
+    assert system.actor_type == :system
+    assert cluster.actor_type == :cluster
+    assert cluster.cluster_id == cluster_id
+
+    assert nil == AuditEvents.get(organization_b.id, operator_event.event_id)
+    assert [] == AuditEvents.by_correlation(organization_b.id, correlation_id)
+  end
+
+  test "audit inserts participate in transaction rollback" do
+    {organization, _other} = create_organizations()
+    correlation_id = "corr_rolled_back"
+
+    transaction =
+      Ecto.Multi.new()
+      |> AuditEvents.put_in_multi(:audit, organization.id, %{
+        actor_type: :system,
+        event_type: "command.issued",
+        target: %{"type" => "command"},
+        outcome: :ok,
+        correlation_id: correlation_id
+      })
+      |> Ecto.Multi.run(:forced_failure, fn _repo, _changes -> {:error, :forced} end)
+
+    assert {:error, :forced_failure, :forced, %{audit: %AuditEvent{}}} =
+             Repo.transaction(transaction)
+
+    assert [] == AuditEvents.by_correlation(organization.id, correlation_id)
+  end
+
+  test "normal contexts and the database both reject audit mutation" do
+    {organization, _other} = create_organizations()
+
+    assert {:ok, event} =
+             AuditEvents.record(organization.id, %{
+               actor_type: :system,
+               event_type: "system.started",
+               target: %{},
+               outcome: :ok
+             })
+
+    assert {:error, :immutable} =
+             AuditEvents.update(organization.id, event.event_id, %{outcome: :error})
+
+    assert {:error, :immutable} = AuditEvents.delete(organization.id, event.event_id)
+
+    assert_raise Postgrex.Error, ~r/audit_events are immutable/, fn ->
+      Repo.transaction(fn ->
+        event
+        |> Ecto.Changeset.change(event_type: "system.changed")
+        |> Repo.update!()
+      end)
+    end
+
+    assert %AuditEvent{event_type: "system.started"} =
+             AuditEvents.get(organization.id, event.event_id)
+
+    assert_raise Postgrex.Error, ~r/audit_events are immutable/, fn ->
+      Repo.transaction(fn -> Repo.delete!(event) end)
+    end
+
+    assert %AuditEvent{} = AuditEvents.get(organization.id, event.event_id)
   end
 
   test "a concurrent sandbox owner cannot observe another test's uncommitted schema" do

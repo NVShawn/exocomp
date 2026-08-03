@@ -58,10 +58,9 @@ defmodule Exocomp.MissionControl.AuditEvent do
   ## Immutability
 
   AuditEvent records are inserted exactly once and are never modified. The
-  Ecto schema includes `timestamps: false` with manual `inserted_at` handling
-  (no `updated_at`), and the repository context enforces read-only access
-  for normal application flows. Audit records can only be deleted by
-  time-bounded retention jobs that operate on partitioned tables.
+  Ecto schema records only `inserted_at` (there is no `updated_at`), and the
+  repository context enforces read-only access for normal application flows.
+  A database trigger independently rejects direct updates and deletes.
 
   ## Actor Types
 
@@ -111,10 +110,35 @@ defmodule Exocomp.MissionControl.AuditEvent do
     correlation_id: incident_correlation_id
   )
 
-  # Insert via repo
-  {:ok, stored_event} = Repo.insert(event)
+  # Persist through the redacting, organization-scoped context
+  {:ok, stored_event} = AuditEvents.record(org_id, Map.from_struct(event))
   ```
   """
+
+  use Ecto.Schema
+
+  import Ecto.Changeset
+
+  alias Exocomp.MissionControl.{Organization, Redaction}
+
+  @primary_key {:event_id, :string, autogenerate: false}
+  @foreign_key_type :binary_id
+
+  schema "audit_events" do
+    belongs_to(:organization, Organization)
+    field(:cluster_id, Ecto.UUID)
+    field(:actor_type, Ecto.Enum, values: [:operator, :system, :cluster])
+    field(:actor_sub, :string)
+    field(:actor_display_name, :string)
+    field(:event_type, :string)
+    field(:target, :map)
+    field(:outcome, Ecto.Enum, values: [:ok, :error])
+    field(:outcome_details, :map)
+    field(:correlation_id, :string)
+    field(:occurred_at, :utc_datetime_usec)
+
+    timestamps(updated_at: false, type: :utc_datetime_usec)
+  end
 
   @type actor_type :: :operator | :system | :cluster
 
@@ -136,8 +160,7 @@ defmodule Exocomp.MissionControl.AuditEvent do
           inserted_at: DateTime.t() | nil
         }
 
-  defstruct [
-    :event_id,
+  @cast_fields [
     :organization_id,
     :cluster_id,
     :actor_type,
@@ -148,9 +171,38 @@ defmodule Exocomp.MissionControl.AuditEvent do
     :outcome,
     :outcome_details,
     :correlation_id,
-    :occurred_at,
-    :inserted_at
+    :occurred_at
   ]
+
+  @doc "Builds the insert-only database changeset used by the audit context."
+  @spec changeset(t(), map()) :: Ecto.Changeset.t()
+  def changeset(%__MODULE__{} = event, attrs) when is_map(attrs) do
+    event
+    |> ensure_generated_fields()
+    |> cast(attrs, @cast_fields)
+    |> validate_required([
+      :event_id,
+      :organization_id,
+      :actor_type,
+      :event_type,
+      :target,
+      :outcome,
+      :correlation_id,
+      :occurred_at
+    ])
+    |> validate_length(:event_id, max: 64)
+    |> validate_length(:correlation_id, max: 128)
+    |> validate_length(:event_type, min: 1, max: 200)
+    |> validate_length(:actor_sub, max: 500)
+    |> validate_length(:actor_display_name, max: 500)
+    |> validate_actor_identity()
+    |> foreign_key_constraint(:organization_id)
+    |> unique_constraint(:event_id, name: :audit_events_pkey)
+    |> check_constraint(:actor_type, name: :audit_events_actor_type_check)
+    |> check_constraint(:outcome, name: :audit_events_outcome_check)
+    |> check_constraint(:actor_sub, name: :audit_events_actor_identity_check)
+    |> check_constraint(:cluster_id, name: :audit_events_cluster_identity_check)
+  end
 
   @doc """
   Creates a new audit event.
@@ -231,6 +283,57 @@ defmodule Exocomp.MissionControl.AuditEvent do
     }
   end
 
+  defp ensure_generated_fields(%__MODULE__{} = event) do
+    %{
+      event
+      | event_id: event.event_id || generate_event_id(),
+        correlation_id: event.correlation_id || generate_correlation_id(),
+        occurred_at: event.occurred_at || DateTime.utc_now()
+    }
+  end
+
+  defp validate_actor_identity(changeset) do
+    actor_type = get_field(changeset, :actor_type)
+    actor_sub = get_field(changeset, :actor_sub)
+    actor_display_name = get_field(changeset, :actor_display_name)
+    cluster_id = get_field(changeset, :cluster_id)
+
+    changeset
+    |> require_operator_subject(actor_type, actor_sub)
+    |> reject_non_operator_identity(actor_type, actor_sub, actor_display_name)
+    |> require_cluster_identity(actor_type, cluster_id)
+  end
+
+  defp require_operator_subject(changeset, :operator, actor_sub)
+       when actor_sub in [nil, ""],
+       do: add_error(changeset, :actor_sub, "is required for operator audit events")
+
+  defp require_operator_subject(changeset, _actor_type, _actor_sub), do: changeset
+
+  defp reject_non_operator_identity(changeset, actor_type, actor_sub, actor_display_name)
+       when actor_type in [:system, :cluster] do
+    changeset
+    |> reject_present(:actor_sub, actor_sub, "is only valid for operator audit events")
+    |> reject_present(
+      :actor_display_name,
+      actor_display_name,
+      "is only valid for operator audit events"
+    )
+  end
+
+  defp reject_non_operator_identity(changeset, _actor_type, _actor_sub, _actor_display_name),
+    do: changeset
+
+  defp require_cluster_identity(changeset, :cluster, cluster_id) when cluster_id in [nil, ""],
+    do: add_error(changeset, :cluster_id, "is required for cluster audit events")
+
+  defp require_cluster_identity(changeset, _actor_type, _cluster_id), do: changeset
+
+  defp reject_present(changeset, _field, value, _message) when value in [nil, ""],
+    do: changeset
+
+  defp reject_present(changeset, field, _value, message), do: add_error(changeset, field, message)
+
   @doc """
   Generates a unique event ID.
 
@@ -261,10 +364,8 @@ defmodule Exocomp.MissionControl.AuditEvent do
   Returns this audit event as a plain map suitable for JSON serialization.
 
   All DateTime values are converted to ISO8601 strings. Atoms are converted
-  to strings. The result is JSON-safe.
-
-  Note: caller is responsible for calling `Redaction.redact/1` before
-  serialization if sensitive fields may be present in target or outcome_details.
+  to strings. The result is redacted and JSON-safe, so webhook serialization
+  cannot bypass the same redaction boundary used by audit persistence.
   """
   @spec to_map(t()) :: map()
   def to_map(%__MODULE__{} = event) do
@@ -284,6 +385,7 @@ defmodule Exocomp.MissionControl.AuditEvent do
       "inserted_at" =>
         if(is_nil(event.inserted_at), do: nil, else: DateTime.to_iso8601(event.inserted_at))
     }
+    |> Redaction.redact()
   end
 
   # Private helpers

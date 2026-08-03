@@ -48,6 +48,8 @@ defmodule Exocomp.MissionControl.Redaction do
     password
     passwd
     private_key
+    raw_log
+    raw_logs
     secret
     token
   )

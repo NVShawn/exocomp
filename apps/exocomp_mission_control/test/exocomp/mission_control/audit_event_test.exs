@@ -413,6 +413,28 @@ defmodule Exocomp.MissionControl.AuditEventTest do
       map = AuditEvent.to_map(event)
       assert map["inserted_at"] == "2026-08-01T12:00:00Z"
     end
+
+    test "redacts webhook-ready serialization" do
+      event =
+        AuditEvent.new(
+          organization_id: "org_123",
+          actor_type: :system,
+          event_type: "command.failed",
+          target: %{"token" => "plaintext-token", "raw_logs" => ["plaintext-log"]},
+          outcome: :error,
+          outcome_details: %{"private_key" => "plaintext-key"}
+        )
+
+      map = AuditEvent.to_map(event)
+
+      assert map["target"] == %{
+               "token" => "[REDACTED]",
+               "raw_logs" => "[REDACTED]"
+             }
+
+      assert map["outcome_details"] == %{"private_key" => "[REDACTED]"}
+      refute inspect(map) =~ "plaintext"
+    end
   end
 
   describe "outcome - error events" do
