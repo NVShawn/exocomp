@@ -16,7 +16,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:17.258642Z'
-updated_at: '2026-08-03T17:34:16.509161Z'
+updated_at: '2026-08-03T17:34:55.833514Z'
 work_branch: epic-EXOCOMP-129
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/23
@@ -267,6 +267,22 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-03T17:15:15.628509+00:00'
     branch_key: epic-EXOCOMP-129
+oompah.task_costs:
+  total_input_tokens: 53
+  total_output_tokens: 12620
+  total_cost_usd: 0.0
+  by_model:
+    unknown:
+      input_tokens: 53
+      output_tokens: 12620
+      cost_usd: 0.0
+  runs:
+  - profile: auditor
+    model: unknown
+    input_tokens: 53
+    output_tokens: 12620
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T17:34:53.300330+00:00'
 ---
 ## Summary
 
@@ -389,5 +405,15 @@ Safe evidence:
 - deliverables_present: cluster_invitation.ex, cluster_invitation_store.ex, cluster_invitation_handler.ex, cluster_enrollment_handler.ex, renewal_handler.ex (expanded), pki/certificate_registry.ex, pki/cluster_issuer.ex, cluster.ex, cluster_invitations.ex, plus tests
 - test_files_added: cluster_invitation_test.exs (206), pki/certificate_registry_test.exs (252), integration/cluster_enrollment_test.exs (279), integration/coordinator_pki_renewal_test.exs (863)
 - prior_done_audit_infrastructure_reason: auditor tried origin/epic-EXOCOMP-129 which was never pushed; the merge is on origin/epic-EXOCOMP-127 (the declared target_branch)
+---
+author: oompah
+created: 2026-08-03 17:34
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 69, Tool calls: 47
+- Tokens: 53 in / 12.6K out [12.7K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 19m 34s
+- Log: EXOCOMP-129__20260803T171524Z.jsonl
 ---
 <!-- COMMENTS:END -->

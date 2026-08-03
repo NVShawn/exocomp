@@ -15,12 +15,15 @@ children:
 - EXOCOMP-182
 - EXOCOMP-183
 - EXOCOMP-184
+- EXOCOMP-244
 blocked_by: []
 start_blocked_by: []
-labels: []
+labels:
+- rebase-requested
+- epic:rebasing
 assignee: null
 created_at: '2026-07-30T14:12:52.998247Z'
-updated_at: '2026-08-01T13:11:31.587627Z'
+updated_at: '2026-08-03T17:34:49.298114Z'
 work_branch: null
 target_branch: null
 review_url: null
