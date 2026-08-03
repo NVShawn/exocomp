@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-245
 type: task
-status: Open
+status: Ready to Integrate
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,14 +11,14 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:27:01.906417Z'
+updated_at: '2026-08-03T18:27:42.899833Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: 52928099-6b7b-451d-8343-4b65719d464e
+oompah.agent_run_id: 3ec3a010-394a-4125-a278-feb686b44936
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 oompah.integration:
   version: 2
@@ -26,8 +26,8 @@ oompah.integration:
   attempts: 0
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-245
   base_branch: epic-EXOCOMP-135
-  base_sha: 98e26f09ef6da02639714937d8c8007425880e5e
-  updated_at: '2026-08-03T18:19:11.034377+00:00'
+  base_sha: 542b7fe5bf24d8474b187fe33e12cf9356a16b70
+  updated_at: '2026-08-03T18:27:38.687564+00:00'
 oompah.task_costs:
   total_input_tokens: 418400
   total_output_tokens: 5555
@@ -54,6 +54,23 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-135--task-EXOCOMP-245
     source_sha: 98f2b738508bb7f1c424332bee03792dc569e2d9
     completed_at: '2026-08-03T18:21:25.149063+00:00'
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 329630ca81cb6a4375db740c9e87c965b0155e6255504d115e419907473f027a
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 63c25002-c2d6-4b8b-bac3-191afffb5e91
+  claim_owner: 8a58fb27-42d0-40cf-8dc2-70615b9783dc
+  claimed_at: '2026-08-03T18:27:27.446822+00:00'
+  claim_expires_at: '2026-08-03T18:57:27.446822+00:00'
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: null
+  owner_login: null
+  owner_resolution_reason: ''
 ---
 ## Summary
 
@@ -170,5 +187,20 @@ author: oompah
 created: 2026-08-03 18:26
 ---
 Operator repair complete. Preserved the worker-published wrong-target head 98f2b738 under recovery/epic-EXOCOMP-135-wrong-target-98f2b738 and the prior registered epic head 98e26f09 under recovery/epic-EXOCOMP-135-pre-parent-rebase-98e26f09. Rebased the epic-only series onto authoritative parent origin/epic-EXOCOMP-127 at 2d08fde7. EXOCOMP-139 and EXOCOMP-194 patches were already present upstream; retained the parent stricter timestamp contract and regression test during the only conflict. Published origin/epic-EXOCOMP-135 at 542b7fe5 with an exact force-with-lease, then safely reconciled the clean registered epic checkout to the same head. Verification: parent is an ancestor, divergence is 0 behind/2 ahead, local/remote heads match, git diff --check passes, and make test-mission-control-packaging passes all 6 tests. OOMPAH-733 tracks incorrect fail-open target selection; OOMPAH-731 tracks direct-maintenance completion.
+---
+author: oompah
+created: 2026-08-03 18:27
+---
+Rebased nested epic EXOCOMP-135 onto authoritative parent epic-EXOCOMP-127, published exact leased head 542b7fe5, reconciled clean registered worktree, preserved recovery refs, and passed the focused packaging tests.
+---
+author: oompah
+created: 2026-08-03 18:27
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 18:27
+---
+Focus: Duplicate Investigator
 ---
 <!-- COMMENTS:END -->
