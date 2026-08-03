@@ -14,14 +14,41 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:35.002542Z'
-updated_at: '2026-08-03T15:30:09.035246Z'
-work_branch: null
+updated_at: '2026-08-03T15:44:12.994188Z'
+work_branch: epic-EXOCOMP-211--task-EXOCOMP-231
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
 oompah.start_blocked_by: *id001
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 850548fff0dcd4804922b55b28e079b9a2be9875b6ba9ecd60157b4984075829
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 29b2de7c-1b32-46da-81df-e00345774cc2
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T15:43:54.665653+00:00'
+  claim_expires_at: '2026-08-03T16:13:54.665653+00:00'
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: null
+  owner_login: null
+  owner_resolution_reason: ''
+oompah.agent_run_id: 2c073aee-e70d-4ab0-924c-9a9e65dd8f93
+oompah.work_branch: epic-EXOCOMP-211--task-EXOCOMP-231
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-211--task-EXOCOMP-231
+  base_branch: epic-EXOCOMP-211
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:44:10.045515+00:00'
 ---
 ## Summary
 
@@ -46,3 +73,16 @@ Out of scope: Journal vacuum and profile actions.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:44
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:44
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

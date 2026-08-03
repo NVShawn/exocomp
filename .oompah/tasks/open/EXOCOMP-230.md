@@ -13,8 +13,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:31.243597Z'
-updated_at: '2026-08-03T15:43:43.736813Z'
-work_branch: null
+updated_at: '2026-08-03T15:44:02.217882Z'
+work_branch: epic-EXOCOMP-211--task-EXOCOMP-230
 target_branch: null
 review_url: null
 review_number: null
@@ -38,6 +38,16 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
+oompah.agent_run_id: b96017f2-edaf-4bd1-8bf4-21d28b545083
+oompah.work_branch: epic-EXOCOMP-211--task-EXOCOMP-230
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-211--task-EXOCOMP-230
+  base_branch: epic-EXOCOMP-211
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:43:59.300788+00:00'
 ---
 ## Summary
 
@@ -62,3 +72,16 @@ Out of scope: Broker request parsing and action adapter behavior.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:43
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:44
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->

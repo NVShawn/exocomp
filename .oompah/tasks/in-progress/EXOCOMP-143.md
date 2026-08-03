@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T15:43:29.052552Z'
+updated_at: '2026-08-03T15:44:12.241433Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -199,5 +199,10 @@ author: oompah
 created: 2026-08-03 15:43
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 15:44
+---
+Understanding: this is a reconciliation run. EXOCOMP-143 already contains the cluster invitation/CSR/certificate implementation, but integration reported a conflict after EXOCOMP-142 landed. I will rebase the task branch onto the current epic base, resolve conflicts while preserving the validated enrollment behavior and tests, then run the required gates and resubmit.
 ---
 <!-- COMMENTS:END -->
