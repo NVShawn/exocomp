@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: In Validation
+status: Needs CI Fix
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T16:55:19.460968Z'
+updated_at: '2026-08-03T17:12:35.017160Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -107,6 +107,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:08:32.885707+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-45ad8288aaf5: '2026-08-03T17:12:29.050661+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-173
+    target_state: Done
+    evidence_fingerprint: cbab55e873353c24a2b6e86065712ca982382c07177c85e27496691bce6453e2
+    audit_ids:
+    - audit-121cc3dc69be
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T17:12:29.050673+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-173
+    audit_id: audit-121cc3dc69be
+    attempt_id: attempt-45ad8288aaf5
+    target_state: Done
+    evidence_fingerprint: cbab55e873353c24a2b6e86065712ca982382c07177c85e27496691bce6453e2
+    status: Needs CI Fix
+    audit_ids:
+    - audit-121cc3dc69be
+    applied: true
+    created_at: '2026-08-03T17:12:29.050689+00:00'
+    applied_at: '2026-08-03T17:12:33.869527+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -114,7 +139,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-173
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -123,7 +148,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-45ad8288aaf5
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -133,13 +158,17 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T16:55:05.501041+00:00'
       branch_key: epic-EXOCOMP-134--task-EXOCOMP-173
+      verdict: fail
+      failure_classification: ci_failure
+      completed_at: '2026-08-03T17:12:29.050491+00:00'
+      ended_at: '2026-08-03T17:12:29.050491+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T16:35:48.873978+00:00'
-    updated_at: '2026-08-03T16:55:05.501041+00:00'
+    updated_at: '2026-08-03T17:12:29.050491+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-45ad8288aaf5
@@ -355,5 +384,17 @@ author: oompah
 created: 2026-08-03 16:55
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 17:12
+---
+Audit FAIL — ci failure. Routing task to Needs CI Fix.
+
+[REDACTED]
+
+Instructions:
+- Restore the previous apps/exocomp_mission_control/mix.exs deps() and project()/application() shape (see 3377d707) so Phoenix modules load again, keeping the EXOCOMP-173 webhook additions.
+- After restoring deps, rerun make test (or the containerised equivalent) and make lint / make fmt-check to prove the focused delivery tests and the umbrella build stay green.
+- Push the branch again and resubmit for integration audit.
 ---
 <!-- COMMENTS:END -->
