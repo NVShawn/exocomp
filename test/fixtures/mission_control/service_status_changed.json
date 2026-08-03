@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "evt-service-status-001",
+  "cluster_seq": 12,
+  "kind": "service_status.changed",
+  "occurred_at": "2026-08-01T17:00:30Z",
+  "correlation_id": "corr-service-001",
+  "payload": {
+    "node_id": "node-a",
+    "unit": "api.service",
+    "source_set": ["automatic"],
+    "health_depth": "probe",
+    "recovery_authority": "none",
+    "profile_context": null,
+    "observed_at": "2026-08-01T17:00:29Z",
+    "evidence_refs": ["evidence-api-001", "probe-api-001"],
+    "health_state": "unhealthy",
+    "systemd_state": "active",
+    "health_reason": "health probe returned 503",
+    "candidate_state": null,
+    "consecutive_observations": 2
+  }
+}

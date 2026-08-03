@@ -10,17 +10,28 @@ defmodule Exocomp.Node.Skills.Dispatcher do
   |---------------------------------|----------------------------------------------|
   | `"exocomp.system.diagnose"`     | `Exocomp.Node.Skills.SystemDiagnose`         |
   | `"exocomp.service.diagnose"`    | `Exocomp.Node.Skills.ServiceDiagnose`        |
+  | `"exocomp.service.inventory"`   | `Exocomp.Node.Skills.ServiceInventory`       |
+  | `"exocomp.service.observe"`     | `Exocomp.Node.Skills.ServiceObserve`         |
   | `"exocomp.remediation.propose"` | `Exocomp.Node.Skills.RemediationPropose`     |
   | `"exocomp.service.recover"`     | `Exocomp.Node.Skills.ServiceRecover`         |
 
   Unknown skill IDs return `{:error, :unknown_skill}`.
   """
 
-  alias Exocomp.Node.Skills.{SystemDiagnose, ServiceDiagnose, RemediationPropose, ServiceRecover}
+  alias Exocomp.Node.Skills.{
+    SystemDiagnose,
+    ServiceDiagnose,
+    ServiceInventory,
+    ServiceObserve,
+    RemediationPropose,
+    ServiceRecover
+  }
 
   @skill_map %{
     "exocomp.system.diagnose" => SystemDiagnose,
     "exocomp.service.diagnose" => ServiceDiagnose,
+    "exocomp.service.inventory" => ServiceInventory,
+    "exocomp.service.observe" => ServiceObserve,
     "exocomp.remediation.propose" => RemediationPropose,
     "exocomp.service.recover" => ServiceRecover
   }
