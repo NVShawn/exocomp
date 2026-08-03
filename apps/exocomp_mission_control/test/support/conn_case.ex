@@ -2,8 +2,10 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.ConnCase do
   @moduledoc """
-  This module defines the test case to be used by tests that require setting up a connection.
-  Such tests rely on Phoenix connection infrastructure and similar.
+  This module defines the test case to be used by tests that require setting up
+  a connection, including Phoenix LiveView testing utilities.
+
+  Provides helpers for creating authenticated connections with operator sessions.
   """
 
   use ExUnit.CaseTemplate
@@ -21,9 +23,45 @@ defmodule Exocomp.MissionControl.ConnCase do
       # Import our ConnCase helpers, including our custom build_conn/0
       import Exocomp.MissionControl.ConnCase
 
-      # The following is optional and useful for deep introspection
-      # into Ecto's query generation
-      # import Ecto.Query, only: [from: 1, from: 2]
+      alias Exocomp.MissionControl.Identity.Operator
+
+      # Helper functions for authenticated testing
+
+      @doc """
+      Creates an authenticated connection with operator session data.
+      """
+      def create_authenticated_conn(operator_attrs \\ %{}) do
+        operator = build_operator(operator_attrs)
+
+        build_conn()
+        |> init_test_session(%{
+          "operator_id" => operator.sub,
+          "operator_role" => operator.role,
+          "organization_id" => operator.organization_id,
+          "operator_name" => operator.display_name
+        })
+      end
+
+      @doc """
+      Builds an Operator struct for testing.
+      """
+      def build_operator(attrs \\ %{}) do
+        defaults = %{
+          sub: "user-#{System.unique_integer([:positive])}",
+          organization_id: "org-test",
+          role: :viewer,
+          display_name: "Test User"
+        }
+
+        merged = Map.merge(defaults, Enum.into(attrs, %{}))
+
+        %Operator{
+          sub: merged.sub,
+          organization_id: merged.organization_id,
+          role: merged.role,
+          display_name: merged.display_name
+        }
+      end
     end
   end
 
@@ -49,5 +87,9 @@ defmodule Exocomp.MissionControl.ConnCase do
     Enum.reduce(values, conn, fn {key, value}, acc ->
       put_session(acc, key, value)
     end)
+  end
+
+  setup _context do
+    {:ok, conn: build_conn()}
   end
 end

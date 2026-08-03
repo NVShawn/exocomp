@@ -1,26 +1,38 @@
 <div class="flex flex-col min-h-screen bg-gray-50">
-  <header class="bg-white border-b border-gray-200" role="banner">
+  <.skip_to_main_link />
+
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-40" role="banner">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between" aria-label="Main navigation">
       <div class="flex items-center gap-8">
         <h1 class="text-xl font-semibold text-gray-900">Mission Control</h1>
         <.navigation operator={@operator} />
       </div>
       <div class="flex items-center gap-4">
-        <span class="text-sm text-gray-600" id="operator-name">
-          <%= @operator.display_name || @operator.sub %>
-        </span>
+        <div class="text-right">
+          <span class="block text-sm font-medium text-gray-900" id="operator-name">
+            <%= @operator.display_name || @operator.sub %>
+          </span>
+          <span class="block text-xs text-gray-500" id="organization-id">
+            Org: <%= String.slice(@operator.organization_id, 0..7) %>
+          </span>
+        </div>
         <.role_badge role={@operator.role} />
-        <a href="/auth/logout" class="text-sm text-red-600 hover:text-red-800">Logout</a>
+        <a href="/auth/logout" 
+           class="text-sm text-red-600 hover:text-red-800 font-medium py-2 px-3 rounded hover:bg-red-50 transition-colors"
+           aria-label="Logout">
+          Logout
+        </a>
       </div>
     </nav>
   </header>
 
-  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8" role="main">
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8" role="main" id="main-content">
     <.flash_messages flash={@flash} />
     <%= @inner_content %>
   </main>
 
   <footer class="bg-gray-900 text-gray-300 text-center py-4 mt-auto" role="contentinfo">
     <p class="text-sm">Exocomp Mission Control © 2026</p>
+    <p class="text-xs text-gray-400 mt-1">Organization ID: <%= @operator.organization_id %></p>
   </footer>
 </div>
