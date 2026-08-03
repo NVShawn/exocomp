@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T21:20:08.167160Z'
+updated_at: '2026-08-03T21:35:48.592489Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -323,5 +323,10 @@ author: oompah
 created: 2026-08-03 21:20
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 21:35
+---
+Discovery: Previous agents had already implemented both deliverables: connection.ex (heartbeat every 30s, full-jitter exponential backoff 1s-60s, stable connection reset after 90s) and session_liveness.ex (disconnect detection after 90s without heartbeat, commit-before-publish). Tests existed in connection_test.exs (5 tests) and session_liveness_test.exs (5 tests), covering all acceptance criteria. However make lint failed with a type warning indicating a latent bug: the :DOWN handler for connect_monitor_ref used a pipe chain that reversed the schedule_reconnect/2 arguments (state passed as reason, reason as state). The bug was silent at runtime because connect workers normally exit cleanly via safely/catch, but would crash the coordinator if a worker was killed externally mid-connect.
 ---
 <!-- COMMENTS:END -->
