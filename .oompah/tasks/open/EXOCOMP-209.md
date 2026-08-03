@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-209
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: 'M8A: Policy model, API, authorization, and UI'
 parent: EXOCOMP-208
@@ -18,7 +18,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:21.454996Z'
-updated_at: '2026-08-03T15:42:10.067442Z'
+updated_at: '2026-08-03T16:20:30.210210Z'
 work_branch: null
 target_branch: null
 review_url: null
