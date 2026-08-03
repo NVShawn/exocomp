@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-125
 type: task
-status: In Validation
+status: Archived
 priority: 1
 title: Complete remaining M5 workload and soak qualification
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-08-03T19:09:23.310923Z'
+updated_at: '2026-08-03T19:11:25.088094Z'
 work_branch: EXOCOMP-125
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/20
@@ -52,6 +52,30 @@ oompah.work_branch: EXOCOMP-125
 oompah.target_branch: main
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-e7597a1a6de1: '2026-08-03T19:11:19.289086+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-125
+    target_state: Archived
+    evidence_fingerprint: 2200812bd2591a211ccd342da91e0560a9f3b066d41c251a5755732f118d8a19
+    audit_ids:
+    - audit-16838439f22d
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T19:11:19.289093+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-125
+    audit_id: audit-16838439f22d
+    attempt_id: attempt-e7597a1a6de1
+    target_state: Archived
+    evidence_fingerprint: 2200812bd2591a211ccd342da91e0560a9f3b066d41c251a5755732f118d8a19
+    status: Archived
+    audit_ids:
+    - audit-16838439f22d
+    applied: false
+    created_at: '2026-08-03T19:11:19.289101+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -59,7 +83,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-125
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -68,7 +92,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-e7597a1a6de1
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -78,13 +102,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T19:09:14.961542+00:00'
       branch_key: EXOCOMP-125
+      verdict: pass
+      completed_at: '2026-08-03T19:11:19.288998+00:00'
+      ended_at: '2026-08-03T19:11:19.288998+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T19:04:38.757974+00:00'
-    updated_at: '2026-08-03T19:09:14.961542+00:00'
+    updated_at: '2026-08-03T19:11:19.288998+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-e7597a1a6de1
@@ -400,5 +427,20 @@ author: oompah
 created: 2026-08-03 19:09
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 19:11
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: ac7f12bf
+- final_branch_commit: e36e483d
+- commits_on_main: 7
+- evidence_amd64: docs/release-evidence/v0.1.0-rc.23/raw/amd64/m5-workload-harness/{README.md,samples.jsonl.xz,summary.json}
+- evidence_arm64: docs/release-evidence/v0.1.0-rc.23/raw/arm64/m5-workload-harness/README.md
+- age_days: 7
 ---
 <!-- COMMENTS:END -->
