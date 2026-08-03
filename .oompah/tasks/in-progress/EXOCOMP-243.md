@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:32:28.734544Z'
+updated_at: '2026-08-03T17:35:47.547614Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -128,5 +128,15 @@ author: oompah
 created: 2026-08-03 17:32
 ---
 Discovery: Found the test 'unreachable node retains previously verified addresses and increments failure counter' in apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs. The race condition exists on lines 425-428. After waiting for echo to become :unreachable via eventually block, the test immediately fetches foxtrot and asserts it's healthy WITHOUT waiting for foxtrot's probe to complete. With concurrency: 3, foxtrot's probe runs in parallel with echo's, and foxtrot may still be :unknown when the assertion runs, causing intermittent failures. Fix: Add eventually block to wait for foxtrot (or all pollers) to complete before asserting.
+---
+author: oompah
+created: 2026-08-03 17:35
+---
+Implementation: Added eventually block to synchronize on foxtrot's polling outcome before asserting it's healthy. The test now waits for foxtrot.reachability == :healthy before proceeding with the assertion. This prevents the race where foxtrot's probe is still in-flight (concurrent with echo's probe) when the test checks its status. The fix preserves all original assertions about echo's verified address and failure counter.
+---
+author: oompah
+created: 2026-08-03 17:35
+---
+Verification: All tests passed. Full make test gate: 511 tests passed. make lint gate: all checks passed (format, compile with warnings-as-errors, compliance). The race condition fix is verified and ready for integration.
 ---
 <!-- COMMENTS:END -->
