@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:30:06.860761Z'
+updated_at: '2026-08-03T18:30:41.370731Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -215,5 +215,10 @@ author: oompah
 created: 2026-08-03 18:30
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 18:30
+---
+Understanding: Resuming the preserved EXOCOMP-242 branch state. I will inspect the current invitation-auth and CSR fixture edits, reconcile them with the pinned OTP/X509 GeneralName requirements and lifecycle-safe invitation fixtures, run focused regressions plus make fmt-check, make test, and make lint, then commit, push, and submit the exact repaired head.
 ---
 <!-- COMMENTS:END -->
