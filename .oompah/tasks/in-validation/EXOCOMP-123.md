@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-123
 type: task
-status: Merged
+status: In Validation
 priority: 1
 title: Requalify the remediated M6 release candidate
 parent: EXOCOMP-117
@@ -17,7 +17,7 @@ labels:
 - 'focus-complete:'
 assignee: null
 created_at: '2026-07-26T03:58:35.710500Z'
-updated_at: '2026-07-27T11:12:26.378663Z'
+updated_at: '2026-08-03T12:01:14.670388Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -131,6 +131,28 @@ oompah.task_costs:
     output_tokens: 8178
     cost_usd: 0.0
     recorded_at: '2026-07-27T10:39:08.858088+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-8e2bd34643b7
+    project_id: proj-c260b117
+    task_id: EXOCOMP-123
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: fcc2c1525f5bb8992d26af2799ca23f296e3a947fde8c614a1759fa582e4c3a5
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-03T12:01:11.940334+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -1520,5 +1542,10 @@ author: oompah
 created: 2026-07-27 11:03
 ---
 Accepted v0.1.0-rc.23 at signed tag 902bee1a after complete fresh amd64 KVM and arm64 full-system QEMU qualification. All M6-CRIT criteria, required Make gates, reproducible release/bundle builds, no-network install, production PKI/enrollment, operational recovery/hardening, shipped M5 short/full gates, lifecycle/rollback/backup/restore/uninstall, and protected-state checks passed. Signed indexed evidence is committed and pushed at a62f128 in docs/release-evidence/v0.1.0-rc.23/.
+---
+author: oompah
+created: 2026-08-03 12:01
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
