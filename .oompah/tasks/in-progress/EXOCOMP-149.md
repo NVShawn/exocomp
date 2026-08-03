@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T20:38:56.824811Z'
+updated_at: '2026-08-03T20:39:57.183227Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -205,5 +205,10 @@ author: oompah
 created: 2026-08-03 20:38
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 20:39
+---
+Understanding: this is a rework after integration reported a rebase conflict. I will reconcile the existing ingestion implementation with the current epic head, preserve the delivery protocol’s validation, transactional commit, deduplication, and contiguous-acknowledgement guarantees, run focused and prescribed gates, then push and resubmit.
 ---
 <!-- COMMENTS:END -->
