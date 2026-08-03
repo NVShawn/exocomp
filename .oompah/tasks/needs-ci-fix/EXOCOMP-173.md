@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:12:35.017160Z'
+updated_at: '2026-08-03T17:13:31.053808Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -64,8 +64,8 @@ oompah.integration:
     EXOCOMP-171: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
     EXOCOMP-172: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
 oompah.task_costs:
-  total_input_tokens: 420554
-  total_output_tokens: 67438
+  total_input_tokens: 420560
+  total_output_tokens: 68032
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -75,6 +75,10 @@ oompah.task_costs:
     sonnet:
       input_tokens: 113
       output_tokens: 63801
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 6
+      output_tokens: 594
       cost_usd: 0.0
   runs:
   - profile: default
@@ -95,6 +99,12 @@ oompah.task_costs:
     output_tokens: 63801
     cost_usd: 0.0
     recorded_at: '2026-08-03T16:35:09.665585+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 6
+    output_tokens: 594
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T17:13:29.287687+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-173__20260801T130716Z
@@ -396,5 +406,15 @@ Instructions:
 - Restore the previous apps/exocomp_mission_control/mix.exs deps() and project()/application() shape (see 3377d707) so Phoenix modules load again, keeping the EXOCOMP-173 webhook additions.
 - After restoring deps, rerun make test (or the containerised equivalent) and make lint / make fmt-check to prove the focused delivery tests and the umbrella build stay green.
 - Push the branch again and resubmit for integration audit.
+---
+author: oompah
+created: 2026-08-03 17:13
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 44
+- Tokens: 6 in / 594 out [600 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 18m 15s
+- Log: EXOCOMP-173__20260803T165521Z.jsonl
 ---
 <!-- COMMENTS:END -->
