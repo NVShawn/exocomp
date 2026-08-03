@@ -13,7 +13,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:26:31.243597Z'
-updated_at: '2026-08-03T15:44:02.217882Z'
+updated_at: '2026-08-03T15:44:34.713929Z'
 work_branch: epic-EXOCOMP-211--task-EXOCOMP-230
 target_branch: null
 review_url: null
@@ -25,14 +25,24 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 9915bf9cf7b2c6c320f041b1c0649e2ece6a37e4aa9466cd283c785c2d3443dc
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-03T15:44:30.199959+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: a4ef9bce-09d9-4d41-9a47-2a53443b72a1
-  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
-  claimed_at: '2026-08-03T15:43:42.804520+00:00'
-  claim_expires_at: '2026-08-03T16:13:42.804520+00:00'
+  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: no_duplicate\n\
+    Matches: none\nEvidence: No active duplicate appears in the authoritative corpus.\
+    \ Closest reviewed tasks\u2014EXOCOMP-114, EXOCOMP-115, EXOCOMP-118, EXOCOMP-120,\
+    \ and EXOCOMP-123\u2014are terminal and cover broader recovery, lifecycle, bundle\
+    \ runtime, integrity, or qualification work. No repository or tracker changes\
+    \ were made.\nFocus handoff: duplicate_detector  \nDuplicate preflight verdict:\
+    \ no_duplicate  \nMatches: none\n\nEvidence: No active duplicate appears in the\
+    \ authoritative corpus. Closest reviewed tasks\u2014EXOCOMP-114, EXOCOMP-115,\
+    \ EXOCOMP-118, EXOCOMP-120, and EXOCOMP-123\u2014are terminal and cover broader\
+    \ recovery, lifecycle, bundle runtime, integrity, or qualification work. No repository\
+    \ or tracker changes were made."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
   owner_resolved_at: null
@@ -48,6 +58,32 @@ oompah.integration:
   base_branch: epic-EXOCOMP-211
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
   updated_at: '2026-08-03T15:43:59.300788+00:00'
+oompah.task_costs:
+  total_input_tokens: 48727
+  total_output_tokens: 503
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 48727
+      output_tokens: 503
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 48727
+    output_tokens: 503
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:44:30.198361+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-230__20260803T154404Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-211--task-EXOCOMP-230
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T15:44:30.208119+00:00'
 ---
 ## Summary
 
@@ -83,5 +119,15 @@ author: oompah
 created: 2026-08-03 15:44
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 15:44
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 0
+- Tokens: 48.7K in / 503 out [49.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 37s
+- Log: EXOCOMP-230__20260803T154404Z.jsonl
 ---
 <!-- COMMENTS:END -->

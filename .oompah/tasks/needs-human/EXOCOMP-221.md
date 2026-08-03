@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-221
 type: task
-status: Open
+status: Needs Human
 priority: 1
 title: Deliver policy bundles through the durable command outbox
 parent: EXOCOMP-210
@@ -14,7 +14,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:14.532816Z'
-updated_at: '2026-08-03T15:43:38.777802Z'
+updated_at: '2026-08-03T15:44:42.709677Z'
 work_branch: epic-EXOCOMP-210--task-EXOCOMP-221
 target_branch: null
 review_url: null
@@ -29,13 +29,21 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: ''
-  claim_id: e1413eba-d37c-4d18-ac2a-18dd31abc87c
-  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
-  claimed_at: '2026-08-03T15:43:29.763480+00:00'
-  claim_expires_at: '2026-08-03T16:13:29.763480+00:00'
-  retry_count: 2
-  retry_after: null
+  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
+    Matches: none\nEvidence: The supplied task corpus does not include the relevant\
+    \ active EXOCOMP-209\u2013224 peer descriptions/comments, so duplicate status\
+    \ cannot be determined without guessing. Reviewed archived EXOCOMP-14 and EXOCOMP-15;\
+    \ neither overlaps.\nFocus handoff: duplicate_detector  \nDuplicate preflight\
+    \ verdict: inconclusive  \nMatches: none\n\nEvidence: The supplied task corpus\
+    \ does not include the relevant active EXOCOMP-209\u2013224 peer descriptions/comments,\
+    \ so duplicate status cannot be determined without guessing. Reviewed archived\
+    \ EXOCOMP-14 and EXOCOMP-15; neither overlaps."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
+  retry_count: 3
+  retry_after: '2026-08-03T15:48:32.493674+00:00'
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
@@ -50,13 +58,13 @@ oompah.integration:
   base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
   updated_at: '2026-08-03T15:43:36.108676+00:00'
 oompah.task_costs:
-  total_input_tokens: 146425
-  total_output_tokens: 1283
+  total_input_tokens: 440805
+  total_output_tokens: 3540
   total_cost_usd: 0.0
   by_model:
     haiku:
-      input_tokens: 146425
-      output_tokens: 1283
+      input_tokens: 440805
+      output_tokens: 3540
       cost_usd: 0.0
   runs:
   - profile: default
@@ -71,6 +79,12 @@ oompah.task_costs:
     output_tokens: 552
     cost_usd: 0.0
     recorded_at: '2026-08-03T15:40:35.413055+00:00'
+  - profile: default
+    model: haiku
+    input_tokens: 294380
+    output_tokens: 2257
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T15:44:32.493162+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-221__20260803T153700Z
@@ -89,6 +103,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-210--task-EXOCOMP-221
     source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
     completed_at: '2026-08-03T15:40:35.416390+00:00'
+  - run_id: EXOCOMP-221__20260803T154339Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-210--task-EXOCOMP-221
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T15:44:32.496264+00:00'
 ---
 ## Summary
 
@@ -164,5 +186,20 @@ author: oompah
 created: 2026-08-03 15:43
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 15:44
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 2
+- Tokens: 294.4K in / 2.3K out [296.6K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 1s
+- Log: EXOCOMP-221__20260803T154339Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:44
+---
+Duplicate screening was inconclusive 3 times. Human action required: a project owner must review the authoritative task corpus and use the authenticated duplicate-screening owner-resolution action (POST /api/v1/issues/EXOCOMP-221/duplicate-screening/owner-resolution) with a conclusive verdict and reason. This records the owner decision, resets the retry budget, and returns no_duplicate tasks to Open (or routes a verified duplicate to Duplicate Candidate). A plain verdict comment is not authoritative.
 ---
 <!-- COMMENTS:END -->

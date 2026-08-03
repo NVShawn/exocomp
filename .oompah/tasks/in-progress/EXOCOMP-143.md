@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:25.708004Z'
-updated_at: '2026-08-03T15:44:12.241433Z'
+updated_at: '2026-08-03T15:44:47.844731Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-143
 target_branch: null
 review_url: null
@@ -204,5 +204,10 @@ author: oompah
 created: 2026-08-03 15:44
 ---
 Understanding: this is a reconciliation run. EXOCOMP-143 already contains the cluster invitation/CSR/certificate implementation, but integration reported a conflict after EXOCOMP-142 landed. I will rebase the task branch onto the current epic base, resolve conflicts while preserving the validated enrollment behavior and tests, then run the required gates and resubmit.
+---
+author: oompah
+created: 2026-08-03 15:44
+---
+Discovery: the task branch diverged before EXOCOMP-142 was integrated (merge-base 8f80aeb; current epic base 5b60d46). EXOCOMP-143's first commit also adds ClusterInvitation, so the rebase will overlap the dependency. I will preserve EXOCOMP-142 as the canonical invitation implementation and reconcile EXOCOMP-143's issuer, handler, router, supervision, and tests around it.
 ---
 <!-- COMMENTS:END -->
