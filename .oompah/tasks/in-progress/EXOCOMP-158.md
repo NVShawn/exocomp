@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-158
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 1
 title: Store bounded conversations, messages, and evidence references
 parent: EXOCOMP-132
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-03T17:44:56.304805Z'
+updated_at: '2026-08-03T17:45:32.201281Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -44,7 +44,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: c6f3b776-ef79-4a71-bfcc-8c95d7ef594a
+oompah.agent_run_id: 75923846-5c3a-4475-8e17-159a5e5e1012
 oompah.work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 oompah.integration:
   version: 2
@@ -204,5 +204,10 @@ author: oompah
 created: 2026-08-03 17:44
 ---
 Integration found a rebase conflict on `epic-EXOCOMP-132--task-EXOCOMP-158`. Resolve it against `epic-EXOCOMP-132`, run the required tests, push the same private branch, and `oompah task submit` it again.
+---
+author: oompah
+created: 2026-08-03 17:45
+---
+Agent dispatched (profile: standard)
 ---
 <!-- COMMENTS:END -->
