@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-149
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Ingest cluster events idempotently and acknowledge sequences
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T21:42:08.001897Z'
+updated_at: '2026-08-03T21:58:44.370674Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -107,6 +107,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:24:33.492636+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-b33b69d2172f: '2026-08-03T21:58:40.027486+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-149
+    target_state: Done
+    evidence_fingerprint: 07feeb8d8560c94e0e0ff46fcc458a01c516c272cea2a7bfff9f12dc3a680d2b
+    audit_ids:
+    - audit-23317cebad69
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T21:58:40.027498+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-149
+    audit_id: audit-23317cebad69
+    attempt_id: attempt-b33b69d2172f
+    target_state: Done
+    evidence_fingerprint: 07feeb8d8560c94e0e0ff46fcc458a01c516c272cea2a7bfff9f12dc3a680d2b
+    status: Done
+    audit_ids:
+    - audit-23317cebad69
+    applied: false
+    created_at: '2026-08-03T21:58:40.027515+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -114,7 +138,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-149
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -142,7 +166,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b33b69d2172f
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -153,13 +177,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T21:41:52.793536+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-149
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-03T21:58:40.027276+00:00'
+      ended_at: '2026-08-03T21:58:40.027276+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T21:18:16.440901+00:00'
-    updated_at: '2026-08-03T21:41:52.793536+00:00'
+    updated_at: '2026-08-03T21:58:40.027276+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-6b4e293f0e0e
@@ -389,5 +416,27 @@ author: oompah
 created: 2026-08-03 21:42
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 21:58
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
+- remote_branch: origin/epic-EXOCOMP-130--task-EXOCOMP-149
+- remote_tip: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
+- epic_branch_tip: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
+- ingestor_module: apps/exocomp_mission_control/lib/exocomp/mission_control/cluster_event_ingestor.ex
+- envelope_module: apps/exocomp_mission_control/lib/exocomp/mission_control/cluster_event.ex
+- identity_module: apps/exocomp_mission_control/lib/exocomp/mission_control/certificate_identity.ex
+- gateway_module: apps/exocomp_mission_control/lib/exocomp/mission_control/cluster_gateway.ex
+- test_module: apps/exocomp_mission_control/test/exocomp/mission_control/cluster_event_ingestor_test.exs
+- test_count: 9 tests in cluster_event_ingestor_test.exs covering all acceptance criteria
+- gateway_test_module: apps/exocomp_mission_control/test/exocomp/mission_control/cluster_gateway_test.exs
+- router_wiring: forward /api/v1/clusters/connect to ClusterGateway confirmed in router.ex
+- supervisor_wiring: ClusterEventIngestor in application.ex children list with event_store_path from config
 ---
 <!-- COMMENTS:END -->
