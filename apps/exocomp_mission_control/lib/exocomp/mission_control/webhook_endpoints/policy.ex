@@ -2,154 +2,289 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.WebhookEndpoints.Policy do
   @moduledoc """
-  Policy enforcement for webhook destination validation.
+  Fail-closed SSRF policy for webhook destinations.
 
-  This module enforces configured policies that disallow webhooks from being
-  sent to certain destination IP addresses or networks. This prevents
-  webhook requests from targeting:
+  Every A and AAAA answer is checked before an endpoint is stored. A hostname
+  with even one prohibited answer is rejected, preventing a round-robin name
+  from bypassing the policy. Delivery code must repeat this check immediately
+  before connecting to defend against DNS rebinding; delivery is deliberately
+  outside this configuration context.
 
-  - **Loopback addresses** (127.0.0.1, ::1) — prevents self-loops
-  - **Link-local addresses** (169.254.0.0/16, fe80::/10) — prevents hybrid
-    cloud/datacenter-local traffic from leaving the organization
-  - **Private IP ranges** (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16,
-    fc00::/7) — prevents internal infrastructure from being exposed
-  - **Configured deny-list** — administrators can add specific IPs, networks,
-    or hostname patterns
+  The following options are read from this module's application configuration:
 
-  The policy is applied at DNS lookup time. If the hostname resolves to a
-  disallowed IP, the webhook creation is rejected. Hostname resolution is
-  deterministic for the same request and cached per process (but not across
-  restarts).
+  - `:deny_private_ips`, `:deny_loopback`, `:deny_link_local` (all default
+    to `true`)
+  - `:blocked_domains` — exact names or `*.suffix` wildcard suffixes
+  - `:blocked_ips` — IP literals or CIDR ranges
 
-  ## Configuration
-
-  Configure allowed/blocked destinations in the application config:
-
-  ```elixir
-  config :exocomp_mission_control, Exocomp.MissionControl.WebhookEndpoints.Policy,
-    deny_private_ips: true,        # Default: true
-    deny_loopback: true,           # Default: true
-    deny_link_local: true,         # Default: true
-    blocked_domains: ["internal.corp"],
-    blocked_ips: ["192.168.1.100"]
-  ```
-
-  ## Security properties
-
-  - All hostname resolution uses synchronous `:inet.getaddr/2` lookup (not
-    async), so results are deterministic.
-  - Private IP ranges are defined per IANA allocation (RFC 1918, RFC 4193).
-  - Link-local ranges (RFC 3927 for IPv4, RFC 4291 for IPv6) are blocked by
-    default because they indicate misconfiguration or unintended hybrid
-    traffic.
-  - The policy is enforced at **creation time** only, not at delivery time.
-    If DNS resolution changes after creation, existing endpoints may resolve
-    to different IPs. A separate audit/monitoring system should detect
-    delivery failures and alert operators.
-  - Policy violations return a clear error; no ambiguity.
+  Invalid policy configuration fails closed instead of silently weakening the
+  destination filter.
   """
 
-  require Logger
+  @type reason ::
+          :invalid_host
+          | :dns_resolution_failed
+          | :invalid_policy_configuration
+          | :destination_is_loopback
+          | :destination_is_link_local
+          | :destination_is_private_ip
+          | :destination_is_reserved_ip
+          | :destination_blocked_by_policy
 
-  @private_ipv4_ranges [
-    # 10.0.0.0/8
-    {10, 0, 0, 0, 8},
-    # 172.16.0.0/12
-    {172, 16, 0, 0, 12},
-    # 192.168.0.0/16
-    {192, 168, 0, 0, 16}
-  ]
+  import Bitwise
 
-  @loopback_ipv4 {127, 0, 0, 1}
-  @loopback_ipv6 {0, 0, 0, 0, 0, 0, 0, 1}
-
-  @doc """
-  Validates that a webhook URL's destination is not blocked by policy.
-
-  Returns `{:ok, url}` when the destination is allowed.
-  Returns `{:error, reason}` when the destination is blocked by policy.
-
-  ## Errors
-
-  - `:dns_resolution_failed` — hostname could not be resolved
-  - `:dns_return_invalid_address` — hostname resolved to an invalid address
-  - `:destination_is_loopback` — resolved to 127.0.0.1 or ::1
-  - `:destination_is_link_local` — resolved to 169.254.x.x or fe80::/10
-  - `:destination_is_private_ip` — resolved to a private IP range
-  - `:destination_blocked_by_policy` — hostname or IP is in the deny-list
-  """
-  @spec validate_destination(String.t()) :: {:ok, String.t()} | {:error, atom()}
+  @doc "Validates a destination URL against the configured outbound policy."
+  @spec validate_destination(String.t()) :: {:ok, String.t()} | {:error, reason()}
   def validate_destination(url) when is_binary(url) do
-    with {:ok, host} <- extract_host(url),
-         {:ok, ip} <- resolve_host(host),
-         :ok <- check_policy(ip) do
+    with {:ok, config} <- policy_config(),
+         {:ok, host} <- extract_host(url),
+         :ok <- check_blocked_domain(host, config.blocked_domains),
+         {:ok, addresses} <- resolve_all(host),
+         :ok <- check_addresses(addresses, config) do
       {:ok, url}
-    else
-      {:error, reason} -> {:error, reason}
     end
   end
 
-  # ── Private ──────────────────────────────────────────────────────────────────
+  def validate_destination(_url), do: {:error, :invalid_host}
+
+  defp policy_config do
+    case Application.get_env(:exocomp_mission_control, __MODULE__, []) do
+      config when is_list(config) ->
+        with {:ok, deny_private_ips} <- boolean_option(config, :deny_private_ips, true),
+             {:ok, deny_loopback} <- boolean_option(config, :deny_loopback, true),
+             {:ok, deny_link_local} <- boolean_option(config, :deny_link_local, true),
+             {:ok, blocked_domains} <- string_list_option(config, :blocked_domains),
+             {:ok, blocked_ips} <- string_list_option(config, :blocked_ips),
+             :ok <- validate_ip_rules(blocked_ips) do
+          {:ok,
+           %{
+             deny_private_ips: deny_private_ips,
+             deny_loopback: deny_loopback,
+             deny_link_local: deny_link_local,
+             blocked_domains: blocked_domains,
+             blocked_ips: blocked_ips
+           }}
+        end
+
+      _ ->
+        {:error, :invalid_policy_configuration}
+    end
+  end
+
+  defp boolean_option(config, key, default) do
+    case Keyword.get(config, key, default) do
+      value when is_boolean(value) -> {:ok, value}
+      _ -> {:error, :invalid_policy_configuration}
+    end
+  end
+
+  defp string_list_option(config, key) do
+    case Keyword.get(config, key, []) do
+      values when is_list(values) ->
+        if Enum.all?(values, &(is_binary(&1) and byte_size(String.trim(&1)) > 0)) do
+          {:ok, values}
+        else
+          {:error, :invalid_policy_configuration}
+        end
+
+      _ ->
+        {:error, :invalid_policy_configuration}
+    end
+  end
 
   defp extract_host(url) do
     case URI.parse(url) do
       %URI{host: host} when is_binary(host) and byte_size(host) > 0 ->
-        {:ok, host}
+        host =
+          host
+          |> String.trim_leading("[")
+          |> String.trim_trailing("]")
+          |> String.trim_trailing(".")
+          |> String.downcase()
+
+        if host == "", do: {:error, :invalid_host}, else: {:ok, host}
 
       _ ->
         {:error, :invalid_host}
     end
   end
 
-  defp resolve_host(host) do
-    case :inet.getaddr(String.to_charlist(host), :inet) do
-      {:ok, ipv4} ->
-        {:ok, ipv4}
+  defp check_blocked_domain(host, blocked_domains) do
+    if Enum.any?(blocked_domains, &domain_match?(host, &1)) do
+      {:error, :destination_blocked_by_policy}
+    else
+      :ok
+    end
+  end
 
-      {:error, :nxdomain} ->
-        Logger.warning("WebhookEndpoints.Policy: hostname does not resolve: #{inspect(host)}")
-        {:error, :dns_resolution_failed}
+  defp domain_match?(host, pattern) do
+    pattern = pattern |> String.trim_trailing(".") |> String.downcase()
 
-      {:error, reason} ->
-        Logger.warning(
-          "WebhookEndpoints.Policy: DNS resolution error for #{inspect(host)}: #{inspect(reason)}"
-        )
+    case pattern do
+      <<"*.", suffix::binary>> when byte_size(suffix) > 0 ->
+        host != suffix and String.ends_with?(host, "." <> suffix)
 
+      _ ->
+        host == pattern
+    end
+  end
+
+  defp resolve_all(host) do
+    case :inet.parse_address(String.to_charlist(host)) do
+      {:ok, address} -> {:ok, [address]}
+      {:error, _reason} -> resolve_hostname(host)
+    end
+  end
+
+  defp resolve_hostname(host) do
+    results =
+      for family <- [:inet, :inet6] do
+        :inet.getaddrs(String.to_charlist(host), family)
+      end
+
+    case Enum.find(results, &temporary_dns_error?/1) do
+      nil ->
+        addresses =
+          results
+          |> Enum.flat_map(fn
+            {:ok, values} -> values
+            {:error, :nxdomain} -> []
+          end)
+          |> Enum.uniq()
+
+        if addresses == [], do: {:error, :dns_resolution_failed}, else: {:ok, addresses}
+
+      _error ->
         {:error, :dns_resolution_failed}
     end
   end
 
-  defp check_policy(ip) when is_tuple(ip) do
-    cond do
-      is_loopback?(ip) -> {:error, :destination_is_loopback}
-      is_link_local?(ip) -> {:error, :destination_is_link_local}
-      is_private_ip?(ip) -> {:error, :destination_is_private_ip}
-      true -> :ok
-    end
-  end
+  defp temporary_dns_error?({:ok, _addresses}), do: false
+  defp temporary_dns_error?({:error, :nxdomain}), do: false
+  defp temporary_dns_error?(_result), do: true
 
-  defp check_policy(_ip), do: {:error, :dns_return_invalid_address}
-
-  defp is_loopback?(@loopback_ipv4), do: true
-  defp is_loopback?(@loopback_ipv6), do: true
-  defp is_loopback?(_), do: false
-
-  defp is_link_local?({169, 254, _, _}), do: true
-  defp is_link_local?(_), do: false
-
-  defp is_private_ip?(ip) when is_tuple(ip) do
-    Enum.any?(@private_ipv4_ranges, fn {b1, b2, b3, b4, bits} ->
-      match_cidr(ip, {b1, b2, b3, b4}, bits)
+  defp check_addresses(addresses, config) do
+    Enum.reduce_while(addresses, :ok, fn address, :ok ->
+      case check_address(address, config) do
+        :ok -> {:cont, :ok}
+        {:error, reason} -> {:halt, {:error, reason}}
+      end
     end)
   end
 
-  defp match_cidr({a1, a2, a3, a4}, {b1, b2, b3, b4}, bits)
-       when bits >= 0 and bits <= 32 do
-    a = Bitwise.bsl(a1, 24) + Bitwise.bsl(a2, 16) + Bitwise.bsl(a3, 8) + a4
-    b = Bitwise.bsl(b1, 24) + Bitwise.bsl(b2, 16) + Bitwise.bsl(b3, 8) + b4
-    mask = Bitwise.band(Bitwise.bsl(0xFFFFFFFF, 32 - bits), 0xFFFFFFFF)
-    Bitwise.band(a, mask) === Bitwise.band(b, mask)
+  defp check_address(address, config) do
+    cond do
+      blocked_ip?(address, config.blocked_ips) ->
+        {:error, :destination_blocked_by_policy}
+
+      config.deny_loopback and loopback?(address) ->
+        {:error, :destination_is_loopback}
+
+      config.deny_link_local and link_local?(address) ->
+        {:error, :destination_is_link_local}
+
+      config.deny_private_ips and private?(address) ->
+        {:error, :destination_is_private_ip}
+
+      reserved?(address) ->
+        {:error, :destination_is_reserved_ip}
+
+      true ->
+        :ok
+    end
   end
 
-  defp match_cidr(_, _, _), do: false
+  defp loopback?({127, _, _, _}), do: true
+  defp loopback?({0, 0, 0, 0, 0, 0, 0, 1}), do: true
+  defp loopback?(address), do: ipv4_mapped?(address, &loopback?/1)
+
+  defp link_local?({169, 254, _, _}), do: true
+  defp link_local?({first, _, _, _, _, _, _, _}) when first in 0xFE80..0xFEBF, do: true
+  defp link_local?(address), do: ipv4_mapped?(address, &link_local?/1)
+
+  defp private?({10, _, _, _}), do: true
+  defp private?({172, second, _, _}) when second in 16..31, do: true
+  defp private?({192, 168, _, _}), do: true
+  defp private?({first, _, _, _, _, _, _, _}) when first in 0xFC00..0xFDFF, do: true
+  defp private?(address), do: ipv4_mapped?(address, &private?/1)
+
+  # Non-public destinations remain prohibited even if a legacy policy disables
+  # one of the three configurable RFC ranges.
+  defp reserved?({0, 0, 0, 0}), do: true
+  defp reserved?({100, second, _, _}) when second in 64..127, do: true
+  defp reserved?({192, 0, 0, _}), do: true
+  defp reserved?({192, 0, 2, _}), do: true
+  defp reserved?({198, second, _, _}) when second in [18, 19], do: true
+  defp reserved?({198, 51, 100, _}), do: true
+  defp reserved?({203, 0, 113, _}), do: true
+  defp reserved?({first, _, _, _}) when first >= 224, do: true
+  defp reserved?({0, 0, 0, 0, 0, 0, 0, 0}), do: true
+  defp reserved?({first, _, _, _, _, _, _, _}) when first >= 0xFF00, do: true
+  defp reserved?(address), do: ipv4_mapped?(address, &reserved?/1)
+
+  defp ipv4_mapped?({0, 0, 0, 0, 0, 0xFFFF, high, low}, checker) do
+    checker.({high >>> 8, high &&& 0xFF, low >>> 8, low &&& 0xFF})
+  end
+
+  defp ipv4_mapped?(_address, _checker), do: false
+
+  defp blocked_ip?(address, blocked_ips) do
+    Enum.any?(blocked_ips, fn rule ->
+      case parse_ip_rule(rule) do
+        {:ok, blocked_address, prefix} -> cidr_match?(address, blocked_address, prefix)
+        :error -> false
+      end
+    end)
+  end
+
+  defp validate_ip_rules(rules) do
+    if Enum.all?(rules, &match?({:ok, _, _}, parse_ip_rule(&1))) do
+      :ok
+    else
+      {:error, :invalid_policy_configuration}
+    end
+  end
+
+  defp parse_ip_rule(rule) do
+    case String.split(rule, "/", parts: 2) do
+      [address] -> parse_ip_rule(address, nil)
+      [address, prefix] -> parse_ip_rule(address, prefix)
+    end
+  end
+
+  defp parse_ip_rule(address, prefix) do
+    with {:ok, parsed_address} <- :inet.parse_address(String.to_charlist(address)),
+         {:ok, parsed_prefix} <- parse_prefix(prefix, tuple_size(parsed_address) * 8) do
+      {:ok, parsed_address, parsed_prefix}
+    else
+      _ -> :error
+    end
+  end
+
+  defp parse_prefix(nil, bits), do: {:ok, bits}
+
+  defp parse_prefix(prefix, bits) do
+    case Integer.parse(prefix) do
+      {value, ""} when value >= 0 and value <= bits -> {:ok, value}
+      _ -> :error
+    end
+  end
+
+  defp cidr_match?(address, blocked_address, prefix)
+       when tuple_size(address) == tuple_size(blocked_address) do
+    bits = tuple_size(address) * 8
+    shift = bits - prefix
+    bsr(to_integer(address), shift) == bsr(to_integer(blocked_address), shift)
+  end
+
+  defp cidr_match?(_address, _blocked_address, _prefix), do: false
+
+  defp to_integer(address) do
+    address
+    |> Tuple.to_list()
+    |> Enum.reduce(0, fn part, acc -> Bitwise.bsl(acc, tuple_component_bits(address)) + part end)
+  end
+
+  defp tuple_component_bits(address) when tuple_size(address) == 4, do: 8
+  defp tuple_component_bits(address) when tuple_size(address) == 8, do: 16
 end

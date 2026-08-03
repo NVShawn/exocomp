@@ -29,7 +29,7 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.Validation do
   - Cannot be empty
   """
 
-  alias Exocomp.MissionControl.WebhookEndpoints.Policy
+  alias Exocomp.MissionControl.{Redaction, WebhookEndpoints.Policy}
 
   @known_event_types [
     "cluster.connected",
@@ -70,6 +70,9 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.Validation do
       byte_size(url) == 0 ->
         {:error, :url_empty}
 
+      byte_size(url) > 2_048 ->
+        {:error, :url_too_long}
+
       not String.starts_with?(url, "https://") ->
         {:error, :url_not_https}
 
@@ -104,10 +107,21 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.Validation do
     else
       case Enum.find(event_types, fn et -> not is_binary(et) end) do
         nil ->
-          # All are binary; check if all are known
-          case Enum.find(event_types, fn et -> et not in @known_event_types end) do
-            nil -> {:ok, event_types}
-            unknown -> {:error, {:event_type_unknown, unknown}}
+          cond do
+            length(event_types) > 64 ->
+              {:error, :event_types_too_many}
+
+            Enum.any?(event_types, &(byte_size(&1) == 0 or byte_size(&1) > 200)) ->
+              {:error, :event_type_invalid_length}
+
+            length(event_types) != length(Enum.uniq(event_types)) ->
+              {:error, :event_types_duplicate}
+
+            true ->
+              case Enum.find(event_types, fn et -> et not in @known_event_types end) do
+                nil -> {:ok, event_types}
+                unknown -> {:error, {:event_type_unknown, unknown}}
+              end
           end
 
         invalid ->
@@ -129,13 +143,36 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.Validation do
 
   # ── Private ──────────────────────────────────────────────────────────────────
 
-  # Simple URI validation: must have scheme and host, no path traversal
+  # URI.parse/1 is intentionally permissive, so reject authority credentials,
+  # fragments, whitespace, and malformed ports in addition to requiring HTTPS.
   defp is_valid_uri?(url) do
     try do
       uri = URI.parse(url)
-      uri.scheme != nil and uri.host != nil and uri.scheme != ""
+
+      uri.scheme == "https" and
+        is_binary(uri.host) and
+        byte_size(uri.host) > 0 and
+        is_nil(uri.userinfo) and
+        is_nil(uri.fragment) and
+        not Regex.match?(~r/\s/u, url) and
+        not String.contains?(uri.host, "%") and
+        not sensitive_query?(uri.query) and
+        (is_nil(uri.port) or uri.port in 1..65_535)
     rescue
       _ -> false
+    end
+  end
+
+  defp sensitive_query?(nil), do: false
+
+  defp sensitive_query?(query) do
+    try do
+      query
+      |> URI.decode_query()
+      |> Map.keys()
+      |> Enum.any?(&Redaction.sensitive_key?/1)
+    rescue
+      _ -> true
     end
   end
 end

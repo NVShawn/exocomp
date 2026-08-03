@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Exocomp contributors
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.WebhookEndpoints.EncryptionTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   alias Exocomp.MissionControl.WebhookEndpoints.Encryption
 
@@ -50,6 +50,16 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.EncryptionTest do
       # But both decrypt to the same plaintext
       assert {:ok, ^plaintext} = Encryption.decrypt(ct1, v1)
       assert {:ok, ^plaintext} = Encryption.decrypt(ct2, v2)
+    end
+
+    test "authenticated context prevents ciphertext swapping between endpoints" do
+      plaintext = "secret_data"
+
+      assert {:ok, ciphertext, version} = Encryption.encrypt(plaintext, "org-a\0endpoint-a")
+      assert {:ok, ^plaintext} = Encryption.decrypt(ciphertext, version, "org-a\0endpoint-a")
+
+      assert {:error, :decryption_failed} =
+               Encryption.decrypt(ciphertext, version, "org-b\0endpoint-b")
     end
 
     test "decryption fails with wrong master key" do

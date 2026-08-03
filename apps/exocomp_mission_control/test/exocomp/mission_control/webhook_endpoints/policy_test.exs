@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Exocomp contributors
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.WebhookEndpoints.PolicyTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   alias Exocomp.MissionControl.WebhookEndpoints.Policy
 
@@ -54,6 +54,23 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.PolicyTest do
 
       assert {:error, :destination_is_link_local} =
                Policy.validate_destination("https://169.254.255.255/webhooks")
+    end
+
+    test "rejects IPv6 loopback, private, link-local, multicast, and unspecified addresses" do
+      assert {:error, :destination_is_loopback} =
+               Policy.validate_destination("https://[::1]/hook")
+
+      assert {:error, :destination_is_private_ip} =
+               Policy.validate_destination("https://[fd00::1]/hook")
+
+      assert {:error, :destination_is_link_local} =
+               Policy.validate_destination("https://[fe80::1]/hook")
+
+      assert {:error, :destination_is_reserved_ip} =
+               Policy.validate_destination("https://[ff02::1]/hook")
+
+      assert {:error, :destination_is_reserved_ip} =
+               Policy.validate_destination("https://[::]/hook")
     end
 
     test "allows public IP addresses" do
@@ -138,6 +155,43 @@ defmodule Exocomp.MissionControl.WebhookEndpoints.PolicyTest do
       # Prevents datacenter/hybrid cloud local traffic
       assert {:error, :destination_is_link_local} =
                Policy.validate_destination("https://169.254.169.254/webhooks")
+    end
+  end
+
+  describe "configured blocks" do
+    setup do
+      previous = Application.get_env(:exocomp_mission_control, Policy)
+
+      on_exit(fn ->
+        if is_nil(previous),
+          do: Application.delete_env(:exocomp_mission_control, Policy),
+          else: Application.put_env(:exocomp_mission_control, Policy, previous)
+      end)
+
+      :ok
+    end
+
+    test "enforces exact and wildcard domain blocks plus IP CIDRs" do
+      Application.put_env(:exocomp_mission_control, Policy,
+        blocked_domains: ["blocked.example", "*.internal.example"],
+        blocked_ips: ["8.8.8.0/24"]
+      )
+
+      assert {:error, :destination_blocked_by_policy} =
+               Policy.validate_destination("https://blocked.example/hook")
+
+      assert {:error, :destination_blocked_by_policy} =
+               Policy.validate_destination("https://service.internal.example/hook")
+
+      assert {:error, :destination_blocked_by_policy} =
+               Policy.validate_destination("https://8.8.8.8/hook")
+    end
+
+    test "fails closed for malformed policy configuration" do
+      Application.put_env(:exocomp_mission_control, Policy, blocked_ips: ["not-a-cidr"])
+
+      assert {:error, :invalid_policy_configuration} =
+               Policy.validate_destination("https://8.8.8.8/hook")
     end
   end
 end

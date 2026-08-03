@@ -1,370 +1,130 @@
 # SPDX-FileCopyrightText: 2026 Exocomp contributors
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.WebhookEndpointsTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   alias Exocomp.MissionControl.{
     Authorization,
     Identity.Operator,
-    WebhookEndpoints,
-    WebhookEndpoint
+    WebhookEndpoint,
+    WebhookEndpoints
   }
 
-  describe "create/3" do
-    setup do
-      # Configure the encryption module with a test master key
-      key = :crypto.strong_rand_bytes(32)
-      key_b64 = Base.encode64(key)
+  alias Exocomp.MissionControl.WebhookEndpoints.Encryption
 
-      Application.put_env(
-        :exocomp_mission_control,
-        Exocomp.MissionControl.WebhookEndpoints.Encryption,
-        master_key: key_b64
-      )
+  setup do
+    previous = Application.get_env(:exocomp_mission_control, Encryption)
+    key = :crypto.strong_rand_bytes(32) |> Base.encode64()
+    Application.put_env(:exocomp_mission_control, Encryption, master_key: key)
 
-      on_exit(fn ->
-        Application.delete_env(
-          :exocomp_mission_control,
-          Exocomp.MissionControl.WebhookEndpoints.Encryption
-        )
-      end)
+    on_exit(fn ->
+      if is_nil(previous),
+        do: Application.delete_env(:exocomp_mission_control, Encryption),
+        else: Application.put_env(:exocomp_mission_control, Encryption, previous)
+    end)
 
-      :ok
+    :ok
+  end
+
+  describe "create/3 input and authorization boundary" do
+    test "rejects non-HTTPS URLs before persistence" do
+      assert {:error, :url_not_https} =
+               WebhookEndpoints.create(admin(), "org-1", valid_params(url: "http://8.8.8.8/hook"))
     end
 
-    test "creates endpoint with encrypted secret on success" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin,
-        display_name: "Admin User"
-      }
+    test "rejects endpoint credentials, empty subscriptions, unknown events, and unsafe destinations" do
+      assert {:error, :url_invalid} =
+               WebhookEndpoints.create(
+                 admin(),
+                 "org-1",
+                 valid_params(url: "https://credential@8.8.8.8/hook")
+               )
 
-      params = %{
-        "url" => "https://example.com/webhooks",
-        "subscribed_event_types" => ["incident.opened", "incident.resolved"]
-      }
+      assert {:error, :url_invalid} =
+               WebhookEndpoints.create(
+                 admin(),
+                 "org-1",
+                 valid_params(url: "https://8.8.8.8/hook?token=credential")
+               )
 
-      assert {:ok, endpoint, plaintext_secret} =
-               WebhookEndpoints.create(operator, "org-1", params)
-
-      # Verify endpoint structure
-      assert is_struct(endpoint, WebhookEndpoint)
-      assert endpoint.organization_id == "org-1"
-      assert endpoint.url == "https://example.com/webhooks"
-      assert endpoint.subscribed_event_types == ["incident.opened", "incident.resolved"]
-      assert endpoint.enabled == true
-      assert endpoint.creator_operator_sub == "sub-123"
-      assert is_binary(endpoint.id)
-      assert is_binary(endpoint.encrypted_secret)
-      assert is_binary(endpoint.secret_digest)
-      assert endpoint.encrypted_secret_version == 1
-
-      # Verify secret is returned plaintext and never stored
-      assert is_binary(plaintext_secret)
-      assert byte_size(plaintext_secret) > 0
-      # Secret should be URL-safe base64
-      assert String.match?(plaintext_secret, ~r/^[A-Za-z0-9_-]+$/)
-    end
-
-    test "rejects non-HTTPS URLs" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{
-        "url" => "http://example.com/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
-
-      assert {:error, :url_not_https} = WebhookEndpoints.create(operator, "org-1", params)
-    end
-
-    test "rejects empty URL" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{
-        "url" => "",
-        "subscribed_event_types" => ["incident.opened"]
-      }
-
-      assert {:error, :url_empty} = WebhookEndpoints.create(operator, "org-1", params)
-    end
-
-    test "rejects missing URL" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{"subscribed_event_types" => ["incident.opened"]}
-
-      assert {:error, :url_missing} = WebhookEndpoints.create(operator, "org-1", params)
-    end
-
-    test "rejects empty event types list" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{
-        "url" => "https://example.com/webhooks",
-        "subscribed_event_types" => []
-      }
-
-      assert {:error, :event_types_empty} = WebhookEndpoints.create(operator, "org-1", params)
-    end
-
-    test "rejects unknown event types" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{
-        "url" => "https://example.com/webhooks",
-        "subscribed_event_types" => ["incident.opened", "unknown.event"]
-      }
+      assert {:error, :event_types_empty} =
+               WebhookEndpoints.create(admin(), "org-1", valid_params(events: []))
 
       assert {:error, {:event_type_unknown, "unknown.event"}} =
-               WebhookEndpoints.create(operator, "org-1", params)
-    end
-
-    test "rejects loopback IP" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{
-        "url" => "https://localhost:8080/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
+               WebhookEndpoints.create(admin(), "org-1", valid_params(events: ["unknown.event"]))
 
       assert {:error, :destination_is_loopback} =
-               WebhookEndpoints.create(operator, "org-1", params)
-    end
-
-    test "rejects private IP ranges" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{
-        "url" => "https://192.168.1.100/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
+               WebhookEndpoints.create(
+                 admin(),
+                 "org-1",
+                 valid_params(url: "https://127.0.0.1/hook")
+               )
 
       assert {:error, :destination_is_private_ip} =
-               WebhookEndpoints.create(operator, "org-1", params)
+               WebhookEndpoints.create(
+                 admin(),
+                 "org-1",
+                 valid_params(url: "https://192.168.1.10/hook")
+               )
     end
 
-    test "rejects link-local IP" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
+    test "fails closed when the deployment master key is unavailable" do
+      Application.delete_env(:exocomp_mission_control, Encryption)
 
-      params = %{
-        "url" => "https://169.254.1.1/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
-
-      assert {:error, :destination_is_link_local} =
-               WebhookEndpoints.create(operator, "org-1", params)
+      assert {:error, :master_key_unavailable} =
+               WebhookEndpoints.create(admin(), "org-1", valid_params())
     end
 
-    test "rejects insufficient role (viewer)" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :viewer
-      }
+    test "requires an administrator in the target organization" do
+      for role <- [:viewer, :operator] do
+        assert_raise Authorization.ForbiddenError, fn ->
+          WebhookEndpoints.create(%{admin() | role: role}, "org-1", valid_params())
+        end
+      end
 
-      params = %{
-        "url" => "https://example.com/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
+      assert_raise Authorization.ForbiddenError, fn ->
+        WebhookEndpoints.create(admin(), "org-2", valid_params())
+      end
 
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.create(operator, "org-1", params)
-      end)
-    end
-
-    test "rejects insufficient role (operator)" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :operator
-      }
-
-      params = %{
-        "url" => "https://example.com/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.create(operator, "org-1", params)
-      end)
-    end
-
-    test "rejects cross-organization access" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{
-        "url" => "https://example.com/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.create(operator, "org-2", params)
-      end)
-    end
-
-    test "rejects nil operator" do
-      params = %{
-        "url" => "https://example.com/webhooks",
-        "subscribed_event_types" => ["incident.opened"]
-      }
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.create(nil, "org-1", params)
-      end)
+      assert_raise Authorization.ForbiddenError, fn ->
+        WebhookEndpoints.create(nil, "org-1", valid_params())
+      end
     end
   end
 
-  describe "update/4" do
-    test "returns error for non-existent endpoint" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
+  describe "other mutation authorization boundaries" do
+    test "update, disable, and rotation check the role before lookup" do
+      viewer = %{admin() | role: :viewer}
 
-      params = %{"subscribed_event_types" => ["incident.opened"]}
+      assert_raise Authorization.ForbiddenError, fn ->
+        WebhookEndpoints.update(viewer, "org-1", Ecto.UUID.generate(), %{"enabled" => false})
+      end
 
-      assert {:error, :endpoint_not_found} =
-               WebhookEndpoints.update(operator, "org-1", "endpoint-1", params)
-    end
+      assert_raise Authorization.ForbiddenError, fn ->
+        WebhookEndpoints.disable(viewer, "org-1", Ecto.UUID.generate())
+      end
 
-    test "rejects insufficient role" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :viewer
-      }
-
-      params = %{"subscribed_event_types" => ["incident.opened"]}
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.update(operator, "org-1", "endpoint-1", params)
-      end)
-    end
-
-    test "rejects cross-organization access" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      params = %{"subscribed_event_types" => ["incident.opened"]}
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.update(operator, "org-2", "endpoint-1", params)
-      end)
+      assert_raise Authorization.ForbiddenError, fn ->
+        WebhookEndpoints.rotate_secret(viewer, "org-1", Ecto.UUID.generate())
+      end
     end
   end
 
-  describe "disable/3" do
-    test "returns error for non-existent endpoint" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
+  test "endpoint inspection redacts encrypted material and has no plaintext field" do
+    endpoint = %WebhookEndpoint{encrypted_secret: "ciphertext", url: "https://8.8.8.8/hook"}
 
-      assert {:error, :endpoint_not_found} =
-               WebhookEndpoints.disable(operator, "org-1", "endpoint-1")
-    end
-
-    test "rejects insufficient role" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :operator
-      }
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.disable(operator, "org-1", "endpoint-1")
-      end)
-    end
-
-    test "rejects cross-organization access" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.disable(operator, "org-2", "endpoint-1")
-      end)
-    end
+    refute inspect(endpoint) =~ "ciphertext"
+    refute Map.has_key?(endpoint, :secret)
   end
 
-  describe "rotate_secret/3" do
-    test "returns error for non-existent endpoint" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
+  defp admin do
+    %Operator{sub: "admin-sub", organization_id: "org-1", role: :admin, display_name: "Admin"}
+  end
 
-      assert {:error, :endpoint_not_found} =
-               WebhookEndpoints.rotate_secret(operator, "org-1", "endpoint-1")
-    end
-
-    test "rejects insufficient role" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :viewer
-      }
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.rotate_secret(operator, "org-1", "endpoint-1")
-      end)
-    end
-
-    test "rejects cross-organization access" do
-      operator = %Operator{
-        sub: "sub-123",
-        organization_id: "org-1",
-        role: :admin
-      }
-
-      assert_raise(Authorization.ForbiddenError, fn ->
-        WebhookEndpoints.rotate_secret(operator, "org-2", "endpoint-1")
-      end)
-    end
+  defp valid_params(overrides \\ []) do
+    %{
+      "url" => Keyword.get(overrides, :url, "https://8.8.8.8/hook"),
+      "subscribed_event_types" => Keyword.get(overrides, :events, ["incident.opened"])
+    }
   end
 end

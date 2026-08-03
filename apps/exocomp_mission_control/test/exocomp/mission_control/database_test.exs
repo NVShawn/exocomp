@@ -8,11 +8,16 @@ defmodule Exocomp.MissionControl.DatabaseTest do
   alias Exocomp.MissionControl.{
     AuditEvent,
     AuditEvents,
+    Identity.Operator,
     OrganizationScopedRecord,
     OrganizationScopedRecords,
     Organizations,
-    Repo
+    Repo,
+    WebhookEndpoint,
+    WebhookEndpoints
   }
+
+  alias Exocomp.MissionControl.WebhookEndpoints.Encryption
 
   if System.get_env("EXOCOMP_RUN_DB_TESTS") == "1" do
     @moduletag :database
@@ -30,6 +35,7 @@ defmodule Exocomp.MissionControl.DatabaseTest do
 
     assert [
              20_260_801_000_400,
+             20_260_801_000_500,
              20_260_801_000_300,
              20_260_801_000_200,
              20_260_801_000_000
@@ -43,7 +49,8 @@ defmodule Exocomp.MissionControl.DatabaseTest do
              20_260_801_000_000,
              20_260_801_000_200,
              20_260_801_000_300,
-             20_260_801_000_400
+             20_260_801_000_400,
+             20_260_801_000_500
            ] = Ecto.Migrator.run(Repo, migration_path, :up, all: true)
 
     Ecto.Adapters.SQL.Sandbox.mode(Repo, :manual)
@@ -223,6 +230,103 @@ defmodule Exocomp.MissionControl.DatabaseTest do
     assert record_id == record.id
   end
 
+  test "webhook configuration persists only encrypted secrets, scopes mutations, and audits changes" do
+    {organization_a, organization_b} = create_organizations()
+    operator_a = admin_for(organization_a)
+    operator_b = admin_for(organization_b)
+    key = :crypto.strong_rand_bytes(32) |> Base.encode64()
+    previous_key = Application.get_env(:exocomp_mission_control, Encryption)
+    Application.put_env(:exocomp_mission_control, Encryption, master_key: key)
+
+    on_exit(fn ->
+      if is_nil(previous_key),
+        do: Application.delete_env(:exocomp_mission_control, Encryption),
+        else: Application.put_env(:exocomp_mission_control, Encryption, previous_key)
+    end)
+
+    assert {:ok, created, creation_secret} =
+             WebhookEndpoints.create(operator_a, organization_a.id, %{
+               "url" => "https://8.8.8.8/webhook",
+               "subscribed_event_types" => ["incident.opened", "incident.resolved"]
+             })
+
+    assert is_binary(creation_secret)
+    assert String.match?(creation_secret, ~r/^[A-Za-z0-9_-]{43}$/)
+
+    assert {:ok, ^creation_secret} =
+             Encryption.decrypt(
+               created.encrypted_secret,
+               created.encrypted_secret_version,
+               webhook_aad(organization_a.id, created.id)
+             )
+
+    assert %WebhookEndpoint{} = stored = Repo.get!(WebhookEndpoint, created.id)
+    refute Map.has_key?(stored, :secret)
+    refute inspect(stored) =~ creation_secret
+
+    assert %{rows: [[url, encrypted_secret]]} =
+             Repo.query!(
+               "SELECT url, encode(encrypted_secret, 'base64') FROM webhook_endpoints WHERE id = $1",
+               [created.id]
+             )
+
+    assert url == "https://8.8.8.8/webhook"
+    refute encrypted_secret =~ creation_secret
+
+    assert {:error, :endpoint_not_found} =
+             WebhookEndpoints.update(operator_b, organization_b.id, created.id, %{
+               "enabled" => false
+             })
+
+    assert {:ok, updated} =
+             WebhookEndpoints.update(operator_a, organization_a.id, created.id, %{
+               "subscribed_event_types" => ["incident.acknowledged"],
+               "enabled" => true
+             })
+
+    assert updated.subscribed_event_types == ["incident.acknowledged"]
+    assert updated.enabled
+    refute inspect(updated) =~ creation_secret
+
+    assert {:ok, disabled} = WebhookEndpoints.disable(operator_a, organization_a.id, created.id)
+    refute disabled.enabled
+
+    assert {:ok, rotated, rotation_secret} =
+             WebhookEndpoints.rotate_secret(operator_a, organization_a.id, created.id)
+
+    refute rotation_secret == creation_secret
+    refute rotated.encrypted_secret == created.encrypted_secret
+
+    assert {:ok, ^rotation_secret} =
+             Encryption.decrypt(
+               rotated.encrypted_secret,
+               rotated.encrypted_secret_version,
+               webhook_aad(organization_a.id, rotated.id)
+             )
+
+    assert {:error, :decryption_failed} =
+             Encryption.decrypt(
+               rotated.encrypted_secret,
+               rotated.encrypted_secret_version,
+               webhook_aad(organization_b.id, rotated.id)
+             )
+
+    for event <- AuditEvents.list(organization_a.id) do
+      refute inspect(event) =~ creation_secret
+      refute inspect(event) =~ rotation_secret
+      refute event.target |> Map.values() |> Enum.member?(creation_secret)
+      refute event.target |> Map.values() |> Enum.member?(rotation_secret)
+    end
+
+    assert [
+             "webhook.endpoint_insert",
+             "webhook.endpoint_update",
+             "webhook.endpoint_disable",
+             "webhook.endpoint_rotate_secret"
+           ] ==
+             AuditEvents.list(organization_a.id) |> Enum.map(& &1.event_type)
+  end
+
   test "tenant examples enforce organization foreign keys and per-organization uniqueness" do
     {organization_a, organization_b} = create_organizations()
 
@@ -249,6 +353,17 @@ defmodule Exocomp.MissionControl.DatabaseTest do
 
     {organization_a, organization_b}
   end
+
+  defp admin_for(organization) do
+    %Operator{
+      sub: "admin-#{organization.slug}",
+      organization_id: organization.id,
+      role: :admin,
+      display_name: "Admin #{organization.name}"
+    }
+  end
+
+  defp webhook_aad(organization_id, endpoint_id), do: organization_id <> "\0" <> endpoint_id
 
   defp errors_on(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn {message, _opts} -> message end)

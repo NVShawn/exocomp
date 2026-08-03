@@ -12,6 +12,12 @@ if config_env() == :prod do
   end
 
   config :exocomp_mission_control, Exocomp.MissionControl.Repo, url: database_url
+
+  # Base64-encoded 32-byte key supplied by the deployment secret store. Webhook
+  # operations fail closed when it is absent or malformed; it is never compiled
+  # into the release or written to application logs.
+  config :exocomp_mission_control, Exocomp.MissionControl.WebhookEndpoints.Encryption,
+    master_key: System.get_env("MISSION_CONTROL_WEBHOOK_MASTER_KEY")
 end
 
 # Release services receive their protected state locations from the rendered

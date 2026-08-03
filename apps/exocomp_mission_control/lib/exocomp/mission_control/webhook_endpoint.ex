@@ -2,120 +2,127 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.WebhookEndpoint do
   @moduledoc """
-  Webhook endpoint configuration with encrypted secret storage.
+  Durable, organization-owned webhook endpoint configuration.
 
-  A webhook endpoint is an HTTPS destination registered by an admin to receive
-  signed events from Mission Control. The endpoint stores:
-
-  - `:id` — unique identifier (UUID v4)
-  - `:organization_id` — organization owner; all queries scope through this
-  - `:url` — HTTPS destination URL, validated and policy-checked
-  - `:subscribed_event_types` — list of event types to deliver
-  - `:enabled` — whether the endpoint actively receives deliveries
-  - `:encrypted_secret` — HMAC secret encrypted with deployment master key
-  - `:secret_digest` — SHA-256 digest of plaintext secret (never used for auth)
-  - `:created_at` — creation timestamp (UTC)
-  - `:updated_at` — last modification timestamp (UTC)
-  - `:creator_operator_sub` — OIDC subject of creating operator (immutable)
-  - `:creator_correlation_id` — correlation ID from creation audit trail
-
-  ## Security properties
-
-  - The plaintext secret is generated with cryptographic randomness (32 bytes
-    = 256 bits of entropy) and returned exactly once at creation. It is never
-    stored in plaintext form.
-  - Encryption uses the configured deployment master key with AES-256-GCM,
-    which provides authenticated encryption and detects tampering.
-  - The secret digest (SHA-256 of plaintext) is stored for verification
-    purposes during delivery signing, but it is not suitable for authentication
-    because attackers know how to compute it. Plaintext comparison uses
-    `:crypto.hash_equals/2` for constant-time verification.
-  - All mission-critical fields (`encrypted_secret`, `secret_digest`,
-    `encrypted_secret_version`) are redacted from Logger, Inspect, crash
-    reports, and error structs.
-  - The creator's identity and correlation ID are immutable, preserving the
-    audit trail.
-  - URL validation rejects non-HTTPS schemes and enforces configured policy
-    (e.g., rejecting private IP ranges, loopback, or link-local addresses).
-
-  ## Redaction
-
-  Secrets and encryption metadata are stripped from Logger output, Inspect
-  output (via `format_status/1`), and crash reports. The endpoint's ID,
-  organization, URL, and event types are safe to log; the secret is not.
-
-  ## Encryption versioning
-
-  The `:encrypted_secret_version` field tracks which master key version was
-  used for encryption. If a key rotation occurs and the version changes,
-  callers should re-encrypt the secret with the new key. For now, a single
-  key version (1) is assumed.
+  The endpoint's HMAC secret is stored only as AES-GCM ciphertext. It is never
+  a field on this schema in plaintext and the ciphertext is excluded from
+  `Inspect` so normal logs, exceptions, and database-debug output cannot expose
+  it. The public context returns the generated plaintext exactly once from
+  creation or rotation; it cannot be recovered by endpoint reads.
   """
 
-  @enforce_keys [
-    :id,
-    :organization_id,
-    :url,
-    :subscribed_event_types,
-    :enabled,
-    :encrypted_secret,
-    :secret_digest,
-    :encrypted_secret_version,
-    :created_at,
-    :updated_at,
-    :creator_operator_sub,
-    :creator_correlation_id
-  ]
+  use Ecto.Schema
 
-  defstruct [
-    :id,
-    :organization_id,
-    :url,
-    :subscribed_event_types,
-    :enabled,
-    :encrypted_secret,
-    :secret_digest,
-    :encrypted_secret_version,
-    :created_at,
-    :updated_at,
-    :creator_operator_sub,
-    :creator_correlation_id
-  ]
+  import Ecto.Changeset
 
-  @type event_type :: String.t()
+  alias Exocomp.MissionControl.Organization
+
+  @derive {Inspect, except: [:encrypted_secret]}
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
+
+  schema "webhook_endpoints" do
+    belongs_to(:organization, Organization)
+    field(:url, :string)
+    field(:subscribed_event_types, {:array, :string})
+    field(:enabled, :boolean, default: true)
+    field(:encrypted_secret, :binary)
+    field(:encrypted_secret_version, :integer)
+    field(:creator_operator_sub, :string)
+    field(:creator_correlation_id, :string)
+
+    timestamps(type: :utc_datetime_usec)
+  end
 
   @type t :: %__MODULE__{
-          id: String.t(),
-          organization_id: String.t(),
-          url: String.t(),
-          subscribed_event_types: [event_type()],
-          enabled: boolean(),
-          encrypted_secret: binary(),
-          secret_digest: binary(),
-          encrypted_secret_version: pos_integer(),
-          created_at: DateTime.t(),
-          updated_at: DateTime.t(),
-          creator_operator_sub: String.t(),
-          creator_correlation_id: String.t()
+          id: Ecto.UUID.t() | nil,
+          organization_id: Ecto.UUID.t() | nil,
+          url: String.t() | nil,
+          subscribed_event_types: [String.t()] | nil,
+          enabled: boolean() | nil,
+          encrypted_secret: binary() | nil,
+          encrypted_secret_version: pos_integer() | nil,
+          creator_operator_sub: String.t() | nil,
+          creator_correlation_id: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t() | nil
         }
 
-  @doc "Redacts sensitive fields from Inspect and crash reports."
-  def format_status(status) when is_map(status) do
-    Map.update(status, :state, %{}, &redact_state/1)
-  end
-
-  defp redact_state(state) when is_map(state) do
-    state
-    |> Map.update(:webhook_endpoint, nil, &redact_endpoint/1)
-  end
-
-  defp redact_state(state), do: state
-
-  defp redact_endpoint(endpoint) when is_struct(endpoint, __MODULE__) do
+  @doc "Builds the insert changeset used only by the webhook context."
+  @spec create_changeset(t(), map()) :: Ecto.Changeset.t()
+  def create_changeset(%__MODULE__{} = endpoint, attrs) when is_map(attrs) do
     endpoint
-    |> Map.put(:encrypted_secret, "[REDACTED]")
-    |> Map.put(:secret_digest, "[REDACTED]")
+    |> cast(attrs, [
+      :organization_id,
+      :url,
+      :subscribed_event_types,
+      :enabled,
+      :encrypted_secret,
+      :encrypted_secret_version,
+      :creator_operator_sub,
+      :creator_correlation_id
+    ])
+    |> validate_required([
+      :organization_id,
+      :url,
+      :subscribed_event_types,
+      :enabled,
+      :encrypted_secret,
+      :encrypted_secret_version,
+      :creator_operator_sub,
+      :creator_correlation_id
+    ])
+    |> validate_length(:url, min: 1, max: 2_048)
+    |> validate_length(:subscribed_event_types, min: 1, max: 64)
+    |> validate_each_event_type()
+    |> validate_length(:creator_operator_sub, min: 1, max: 500)
+    |> validate_length(:creator_correlation_id, min: 1, max: 128)
+    |> validate_number(:encrypted_secret_version, greater_than: 0)
+    |> foreign_key_constraint(:organization_id)
+    |> check_constraint(:subscribed_event_types,
+      name: :webhook_endpoints_subscribed_event_types_not_empty_check
+    )
+    |> check_constraint(:encrypted_secret_version,
+      name: :webhook_endpoints_encrypted_secret_version_check
+    )
   end
 
-  defp redact_endpoint(endpoint), do: endpoint
+  @doc "Builds a whitelist-only configuration update changeset."
+  @spec update_changeset(t(), map()) :: Ecto.Changeset.t()
+  def update_changeset(%__MODULE__{} = endpoint, attrs) when is_map(attrs) do
+    endpoint
+    |> cast(attrs, [:url, :subscribed_event_types, :enabled])
+    |> validate_length(:url, min: 1, max: 2_048)
+    |> validate_length(:subscribed_event_types, min: 1, max: 64)
+    |> validate_each_event_type()
+    |> check_constraint(:subscribed_event_types,
+      name: :webhook_endpoints_subscribed_event_types_not_empty_check
+    )
+  end
+
+  @doc "Builds the secret-only changeset used by rotation."
+  @spec secret_changeset(t(), binary(), pos_integer()) :: Ecto.Changeset.t()
+  def secret_changeset(%__MODULE__{} = endpoint, encrypted_secret, version)
+      when is_binary(encrypted_secret) and is_integer(version) do
+    endpoint
+    |> cast(
+      %{encrypted_secret: encrypted_secret, encrypted_secret_version: version},
+      [:encrypted_secret, :encrypted_secret_version]
+    )
+    |> validate_required([:encrypted_secret, :encrypted_secret_version])
+    |> validate_number(:encrypted_secret_version, greater_than: 0)
+    |> check_constraint(:encrypted_secret_version,
+      name: :webhook_endpoints_encrypted_secret_version_check
+    )
+  end
+
+  defp validate_each_event_type(changeset) do
+    validate_change(changeset, :subscribed_event_types, fn :subscribed_event_types, event_types ->
+      if Enum.all?(event_types, &(is_binary(&1) and byte_size(&1) in 1..200)) do
+        []
+      else
+        [subscribed_event_types: "contains an invalid event type"]
+      end
+    end)
+  end
 end
