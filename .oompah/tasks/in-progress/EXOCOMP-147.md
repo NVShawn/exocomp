@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T22:42:47.405040Z'
+updated_at: '2026-08-03T22:50:38.262111Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -423,5 +423,10 @@ author: oompah
 created: 2026-08-03 22:42
 ---
 Understanding: continuing after standard-profile agent left the branch unclosed at 6e6d6e20. Branch is up to date with origin, rebases cleanly onto origin/epic-EXOCOMP-130 (no-op). Verifying focused test-machine tests, make fmt-check, and make lint pass, then submitting.
+---
+author: oompah
+created: 2026-08-03 22:50
+---
+Discovery: base epic-EXOCOMP-130 (ea1d7208, EXOCOMP-149 tip) has a pre-existing compile error in apps/exocomp_mission_control/lib/exocomp/mission_control/router.ex from EXOCOMP-146: 'forward "/api/v1/clusters/connect", to: ClusterGateway' - the 'to:' keyword is invalid Phoenix.Router syntax. This causes make test/lint/fmt-check to fail globally on the epic tree. It is not a EXOCOMP-147 regression: none of the four files this task changes (connection.ex, session_liveness.ex, connection_test.exs, session_liveness_test.exs) touch router.ex. My branch rebases cleanly onto origin/epic-EXOCOMP-130 (no-op). All focused code changes verified format-clean via mix format --check-formatted on the four touched files. Filing follow-up for the router.ex base bug.
 ---
 <!-- COMMENTS:END -->
