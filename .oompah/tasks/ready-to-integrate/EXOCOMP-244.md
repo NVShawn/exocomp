@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:46:57.624886Z'
+updated_at: '2026-08-03T17:52:20.764899Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
@@ -22,12 +22,15 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-135--task-EXOCOMP-244
+  base_branch: epic-EXOCOMP-135
+  base_sha: 98e26f09ef6da02639714937d8c8007425880e5e
   head_sha: 98e26f09ef6da02639714937d8c8007425880e5e
+  integrated_sha: 98e26f09ef6da02639714937d8c8007425880e5e
   submitted_at: '2026-08-03T17:46:15.160309+00:00'
-  updated_at: '2026-08-03T17:46:15.160309+00:00'
+  updated_at: '2026-08-03T17:52:14.638213+00:00'
 oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 329630ca81cb6a4375db740c9e87c965b0155e6255504d115e419907473f027a
@@ -45,6 +48,28 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-bbbee8a0feef
+    project_id: proj-c260b117
+    task_id: EXOCOMP-244
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 46c2a45a6a16d5d759178ac76a2eba2d96f5ecd60da7abf710696ee87e12e563
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T17:52:19.865849+00:00'
+  attempt_history: []
 ---
 ## Summary
 
