@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T14:59:52.878575Z'
+updated_at: '2026-08-03T15:10:10.106510Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -266,5 +266,10 @@ author: oompah
 created: 2026-08-03 14:59
 ---
 Discovery: the existing branch has a partial webhook implementation, but it has no migration or repository persistence; update/disable/rotate are TODOs returning endpoint_not_found. Its SSRF policy resolves only one IPv4 address and omits IPv6, mixed DNS answers, and special-purpose ranges. I will rebase onto the integrated organization/audit foundation and implement durable scoped storage plus fail-closed destination validation.
+---
+author: oompah
+created: 2026-08-03 15:10
+---
+Implementation: replaced the partial in-memory/TODO context with a durable webhook_endpoints migration and Ecto schema; create, subscription/update, disable, and rotate now use tenant-scoped queries plus atomic endpoint/audit transactions. Secrets use AES-256-GCM with random nonces and endpoint/org AAD, are excluded from Inspect, never enter audit payloads, and are generated/returned only on create or successful rotation. SSRF validation now rejects credentials, private/loopback/link-local/reserved IPv4 and IPv6 addresses, checks every A/AAAA result, and enforces fail-closed configured domain/IP deny rules.
 ---
 <!-- COMMENTS:END -->
