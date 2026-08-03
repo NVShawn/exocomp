@@ -15,7 +15,7 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:28:13.272722Z'
-updated_at: '2026-08-03T15:57:19.192646Z'
+updated_at: '2026-08-03T16:00:02.956810Z'
 work_branch: epic-EXOCOMP-212--task-EXOCOMP-235
 target_branch: null
 review_url: null
@@ -30,22 +30,13 @@ oompah.duplicate_screening:
   verdict: inconclusive
   checked_at: null
   matched_identifiers: []
-  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: inconclusive\n\
-    Matches: none\nEvidence: The supplied corpus does not include the active policy-management\
-    \ peers or dependencies needed for a conclusive comparison. The closest reviewed\
-    \ integration task, EXOCOMP-105, is Archived and therefore excluded as a duplicate\
-    \ target. No repository or tracker changes were made.\nFocus handoff: duplicate_detector\
-    \  \nDuplicate preflight verdict: inconclusive  \nMatches: none  \n\nEvidence:\
-    \ The supplied corpus does not include the active policy-management peers or dependencies\
-    \ needed for a conclusive comparison. The closest reviewed integration task, EXOCOMP-105,\
-    \ is Archived and therefore excluded as a duplicate target. No repository or tracker\
-    \ changes were made."
-  claim_id: null
-  claim_owner: null
-  claimed_at: null
-  claim_expires_at: null
+  evidence: ''
+  claim_id: 44be06fa-09ea-4143-82ed-7f8e6ee6d6d0
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T16:00:01.840501+00:00'
+  claim_expires_at: '2026-08-03T16:30:01.840501+00:00'
   retry_count: 2
-  retry_after: '2026-08-03T15:59:15.318036+00:00'
+  retry_after: null
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
