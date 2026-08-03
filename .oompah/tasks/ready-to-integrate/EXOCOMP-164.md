@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-164
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 2
 title: Build the authenticated LiveView shell and navigation
 parent: EXOCOMP-133
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T19:45:57.306398Z'
+updated_at: '2026-08-03T19:46:11.563341Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -59,12 +59,12 @@ oompah.agent_run_id: 0020328d-4f52-4331-9620-d732622a96cf
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-164
-  base_branch: epic-EXOCOMP-133
-  base_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
-  updated_at: '2026-08-03T18:46:26.316479+00:00'
+  head_sha: 6b07eb2e361922c218cd4d0b568077acc04a779e
+  submitted_at: '2026-08-03T19:46:08.725994+00:00'
+  updated_at: '2026-08-03T19:46:08.725994+00:00'
 oompah.task_costs:
   total_input_tokens: 2245
   total_output_tokens: 12040
@@ -420,5 +420,10 @@ author: oompah
 created: 2026-08-03 19:45
 ---
 Delivered: authenticated LiveView shell wired to app layout across every protected route; Components module with navigation, connectivity/health/severity/status indicators, timestamps, empty state, loading skeleton, error state, timeline, data row, and skip link; RequireRole on_mount for :authenticate/:read/:operate/:administer that redirects unauthenticated to /auth/login and role-denied to /forbidden; error pages for 401/403/404/500. Organization identity is sourced from the server-signed session (never the client params) and preserved across LiveView navigation. Quality gates: 94 focused LiveView tests pass (components_test, navigation_test, require_role_test, authenticated_shell_test); make fmt-check and make lint (compliance-check) both pass at 6b07eb2e.
+---
+author: oompah
+created: 2026-08-03 19:46
+---
+Authenticated LiveView shell + navigation delivered. Each protected LiveView renders through the app layout (skip link, navigation, flash region, role badge, org identity, footer, logout). RequireRole on_mount gates :read/:operate/:administer per role and redirects unauthenticated visitors to /auth/login. Reusable Components module covers connectivity, health, severity, status, timestamps, empty/loading/error states, timelines, data rows, and the keyboard skip link. Bounded /forbidden and /404 pages plus 401/500 error views. Organization identity survives reconnect and cannot be overridden by client params. Focused LiveView tests (94 total) exercise unauthenticated, viewer, operator, and admin navigation plus accessibility landmarks. make fmt-check and make lint pass.
 ---
 <!-- COMMENTS:END -->
