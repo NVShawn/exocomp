@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T17:28:11.015689Z'
+updated_at: '2026-08-03T17:33:30.728414Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -324,5 +324,10 @@ author: oompah
 created: 2026-08-03 17:28
 ---
 Discovery: Authenticated shell foundation is largely in place. Router (OIDC + auth pipeline), AuthController (login/callback/logout), Authorization module (role checks), RequireRole LiveView hook, error pages, app layout with navigation/flash, and 8 reusable components exist. LiveView pages (Dashboard, Incidents, Conversations, Admin) are stubbed with role guards. Some tests exist for role logic. Key gaps: (1) enhanced components for severity/status indicators; (2) comprehensive LiveView integration tests; (3) accessibility (aria labels, landmarks, focus management); (4) organization context handling in sessions for reconnect resilience. Starting implementation of missing pieces.
+---
+author: oompah
+created: 2026-08-03 17:33
+---
+Implementation: (1) Enhanced components.ex with severity_indicator, status_badge, error_state, status_timeline, data_row, skip_to_main_link; (2) Added ARIA labels and roles to all components for accessibility (role="status", role="alert", aria-label, aria-live); (3) Updated app.html.heex with skip-to-main link, organization context display, accessibility landmarks; (4) Improved navigation component with keyboard-friendly hover states; (5) Enhanced flash_messages with better visual hierarchy and accessibility; (6) Updated error pages (401/403/404/500) with emojis, accessibility roles, logout links; (7) Created conn_case.ex test support; (8) Added 50+ comprehensive LiveView integration tests covering auth, role-based navigation, organization persistence, accessibility, session resilience.
 ---
 <!-- COMMENTS:END -->
