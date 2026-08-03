@@ -184,8 +184,15 @@ defmodule Exocomp.Coordinator.Application do
       [name: enrollment_name, store_path: store_path, audit_server: audit_name]
       |> Keyword.merge(Keyword.get(opts, :enrollment_token_opts, []))
 
+    invitation_store_path =
+      Keyword.get(
+        opts,
+        :cluster_invitation_store_path,
+        Path.join(Path.dirname(metadata.online_state), "cluster-invitations")
+      )
+
     invitation_opts =
-      [name: invitation_name, store_path: Keyword.get(opts, :cluster_invitation_store_path)]
+      [name: invitation_name, store_path: invitation_store_path, audit_server: audit_name]
       |> Keyword.merge(Keyword.get(opts, :cluster_invitation_opts, []))
 
     audit_opts =

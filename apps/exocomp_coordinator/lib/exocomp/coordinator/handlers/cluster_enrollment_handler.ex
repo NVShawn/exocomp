@@ -15,14 +15,17 @@ defmodule Exocomp.Coordinator.Handlers.ClusterEnrollmentHandler do
       {
         "organization_id": "<org-id>",
         "cluster_id": "<cluster-id>",
-        "invitation": "<inv_...>",
+        "invitation": "<cinv_...>",
         "csr": "<PEM-encoded CSR>"
       }
 
   ## Response
 
       200 OK
-      {"chain_pem": "<PEM-encoded leaf + intermediate chain>"}
+      {
+        "chain_pem": "<PEM-encoded leaf + intermediate chain>",
+        "certificate": {"serial": "<serial>", "sha256": "<fingerprint>", ...}
+      }
 
   ## Fail-closed behavior
 
@@ -30,11 +33,11 @@ defmodule Exocomp.Coordinator.Handlers.ClusterEnrollmentHandler do
   - Invitation not found, expired, already consumed, or bound to different org/cluster: 401
   - Invalid CSR (bad format, wrong SPIFFE URI, prohibited key usage, etc.): 422
   - PKI or invitation service unavailable: 503
-  - Audit write failure (invitation consumed but cert cannot be issued): 503
+  - Certificate-metadata audit failure: 503
 
-  The invitation is consumed atomically before certificate issuance.
-  If issuance fails after consumption the invitation cannot be replayed; the cluster
-  must obtain a new invitation.
+  The CSR is validated before the invitation is consumed. Consumption then atomically
+  checks both organization and cluster binding. If signing fails after consumption,
+  the invitation cannot be replayed; the cluster must obtain a new invitation.
   """
 
   @behaviour Plug
@@ -43,7 +46,7 @@ defmodule Exocomp.Coordinator.Handlers.ClusterEnrollmentHandler do
 
   require Logger
 
-  alias Exocomp.Coordinator.{ClusterInvitation, Error}
+  alias Exocomp.Coordinator.{Audit, ClusterInvitationStore, Error}
   alias Exocomp.Coordinator.PKI.{ClusterIssuer, State}
 
   @max_body_bytes 65_536
@@ -52,17 +55,20 @@ defmodule Exocomp.Coordinator.Handlers.ClusterEnrollmentHandler do
   def init(opts), do: opts
 
   @impl true
-  def call(conn, _opts) do
+  def call(conn, opts) do
     with {:ok, conn, params} <- parse_json_body(conn),
          {:ok, organization_id} <- require_field(params, "organization_id"),
          {:ok, cluster_id} <- require_field(params, "cluster_id"),
          {:ok, invitation} <- require_field(params, "invitation"),
          {:ok, csr_pem} <- require_field(params, "csr"),
-         {:ok, online_state} <- pki_online_state(),
-         :ok <- consume_invitation(invitation, organization_id, cluster_id),
+         {:ok, online_state} <- pki_online_state(opts),
          {:ok, csr} <- validate_csr(csr_pem, organization_id, cluster_id),
-         {:ok, chain_pem} <- issue_leaf(csr, organization_id, cluster_id, online_state) do
-      json_response(conn, 200, %{"chain_pem" => chain_pem})
+         {:ok, _consumed_invitation} <-
+           consume_invitation(invitation, organization_id, cluster_id, opts),
+         {:ok, chain_pem} <- issue_leaf(csr, organization_id, cluster_id, online_state),
+         {:ok, certificate} <- ClusterIssuer.certificate_metadata(chain_pem),
+         :ok <- persist_certificate_metadata(organization_id, cluster_id, certificate, opts) do
+      json_response(conn, 200, %{"chain_pem" => chain_pem, "certificate" => certificate})
     else
       {:halt, conn} ->
         conn
@@ -78,10 +84,11 @@ defmodule Exocomp.Coordinator.Handlers.ClusterEnrollmentHandler do
 
       {:error, %Error{code: code}}
       when code in [
+             :invalid_invitation_format,
              :invitation_not_found,
              :invitation_expired,
-             :invitation_org_mismatch,
-             :invitation_cluster_mismatch,
+             :organization_mismatch,
+             :cluster_mismatch,
              :invitation_already_consumed
            ] ->
         conn
@@ -140,34 +147,27 @@ defmodule Exocomp.Coordinator.Handlers.ClusterEnrollmentHandler do
 
   # ── PKI state lookup ──────────────────────────────────────────────────────
 
-  defp pki_online_state do
-    if Process.whereis(State) do
-      try do
-        case State.status() do
-          %{healthy: true, online_state: path} when is_binary(path) -> {:ok, path}
-          _other -> {:error, :pki_unavailable}
-        end
-      catch
-        :exit, _reason -> {:error, :pki_unavailable}
+  defp pki_online_state(opts) do
+    try do
+      case State.status(Keyword.get(opts, :pki_state, State)) do
+        %{healthy: true, online_state: path} when is_binary(path) -> {:ok, path}
+        _other -> {:error, :pki_unavailable}
       end
-    else
-      {:error, :pki_unavailable}
+    catch
+      :exit, _reason -> {:error, :pki_unavailable}
     end
   end
 
   # ── Cluster invitation consumption ────────────────────────────────────────
 
-  defp consume_invitation(invitation, organization_id, cluster_id) do
-    if Process.whereis(ClusterInvitation) do
-      try do
-        ClusterInvitation.consume(invitation, organization_id, cluster_id)
-      catch
-        :exit, _reason ->
-          {:error,
-           Error.new(:invitation_service_unavailable, "invitation service is unavailable")}
-      end
-    else
-      {:error, Error.new(:invitation_service_unavailable, "invitation service is unavailable")}
+  defp consume_invitation(invitation, organization_id, cluster_id, opts) do
+    try do
+      ClusterInvitationStore.consume(invitation, organization_id, cluster_id,
+        server: Keyword.get(opts, :cluster_invitation_store, ClusterInvitationStore)
+      )
+    catch
+      :exit, _reason ->
+        {:error, Error.new(:invitation_service_unavailable, "invitation service is unavailable")}
     end
   end
 
@@ -179,6 +179,23 @@ defmodule Exocomp.Coordinator.Handlers.ClusterEnrollmentHandler do
 
   defp issue_leaf(csr, organization_id, cluster_id, online_state) do
     ClusterIssuer.issue_leaf(csr, organization_id, cluster_id, online_state)
+  end
+
+  defp persist_certificate_metadata(organization_id, cluster_id, certificate, opts) do
+    Audit.emit(
+      :cluster_certificate_issued,
+      %{
+        organization_id: organization_id,
+        cluster_id: cluster_id,
+        certificate_serial: certificate.serial,
+        certificate_sha256: certificate.sha256,
+        certificate_not_after: certificate.not_after
+      },
+      server: Keyword.get(opts, :audit_server, Audit)
+    )
+  catch
+    :exit, _reason ->
+      {:error, Error.new(:audit_unavailable, "certificate metadata could not be persisted")}
   end
 
   # ── Response helpers ──────────────────────────────────────────────────────

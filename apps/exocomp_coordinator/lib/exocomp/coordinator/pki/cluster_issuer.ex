@@ -104,6 +104,30 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
   def issue_leaf(_csr, _organization_id, _cluster_id, _online_state, _options),
     do: issuance_error()
 
+  @doc "Extracts non-secret leaf-certificate metadata for durable enrollment records."
+  @spec certificate_metadata(binary()) :: {:ok, map()} | {:error, Error.t()}
+  def certificate_metadata(chain_pem) when is_binary(chain_pem) do
+    with [{:Certificate, leaf_der, _} | _] <- :public_key.pem_decode(chain_pem),
+         {:ok, leaf} <- X509.Certificate.from_der(leaf_der),
+         {:Validity, _not_before, not_after} <- X509.Certificate.validity(leaf),
+         serial when is_integer(serial) <- X509.Certificate.serial(leaf) do
+      {:ok,
+       %{
+         serial: Integer.to_string(serial),
+         sha256: :crypto.hash(:sha256, leaf_der) |> Base.encode16(case: :lower),
+         not_after: not_after |> X509.DateTime.to_datetime() |> DateTime.to_iso8601()
+       }}
+    else
+      _ -> issuance_error()
+    end
+  rescue
+    _exception -> issuance_error()
+  catch
+    _kind, _reason -> issuance_error()
+  end
+
+  def certificate_metadata(_chain_pem), do: issuance_error()
+
   # ---------------------------------------------------------------------------
   # CSR Validation
   # ---------------------------------------------------------------------------
@@ -134,13 +158,12 @@ defmodule Exocomp.Coordinator.PKI.ClusterIssuer do
   defp validate_spiffe_uri(extensions, expected_uri) do
     case extensions_for(extensions, @subject_alt_name_oid) do
       [{:Extension, @subject_alt_name_oid, _critical, san_values}] ->
-        # Look for URI SAN
-        case Enum.find(san_values, fn
-               {:uniformResourceIdentifier, uri} -> uri == expected_uri
-               _ -> false
-             end) do
-          {:uniformResourceIdentifier, ^expected_uri} -> :ok
-          nil -> invalid_csr("CSR SPIFFE URI SAN does not match expected identity")
+        uris =
+          for {:uniformResourceIdentifier, uri} <- san_values, do: uri
+
+        case uris do
+          [^expected_uri] -> :ok
+          [] -> invalid_csr("CSR SPIFFE URI SAN does not match expected identity")
           _ -> invalid_csr("CSR must contain exactly one SPIFFE URI SAN")
         end
 

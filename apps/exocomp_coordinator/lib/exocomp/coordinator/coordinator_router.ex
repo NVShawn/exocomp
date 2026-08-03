@@ -48,8 +48,8 @@ defmodule Exocomp.Coordinator.CoordinatorRouter do
     ClusterInvitationHandler.call(conn, ClusterInvitationHandler.init(router_opts(opts)))
   end
 
-  def call(%Plug.Conn{method: "POST", path_info: ["api", "v1", "clusters", "enroll"]} = conn, _opts) do
-    ClusterEnrollmentHandler.call(conn, ClusterEnrollmentHandler.init([]))
+  def call(%Plug.Conn{method: "POST", path_info: ["api", "v1", "clusters", "enroll"]} = conn, opts) do
+    ClusterEnrollmentHandler.call(conn, ClusterEnrollmentHandler.init(router_opts(opts)))
   end
 
   def call(conn, opts) do
