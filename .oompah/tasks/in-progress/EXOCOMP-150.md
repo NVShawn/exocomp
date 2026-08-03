@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T20:57:39.390808Z'
+updated_at: '2026-08-03T21:22:28.692897Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -221,5 +221,10 @@ author: oompah
 created: 2026-08-03 20:57
 ---
 Understanding: Implement a durable command outbox in Mission Control to persist server-to-cluster commands and deliver them reliably. Need to: (1) create a database schema for command outbox (ID, kind, issued_at, expires_at, org, cluster, payload), (2) implement delivery logic to route commands to the owning replica, (3) track acknowledgments exactly-once, (4) expire undelivered commands without marking as executed, (5) ensure commands survive process restart. Will focus on command-outbox tests, Makefile quality gates. Plan: explore existing code patterns in coordinator and mission_control, check plans/mission-control.md for protocol details, then implement outbox table/queries and delivery logic.
+---
+author: oompah
+created: 2026-08-03 21:22
+---
+Discovery: Command outbox implementation is complete with Command schema, CommandOutbox module, SessionRegistry, database migration, and comprehensive tests. Found unreachable clause in acknowledgement_result causing type warning. Removing that clause to clean up type checking. Tests: 511 passed. Format check: passed.
 ---
 <!-- COMMENTS:END -->
