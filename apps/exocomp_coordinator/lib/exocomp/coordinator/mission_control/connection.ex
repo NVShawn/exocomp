@@ -18,6 +18,9 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
 
   import Bitwise
 
+  alias Exocomp.Coordinator.Config
+  alias Exocomp.Coordinator.MissionControl.WebSocket
+
   @default_heartbeat_interval_ms 30_000
   @default_stable_after_ms 90_000
   @default_min_backoff_ms 1_000
@@ -27,9 +30,11 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
   @type status :: :connecting | :connected | :disconnected
 
   @type option ::
-          {:name, GenServer.name()}
+          {:config, Config.MissionControl.t()}
+          | {:name, GenServer.name()}
           | {:connect_fn, (-> {:ok, session()} | {:error, term()})}
           | {:send_fn, (session(), map() -> :ok | {:ok, term()} | {:error, term()})}
+          | {:close_fn, (session() -> term())}
           | {:heartbeat_fn, (-> map())}
           | {:random_fn, (integer(), integer() -> integer())}
           | {:schedule_fn, (term(), non_neg_integer() -> reference())}
@@ -50,6 +55,10 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
   @spec status(GenServer.server()) :: map()
   def status(server \\ __MODULE__), do: GenServer.call(server, :status)
 
+  @doc "Returns the current connection status."
+  @spec connection_status(GenServer.server()) :: status()
+  def connection_status(server \\ __MODULE__), do: GenServer.call(server, :connection_status)
+
   @doc "Starts an asynchronous connection attempt when no session is active."
   @spec connect_now(GenServer.server()) :: :ok
   def connect_now(server \\ __MODULE__), do: GenServer.call(server, :connect_now)
@@ -67,19 +76,37 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
 
   @impl true
   def init(opts) do
+    config = Keyword.get(opts, :config)
+
     state = %{
-      connect_fn: Keyword.get(opts, :connect_fn, fn -> {:error, :not_configured} end),
-      send_fn: Keyword.get(opts, :send_fn, fn _session, _event -> {:error, :not_configured} end),
+      config: config,
+      connect_fn: Keyword.get(opts, :connect_fn, default_connect_fn(config)),
+      send_fn: Keyword.get(opts, :send_fn, &default_send/2),
+      close_fn: Keyword.get(opts, :close_fn, &default_close/1),
       heartbeat_fn: Keyword.get(opts, :heartbeat_fn, &default_heartbeat/0),
       random_fn: Keyword.get(opts, :random_fn, &random_between/2),
       schedule_fn: Keyword.get(opts, :schedule_fn, &schedule_timer/2),
       cancel_timer_fn: Keyword.get(opts, :cancel_timer_fn, &cancel_timer/1),
       now_fn: Keyword.get(opts, :now_fn, &monotonic_ms/0),
       heartbeat_interval_ms:
-        positive_option(opts, :heartbeat_interval_ms, @default_heartbeat_interval_ms),
+        positive_option(
+          opts,
+          :heartbeat_interval_ms,
+          config_interval(config, :heartbeat_interval_seconds, @default_heartbeat_interval_ms)
+        ),
       stable_after_ms: positive_option(opts, :stable_after_ms, @default_stable_after_ms),
-      min_backoff_ms: positive_option(opts, :min_backoff_ms, @default_min_backoff_ms),
-      max_backoff_ms: positive_option(opts, :max_backoff_ms, @default_max_backoff_ms),
+      min_backoff_ms:
+        positive_option(
+          opts,
+          :min_backoff_ms,
+          config_interval(config, :reconnect_min_backoff_seconds, @default_min_backoff_ms)
+        ),
+      max_backoff_ms:
+        positive_option(
+          opts,
+          :max_backoff_ms,
+          config_interval(config, :reconnect_max_backoff_seconds, @default_max_backoff_ms)
+        ),
       status: :disconnected,
       session: nil,
       session_monitor_ref: nil,
@@ -110,6 +137,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
 
   @impl true
   def handle_call(:status, _from, state), do: {:reply, public_status(state), state}
+  def handle_call(:connection_status, _from, state), do: {:reply, state.status, state}
 
   def handle_call(:connect_now, _from, state) do
     {:reply, :ok, start_connect(state)}
@@ -181,6 +209,8 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
     |> clear_session_monitor()
     |> clear_connect_worker()
 
+    _ = safely(fn -> state.close_fn.(state.session) end)
+
     :ok
   end
 
@@ -242,7 +272,7 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
       event ->
         case safely(fn -> state.send_fn.(session, event) end) do
           :ok -> schedule_heartbeat(state)
-          {:ok, _value} -> schedule_heartbeat(state)
+          {:ok, updated_session} -> %{state | session: updated_session} |> schedule_heartbeat()
           {:error, reason} -> lose_connection({:heartbeat_failed, reason}, state)
           other -> lose_connection({:invalid_heartbeat_result, other}, state)
         end
@@ -400,6 +430,35 @@ defmodule Exocomp.Coordinator.MissionControl.Connection do
   end
 
   defp default_heartbeat, do: %{schema_version: 1, kind: "cluster.heartbeat"}
+
+  defp default_connect_fn(%Config.MissionControl{} = config) do
+    fn ->
+      WebSocket.connect(
+        endpoint: config.url,
+        ca_cert: config.trust_root,
+        client_cert: config.client_cert,
+        client_key: config.client_key
+      )
+    end
+  end
+
+  defp default_connect_fn(_config), do: fn -> {:error, :not_configured} end
+
+  defp default_send(%WebSocket{} = session, event), do: WebSocket.send_text(session, event)
+  defp default_send(_session, _event), do: {:error, :invalid_session}
+
+  defp default_close(%WebSocket{} = session), do: WebSocket.close(session)
+  defp default_close(_session), do: :ok
+
+  defp config_interval(%Config.MissionControl{} = config, field, default) do
+    case Map.get(config, field) do
+      value when is_integer(value) and value > 0 -> value * 1_000
+      _other -> default
+    end
+  end
+
+  defp config_interval(_config, _field, default), do: default
+
   defp monotonic_ms, do: System.monotonic_time(:millisecond)
   defp schedule_timer(message, delay), do: Process.send_after(self(), message, delay)
   defp cancel_timer(timer_ref), do: Process.cancel_timer(timer_ref)

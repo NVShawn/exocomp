@@ -3,7 +3,41 @@
 defmodule Exocomp.Coordinator.MissionControl.ConnectionTest do
   use ExUnit.Case, async: false
 
+  alias Exocomp.Coordinator.Config
   alias Exocomp.Coordinator.MissionControl.Connection
+
+  test "uses the parent Mission Control config for transport timing and status" do
+    owner = self()
+
+    config = %Config.MissionControl{
+      enabled: true,
+      url: "wss://mission-control.example.com:443",
+      trust_root: "/tmp/ca.crt",
+      client_cert: "/tmp/client.crt",
+      client_key: "/tmp/client.key",
+      heartbeat_interval_seconds: 47,
+      reconnect_min_backoff_seconds: 2,
+      reconnect_max_backoff_seconds: 6,
+      outbox_path: "/tmp/outbox"
+    }
+
+    connection =
+      start_connection(
+        config: config,
+        random_fn: fn lower, upper ->
+          send(owner, {:random_bounds, lower, upper})
+          upper
+        end
+      )
+
+    assert :ok = Connection.authenticated(:session, connection)
+    assert_receive {:timer_scheduled, {:heartbeat, _generation}, 47_000}
+    assert :connected = Connection.connection_status(connection)
+
+    assert :ok = Connection.disconnected(:transport_closed, connection)
+    assert_receive {:random_bounds, 0, 2_000}
+    assert_receive {:timer_scheduled, {:reconnect, _generation}, 2_000}
+  end
 
   test "sends one heartbeat per cadence and ignores a cancelled heartbeat timer" do
     owner = self()
