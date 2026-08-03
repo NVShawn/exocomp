@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T22:23:20.863117Z'
+updated_at: '2026-08-03T22:23:53.759280Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -63,12 +63,17 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: integrated
+  attempts: 1
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-150
+  base_branch: epic-EXOCOMP-130
+  base_sha: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
   head_sha: 98347b38599081cdd1500fca4cdeb3411078b462
+  integrated_sha: 98347b38599081cdd1500fca4cdeb3411078b462
   submitted_at: '2026-08-03T22:22:41.802803+00:00'
-  updated_at: '2026-08-03T22:22:41.802803+00:00'
+  updated_at: '2026-08-03T22:23:46.319932+00:00'
+  dependency_heads:
+    EXOCOMP-146: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
 oompah.task_costs:
   total_input_tokens: 13920972
   total_output_tokens: 54228
@@ -111,6 +116,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-150
     source_sha: 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef
     completed_at: '2026-08-01T12:26:02.852468+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-23e9dc9c733e
+    project_id: proj-c260b117
+    task_id: EXOCOMP-150
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: b13442f1691b9be7560a2c6934f5647c252f90f590e04e7d1a6e61e0ecd588d9
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T22:23:49.743298+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -347,5 +374,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 3m 16s
 - Log: EXOCOMP-150__20260803T222015Z.jsonl
+---
+author: oompah
+created: 2026-08-03 22:23
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
