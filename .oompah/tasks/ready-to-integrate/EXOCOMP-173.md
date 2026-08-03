@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T16:34:34.292293Z'
+updated_at: '2026-08-03T16:34:46.650833Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -51,12 +51,12 @@ oompah.agent_run_id: a44485fd-43ee-4e27-bfa5-595eef7cceda
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-173
-  base_branch: epic-EXOCOMP-134
-  base_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
-  updated_at: '2026-08-03T16:09:37.099608+00:00'
+  head_sha: fb5673e4da33054442e6ace089194af5103fdae7
+  submitted_at: '2026-08-03T16:34:43.364745+00:00'
+  updated_at: '2026-08-03T16:34:43.364745+00:00'
 oompah.task_costs:
   total_input_tokens: 420441
   total_output_tokens: 3637
@@ -249,5 +249,21 @@ Deliverables verified:
 - Terminal failure: 4xx (except 429) immediately; any status after 24h from event receipt
 - Replay: new attempt using retained body_json (byte-identical); admin role required
 - Tests cover all 11 acceptance scenarios from the task spec
+---
+author: oompah
+created: 2026-08-03 16:34
+---
+Delivered durable webhook event signing, delivery, retry, and replay at fb5673e4.
+
+Added:
+- WebhookEvent schema (binary_id PK, org-scoped unique event_id, body_json for byte-identical delivery)
+- WebhookAttempt schema (binary_id PK, delivery_timestamp, 3-arity terminal_failure?/3 anchored to event.inserted_at)
+- Migration 20260801000600 (webhook_events + webhook_attempts tables, uniqueness index, partial pending index)
+- WebhookEvents context: dispatch, replay, list_events, get_event_with_attempts, due_retries, process_attempt
+- HMAC-SHA256 signing via existing Signer module with sha256= prefix header
+- Jittered exponential backoff (2^(n-1)s capped at 3600s), 24h window from event.inserted_at
+- Secret decryption via WebhookEndpoints.Encryption with correct AAD
+- Deleted duplicate webhook.ex (replaced by WebhookEndpoint from EXOCOMP-172)
+- Tests (webhook_events_test.exs, DataCase, FakeHttpAdapter via persistent_term): all 11 acceptance scenarios covered
 ---
 <!-- COMMENTS:END -->
