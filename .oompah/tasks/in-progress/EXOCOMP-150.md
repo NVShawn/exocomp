@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T21:22:28.692897Z'
+updated_at: '2026-08-03T21:28:27.377894Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -226,5 +226,10 @@ author: oompah
 created: 2026-08-03 21:22
 ---
 Discovery: Command outbox implementation is complete with Command schema, CommandOutbox module, SessionRegistry, database migration, and comprehensive tests. Found unreachable clause in acknowledgement_result causing type warning. Removing that clause to clean up type checking. Tests: 511 passed. Format check: passed.
+---
+author: oompah
+created: 2026-08-03 21:28
+---
+Implementation verified: (1) Durable command outbox schema with command_id, kind, issued_at, expires_at, organization_id, cluster_id, payload, status. (2) SessionRegistry tracks active cluster sessions for replica-aware delivery. (3) CommandOutbox.deliver_registered() routes to owning replica. (4) Acknowledge() provides exactly-once semantics via database state transition. (5) Expire() marks undelivered commands terminal. (6) Tests: reconnect, duplicate ack, expiration, ownership change, invalid kind, rollback. All 511 tests passing. Format: passed. Code quality: improved by removing unreachable clause. Ready to integrate.
 ---
 <!-- COMMENTS:END -->
