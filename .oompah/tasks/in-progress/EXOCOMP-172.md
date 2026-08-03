@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T14:59:01.649043Z'
+updated_at: '2026-08-03T14:59:21.239248Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -256,5 +256,10 @@ author: oompah
 created: 2026-08-03 14:59
 ---
 Focus: Security Auditor
+---
+author: oompah
+created: 2026-08-03 14:59
+---
+Understanding: I will add organization-scoped webhook endpoint persistence and admin-only context operations, with authenticated encryption, strict HTTPS/private-network destination policy, secret-once behavior, rotation, and isolation coverage.
 ---
 <!-- COMMENTS:END -->
