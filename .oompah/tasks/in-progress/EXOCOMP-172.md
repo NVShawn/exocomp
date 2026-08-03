@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T14:59:21.239248Z'
+updated_at: '2026-08-03T14:59:52.878575Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -261,5 +261,10 @@ author: oompah
 created: 2026-08-03 14:59
 ---
 Understanding: I will add organization-scoped webhook endpoint persistence and admin-only context operations, with authenticated encryption, strict HTTPS/private-network destination policy, secret-once behavior, rotation, and isolation coverage.
+---
+author: oompah
+created: 2026-08-03 14:59
+---
+Discovery: the existing branch has a partial webhook implementation, but it has no migration or repository persistence; update/disable/rotate are TODOs returning endpoint_not_found. Its SSRF policy resolves only one IPv4 address and omits IPv6, mixed DNS answers, and special-purpose ranges. I will rebase onto the integrated organization/audit foundation and implement durable scoped storage plus fail-closed destination validation.
 ---
 <!-- COMMENTS:END -->
