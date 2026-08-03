@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:38:08.180746Z'
+updated_at: '2026-08-03T14:38:21.025474Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -239,18 +239,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-171
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 4cafedb8469ba8f8a5cbe949611b353ea9c66e4e37221c08a5c70d9a9239cb8d
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-063b06bd6540
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 4cafedb8469ba8f8a5cbe949611b353ea9c66e4e37221c08a5c70d9a9239cb8d
+      created_at: '2026-08-03T14:38:16.892244+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T14:38:16.892244+00:00'
+      branch_key: epic-EXOCOMP-134--task-EXOCOMP-171
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T14:38:06.057340+00:00'
+    updated_at: '2026-08-03T14:38:16.892244+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-180165c919ab
@@ -310,6 +324,19 @@ oompah.terminal_audit:
       auditor capability policy denied a mutating or compound shell command; auditors
       cannot edit, commit, push, merge, or change state'
     next_retry_at: '2026-08-03T14:13:14.399047+00:00'
+  - version: 1
+    attempt_id: attempt-063b06bd6540
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 4cafedb8469ba8f8a5cbe949611b353ea9c66e4e37221c08a5c70d9a9239cb8d
+    created_at: '2026-08-03T14:38:16.892244+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T14:38:16.892244+00:00'
+    branch_key: epic-EXOCOMP-134--task-EXOCOMP-171
 ---
 ## Summary
 
@@ -623,5 +650,15 @@ author: oompah
 created: 2026-08-03 14:37
 ---
 Resubmitted unchanged repaired head f1e60cb4 from the canonical managed worktree after relocating the temporary owner checkout.
+---
+author: oompah
+created: 2026-08-03 14:38
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 14:38
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
