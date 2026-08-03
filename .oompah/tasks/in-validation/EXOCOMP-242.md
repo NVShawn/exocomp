@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:52:50.761035Z'
+updated_at: '2026-08-03T18:53:28.601777Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -132,7 +132,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-242
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -157,13 +157,27 @@ oompah.terminal_audit:
         auditor capability policy permits only read-only repository inspection and
         configured test commands; command denied'
       next_retry_at: '2026-08-03T18:52:45.896869+00:00'
+    - version: 1
+      attempt_id: attempt-61d980e1f759
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+      created_at: '2026-08-03T18:53:20.274838+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-03T18:53:20.274838+00:00'
+      branch_key: EXOCOMP-242
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T18:43:24.846732+00:00'
-    updated_at: '2026-08-03T18:52:35.896904+00:00'
+    updated_at: '2026-08-03T18:53:20.274838+00:00'
   - version: 1
     audit_id: audit-abb6b25c4ecf
     project_id: proj-c260b117
@@ -201,6 +215,20 @@ oompah.terminal_audit:
       auditor capability policy permits only read-only repository inspection and configured
       test commands; command denied'
     next_retry_at: '2026-08-03T18:52:45.896869+00:00'
+  - version: 1
+    attempt_id: attempt-61d980e1f759
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    created_at: '2026-08-03T18:53:20.274838+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-03T18:53:20.274838+00:00'
+    branch_key: EXOCOMP-242
+    candidate_rotation_count: 1
 ---
 ## Summary
 
@@ -390,5 +418,15 @@ author: oompah
 created: 2026-08-03 18:52
 ---
 Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
+---
+author: oompah
+created: 2026-08-03 18:53
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-03 18:53
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
