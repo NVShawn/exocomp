@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:58:12.588352Z'
+updated_at: '2026-08-03T14:58:35.629260Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -29,8 +29,8 @@ oompah.integration:
   base_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
   updated_at: '2026-08-03T14:42:14.926035+00:00'
 oompah.task_costs:
-  total_input_tokens: 220
-  total_output_tokens: 11833
+  total_input_tokens: 266
+  total_output_tokens: 11849
   total_cost_usd: 0.0
   by_model:
     sonnet:
@@ -42,8 +42,8 @@ oompah.task_costs:
       output_tokens: 1471
       cost_usd: 0.0
     unknown:
-      input_tokens: 194
-      output_tokens: 6571
+      input_tokens: 240
+      output_tokens: 6587
       cost_usd: 0.0
   runs:
   - profile: standard
@@ -64,6 +64,12 @@ oompah.task_costs:
     output_tokens: 6571
     cost_usd: 0.0
     recorded_at: '2026-08-03T14:56:44.028862+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 46
+    output_tokens: 16
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T14:58:33.313149+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-240__20260803T143640Z
@@ -412,5 +418,15 @@ created: 2026-08-03 14:58
 Override by oompah-cli: terminal transition to Merged applied by project owner.
 
 Reason: Operator independently verified the Merged maintenance transition after Audit PASS for Done. The auditor confirmed exact local/remote tip 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc, origin/main base 4e01311060eee5be3c1d18d86d809f4007664497, 0 behind/5 ahead, clean worktree, intact five-commit patch series, and git diff --check pass. A second audit adds no new delivery evidence; OOMPAH-721 and OOMPAH-722 track the scheduler/preflight and read-only command defects encountered by these maintenance tasks.
+---
+author: oompah
+created: 2026-08-03 14:58
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/haiku]
+- Turns: 0, Tool calls: 2
+- Tokens: 46 in / 16 out [62 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 1m 46s
+- Log: EXOCOMP-240__20260803T145651Z.jsonl
 ---
 <!-- COMMENTS:END -->
