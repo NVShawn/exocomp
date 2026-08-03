@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T19:44:34.330118Z'
+updated_at: '2026-08-03T19:45:57.306398Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -415,5 +415,10 @@ author: oompah
 created: 2026-08-03 19:44
 ---
 Implementation completed. Fixed lint warnings (HEEx variable use, unused matches, unreachable clause). Added Phoenix LiveView 1.x layout wiring (use Phoenix.LiveView, layout: {Layouts, :app}), LiveView signing_salt in config/config.exs, lazy_html test dependency with THIRD_PARTY_NOTICES and licenses/components.toml entries. Simplified error_state truthy check. Made connectivity_indicator emit proper titlecase labels. Replaced broken authenticated_shell_integration_test.exs (used undefined conn/2 helper) with a compiling, end-to-end navigation_test.exs that boots the endpoint and asserts every acceptance criterion. Added require_role_test.exs for unit coverage of the on_mount hook. Fixed authenticated_shell_test.exs (removed missing doctest, corrected invalid role comparison assertion). Total: 94 focused LiveView tests all pass. make fmt-check and make lint both pass.
+---
+author: oompah
+created: 2026-08-03 19:45
+---
+Delivered: authenticated LiveView shell wired to app layout across every protected route; Components module with navigation, connectivity/health/severity/status indicators, timestamps, empty state, loading skeleton, error state, timeline, data row, and skip link; RequireRole on_mount for :authenticate/:read/:operate/:administer that redirects unauthenticated to /auth/login and role-denied to /forbidden; error pages for 401/403/404/500. Organization identity is sourced from the server-signed session (never the client params) and preserved across LiveView navigation. Quality gates: 94 focused LiveView tests pass (components_test, navigation_test, require_role_test, authenticated_shell_test); make fmt-check and make lint (compliance-check) both pass at 6b07eb2e.
 ---
 <!-- COMMENTS:END -->
