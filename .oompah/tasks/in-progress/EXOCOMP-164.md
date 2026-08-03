@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:55.693389Z'
-updated_at: '2026-08-03T17:11:55.234293Z'
+updated_at: '2026-08-03T17:12:04.988671Z'
 work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 target_branch: null
 review_url: null
@@ -59,17 +59,12 @@ oompah.agent_run_id: 0a99a215-466f-47af-a6f1-0cf981bf0eec
 oompah.work_branch: epic-EXOCOMP-133--task-EXOCOMP-164
 oompah.integration:
   version: 2
-  state: blocked
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-133--task-EXOCOMP-164
   base_branch: epic-EXOCOMP-133
   base_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
-  head_sha: 65b97d1cb9aab4e3113682e2f25e13b15d0d351d
-  submitted_at: '2026-08-01T15:31:13.447126+00:00'
-  updated_at: '2026-08-03T17:11:05.338924+00:00'
-  last_error: epic worktree head 8f80aebfb70d4dbc405d5ab4436c00ca523ff9ef differs
-    from the published epic head 3377d707470a4dbe27fd9c962c0acb4e95e1289d; refusing
-    to reset a preserved recovery snapshot
+  updated_at: '2026-08-03T17:12:00.350959+00:00'
 oompah.task_costs:
   total_input_tokens: 2018
   total_output_tokens: 7250
@@ -314,5 +309,10 @@ author: oompah
 created: 2026-08-03 17:11
 ---
 Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 17:12
+---
+Focus: Frontend Developer
 ---
 <!-- COMMENTS:END -->
