@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-146
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Connect coordinators over an outbound mTLS WebSocket
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T17:38:55.738111Z'
+updated_at: '2026-08-03T17:40:18.366224Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -47,21 +47,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: f9a51151-476f-4930-82ab-b57021b5a8a3
+oompah.agent_run_id: c7c60fa6-5c4f-43d2-bf49-cabb0f6431fd
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 oompah.integration:
   version: 2
-  state: blocked
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-146
   base_branch: epic-EXOCOMP-130
   base_sha: eaeeaf0872984e655611d0092397e9c800e1bf6b
-  head_sha: 5561520058dc075938bf595a25e2b84cbafef6bd
-  submitted_at: '2026-08-01T12:39:32.086390+00:00'
-  updated_at: '2026-08-03T17:38:50.758378+00:00'
-  last_error: epic worktree head 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc differs
-    from the published epic head eaeeaf0872984e655611d0092397e9c800e1bf6b; refusing
-    to reset a preserved recovery snapshot
+  updated_at: '2026-08-03T17:40:15.432023+00:00'
 oompah.task_costs:
   total_input_tokens: 20434066
   total_output_tokens: 71814
@@ -195,5 +190,15 @@ created: 2026-08-03 17:38
 Integration could not verify `epic-EXOCOMP-130--task-EXOCOMP-146`: epic worktree head 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc differs from the published epic head eaeeaf0872984e655611d0092397e9c800e1bf6b; refusing to reset a preserved recovery snapshot
 
 Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
+---
+author: oompah
+created: 2026-08-03 17:40
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 17:40
+---
+Focus: Refactoring Specialist
 ---
 <!-- COMMENTS:END -->
