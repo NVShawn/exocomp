@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T18:06:46.911133Z'
-updated_at: '2026-08-03T18:35:25.666006Z'
+updated_at: '2026-08-03T18:38:23.432895Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-245
 target_branch: null
 review_url: null
@@ -80,19 +80,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-245
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 0ff15b149e79575a675185db932777f4b07aac3c4d870de4a479023551fdf58d
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-953500838803
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 0ff15b149e79575a675185db932777f4b07aac3c4d870de4a479023551fdf58d
+      created_at: '2026-08-03T18:38:16.088913+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T18:38:16.088913+00:00'
+      branch_key: epic-EXOCOMP-135--task-EXOCOMP-245
     requested_by:
       version: 1
       identity: oompah-cli
       source: api
     previous_state: Ready to Integrate
     created_at: '2026-08-03T18:35:18.275504+00:00'
-  attempt_history: []
+    updated_at: '2026-08-03T18:38:16.088913+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-953500838803
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 0ff15b149e79575a675185db932777f4b07aac3c4d870de4a479023551fdf58d
+    created_at: '2026-08-03T18:38:16.088913+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T18:38:16.088913+00:00'
+    branch_key: epic-EXOCOMP-135--task-EXOCOMP-245
 ---
 ## Summary
 
@@ -254,5 +281,15 @@ author: oompah
 created: 2026-08-03 18:35
 ---
 Requested audited Done maintenance transition after exact parent-target rebase was published and verified at 542b7fe5; ordinary child integration is bypassed only because OOMPAH-731 makes that route self-invalidating.
+---
+author: oompah
+created: 2026-08-03 18:38
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-03 18:38
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
