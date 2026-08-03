@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-149
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Ingest cluster events idempotently and acknowledge sequences
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:06.077566Z'
-updated_at: '2026-08-03T20:53:23.893194Z'
+updated_at: '2026-08-03T20:53:31.786338Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 target_branch: null
 review_url: null
@@ -52,12 +52,12 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-149
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-149
-  base_branch: epic-EXOCOMP-130
-  base_sha: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
-  updated_at: '2026-08-03T20:38:53.917413+00:00'
+  head_sha: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
+  submitted_at: '2026-08-03T20:53:21.365065+00:00'
+  updated_at: '2026-08-03T20:53:21.365065+00:00'
 oompah.task_costs:
   total_input_tokens: 6247104
   total_output_tokens: 41361
@@ -230,5 +230,10 @@ author: oompah
 created: 2026-08-03 20:53
 ---
 Completion: rebased and pushed ea1d7208 to epic-EXOCOMP-130--task-EXOCOMP-149. Mission Control now validates and transactionally persists authenticated cluster events, deduplicates by organization/cluster/event ID, tracks gaps, and acknowledges only the highest contiguous committed sequence over the mTLS WebSocket. Contract coverage includes duplicates/replay, out-of-order gaps, invalid/oversized/unsupported envelopes, restart recovery, and rollback acknowledgement suppression. Local format, parse, targeted compile, and manual ingestion contract checks pass; the full container gates remain blocked by the read-only Podman runtime and the host focused suite by missing Erlang syntax_tools.
+---
+author: oompah
+created: 2026-08-03 20:53
+---
+Rebased Mission Control event ingestion with transactional gap-aware acknowledgements
 ---
 <!-- COMMENTS:END -->
