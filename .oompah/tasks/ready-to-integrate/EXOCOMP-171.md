@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: In Validation
+status: Ready to Integrate
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:23:58.111308Z'
+updated_at: '2026-08-03T14:32:28.226548Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -44,15 +44,12 @@ oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: ready
+  attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
-  base_branch: epic-EXOCOMP-134
-  base_sha: db7ca3ae0e16a528026152aa40f7db646b7b7d52
-  head_sha: e826d0d584294524cd0abd708456c457a50f11ed
-  integrated_sha: e826d0d584294524cd0abd708456c457a50f11ed
-  submitted_at: '2026-08-03T13:46:16.874597+00:00'
-  updated_at: '2026-08-03T13:52:14.321555+00:00'
+  head_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
+  submitted_at: '2026-08-03T14:32:23.390890+00:00'
+  updated_at: '2026-08-03T14:32:23.390890+00:00'
 oompah.task_costs:
   total_input_tokens: 881910
   total_output_tokens: 43486
@@ -553,5 +550,15 @@ author: user
 created: 2026-08-03 14:22
 ---
 Try to audit again. There will be a valid provider/model eventually.
+---
+author: oompah
+created: 2026-08-03 14:32
+---
+Owner repair completed at f1e60cb4 after the earlier audit attempts evaluated incomplete head e826d0d5. Added the Ecto schema, audit_events migration/table, redacting insert-only context, tenant-scoped correlation/order reads, transaction composition, PostgreSQL update/delete trigger, and database-backed acceptance coverage. Also made webhook-ready to_map/1 serialization redact through the same boundary. Verification: 84 focused audit/redaction tests pass; make test-mission-control-db passes 261 tests; make test passes all suites (including 614 coordinator tests); make fmt-check and make lint pass. Resetting the stale validation state and submitting the new exact head.
+---
+author: oompah
+created: 2026-08-03 14:32
+---
+Completed durable immutable audit storage, scoped queries, rollback-safe transaction integration, pre-persistence/webhook redaction, and PostgreSQL-backed acceptance coverage at f1e60cb4.
 ---
 <!-- COMMENTS:END -->
