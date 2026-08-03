@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-243
 type: bug
-status: Open
+status: In Progress
 priority: 2
 title: Remove peer-completion race from discovery polling test
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:29:22.376485Z'
+updated_at: '2026-08-03T17:29:56.908291Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -42,7 +42,7 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
-oompah.agent_run_id: 8f0fa165-ccdd-48ab-b266-59889427dbae
+oompah.agent_run_id: c3bae8fe-2d92-45cc-b6a3-f0681659abd4
 oompah.task_costs:
   total_input_tokens: 48318
   total_output_tokens: 582
@@ -108,5 +108,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: normal, Duration: 41s
 - Log: EXOCOMP-243__20260803T172843Z.jsonl
+---
+author: oompah
+created: 2026-08-03 17:29
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 17:29
+---
+Focus: Test Engineer
 ---
 <!-- COMMENTS:END -->
