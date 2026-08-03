@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-125
 type: task
-status: Merged
+status: In Validation
 priority: 1
 title: Complete remaining M5 workload and soak qualification
 parent: null
@@ -11,7 +11,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-27T16:09:24.864781Z'
-updated_at: '2026-07-27T18:45:11.093673Z'
+updated_at: '2026-08-03T19:04:42.662522Z'
 work_branch: EXOCOMP-125
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/20
@@ -50,6 +50,28 @@ oompah.review_url: https://github.com/NVShawn/exocomp/pull/20
 oompah.review_number: '20'
 oompah.work_branch: EXOCOMP-125
 oompah.target_branch: main
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-16838439f22d
+    project_id: proj-c260b117
+    task_id: EXOCOMP-125
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2200812bd2591a211ccd342da91e0560a9f3b066d41c251a5755732f118d8a19
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-03T19:04:38.757974+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -336,5 +358,10 @@ author: oompah
 created: 2026-07-27 18:45
 ---
 YOLO: merged PR #20.
+---
+author: oompah
+created: 2026-08-03 19:04
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
