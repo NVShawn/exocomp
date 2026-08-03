@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T18:34:45.817599Z'
+updated_at: '2026-08-03T18:38:39.363025Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -230,5 +230,10 @@ author: oompah
 created: 2026-08-03 18:34
 ---
 Implementation: Updated CSR fixtures and production certificate issuance to encode SPIFFE URI GeneralNames as charlists; normalized decoded binary/charlist URI values before exact single-identity validation; corrected invitation-test attrs via Map.new/1; retained supervised clock fixtures; and hardened auth lookup so missing org/role deterministically returns 401. Ran the pinned Makefile formatter through the existing remote Podman service; it also normalized pre-existing formatting in coordinator_router.ex.
+---
+author: oompah
+created: 2026-08-03 18:38
+---
+Verification: Final pinned Elixir 1.20.2/OTP 28.5.0.3 gates all pass. make test passed every umbrella ExUnit suite (including 530 coordinator tests), assembled both releases, and passed exocomp_node/exocomp_coordinator bundled-ERTS smoke tests. make fmt-check passed. make lint passed release-builder checks, warnings-as-errors compilation, Python syntax checks, and compliance checks.
 ---
 <!-- COMMENTS:END -->
