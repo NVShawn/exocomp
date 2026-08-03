@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-121
 type: bug
-status: In Validation
+status: Archived
 priority: 2
 title: Make cross-architecture tests robust under full-system arm64 execution
 parent: EXOCOMP-117
@@ -10,7 +10,7 @@ blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-26T03:58:33.822377Z'
-updated_at: '2026-08-03T12:03:34.150261Z'
+updated_at: '2026-08-03T12:05:57.671738Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -36,6 +36,30 @@ oompah.task_costs:
     recorded_at: '2026-07-26T06:24:17.447384+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-a1839df5d6c5: '2026-08-03T12:05:55.057070+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-121
+    target_state: Archived
+    evidence_fingerprint: 70792715e0ef93adbee0684c1552b25291f971ae4ead7725f31b823d3c5e2ac0
+    audit_ids:
+    - audit-20ac607db3d7
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T12:05:55.057080+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-121
+    audit_id: audit-20ac607db3d7
+    attempt_id: attempt-a1839df5d6c5
+    target_state: Archived
+    evidence_fingerprint: 70792715e0ef93adbee0684c1552b25291f971ae4ead7725f31b823d3c5e2ac0
+    status: Archived
+    audit_ids:
+    - audit-20ac607db3d7
+    applied: false
+    created_at: '2026-08-03T12:05:55.057093+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -43,7 +67,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-121
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -52,7 +76,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-a1839df5d6c5
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -62,13 +86,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T12:03:29.510908+00:00'
       branch_key: epic-EXOCOMP-117
+      verdict: pass
+      completed_at: '2026-08-03T12:05:55.056952+00:00'
+      ended_at: '2026-08-03T12:05:55.056952+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T12:01:01.012705+00:00'
-    updated_at: '2026-08-03T12:03:29.510908+00:00'
+    updated_at: '2026-08-03T12:05:55.056952+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-a1839df5d6c5
@@ -203,5 +230,20 @@ author: oompah
 created: 2026-08-03 12:03
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 12:05
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merge_commit: 78dbe38ac7ff86845424bc60aa44c1212c9c3344
+- merge_pr: d1edad6f Merge pull request #18 from NVShawn/epic-EXOCOMP-117
+- files_changed: apps/bench/test/bench/host_sampler_test.exs; apps/exocomp_coordinator/test/exocomp/coordinator/health_poller_test.exs; apps/exocomp_coordinator/test/exocomp/coordinator/a2a_router_test.exs; apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs; apps/exocomp_coordinator/test/exocomp/node/safety/disk_pressure_collector_test.exs
+- on_main: true (git merge-base --is-ancestor 78dbe38a main -> 0)
+- regression_tests_present: await_port_line never-ready timeout test; delayed resolver+probe crash sequencing test
+- no_reverts: no revert commits touching the affected test paths on main
 ---
 <!-- COMMENTS:END -->
