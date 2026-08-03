@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-03T23:12:05.659418Z'
+updated_at: '2026-08-03T23:12:44.491328Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -210,5 +210,10 @@ author: oompah
 created: 2026-08-03 23:12
 ---
 Focus: Maintenance Engineer
+---
+author: oompah
+created: 2026-08-03 23:12
+---
+Understanding: I will extend the coordinator's Mission Control command path so command receipts and terminal results are separately correlated, validated, expiry-aware, durable, and replay-safe. I will reuse the existing delivery/replay boundary, add focused coverage for duplicate and restart scenarios, then run the required Makefile quality gates.
 ---
 <!-- COMMENTS:END -->
