@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T19:12:15.676609Z'
+updated_at: '2026-08-03T19:13:08.922300Z'
 work_branch: EXOCOMP-242
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/25
@@ -217,18 +217,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-242
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-a15d3ab91c76
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+      created_at: '2026-08-03T19:13:02.047894+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T19:13:02.047894+00:00'
+      branch_key: EXOCOMP-242
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T18:43:24.846732+00:00'
+    updated_at: '2026-08-03T19:13:02.047894+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-1c2a25169f25
@@ -263,6 +277,19 @@ oompah.terminal_audit:
     started_at: '2026-08-03T18:53:20.274838+00:00'
     branch_key: EXOCOMP-242
     candidate_rotation_count: 1
+  - version: 1
+    attempt_id: attempt-a15d3ab91c76
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 20da3924a8bae1f5b64cca831ebd3463e8a8ee8f65a46375df8d022af4cf6118
+    created_at: '2026-08-03T19:13:02.047894+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T19:13:02.047894+00:00'
+    branch_key: EXOCOMP-242
 ---
 ## Summary
 
@@ -494,5 +521,10 @@ Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: normal, Duration: 18m 49s
 - Log: EXOCOMP-242__20260803T185335Z.jsonl
+---
+author: oompah
+created: 2026-08-03 19:13
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
 ---
 <!-- COMMENTS:END -->
