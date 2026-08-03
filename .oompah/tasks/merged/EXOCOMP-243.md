@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-243
 type: bug
-status: In Validation
+status: Merged
 priority: 2
 title: Remove peer-completion race from discovery polling test
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:47:38.549100Z'
+updated_at: '2026-08-03T18:04:19.411243Z'
 work_branch: EXOCOMP-243
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/24
@@ -101,6 +101,7 @@ oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
     attempt-60dd5c989180: '2026-08-03T17:46:00.546200+00:00'
+    attempt-e5377142d56d: '2026-08-03T18:04:14.815457+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-243
@@ -111,6 +112,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-03T17:46:00.546213+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-243
+    target_state: Merged
+    evidence_fingerprint: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
+    audit_ids:
+    - audit-70af5bf79277
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T18:04:14.815466+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-243
@@ -124,6 +134,17 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-03T17:46:00.546230+00:00'
     applied_at: '2026-08-03T17:46:05.324566+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-243
+    audit_id: audit-70af5bf79277
+    attempt_id: attempt-e5377142d56d
+    target_state: Merged
+    evidence_fingerprint: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
+    status: Merged
+    audit_ids:
+    - audit-70af5bf79277
+    applied: false
+    created_at: '2026-08-03T18:04:14.815477+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -165,7 +186,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-243
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -174,7 +195,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-e5377142d56d
       target_state: Merged
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -184,13 +205,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T17:47:23.221752+00:00'
       branch_key: EXOCOMP-243
+      verdict: pass
+      completed_at: '2026-08-03T18:04:14.815344+00:00'
+      ended_at: '2026-08-03T18:04:14.815344+00:00'
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T17:38:56.142684+00:00'
-    updated_at: '2026-08-03T17:47:23.221752+00:00'
+    updated_at: '2026-08-03T18:04:14.815344+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-60dd5c989180
@@ -371,5 +395,30 @@ author: oompah
 created: 2026-08-03 17:47
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 18:04
+---
+Audit PASS — Merged
+
+[REDACTED]
+
+Safe evidence:
+- fix_commit_sha: e2976fff2dce596ec168d31dc50e25d7f4cd3a62
+- merge_commit_sha: 93afb94f14af631e43cd1fc898dd41850b4b1e01
+- pr_number: 24
+- changed_file: apps/exocomp_coordinator/test/exocomp/coordinator/multi_node_discovery_polling_test.exs
+- diff_shape: 1 file changed, 7 insertions(+), 1 deletion(-)
+- fix_on_origin_main: yes (ancestor check exit 0)
+- make_test_exit_code: 0
+- coordinator_tests_result: 511 passed
+- core_tests_result: 195 passed
+- node_tests_result: 866 passed, 10 excluded
+- bench_tests_result: 128 passed
+- python_release_builder_tests: 9 passed, 0 failed
+- offline_structural_checks: 13 passed, 0 failed
+- synchronization_mechanism: eventually block awaiting foxtrot.reachability == :healthy before assertion
+- original_assertions_preserved: echo.addresses, consecutive_failures, next_eligible_poll_at all retained
+- attribution_trailer: oompah co-author present, no model attribution
 ---
 <!-- COMMENTS:END -->
