@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-122
 type: feature
-status: In Validation
+status: Archived
 priority: 2
 title: Add a shipped-artifact M5 performance qualification gate
 parent: EXOCOMP-117
@@ -12,7 +12,7 @@ labels:
 - focus-complete:docs
 assignee: null
 created_at: '2026-07-26T03:58:34.780590Z'
-updated_at: '2026-08-03T12:06:26.249714Z'
+updated_at: '2026-08-03T12:07:41.429494Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -44,6 +44,30 @@ oompah.task_costs:
     recorded_at: '2026-07-26T06:34:15.438453+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-4de73f5cde60: '2026-08-03T12:07:38.656189+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-122
+    target_state: Archived
+    evidence_fingerprint: 3cb5e28a6c715c3b3890888e22e551e3c7f4e73063c1243dfc2ba8534ef65d0c
+    audit_ids:
+    - audit-b76f85d6c2eb
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T12:07:38.656201+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-122
+    audit_id: audit-b76f85d6c2eb
+    attempt_id: attempt-4de73f5cde60
+    target_state: Archived
+    evidence_fingerprint: 3cb5e28a6c715c3b3890888e22e551e3c7f4e73063c1243dfc2ba8534ef65d0c
+    status: Archived
+    audit_ids:
+    - audit-b76f85d6c2eb
+    applied: false
+    created_at: '2026-08-03T12:07:38.656223+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -51,7 +75,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-122
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -60,7 +84,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-4de73f5cde60
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -70,13 +94,16 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-03T12:06:21.877309+00:00'
       branch_key: epic-EXOCOMP-117
+      verdict: pass
+      completed_at: '2026-08-03T12:07:38.656016+00:00'
+      ended_at: '2026-08-03T12:07:38.656016+00:00'
     requested_by:
       version: 1
       identity: oompah
       source: auto_archive
     previous_state: Merged
     created_at: '2026-08-03T12:01:06.599442+00:00'
-    updated_at: '2026-08-03T12:06:21.877309+00:00'
+    updated_at: '2026-08-03T12:07:38.656016+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-4de73f5cde60
@@ -327,5 +354,22 @@ author: oompah
 created: 2026-08-03 12:06
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-03 12:07
+---
+Audit PASS — Archived
+
+[REDACTED]
+
+Safe evidence:
+- merged_commit: 371ca4e3678840f7a9b5f9a370ce9da24d9843ce
+- docs_commit: cd5c0c7e
+- commit_on_main: true
+- makefile_targets_present: bench-llama-short-shipped, bench-llama-full, bench-harness, test-m5-qualification
+- baselines_present: apps/bench/priv/bench/baselines/{v0.1.0-rc.2,v0.1.0}/{amd64,arm64}.toml
+- docs_present: docs/performance-qualification.md
+- workflow_present: .github/workflows/m5-harness.yml
+- downstream_requalification_task: EXOCOMP-123
 ---
 <!-- COMMENTS:END -->
