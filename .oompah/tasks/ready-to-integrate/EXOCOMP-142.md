@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:14:24.463171Z'
-updated_at: '2026-08-01T12:16:51.818948Z'
+updated_at: '2026-08-03T13:57:16.808833Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-142
 target_branch: null
 review_url: null
@@ -176,5 +176,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 20m 30s
 - Log: EXOCOMP-142__20260801T115627Z.jsonl
+---
+author: oompah
+created: 2026-08-03 13:57
+---
+Operator workaround propagated dependency EXOCOMP-171 exact integrated SHA e826d0d5 through common parent EXOCOMP-127 into epic EXOCOMP-129. This task is no longer container-deadlocked and should become eligible immediately after EXOCOMP-171 passes terminal audit.
 ---
 <!-- COMMENTS:END -->
