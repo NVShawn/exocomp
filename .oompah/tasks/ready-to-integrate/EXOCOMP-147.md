@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T22:52:01.768890Z'
+updated_at: '2026-08-03T22:52:11.943068Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -75,12 +75,12 @@ oompah.agent_run_id: 3cd36ed3-87b1-4763-a0d7-2f9660633292
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-147
-  base_branch: epic-EXOCOMP-130
-  base_sha: ea1d7208e4dec7474b76c4dc437c0d7608b4116e
-  updated_at: '2026-08-03T21:59:22.486273+00:00'
+  head_sha: 6e6d6e2082af1af2ad870a22024f3054ed5d2be9
+  submitted_at: '2026-08-03T22:52:09.404605+00:00'
+  updated_at: '2026-08-03T22:52:09.404605+00:00'
 oompah.task_costs:
   total_input_tokens: 1819373
   total_output_tokens: 23778
@@ -438,5 +438,10 @@ author: oompah
 created: 2026-08-03 22:52
 ---
 Completion: Delivered heartbeat (30s cadence), disconnect detection (90s), reconnect with full-jitter exponential backoff (1s-60s), and stable-connection backoff reset for Mission Control coordinator sessions. Two GenServers: (1) Connection - client-side transport lifecycle with generation-tagged timers, monitored connect worker, and config-driven defaults from Config.MissionControl; (2) SessionLiveness - server-side heartbeat tracking with commit-before-publish transitions and retry on commit failure. Twelve focused deterministic tests cover heartbeat cadence, missed heartbeats, reconnect bounds, backoff reset, stale/duplicate timers, worker DOWN handling, connect worker replacement, commit-then-publish, commit failure retry, and stale-session rejection. Branch head 6e6d6e20 pushed. NOTE: pre-existing router.ex bug in epic-EXOCOMP-130 base (from EXOCOMP-146) blocks umbrella make test/lint/fmt-check; needs separate follow-up (agent lacks task-creation permission).
+---
+author: oompah
+created: 2026-08-03 22:52
+---
+Heartbeat, disconnect detection, and reconnect backoff delivered. Connection GenServer manages 30s heartbeat cadence, full-jitter exponential backoff 1s-60s, and stable-connection reset (90s). SessionLiveness GenServer detects 90s heartbeat gaps and commits transitions before publishing them. Twelve focused deterministic tests cover the state machine acceptance criteria.
 ---
 <!-- COMMENTS:END -->
