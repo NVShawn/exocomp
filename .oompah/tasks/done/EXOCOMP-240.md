@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-240
 type: task
-status: Merged
+status: Done
 priority: 0
 title: Rebase epic-EXOCOMP-130 onto main
 parent: EXOCOMP-130
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T15:34:05.137972Z'
+updated_at: '2026-08-03T15:34:09.355703Z'
 work_branch: epic-EXOCOMP-130
 target_branch: null
 review_url: null
@@ -448,5 +448,12 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 46s
 - Log: EXOCOMP-240__20260803T145651Z.jsonl
+---
+author: oompah
+created: 2026-08-03 15:34
+---
+Override by oompah-cli: terminal transition to Done applied by project owner.
+
+Reason: Repair lifecycle-incompatible owner override: EXOCOMP-240 is a shared-epic maintenance child whose audited work is contained on epic-EXOCOMP-130, not the default branch. Its Done audit passed at exact epic tip 72ade5184d8c3ce5ac1ea112fdf3d514994cc7cc; Merged incorrectly blocks parent rollup because shared-epic children must remain Done until parent landing. OOMPAH-725 tracks prevention and automatic reconciliation.
 ---
 <!-- COMMENTS:END -->
