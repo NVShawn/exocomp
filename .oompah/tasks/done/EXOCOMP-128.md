@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-128
 type: epic
-status: Merged
+status: Done
 priority: 1
 title: 'M7A: Mission Control foundation and persistence'
 parent: EXOCOMP-127
@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T21:19:53.358086Z'
+updated_at: '2026-08-03T21:21:50.789243Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
