@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: In Validation
+status: Needs Human
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:13:30.197555Z'
+updated_at: '2026-08-03T14:14:12.580004Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -119,6 +119,31 @@ oompah.work_contributors:
     completed_at: '2026-08-01T13:05:21.181831+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    no-auditor-audit-bad47351b510-3: '2026-08-03T14:14:08.743651+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-171
+    target_state: Done
+    evidence_fingerprint: 00b499747f5172d55c8a645bb55d2aa73400a9c73bab581ca56edf846ba7be01
+    audit_ids:
+    - audit-bad47351b510
+    kind: result
+    applied: true
+    retired_at: '2026-08-03T14:14:08.743662+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-171
+    audit_id: audit-bad47351b510
+    attempt_id: no-auditor-audit-bad47351b510-3
+    target_state: Done
+    evidence_fingerprint: 00b499747f5172d55c8a645bb55d2aa73400a9c73bab581ca56edf846ba7be01
+    status: Needs Human
+    audit_ids:
+    - audit-bad47351b510
+    applied: true
+    created_at: '2026-08-03T14:14:08.743678+00:00'
+    applied_at: '2026-08-03T14:14:11.773950+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -126,7 +151,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-171
     target_state: Done
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -190,13 +215,25 @@ oompah.terminal_audit:
         auditor capability policy denied a mutating or compound shell command; auditors
         cannot edit, commit, push, merge, or change state'
       next_retry_at: '2026-08-03T14:13:14.399047+00:00'
+    - version: 1
+      attempt_id: no-auditor-audit-bad47351b510-3
+      target_state: Done
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 00b499747f5172d55c8a645bb55d2aa73400a9c73bab581ca56edf846ba7be01
+      verdict: fail
+      failure_classification: no_auditor
+      created_at: '2026-08-03T14:14:08.743499+00:00'
+      completed_at: '2026-08-03T14:14:08.743499+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T13:52:16.565812+00:00'
-    updated_at: '2026-08-03T14:12:34.399085+00:00'
+    updated_at: '2026-08-03T14:14:08.743499+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-180165c919ab
@@ -504,5 +541,12 @@ author: oompah
 created: 2026-08-03 14:13
 ---
 Direct owner claim: completing the missing Ecto schema/migration/context and database-backed acceptance tests against current epic ancestry. Do not dispatch a parallel implementation agent.
+---
+author: oompah
+created: 2026-08-03 14:14
+---
+Needs Human — Done audit requires operator input.
+
+No independent auditor candidate is available for this audit (Audit reached the maximum of 3 attempts.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then have a project owner rearm this terminal audit. Please review the audit output, decide the next step, and update this task with your instructions.
 ---
 <!-- COMMENTS:END -->
