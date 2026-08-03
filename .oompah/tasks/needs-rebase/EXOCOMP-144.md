@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-144
 type: task
-status: Ready to Integrate
+status: Needs Rebase
 priority: 1
 title: Add cluster certificate renewal and revocation
 parent: EXOCOMP-129
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-01T12:35:53.407726Z'
+updated_at: '2026-08-03T16:14:55.501943Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -41,12 +41,32 @@ oompah.agent_run_id: bacb6292-b101-40c8-999e-7d681b5ab7da
 oompah.work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 oompah.integration:
   version: 2
-  state: ready
-  attempts: 0
+  state: blocked
+  attempts: 1
   task_branch: epic-EXOCOMP-129--task-EXOCOMP-144
+  base_branch: epic-EXOCOMP-129
+  base_sha: ad46c4b4efb6dea6934c78e26a6ec9e2c10c33b0
   head_sha: 2dad75acbdced127cea24a687f1c4e0288c0009f
   submitted_at: '2026-08-01T12:35:38.564985+00:00'
-  updated_at: '2026-08-01T12:35:38.564985+00:00'
+  updated_at: '2026-08-03T16:14:52.521366+00:00'
+  last_error: 'Rebase onto the latest epic head conflicted: Rebasing (1/1)
+
+    error: could not apply 2dad75ac... EXOCOMP-144: Add cluster certificate renewal
+    and revocation
+
+    hint: Resolve all conflicts manually, mark them as resolved with
+
+    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+
+    hint: You can instead skip this commit: run "git rebase --skip".
+
+    hint: To abort and get back to the state before "git rebase", run "git rebase
+    --abort".
+
+    hint: Disable this message with "git config set advice.mergeConflict false"
+
+    Could not apply 2dad75ac... # EXOCOMP-144: Add cluster certificate renewal and
+    revocation'
 oompah.task_costs:
   total_input_tokens: 1841803
   total_output_tokens: 22368
@@ -326,5 +346,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Claude/sonnet]
 - Cost: $0.0000
 - Exit: terminated, Duration: 22m 51s
 - Log: EXOCOMP-144__20260801T121309Z.jsonl
+---
+author: oompah
+created: 2026-08-03 16:14
+---
+Integration found a rebase conflict on `epic-EXOCOMP-129--task-EXOCOMP-144`. Resolve it against `epic-EXOCOMP-129`, run the required tests, push the same private branch, and `oompah task submit` it again.
 ---
 <!-- COMMENTS:END -->
