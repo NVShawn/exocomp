@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:14:27.914202Z'
-updated_at: '2026-08-03T16:17:44.441183Z'
+updated_at: '2026-08-03T16:18:50.809948Z'
 work_branch: epic-EXOCOMP-129--task-EXOCOMP-144
 target_branch: null
 review_url: null
@@ -356,5 +356,10 @@ author: oompah
 created: 2026-08-03 16:17
 ---
 Implementation: Rebased the renewal/revocation commit onto EXOCOMP-143 and resolved both conflicts by preserving the dependency's cluster invitation/enrollment wiring while adding CertificateRegistry startup and POST /api/v1/clusters/renew. The named integration supervision tree now starts both the invitation store and isolated certificate registry; production enrollment storage remains correctly wired.
+---
+author: oompah
+created: 2026-08-03 16:18
+---
+Verification: Rebase completed cleanly as 0a82a703; git diff --check is clean and all six changed Elixir source/test files parse successfully. make fmt-check, make test, and make lint were each attempted: their non-container checks passed (make test/lint release-builder checks: 9 plus 13 structural checks and 16 Python tests), then the required pinned Elixir container could not start because the sandbox Podman runtime cannot chmod its read-only /run/user/1000/libpod directory. Focused mix tests also cannot run locally because installed Mix 1.18.3 is rejected by the project requirement for Elixir 1.20.2.
 ---
 <!-- COMMENTS:END -->
