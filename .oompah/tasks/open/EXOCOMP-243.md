@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:28:40.828006Z'
+updated_at: '2026-08-03T17:29:22.376485Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -22,20 +22,53 @@ oompah.duplicate_screening:
   schema_version: 1
   task_fingerprint: 08c45398fd051cf1c3ffd50d5d7fb3fc0141712ef7815a361d42df4eb09927d0
   detector_version: duplicate-detector-v1
-  verdict: inconclusive
-  checked_at: null
+  verdict: no_duplicate
+  checked_at: '2026-08-03T17:29:18.210867+00:00'
   matched_identifiers: []
-  evidence: ''
-  claim_id: f6ad4945-cfd1-426e-8ddf-8e61ca36e0d2
-  claim_owner: 8a58fb27-42d0-40cf-8dc2-70615b9783dc
-  claimed_at: '2026-08-03T17:28:31.763345+00:00'
-  claim_expires_at: '2026-08-03T17:58:31.763345+00:00'
+  evidence: "Focus handoff: duplicate_detector\nDuplicate preflight verdict: no_duplicate\n\
+    Matches: none\nEvidence: Reviewed the supplied task corpus. EXOCOMP-121 and EXOCOMP-15\
+    \ are related but terminal (Archived), so neither qualifies as an active duplicate.\
+    \ No clear active duplicate was present.\nFocus handoff: duplicate_detector  \n\
+    Duplicate preflight verdict: no_duplicate  \nMatches: none  \n\nEvidence: Reviewed\
+    \ the supplied task corpus. EXOCOMP-121 and EXOCOMP-15 are related but terminal\
+    \ (Archived), so neither qualifies as an active duplicate. No clear active duplicate\
+    \ was present."
+  claim_id: null
+  claim_owner: null
+  claimed_at: null
+  claim_expires_at: null
   retry_count: 0
   retry_after: null
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
 oompah.agent_run_id: 8f0fa165-ccdd-48ab-b266-59889427dbae
+oompah.task_costs:
+  total_input_tokens: 48318
+  total_output_tokens: 582
+  total_cost_usd: 0.0
+  by_model:
+    haiku:
+      input_tokens: 48318
+      output_tokens: 582
+      cost_usd: 0.0
+  runs:
+  - profile: default
+    model: haiku
+    input_tokens: 48318
+    output_tokens: 582
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T17:29:18.209314+00:00'
+oompah.work_contributors:
+  runs:
+  - run_id: EXOCOMP-243__20260803T172843Z
+    provider_id: prov-52e94e83
+    provider_name: Codex
+    model_id: gpt-5.6-luna
+    focus: duplicate_detector
+    source_branch: EXOCOMP-243
+    source_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+    completed_at: '2026-08-03T17:29:18.218435+00:00'
 ---
 ## Summary
 
@@ -65,5 +98,15 @@ author: oompah
 created: 2026-08-03 17:28
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 17:29
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 1, Tool calls: 0
+- Tokens: 48.3K in / 582 out [48.9K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 41s
+- Log: EXOCOMP-243__20260803T172843Z.jsonl
 ---
 <!-- COMMENTS:END -->
