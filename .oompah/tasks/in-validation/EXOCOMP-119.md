@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-119
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Start production coordinator PKI and enrollment services
 parent: EXOCOMP-117
@@ -13,7 +13,7 @@ labels:
 - focus-complete:feature
 assignee: null
 created_at: '2026-07-26T03:58:31.966643Z'
-updated_at: '2026-07-27T11:12:21.290867Z'
+updated_at: '2026-08-03T12:00:54.703362Z'
 work_branch: epic-EXOCOMP-117
 target_branch: null
 review_url: null
@@ -55,6 +55,28 @@ oompah.task_costs:
     output_tokens: 51012
     cost_usd: 0.0
     recorded_at: '2026-07-26T04:55:12.896494+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-3e8ff25467f9
+    project_id: proj-c260b117
+    task_id: EXOCOMP-119
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: e3a42de69d2a22910bb50f46e9542cf4fe60d5ca5fb2b20933ce422cfc60efc8
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-03T12:00:52.071756+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -352,5 +374,10 @@ author: oompah
 created: 2026-07-26 04:57
 ---
 Production coordinator now starts protected PKI state, enrollment tokens, authenticated listener, enrollment and mTLS renewal endpoints; health fails degraded when required components are missing; online state survives restart without the offline root; operator docs and integration coverage were added. make test, make test-installer, make test-bundle, and make check-links pass. Branch is pushed and PR #18 targets main.
+---
+author: oompah
+created: 2026-08-03 12:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
