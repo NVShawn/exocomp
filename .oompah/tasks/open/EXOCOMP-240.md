@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-240
 type: task
-status: In Progress
+status: Open
 priority: 0
 title: Rebase epic-EXOCOMP-130 onto main
 parent: EXOCOMP-130
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:40:30.807283Z'
+updated_at: '2026-08-03T14:41:30.564090Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-240
 target_branch: null
 review_url: null
@@ -29,13 +29,17 @@ oompah.integration:
   base_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
   updated_at: '2026-08-03T14:40:26.615084+00:00'
 oompah.task_costs:
-  total_input_tokens: 18
-  total_output_tokens: 3791
+  total_input_tokens: 26
+  total_output_tokens: 5262
   total_cost_usd: 0.0
   by_model:
     sonnet:
       input_tokens: 18
       output_tokens: 3791
+      cost_usd: 0.0
+    opus:
+      input_tokens: 8
+      output_tokens: 1471
       cost_usd: 0.0
   runs:
   - profile: standard
@@ -44,6 +48,12 @@ oompah.task_costs:
     output_tokens: 3791
     cost_usd: 0.0
     recorded_at: '2026-08-03T14:39:54.121564+00:00'
+  - profile: deep
+    model: opus
+    input_tokens: 8
+    output_tokens: 1471
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T14:41:24.206036+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-240__20260803T143640Z
@@ -54,6 +64,14 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-240
     source_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
     completed_at: '2026-08-03T14:39:54.130396+00:00'
+  - run_id: EXOCOMP-240__20260803T144033Z
+    provider_id: prov-651d553c
+    provider_name: Claude
+    model_id: opus
+    focus: duplicate_detector
+    source_branch: epic-EXOCOMP-130--task-EXOCOMP-240
+    source_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
+    completed_at: '2026-08-03T14:41:24.210108+00:00'
 ---
 ## Summary
 
@@ -108,5 +126,20 @@ author: oompah
 created: 2026-08-03 14:40
 ---
 Focus: Duplicate Investigator
+---
+author: oompah
+created: 2026-08-03 14:41
+---
+Agent completed successfully in 64s (1479 tokens)
+---
+author: oompah
+created: 2026-08-03 14:41
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/opus]
+- Turns: 5, Tool calls: 2
+- Tokens: 8 in / 1.5K out [1.5K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 1m 4s
+- Log: EXOCOMP-240__20260803T144033Z.jsonl
 ---
 <!-- COMMENTS:END -->
