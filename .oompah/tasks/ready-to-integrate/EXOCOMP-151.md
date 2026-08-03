@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-151
 type: task
-status: In Progress
+status: Ready to Integrate
 priority: 1
 title: Report command results without duplicate execution
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-03T23:17:00.953159Z'
+updated_at: '2026-08-03T23:17:44.053530Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -59,16 +59,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 3fe156f1-1ac7-438d-b5b4-fd3a9f09d47f
+oompah.agent_run_id: null
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 oompah.integration:
   version: 2
-  state: working
+  state: ready
   attempts: 0
   task_branch: epic-EXOCOMP-130--task-EXOCOMP-151
-  base_branch: epic-EXOCOMP-130
-  base_sha: 45147355256ffd3e325e23f33329bfdbcdfa5a58
-  updated_at: '2026-08-03T23:12:03.181171+00:00'
+  head_sha: 7bf5506c95f32e68da5d4b70fd24228e63db5f4a
+  submitted_at: '2026-08-03T23:17:36.243197+00:00'
+  updated_at: '2026-08-03T23:17:36.243197+00:00'
 oompah.task_costs:
   total_input_tokens: 9517362
   total_output_tokens: 45887
@@ -235,5 +235,15 @@ author: oompah
 created: 2026-08-03 23:17
 ---
 Implementation: rebased the existing command-result implementation onto epic-EXOCOMP-130 as 7bf5506c. The application supervision list now retains the parent EventOutbox, Mission Control, PKI, and invitation children while also starting CommandProcessor. The command processor and its focused tests are byte-identical to the previously verified implementation; no command/replay behavior changed during conflict resolution.
+---
+author: oompah
+created: 2026-08-03 23:17
+---
+Completion: rebased conflict resolution is committed as 7bf5506c and force-pushed to the same private task branch. The branch is clean and exactly matches origin. The coordinator supervision tree now combines the integrated Mission Control transport/outbox stack with the durable command result processor; duplicate command execution protections and focused regression coverage are preserved.
+---
+author: oompah
+created: 2026-08-03 23:17
+---
+Rebased EXOCOMP-151 command-result processor onto epic-EXOCOMP-130, resolved supervision wiring, and pushed 7bf5506c.
 ---
 <!-- COMMENTS:END -->
