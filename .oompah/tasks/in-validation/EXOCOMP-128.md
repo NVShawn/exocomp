@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T21:58:37.487502Z'
+updated_at: '2026-08-03T22:02:20.361814Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -248,18 +248,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-128
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-b7b41fe870ef
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+      created_at: '2026-08-03T22:02:19.523855+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T22:02:19.523855+00:00'
+      branch_key: epic-EXOCOMP-128
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Review
     created_at: '2026-08-03T21:58:34.950936+00:00'
+    updated_at: '2026-08-03T22:02:19.523855+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9e721291b92b
@@ -318,6 +332,19 @@ oompah.terminal_audit:
     started_at: '2026-08-03T20:57:23.874488+00:00'
     branch_key: epic-EXOCOMP-128
     candidate_rotation_count: 1
+  - version: 1
+    attempt_id: attempt-b7b41fe870ef
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+    created_at: '2026-08-03T22:02:19.523855+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T22:02:19.523855+00:00'
+    branch_key: epic-EXOCOMP-128
 oompah.task_costs:
   total_input_tokens: 123
   total_output_tokens: 24466
