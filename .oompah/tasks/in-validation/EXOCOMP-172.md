@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:36.185587Z'
-updated_at: '2026-08-03T15:41:51.051912Z'
+updated_at: '2026-08-03T15:43:15.284555Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-172
 target_branch: null
 review_url: null
@@ -101,19 +101,46 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-172
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 5d5cad34663238780df485da145337b0591e8842cdaf7c0e48233e54c64a28ef
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-4db1bb14f2dc
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 5d5cad34663238780df485da145337b0591e8842cdaf7c0e48233e54c64a28ef
+      created_at: '2026-08-03T15:43:14.432767+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T15:43:14.432767+00:00'
+      branch_key: epic-EXOCOMP-134--task-EXOCOMP-172
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T15:41:46.350504+00:00'
-  attempt_history: []
+    updated_at: '2026-08-03T15:43:14.432767+00:00'
+  attempt_history:
+  - version: 1
+    attempt_id: attempt-4db1bb14f2dc
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 5d5cad34663238780df485da145337b0591e8842cdaf7c0e48233e54c64a28ef
+    created_at: '2026-08-03T15:43:14.432767+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T15:43:14.432767+00:00'
+    branch_key: epic-EXOCOMP-134--task-EXOCOMP-172
 ---
 ## Summary
 
