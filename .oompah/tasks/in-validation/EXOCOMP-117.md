@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-117
 type: epic
-status: Merged
+status: In Validation
 priority: 0
 title: Remediate v0.1.0-rc.2 M6 qualification failures
 parent: null
@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-07-27T11:14:07.551895Z'
+updated_at: '2026-08-03T12:00:44.548495Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -44,6 +44,28 @@ oompah.task_costs:
     output_tokens: 16823
     cost_usd: 0.0
     recorded_at: '2026-07-27T11:11:54.572587+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-d439cc785355
+    project_id: proj-c260b117
+    task_id: EXOCOMP-117
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 23e059c09d9d43a6c723ffd846b129af017be281bb0c3712f4c9465f7c70722f
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-03T12:00:41.735947+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -136,5 +158,10 @@ author: oompah
 created: 2026-07-27 11:12
 ---
 YOLO: merged PR #18.
+---
+author: oompah
+created: 2026-08-03 12:00
+---
+Queued Archived audit: Aged Merged auto-archive (closed 7 days ago). An auditor will review before the task is retired.
 ---
 <!-- COMMENTS:END -->
