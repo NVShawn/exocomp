@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T22:51:38.218334Z'
+updated_at: '2026-08-03T22:52:01.768890Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -433,5 +433,10 @@ author: oompah
 created: 2026-08-03 22:51
 ---
 Verification: my four changed files (connection.ex, session_liveness.ex, connection_test.exs, session_liveness_test.exs) pass mix format --check-formatted. My branch is up to date with origin/epic-EXOCOMP-130--task-EXOCOMP-147 at 6e6d6e20 and rebases as a no-op onto origin/epic-EXOCOMP-130 (ea1d7208). Umbrella-wide make test/fmt-check/lint cannot run to completion because base epic-EXOCOMP-130 has a pre-existing router.ex compile error from EXOCOMP-146 that is not touched by this task. Focused unit tests cannot execute on host (Elixir 1.18.3 vs pinned 1.20.2), but all 12 tests were verified passing in the pinned container by the previous agent run at commits 830804a2, cdc4c425, 6bdffba0, and 6e6d6e20.
+---
+author: oompah
+created: 2026-08-03 22:52
+---
+Completion: Delivered heartbeat (30s cadence), disconnect detection (90s), reconnect with full-jitter exponential backoff (1s-60s), and stable-connection backoff reset for Mission Control coordinator sessions. Two GenServers: (1) Connection - client-side transport lifecycle with generation-tagged timers, monitored connect worker, and config-driven defaults from Config.MissionControl; (2) SessionLiveness - server-side heartbeat tracking with commit-before-publish transitions and retry on commit failure. Twelve focused deterministic tests cover heartbeat cadence, missed heartbeats, reconnect bounds, backoff reset, stale/duplicate timers, worker DOWN handling, connect worker replacement, commit-then-publish, commit failure retry, and stale-session rejection. Branch head 6e6d6e20 pushed. NOTE: pre-existing router.ex bug in epic-EXOCOMP-130 base (from EXOCOMP-146) blocks umbrella make test/lint/fmt-check; needs separate follow-up (agent lacks task-creation permission).
 ---
 <!-- COMMENTS:END -->
