@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T20:43:55.622396Z'
+updated_at: '2026-08-03T20:49:04.595440Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -168,18 +168,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-128
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-6332a7bf1fe6
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+      created_at: '2026-08-03T20:48:57.386035+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T20:48:57.386035+00:00'
+      branch_key: epic-EXOCOMP-128
     requested_by:
       version: 1
       identity: epic-rollup-reconciliation
       source: oompah
     previous_state: In Review
     created_at: '2026-08-03T20:43:53.494982+00:00'
+    updated_at: '2026-08-03T20:48:57.386035+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-9e721291b92b
@@ -206,6 +220,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-01T16:25:53.991925+00:00'
+    branch_key: epic-EXOCOMP-128
+  - version: 1
+    attempt_id: attempt-6332a7bf1fe6
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 938d45f0c64e41b72f8473b32531bbded81d1a8391503c5edf4a654bac9ee9d7
+    created_at: '2026-08-03T20:48:57.386035+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T20:48:57.386035+00:00'
     branch_key: epic-EXOCOMP-128
 oompah.task_costs:
   total_input_tokens: 103
@@ -346,5 +373,10 @@ author: oompah
 created: 2026-08-03 20:06
 ---
 Lifecycle reconciliation restored EXOCOMP-128 to audited Done: Cannot transition shared-epic child EXOCOMP-128 to Merged: parent epic EXOCOMP-127 could not be verified. The parent review must land on its configured target branch first.
+---
+author: oompah
+created: 2026-08-03 20:49
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
 ---
 <!-- COMMENTS:END -->
