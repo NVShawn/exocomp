@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:42:44.294144Z'
+updated_at: '2026-08-03T14:43:10.075641Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-240
 target_branch: null
 review_url: null
