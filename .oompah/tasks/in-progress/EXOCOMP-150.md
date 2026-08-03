@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-150
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 1
 title: Persist and deliver server-to-cluster commands
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T22:19:42.025586Z'
+updated_at: '2026-08-03T22:20:05.126767Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -59,7 +59,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: null
+oompah.agent_run_id: 03c19ce9-abc3-41ef-865b-fbcc871938f6
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 oompah.integration:
   version: 2
@@ -315,5 +315,10 @@ author: oompah
 created: 2026-08-03 22:19
 ---
 Integration found a rebase conflict on `epic-EXOCOMP-130--task-EXOCOMP-150`. Resolve it against `epic-EXOCOMP-130`, run the required tests, push the same private branch, and `oompah task submit` it again.
+---
+author: oompah
+created: 2026-08-03 22:20
+---
+Agent dispatched (profile: standard)
 ---
 <!-- COMMENTS:END -->
