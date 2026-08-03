@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T18:04:52.363738Z'
+updated_at: '2026-08-03T18:05:05.966897Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -698,5 +698,15 @@ author: oompah
 created: 2026-08-03 18:03
 ---
 Auditor attempt was stopped after repeated policy denials; a different independent candidate will be tried.
+---
+author: oompah
+created: 2026-08-03 18:05
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-03 18:05
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
