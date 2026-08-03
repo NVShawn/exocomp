@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-242
 type: bug
-status: Open
+status: In Progress
 priority: 1
 title: Repair M7B invitation and SPIFFE certificate regressions
 parent: null
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T17:27:21.010410Z'
+updated_at: '2026-08-03T17:28:29.188617Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -68,7 +68,7 @@ oompah.duplicate_screening:
   owner_resolved_at: null
   owner_login: null
   owner_resolution_reason: ''
-oompah.agent_run_id: b85f91c2-179f-4ce7-b84f-529e60597611
+oompah.agent_run_id: f68c4d7f-8314-4683-af72-037cbc47ff27
 oompah.task_costs:
   total_input_tokens: 10
   total_output_tokens: 1691
@@ -159,5 +159,15 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 6m 3s
 - Log: EXOCOMP-242__20260803T172124Z.jsonl
+---
+author: oompah
+created: 2026-08-03 17:28
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 17:28
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
