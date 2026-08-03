@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:14:37.656789Z'
-updated_at: '2026-08-03T17:27:07.956135Z'
+updated_at: '2026-08-03T17:27:21.010410Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -149,5 +149,15 @@ author: oompah
 created: 2026-08-03 17:26
 ---
 Operator workaround is validated and published in merge commit 24f84e9459c72cb9354dc47e6f531118e14fcfaa on epic-EXOCOMP-132. It fixes GeneralName encoding/normalization, missing-auth fallback, attrs normalization, and supervised clock fixtures. Focused invitation/enrollment tests: 18 passed. Full make test: 682 passed plus both release smoke tests. make fmt-check and make lint passed. Permanent repair still belongs on the authoritative EXOCOMP-127 parent/main path, so this task is being returned to Open for normal server implementation/integration.
+---
+author: oompah
+created: 2026-08-03 17:27
+---
+Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
+- Turns: 0, Tool calls: 55
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 6m 3s
+- Log: EXOCOMP-242__20260803T172124Z.jsonl
 ---
 <!-- COMMENTS:END -->
