@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T21:08:35.168932Z'
+updated_at: '2026-08-03T21:19:40.993996Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -71,7 +71,7 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 9857a554-a328-44bd-a25c-98af284fe8f7
+oompah.agent_run_id: bf92ea4e-aca8-4430-8af4-5670cd28a708
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 oompah.integration:
   version: 2
