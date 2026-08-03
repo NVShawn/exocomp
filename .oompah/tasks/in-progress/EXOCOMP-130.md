@@ -21,7 +21,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-03T14:35:57.996277Z'
+updated_at: '2026-08-03T18:32:21.032837Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -40,3 +40,11 @@ Deliver the optional coordinator client, outbound mTLS WebSocket sessions, heart
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 18:32
+---
+Operator queue-unblock workaround for OOMPAH-733: preserved old epic head 8400a54a under recovery/epic-EXOCOMP-130-pre-parent-sync-8400a54a, rebased the remaining unique plan and EventOutbox commits onto authoritative parent epic-EXOCOMP-127 at 2d08fde7, combined current invitation configuration with EventOutbox configuration in the only source conflicts, passed git diff --check and make fmt-check, and force-pushed with exact lease to 9663f4b2. Parent is an ancestor and local/remote heads match. Ready children may resume normal dependency-ordered integration.
+---
+<!-- COMMENTS:END -->
