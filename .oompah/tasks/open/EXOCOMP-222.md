@@ -14,8 +14,8 @@ start_blocked_by: &id001
 labels: []
 assignee: null
 created_at: '2026-08-03T14:25:16.130462Z'
-updated_at: '2026-08-03T15:37:01.356922Z'
-work_branch: null
+updated_at: '2026-08-03T15:37:14.911144Z'
+work_branch: epic-EXOCOMP-210--task-EXOCOMP-222
 target_branch: null
 review_url: null
 review_number: null
@@ -40,6 +40,15 @@ oompah.duplicate_screening:
   owner_login: null
   owner_resolution_reason: ''
 oompah.agent_run_id: c92b970d-2fb1-489d-a0b3-107206508a12
+oompah.work_branch: epic-EXOCOMP-210--task-EXOCOMP-222
+oompah.integration:
+  version: 2
+  state: working
+  attempts: 0
+  task_branch: epic-EXOCOMP-210--task-EXOCOMP-222
+  base_branch: epic-EXOCOMP-210
+  base_sha: 4e01311060eee5be3c1d18d86d809f4007664497
+  updated_at: '2026-08-03T15:37:12.055842+00:00'
 ---
 ## Summary
 
@@ -64,3 +73,16 @@ Out of scope: Lease scheduling, execution permits, and broker calls.
 
 ## Notes
 
+## Comments
+<!-- COMMENTS:BEGIN -->
+author: oompah
+created: 2026-08-03 15:37
+---
+Duplicate screening dispatched (profile: default, task remains Open)
+---
+author: oompah
+created: 2026-08-03 15:37
+---
+Focus: Duplicate Investigator
+---
+<!-- COMMENTS:END -->
