@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-147
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Add heartbeat, disconnect detection, and reconnect backoff
 parent: EXOCOMP-130
@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T22:53:48.476316Z'
+updated_at: '2026-08-03T22:54:06.534321Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -156,6 +156,28 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-147
     source_sha: 6e6d6e2082af1af2ad870a22024f3054ed5d2be9
     completed_at: '2026-08-03T21:57:54.170645+00:00'
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-abd49aee5fc0
+    project_id: proj-c260b117
+    task_id: EXOCOMP-147
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: ebbda61f313f32e329e6d306b0d6993121df673e0db2bfe16ad93708e4654b6e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-integration
+      source: service
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T22:54:02.659318+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -448,5 +470,10 @@ author: oompah
 created: 2026-08-03 22:52
 ---
 Heartbeat, disconnect detection, and reconnect backoff delivered. Connection GenServer manages 30s heartbeat cadence, full-jitter exponential backoff 1s-60s, and stable-connection reset (90s). SessionLiveness GenServer detects 90s heartbeat gaps and commits transitions before publishing them. Twelve focused deterministic tests cover the state machine acceptance criteria.
+---
+author: oompah
+created: 2026-08-03 22:54
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
