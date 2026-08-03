@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:02.496448Z'
-updated_at: '2026-08-03T20:25:25.919462Z'
+updated_at: '2026-08-03T20:30:25.824960Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-146
 target_branch: null
 review_url: null
@@ -63,8 +63,8 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-145: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
 oompah.task_costs:
-  total_input_tokens: 20434218
-  total_output_tokens: 91436
+  total_input_tokens: 20434237
+  total_output_tokens: 99597
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -72,8 +72,8 @@ oompah.task_costs:
       output_tokens: 71814
       cost_usd: 0.0
     unknown:
-      input_tokens: 152
-      output_tokens: 19622
+      input_tokens: 171
+      output_tokens: 27783
       cost_usd: 0.0
   runs:
   - profile: default
@@ -106,6 +106,12 @@ oompah.task_costs:
     output_tokens: 2066
     cost_usd: 0.0
     recorded_at: '2026-08-03T19:38:15.751368+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 19
+    output_tokens: 8161
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T20:30:22.185610+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-146__20260801T121119Z
@@ -699,5 +705,15 @@ Safe evidence:
 - tls_version: versions: [:"tlsv1.3"] in web_socket.ex tls_options and cluster_gateway server_tls_options
 - session_id_generation: sess_ + Base.url_encode64(:crypto.strong_rand_bytes(32), padding: false)
 - no_inbound_listener: MissionControl.Supervisor starts only Outbox + Connection
+---
+author: oompah
+created: 2026-08-03 20:30
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 45, Tool calls: 28
+- Tokens: 19 in / 8.2K out [8.2K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 23m 4s
+- Log: EXOCOMP-146__20260803T200723Z.jsonl
 ---
 <!-- COMMENTS:END -->
