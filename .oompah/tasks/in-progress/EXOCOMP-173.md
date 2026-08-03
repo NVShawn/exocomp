@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-173
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Sign, deliver, retry, and replay webhook events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:37.354425Z'
-updated_at: '2026-08-03T17:14:49.186819Z'
+updated_at: '2026-08-03T17:15:36.719971Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 target_branch: null
 review_url: null
@@ -47,22 +47,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: null
+oompah.agent_run_id: ebdd3b0f-f3b4-47d8-af31-d26849b3540b
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-173
 oompah.integration:
   version: 2
-  state: integrated
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-173
   base_branch: epic-EXOCOMP-134
-  base_sha: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
-  head_sha: fb5673e4da33054442e6ace089194af5103fdae7
-  integrated_sha: fb5673e4da33054442e6ace089194af5103fdae7
-  submitted_at: '2026-08-03T16:34:43.364745+00:00'
-  updated_at: '2026-08-03T16:35:46.947023+00:00'
-  dependency_heads:
-    EXOCOMP-171: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
-    EXOCOMP-172: 3377d707470a4dbe27fd9c962c0acb4e95e1289d
+  base_sha: fb5673e4da33054442e6ace089194af5103fdae7
+  updated_at: '2026-08-03T17:15:33.682169+00:00'
 oompah.task_costs:
   total_input_tokens: 420560
   total_output_tokens: 68032
@@ -416,5 +410,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 18m 15s
 - Log: EXOCOMP-173__20260803T165521Z.jsonl
+---
+author: oompah
+created: 2026-08-03 17:15
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 17:15
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
