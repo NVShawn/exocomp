@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:22:52.388724Z'
-updated_at: '2026-08-03T17:46:07.029145Z'
+updated_at: '2026-08-03T17:47:24.973511Z'
 work_branch: EXOCOMP-243
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/24
@@ -44,13 +44,17 @@ oompah.duplicate_screening:
   owner_resolution_reason: ''
 oompah.agent_run_id: c3bae8fe-2d92-45cc-b6a3-f0681659abd4
 oompah.task_costs:
-  total_input_tokens: 48916
-  total_output_tokens: 740
+  total_input_tokens: 48936
+  total_output_tokens: 4685
   total_cost_usd: 0.0
   by_model:
     haiku:
       input_tokens: 48916
       output_tokens: 740
+      cost_usd: 0.0
+    unknown:
+      input_tokens: 20
+      output_tokens: 3945
       cost_usd: 0.0
   runs:
   - profile: default
@@ -65,6 +69,12 @@ oompah.task_costs:
     output_tokens: 158
     cost_usd: 0.0
     recorded_at: '2026-08-03T17:36:54.346467+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 20
+    output_tokens: 3945
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T17:47:21.372083+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-243__20260803T172843Z
@@ -155,18 +165,32 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-243
     target_state: Merged
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-e5377142d56d
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
+      created_at: '2026-08-03T17:47:23.221752+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-03T17:47:23.221752+00:00'
+      branch_key: EXOCOMP-243
     requested_by:
       version: 1
       identity: NVShawn
       source: forge
     previous_state: In Review
     created_at: '2026-08-03T17:38:56.142684+00:00'
+    updated_at: '2026-08-03T17:47:23.221752+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-60dd5c989180
@@ -180,6 +204,19 @@ oompah.terminal_audit:
     provider_id: prov-651d553c
     model: opus
     started_at: '2026-08-03T17:39:41.284787+00:00'
+    branch_key: EXOCOMP-243
+  - version: 1
+    attempt_id: attempt-e5377142d56d
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 1e2e1ecb052c07d7b3ee8072ff773e82a93b06bc802fee9906d249a642ec2a41
+    created_at: '2026-08-03T17:47:23.221752+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-03T17:47:23.221752+00:00'
     branch_key: EXOCOMP-243
 ---
 ## Summary
@@ -314,5 +351,15 @@ Safe evidence:
 - synchronization_mechanism: eventually block awaiting foxtrot.reachability == :healthy before assertion
 - branch_contains_fix: EXOCOMP-243 and main both contain e2976fff
 - attribution_trailer: oompah co-author present
+---
+author: oompah
+created: 2026-08-03 17:47
+---
+Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 25, Tool calls: 14
+- Tokens: 20 in / 3.9K out [4.0K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 7m 37s
+- Log: EXOCOMP-243__20260803T173951Z.jsonl
 ---
 <!-- COMMENTS:END -->
