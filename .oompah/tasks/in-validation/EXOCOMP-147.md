@@ -13,7 +13,7 @@ labels:
 - focus-complete:frontend
 assignee: null
 created_at: '2026-07-30T14:15:03.538393Z'
-updated_at: '2026-08-03T22:54:06.534321Z'
+updated_at: '2026-08-03T22:54:31.564786Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-147
 target_branch: null
 review_url: null
@@ -87,8 +87,8 @@ oompah.integration:
   dependency_heads:
     EXOCOMP-146: 14898301998f8bef4eb0f2f4d98d4e8d9b45a693
 oompah.task_costs:
-  total_input_tokens: 1819373
-  total_output_tokens: 23778
+  total_input_tokens: 1819492
+  total_output_tokens: 54014
   total_cost_usd: 0.0
   by_model:
     haiku:
@@ -98,6 +98,10 @@ oompah.task_costs:
     sonnet:
       input_tokens: 1818851
       output_tokens: 22508
+      cost_usd: 0.0
+    opus:
+      input_tokens: 119
+      output_tokens: 30236
       cost_usd: 0.0
   runs:
   - profile: default
@@ -130,6 +134,12 @@ oompah.task_costs:
     output_tokens: 15150
     cost_usd: 0.0
     recorded_at: '2026-08-03T21:57:54.167726+00:00'
+  - profile: deep
+    model: opus
+    input_tokens: 119
+    output_tokens: 30236
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T22:54:29.826030+00:00'
 oompah.work_contributors:
   runs:
   - run_id: EXOCOMP-147__20260801T121453Z
@@ -475,5 +485,15 @@ author: oompah
 created: 2026-08-03 22:54
 ---
 Queued for terminal transition to Done. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-03 22:54
+---
+Run #2 [attempt=2, profile=deep, role=deep -> Claude/opus]
+- Turns: 0, Tool calls: 94
+- Tokens: 119 in / 30.2K out [30.4K total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 55m 13s
+- Log: EXOCOMP-147__20260803T215929Z.jsonl
 ---
 <!-- COMMENTS:END -->
