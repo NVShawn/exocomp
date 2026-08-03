@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:07.042172Z'
-updated_at: '2026-08-03T21:42:52.954053Z'
+updated_at: '2026-08-03T21:43:04.022598Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-150
 target_branch: null
 review_url: null
@@ -275,5 +275,10 @@ author: oompah
 created: 2026-08-03 21:41
 ---
 Integration found a rebase conflict on `epic-EXOCOMP-130--task-EXOCOMP-150`. Resolve it against `epic-EXOCOMP-130`, run the required tests, push the same private branch, and `oompah task submit` it again.
+---
+author: oompah
+created: 2026-08-03 21:43
+---
+Agent dispatched (profile: standard)
 ---
 <!-- COMMENTS:END -->
