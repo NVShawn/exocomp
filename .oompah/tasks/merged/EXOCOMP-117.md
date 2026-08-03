@@ -17,7 +17,7 @@ labels:
 - ci-fix
 assignee: null
 created_at: '2026-07-26T03:57:27.844799Z'
-updated_at: '2026-08-03T12:25:38.551015Z'
+updated_at: '2026-08-03T12:25:54.569176Z'
 work_branch: epic-EXOCOMP-117
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/18
@@ -29,13 +29,13 @@ oompah.work_branch: epic-EXOCOMP-117
 oompah.target_branch: main
 oompah.agent_run_id: b04ff248-8bbd-48e0-801a-78ec3dc96315
 oompah.task_costs:
-  total_input_tokens: 49
-  total_output_tokens: 21136
+  total_input_tokens: 93
+  total_output_tokens: 21896
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 49
-      output_tokens: 21136
+      input_tokens: 93
+      output_tokens: 21896
       cost_usd: 0.0
   runs:
   - profile: deep
@@ -50,6 +50,12 @@ oompah.task_costs:
     output_tokens: 4313
     cost_usd: 0.0
     recorded_at: '2026-08-03T12:16:34.563565+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 44
+    output_tokens: 760
+    cost_usd: 0.0
+    recorded_at: '2026-08-03T12:25:52.946112+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
   applied_result_attempts:
@@ -588,5 +594,15 @@ Safe evidence:
 - children_open: EXOCOMP-123 (independent follow-up requalification)
 - prior_archived_audit: audit-d439cc785355 PASS 2026-08-03
 - prior_done_audit_infra_failure: audit-075f4014ca50 needs_human (resolvers tried deleted post-merge branch tip, not merge commit)
+---
+author: oompah
+created: 2026-08-03 12:25
+---
+Run #YOLO-reopen [attempt=YOLO-reopen, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 0, Tool calls: 21
+- Tokens: 44 in / 760 out [804 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 3m 8s
+- Log: EXOCOMP-117__20260803T122252Z.jsonl
 ---
 <!-- COMMENTS:END -->
