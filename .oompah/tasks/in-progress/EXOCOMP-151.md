@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-03T23:13:35.285527Z'
+updated_at: '2026-08-03T23:17:00.953159Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -225,5 +225,15 @@ author: oompah
 created: 2026-08-03 23:13
 ---
 Discovery correction: commit 33ce64fb predates the current epic-EXOCOMP-130 integration branch, which now includes the dependent durable outbox and session-routing work. The affected EXOCOMP-151 boundary is Exocomp.Coordinator.CommandProcessor and its focused nine-case suite. I will rebase onto the parent and resolve overlap while preserving the receipt/result contract.
+---
+author: oompah
+created: 2026-08-03 23:16
+---
+Verification: git diff --check passes. The CommandProcessor source and its nine focused tests are byte-identical to the prior verified commit. make test and make lint passed all offline builder, packaging, and documentation checks, then could not start their pinned Elixir container because rootless Podman cannot write its required /run/user/1000/libpod runtime directory. make fmt-check is blocked by the same sandbox limitation. A direct focused mix test is unavailable locally because installed Elixir is 1.18.3 while this project requires 1.20.2.
+---
+author: oompah
+created: 2026-08-03 23:17
+---
+Implementation: rebased the existing command-result implementation onto epic-EXOCOMP-130 as 7bf5506c. The application supervision list now retains the parent EventOutbox, Mission Control, PKI, and invitation children while also starting CommandProcessor. The command processor and its focused tests are byte-identical to the previously verified implementation; no command/replay behavior changed during conflict resolution.
 ---
 <!-- COMMENTS:END -->
