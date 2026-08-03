@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: Needs Rebase
+status: In Progress
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T13:43:36.627222Z'
+updated_at: '2026-08-03T13:44:23.806125Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -40,36 +40,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: 3f51ce77-d11c-490a-8473-b0140bd78a30
+oompah.agent_run_id: 8a1a4551-6052-47c4-bc77-3dc9b44af996
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: blocked
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
   base_branch: epic-EXOCOMP-134
   base_sha: db7ca3ae0e16a528026152aa40f7db646b7b7d52
-  head_sha: 48d65b66e7bbbbe072dc0be4a0d89e136cabd0bd
-  submitted_at: '2026-08-01T13:21:48.285012+00:00'
-  updated_at: '2026-08-03T13:43:32.898229+00:00'
-  last_error: 'Rebase onto the latest epic head conflicted: Rebasing (1/1)
-
-    error: could not apply 48d65b66... EXOCOMP-171: Add correlated Mission Control
-    audit events
-
-    hint: Resolve all conflicts manually, mark them as resolved with
-
-    hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
-
-    hint: You can instead skip this commit: run "git rebase --skip".
-
-    hint: To abort and get back to the state before "git rebase", run "git rebase
-    --abort".
-
-    hint: Disable this message with "git config set advice.mergeConflict false"
-
-    Could not apply 48d65b66... # EXOCOMP-171: Add correlated Mission Control audit
-    events'
+  updated_at: '2026-08-03T13:44:21.370672+00:00'
 oompah.task_costs:
   total_input_tokens: 881317
   total_output_tokens: 38329
@@ -230,5 +210,15 @@ author: oompah
 created: 2026-08-03 13:43
 ---
 Integration found a rebase conflict on `epic-EXOCOMP-134--task-EXOCOMP-171`. Resolve it against `epic-EXOCOMP-134`, run the required tests, push the same private branch, and `oompah task submit` it again.
+---
+author: oompah
+created: 2026-08-03 13:44
+---
+Agent dispatched (profile: standard)
+---
+author: oompah
+created: 2026-08-03 13:44
+---
+Focus: Maintenance Engineer
 ---
 <!-- COMMENTS:END -->
