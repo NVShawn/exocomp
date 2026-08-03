@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:36:05.831633Z'
-updated_at: '2026-08-03T14:41:12.340492Z'
+updated_at: '2026-08-03T14:41:51.887216Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-241
 target_branch: null
 review_url: null
@@ -242,5 +242,15 @@ author: oompah
 created: 2026-08-03 14:41
 ---
 Understanding: Rebase the checked-out epic branch onto origin/main, preserve its commits, resolve any conflicts, verify the rewritten ancestry and clean worktree, then force-push with lease and submit the task.
+---
+author: oompah
+created: 2026-08-03 14:41
+---
+Discovery: origin/main is one commit ahead, while this branch has zero unique commits (divergence 1 behind / 0 ahead). There is no code conflict to resolve; rebase will be a no-op, followed by a fast-forward of the clean branch pointer to origin/main.
+---
+author: oompah
+created: 2026-08-03 14:41
+---
+Operator recovery: duplicate-preflight escalation regression filed as OOMPAH-721. Revoking automated ownership and completing the required epic rebase directly to avoid a race with the worker.
 ---
 <!-- COMMENTS:END -->

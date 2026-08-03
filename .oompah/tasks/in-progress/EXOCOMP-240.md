@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-240
 type: task
-status: Open
+status: In Progress
 priority: 0
 title: Rebase epic-EXOCOMP-130 onto main
 parent: EXOCOMP-130
@@ -11,14 +11,14 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:35:56.558756Z'
-updated_at: '2026-08-03T14:41:30.564090Z'
+updated_at: '2026-08-03T14:41:56.033659Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-240
 target_branch: null
 review_url: null
 review_number: null
 review_head: null
 merged_at: null
-oompah.agent_run_id: f08d3521-bce1-4cd4-a92a-159827a405ea
+oompah.agent_run_id: be482080-2cd6-4588-a94b-509912a7fcc2
 oompah.work_branch: epic-EXOCOMP-130--task-EXOCOMP-240
 oompah.integration:
   version: 2
@@ -72,6 +72,23 @@ oompah.work_contributors:
     source_branch: epic-EXOCOMP-130--task-EXOCOMP-240
     source_sha: b0d047ea97d00deb5c9b83054ddfb6de1491f0a9
     completed_at: '2026-08-03T14:41:24.210108+00:00'
+oompah.duplicate_screening:
+  schema_version: 1
+  task_fingerprint: 0dc35861983e210baa4d6aea8b0616d995e5f13f9cde64b5b147af7e5d276bee
+  detector_version: duplicate-detector-v1
+  verdict: inconclusive
+  checked_at: null
+  matched_identifiers: []
+  evidence: ''
+  claim_id: 72986d7a-1d00-4992-b767-1aeaaea13449
+  claim_owner: 2dcc53e1-cdcd-4522-a08d-de6ce4222a8c
+  claimed_at: '2026-08-03T14:41:42.600729+00:00'
+  claim_expires_at: '2026-08-03T15:11:42.600729+00:00'
+  retry_count: 0
+  retry_after: null
+  owner_resolved_at: null
+  owner_login: null
+  owner_resolution_reason: ''
 ---
 ## Summary
 
@@ -141,5 +158,10 @@ Run #2 [attempt=2, profile=deep, role=deep -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 1m 4s
 - Log: EXOCOMP-240__20260803T144033Z.jsonl
+---
+author: oompah
+created: 2026-08-03 14:41
+---
+Operator recovery: duplicate-preflight escalation regression filed as OOMPAH-721. Revoking the incorrect Duplicate Investigator claim and completing the required epic rebase directly.
 ---
 <!-- COMMENTS:END -->
