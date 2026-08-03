@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-159
 type: task
-status: Needs Human
+status: In Validation
 priority: 1
 title: Implement the coordinator exocomp.cluster.chat skill
 parent: EXOCOMP-132
@@ -13,7 +13,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:17.558974Z'
-updated_at: '2026-08-03T19:28:48.251195Z'
+updated_at: '2026-08-03T19:30:01.810818Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-159
 target_branch: null
 review_url: null
@@ -152,7 +152,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-159
     target_state: Done
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -215,7 +215,24 @@ oompah.terminal_audit:
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T18:32:13.696887+00:00'
-    updated_at: '2026-08-03T18:54:26.325766+00:00'
+    updated_at: '2026-08-03T19:29:58.634883+00:00'
+  - version: 1
+    audit_id: audit-f450c23c331a
+    project_id: proj-c260b117
+    task_id: EXOCOMP-159
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: c1ff5d97ed7585cc1cfbe3cead32030b93e36964fecb069e1c7251f24f694462
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    previous_state: Ready to Integrate
+    created_at: '2026-08-03T19:29:58.634883+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-bd09075984b7
@@ -501,5 +518,10 @@ author: oompah
 created: 2026-08-03 19:28
 ---
 Operator recovery evidence for the exact integrated SHA 4217f9c1937e20664b5564facaf31fc042d618bb: the first independent auditor completed the configured full make test gate successfully before its attempt was terminated by unrelated command-policy denials. On 2026-08-03, the operator then ran the remaining task-required Makefile gates in an isolated detached worktree at that exact SHA: make fmt-check exited 0 and make lint exited 0. OOMPAH-736 tracks the policy-contract defect that exhausted both auditors.
+---
+author: oompah
+created: 2026-08-03 19:30
+---
+Terminal audit rearmed by project owner after recovery: Rearm after OOMPAH-736 policy-contract exhaustion; exact integrated SHA has independent make test plus operator make fmt-check and make lint pass evidence.
 ---
 <!-- COMMENTS:END -->
