@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-158
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 1
 title: Store bounded conversations, messages, and evidence references
 parent: EXOCOMP-132
@@ -12,7 +12,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:16:16.513296Z'
-updated_at: '2026-08-03T18:06:12.229172Z'
+updated_at: '2026-08-03T18:06:15.723769Z'
 work_branch: epic-EXOCOMP-132--task-EXOCOMP-158
 target_branch: null
 review_url: null
@@ -250,5 +250,10 @@ Run #1 [attempt=1, profile=standard, role=standard -> Codex/gpt-5.6-terra]
 - Cost: $0.0000
 - Exit: terminated, Duration: 12m 9s
 - Log: EXOCOMP-158__20260803T174549Z.jsonl
+---
+author: oompah
+created: 2026-08-03 18:06
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
