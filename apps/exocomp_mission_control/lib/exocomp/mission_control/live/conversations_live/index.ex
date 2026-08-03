@@ -9,7 +9,7 @@ defmodule Exocomp.MissionControl.ConversationsLive.Index do
   and the operator role is enforced by the RequireRole :operate hook.
   """
 
-  use Phoenix.LiveView
+  use Phoenix.LiveView, layout: {Exocomp.MissionControl.Layouts, :app}
 
   @impl true
   def mount(_params, _session, socket) do

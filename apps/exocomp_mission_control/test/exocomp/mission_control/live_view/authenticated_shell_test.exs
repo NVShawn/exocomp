@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 defmodule Exocomp.MissionControl.AuthenticatedShellTest do
   use ExUnit.Case, async: true
-  doctest Exocomp.MissionControl
 
   alias Exocomp.MissionControl.Identity.Operator
 
@@ -140,9 +139,15 @@ defmodule Exocomp.MissionControl.AuthenticatedShellTest do
       assert Operator.compare_roles(:admin, :admin) == 0
     end
 
-    test "invalid roles return -1" do
-      assert Operator.compare_roles(:invalid, :viewer) == -1
-      assert Operator.compare_roles(:viewer, :invalid) == -1
+    test "invalid roles are ordered strictly below viewer" do
+      # role_index(_) = -1 for any unknown atom, so compare_roles yields a
+      # negative number when the invalid role is on the left and a positive
+      # number when it is on the right.
+      assert Operator.compare_roles(:invalid, :viewer) < 0
+      assert Operator.compare_roles(:viewer, :invalid) > 0
+
+      invalid = %Operator{sub: "u", organization_id: "o", role: :invalid}
+      refute Operator.has_role_at_least?(invalid, :viewer)
     end
   end
 

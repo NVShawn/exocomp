@@ -50,7 +50,8 @@ defmodule Exocomp.MissionControl.MixProject do
       {:jose, "~> 1.11"},
       {:exocomp_core, in_umbrella: true},
       {:plug, "~> 1.14"},
-      {:bandit, "~> 1.4"}
+      {:bandit, "~> 1.4"},
+      {:lazy_html, ">= 0.1.0", only: :test}
     ]
   end
 

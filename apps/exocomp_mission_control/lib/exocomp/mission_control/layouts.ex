@@ -5,6 +5,7 @@ defmodule Exocomp.MissionControl.Layouts do
 
   use Phoenix.Component
 
+  import Plug.CSRFProtection, only: [get_csrf_token: 0]
   import Exocomp.MissionControl.Components
 
   embed_templates("layouts/*")

@@ -8,7 +8,7 @@ defmodule Exocomp.MissionControl.IncidentsLive.Index do
   The `current_operator` assign is set by the RequireRole authenticate hook.
   """
 
-  use Phoenix.LiveView
+  use Phoenix.LiveView, layout: {Exocomp.MissionControl.Layouts, :app}
 
   @impl true
   def mount(_params, _session, socket) do

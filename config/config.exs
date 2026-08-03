@@ -39,7 +39,8 @@ config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,
     formats: [html: Exocomp.MissionControl.ErrorHTML],
     layout: false
   ],
-  pubsub_server: Exocomp.MissionControl.PubSub
+  pubsub_server: Exocomp.MissionControl.PubSub,
+  live_view: [signing_salt: "mission-control-live-view-signing-salt"]
 
 if config_env() != :prod do
   config :exocomp_mission_control, Exocomp.MissionControl.Endpoint,

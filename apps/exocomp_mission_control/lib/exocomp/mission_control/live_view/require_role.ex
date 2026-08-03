@@ -131,19 +131,19 @@ defmodule Exocomp.MissionControl.LiveView.RequireRole do
   defp parse_role(_), do: nil
 
   defp assign_operator(socket, operator) do
-    apply(Phoenix.LiveView, :assign, [socket, :current_operator, operator])
+    apply(Phoenix.Component, :assign, [socket, :current_operator, operator])
   end
 
   defp resolve_organization_id(assigns, params) do
-    assigns[:organization_id] || params["organization_id"]
+    assigns[:organization_id] ||
+      params["organization_id"] ||
+      (assigns[:current_operator] && assigns[:current_operator].organization_id)
   end
 
   defp forbidden_message(:cross_organization), do: "Access denied: organization mismatch."
 
   defp forbidden_message(:insufficient_role),
     do: "You do not have permission to perform this action."
-
-  defp forbidden_message(_), do: "Access denied."
 
   # Deferred dispatch to Phoenix.LiveView to avoid a hard compile-time dep.
   defp phoenix_put_flash(socket, kind, message) do

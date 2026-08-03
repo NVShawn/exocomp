@@ -286,6 +286,30 @@ upstream license or notice named by their build-specific inventory.
 - Version: 0.5.9.
 - License: [MIT](https://github.com/mtrudel/websock_adapter/blob/main/LICENSE).
 
+### LazyHTML
+
+- Version: 0.1.12.
+- License: [Apache-2.0](https://github.com/dashbitco/lazy_html/blob/main/LICENSE).
+- Scope: test-only; used by `phoenix_live_view` test helpers.
+
+### CCPrecompiler
+
+- Version: 0.1.11.
+- License: [Apache-2.0](https://github.com/cocoa-xu/cc_precompiler/blob/main/LICENSE).
+- Scope: test-only; transitive dependency of `lazy_html`.
+
+### elixir_make
+
+- Version: 0.10.0.
+- License: [Apache-2.0](https://github.com/elixir-lang/elixir_make/blob/main/LICENSE).
+- Scope: test-only; transitive dependency of `lazy_html`.
+
+### Fine
+
+- Version: 0.1.6.
+- License: [Apache-2.0](https://github.com/elixir-nx/fine/blob/main/LICENSE).
+- Scope: test-only; transitive dependency of `lazy_html`.
+
 ### llama.cpp
 
 - Use: bundled `llama-server` inference runtime.

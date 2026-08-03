@@ -24,19 +24,19 @@ defmodule Exocomp.MissionControl.Components do
   def navigation(assigns) do
     ~H"""
     <nav class="flex items-center gap-6" role="navigation" aria-label="Primary navigation">
-      <a href="/" 
+      <a href="/"
          class="text-gray-700 hover:text-gray-900 hover:bg-gray-100 font-medium py-2 px-3 rounded transition-colors"
          aria-label="Fleet overview">
         Fleet
       </a>
-      <a href="/incidents" 
+      <a href="/incidents"
          class="text-gray-700 hover:text-gray-900 hover:bg-gray-100 font-medium py-2 px-3 rounded transition-colors"
          aria-label="Incidents">
         Incidents
       </a>
 
       <%= if Operator.has_role_at_least?(@operator, :operator) do %>
-        <a href="/conversations" 
+        <a href="/conversations"
            class="text-gray-700 hover:text-gray-900 hover:bg-gray-100 font-medium py-2 px-3 rounded transition-colors"
            aria-label="Conversations">
           Conversations
@@ -44,7 +44,7 @@ defmodule Exocomp.MissionControl.Components do
       <% end %>
 
       <%= if Operator.has_role_at_least?(@operator, :admin) do %>
-        <a href="/admin" 
+        <a href="/admin"
            class="text-gray-700 hover:text-gray-900 hover:bg-gray-100 font-medium py-2 px-3 rounded transition-colors"
            aria-label="Administration panel">
           Admin
@@ -62,7 +62,7 @@ defmodule Exocomp.MissionControl.Components do
   - Operator: Orange background
   - Admin: Red background
   """
-  attr(:role, Operator.role(), required: true)
+  attr(:role, :atom, required: true)
 
   def role_badge(%{role: role} = assigns) do
     {bg_class, text, aria_label} =
@@ -88,7 +88,7 @@ defmodule Exocomp.MissionControl.Components do
       |> assign(:aria_label, aria_label)
 
     ~H"""
-    <span class={["inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium", @bg_class]} 
+    <span class={["inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium", @bg_class]}
           role="status"
           aria-label={@aria_label}
           title={@aria_label}>
@@ -104,32 +104,32 @@ defmodule Exocomp.MissionControl.Components do
   """
   attr(:flash, :map, required: true)
 
-  def flash_messages(%{flash: flash} = assigns) do
+  def flash_messages(assigns) do
     ~H"""
     <div id="flash-messages" class="space-y-4" role="region" aria-live="polite" aria-atomic="true" aria-label="Notifications">
-      <%= if flash["info"] do %>
+      <%= if @flash["info"] do %>
         <div class="bg-blue-50 border-l-4 border-blue-400 text-blue-800 px-4 py-3 rounded shadow-sm" role="status" aria-live="assertive">
           <p class="font-medium flex items-center gap-2">
             <span class="text-lg">ℹ</span>
-            <%= flash["info"] %>
+            <%= @flash["info"] %>
           </p>
         </div>
       <% end %>
 
-      <%= if flash["success"] do %>
+      <%= if @flash["success"] do %>
         <div class="bg-green-50 border-l-4 border-green-400 text-green-800 px-4 py-3 rounded shadow-sm" role="status" aria-live="assertive">
           <p class="font-medium flex items-center gap-2">
             <span class="text-lg">✓</span>
-            <%= flash["success"] %>
+            <%= @flash["success"] %>
           </p>
         </div>
       <% end %>
 
-      <%= if flash["error"] do %>
+      <%= if @flash["error"] do %>
         <div class="bg-red-50 border-l-4 border-red-400 text-red-800 px-4 py-3 rounded shadow-sm" role="alert" aria-live="assertive">
           <p class="font-medium flex items-center gap-2">
             <span class="text-lg">✕</span>
-            <%= flash["error"] %>
+            <%= @flash["error"] %>
           </p>
         </div>
       <% end %>
@@ -149,22 +149,23 @@ defmodule Exocomp.MissionControl.Components do
   attr(:last_seen_at, :any, default: nil)
 
   def connectivity_indicator(%{status: status} = assigns) do
-    {color, icon} =
+    {color, icon, label} =
       case status do
-        :connected -> {"text-green-600", "●"}
-        :disconnected -> {"text-gray-400", "●"}
-        :reconnecting -> {"text-yellow-600", "◐"}
+        :connected -> {"text-green-600", "●", "Connected"}
+        :disconnected -> {"text-gray-400", "●", "Disconnected"}
+        :reconnecting -> {"text-yellow-600", "◐", "Reconnecting"}
       end
 
     assigns =
       assigns
       |> assign(:color, color)
       |> assign(:icon, icon)
+      |> assign(:label, label)
 
     ~H"""
-    <span class={["flex items-center gap-2", @color]} title={"Cluster is #{@status}"}>
+    <span class={["flex items-center gap-2", @color]} title={"Cluster is #{@label}"}>
       <span class="text-lg"><%= @icon %></span>
-      <span class="text-sm font-medium capitalize"><%= @status %></span>
+      <span class="text-sm font-medium"><%= @label %></span>
     </span>
     """
   end
@@ -232,7 +233,7 @@ defmodule Exocomp.MissionControl.Components do
   attr(:description, :string, required: true)
   attr(:icon, :string, default: "○")
 
-  def empty_state(%{title: title, description: description} = assigns) do
+  def empty_state(assigns) do
     ~H"""
     <div class="text-center py-12" role="status" aria-label="No data available">
       <p class="text-4xl mb-4" aria-hidden="true"><%= @icon %></p>
@@ -309,7 +310,7 @@ defmodule Exocomp.MissionControl.Components do
       |> assign(:aria_label, aria_label)
 
     ~H"""
-    <span class={["inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium", @bg_class]} 
+    <span class={["inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium", @bg_class]}
           role="status"
           aria-label={@aria_label}>
       <%= @text %>
@@ -345,7 +346,7 @@ defmodule Exocomp.MissionControl.Components do
       |> assign(:aria_label, aria_label)
 
     ~H"""
-    <span class={["inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium", @bg_class]} 
+    <span class={["inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium", @bg_class]}
           role="status"
           aria-label={@aria_label}>
       <%= @text %>
@@ -363,12 +364,12 @@ defmodule Exocomp.MissionControl.Components do
   attr(:action_label, :string, default: nil)
   attr(:action_path, :string, default: nil)
 
-  def error_state(%{title: title, description: description} = assigns) do
+  def error_state(assigns) do
     ~H"""
     <div class="border border-red-200 bg-red-50 rounded-lg p-8" role="alert">
       <h3 class="text-lg font-semibold text-red-800"><%= @title %></h3>
       <p class="text-red-700 mt-2"><%= @description %></p>
-      <%= if @action_label and @action_path do %>
+      <%= if @action_label && @action_path do %>
         <a href={@action_path} class="mt-4 inline-block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
           <%= @action_label %>
         </a>
@@ -384,13 +385,11 @@ defmodule Exocomp.MissionControl.Components do
   """
   attr(:events, :list, required: true)
 
-  def status_timeline(%{events: events} = assigns) do
-    assigns = assign(assigns, :events, events)
-
+  def status_timeline(assigns) do
     ~H"""
     <div class="flow-root" role="region" aria-label="Status timeline">
       <ul class="divide-y divide-gray-200">
-        <%= for {event, index} <- Enum.with_index(@events) do %>
+        <%= for event <- @events do %>
           <li class="py-6">
             <div class="flex flex-col">
               <span class="text-sm font-medium text-gray-900">
@@ -419,7 +418,7 @@ defmodule Exocomp.MissionControl.Components do
   attr(:value, :string, required: true)
   attr(:monospace, :boolean, default: false)
 
-  def data_row(%{label: label, value: value} = assigns) do
+  def data_row(assigns) do
     ~H"""
     <div class="grid grid-cols-3 gap-4 py-3 border-b border-gray-200">
       <dt class="text-sm font-medium text-gray-900"><%= @label %></dt>

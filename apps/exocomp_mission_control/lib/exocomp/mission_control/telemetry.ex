@@ -17,13 +17,17 @@ defmodule Exocomp.MissionControl.Telemetry do
     children = [
       # Telemetry poller will execute the given period measurements
       # every 10_000ms. Learn more here: https://hexdocs.pm/telemetry_poller
-      {:telemetry_poller, period: 10_000, metrics: metrics()}
+      {:telemetry_poller, period: 10_000, measurements: []}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-  @doc false
+  @doc """
+  Returns telemetry metrics definitions for reporters.
+  These are used by metrics reporters such as TelemetryMetricsPrometheus or
+  the Phoenix LiveDashboard.
+  """
   def metrics do
     [
       counter("phoenix.router.dispatch.stop.duration",

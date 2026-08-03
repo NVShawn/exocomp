@@ -62,15 +62,6 @@ defmodule Exocomp.MissionControl.ConnCase do
           display_name: merged.display_name
         }
       end
-
-      def init_live_flash(conn) do
-        conn
-        |> fetch_live_flash()
-        |> put_session(
-          :live_socket_id,
-          "users_sessions:#{Base.url_encode64(:crypto.strong_rand_bytes(32))}"
-        )
-      end
     end
   end
 

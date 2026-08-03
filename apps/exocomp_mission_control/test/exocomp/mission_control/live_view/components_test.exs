@@ -7,21 +7,9 @@ defmodule Exocomp.MissionControl.ComponentsTest do
   Verifies component rendering, accessibility, and visual styling.
   """
   use ExUnit.Case, async: true
-  import Phoenix.Component
   import Phoenix.LiveViewTest
 
   alias Exocomp.MissionControl.Components
-
-  defp render_component(component, attrs) do
-    rendered_to_string(component, attrs)
-  end
-
-  defp rendered_to_string(component, attrs) do
-    {:safe, html} =
-      render_component(component, Map.new(attrs))
-
-    html |> Phoenix.HTML.safe_to_string()
-  end
 
   describe "role_badge component" do
     test "renders viewer badge with correct styling" do

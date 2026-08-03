@@ -5,19 +5,19 @@
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between" aria-label="Main navigation">
       <div class="flex items-center gap-8">
         <h1 class="text-xl font-semibold text-gray-900">Mission Control</h1>
-        <.navigation operator={@operator} />
+        <.navigation operator={@current_operator} />
       </div>
       <div class="flex items-center gap-4">
         <div class="text-right">
           <span class="block text-sm font-medium text-gray-900" id="operator-name">
-            <%= @operator.display_name || @operator.sub %>
+            <%= @current_operator.display_name || @current_operator.sub %>
           </span>
           <span class="block text-xs text-gray-500" id="organization-id">
-            Org: <%= String.slice(@operator.organization_id, 0..7) %>
+            Org: <%= String.slice(@current_operator.organization_id, 0..7) %>
           </span>
         </div>
-        <.role_badge role={@operator.role} />
-        <a href="/auth/logout" 
+        <.role_badge role={@current_operator.role} />
+        <a href="/auth/logout"
            class="text-sm text-red-600 hover:text-red-800 font-medium py-2 px-3 rounded hover:bg-red-50 transition-colors"
            aria-label="Logout">
           Logout
@@ -33,6 +33,6 @@
 
   <footer class="bg-gray-900 text-gray-300 text-center py-4 mt-auto" role="contentinfo">
     <p class="text-sm">Exocomp Mission Control © 2026</p>
-    <p class="text-xs text-gray-400 mt-1">Organization ID: <%= @operator.organization_id %></p>
+    <p class="text-xs text-gray-400 mt-1">Organization ID: <%= @current_operator.organization_id %></p>
   </footer>
 </div>

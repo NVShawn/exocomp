@@ -9,7 +9,7 @@ defmodule Exocomp.MissionControl.AdminLive.Index do
   and the admin role is enforced by the RequireRole :administer hook.
   """
 
-  use Phoenix.LiveView
+  use Phoenix.LiveView, layout: {Exocomp.MissionControl.Layouts, :app}
 
   @impl true
   def mount(_params, _session, socket) do
