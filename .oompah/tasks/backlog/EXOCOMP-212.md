@@ -5,13 +5,18 @@ status: Backlog
 priority: 2
 title: 'M8D: Operations, security, and qualification'
 parent: EXOCOMP-208
-children: []
+children:
+- EXOCOMP-235
+- EXOCOMP-236
+- EXOCOMP-237
+- EXOCOMP-238
+- EXOCOMP-239
 blocked_by: []
 start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T14:23:28.183269Z'
-updated_at: '2026-08-03T14:23:28.183269Z'
+updated_at: '2026-08-03T14:28:25.417685Z'
 work_branch: null
 target_branch: null
 review_url: null
