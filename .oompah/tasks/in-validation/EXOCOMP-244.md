@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-244
 type: task
-status: Ready to Integrate
+status: In Validation
 priority: 0
 title: Rebase epic-EXOCOMP-135 onto main
 parent: EXOCOMP-135
@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-08-03T17:34:46.380495Z'
-updated_at: '2026-08-03T17:52:20.764899Z'
+updated_at: '2026-08-03T17:52:25.425181Z'
 work_branch: epic-EXOCOMP-135--task-EXOCOMP-244
 target_branch: null
 review_url: null
@@ -180,5 +180,10 @@ Run #1 [attempt=1, profile=default, role=fast -> Codex/gpt-5.6-luna]
 - Cost: $0.0000
 - Exit: terminated, Duration: 1m 6s
 - Log: EXOCOMP-244__20260803T174609Z.jsonl
+---
+author: oompah
+created: 2026-08-03 17:52
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
