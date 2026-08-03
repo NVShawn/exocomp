@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-171
 type: task
-status: Open
+status: In Progress
 priority: 1
 title: Add correlated Mission Control audit events
 parent: EXOCOMP-134
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:17:34.779256Z'
-updated_at: '2026-08-03T14:36:16.910740Z'
+updated_at: '2026-08-03T14:36:51.079404Z'
 work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 target_branch: null
 review_url: null
@@ -40,21 +40,16 @@ oompah.duplicate_screening:
   claim_expires_at: null
   retry_count: 0
   retry_after: null
-oompah.agent_run_id: null
+oompah.agent_run_id: 45a45646-7fb9-40e9-8c03-b5c9f456b837
 oompah.work_branch: epic-EXOCOMP-134--task-EXOCOMP-171
 oompah.integration:
   version: 2
-  state: blocked
-  attempts: 1
+  state: working
+  attempts: 0
   task_branch: epic-EXOCOMP-134--task-EXOCOMP-171
   base_branch: epic-EXOCOMP-134
-  head_sha: f1e60cb4a3aa94d1af2cdbdf4767e6a2ed4cc1fa
-  submitted_at: '2026-08-03T14:32:23.390890+00:00'
-  updated_at: '2026-08-03T14:36:11.844530+00:00'
-  last_error: 'could not recover integration worktrees: git worktree add failed: Preparing
-    worktree (checking out ''epic-EXOCOMP-134--task-EXOCOMP-171'')
-
-    fatal: ''epic-EXOCOMP-134--task-EXOCOMP-171'' is already used by worktree at ''/home/shedwards/.oompah/tmp/exocomp-171-owner.Sl6Hc9'''
+  base_sha: e826d0d584294524cd0abd708456c457a50f11ed
+  updated_at: '2026-08-03T14:36:47.471970+00:00'
 oompah.task_costs:
   total_input_tokens: 881910
   total_output_tokens: 43486
@@ -573,5 +568,25 @@ Integration could not verify `epic-EXOCOMP-134--task-EXOCOMP-171`: could not rec
 fatal: 'epic-EXOCOMP-134--task-EXOCOMP-171' is already used by worktree at '/home/shedwards/.oompah/tmp/exocomp-171-owner.Sl6Hc9'
 
 Fetch the private branch, preserve its commits, push a clean current head, and submit it again.
+---
+author: oompah
+created: 2026-08-03 14:36
+---
+Agent dispatched (profile: default)
+---
+author: oompah
+created: 2026-08-03 14:36
+---
+Agent failed: git worktree add failed: Preparing worktree (checking out 'epic-EXOCOMP-134--task-EXOCOMP-171')
+fatal: 'epic-EXOCOMP-134--task-EXOCOMP-171' is already used by worktree at '/home/shedwards/.oompah/tmp/exocomp-171-owner.Sl6Hc9'. Retrying in 10s (attempt #1)
+---
+author: oompah
+created: 2026-08-03 14:36
+---
+Run #1 [attempt=1, profile=default, role=— -> Claude/haiku]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 7s
 ---
 <!-- COMMENTS:END -->
