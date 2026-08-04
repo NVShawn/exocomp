@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-04T00:05:00.347439Z'
+updated_at: '2026-08-04T00:05:20.989937Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -34,7 +34,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-130
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -43,7 +43,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ad5c3b41bcee
       target_state: Done
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -53,17 +53,22 @@ oompah.terminal_audit:
       model: opus
       started_at: '2026-08-04T00:04:58.759038+00:00'
       branch_key: EXOCOMP-130
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-04T00:05:16.882694+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-130 (tried: origin/EXOCOMP-130)'
+      next_retry_at: '2026-08-04T00:05:26.882667+00:00'
     requested_by:
       version: 1
       identity: orchestrator
     previous_state: Open
     created_at: '2026-08-04T00:03:58.412726+00:00'
-    updated_at: '2026-08-04T00:04:58.759038+00:00'
+    updated_at: '2026-08-04T00:05:16.882694+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ad5c3b41bcee
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -73,6 +78,11 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-08-04T00:04:58.759038+00:00'
     branch_key: EXOCOMP-130
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-04T00:05:16.882694+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-130 (tried: origin/EXOCOMP-130)'
+    next_retry_at: '2026-08-04T00:05:26.882667+00:00'
 ---
 ## Summary
 
@@ -97,5 +107,24 @@ author: oompah
 created: 2026-08-04 00:04
 ---
 Queued for terminal transition to Done. An auditor will review and apply the terminal status.
+---
+author: oompah
+created: 2026-08-04 00:05
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/opus)
+---
+author: oompah
+created: 2026-08-04 00:05
+---
+Run #1 [attempt=1, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 4s
+---
+author: oompah
+created: 2026-08-04 00:05
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-130 (tried: origin/EXOCOMP-130). A different independent auditor will be tried on the next scheduler tick.
 ---
 <!-- COMMENTS:END -->
