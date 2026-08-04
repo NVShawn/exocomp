@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-04T00:06:24.424957Z'
+updated_at: '2026-08-04T00:07:14.574036Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -77,12 +77,31 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-130 (tried: origin/EXOCOMP-130)'
       next_retry_at: '2026-08-04T00:06:38.641188+00:00'
+    - version: 1
+      attempt_id: attempt-bd99dc3e6d26
+      target_state: Done
+      request_state: pending
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+      created_at: '2026-08-04T00:07:03.283231+00:00'
+      provider_id: prov-651d553c
+      model: haiku
+      started_at: '2026-08-04T00:07:03.283231+00:00'
+      branch_key: EXOCOMP-130
+      candidate_rotation_count: 2
+      failure_classification: infrastructure_error
+      ended_at: '2026-08-04T00:07:10.991496+00:00'
+      failure_reason: 'terminal audit evidence has no safely resolvable revision for
+        EXOCOMP-130 (tried: origin/EXOCOMP-130)'
+      next_retry_at: '2026-08-04T00:07:50.991468+00:00'
     requested_by:
       version: 1
       identity: orchestrator
     previous_state: Open
     created_at: '2026-08-04T00:03:58.412726+00:00'
-    updated_at: '2026-08-04T00:06:18.641214+00:00'
+    updated_at: '2026-08-04T00:07:10.991496+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ad5c3b41bcee
@@ -121,6 +140,25 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-130 (tried: origin/EXOCOMP-130)'
     next_retry_at: '2026-08-04T00:06:38.641188+00:00'
+  - version: 1
+    attempt_id: attempt-bd99dc3e6d26
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+    created_at: '2026-08-04T00:07:03.283231+00:00'
+    provider_id: prov-651d553c
+    model: haiku
+    started_at: '2026-08-04T00:07:03.283231+00:00'
+    branch_key: EXOCOMP-130
+    candidate_rotation_count: 2
+    failure_classification: infrastructure_error
+    ended_at: '2026-08-04T00:07:10.991496+00:00'
+    failure_reason: 'terminal audit evidence has no safely resolvable revision for
+      EXOCOMP-130 (tried: origin/EXOCOMP-130)'
+    next_retry_at: '2026-08-04T00:07:50.991468+00:00'
 ---
 ## Summary
 
@@ -181,6 +219,25 @@ Run #2 [attempt=2, profile=auditor, role=— -> unknown/unknown]
 ---
 author: oompah
 created: 2026-08-04 00:06
+---
+Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-130 (tried: origin/EXOCOMP-130). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-04 00:07
+---
+Auditor dispatched (attempt #3, candidate: prov-651d553c/haiku)
+---
+author: oompah
+created: 2026-08-04 00:07
+---
+Run #3 [attempt=3, profile=auditor, role=— -> unknown/unknown]
+- Turns: 0, Tool calls: 0
+- Tokens: 0 in / 0 out [0 total]
+- Cost: $0.0000
+- Exit: error, Duration: 4s
+---
+author: oompah
+created: 2026-08-04 00:07
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-130 (tried: origin/EXOCOMP-130). A different independent auditor will be tried on the next scheduler tick.
 ---
