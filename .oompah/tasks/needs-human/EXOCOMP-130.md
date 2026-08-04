@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-130
 type: epic
-status: In Validation
+status: Needs Human
 priority: 1
 title: 'M7C: Cluster transport and durable delivery'
 parent: EXOCOMP-127
@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-04T00:07:14.574036Z'
+updated_at: '2026-08-04T00:09:42.566787Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -27,6 +27,31 @@ review_number: null
 merged_at: null
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    infrastructure-exhausted-audit-a19b69af12f0-3: '2026-08-04T00:09:38.527854+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-130
+    target_state: Done
+    evidence_fingerprint: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+    audit_ids:
+    - audit-a19b69af12f0
+    kind: result
+    applied: true
+    retired_at: '2026-08-04T00:09:38.527866+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-130
+    audit_id: audit-a19b69af12f0
+    attempt_id: infrastructure-exhausted-audit-a19b69af12f0-3
+    target_state: Done
+    evidence_fingerprint: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+    status: Needs Human
+    audit_ids:
+    - audit-a19b69af12f0
+    applied: true
+    created_at: '2026-08-04T00:09:38.527882+00:00'
+    applied_at: '2026-08-04T00:09:41.538037+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -34,7 +59,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-130
     target_state: Done
-    request_state: pending
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -96,12 +121,24 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-130 (tried: origin/EXOCOMP-130)'
       next_retry_at: '2026-08-04T00:07:50.991468+00:00'
+    - version: 1
+      attempt_id: infrastructure-exhausted-audit-a19b69af12f0-3
+      target_state: Done
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+      verdict: needs_human
+      failure_classification: infrastructure_error
+      created_at: '2026-08-04T00:09:38.527743+00:00'
+      completed_at: '2026-08-04T00:09:38.527743+00:00'
     requested_by:
       version: 1
       identity: orchestrator
     previous_state: Open
     created_at: '2026-08-04T00:03:58.412726+00:00'
-    updated_at: '2026-08-04T00:07:10.991496+00:00'
+    updated_at: '2026-08-04T00:09:38.527743+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ad5c3b41bcee
@@ -240,5 +277,12 @@ author: oompah
 created: 2026-08-04 00:07
 ---
 Auditor attempt ended: terminal audit evidence has no safely resolvable revision for EXOCOMP-130 (tried: origin/EXOCOMP-130). A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-04 00:09
+---
+Needs Human — Done audit requires operator input.
+
+Independent auditor launches exhausted their retry budget because the audit workspace or transport failed before review began. Restore the audit infrastructure, then have a project owner rearm this terminal audit; do not reopen implementation work.
 ---
 <!-- COMMENTS:END -->
