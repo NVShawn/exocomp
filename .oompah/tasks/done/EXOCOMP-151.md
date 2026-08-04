@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-151
 type: task
-status: In Validation
+status: Done
 priority: 1
 title: Report command results without duplicate execution
 parent: EXOCOMP-130
@@ -14,7 +14,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:15:08.095148Z'
-updated_at: '2026-08-03T23:51:19.095617Z'
+updated_at: '2026-08-04T00:01:03.047520Z'
 work_branch: epic-EXOCOMP-130--task-EXOCOMP-151
 target_branch: null
 review_url: null
@@ -120,6 +120,30 @@ oompah.work_contributors:
     completed_at: '2026-08-01T12:28:22.855966+00:00'
 oompah.terminal_audit:
   queued_comment_posted: true
+  applied_result_attempts:
+    attempt-175facc82de9: '2026-08-04T00:00:58.610283+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-151
+    target_state: Done
+    evidence_fingerprint: 9b44cb507f34b87e68aa20f54b570fbb2b401c485e220dbb1dfdc59644afb37a
+    audit_ids:
+    - audit-a7bde3df29ac
+    kind: result
+    applied: true
+    retired_at: '2026-08-04T00:00:58.610294+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-151
+    audit_id: audit-a7bde3df29ac
+    attempt_id: attempt-175facc82de9
+    target_state: Done
+    evidence_fingerprint: 9b44cb507f34b87e68aa20f54b570fbb2b401c485e220dbb1dfdc59644afb37a
+    status: Done
+    audit_ids:
+    - audit-a7bde3df29ac
+    applied: false
+    created_at: '2026-08-04T00:00:58.610311+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -127,7 +151,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-151
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -155,7 +179,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-175facc82de9
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -166,13 +190,16 @@ oompah.terminal_audit:
       started_at: '2026-08-03T23:51:11.345447+00:00'
       branch_key: epic-EXOCOMP-130--task-EXOCOMP-151
       candidate_rotation_count: 1
+      verdict: pass
+      completed_at: '2026-08-04T00:00:58.610111+00:00'
+      ended_at: '2026-08-04T00:00:58.610111+00:00'
     requested_by:
       version: 1
       identity: oompah-integration
       source: service
     previous_state: Ready to Integrate
     created_at: '2026-08-03T23:25:13.251088+00:00'
-    updated_at: '2026-08-03T23:51:11.345447+00:00'
+    updated_at: '2026-08-04T00:00:58.610111+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-f441e527c7dd
@@ -401,5 +428,21 @@ author: oompah
 created: 2026-08-03 23:51
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-04 00:01
+---
+Audit PASS — Done
+
+[REDACTED]
+
+Safe evidence:
+- head_commit: 7bf5506c95f32e68da5d4b70fd24228e63db5f4a
+- branch: origin/epic-EXOCOMP-130--task-EXOCOMP-151
+- implementation_file: apps/exocomp_coordinator/lib/exocomp/coordinator/command_processor.ex
+- test_file: apps/exocomp_coordinator/test/exocomp/coordinator/command_processor_test.exs
+- test_count: 9
+- git_status: clean
+- files_changed: 5 (command_processor.ex +764, command_processor_test.exs +300, application.ex +6/-2, application_test.exs +1, config.exs +18)
 ---
 <!-- COMMENTS:END -->
