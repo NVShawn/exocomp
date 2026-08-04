@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-130
 type: epic
-status: In Progress
+status: Open
 priority: 1
 title: 'M7C: Cluster transport and durable delivery'
 parent: EXOCOMP-127
@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-03T18:32:34.430131Z'
+updated_at: '2026-08-04T00:02:53.469679Z'
 work_branch: null
 target_branch: null
 review_url: null
