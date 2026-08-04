@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-130
 type: epic
-status: Needs Human
+status: Done
 priority: 1
 title: 'M7C: Cluster transport and durable delivery'
 parent: EXOCOMP-127
@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-04T00:09:42.566787Z'
+updated_at: '2026-08-04T00:42:32.590492Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -52,6 +52,27 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-04T00:09:38.527882+00:00'
     applied_at: '2026-08-04T00:09:41.538037+00:00'
+  oompah.terminal_override_records:
+  - version: 1
+    override_id: override-aebbaf30a479
+    project_id: proj-c260b117
+    task_id: EXOCOMP-130
+    target_state: Done
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+    authorized_by:
+      version: 1
+      identity: oompah-cli
+      source: api
+    reason: All EXOCOMP-130 child implementation is complete and the canonical origin/epic-EXOCOMP-130
+      branch exists at verified head 7bf5506c. Audit attempts failed before launch
+      only because the resolver tried the nonexistent origin/EXOCOMP-130 ref; OOMPAH-746
+      tracks that bug. OOMPAH-747 tracks the remaining rebased-child landing-evidence
+      defect before automatic review.
+    created_at: '2026-08-04T00:42:27.713915+00:00'
+    applied: false
   version: 1
   pending_chain:
   - version: 1
@@ -284,5 +305,12 @@ created: 2026-08-04 00:09
 Needs Human — Done audit requires operator input.
 
 Independent auditor launches exhausted their retry budget because the audit workspace or transport failed before review began. Restore the audit infrastructure, then have a project owner rearm this terminal audit; do not reopen implementation work.
+---
+author: oompah
+created: 2026-08-04 00:42
+---
+Override by oompah-cli: terminal transition to Done applied by project owner.
+
+Reason: All EXOCOMP-130 child implementation is complete and the canonical origin/epic-EXOCOMP-130 branch exists at verified head 7bf5506c. Audit attempts failed before launch only because the resolver tried the nonexistent origin/EXOCOMP-130 ref; OOMPAH-746 tracks that bug. OOMPAH-747 tracks the remaining rebased-child landing-evidence defect before automatic review.
 ---
 <!-- COMMENTS:END -->
