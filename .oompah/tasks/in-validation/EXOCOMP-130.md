@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-04T00:05:20.989937Z'
+updated_at: '2026-08-04T00:05:53.493848Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -34,7 +34,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-130
     target_state: Done
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -58,12 +58,26 @@ oompah.terminal_audit:
       failure_reason: 'terminal audit evidence has no safely resolvable revision for
         EXOCOMP-130 (tried: origin/EXOCOMP-130)'
       next_retry_at: '2026-08-04T00:05:26.882667+00:00'
+    - version: 1
+      attempt_id: attempt-23bb5354f832
+      target_state: Done
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+      created_at: '2026-08-04T00:05:52.477641+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-04T00:05:52.477641+00:00'
+      branch_key: EXOCOMP-130
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: orchestrator
     previous_state: Open
     created_at: '2026-08-04T00:03:58.412726+00:00'
-    updated_at: '2026-08-04T00:05:16.882694+00:00'
+    updated_at: '2026-08-04T00:05:52.477641+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-ad5c3b41bcee
@@ -83,6 +97,20 @@ oompah.terminal_audit:
     failure_reason: 'terminal audit evidence has no safely resolvable revision for
       EXOCOMP-130 (tried: origin/EXOCOMP-130)'
     next_retry_at: '2026-08-04T00:05:26.882667+00:00'
+  - version: 1
+    attempt_id: attempt-23bb5354f832
+    target_state: Done
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+    created_at: '2026-08-04T00:05:52.477641+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-04T00:05:52.477641+00:00'
+    branch_key: EXOCOMP-130
+    candidate_rotation_count: 1
 ---
 ## Summary
 
