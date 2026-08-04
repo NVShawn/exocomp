@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-130
 type: epic
-status: Open
+status: In Validation
 priority: 1
 title: 'M7C: Cluster transport and durable delivery'
 parent: EXOCOMP-127
@@ -19,12 +19,33 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-04T00:02:53.469679Z'
+updated_at: '2026-08-04T00:04:03.157433Z'
 work_branch: null
 target_branch: null
 review_url: null
 review_number: null
 merged_at: null
+oompah.terminal_audit:
+  queued_comment_posted: true
+  version: 1
+  pending_chain:
+  - version: 1
+    audit_id: audit-a19b69af12f0
+    project_id: proj-c260b117
+    task_id: EXOCOMP-130
+    target_state: Done
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
+    attempts: []
+    requested_by:
+      version: 1
+      identity: orchestrator
+    previous_state: Open
+    created_at: '2026-08-04T00:03:58.412726+00:00'
+  attempt_history: []
 ---
 ## Summary
 
@@ -44,5 +65,10 @@ author: oompah
 created: 2026-08-03 18:32
 ---
 Operator queue-unblock workaround for OOMPAH-733: preserved old epic head 8400a54a under recovery/epic-EXOCOMP-130-pre-parent-sync-8400a54a, rebased the remaining unique plan and EventOutbox commits onto authoritative parent epic-EXOCOMP-127 at 2d08fde7, combined current invitation configuration with EventOutbox configuration in the only source conflicts, passed git diff --check and make fmt-check, and force-pushed with exact lease to 9663f4b2. Parent is an ancestor and local/remote heads match. Ready children may resume normal dependency-ordered integration.
+---
+author: oompah
+created: 2026-08-04 00:04
+---
+Queued for terminal transition to Done. An auditor will review and apply the terminal status.
 ---
 <!-- COMMENTS:END -->
