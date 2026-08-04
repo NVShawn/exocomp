@@ -15,7 +15,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:16.107664Z'
-updated_at: '2026-08-03T22:11:01.680993Z'
+updated_at: '2026-08-04T00:44:21.687241Z'
 work_branch: epic-EXOCOMP-128
 target_branch: epic-EXOCOMP-127
 review_url: https://github.com/NVShawn/exocomp/pull/21
@@ -626,5 +626,10 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 8m 23s
 - Log: EXOCOMP-128__20260803T220245Z.jsonl
+---
+author: oompah
+created: 2026-08-04 00:44
+---
+Live re-examination confirmed a lifecycle cycle: PR 21 landed this nested epic on epic-EXOCOMP-127, but Merged is rejected until the parent lands on main while the parent auto-close requires this child to be Merged. Root fix OOMPAH-748 is Open and entering scheduler flow. No task-local status override is safe because current lifecycle reconciliation would reject or revert it; keep this task In Review pending the target-relative nested-epic fix.
 ---
 <!-- COMMENTS:END -->
