@@ -19,7 +19,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:12:18.299606Z'
-updated_at: '2026-08-04T00:42:32.590492Z'
+updated_at: '2026-08-04T00:42:36.753644Z'
 work_branch: null
 target_branch: null
 review_url: null
@@ -36,7 +36,7 @@ oompah.terminal_audit:
     evidence_fingerprint: 699247d4044180bc8742a91ac0dabd380d76d676f802dd6608ad24e2c7790af7
     audit_ids:
     - audit-a19b69af12f0
-    kind: result
+    kind: override
     applied: true
     retired_at: '2026-08-04T00:09:38.527866+00:00'
   oompah.terminal_audit_result_intents:
@@ -52,6 +52,7 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-04T00:09:38.527882+00:00'
     applied_at: '2026-08-04T00:09:41.538037+00:00'
+    retired_by_override: true
   oompah.terminal_override_records:
   - version: 1
     override_id: override-aebbaf30a479
@@ -72,7 +73,7 @@ oompah.terminal_audit:
       tracks that bug. OOMPAH-747 tracks the remaining rebased-child landing-evidence
       defect before automatic review.
     created_at: '2026-08-04T00:42:27.713915+00:00'
-    applied: false
+    applied: true
   version: 1
   pending_chain:
   - version: 1
