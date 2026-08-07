@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: Merged
+status: In Validation
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-07-31T05:56:27.672532Z'
+updated_at: '2026-08-07T08:43:20.465346Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -43,7 +43,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -142,6 +142,25 @@ oompah.terminal_audit:
     previous_state: In Progress
     created_at: '2026-07-31T04:22:38.213097+00:00'
     updated_at: '2026-07-31T05:56:12.430293+00:00'
+  - version: 1
+    audit_id: audit-a8043727fea8
+    project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-07T08:43:17.486543+00:00'
+    selected_ref: origin/main
+    selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
