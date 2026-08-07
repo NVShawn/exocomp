@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T09:30:02.696188Z'
+updated_at: '2026-08-07T09:32:27.675466Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -147,7 +147,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -190,6 +190,22 @@ oompah.terminal_audit:
       ended_at: '2026-08-07T09:29:48.452948+00:00'
       failure_reason: normal
       next_retry_at: '2026-08-07T09:30:08.452914+00:00'
+    - version: 1
+      attempt_id: attempt-379413328a1d
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+      created_at: '2026-08-07T09:32:21.042420+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-07T09:32:21.042420+00:00'
+      branch_key: epic-EXOCOMP-1
+      selected_ref: origin/main
+      selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+      candidate_rotation_count: 2
     requested_by:
       version: 1
       identity: oompah
@@ -198,7 +214,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T08:43:17.486543+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
-    updated_at: '2026-08-07T09:29:48.452948+00:00'
+    updated_at: '2026-08-07T09:32:21.042420+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -276,6 +292,22 @@ oompah.terminal_audit:
     ended_at: '2026-08-07T09:29:48.452948+00:00'
     failure_reason: normal
     next_retry_at: '2026-08-07T09:30:08.452914+00:00'
+  - version: 1
+    attempt_id: attempt-379413328a1d
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+    created_at: '2026-08-07T09:32:21.042420+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-07T09:32:21.042420+00:00'
+    branch_key: epic-EXOCOMP-1
+    selected_ref: origin/main
+    selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+    candidate_rotation_count: 2
 oompah.task_costs:
   total_input_tokens: 232
   total_output_tokens: 25995
@@ -507,5 +539,10 @@ author: oompah
 created: 2026-08-07 09:30
 ---
 Auditor attempt ended: auditor exited (normal) without a result. A different independent auditor will be tried on the next scheduler tick.
+---
+author: oompah
+created: 2026-08-07 09:32
+---
+Auditor dispatched (attempt #3, candidate: prov-651d553c/opus)
 ---
 <!-- COMMENTS:END -->
