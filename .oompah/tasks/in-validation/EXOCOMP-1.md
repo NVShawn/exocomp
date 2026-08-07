@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T10:34:28.775036Z'
+updated_at: '2026-08-07T10:34:42.336975Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -752,5 +752,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/haiku]
 - Cost: $0.0000
 - Exit: terminated, Duration: 17m 10s
 - Log: EXOCOMP-1__20260807T101541Z.jsonl
+---
+author: oompah
+created: 2026-08-07 10:34
+---
+Auditor dispatched (attempt #2, candidate: prov-651d553c/sonnet)
+---
+author: oompah
+created: 2026-08-07 10:34
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
