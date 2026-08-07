@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-2
 type: epic
-status: Merged
+status: In Validation
 priority: 1
 title: 'M2: Coordinator, discovery, and node enrollment'
 parent: null
@@ -18,7 +18,7 @@ labels:
 - epic:stale
 assignee: null
 created_at: '2026-07-23T19:08:09.243476Z'
-updated_at: '2026-07-31T21:02:23.742430Z'
+updated_at: '2026-08-07T21:54:10.364435Z'
 work_branch: epic-EXOCOMP-2
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/9
@@ -106,7 +106,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-2
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -203,6 +203,25 @@ oompah.terminal_audit:
     previous_state: In Validation
     created_at: '2026-07-31T20:57:03.647172+00:00'
     updated_at: '2026-07-31T21:02:06.576010+00:00'
+  - version: 1
+    audit_id: audit-7c1c364690aa
+    project_id: proj-c260b117
+    task_id: EXOCOMP-2
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 72be727f0a023470da368377bbff60e3059ebfbcc9dd6dd6e9fda37d06dc9cab
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-07T21:54:08.227257+00:00'
+    selected_ref: origin/main
+    selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
   attempt_history:
   - version: 1
     attempt_id: attempt-7ed3dd34d77a
