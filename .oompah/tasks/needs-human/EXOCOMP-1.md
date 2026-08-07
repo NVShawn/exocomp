@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Validation
+status: Needs Human
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T10:40:57.506325Z'
+updated_at: '2026-08-07T10:45:56.976683Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -37,6 +37,7 @@ oompah.terminal_audit:
     attempt-fb8d7e9d1798: '2026-07-31T04:40:35.904060+00:00'
     attempt-6bf9ac5e9f1a: '2026-07-31T05:56:12.430513+00:00'
     attempt-379413328a1d: '2026-08-07T09:38:39.941844+00:00'
+    attempt-ccf2cb332c9b: '2026-08-07T10:45:48.897019+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-1
@@ -47,6 +48,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-07T09:38:39.941857+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    target_state: Done
+    evidence_fingerprint: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+    audit_ids:
+    - audit-c199fcd84f4b
+    kind: result
+    applied: true
+    retired_at: '2026-08-07T10:45:48.897036+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-1
@@ -60,6 +70,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-07T09:38:39.941875+00:00'
     applied_at: '2026-08-07T09:38:49.658700+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    audit_id: audit-c199fcd84f4b
+    attempt_id: attempt-ccf2cb332c9b
+    target_state: Done
+    evidence_fingerprint: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+    status: Needs Human
+    audit_ids:
+    - audit-c199fcd84f4b
+    applied: true
+    created_at: '2026-08-07T10:45:48.897055+00:00'
+    applied_at: '2026-08-07T10:45:55.177548+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -248,7 +270,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Done
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -292,7 +314,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-ccf2cb332c9b
       target_state: Done
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -305,6 +327,10 @@ oompah.terminal_audit:
       selected_ref: origin/main
       selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
       candidate_rotation_count: 2
+      verdict: needs_human
+      failure_classification: policy_incompatibility
+      completed_at: '2026-08-07T10:45:48.896719+00:00'
+      ended_at: '2026-08-07T10:45:48.896719+00:00'
     requested_by:
       version: 1
       identity: orchestrator
@@ -312,7 +338,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T09:56:54.489394+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
-    updated_at: '2026-08-07T10:40:49.919188+00:00'
+    updated_at: '2026-08-07T10:45:48.896719+00:00'
   - version: 1
     audit_id: audit-db44b90646cf
     project_id: proj-c260b117
@@ -824,5 +850,22 @@ author: oompah
 created: 2026-08-07 10:40
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-07 10:45
+---
+Needs Human — Done audit requires operator input.
+
+[REDACTED]
+
+Questions:
+- Why does the tracker show state='In Validation' when the scheduler's trusted contract records previous_state='In Review' — was the state reset by the stalled-task watchdog reopen action (comment #25) rather than a genuine re-review?
+- Should an operator remove the 'epic:rebasing' label from EXOCOMP-1 before this Done audit is re-queued, matching the guidance issued by every prior terminal-state auditor since 2026-07-31 04:40?
+- If the intent is to promote this epic straight to Done rather than following the standard Merged → aged → Archived path, is there an explicit operator decision documenting that route for a labeled 'epic:rebasing' epic?
+
+Instructions:
+- Remove the 'epic:rebasing' label from EXOCOMP-1 before re-queueing any Done or Archive audit, per prior auditor guidance from 2026-07-31 04:40, 2026-07-31 05:56, and 2026-08-07 09:38.
+- Reconcile EXOCOMP-1's tracker state so that it matches the scheduler contract's previous_state expectation (Merged or In Review) before rescheduling the Done audit; if the current 'In Validation' is intentional, complete validation first.
+- After the label is cleared and state is reconciled, the substantive M1 evidence (branch==main at 58f3cec5, 9/9 terminal children, 7/7 M1-CRIT items, acceptance test present) should support a straightforward Done audit pass on the next dispatch.
 ---
 <!-- COMMENTS:END -->
