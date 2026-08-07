@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T08:43:20.465346Z'
+updated_at: '2026-08-07T08:55:24.724894Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -147,12 +147,27 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
       digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
-    attempts: []
+    attempts:
+    - version: 1
+      attempt_id: attempt-b6480c4ed1ef
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+      created_at: '2026-08-07T08:55:15.443319+00:00'
+      provider_id: prov-651d553c
+      model: haiku
+      started_at: '2026-08-07T08:55:15.443319+00:00'
+      branch_key: epic-EXOCOMP-1
+      selected_ref: origin/main
+      selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     requested_by:
       version: 1
       identity: oompah
@@ -161,6 +176,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T08:43:17.486543+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+    updated_at: '2026-08-07T08:55:15.443319+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -201,6 +217,21 @@ oompah.terminal_audit:
     model: opus
     started_at: '2026-07-31T05:52:07.370115+00:00'
     branch_key: epic-EXOCOMP-1
+  - version: 1
+    attempt_id: attempt-b6480c4ed1ef
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+    created_at: '2026-08-07T08:55:15.443319+00:00'
+    provider_id: prov-651d553c
+    model: haiku
+    started_at: '2026-08-07T08:55:15.443319+00:00'
+    branch_key: epic-EXOCOMP-1
+    selected_ref: origin/main
+    selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
 oompah.task_costs:
   total_input_tokens: 132
   total_output_tokens: 18906
@@ -375,5 +406,15 @@ Run #1 [attempt=1, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: normal, Duration: 4m 18s
 - Log: EXOCOMP-1__20260731T055209Z.jsonl
+---
+author: oompah
+created: 2026-08-07 08:55
+---
+Auditor dispatched (attempt #1, candidate: prov-651d553c/haiku)
+---
+author: oompah
+created: 2026-08-07 08:55
+---
+Focus: Completion Auditor
 ---
 <!-- COMMENTS:END -->
