@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T09:17:21.191141Z'
+updated_at: '2026-08-07T09:29:54.049049Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -147,7 +147,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -173,7 +173,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-b714ad8ea7a5
       target_state: Archived
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -186,6 +186,10 @@ oompah.terminal_audit:
       selected_ref: origin/main
       selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
       candidate_rotation_count: 1
+      failure_classification: finalization_failure
+      ended_at: '2026-08-07T09:29:48.452948+00:00'
+      failure_reason: normal
+      next_retry_at: '2026-08-07T09:30:08.452914+00:00'
     requested_by:
       version: 1
       identity: oompah
@@ -194,7 +198,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T08:43:17.486543+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
-    updated_at: '2026-08-07T09:17:07.097210+00:00'
+    updated_at: '2026-08-07T09:29:48.452948+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -255,7 +259,7 @@ oompah.terminal_audit:
   - version: 1
     attempt_id: attempt-b714ad8ea7a5
     target_state: Archived
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -268,14 +272,18 @@ oompah.terminal_audit:
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     candidate_rotation_count: 1
+    failure_classification: finalization_failure
+    ended_at: '2026-08-07T09:29:48.452948+00:00'
+    failure_reason: normal
+    next_retry_at: '2026-08-07T09:30:08.452914+00:00'
 oompah.task_costs:
-  total_input_tokens: 214
-  total_output_tokens: 18915
+  total_input_tokens: 232
+  total_output_tokens: 25995
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 214
-      output_tokens: 18915
+      input_tokens: 232
+      output_tokens: 25995
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -302,6 +310,12 @@ oompah.task_costs:
     output_tokens: 9
     cost_usd: 0.0
     recorded_at: '2026-08-07T09:08:13.723320+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 18
+    output_tokens: 7080
+    cost_usd: 0.0
+    recorded_at: '2026-08-07T09:29:48.456539+00:00'
 ---
 ## Summary
 
@@ -478,5 +492,15 @@ author: oompah
 created: 2026-08-07 09:17
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-07 09:29
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 24, Tool calls: 8
+- Tokens: 18 in / 7.1K out [7.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 12m 34s
+- Log: EXOCOMP-1__20260807T091731Z.jsonl
 ---
 <!-- COMMENTS:END -->
