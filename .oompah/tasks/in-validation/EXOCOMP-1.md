@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T11:21:25.135491Z'
+updated_at: '2026-08-07T11:21:39.068156Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -370,7 +370,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-c0a430de2278
       target_state: Merged
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -383,6 +383,24 @@ oompah.terminal_audit:
       selected_ref: origin/main
       selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
       candidate_rotation_count: 1
+      ended_at: '2026-08-07T11:21:31.278341+00:00'
+      failure_reason: auditor session abandoned; no live worker owns the attempt
+    - version: 1
+      attempt_id: attempt-bb402719f663
+      target_state: Merged
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+      created_at: '2026-08-07T11:21:38.143014+00:00'
+      provider_id: prov-651d553c
+      model: opus
+      started_at: '2026-08-07T11:21:38.143014+00:00'
+      branch_key: epic-EXOCOMP-1
+      selected_ref: origin/main
+      selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+      candidate_rotation_count: 2
     requested_by:
       version: 1
       identity: orchestrator
@@ -390,7 +408,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T09:56:54.489394+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
-    updated_at: '2026-08-07T11:15:15.714229+00:00'
+    updated_at: '2026-08-07T11:21:38.143014+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -555,7 +573,7 @@ oompah.terminal_audit:
   - version: 1
     attempt_id: attempt-c0a430de2278
     target_state: Merged
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -568,6 +586,24 @@ oompah.terminal_audit:
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     candidate_rotation_count: 1
+    ended_at: '2026-08-07T11:21:31.278341+00:00'
+    failure_reason: auditor session abandoned; no live worker owns the attempt
+  - version: 1
+    attempt_id: attempt-bb402719f663
+    target_state: Merged
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+    created_at: '2026-08-07T11:21:38.143014+00:00'
+    provider_id: prov-651d553c
+    model: opus
+    started_at: '2026-08-07T11:21:38.143014+00:00'
+    branch_key: epic-EXOCOMP-1
+    selected_ref: origin/main
+    selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+    candidate_rotation_count: 2
 oompah.task_costs:
   total_input_tokens: 475
   total_output_tokens: 31638
