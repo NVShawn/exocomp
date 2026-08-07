@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Validation
+status: Needs Human
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T11:27:14.831263Z'
+updated_at: '2026-08-07T11:28:05.802548Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -38,6 +38,7 @@ oompah.terminal_audit:
     attempt-6bf9ac5e9f1a: '2026-07-31T05:56:12.430513+00:00'
     attempt-379413328a1d: '2026-08-07T09:38:39.941844+00:00'
     attempt-ccf2cb332c9b: '2026-08-07T10:45:48.897019+00:00'
+    no-auditor-audit-db44b90646cf-3: '2026-08-07T11:27:57.972639+00:00'
   oompah.terminal_audit_retirements:
   - project_id: proj-c260b117
     task_id: EXOCOMP-1
@@ -57,6 +58,15 @@ oompah.terminal_audit:
     kind: result
     applied: true
     retired_at: '2026-08-07T10:45:48.897036+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    target_state: Merged
+    evidence_fingerprint: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+    audit_ids:
+    - audit-db44b90646cf
+    kind: result
+    applied: true
+    retired_at: '2026-08-07T11:27:57.972658+00:00'
   oompah.terminal_audit_result_intents:
   - project_id: proj-c260b117
     task_id: EXOCOMP-1
@@ -82,6 +92,18 @@ oompah.terminal_audit:
     applied: true
     created_at: '2026-08-07T10:45:48.897055+00:00'
     applied_at: '2026-08-07T10:45:55.177548+00:00'
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    audit_id: audit-db44b90646cf
+    attempt_id: no-auditor-audit-db44b90646cf-3
+    target_state: Merged
+    evidence_fingerprint: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+    status: Needs Human
+    audit_ids:
+    - audit-db44b90646cf
+    applied: true
+    created_at: '2026-08-07T11:27:57.972679+00:00'
+    applied_at: '2026-08-07T11:28:03.211701+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -344,7 +366,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Merged
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -388,7 +410,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-bb402719f663
       target_state: Merged
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -401,6 +423,22 @@ oompah.terminal_audit:
       selected_ref: origin/main
       selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
       candidate_rotation_count: 2
+      ended_at: '2026-08-07T11:27:54.766417+00:00'
+      failure_reason: auditor session abandoned; no live worker owns the attempt
+    - version: 1
+      attempt_id: no-auditor-audit-db44b90646cf-3
+      target_state: Merged
+      request_state: completed
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 2991efce4dbc33ef79d479689af5556fec8ec13c0aa7894c1de2d8d28ad5c37e
+      verdict: fail
+      failure_classification: no_auditor
+      created_at: '2026-08-07T11:27:57.972424+00:00'
+      completed_at: '2026-08-07T11:27:57.972424+00:00'
+      selected_ref: origin/main
+      selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     requested_by:
       version: 1
       identity: orchestrator
@@ -408,7 +446,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T09:56:54.489394+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
-    updated_at: '2026-08-07T11:21:38.143014+00:00'
+    updated_at: '2026-08-07T11:27:57.972424+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -591,7 +629,7 @@ oompah.terminal_audit:
   - version: 1
     attempt_id: attempt-bb402719f663
     target_state: Merged
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -604,6 +642,8 @@ oompah.terminal_audit:
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     candidate_rotation_count: 2
+    ended_at: '2026-08-07T11:27:54.766417+00:00'
+    failure_reason: auditor session abandoned; no live worker owns the attempt
 oompah.task_costs:
   total_input_tokens: 509
   total_output_tokens: 31861
@@ -1077,5 +1117,12 @@ Run #3 [attempt=3, profile=auditor, role=auditor -> Claude/opus]
 - Cost: $0.0000
 - Exit: terminated, Duration: 5m 14s
 - Log: EXOCOMP-1__20260807T112215Z.jsonl
+---
+author: oompah
+created: 2026-08-07 11:28
+---
+Needs Human — Merged audit requires operator input.
+
+No independent auditor candidate is available for this audit (Audit reached the maximum of 3 attempts.). Configure the `auditor` role with at least one healthy provider/model that is independent of the task contributors, then have a project owner rearm this terminal audit. Please review the audit output, decide the next step, and update this task with your instructions.
 ---
 <!-- COMMENTS:END -->
