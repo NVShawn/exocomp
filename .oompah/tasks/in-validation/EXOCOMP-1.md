@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T09:16:45.945322Z'
+updated_at: '2026-08-07T09:17:08.564650Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -147,7 +147,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Archived
-    request_state: pending
+    request_state: in_progress
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -170,6 +170,22 @@ oompah.terminal_audit:
       selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
       ended_at: '2026-08-07T09:16:44.140329+00:00'
       failure_reason: auditor session abandoned; no live worker owns the attempt
+    - version: 1
+      attempt_id: attempt-b714ad8ea7a5
+      target_state: Archived
+      request_state: in_progress
+      evidence_fingerprint:
+        version: 1
+        algorithm: sha256
+        digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+      created_at: '2026-08-07T09:17:07.097210+00:00'
+      provider_id: prov-651d553c
+      model: sonnet
+      started_at: '2026-08-07T09:17:07.097210+00:00'
+      branch_key: epic-EXOCOMP-1
+      selected_ref: origin/main
+      selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+      candidate_rotation_count: 1
     requested_by:
       version: 1
       identity: oompah
@@ -178,7 +194,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T08:43:17.486543+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
-    updated_at: '2026-08-07T08:55:15.443319+00:00'
+    updated_at: '2026-08-07T09:17:07.097210+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -236,6 +252,22 @@ oompah.terminal_audit:
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     ended_at: '2026-08-07T09:16:44.140329+00:00'
     failure_reason: auditor session abandoned; no live worker owns the attempt
+  - version: 1
+    attempt_id: attempt-b714ad8ea7a5
+    target_state: Archived
+    request_state: in_progress
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+    created_at: '2026-08-07T09:17:07.097210+00:00'
+    provider_id: prov-651d553c
+    model: sonnet
+    started_at: '2026-08-07T09:17:07.097210+00:00'
+    branch_key: epic-EXOCOMP-1
+    selected_ref: origin/main
+    selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
+    candidate_rotation_count: 1
 oompah.task_costs:
   total_input_tokens: 214
   total_output_tokens: 18915
