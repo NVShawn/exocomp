@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: Needs Human
+status: Open
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T10:45:56.976683Z'
+updated_at: '2026-08-07T10:47:47.522497Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -502,13 +502,13 @@ oompah.terminal_audit:
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     candidate_rotation_count: 2
 oompah.task_costs:
-  total_input_tokens: 365
-  total_output_tokens: 26239
+  total_input_tokens: 377
+  total_output_tokens: 31342
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 365
-      output_tokens: 26239
+      input_tokens: 377
+      output_tokens: 31342
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -559,6 +559,12 @@ oompah.task_costs:
     output_tokens: 90
     cost_usd: 0.0
     recorded_at: '2026-08-07T10:39:29.621740+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 12
+    output_tokens: 5103
+    cost_usd: 0.0
+    recorded_at: '2026-08-07T10:47:41.828610+00:00'
 ---
 ## Summary
 
@@ -867,5 +873,28 @@ Instructions:
 - Remove the 'epic:rebasing' label from EXOCOMP-1 before re-queueing any Done or Archive audit, per prior auditor guidance from 2026-07-31 04:40, 2026-07-31 05:56, and 2026-08-07 09:38.
 - Reconcile EXOCOMP-1's tracker state so that it matches the scheduler contract's previous_state expectation (Merged or In Review) before rescheduling the Done audit; if the current 'In Validation' is intentional, complete validation first.
 - After the label is cleared and state is reconciled, the substantive M1 evidence (branch==main at 58f3cec5, 9/9 terminal children, 7/7 M1-CRIT items, acceptance test present) should support a straightforward Done audit pass on the next dispatch.
+---
+author: oompah
+created: 2026-08-07 10:47
+---
+Run #3 [attempt=3, profile=auditor, role=auditor -> Claude/opus]
+- Turns: 16, Tool calls: 9
+- Tokens: 12 in / 5.1K out [5.1K total]
+- Cost: $0.0000
+- Exit: normal, Duration: 6m 50s
+- Log: EXOCOMP-1__20260807T104108Z.jsonl
+---
+author: oompah
+created: 2026-08-07 10:47
+---
+[watchdog:stalled_task] Stalled-task watchdog audit (run #10)
+
+**State audited:** `Needs Human`
+**Classification:** `actionable`
+**Action:** `reopen`
+**Evidence:** current review 8 is merged
+**Evidence result:** `merged`
+
+*This comment is posted automatically by the oompah stalled-task watchdog. No human action required unless the classification above is incorrect.*
 ---
 <!-- COMMENTS:END -->
