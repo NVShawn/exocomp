@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-1
 type: epic
-status: In Validation
+status: Needs Human
 priority: 1
 title: 'M1: Prototype Elixir node agent'
 parent: null
@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T09:32:31.033619Z'
+updated_at: '2026-08-07T09:38:50.751669Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -36,6 +36,30 @@ oompah.terminal_audit:
     attempt-587b1d655ca0: '2026-07-31T04:15:05.910387+00:00'
     attempt-fb8d7e9d1798: '2026-07-31T04:40:35.904060+00:00'
     attempt-6bf9ac5e9f1a: '2026-07-31T05:56:12.430513+00:00'
+    attempt-379413328a1d: '2026-08-07T09:38:39.941844+00:00'
+  oompah.terminal_audit_retirements:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    target_state: Archived
+    evidence_fingerprint: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+    audit_ids:
+    - audit-a8043727fea8
+    kind: result
+    applied: true
+    retired_at: '2026-08-07T09:38:39.941857+00:00'
+  oompah.terminal_audit_result_intents:
+  - project_id: proj-c260b117
+    task_id: EXOCOMP-1
+    audit_id: audit-a8043727fea8
+    attempt_id: attempt-379413328a1d
+    target_state: Archived
+    evidence_fingerprint: 07db39edafe6f15ff50cb49726a8c14f0bfd801d1f06be3278a1fffc12cea9bd
+    status: Needs Human
+    audit_ids:
+    - audit-a8043727fea8
+    applied: true
+    created_at: '2026-08-07T09:38:39.941875+00:00'
+    applied_at: '2026-08-07T09:38:49.658700+00:00'
   version: 1
   pending_chain:
   - version: 1
@@ -147,7 +171,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Archived
-    request_state: in_progress
+    request_state: completed
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -193,7 +217,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-379413328a1d
       target_state: Archived
-      request_state: in_progress
+      request_state: completed
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -206,6 +230,10 @@ oompah.terminal_audit:
       selected_ref: origin/main
       selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
       candidate_rotation_count: 2
+      verdict: needs_human
+      failure_classification: unsafe_archive
+      completed_at: '2026-08-07T09:38:39.941566+00:00'
+      ended_at: '2026-08-07T09:38:39.941566+00:00'
     requested_by:
       version: 1
       identity: oompah
@@ -214,7 +242,7 @@ oompah.terminal_audit:
     created_at: '2026-08-07T08:43:17.486543+00:00'
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
-    updated_at: '2026-08-07T09:32:21.042420+00:00'
+    updated_at: '2026-08-07T09:38:39.941566+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-587b1d655ca0
@@ -549,5 +577,22 @@ author: oompah
 created: 2026-08-07 09:32
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-07 09:38
+---
+Needs Human — Archived audit requires operator input.
+
+[REDACTED]
+
+Questions:
+- Why is EXOCOMP-1 currently in 'In Validation' rather than 'Merged' when the scheduler queued an aged-Merged Archive audit — was it manually moved, or did a re-validation cycle reopen it?
+- Should the 'epic:rebasing' label be removed by an operator before this Archive audit is re-queued, per prior auditor guidance?
+- Is any additional child work outstanding, or is this purely a state/label reconciliation before Archive can proceed?
+
+Instructions:
+- Reconcile EXOCOMP-1's current 'In Validation' state to 'Merged' before rescheduling the Archived audit — Archive is only valid from Merged.
+- Remove the 'epic:rebasing' label from EXOCOMP-1 before rescheduling any Archive/Done audit, per prior auditor guidance from 2026-07-31 05:56.
+- After both preconditions are met and the standard Merged-to-Archived aging window has elapsed, re-queue the Archived audit.
 ---
 <!-- COMMENTS:END -->
