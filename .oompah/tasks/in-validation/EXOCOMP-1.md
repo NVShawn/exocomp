@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T10:39:34.086786Z'
+updated_at: '2026-08-07T10:40:39.389952Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -248,7 +248,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-1
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -274,7 +274,7 @@ oompah.terminal_audit:
     - version: 1
       attempt_id: attempt-824af6b522ac
       target_state: Done
-      request_state: in_progress
+      request_state: pending
       evidence_fingerprint:
         version: 1
         algorithm: sha256
@@ -287,6 +287,8 @@ oompah.terminal_audit:
       selected_ref: origin/main
       selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
       candidate_rotation_count: 1
+      ended_at: '2026-08-07T10:40:37.853702+00:00'
+      failure_reason: auditor session abandoned; no live worker owns the attempt
     requested_by:
       version: 1
       identity: orchestrator
@@ -426,7 +428,7 @@ oompah.terminal_audit:
   - version: 1
     attempt_id: attempt-824af6b522ac
     target_state: Done
-    request_state: in_progress
+    request_state: pending
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -439,6 +441,8 @@ oompah.terminal_audit:
     selected_ref: origin/main
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     candidate_rotation_count: 1
+    ended_at: '2026-08-07T10:40:37.853702+00:00'
+    failure_reason: auditor session abandoned; no live worker owns the attempt
 oompah.task_costs:
   total_input_tokens: 365
   total_output_tokens: 26239
