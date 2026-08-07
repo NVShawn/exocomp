@@ -20,7 +20,7 @@ labels:
 - epic:rebasing
 assignee: null
 created_at: '2026-07-23T19:07:34.132470Z'
-updated_at: '2026-08-07T10:34:42.336975Z'
+updated_at: '2026-08-07T10:39:34.086786Z'
 work_branch: epic-EXOCOMP-1
 target_branch: main
 review_url: https://github.com/NVShawn/exocomp/pull/8
@@ -440,13 +440,13 @@ oompah.terminal_audit:
     selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
     candidate_rotation_count: 1
 oompah.task_costs:
-  total_input_tokens: 351
-  total_output_tokens: 26149
+  total_input_tokens: 365
+  total_output_tokens: 26239
   total_cost_usd: 0.0
   by_model:
     unknown:
-      input_tokens: 351
-      output_tokens: 26149
+      input_tokens: 365
+      output_tokens: 26239
       cost_usd: 0.0
   runs:
   - profile: auditor
@@ -491,6 +491,12 @@ oompah.task_costs:
     output_tokens: 12
     cost_usd: 0.0
     recorded_at: '2026-08-07T10:32:26.707517+00:00'
+  - profile: auditor
+    model: unknown
+    input_tokens: 14
+    output_tokens: 90
+    cost_usd: 0.0
+    recorded_at: '2026-08-07T10:39:29.621740+00:00'
 ---
 ## Summary
 
@@ -762,5 +768,15 @@ author: oompah
 created: 2026-08-07 10:34
 ---
 Focus: Completion Auditor
+---
+author: oompah
+created: 2026-08-07 10:39
+---
+Run #2 [attempt=2, profile=auditor, role=auditor -> Claude/sonnet]
+- Turns: 0, Tool calls: 4
+- Tokens: 14 in / 90 out [104 total]
+- Cost: $0.0000
+- Exit: terminated, Duration: 4m 51s
+- Log: EXOCOMP-1__20260807T103444Z.jsonl
 ---
 <!-- COMMENTS:END -->
