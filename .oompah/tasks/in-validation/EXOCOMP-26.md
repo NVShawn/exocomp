@@ -1,7 +1,7 @@
 ---
 id: EXOCOMP-26
 type: feature
-status: Merged
+status: In Validation
 priority: 1
 title: Implement bounded system-log cleanup action
 parent: EXOCOMP-3
@@ -15,7 +15,7 @@ labels:
 - focus-complete:duplicate_detector
 assignee: null
 created_at: '2026-07-23T19:10:12.273742Z'
-updated_at: '2026-08-01T03:55:09.952036Z'
+updated_at: '2026-08-08T04:02:48.852172Z'
 work_branch: epic-EXOCOMP-3
 target_branch: null
 review_url: null
@@ -135,7 +135,7 @@ oompah.terminal_audit:
     project_id: proj-c260b117
     task_id: EXOCOMP-26
     target_state: Archived
-    request_state: completed
+    request_state: superseded
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -283,6 +283,25 @@ oompah.terminal_audit:
     previous_state: Needs Human
     created_at: '2026-08-01T03:40:52.374746+00:00'
     updated_at: '2026-08-01T03:54:49.739879+00:00'
+  - version: 1
+    audit_id: audit-4e4c9d337e86
+    project_id: proj-c260b117
+    task_id: EXOCOMP-26
+    target_state: Archived
+    request_state: pending
+    evidence_fingerprint:
+      version: 1
+      algorithm: sha256
+      digest: 4290a2d9193ce5934a82d806b418ed1cd5498ef5b21b01dbfb92b55e31fe588e
+    attempts: []
+    requested_by:
+      version: 1
+      identity: oompah
+      source: auto_archive
+    previous_state: Merged
+    created_at: '2026-08-08T04:02:46.838449+00:00'
+    selected_ref: origin/main
+    selected_sha: 58f3cec5010be13ebe3bdd572bcbed4aa459e107
   attempt_history:
   - version: 1
     attempt_id: attempt-bcc2e2e51e2e
