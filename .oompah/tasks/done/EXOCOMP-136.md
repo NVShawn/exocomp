@@ -11,7 +11,7 @@ start_blocked_by: []
 labels: []
 assignee: null
 created_at: '2026-07-30T14:13:49.889616Z'
-updated_at: '2026-08-01T16:19:05.781093Z'
+updated_at: '2026-08-11T07:37:03.588366Z'
 work_branch: epic-EXOCOMP-128--task-EXOCOMP-136
 target_branch: null
 review_url: null
@@ -223,6 +223,7 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T14:59:01.940079+00:00'
     updated_at: '2026-08-01T15:08:41.938836+00:00'
+    source_generation: 1
   - version: 1
     audit_id: audit-aca6f9486edb
     project_id: proj-c260b117
@@ -257,12 +258,13 @@ oompah.terminal_audit:
     previous_state: Ready to Integrate
     created_at: '2026-08-01T15:26:00.572503+00:00'
     updated_at: '2026-08-01T15:44:00.689469+00:00'
+    source_generation: 1
   - version: 1
     audit_id: audit-8c2658c5db3a
     project_id: proj-c260b117
     task_id: EXOCOMP-136
     target_state: Merged
-    request_state: pending
+    request_state: cancelled
     evidence_fingerprint:
       version: 1
       algorithm: sha256
@@ -274,6 +276,8 @@ oompah.terminal_audit:
       source: oompah
     previous_state: Done
     created_at: '2026-08-01T16:19:04.750014+00:00'
+    source_generation: 1
+    updated_at: '2026-08-11T07:37:02.544083+00:00'
   attempt_history:
   - version: 1
     attempt_id: attempt-dfcc8a5f108c
